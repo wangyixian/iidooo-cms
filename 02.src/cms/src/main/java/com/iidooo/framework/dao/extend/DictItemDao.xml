@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.framework.dao.extend.DictItemDao">
+	<resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.DictItem">
+		<id column="DictItemID" property="dictItemID" jdbcType="INTEGER" />
+		<result column="DictClassID" property="dictClassID" jdbcType="INTEGER" />
+		<result column="DictItemCode" property="dictItemCode" jdbcType="VARCHAR" />
+		<result column="DictItemName" property="dictItemName" jdbcType="VARCHAR" />
+		<result column="DictItemValue" property="dictItemValue" jdbcType="VARCHAR" />
+		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
+		<result column="ReadonlyFlag" property="readonlyFlag" jdbcType="INTEGER" />
+		<result column="DisableFlag" property="disableFlag" jdbcType="INTEGER" />
+		<result column="DefaultFlag" property="defaultFlag" jdbcType="INTEGER" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="Language" property="language" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+		<result column="DeleteFlag" property="deleteFlag" jdbcType="INTEGER" />
+		<result column="Version" property="version" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		DictItemID, DictClassID, DictItemCode, DictItemName, DictItemValue, Sequence,
+		ReadonlyFlag,
+		DisableFlag, DefaultFlag, Remarks, Language, CreateTime, CreateUser, UpdateTime,
+		UpdateUser, DeleteFlag, Version
+	</sql>
+	<sql id="Item_Column_List">
+		Item.DictItemID, Item.DictClassID, Item.DictItemCode, Item.DictItemName,
+		Item.DictItemValue, Item.Sequence, Item.ReadonlyFlag,
+		Item.DisableFlag, Item.DefaultFlag, Item.Remarks, Item.Language,
+		Item.CreateTime, Item.CreateUser, Item.UpdateTime,
+		Item.UpdateUser, Item.DeleteFlag, Item.Version
+	</sql>
+	<select id="selectByItemCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from IDO_DICT_ITEM
+		where DictItemCode = #{dictItemCode,jdbcType=VARCHAR} and DeleteFlag = 0
+	</select>
+	<select id="selectByClassCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Item_Column_List" />
+		, Class.DictClassID, Class.DictClassCode
+		from IDO_DICT_ITEM as Item
+		join IDO_DICT_CLASS as Class
+		on Item.DictClassID = Class.DictClassID
+		and Class.DictClassCode = #{dictClassCode,jdbcType=VARCHAR}
+		and Item.DeleteFlag = 0 and Class.DeleteFlag = 0
+	</select>
+	<select id="selectAllCount" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*)
+		from IDO_DICT_ITEM
+		where DeleteFlag = 0
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.base.PagingDto">
+		select
+		<include refid="Base_Column_List" />
+		from IDO_DICT_ITEM
+		where DeleteFlag = 0
+		<if test="start != null and pageSize != null and pageSize != 0">
+			limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

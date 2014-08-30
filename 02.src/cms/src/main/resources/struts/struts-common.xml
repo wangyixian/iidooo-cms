@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="common" extends="yazaki">
+        <action name="invoiceCodeRuleConfig"  class="cn.co.yazaki.rivon.system.action.InvoiceCodeRuleConfigAction">
+            <result name="success">/WEB-INF/jsp/system/InvoiceCodeRuleConfig.jsp</result>
+            <result name="input">/WEB-INF/jsp/system/InvoiceCodeRuleConfig.jsp</result>
+        </action>
+        <action name="invoiceUnitRuleConfig" class="cn.co.yazaki.rivon.system.action.InvoiceUnitRuleConfigAction">
+            <result name="success">/WEB-INF/jsp/system/InvoiceUnitRuleConfig.jsp</result>
+        </action>
+        <action name="login" class="cn.co.yazaki.rivon.login.action.LoginAction">
+            <result name="login">/WEB-INF/jsp/login.jsp</result>
+            <result name="success">/WEB-INF/jsp/common/index.jsp</result>
+            <result name="input">/WEB-INF/jsp/login.jsp</result>
+        </action>
+        <action name="topbar" class="cn.co.yazaki.rivon.index.action.TopBarAction">
+            <result name="success">/WEB-INF/jsp/common/topbar.jsp</result>
+        </action>
+        <action name="sidemenu" class="cn.co.yazaki.rivon.index.action.SideMenuAction">
+            <result name="success">/WEB-INF/jsp/common/sidemenu.jsp</result>
+        </action>
+        <action name="changepw" class="cn.co.yazaki.rivon.login.action.ChangePWAction">
+            <result name="success">/WEB-INF/jsp/common/changePW.jsp</result>
+        </action>
+    </package>
+</struts>

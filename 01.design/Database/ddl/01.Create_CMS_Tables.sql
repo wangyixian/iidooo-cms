@@ -1,0 +1,112 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+DROP SCHEMA IF EXISTS `CMS` ;
+CREATE SCHEMA IF NOT EXISTS `CMS` DEFAULT CHARACTER SET utf8 ;
+USE `CMS` ;
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_` (
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本管理')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_PAGE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_PAGE` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_PAGE` (
+  `PageID` INT NOT NULL AUTO_INCREMENT COMMENT '页面ID',
+  `PageTitle` VARCHAR(256) NOT NULL COMMENT '页面标题',
+  `PageName` VARCHAR(256) NOT NULL COMMENT '页面的名字',
+  `PageKeywords` VARCHAR(256) NOT NULL COMMENT '页面关键字',
+  `PageDescription` VARCHAR(1024) NOT NULL COMMENT '页面描述',
+  `PageTemplate` VARCHAR(512) NOT NULL COMMENT '页面模板路径',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本管理',
+  PRIMARY KEY (`PageID`))
+COMMENT = '页面表';
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_ARTICLE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_ARTICLE` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_ARTICLE` (
+  `ArticleID` INT NOT NULL AUTO_INCREMENT COMMENT '文章ID',
+  `ChannelID` INT NOT NULL COMMENT '频道ID',
+  `ContentTitle` VARCHAR(128) NOT NULL COMMENT '内容的标题',
+  `ContentSummary` VARCHAR(1024) NOT NULL COMMENT '内容的摘要',
+  `ContentText` TEXT NOT NULL COMMENT '内容体',
+  `ContentKeywords` VARCHAR(256) NOT NULL COMMENT '内容关键字',
+  `ContentTemplate` VARCHAR(512) NOT NULL COMMENT '内容的模板',
+  `ContentReleaseTime` VARCHAR(32) NOT NULL COMMENT '内容发布时间',
+  `ContentAuthor` VARCHAR(256) NOT NULL COMMENT '内容的作者',
+  `NextContentID` INT NOT NULL COMMENT '下一篇的内容ID',
+  `PreContentID` INT NOT NULL COMMENT '上一篇的内容ID',
+  `NoCommentFlag` INT NOT NULL COMMENT '非0即不允许评论',
+  `DisableFlag` INT NOT NULL COMMENT '非0即无效',
+  `VisiteTimes` INT NOT NULL COMMENT '浏览量',
+  `Remarks` VARCHAR(1024) NOT NULL,
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本',
+  PRIMARY KEY (`ArticleID`))
+ENGINE = InnoDB
+COMMENT = '文章表';
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_ATTACHMENT`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_ATTACHMENT` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_ATTACHMENT` (
+  `AttachID` INT NOT NULL AUTO_INCREMENT COMMENT '附件ID',
+  `ContentID` INT NOT NULL COMMENT '内容ID',
+  `AttachURL` VARCHAR(1024) NOT NULL COMMENT '附件URL',
+  `AttachName` VARCHAR(128) NOT NULL COMMENT '附件名字',
+  `AttachByteSize` INT NOT NULL COMMENT '附件字节数',
+  `AttachType` VARCHAR(16) NOT NULL COMMENT '附件类型',
+  `DownloadTimes` INT NOT NULL COMMENT '下载次数',
+  `RedirectPath` VARCHAR(256) NOT NULL COMMENT '点击附件的重定向路径',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '附件的描述',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本',
+  PRIMARY KEY (`AttachID`))
+ENGINE = InnoDB
+COMMENT = '附件表';
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

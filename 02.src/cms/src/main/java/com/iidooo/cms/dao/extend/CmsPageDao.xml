@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.extend.CmsPageDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsPage" >
+    <id column="PageID" property="pageID" jdbcType="INTEGER" />
+    <result column="PageTitle" property="pageTitle" jdbcType="VARCHAR" />
+    <result column="PageName" property="pageName" jdbcType="VARCHAR" />
+    <result column="PageKeywords" property="pageKeywords" jdbcType="VARCHAR" />
+    <result column="PageDescription" property="pageDescription" jdbcType="VARCHAR" />
+    <result column="PageTemplate" property="pageTemplate" jdbcType="VARCHAR" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="Language" property="language" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PageID, PageTitle, PageName, PageKeywords, PageDescription, PageTemplate, Remarks, 
+    Language, CreateTime, CreateUser, UpdateTime, UpdateUser, DeleteFlag, Version
+  </sql>
+  <select id="selectByPageName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ido_cms_page
+    where PageName = #{pageName,jdbcType=INTEGER}
+  </select>
+</mapper>
