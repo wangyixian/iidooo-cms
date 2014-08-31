@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.generate.CmsPageBlockMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsPageBlock" >
+    <id column="PageBlockID" property="pageBlockID" jdbcType="INTEGER" />
+    <result column="PageID" property="pageID" jdbcType="INTEGER" />
+    <result column="BlockID" property="blockID" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="Language" property="language" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PageBlockID, PageID, BlockID, Remarks, Language, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, DeleteFlag, Version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ido_cms_page_block
+    where PageBlockID = #{pageBlockID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ido_cms_page_block
+    where PageBlockID = #{pageBlockID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsPageBlock" >
+    insert into ido_cms_page_block (PageBlockID, PageID, BlockID, 
+      Remarks, Language, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      DeleteFlag, Version)
+    values (#{pageBlockID,jdbcType=INTEGER}, #{pageID,jdbcType=INTEGER}, #{blockID,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{deleteFlag,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsPageBlock" >
+    insert into ido_cms_page_block
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pageBlockID != null" >
+        PageBlockID,
+      </if>
+      <if test="pageID != null" >
+        PageID,
+      </if>
+      <if test="blockID != null" >
+        BlockID,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="language != null" >
+        Language,
+      </if>
+      <if test="createTime != null" >
+        CreateTime,
+      </if>
+      <if test="createUser != null" >
+        CreateUser,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser,
+      </if>
+      <if test="deleteFlag != null" >
+        DeleteFlag,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pageBlockID != null" >
+        #{pageBlockID,jdbcType=INTEGER},
+      </if>
+      <if test="pageID != null" >
+        #{pageID,jdbcType=INTEGER},
+      </if>
+      <if test="blockID != null" >
+        #{blockID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsPageBlock" >
+    update ido_cms_page_block
+    <set >
+      <if test="pageID != null" >
+        PageID = #{pageID,jdbcType=INTEGER},
+      </if>
+      <if test="blockID != null" >
+        BlockID = #{blockID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        Language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CreateUser = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        DeleteFlag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        Version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where PageBlockID = #{pageBlockID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsPageBlock" >
+    update ido_cms_page_block
+    set PageID = #{pageID,jdbcType=INTEGER},
+      BlockID = #{blockID,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Language = #{language,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=INTEGER},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      DeleteFlag = #{deleteFlag,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER}
+    where PageBlockID = #{pageBlockID,jdbcType=INTEGER}
+  </update>
+</mapper>

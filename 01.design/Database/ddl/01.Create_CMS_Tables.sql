@@ -7,11 +7,11 @@ CREATE SCHEMA IF NOT EXISTS `CMS` DEFAULT CHARACTER SET utf8 ;
 USE `CMS` ;
 
 -- -----------------------------------------------------
--- Table `CMS`.`IDO_CMS_`
+-- Table `CMS`.`IDO_CMS`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CMS`.`IDO_CMS_` ;
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS` ;
 
-CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_` (
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS` (
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
   `Language` VARCHAR(32) NOT NULL,
   `CreateTime` VARCHAR(32) NOT NULL,
@@ -105,6 +105,102 @@ CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_ATTACHMENT` (
   PRIMARY KEY (`AttachID`))
 ENGINE = InnoDB
 COMMENT = '附件表';
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_BLOCK`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_BLOCK` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_BLOCK` (
+  `BlockID` INT NOT NULL AUTO_INCREMENT,
+  `BlockTitle` VARCHAR(256) NOT NULL COMMENT '区块的标题',
+  `BlockSubTitle` VARCHAR(256) NOT NULL COMMENT '区块的副标题',
+  `BlockImageTitle` VARCHAR(256) NOT NULL COMMENT '区块的图片标题',
+  `BlockName` VARCHAR(256) NOT NULL COMMENT '区块的名字',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本管理',
+  PRIMARY KEY (`BlockID`))
+ENGINE = InnoDB
+COMMENT = '页面上的区块';
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_PAGE_BLOCK`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_PAGE_BLOCK` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_PAGE_BLOCK` (
+  `PageBlockID` INT NOT NULL AUTO_INCREMENT COMMENT '页面区块关系ID',
+  `PageID` INT NOT NULL COMMENT '页面ID',
+  `BlockID` INT NOT NULL COMMENT '区块ID',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本管理',
+  PRIMARY KEY (`PageBlockID`))
+ENGINE = InnoDB
+COMMENT = '页面区块表';
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_LINK`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_LINK` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_LINK` (
+  `LinkID` INT NOT NULL AUTO_INCREMENT,
+  `LinkTitle` VARCHAR(256) NOT NULL COMMENT '链接的标题',
+  `LinkSubTitle` VARCHAR(256) NOT NULL COMMENT '链接的副标题',
+  `LinkImageTitle` VARCHAR(256) NOT NULL COMMENT '链接的图片标题',
+  `LinkName` VARCHAR(256) NOT NULL COMMENT '链接的名字',
+  `LinkURL` VARCHAR(1024) NOT NULL COMMENT '链接的路径',
+  `LinkTarget` VARCHAR(32) NOT NULL COMMENT '链接打开方式',
+  `LinkDescription` VARCHAR(1024) NOT NULL COMMENT '链接的描述',
+  `LinkSequence` INT NOT NULL COMMENT 'Link的排序',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本管理',
+  PRIMARY KEY (`LinkID`))
+ENGINE = InnoDB
+COMMENT = '链接内容';
+
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_BLOCK_LINK`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CMS`.`IDO_CMS_BLOCK_LINK` ;
+
+CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_BLOCK_LINK` (
+  `BlockLinkID` INT NOT NULL AUTO_INCREMENT COMMENT '区块链接关系ID',
+  `BlockID` INT NOT NULL COMMENT '区块ID',
+  `LinkID` INT NULL COMMENT 'Link的ID',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
+  `Language` VARCHAR(32) NOT NULL,
+  `CreateTime` VARCHAR(32) NOT NULL,
+  `CreateUser` INT NOT NULL,
+  `UpdateTime` VARCHAR(32) NOT NULL,
+  `UpdateUser` INT NOT NULL,
+  `DeleteFlag` INT NOT NULL,
+  `Version` INT NOT NULL COMMENT '版本管理',
+  PRIMARY KEY (`BlockLinkID`))
+ENGINE = InnoDB
+COMMENT = '区块链接关系表';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -1,8 +1,11 @@
 package com.iidooo.cms.action;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.iidooo.cms.dto.generate.CmsBlock;
 import com.iidooo.cms.dto.generate.CmsPage;
 import com.iidooo.cms.service.PageService;
 import com.iidooo.framework.action.BaseAction;
@@ -17,6 +20,8 @@ public class PageAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(PageAction.class);
 
     private CmsPage cmsPage;
+    
+    private HashMap<String, CmsBlock> blockMap;
 
     public CmsPage getCmsPage() {
         return cmsPage;
@@ -24,6 +29,14 @@ public class PageAction extends BaseAction {
 
     public void setCmsPage(CmsPage cmsPage) {
         this.cmsPage = cmsPage;
+    }
+
+    public HashMap<String, CmsBlock> getBlockMap() {
+        return blockMap;
+    }
+
+    public void setBlockMap(HashMap<String, CmsBlock> blockMap) {
+        this.blockMap = blockMap;
     }
 
     @Autowired
@@ -35,6 +48,9 @@ public class PageAction extends BaseAction {
             String pageName = getRequest().getParameter("pageName");
             if (pageName != null) {
                 cmsPage = pageService.getPageByName(pageName);
+                if (cmsPage != null) {
+                    blockMap = pageService.getBlockMap(cmsPage.getPageID());
+                }
             }
         } catch (Exception e) {
             logger.fatal(e);
