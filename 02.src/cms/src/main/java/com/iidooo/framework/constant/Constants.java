@@ -1,4 +1,4 @@
-package com.iidooo.framework.common;
+package com.iidooo.framework.constant;
 
 /**
  * 共通的常量类
@@ -11,25 +11,7 @@ public class Constants {
 	/**
 	 * 登录用户的Session所用Key
 	 */
-	public static final String SESSION_USER = "SessionUser";
-
-	/**
-	 * 分页设置每页多少的字典项
-	 */
-	public static final String DICT_ITEM_PAGESIZE = "PROPERTIES_PAGING_PAGESIZE";
-
-	/**
-	 * 阿里云开放存储服务的Bucket名称字典项
-	 */
-	public static final String DICT_ITEM_ALIOSS_BUCKET = "PROPERTIES_ALIOSS_BUCKET";
-	/**
-	 * 阿里云开放存储服务的ID字典项
-	 */
-	public static final String DICT_ITEM_ALIOSS_ID = "PROPERTIES_ALIOSS_ID";
-	/**
-	 * 阿里云开放存储服务的密码字典项
-	 */
-	public static final String DICT_ITEM_ALIOSS_SECRET = "PROPERTIES_ALIOSS_SECRET";
+	public static final String SESSION_USER = "SessionUser";	
 
 	/**
 	 * 数据库查询升序

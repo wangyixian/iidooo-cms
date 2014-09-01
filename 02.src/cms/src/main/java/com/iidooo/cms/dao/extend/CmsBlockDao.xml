@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iidooo.cms.dao.extend.CmsBlockDao" >
-  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsBlock" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsBlockDto" >
     <id column="BlockID" property="blockID" jdbcType="INTEGER" />
     <result column="BlockTitle" property="blockTitle" jdbcType="VARCHAR" />
     <result column="BlockSubTitle" property="blockSubTitle" jdbcType="VARCHAR" />

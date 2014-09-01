@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.dao.extend.CmsBlockDao;
+import com.iidooo.cms.dao.extend.CmsLinkDao;
 import com.iidooo.cms.dao.extend.CmsPageDao;
-import com.iidooo.cms.dto.generate.CmsBlock;
+import com.iidooo.cms.dto.extend.CmsBlockDto;
+import com.iidooo.cms.dto.extend.CmsLinkDto;
 import com.iidooo.cms.dto.generate.CmsPage;
 import com.iidooo.cms.service.PageService;
+import com.iidooo.framework.constant.DictConstant;
+import com.iidooo.framework.dao.extend.DictItemDao;
+import com.iidooo.framework.dto.generate.DictItem;
 
 @Service
 public class PageServiceImpl implements PageService {
@@ -23,6 +28,12 @@ public class PageServiceImpl implements PageService {
     
     @Autowired
     private CmsBlockDao cmsBlockDao;
+    
+    @Autowired
+    private CmsLinkDao cmsLinkDao;
+    
+    @Autowired
+    private DictItemDao dictItemDao;
 
     public CmsPage getPageByName(String pageName) {
         CmsPage cmsPage = null;
@@ -34,11 +45,13 @@ public class PageServiceImpl implements PageService {
         return cmsPage;
     }
 
-    public HashMap<String, CmsBlock> getBlockMap(int pageID) {
-        HashMap<String, CmsBlock> blockMap = new HashMap<String, CmsBlock>();
+    public HashMap<String, CmsBlockDto> getBlockMap(int pageID) {
+        HashMap<String, CmsBlockDto> blockMap = new HashMap<String, CmsBlockDto>();
         try {
-            List<CmsBlock> blockList = cmsBlockDao.selectByPageID(pageID);
-            for (CmsBlock cmsBlock : blockList) {
+            List<CmsBlockDto> blockList = cmsBlockDao.selectByPageID(pageID);
+            for (CmsBlockDto cmsBlock : blockList) {
+                List<CmsLinkDto> cmsLinks = cmsLinkDao.selectByBlockID(cmsBlock.getBlockID());
+                cmsBlock.setCmsLinks(cmsLinks);
                 blockMap.put(cmsBlock.getBlockName(), cmsBlock);
             }
         } catch (Exception e) {
@@ -46,4 +59,19 @@ public class PageServiceImpl implements PageService {
         }
         return blockMap;
     }
+
+    public String getSiteAddress() {
+        String address = "";
+        try {
+            DictItem dictItem = dictItemDao.selectByItemCode(DictConstant.DICT_ITEM_SITE_ADDRESS);
+            if (dictItem != null) {
+                address = dictItem.getDictItemValue();                
+            }
+        } catch (Exception e) {
+            logger.fatal(e);
+        }
+        return address;
+    }
+    
+    
 }

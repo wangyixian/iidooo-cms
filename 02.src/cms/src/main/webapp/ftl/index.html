@@ -5,86 +5,26 @@
 <meta name="keywords" content="${cmsPage.pageKeywords}">
 <meta name=description content="${cmsPage.pageDescription}">
 <title>${cmsPage.pageTitle}</title>
+<#include "include/head.html"/>
 </head>
 <body>
     <#include "include/top.html"/>
-    <#include "include/channel.html"/>
+    <#include "include/mainmenu.html"/>
     <div id="main_wrap">
         <div id="service_wrap">
             <div>${blockMap["services"].blockTitle}</div>
 			<div>
+			    <#list blockMap["services"].cmsLinks as link>
 				<div class="service_item">
 					<div class="service_image">
-						<a href=""><img alt="企业建站" src=""></a>
+						<a href="${link.linkURL}" target="${link.linkTarget}"><img alt="${link.linkTitle}" src="${link.linkImageTitle}"></a>
 					</div>
 					<div class="service_title">
-						<span class="service_title_zh">企业建站</span> <span
-							class="service_title_en">WEBSITE BUILDING</span>
+						<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_title">${link.linkTitle}</span></a>
+						<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_sub_title">${link.linkSubTitle}</span></a>
 					</div>
-				</div>
-				<div class="service_item">
-					<div class="service_image">
-						<a href=""><img alt="企业邮箱" src=""></a>
-					</div>
-					<div class="service_title">
-						<span class="service_title_zh">企业邮箱</span> <span
-							class="service_title_en">E-MAIL</span>
-					</div>
-				</div>
-				<div class="service_item">
-					<div class="service_image">
-						<a href=""><img alt="软件定制" src=""></a>
-					</div>
-					<div class="service_title">
-						<span class="service_title_zh">软件定制</span> <span
-							class="service_title_en">SOFTWARE CUSTOMIZATION</span>
-					</div>
-				</div>
-				<div class="service_item">
-					<div class="service_image">
-						<a href=""><img alt="移动应用" src=""></a>
-					</div>
-					<div class="service_title">
-						<span class="service_title_zh">移动应用</span> <span
-							class="service_title_en">MOBILE APP</span>
-					</div>
-				</div>
-				<div class="service_item">
-					<div class="service_image">
-						<a href=""><img alt="电子商城" src=""></a>
-					</div>
-					<div class="service_title">
-						<span class="service_title_zh">电子商城</span> <span
-							class="service_title_en">ELECTRONIC MALL</span>
-					</div>
-				</div>
-				<div class="service_item">
-					<div class="service_image">
-						<a href=""><img alt="虚拟主机" src=""></a>
-					</div>
-					<div class="service_title">
-						<span class="service_title_zh">虚拟主机</span> <span
-							class="service_title_en">WEB HOST</span>
-					</div>
-				</div>
-                <div class="service_item">
-                    <div class="service_image">
-                        <a href=""><img alt="个人博客" src=""></a>
-                    </div>
-                    <div class="service_title">
-                        <span class="service_title_zh">个人博客</span> <span
-                            class="service_title_en">PERSONAL BLOG</span>
-                    </div>
-                </div>
-				<div class="service_item">
-					<div class="service_image">
-						<a href=""><img alt="社区论坛" src=""></a>
-					</div>
-					<div class="service_title">
-						<span class="service_title_zh">社区论坛</span> <span
-							class="service_title_en">COMMUNITY FORUM</span>
-					</div>
-				</div>
+				</div>				
+				</#list>
 			</div>
 		</div>
         

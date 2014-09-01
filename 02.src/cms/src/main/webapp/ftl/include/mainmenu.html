@@ -1,0 +1,11 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="${siteAddress}/themes/default/css/mainmenu.css">
+<div id="mainmenu_wrap">
+	<div id="mainmenu_content">
+		<ul>
+			<#list blockMap["mainmenu"].cmsLinks as link>
+			<li><a href="${link.linkURL}" target="${link.linkTarget}">${link.linkTitle}</a></li>
+			</#list>
+		</ul>
+	</div>
+</div>

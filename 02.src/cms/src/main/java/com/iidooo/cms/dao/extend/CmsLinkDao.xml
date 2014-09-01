@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.extend.CmsLinkDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsLinkDto" >
+    <id column="LinkID" property="linkID" jdbcType="INTEGER" />
+    <result column="ParentLinkID" property="parentLinkID" jdbcType="INTEGER" />
+    <result column="LinkTitle" property="linkTitle" jdbcType="VARCHAR" />
+    <result column="LinkSubTitle" property="linkSubTitle" jdbcType="VARCHAR" />
+    <result column="LinkImageTitle" property="linkImageTitle" jdbcType="VARCHAR" />
+    <result column="LinkName" property="linkName" jdbcType="VARCHAR" />
+    <result column="LinkURL" property="linkURL" jdbcType="VARCHAR" />
+    <result column="LinkTarget" property="linkTarget" jdbcType="VARCHAR" />
+    <result column="LinkDescription" property="linkDescription" jdbcType="VARCHAR" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="Language" property="language" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="DeleteFlag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    L.LinkID, L.ParentLinkID, L.LinkTitle, L.LinkSubTitle, L.LinkImageTitle, L.LinkName, L.LinkURL, 
+    L.LinkTarget, L.LinkDescription, L.Remarks, L.Language, L.CreateTime, L.CreateUser, L.UpdateTime, 
+    L.UpdateUser, L.DeleteFlag, L.Version
+  </sql>
+  <select id="selectByBlockID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />, BL.BlockID, BL.Sequence
+    from IDO_CMS_BLOCK_LINK as BL
+    join IDO_CMS_LINK as L
+    on BL.LinkID = L.LinkID and BL.DeleteFlag = 0 and L.DeleteFlag = 0 
+    and BL.BlockID = #{blockID,jdbcType=INTEGER} order by BL.Sequence
+  </select>
+</mapper>

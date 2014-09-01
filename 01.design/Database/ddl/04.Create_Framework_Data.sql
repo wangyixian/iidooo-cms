@@ -55,3 +55,6 @@ VALUES ('10', '3', 'PROPERTIES_LANG_ENGLISH', 'English', 'en_US', '1', '0', '0',
 INSERT INTO `CMS`.`IDO_DICT_ITEM` 
 (`DictItemID`, `DictClassID`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `ReadonlyFlag`, `DisableFlag`, `DefaultFlag`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('11', '4', 'PROPERTIES_SITE_DOMAIN', '域名', 'www.iidooo.com', '1', '0', '0', '1', '域名', 'zh_CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `CMS`.`IDO_DICT_ITEM` 
+(`DictItemID`, `DictClassID`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `ReadonlyFlag`, `DisableFlag`, `DefaultFlag`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('12', '4', 'PROPERTIES_SITE_ADDRESS', '网址', 'http://localhost:8080/cms', '1', '0', '0', '1', '网址', 'zh_CN', now(), '1', now(), '1', '0', '1');

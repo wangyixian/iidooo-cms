@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.dto.generate.CmsBlock;
+import com.iidooo.cms.dto.extend.CmsBlockDto;
 import com.iidooo.cms.dto.generate.CmsPage;
 import com.iidooo.cms.service.PageService;
 import com.iidooo.framework.action.BaseAction;
@@ -21,8 +21,10 @@ public class PageAction extends BaseAction {
 
     private CmsPage cmsPage;
     
-    private HashMap<String, CmsBlock> blockMap;
-
+    private HashMap<String, CmsBlockDto> blockMap;
+    
+    private String siteAddress;
+    
     public CmsPage getCmsPage() {
         return cmsPage;
     }
@@ -31,12 +33,20 @@ public class PageAction extends BaseAction {
         this.cmsPage = cmsPage;
     }
 
-    public HashMap<String, CmsBlock> getBlockMap() {
+    public HashMap<String, CmsBlockDto> getBlockMap() {
         return blockMap;
     }
 
-    public void setBlockMap(HashMap<String, CmsBlock> blockMap) {
+    public void setBlockMap(HashMap<String, CmsBlockDto> blockMap) {
         this.blockMap = blockMap;
+    }
+
+    public String getSiteAddress() {
+        return siteAddress;
+    }
+
+    public void setSiteAddress(String siteAddress) {
+        this.siteAddress = siteAddress;
     }
 
     @Autowired
@@ -51,6 +61,7 @@ public class PageAction extends BaseAction {
                 if (cmsPage != null) {
                     blockMap = pageService.getBlockMap(cmsPage.getPageID());
                 }
+                this.siteAddress = pageService.getSiteAddress();
             }
         } catch (Exception e) {
             logger.fatal(e);

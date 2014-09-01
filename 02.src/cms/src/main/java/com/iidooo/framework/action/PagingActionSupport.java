@@ -2,7 +2,7 @@ package com.iidooo.framework.action;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.framework.common.Constants;
+import com.iidooo.framework.constant.DictConstant;
 import com.iidooo.framework.dto.base.PagingDto;
 import com.iidooo.framework.dto.generate.DictItem;
 
@@ -55,7 +55,7 @@ public class PagingActionSupport extends BaseAction {
 
 		try {
 			// 每页显示多少行从数据库中字典项获取
-			DictItem sysDictItem = this.dictItemService.getDictItemByItemCode(Constants.DICT_ITEM_PAGESIZE);
+			DictItem sysDictItem = this.dictItemService.getDictItemByItemCode(DictConstant.DICT_ITEM_PAGESIZE);
 			int pageSize = Integer.parseInt(sysDictItem.getDictItemValue());
 
 			// 初始执行Action时分页对象需要实例化
