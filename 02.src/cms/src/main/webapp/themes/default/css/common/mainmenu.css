@@ -17,26 +17,32 @@
 	margin: 0px;
 	padding: 0px;
 	font-size: 14px;
-	height: 100%;
+	height: 40px;
 }
 
 #mainmenu_content ul li {
-	width: 120px;
-	height: 37px;
-	line-height: 37px;
-	text-align: center;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	text-align : center;
 	float: left;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
 }
 
+/* 主菜单的超链接效果 */
 #mainmenu_content a {
 	color: #CCC;
+	display: block;
+}
+
+#mainmenu_content a:hover {
+    background-color: RGB(0, 32, 133);
+	font-weight: bold;
 }
 
 #mainmenu_content .focus {
+	background-color: RGB(0, 32, 133);
 	font-weight: bold;
-	text-decoration: underline;
-}
-
-#mainmenu_content .focus a {
-	padding: 8px 20px;
 }

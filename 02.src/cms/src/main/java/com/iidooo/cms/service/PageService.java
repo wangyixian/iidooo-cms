@@ -10,5 +10,4 @@ public interface PageService {
     
     HashMap<String, CmsBlockDto> getBlockMap(int pageID);
     
-    String getSiteAddress();
 }

@@ -4,9 +4,11 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsLinkDto" >
     <id column="LinkID" property="linkID" jdbcType="INTEGER" />
     <result column="ParentLinkID" property="parentLinkID" jdbcType="INTEGER" />
+    <result column="LinkPageID" property="linkPageID" jdbcType="INTEGER" />
+    <result column="LinkArticleID" property="linkArticleID" jdbcType="INTEGER" />
     <result column="LinkTitle" property="linkTitle" jdbcType="VARCHAR" />
     <result column="LinkSubTitle" property="linkSubTitle" jdbcType="VARCHAR" />
-    <result column="LinkImageTitle" property="linkImageTitle" jdbcType="VARCHAR" />
+    <result column="LinkImageURL" property="linkImageURL" jdbcType="VARCHAR" />
     <result column="LinkName" property="linkName" jdbcType="VARCHAR" />
     <result column="LinkURL" property="linkURL" jdbcType="VARCHAR" />
     <result column="LinkTarget" property="linkTarget" jdbcType="VARCHAR" />
@@ -21,7 +23,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    L.LinkID, L.ParentLinkID, L.LinkTitle, L.LinkSubTitle, L.LinkImageTitle, L.LinkName, L.LinkURL, 
+    L.LinkID, L.ParentLinkID, L.LinkPageID, L.LinkArticleID, L.LinkTitle, L.LinkSubTitle, L.LinkImageURL, L.LinkName, L.LinkURL, 
     L.LinkTarget, L.LinkDescription, L.Remarks, L.Language, L.CreateTime, L.CreateUser, L.UpdateTime, 
     L.UpdateUser, L.DeleteFlag, L.Version
   </sql>

@@ -5,11 +5,15 @@ public class CmsLink {
 
     private Integer parentLinkID;
 
+    private Integer linkPageID;
+
+    private Integer linkArticleID;
+
     private String linkTitle;
 
     private String linkSubTitle;
 
-    private String linkImageTitle;
+    private String linkImageURL;
 
     private String linkName;
 
@@ -51,6 +55,22 @@ public class CmsLink {
         this.parentLinkID = parentLinkID;
     }
 
+    public Integer getLinkPageID() {
+        return linkPageID;
+    }
+
+    public void setLinkPageID(Integer linkPageID) {
+        this.linkPageID = linkPageID;
+    }
+
+    public Integer getLinkArticleID() {
+        return linkArticleID;
+    }
+
+    public void setLinkArticleID(Integer linkArticleID) {
+        this.linkArticleID = linkArticleID;
+    }
+
     public String getLinkTitle() {
         return linkTitle;
     }
@@ -67,12 +87,12 @@ public class CmsLink {
         this.linkSubTitle = linkSubTitle == null ? null : linkSubTitle.trim();
     }
 
-    public String getLinkImageTitle() {
-        return linkImageTitle;
+    public String getLinkImageURL() {
+        return linkImageURL;
     }
 
-    public void setLinkImageTitle(String linkImageTitle) {
-        this.linkImageTitle = linkImageTitle == null ? null : linkImageTitle.trim();
+    public void setLinkImageURL(String linkImageURL) {
+        this.linkImageURL = linkImageURL == null ? null : linkImageURL.trim();
     }
 
     public String getLinkName() {

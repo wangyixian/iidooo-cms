@@ -1,51 +1,8 @@
 @CHARSET "UTF-8";
 
-#left_content {
-	float: left;
-	width: 300px;
-}
-
-#right_content {
-	float: right;
-	width: 680px;
-}
-
-#aboutus {
-	margin: 0px 15px 0px 0px;
-}
-
-/* 首页新闻一览区域的样式 */
-/* #news {
-	margin: 20px 15px 5px 0px;
-} */
-/* #news .cmscontent {
-	首页新闻自动撑大
+#services {
+	margin-top: 10px;
 	overflow: hidden;
-	border-bottom: 1px dashed #C0C9D0;
-	padding-bottom: 5px;
-	margin-bottom: 5px;
-} */
-/* #news .cmscontent_title {
-	首页新闻标题左浮动
-	float: left;
-} */
-/* #news .cmscontent_date {
-	首页新闻日期右浮动
-	float: right;
-} */
-
-#contact {
-	margin: 5px 15px 5px 0px;
-}
-
-#contact .item{
-	/* 联系项下部间隔5像素 */
-	margin-bottom: 5px;	
-	font-weight:bold;
-}
-
-#service {
-	margin: 0px 0px 0px 15px;
 }
 
 #service .content_item {

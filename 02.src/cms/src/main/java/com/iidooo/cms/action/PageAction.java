@@ -23,8 +23,6 @@ public class PageAction extends BaseAction {
     
     private HashMap<String, CmsBlockDto> blockMap;
     
-    private String siteAddress;
-    
     public CmsPage getCmsPage() {
         return cmsPage;
     }
@@ -41,14 +39,6 @@ public class PageAction extends BaseAction {
         this.blockMap = blockMap;
     }
 
-    public String getSiteAddress() {
-        return siteAddress;
-    }
-
-    public void setSiteAddress(String siteAddress) {
-        this.siteAddress = siteAddress;
-    }
-
     @Autowired
     private PageService pageService;
 
@@ -61,7 +51,6 @@ public class PageAction extends BaseAction {
                 if (cmsPage != null) {
                     blockMap = pageService.getBlockMap(cmsPage.getPageID());
                 }
-                this.siteAddress = pageService.getSiteAddress();
             }
         } catch (Exception e) {
             logger.fatal(e);

@@ -6,31 +6,37 @@
 <meta name=description content="${cmsPage.pageDescription}">
 <title>${cmsPage.pageTitle}</title>
 <#include "include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/index.css">
 </head>
 <body>
     <#include "include/top.html"/>
     <#include "include/mainmenu.html"/>
     <div id="main_wrap">
-        <div id="service_wrap">
-            <div>${blockMap["services"].blockTitle}</div>
-			<div>
-			    <#list blockMap["services"].cmsLinks as link>
-				<div class="service_item">
-					<div class="service_image">
-						<a href="${link.linkURL}" target="${link.linkTarget}"><img alt="${link.linkTitle}" src="${link.linkImageTitle}"></a>
-					</div>
-					<div class="service_title">
-						<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_title">${link.linkTitle}</span></a>
-						<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_sub_title">${link.linkSubTitle}</span></a>
-					</div>
-				</div>				
-				</#list>
+        <div id="main_content">
+	        <div id="services">
+	            <div class="block_big_title">
+	               <span class="main_title">${blockMap["services"].blockTitle}</span>
+	               <span class="sub_title"> ${blockMap["services"].blockSubTitle}</span>
+	            </div>
+				<div class="block_content">
+				    <#list blockMap["services"].cmsLinks as link>
+					<div class="service_item">
+						<div class="service_image">
+							<a href="${link.linkURL}" target="${link.linkTarget}"><img alt="${link.linkTitle}" src="${link.linkImageURL}"></a>
+						</div>
+						<div class="service_title">
+							<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_title">${link.linkTitle}</span></a>
+							<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_sub_title">${link.linkSubTitle}</span></a>
+						</div>
+					</div>				
+					</#list>
+				</div>
 			</div>
-		</div>
-        
-        <div id="main_product_wrap">
-            <div>${blockMap["products"].blockTitle}</div>
-        </div>        
+	        
+	        <div id="main_product_wrap">
+	            <div>${blockMap["products"].blockTitle} ${blockMap["products"].blockSubTitle}</div>
+	        </div>        
+        </div>
     </div>
     <#include "include/footer.html"/>
 </body>

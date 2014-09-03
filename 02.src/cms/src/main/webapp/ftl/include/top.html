@@ -1,9 +1,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="${siteAddress}/themes/default/css/top.css">
+<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/common/top.css">
 <div id="top_wrap">
 	<div id="top_content">
-		<div id="top_logo">
-			<img alt="轶度网络" src="themes/default/image/logo.png">
-		</div>
+            <#list blockMap["top"].cmsLinks as link>
+            <div id="top_logo">
+             <#if link.linkName == "logo">
+             <a href="${link.linkURL}" target="${link.linkTarget}">
+                 <img alt="${link.linkTitle}" src="${SITE_ADDRESS}${link.linkImageURL}">
+             </a>
+             </#if>
+            </div>
+            </#list>
+		
 	</div>
 </div>
