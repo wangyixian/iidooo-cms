@@ -3,11 +3,11 @@ package com.iidooo.cms.dto.generate;
 public class CmsLink {
     private Integer linkID;
 
-    private Integer parentLinkID;
-
     private Integer linkPageID;
 
     private Integer linkArticleID;
+
+    private Integer parentLinkID;
 
     private String linkTitle;
 
@@ -15,7 +15,7 @@ public class CmsLink {
 
     private String linkImageURL;
 
-    private String linkName;
+    private String linkCode;
 
     private String linkURL;
 
@@ -47,14 +47,6 @@ public class CmsLink {
         this.linkID = linkID;
     }
 
-    public Integer getParentLinkID() {
-        return parentLinkID;
-    }
-
-    public void setParentLinkID(Integer parentLinkID) {
-        this.parentLinkID = parentLinkID;
-    }
-
     public Integer getLinkPageID() {
         return linkPageID;
     }
@@ -69,6 +61,14 @@ public class CmsLink {
 
     public void setLinkArticleID(Integer linkArticleID) {
         this.linkArticleID = linkArticleID;
+    }
+
+    public Integer getParentLinkID() {
+        return parentLinkID;
+    }
+
+    public void setParentLinkID(Integer parentLinkID) {
+        this.parentLinkID = parentLinkID;
     }
 
     public String getLinkTitle() {
@@ -95,12 +95,12 @@ public class CmsLink {
         this.linkImageURL = linkImageURL == null ? null : linkImageURL.trim();
     }
 
-    public String getLinkName() {
-        return linkName;
+    public String getLinkCode() {
+        return linkCode;
     }
 
-    public void setLinkName(String linkName) {
-        this.linkName = linkName == null ? null : linkName.trim();
+    public void setLinkCode(String linkCode) {
+        this.linkCode = linkCode == null ? null : linkCode.trim();
     }
 
     public String getLinkURL() {

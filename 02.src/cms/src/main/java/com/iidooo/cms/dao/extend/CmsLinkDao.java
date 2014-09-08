@@ -7,4 +7,6 @@ import com.iidooo.cms.dto.extend.CmsLinkDto;
 public interface CmsLinkDao {
 
     List<CmsLinkDto> selectByBlockID(Integer blockID);
+    
+    List<CmsLinkDto> selectByParentLinkID(Integer parentLinkID);
 }

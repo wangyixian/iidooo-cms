@@ -5,7 +5,7 @@
 		<ul>
 			<#list blockMap["mainmenu"].cmsLinks as link>
 			<li>
-			    <#if cmsPage.pageID == link.linkPageID>
+			    <#if cmsPage.pageID == link.linkPageID || link.subringPageIDs.contains(cmsPage.pageID)>
                 <a href="${link.linkURL}" target="${link.linkTarget}" class="focus">${link.linkTitle}</a>
                 <#else>
                 <a href="${link.linkURL}" target="${link.linkTarget}">${link.linkTitle}</a>

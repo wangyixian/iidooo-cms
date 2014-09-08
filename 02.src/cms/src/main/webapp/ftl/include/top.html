@@ -4,7 +4,7 @@
 	<div id="top_content">
             <#list blockMap["top"].cmsLinks as link>
             <div id="top_logo">
-             <#if link.linkName == "logo">
+             <#if link.linkCode == "logo">
              <a href="${link.linkURL}" target="${link.linkTarget}">
                  <img alt="${link.linkTitle}" src="${SITE_ADDRESS}${link.linkImageURL}">
              </a>

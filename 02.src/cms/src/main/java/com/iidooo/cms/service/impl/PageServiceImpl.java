@@ -1,5 +1,6 @@
 package com.iidooo.cms.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,14 +8,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iidooo.cms.constant.AttributeConstant;
 import com.iidooo.cms.dao.extend.CmsBlockDao;
 import com.iidooo.cms.dao.extend.CmsLinkDao;
 import com.iidooo.cms.dao.extend.CmsPageDao;
 import com.iidooo.cms.dto.extend.CmsBlockDto;
 import com.iidooo.cms.dto.extend.CmsLinkDto;
-import com.iidooo.cms.dto.generate.CmsPage;
+import com.iidooo.cms.dto.extend.CmsPageDto;
 import com.iidooo.cms.service.PageService;
-import com.iidooo.framework.dao.extend.DictItemDao;
 
 @Service
 public class PageServiceImpl implements PageService {
@@ -30,13 +31,10 @@ public class PageServiceImpl implements PageService {
     @Autowired
     private CmsLinkDao cmsLinkDao;
 
-    @Autowired
-    private DictItemDao dictItemDao;
-
-    public CmsPage getPageByName(String pageName) {
-        CmsPage cmsPage = null;
+    public CmsPageDto getPageByID(int pageID) {
+        CmsPageDto cmsPage = null;
         try {
-            cmsPage = cmsPageDao.selectByPageName(pageName);
+            cmsPage = cmsPageDao.selectByPageID(pageID);
         } catch (Exception e) {
             logger.fatal(e);
         }
@@ -49,8 +47,14 @@ public class PageServiceImpl implements PageService {
             List<CmsBlockDto> blockList = cmsBlockDao.selectByPageID(pageID);
             for (CmsBlockDto cmsBlock : blockList) {
                 List<CmsLinkDto> cmsLinks = cmsLinkDao.selectByBlockID(cmsBlock.getBlockID());
+                for (CmsLinkDto cmsLinkDto : cmsLinks) {
+                    if (cmsLinkDto.getLinkPageID() != 0) {
+                        cmsLinkDto.setLinkURL(AttributeConstant.LINK_URL.replace("{1}", cmsLinkDto.getLinkPageID().toString()));                        
+                    }
+                    cmsLinkDto.setSubringPageIDs(getSubringLinks(cmsLinkDto));
+                }
                 cmsBlock.setCmsLinks(cmsLinks);
-                blockMap.put(cmsBlock.getBlockName(), cmsBlock);
+                blockMap.put(cmsBlock.getBlockCode(), cmsBlock);
             }
         } catch (Exception e) {
             logger.fatal(e);
@@ -58,4 +62,18 @@ public class PageServiceImpl implements PageService {
         return blockMap;
     }
 
+    private List<Integer> getSubringLinks(CmsLinkDto parentLink) {
+        List<Integer> subringLinks = new ArrayList<Integer>();
+        List<CmsLinkDto> childrenLinks = cmsLinkDao.selectByParentLinkID(parentLink.getLinkID());
+        for (CmsLinkDto cmsLinkDto : childrenLinks) {
+            if (!subringLinks.contains(cmsLinkDto.getLinkID())) {
+                subringLinks.add(cmsLinkDto.getLinkID());
+            }
+        }
+
+        for (CmsLinkDto childLink : childrenLinks) {
+            subringLinks.addAll(getSubringLinks(childLink));
+        }
+        return subringLinks;
+    }
 }

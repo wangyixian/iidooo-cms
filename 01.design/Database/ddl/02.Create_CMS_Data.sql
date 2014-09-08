@@ -1,23 +1,102 @@
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_PAGE`
+-- -----------------------------------------------------
 INSERT INTO `cms`.`ido_cms_page` 
-(`PageTitle`, `PageName`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('轶度空间首页', 'index', '轶度空间，网络服务，软件服务', '轶度空间，网络服务，软件服务', '/ftl/index.html', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_page` 
-(`PageTitle`, `PageName`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('我们的服务', 'services', '网站建设，软件定制，技术支持', '网站建设，软件定制，技术支持', '/ftl/services.html', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('网页设计', 'service_webpage_design', '网页设计，网页美工，个性化', '网页设计，网页美工，个性化', '/ftl/services/webpage_design.html', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_BLOCK`
+-- -----------------------------------------------------
 INSERT INTO `cms`.`ido_cms_block` 
-(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockName`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('我们的服务', 'OUR SERVICES', ' ', 'services', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockCode`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('顶部', 'TOP BAR', ' ', 'top', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block` 
-(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockName`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('我们的产品', 'OUR PRODUCTS', ' ', 'products', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_block` 
-(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockName`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockCode`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('主菜单', 'MAIN MENU', ' ', 'mainmenu', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block` 
-(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockName`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('顶部', 'TOP BAR', ' ', 'top', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockCode`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('我们的服务', 'OUR SERVICES', ' ', 'services', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_block` 
+(`BlockTitle`, `BlockSubTitle`, `BlockImageTitle`, `BlockCode`,  `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('我们的产品', 'OUR PRODUCTS', ' ', 'products', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_LINK`
+-- -----------------------------------------------------
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('1', '0', '0', '轶度空间', ' ', '/themes/default/image/logo.png', 'logo', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('1', '0', '0', '回到首页', ' ', ' ', 'mainmenu_home', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('2', '0', '0', '服务一览', ' ', ' ', 'mainmenu_services', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '0', '0', '产品展示', ' ', ' ', 'mainmenu_products', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('4', '0', '0', '案例欣赏', ' ', ' ', 'mainmenu_cases', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('5', '0', '0', '资讯中心', ' ', ' ', 'mainmenu_news', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('6', '0', '0', '关于我们', ' ', ' ', 'mainmenu_about', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('7', '0', '0', '联系我们', ' ', ' ', 'mainmenu_contact', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '0', '2', '网页设计', 'WEBPAGE DESIGN', ' ', 'service_webpage_design', ' ', '_selft', '描述',  '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '网站建设', 'WEBSITE BUILDING', ' ', 'service_website_build', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '网店装修', 'WEBSHOP DECORATION', ' ', 'service_webshop_decoration', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '网站优化', 'WEBSITE OPTIMIZATION', ' ', 'service_website_optimization', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '软件定制', 'SOFTWARE CUSTOMIZATION', ' ', 'service_software_customization', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '移动应用', 'MOBILE APP', ' ', 'service_mobile_app', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '电子商城', 'ELECTRONIC MALL', ' ', 'service_electronic_mall', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '电子邮箱', 'E-MAIL', ' ', 'service_email', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '虚拟主机', 'WEB HOST', ' ', 'service_web_host', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '社交博客', 'COMMUNITY BLOG', ' ', 'service_community_blog', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2',  '社区论坛', 'COMMUNITY FORUM', ' ', 'service_community_forum', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_link` 
+( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('0', '0', '2', '技术支持', 'TECH SUPPORT', ' ', 'service_tech_support', ' ', '_selft', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_PAGE_BLOCK`
+-- -----------------------------------------------------
+-- 定义到首页页面的区块
 INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('1', '1', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
@@ -26,74 +105,34 @@ INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Languag
 VALUES ('1', '3', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('1', '4', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+-- 定义到服务一览页面的区块
+INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('2', '1', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('2', '2', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('2', '3', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0', '网站建设', 'WEBSITE BUILDING', ' ', 'service_website_building', 'url', '_blank', '描述',  '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '电子邮箱', 'E-MAIL', ' ', 'service_email', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '软件定制', 'SOFTWARE CUSTOMIZATION', ' ', 'service_software_customization', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '移动应用', 'MOBILE APP', ' ', 'service_mobile_app', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '电子商城', 'ELECTRONIC MALL', ' ', 'service_electronic_mall', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '虚拟主机', 'WEB HOST', ' ', 'service_web_host', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '个人博客', 'PERSONAL BLOG', ' ', 'service_personal_blog', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '社区论坛', 'COMMUNITY FORUM', ' ', 'service_community_forum', 'url', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '1', '0',  '回到首页', ' ', ' ', 'mainmenu_home', 'page?pageName=index', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '服务一览', ' ', ' ', 'mainmenu_services', 'page?pageName=services', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '产品展示', ' ', ' ', 'mainmenu_products', 'page?pageName=products', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '案例欣赏', ' ', ' ', 'mainmenu_cases', 'page?pageName=cases', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '资讯中心', ' ', ' ', 'mainmenu_news', 'page?pageName=news', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0',  '关于我们', ' ', ' ', 'mainmenu_about', 'page?pageName=about', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0', '联系我们', ' ', ' ', 'mainmenu_contact', 'page?pageName=contact', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-
-INSERT INTO `cms`.`ido_cms_link` 
-(`ParentLinkID`,`LinkPageID`,`LinkArticleID`,  `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkName`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '0', '轶度空间', ' ', '/themes/default/image/logo.png', 'logo', 'page?pageName=index', '_blank', '描述', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-
+-- -----------------------------------------------------
+-- Table `CMS`.`IDO_CMS_BLOCK_LINK`
+-- -----------------------------------------------------
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('1', '1', '1', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '2', '2', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '2', '1', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '3', '3', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '3', '2', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '4', '4', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '4', '3', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '5', '5', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '5', '4', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '6', '6', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '6', '5', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '7', '7', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '7', '6', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('1', '8', '8', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('2', '8', '7', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('3', '9', '1', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
@@ -109,6 +148,13 @@ INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remark
 VALUES ('3', '14', '6', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('3', '15', '7', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
-
 INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('4', '16', '1', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('3', '16', '8', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '17', '9', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '18', '10', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '19', '11', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_block_link` (`BlockID`, `LinkID`, `Sequence`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '20', '12', '备注', 'zh-CN', now(), '1', now(), '1', '0', '1');

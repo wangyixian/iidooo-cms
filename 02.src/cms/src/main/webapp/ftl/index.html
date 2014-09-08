@@ -20,21 +20,26 @@
 	            </div>
 				<div class="block_content">
 				    <#list blockMap["services"].cmsLinks as link>
-					<div class="service_item">
-						<div class="service_image">
+				    <#if link_index < 12 >
+					<div class="content_item">
+						<div class="content_item_image">
 							<a href="${link.linkURL}" target="${link.linkTarget}"><img alt="${link.linkTitle}" src="${link.linkImageURL}"></a>
 						</div>
-						<div class="service_title">
-							<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_title">${link.linkTitle}</span></a>
-							<a href="${link.linkURL}" target="${link.linkTarget}"><span class="service_sub_title">${link.linkSubTitle}</span></a>
+						<div class="content_item_title">
+							<a href="${link.linkURL}" target="${link.linkTarget}"><span class="main_title">${link.linkTitle}</span></a>
+							<a href="${link.linkURL}" target="${link.linkTarget}"><span class="sub_title">${link.linkSubTitle}</span></a>
 						</div>
 					</div>				
+					</#if>
 					</#list>
 				</div>
 			</div>
 	        
-	        <div id="main_product_wrap">
-	            <div>${blockMap["products"].blockTitle} ${blockMap["products"].blockSubTitle}</div>
+	        <div id="products">
+	            <div class="block_big_title">
+                   <span class="main_title">${blockMap["products"].blockTitle}</span>
+                   <span class="sub_title"> ${blockMap["products"].blockSubTitle}</span>
+                </div>
 	        </div>        
         </div>
     </div>

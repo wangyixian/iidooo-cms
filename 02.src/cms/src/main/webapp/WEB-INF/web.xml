@@ -38,7 +38,7 @@
 	</context-param>
 
 	<listener>
-		<listener-class>com.iidooo.framework.listener.PropertiesListener</listener-class>
+		<listener-class>com.iidooo.cms.listener.PropertiesListener</listener-class>
 	</listener>
 
 	<session-config>

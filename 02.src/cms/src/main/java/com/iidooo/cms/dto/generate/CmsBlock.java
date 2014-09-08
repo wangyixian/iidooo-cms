@@ -9,7 +9,7 @@ public class CmsBlock {
 
     private String blockImageTitle;
 
-    private String blockName;
+    private String blockCode;
 
     private String remarks;
 
@@ -59,12 +59,12 @@ public class CmsBlock {
         this.blockImageTitle = blockImageTitle == null ? null : blockImageTitle.trim();
     }
 
-    public String getBlockName() {
-        return blockName;
+    public String getBlockCode() {
+        return blockCode;
     }
 
-    public void setBlockName(String blockName) {
-        this.blockName = blockName == null ? null : blockName.trim();
+    public void setBlockCode(String blockCode) {
+        this.blockCode = blockCode == null ? null : blockCode.trim();
     }
 
     public String getRemarks() {

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsPage" >
     <id column="PageID" property="pageID" jdbcType="INTEGER" />
     <result column="PageTitle" property="pageTitle" jdbcType="VARCHAR" />
-    <result column="PageName" property="pageName" jdbcType="VARCHAR" />
+    <result column="PageCode" property="pageCode" jdbcType="VARCHAR" />
     <result column="PageKeywords" property="pageKeywords" jdbcType="VARCHAR" />
     <result column="PageDescription" property="pageDescription" jdbcType="VARCHAR" />
     <result column="PageTemplate" property="pageTemplate" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    PageID, PageTitle, PageName, PageKeywords, PageDescription, PageTemplate, Remarks, 
+    PageID, PageTitle, PageCode, PageKeywords, PageDescription, PageTemplate, Remarks, 
     Language, CreateTime, CreateUser, UpdateTime, UpdateUser, DeleteFlag, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,12 +32,12 @@
     where PageID = #{pageID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsPage" >
-    insert into ido_cms_page (PageID, PageTitle, PageName, 
+    insert into ido_cms_page (PageID, PageTitle, PageCode, 
       PageKeywords, PageDescription, PageTemplate, 
       Remarks, Language, CreateTime, 
       CreateUser, UpdateTime, UpdateUser, 
       DeleteFlag, Version)
-    values (#{pageID,jdbcType=INTEGER}, #{pageTitle,jdbcType=VARCHAR}, #{pageName,jdbcType=VARCHAR}, 
+    values (#{pageID,jdbcType=INTEGER}, #{pageTitle,jdbcType=VARCHAR}, #{pageCode,jdbcType=VARCHAR}, 
       #{pageKeywords,jdbcType=VARCHAR}, #{pageDescription,jdbcType=VARCHAR}, #{pageTemplate,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
@@ -52,8 +52,8 @@
       <if test="pageTitle != null" >
         PageTitle,
       </if>
-      <if test="pageName != null" >
-        PageName,
+      <if test="pageCode != null" >
+        PageCode,
       </if>
       <if test="pageKeywords != null" >
         PageKeywords,
@@ -96,8 +96,8 @@
       <if test="pageTitle != null" >
         #{pageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="pageName != null" >
-        #{pageName,jdbcType=VARCHAR},
+      <if test="pageCode != null" >
+        #{pageCode,jdbcType=VARCHAR},
       </if>
       <if test="pageKeywords != null" >
         #{pageKeywords,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="pageTitle != null" >
         PageTitle = #{pageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="pageName != null" >
-        PageName = #{pageName,jdbcType=VARCHAR},
+      <if test="pageCode != null" >
+        PageCode = #{pageCode,jdbcType=VARCHAR},
       </if>
       <if test="pageKeywords != null" >
         PageKeywords = #{pageKeywords,jdbcType=VARCHAR},
@@ -182,7 +182,7 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsPage" >
     update ido_cms_page
     set PageTitle = #{pageTitle,jdbcType=VARCHAR},
-      PageName = #{pageName,jdbcType=VARCHAR},
+      PageCode = #{pageCode,jdbcType=VARCHAR},
       PageKeywords = #{pageKeywords,jdbcType=VARCHAR},
       PageDescription = #{pageDescription,jdbcType=VARCHAR},
       PageTemplate = #{pageTemplate,jdbcType=VARCHAR},

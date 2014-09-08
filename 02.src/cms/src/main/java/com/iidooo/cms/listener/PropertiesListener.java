@@ -1,4 +1,4 @@
-package com.iidooo.framework.listener;
+package com.iidooo.cms.listener;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.framework.constant.AttributeConstant;
+import com.iidooo.cms.constant.AttributeConstant;
+import com.iidooo.cms.constant.SpringConstant;
 import com.iidooo.framework.constant.DictConstant;
-import com.iidooo.framework.constant.SpringConstant;
 import com.iidooo.framework.dao.extend.DictItemDao;
 import com.iidooo.framework.dto.generate.DictItem;
 import com.iidooo.framework.utility.SpringUtil;
@@ -30,10 +30,13 @@ public class PropertiesListener extends HttpServlet implements ServletContextLis
 
     public void contextInitialized(ServletContextEvent arg0) {
         try {
-            ServletContext servletContext = arg0.getServletContext();
-            DictItemDao dictItemDao = (DictItemDao)SpringUtil.getBean(servletContext, SpringConstant.BEAN_DICT_ITEM_DAO);
+            ServletContext sc = arg0.getServletContext();
+            
+            // 得到站点的配置信息
+            DictItemDao dictItemDao = (DictItemDao)SpringUtil.getBean(sc, SpringConstant.BEAN_DICT_ITEM_DAO);
             DictItem dictItem = dictItemDao.selectByItemCode(DictConstant.DICT_ITEM_SITE_ADDRESS);
-            servletContext.setAttribute(AttributeConstant.SITE_ADDRESS, dictItem.getDictItemValue());
+            sc.setAttribute(AttributeConstant.SITE_ADDRESS, dictItem.getDictItemValue());            
+            
         } catch (Exception e) {
             logger.fatal(e);
         }

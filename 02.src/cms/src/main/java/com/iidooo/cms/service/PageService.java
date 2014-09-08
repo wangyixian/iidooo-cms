@@ -3,10 +3,10 @@ package com.iidooo.cms.service;
 import java.util.HashMap;
 
 import com.iidooo.cms.dto.extend.CmsBlockDto;
-import com.iidooo.cms.dto.generate.CmsPage;
+import com.iidooo.cms.dto.extend.CmsPageDto;
 
 public interface PageService {
-    CmsPage getPageByName(String pageName);
+    CmsPageDto getPageByID(int pageID);
     
     HashMap<String, CmsBlockDto> getBlockMap(int pageID);
     

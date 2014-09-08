@@ -6,7 +6,7 @@
     <result column="BlockTitle" property="blockTitle" jdbcType="VARCHAR" />
     <result column="BlockSubTitle" property="blockSubTitle" jdbcType="VARCHAR" />
     <result column="BlockImageTitle" property="blockImageTitle" jdbcType="VARCHAR" />
-    <result column="BlockName" property="blockName" jdbcType="VARCHAR" />
+    <result column="BlockCode" property="blockCode" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    B.BlockID, B.BlockTitle, B.BlockSubTitle, B.BlockImageTitle, B.BlockName, B.Remarks, 
+    B.BlockID, B.BlockTitle, B.BlockSubTitle, B.BlockImageTitle, B.BlockCode, B.Remarks, 
     B.Language, B.CreateTime, B.CreateUser, B.UpdateTime, B.UpdateUser, B.DeleteFlag, B.Version
   </sql>
   <select id="selectByPageID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

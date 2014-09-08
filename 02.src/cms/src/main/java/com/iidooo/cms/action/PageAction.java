@@ -5,8 +5,9 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.iidooo.cms.constant.AttributeConstant;
 import com.iidooo.cms.dto.extend.CmsBlockDto;
-import com.iidooo.cms.dto.generate.CmsPage;
+import com.iidooo.cms.dto.extend.CmsPageDto;
 import com.iidooo.cms.service.PageService;
 import com.iidooo.framework.action.BaseAction;
 
@@ -19,15 +20,15 @@ public class PageAction extends BaseAction {
 
     private static final Logger logger = Logger.getLogger(PageAction.class);
 
-    private CmsPage cmsPage;
+    private CmsPageDto cmsPage;
     
     private HashMap<String, CmsBlockDto> blockMap;
     
-    public CmsPage getCmsPage() {
+    public CmsPageDto getCmsPage() {
         return cmsPage;
     }
 
-    public void setCmsPage(CmsPage cmsPage) {
+    public void setCmsPage(CmsPageDto cmsPage) {
         this.cmsPage = cmsPage;
     }
 
@@ -45,9 +46,9 @@ public class PageAction extends BaseAction {
     @Override
     public String execute() throws Exception {
         try {
-            String pageName = getRequest().getParameter("pageName");
-            if (pageName != null) {
-                cmsPage = pageService.getPageByName(pageName);
+            String pageID = getRequest().getParameter(AttributeConstant.PAGE_ID);
+            if (pageID != null) {
+                cmsPage = pageService.getPageByID(Integer.parseInt(pageID));
                 if (cmsPage != null) {
                     blockMap = pageService.getBlockMap(cmsPage.getPageID());
                 }

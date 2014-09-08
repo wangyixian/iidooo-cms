@@ -6,7 +6,7 @@
     <result column="BlockTitle" property="blockTitle" jdbcType="VARCHAR" />
     <result column="BlockSubTitle" property="blockSubTitle" jdbcType="VARCHAR" />
     <result column="BlockImageTitle" property="blockImageTitle" jdbcType="VARCHAR" />
-    <result column="BlockName" property="blockName" jdbcType="VARCHAR" />
+    <result column="BlockCode" property="blockCode" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    BlockID, BlockTitle, BlockSubTitle, BlockImageTitle, BlockName, Remarks, Language, 
+    BlockID, BlockTitle, BlockSubTitle, BlockImageTitle, BlockCode, Remarks, Language, 
     CreateTime, CreateUser, UpdateTime, UpdateUser, DeleteFlag, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,12 +32,12 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsBlock" >
     insert into ido_cms_block (BlockID, BlockTitle, BlockSubTitle, 
-      BlockImageTitle, BlockName, Remarks, 
+      BlockImageTitle, BlockCode, Remarks, 
       Language, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, DeleteFlag, 
       Version)
     values (#{blockID,jdbcType=INTEGER}, #{blockTitle,jdbcType=VARCHAR}, #{blockSubTitle,jdbcType=VARCHAR}, 
-      #{blockImageTitle,jdbcType=VARCHAR}, #{blockName,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{blockImageTitle,jdbcType=VARCHAR}, #{blockCode,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
       #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{deleteFlag,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER})
@@ -57,8 +57,8 @@
       <if test="blockImageTitle != null" >
         BlockImageTitle,
       </if>
-      <if test="blockName != null" >
-        BlockName,
+      <if test="blockCode != null" >
+        BlockCode,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -98,8 +98,8 @@
       <if test="blockImageTitle != null" >
         #{blockImageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="blockName != null" >
-        #{blockName,jdbcType=VARCHAR},
+      <if test="blockCode != null" >
+        #{blockCode,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -139,8 +139,8 @@
       <if test="blockImageTitle != null" >
         BlockImageTitle = #{blockImageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="blockName != null" >
-        BlockName = #{blockName,jdbcType=VARCHAR},
+      <if test="blockCode != null" >
+        BlockCode = #{blockCode,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
     set BlockTitle = #{blockTitle,jdbcType=VARCHAR},
       BlockSubTitle = #{blockSubTitle,jdbcType=VARCHAR},
       BlockImageTitle = #{blockImageTitle,jdbcType=VARCHAR},
-      BlockName = #{blockName,jdbcType=VARCHAR},
+      BlockCode = #{blockCode,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

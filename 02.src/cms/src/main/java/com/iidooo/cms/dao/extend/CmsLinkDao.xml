@@ -3,13 +3,13 @@
 <mapper namespace="com.iidooo.cms.dao.extend.CmsLinkDao" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsLinkDto" >
     <id column="LinkID" property="linkID" jdbcType="INTEGER" />
-    <result column="ParentLinkID" property="parentLinkID" jdbcType="INTEGER" />
     <result column="LinkPageID" property="linkPageID" jdbcType="INTEGER" />
     <result column="LinkArticleID" property="linkArticleID" jdbcType="INTEGER" />
+    <result column="ParentLinkID" property="parentLinkID" jdbcType="INTEGER" />
     <result column="LinkTitle" property="linkTitle" jdbcType="VARCHAR" />
     <result column="LinkSubTitle" property="linkSubTitle" jdbcType="VARCHAR" />
     <result column="LinkImageURL" property="linkImageURL" jdbcType="VARCHAR" />
-    <result column="LinkName" property="linkName" jdbcType="VARCHAR" />
+    <result column="LinkCode" property="linkCode" jdbcType="VARCHAR" />
     <result column="LinkURL" property="linkURL" jdbcType="VARCHAR" />
     <result column="LinkTarget" property="linkTarget" jdbcType="VARCHAR" />
     <result column="LinkDescription" property="linkDescription" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    L.LinkID, L.ParentLinkID, L.LinkPageID, L.LinkArticleID, L.LinkTitle, L.LinkSubTitle, L.LinkImageURL, L.LinkName, L.LinkURL, 
+    L.LinkID, L.LinkPageID, L.LinkArticleID, L.ParentLinkID, L.LinkTitle, L.LinkSubTitle, L.LinkImageURL, L.LinkCode, L.LinkURL, 
     L.LinkTarget, L.LinkDescription, L.Remarks, L.Language, L.CreateTime, L.CreateUser, L.UpdateTime, 
     L.UpdateUser, L.DeleteFlag, L.Version
   </sql>
@@ -35,4 +35,12 @@
     on BL.LinkID = L.LinkID and BL.DeleteFlag = 0 and L.DeleteFlag = 0 
     and BL.BlockID = #{blockID,jdbcType=INTEGER} order by BL.Sequence
   </select>
+  <select id="selectByParentLinkID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from IDO_CMS_LINK as L
+    where L.DeleteFlag = 0 
+    and L.ParentLinkID = #{parentLinkID,jdbcType=INTEGER}
+  </select> 
+    
 </mapper>

@@ -110,8 +110,14 @@ a:hover {
 	vertical-align: middle
 }
 
+#main_wrap{
+	overflow: hidden;
+	margin-top: 10px;
+}
+
 #main_content {
 	width: 980px;
+	height: 100%;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -184,11 +190,3 @@ a:hover {
 	height: 300px;
 }
 
-/* 页脚 */
-#footer {
-	margin-top: 10px;
-	text-align: center;
-	background-color: RGB(54, 54, 54);
-	color: RGB(204, 204, 204);
-	padding: 5px;
-}

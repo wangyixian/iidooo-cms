@@ -5,7 +5,7 @@ public class CmsPage {
 
     private String pageTitle;
 
-    private String pageName;
+    private String pageCode;
 
     private String pageKeywords;
 
@@ -45,12 +45,12 @@ public class CmsPage {
         this.pageTitle = pageTitle == null ? null : pageTitle.trim();
     }
 
-    public String getPageName() {
-        return pageName;
+    public String getPageCode() {
+        return pageCode;
     }
 
-    public void setPageName(String pageName) {
-        this.pageName = pageName == null ? null : pageName.trim();
+    public void setPageCode(String pageCode) {
+        this.pageCode = pageCode == null ? null : pageCode.trim();
     }
 
     public String getPageKeywords() {

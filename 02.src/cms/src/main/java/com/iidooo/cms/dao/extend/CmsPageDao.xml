@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iidooo.cms.dao.extend.CmsPageDao" >
-  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsPage" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsPageDto" >
     <id column="PageID" property="pageID" jdbcType="INTEGER" />
     <result column="PageTitle" property="pageTitle" jdbcType="VARCHAR" />
-    <result column="PageName" property="pageName" jdbcType="VARCHAR" />
+    <result column="PageCode" property="pageCode" jdbcType="VARCHAR" />
     <result column="PageKeywords" property="pageKeywords" jdbcType="VARCHAR" />
     <result column="PageDescription" property="pageDescription" jdbcType="VARCHAR" />
     <result column="PageTemplate" property="pageTemplate" jdbcType="VARCHAR" />
@@ -18,13 +18,19 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    PageID, PageTitle, PageName, PageKeywords, PageDescription, PageTemplate, Remarks, 
-    Language, CreateTime, CreateUser, UpdateTime, UpdateUser, DeleteFlag, Version
+    PageID, PageTitle, PageCode, PageKeywords, PageDescription, PageTemplate, 
+    Remarks, Language, CreateTime, CreateUser, UpdateTime, UpdateUser, DeleteFlag, Version
   </sql>
-  <select id="selectByPageName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPageCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from ido_cms_page
-    where PageName = #{pageName,jdbcType=INTEGER}
+    where PageCode = #{pageCode,jdbcType=INTEGER} and DeleteFlag = 0
+  </select>
+  <select id="selectByPageID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ido_cms_page
+    where PageID = #{pageID,jdbcType=INTEGER} and DeleteFlag = 0
   </select>
 </mapper>

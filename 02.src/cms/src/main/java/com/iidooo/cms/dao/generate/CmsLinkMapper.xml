@@ -3,13 +3,13 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsLinkMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsLink" >
     <id column="LinkID" property="linkID" jdbcType="INTEGER" />
-    <result column="ParentLinkID" property="parentLinkID" jdbcType="INTEGER" />
     <result column="LinkPageID" property="linkPageID" jdbcType="INTEGER" />
     <result column="LinkArticleID" property="linkArticleID" jdbcType="INTEGER" />
+    <result column="ParentLinkID" property="parentLinkID" jdbcType="INTEGER" />
     <result column="LinkTitle" property="linkTitle" jdbcType="VARCHAR" />
     <result column="LinkSubTitle" property="linkSubTitle" jdbcType="VARCHAR" />
     <result column="LinkImageURL" property="linkImageURL" jdbcType="VARCHAR" />
-    <result column="LinkName" property="linkName" jdbcType="VARCHAR" />
+    <result column="LinkCode" property="linkCode" jdbcType="VARCHAR" />
     <result column="LinkURL" property="linkURL" jdbcType="VARCHAR" />
     <result column="LinkTarget" property="linkTarget" jdbcType="VARCHAR" />
     <result column="LinkDescription" property="linkDescription" jdbcType="VARCHAR" />
@@ -23,8 +23,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    LinkID, ParentLinkID, LinkPageID, LinkArticleID, LinkTitle, LinkSubTitle, LinkImageURL, 
-    LinkName, LinkURL, LinkTarget, LinkDescription, Remarks, Language, CreateTime, CreateUser, 
+    LinkID, LinkPageID, LinkArticleID, ParentLinkID, LinkTitle, LinkSubTitle, LinkImageURL, 
+    LinkCode, LinkURL, LinkTarget, LinkDescription, Remarks, Language, CreateTime, CreateUser, 
     UpdateTime, UpdateUser, DeleteFlag, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -38,16 +38,16 @@
     where LinkID = #{linkID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsLink" >
-    insert into ido_cms_link (LinkID, ParentLinkID, LinkPageID, 
-      LinkArticleID, LinkTitle, LinkSubTitle, 
-      LinkImageURL, LinkName, LinkURL, 
+    insert into ido_cms_link (LinkID, LinkPageID, LinkArticleID, 
+      ParentLinkID, LinkTitle, LinkSubTitle, 
+      LinkImageURL, LinkCode, LinkURL, 
       LinkTarget, LinkDescription, Remarks, 
       Language, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, DeleteFlag, 
       Version)
-    values (#{linkID,jdbcType=INTEGER}, #{parentLinkID,jdbcType=INTEGER}, #{linkPageID,jdbcType=INTEGER}, 
-      #{linkArticleID,jdbcType=INTEGER}, #{linkTitle,jdbcType=VARCHAR}, #{linkSubTitle,jdbcType=VARCHAR}, 
-      #{linkImageURL,jdbcType=VARCHAR}, #{linkName,jdbcType=VARCHAR}, #{linkURL,jdbcType=VARCHAR}, 
+    values (#{linkID,jdbcType=INTEGER}, #{linkPageID,jdbcType=INTEGER}, #{linkArticleID,jdbcType=INTEGER}, 
+      #{parentLinkID,jdbcType=INTEGER}, #{linkTitle,jdbcType=VARCHAR}, #{linkSubTitle,jdbcType=VARCHAR}, 
+      #{linkImageURL,jdbcType=VARCHAR}, #{linkCode,jdbcType=VARCHAR}, #{linkURL,jdbcType=VARCHAR}, 
       #{linkTarget,jdbcType=VARCHAR}, #{linkDescription,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
       #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{deleteFlag,jdbcType=INTEGER}, 
@@ -59,14 +59,14 @@
       <if test="linkID != null" >
         LinkID,
       </if>
-      <if test="parentLinkID != null" >
-        ParentLinkID,
-      </if>
       <if test="linkPageID != null" >
         LinkPageID,
       </if>
       <if test="linkArticleID != null" >
         LinkArticleID,
+      </if>
+      <if test="parentLinkID != null" >
+        ParentLinkID,
       </if>
       <if test="linkTitle != null" >
         LinkTitle,
@@ -77,8 +77,8 @@
       <if test="linkImageURL != null" >
         LinkImageURL,
       </if>
-      <if test="linkName != null" >
-        LinkName,
+      <if test="linkCode != null" >
+        LinkCode,
       </if>
       <if test="linkURL != null" >
         LinkURL,
@@ -118,14 +118,14 @@
       <if test="linkID != null" >
         #{linkID,jdbcType=INTEGER},
       </if>
-      <if test="parentLinkID != null" >
-        #{parentLinkID,jdbcType=INTEGER},
-      </if>
       <if test="linkPageID != null" >
         #{linkPageID,jdbcType=INTEGER},
       </if>
       <if test="linkArticleID != null" >
         #{linkArticleID,jdbcType=INTEGER},
+      </if>
+      <if test="parentLinkID != null" >
+        #{parentLinkID,jdbcType=INTEGER},
       </if>
       <if test="linkTitle != null" >
         #{linkTitle,jdbcType=VARCHAR},
@@ -136,8 +136,8 @@
       <if test="linkImageURL != null" >
         #{linkImageURL,jdbcType=VARCHAR},
       </if>
-      <if test="linkName != null" >
-        #{linkName,jdbcType=VARCHAR},
+      <if test="linkCode != null" >
+        #{linkCode,jdbcType=VARCHAR},
       </if>
       <if test="linkURL != null" >
         #{linkURL,jdbcType=VARCHAR},
@@ -177,14 +177,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsLink" >
     update ido_cms_link
     <set >
-      <if test="parentLinkID != null" >
-        ParentLinkID = #{parentLinkID,jdbcType=INTEGER},
-      </if>
       <if test="linkPageID != null" >
         LinkPageID = #{linkPageID,jdbcType=INTEGER},
       </if>
       <if test="linkArticleID != null" >
         LinkArticleID = #{linkArticleID,jdbcType=INTEGER},
+      </if>
+      <if test="parentLinkID != null" >
+        ParentLinkID = #{parentLinkID,jdbcType=INTEGER},
       </if>
       <if test="linkTitle != null" >
         LinkTitle = #{linkTitle,jdbcType=VARCHAR},
@@ -195,8 +195,8 @@
       <if test="linkImageURL != null" >
         LinkImageURL = #{linkImageURL,jdbcType=VARCHAR},
       </if>
-      <if test="linkName != null" >
-        LinkName = #{linkName,jdbcType=VARCHAR},
+      <if test="linkCode != null" >
+        LinkCode = #{linkCode,jdbcType=VARCHAR},
       </if>
       <if test="linkURL != null" >
         LinkURL = #{linkURL,jdbcType=VARCHAR},
@@ -236,13 +236,13 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsLink" >
     update ido_cms_link
-    set ParentLinkID = #{parentLinkID,jdbcType=INTEGER},
-      LinkPageID = #{linkPageID,jdbcType=INTEGER},
+    set LinkPageID = #{linkPageID,jdbcType=INTEGER},
       LinkArticleID = #{linkArticleID,jdbcType=INTEGER},
+      ParentLinkID = #{parentLinkID,jdbcType=INTEGER},
       LinkTitle = #{linkTitle,jdbcType=VARCHAR},
       LinkSubTitle = #{linkSubTitle,jdbcType=VARCHAR},
       LinkImageURL = #{linkImageURL,jdbcType=VARCHAR},
-      LinkName = #{linkName,jdbcType=VARCHAR},
+      LinkCode = #{linkCode,jdbcType=VARCHAR},
       LinkURL = #{linkURL,jdbcType=VARCHAR},
       LinkTarget = #{linkTarget,jdbcType=VARCHAR},
       LinkDescription = #{linkDescription,jdbcType=VARCHAR},

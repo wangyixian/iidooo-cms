@@ -1,45 +1,39 @@
 @CHARSET "UTF-8";
 
-#services {
-	margin-top: 10px;
+#services .content_item {
 	overflow: hidden;
-}
-
-#service .content_item {
-	border-bottom: 1px dashed #C0C9D0;
-	overflow: hidden;
-	padding: 5px;
-}
-
-#service .content_item_picture {
 	float: left;
-	width: 200px;
-	height: 150px;
-	margin-right: 10px;
+	width: 240px;
+	height: 100px;
+	margin-right: 5px;
+	margin-top: 5px;
+	/* background-color: #134780; */
 }
 
-#service .content_item_picture img {
-	width: 200px;
-	height: 150px;
-}
-
-#service .content_item_text {
+#services .content_item_image {
 	float: left;
-	/* service的内容限制宽度，否则内容太长会撑破div */
-	width: 430px;
+	width: 100px;
+	height: 100px;
+	margin: 5px;
 }
 
-#service .content_item_text .content_item_title {
-	color: #ff0000;
+#service .content_item_image img {
+    width: 200px;
+    height: 150px;
+}
+
+#services>.block_content>.content_item>.content_item_title{
+	margin: 5px;
+}
+
+#services>.block_content .main_title {
+	display: block;
+	color: #888;
 	font-weight: bold;
-	margin-bottom: 5px;
 }
 
-#product {
-	margin: 20px 0px 5px 15px;
+#services>.block_content .sub_title {
+	color: #CCC;
+	color: RGB(170, 170, 170);
 }
 
-#case {
-	margin: 20px 5px 5px 5px;
-	background-color: grey;
-}
