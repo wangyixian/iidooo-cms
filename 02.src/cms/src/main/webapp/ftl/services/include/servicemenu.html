@@ -1,0 +1,17 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/services/servicemenu.css">
+<div id="servicemenu">
+	<div id="block_content">
+		<ul>
+			<#list blockMap["services"].cmsLinks as link>
+			<li>
+			    <#if cmsPage.pageID == link.linkPageID>
+                <a href="${link.linkURL}" target="${link.linkTarget}" class="focus">${link.linkTitle}</a>
+                <#else>
+                <a href="${link.linkURL}" target="${link.linkTarget}">${link.linkTitle}</a>
+                </#if>
+            </li>
+			</#list>
+		</ul>
+	</div>
+</div>

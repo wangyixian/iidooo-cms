@@ -51,7 +51,7 @@ public class PageServiceImpl implements PageService {
                     if (cmsLinkDto.getLinkPageID() != 0) {
                         cmsLinkDto.setLinkURL(AttributeConstant.LINK_URL.replace("{1}", cmsLinkDto.getLinkPageID().toString()));                        
                     }
-                    cmsLinkDto.setSubringPageIDs(getSubringLinks(cmsLinkDto));
+                    cmsLinkDto.setSubringPageIDs(getSubringPageIDs(cmsLinkDto));
                 }
                 cmsBlock.setCmsLinks(cmsLinks);
                 blockMap.put(cmsBlock.getBlockCode(), cmsBlock);
@@ -62,18 +62,18 @@ public class PageServiceImpl implements PageService {
         return blockMap;
     }
 
-    private List<Integer> getSubringLinks(CmsLinkDto parentLink) {
-        List<Integer> subringLinks = new ArrayList<Integer>();
+    private List<Integer> getSubringPageIDs(CmsLinkDto parentLink) {
+        List<Integer> subringPageIDs = new ArrayList<Integer>();
         List<CmsLinkDto> childrenLinks = cmsLinkDao.selectByParentLinkID(parentLink.getLinkID());
         for (CmsLinkDto cmsLinkDto : childrenLinks) {
-            if (!subringLinks.contains(cmsLinkDto.getLinkID())) {
-                subringLinks.add(cmsLinkDto.getLinkID());
+            if (!subringPageIDs.contains(cmsLinkDto.getLinkPageID())) {
+                subringPageIDs.add(cmsLinkDto.getLinkPageID());
             }
         }
 
         for (CmsLinkDto childLink : childrenLinks) {
-            subringLinks.addAll(getSubringLinks(childLink));
+            subringPageIDs.addAll(getSubringPageIDs(childLink));
         }
-        return subringLinks;
+        return subringPageIDs;
     }
 }

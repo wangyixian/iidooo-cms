@@ -10,6 +10,39 @@ VALUES ('ÎÒÃÇµÄ·şÎñ', 'services', 'ÍøÕ¾½¨Éè£¬Èí¼ş¶¨ÖÆ£¬¼¼ÊõÖ§³Ö', 'ÍøÕ¾½¨Éè£¬Èí¼
 INSERT INTO `cms`.`ido_cms_page` 
 (`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('ÍøÒ³Éè¼Æ', 'service_webpage_design', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_website_build', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_webshop_decoration', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_website_optimization', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_software_customization', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_mobile_app', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_electronic_mall', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_email', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_web_host', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_community_blog', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_community_forum', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page` 
+(`PageTitle`, `PageCode`, `PageKeywords`, `PageDescription`, `PageTemplate`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('ÍøÒ³Éè¼Æ', 'service_tech_support', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', 'ÍøÒ³Éè¼Æ£¬ÍøÒ³ÃÀ¹¤£¬¸öĞÔ»¯', '/ftl/services/webpage_design.html', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
 -- -----------------------------------------------------
 -- Table `CMS`.`IDO_CMS_BLOCK`
@@ -58,40 +91,40 @@ VALUES ('7', '0', '0', 'ÁªÏµÎÒÃÇ', ' ', ' ', 'mainmenu_contact', ' ', '_selft', 
 
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('3', '0', '2', 'ÍøÒ³Éè¼Æ', 'WEBPAGE DESIGN', ' ', 'service_webpage_design', ' ', '_selft', 'ÃèÊö',  '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('3', '0', '3', 'ÍøÒ³Éè¼Æ', 'WEBPAGE DESIGN', ' ', 'service_webpage_design', ' ', '_selft', 'ÃèÊö',  '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'ÍøÕ¾½¨Éè', 'WEBSITE BUILDING', ' ', 'service_website_build', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('4', '0', '3', 'ÍøÕ¾½¨Éè', 'WEBSITE BUILDING', ' ', 'service_website_build', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'Íøµê×°ĞŞ', 'WEBSHOP DECORATION', ' ', 'service_webshop_decoration', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('5', '0', '3', 'Íøµê×°ĞŞ', 'WEBSHOP DECORATION', ' ', 'service_webshop_decoration', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'ÍøÕ¾ÓÅ»¯', 'WEBSITE OPTIMIZATION', ' ', 'service_website_optimization', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('6', '0', '3', 'ÍøÕ¾ÓÅ»¯', 'WEBSITE OPTIMIZATION', ' ', 'service_website_optimization', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'Èí¼ş¶¨ÖÆ', 'SOFTWARE CUSTOMIZATION', ' ', 'service_software_customization', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('7', '0', '3', 'Èí¼ş¶¨ÖÆ', 'SOFTWARE CUSTOMIZATION', ' ', 'service_software_customization', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'ÒÆ¶¯Ó¦ÓÃ', 'MOBILE APP', ' ', 'service_mobile_app', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('8', '0', '3', 'ÒÆ¶¯Ó¦ÓÃ', 'MOBILE APP', ' ', 'service_mobile_app', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'µç×ÓÉÌ³Ç', 'ELECTRONIC MALL', ' ', 'service_electronic_mall', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('9', '0', '3', 'µç×ÓÉÌ³Ç', 'ELECTRONIC MALL', ' ', 'service_electronic_mall', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'µç×ÓÓÊÏä', 'E-MAIL', ' ', 'service_email', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('10', '0', '3', 'µç×ÓÓÊÏä', 'E-MAIL', ' ', 'service_email', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'ĞéÄâÖ÷»ú', 'WEB HOST', ' ', 'service_web_host', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('11', '0', '3', 'ĞéÄâÖ÷»ú', 'WEB HOST', ' ', 'service_web_host', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', 'Éç½»²©¿Í', 'COMMUNITY BLOG', ' ', 'service_community_blog', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('12', '0', '3', 'Éç½»²©¿Í', 'COMMUNITY BLOG', ' ', 'service_community_blog', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2',  'ÉçÇøÂÛÌ³', 'COMMUNITY FORUM', ' ', 'service_community_forum', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('13', '0', '3',  'ÉçÇøÂÛÌ³', 'COMMUNITY FORUM', ' ', 'service_community_forum', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_link` 
 ( `LinkPageID`,`LinkArticleID`, `ParentLinkID`, `LinkTitle`, `LinkSubTitle`, `LinkImageURL`, `LinkCode`, `LinkURL`, `LinkTarget`, `LinkDescription`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
-VALUES ('0', '0', '2', '¼¼ÊõÖ§³Ö', 'TECH SUPPORT', ' ', 'service_tech_support', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+VALUES ('14', '0', '3', '¼¼ÊõÖ§³Ö', 'TECH SUPPORT', ' ', 'service_tech_support', ' ', '_selft', 'ÃèÊö', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
 -- -----------------------------------------------------
 -- Table `CMS`.`IDO_CMS_PAGE_BLOCK`
@@ -112,6 +145,13 @@ INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Languag
 VALUES ('2', '2', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
 VALUES ('2', '3', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+-- ¶¨Òåµ½ÍøÒ³Éè¼ÆÒ³ÃæµÄÇø¿é
+INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '1', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '2', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
+INSERT INTO `cms`.`ido_cms_page_block` (`PageID`, `BlockID`, `Remarks`, `Language`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `DeleteFlag`, `Version`) 
+VALUES ('3', '3', '±¸×¢', 'zh-CN', now(), '1', now(), '1', '0', '1');
 
 -- -----------------------------------------------------
 -- Table `CMS`.`IDO_CMS_BLOCK_LINK`
