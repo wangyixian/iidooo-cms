@@ -56,12 +56,12 @@ div {
 	/* 自动撑大 */
 	overflow: hidden;
 }
-
+/* 
 p {
 	margin: 0px;
 	text-indent: 2em;
 	word-wrap: break-word;
-}
+} */
 
 /* 链接的默认式样 */
 a {

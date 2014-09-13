@@ -1,10 +1,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/services/servicemenu.css">
+<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/services/include/servicemenu.css">
 <div id="servicemenu">
-	<div id="block_content">
+	<div class="block_big_title">
+		<span class="main_title">${cmsPage.blockMap["services"].blockTitle}</span>
+	</div>
+	<div class="block_content">
 		<ul>
-			<#list blockMap["services"].cmsLinks as link>
+			<#list cmsPage.blockMap["services"].cmsLinks as link>
 			<li>
+			    <span><img alt="" src="${SITE_ADDRESS}/themes/default/image/arrow.jpg"></span>
 			    <#if cmsPage.pageID == link.linkPageID>
                 <a href="${link.linkURL}" target="${link.linkTarget}" class="focus">${link.linkTitle}</a>
                 <#else>

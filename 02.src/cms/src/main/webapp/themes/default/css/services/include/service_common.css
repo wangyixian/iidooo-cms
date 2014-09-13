@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+#article {
+	background-color: RGB(246, 246, 246);
+	width: 750px;
+	padding: 5px;
+	margin-left: 10px;
+}

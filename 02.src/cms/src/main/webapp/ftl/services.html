@@ -15,11 +15,11 @@
         <div id="main_content">
              <div id="services">
 <!--                 <div class="block_big_title">
-                   <span class="main_title">${blockMap["services"].blockTitle}</span>
-                   <span class="sub_title"> ${blockMap["services"].blockSubTitle}</span>
+                   <span class="main_title">${cmsPage.blockMap["services"].blockTitle}</span>
+                   <span class="sub_title"> ${cmsPage.blockMap["services"].blockSubTitle}</span>
                 </div>  -->
                 <div class="block_content">
-                    <#list blockMap["services"].cmsLinks as link>
+                    <#list cmsPage.blockMap["services"].cmsLinks as link>
                     <div class="content_item">
                         <div class="content_item_image">
                             <a href="${link.linkURL}" target="${link.linkTarget}"><img alt="${link.linkTitle}" src="${link.linkImageURL}"></a>

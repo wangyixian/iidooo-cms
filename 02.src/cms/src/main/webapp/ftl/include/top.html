@@ -2,7 +2,7 @@
 <link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/common/top.css">
 <div id="top_wrap">
 	<div id="top_content">
-            <#list blockMap["top"].cmsLinks as link>
+            <#list cmsPage.blockMap["top"].cmsLinks as link>
             <div id="top_logo">
              <#if link.linkCode == "logo">
              <a href="${link.linkURL}" target="${link.linkTarget}">

@@ -3,7 +3,7 @@
 <div id="mainmenu_wrap">
 	<div id="mainmenu_content">
 		<ul>
-			<#list blockMap["mainmenu"].cmsLinks as link>
+			<#list cmsPage.blockMap["mainmenu"].cmsLinks as link>
 			<li>
 			    <#if cmsPage.pageID == link.linkPageID || link.subringPageIDs.contains(cmsPage.pageID)>
                 <a href="${link.linkURL}" target="${link.linkTarget}" class="focus">${link.linkTitle}</a>

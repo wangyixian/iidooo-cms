@@ -15,11 +15,11 @@
         <div id="main_content">
 	        <div id="services">
 	            <div class="block_big_title">
-	               <span class="main_title">${blockMap["services"].blockTitle}</span>
-	               <span class="sub_title"> ${blockMap["services"].blockSubTitle}</span>
+	               <span class="main_title">${cmsPage.blockMap["services"].blockTitle}</span>
+	               <span class="sub_title"> ${cmsPage.blockMap["services"].blockSubTitle}</span>
 	            </div>
 				<div class="block_content">
-				    <#list blockMap["services"].cmsLinks as link>
+				    <#list cmsPage.blockMap["services"].cmsLinks as link>
 				    <#if link_index < 12 >
 					<div class="content_item">
 						<div class="content_item_image">
@@ -37,8 +37,8 @@
 	        
 	        <div id="products">
 	            <div class="block_big_title">
-                   <span class="main_title">${blockMap["products"].blockTitle}</span>
-                   <span class="sub_title"> ${blockMap["products"].blockSubTitle}</span>
+                   <span class="main_title">${cmsPage.blockMap["products"].blockTitle}</span>
+                   <span class="sub_title"> ${cmsPage.blockMap["products"].blockSubTitle}</span>
                 </div>
 	        </div>        
         </div>
