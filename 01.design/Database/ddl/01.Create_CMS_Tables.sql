@@ -53,17 +53,18 @@ COMMENT = '页面表';
 DROP TABLE IF EXISTS `CMS`.`IDO_CMS_ARTICLE` ;
 
 CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_ARTICLE` (
-  `ArticleID` INT NOT NULL AUTO_INCREMENT COMMENT '文章ID',
-  `ChannelID` INT NOT NULL COMMENT '频道ID',
-  `ContentTitle` VARCHAR(128) NOT NULL COMMENT '内容的标题',
-  `ContentSummary` VARCHAR(1024) NOT NULL COMMENT '内容的摘要',
-  `ContentText` TEXT NOT NULL COMMENT '内容体',
-  `ContentKeywords` VARCHAR(256) NOT NULL COMMENT '内容关键字',
-  `ContentTemplate` VARCHAR(512) NOT NULL COMMENT '内容的模板',
-  `ContentReleaseTime` VARCHAR(32) NOT NULL COMMENT '内容发布时间',
-  `ContentAuthor` VARCHAR(256) NOT NULL COMMENT '内容的作者',
-  `NextContentID` INT NOT NULL COMMENT '下一篇的内容ID',
-  `PreContentID` INT NOT NULL COMMENT '上一篇的内容ID',
+  `ArticleID` INT NOT NULL AUTO_INCREMENT COMMENT '内容ID',
+  `PageID` INT NOT NULL COMMENT '所属页面ID',
+  `ArticleTitle` VARCHAR(256) NOT NULL COMMENT '内容的标题',
+  `ArticleSubTitle` VARCHAR(256) NOT NULL COMMENT '内容子标题',
+  `ArticleCode` VARCHAR(256) NOT NULL COMMENT '文章编码',
+  `ArticleSummary` VARCHAR(1024) NOT NULL COMMENT '内容的摘要',
+  `ArticleContent` TEXT NOT NULL COMMENT '内容体',
+  `ArticleKeywords` VARCHAR(256) NOT NULL COMMENT '内容关键字',
+  `ArticlePublishTime` VARCHAR(32) NOT NULL COMMENT '内容发布时间',
+  `ArticleAuthor` VARCHAR(256) NOT NULL COMMENT '内容的作者',
+  `NextArticleID` INT NOT NULL COMMENT '下一篇的内容ID',
+  `PreArticleID` INT NOT NULL COMMENT '上一篇的内容ID',
   `NoCommentFlag` INT NOT NULL COMMENT '非0即不允许评论',
   `DisableFlag` INT NOT NULL COMMENT '非0即无效',
   `VisiteTimes` INT NOT NULL COMMENT '浏览量',
@@ -77,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_ARTICLE` (
   `Version` INT NOT NULL COMMENT '版本',
   PRIMARY KEY (`ArticleID`))
 ENGINE = InnoDB
-COMMENT = '文章表';
+COMMENT = '内容表';
 
 
 -- -----------------------------------------------------
@@ -87,9 +88,10 @@ DROP TABLE IF EXISTS `CMS`.`IDO_CMS_ATTACHMENT` ;
 
 CREATE TABLE IF NOT EXISTS `CMS`.`IDO_CMS_ATTACHMENT` (
   `AttachID` INT NOT NULL AUTO_INCREMENT COMMENT '附件ID',
-  `ContentID` INT NOT NULL COMMENT '内容ID',
+  `ArticleID` INT NOT NULL COMMENT '内容ID',
   `AttachURL` VARCHAR(1024) NOT NULL COMMENT '附件URL',
-  `AttachName` VARCHAR(128) NOT NULL COMMENT '附件名字',
+  `AttachTitle` VARCHAR(256) NOT NULL COMMENT '附件标题',
+  `AttachCode` VARCHAR(256) NULL COMMENT '附件编码',
   `AttachByteSize` INT NOT NULL COMMENT '附件字节数',
   `AttachType` VARCHAR(16) NOT NULL COMMENT '附件类型',
   `DownloadTimes` INT NOT NULL COMMENT '下载次数',
