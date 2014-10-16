@@ -1,39 +1,65 @@
 @CHARSET "UTF-8";
 
-#services .content_item {
-	overflow: hidden;
+/* 布局 */
+#blocks {
+	margin-top: 10px;
+}
+
+#blocks_left {
 	float: left;
-	width: 240px;
-	height: 100px;
-	margin-right: 5px;
-	margin-top: 5px;
-	/* background-color: #134780; */
+	width: 700px;
 }
 
-#services .content_item_image {
+#blocks_right {
+	float: right;
+	width: 260px;
+}
+
+/* 工作室介绍 */
+#introduction>.title {
+	background: url(../image/index/good.png) left center no-repeat;
+}
+
+#introduction>.title>.left {
+	padding-left: 20px;
+}
+
+/* 联系我们 */
+#connect>.title {
+	background: url(../image/index/connect.png) left center no-repeat;
+	padding-left: 20px;
+}
+
+#connect>.content>#qq {
+	background: url(../image/common/connect_icons.png) -17px -136px no-repeat;
+	padding-left: 20px;
+}
+
+#connect>.content>#mail {
+	background: url(../image/common/connect_icons.png) -17px -245px no-repeat;
+	padding-left: 20px;
+}
+
+/* 我们的服务展示图片 */
+.service_picture {
 	float: left;
-	width: 100px;
-	height: 100px;
-	margin: 5px;
+	width: 200px;
+	height: 150px;
 }
 
-#service .content_item_image img {
-    width: 200px;
-    height: 150px;
+.service_picture img {
+	width: 200px;
+	height: 150px;
 }
 
-#services>.block_content>.content_item>.content_item_title{
-	margin: 5px;
+/* 我们的服务的展示文本 */
+.service_text {
+	float: left;
+	/* service的内容限制宽度，否则内容太长会撑破div */
+	width: 480px;
+	margin-left: 10px;
 }
 
-#services>.block_content .main_title {
-	display: block;
-	color: #888;
+.service_text_title {
 	font-weight: bold;
 }
-
-#services>.block_content .sub_title {
-	color: #CCC;
-	color: RGB(170, 170, 170);
-}
-

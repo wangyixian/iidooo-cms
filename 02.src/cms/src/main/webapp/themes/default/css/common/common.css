@@ -53,15 +53,13 @@ td {
 div {
 	/* 自动换行 */
 	word-wrap: break-word;
-	/* 自动撑大 */
-	overflow: hidden;
 }
-/* 
+
 p {
 	margin: 0px;
-	text-indent: 2em;
+	/* text-indent: 2em; */
 	word-wrap: break-word;
-} */
+}
 
 /* 链接的默认式样 */
 a {
@@ -71,6 +69,7 @@ a {
 
 a:hover {
 	cursor: pointer;
+	color: #134780;
 }
 
 /* 清除浮动 */
@@ -107,19 +106,26 @@ a:hover {
 /* 文本居中 */
 .align_center {
 	text-align: center;
-	vertical-align: middle
+	vertical-align: middle;
 }
 
-#main_wrap{
-	overflow: hidden;
-	margin-top: 10px;
+.align_right{
+	text-align: right;
 }
 
-#main_content {
-	width: 980px;
-	height: 100%;
-	margin: 0 auto;
-	overflow: hidden;
+/* 更多>> 链接 */
+.more {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.more a{	
+	color: #0B8F45;
+}
+
+.more a:hover {
+	cursor: pointer;
+	color: #134780;
 }
 
 /* 大标题样式 */
@@ -139,11 +145,6 @@ a:hover {
 	color: #888;
 }
 
-.block_content {
-	margin-top: 5px;
-	overflow: hidden;
-}
-
 /* 主内容摘要部分 */
 #master>.summary {
 	border-bottom: 1px dashed #CCC;
@@ -159,7 +160,7 @@ a:hover {
 }
 
 /* 块标题栏 */
-.block>.title, .title {
+.block>.title {
 	height: 30px;
 	line-height: 30px;
 	border-bottom: 1px solid #CCC;
@@ -168,14 +169,9 @@ a:hover {
 	color: #134780;
 }
 
-.block a {
-	color: #134780;
-}
-
-/* 块内容 */
 .block>.content {
-	padding: 5px 0;
-	overflow: hidden;
+	line-height: 20px;
+	padding:5px;
 }
 
 /* 块内容项 */
@@ -185,8 +181,18 @@ a:hover {
 	padding: 5px 0;
 }
 
-/* 幻灯片 */
-#slideshow {
-	height: 300px;
+/* 网页内容部分的包裹 */
+#body_wrap {
+	width: 980px;
+	margin: 0 auto;
+	overflow: hidden;
 }
 
+/* 页脚 */
+#foot_wrap {
+	margin-top: 10px;
+	text-align: center;
+	background-color: RGB(54, 54, 54);
+	color: RGB(204, 204, 204);
+	padding: 5px;
+}
