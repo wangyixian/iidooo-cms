@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+
+/* 布局 */
+#blocks {
+	margin-top: 10px;
+}
+
+/* 左边栏目 */
+#blocks_left {
+	float: left;
+	width: 200px;
+}
+
+/* 右边栏目 */
+#blocks_right {
+	float: right;
+	width: 760px;
+}
+
+/* 菜单 */
+#about_menu>li>.focus {
+	background-color: #134780;
+	color: #CCC;
+}
+
+#about_menu>li>a {
+	display: block;
+	padding: 5px;
+	background-color: #CCC;
+	color: #134780;
+}
+
+#about_menu>li>a:hover {
+	font-weight: bold;
+}

@@ -109,8 +109,14 @@ a:hover {
 	vertical-align: middle;
 }
 
-.align_right{
+/* 文本右对齐 */
+.align_right {
 	text-align: right;
+}
+
+/* 文本垂直顶部对齐 */
+.align_top {
+	vertical-align: text-top;
 }
 
 /* 更多>> 链接 */
@@ -119,7 +125,7 @@ a:hover {
 	font-weight: normal;
 }
 
-.more a{	
+.more a {
 	color: #0B8F45;
 }
 
@@ -171,7 +177,7 @@ a:hover {
 
 .block>.content {
 	line-height: 20px;
-	padding:5px;
+	padding: 5px;
 }
 
 /* 块内容项 */
@@ -181,11 +187,25 @@ a:hover {
 	padding: 5px 0;
 }
 
+.title_zh {
+	color: #134780;
+}
+
+.title_en {
+	color: #888;
+}
+
 /* 网页内容部分的包裹 */
 #body_wrap {
 	width: 980px;
 	margin: 0 auto;
 	overflow: hidden;
+}
+
+/* 页面的横幅部分 */
+#banner {
+	width: 980px;
+	margin-top: 10px;
 }
 
 /* 页脚 */
