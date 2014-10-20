@@ -18,18 +18,18 @@
 }
 
 /* 菜单 */
-#about_menu>.content>.item>.focus {
+#website_menu>.content>.item>.focus {
 	/* background-color: #134780; */
 	color: RGB(0, 32, 133);
 	font-weight: bold;
 }
 
-#about_menu>.content>.item>a {
+#website_menu>.content>.item>a {
 	display: block;
 	/* background-color: #CCC; */
 	color: #134780;
 }
 
-#about_menu>.content>.item>a:hover {
+#website_menu>.content>.item>a:hover {
 	font-weight: bold;
 }
