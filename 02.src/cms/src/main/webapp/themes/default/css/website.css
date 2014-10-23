@@ -33,3 +33,11 @@
 #website_menu>.content>.item>a:hover {
 	font-weight: bold;
 }
+
+.item_content>div {
+	margin-right: 20px;
+}
+
+#ECS_price{
+	width: 100%;	
+}

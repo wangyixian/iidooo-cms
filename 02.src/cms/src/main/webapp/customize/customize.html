@@ -3,8 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.table {
+	border-collapse: collapse;
+	font-size: 13px;
+	height: 24px;
+	line-height: 24px;
+	color: #09F;
+	text-align: center;
+}
+
+.table tr th {
+	background: #36F;
+	color: #FFF;
+	font-size: 13px;
+	height: 24px;
+	line-height: 24px;
+}
+
+.table tr th.th_border {
+	border-right: solid 1px #FFF;
+	border-left: solid 1px #36F;
+}
+
+.table tr td {
+	border: solid 1px #36F;
+}
+</style>
+
 </head>
 <body>
-	<h1>网页正在开发中......</h1>
+	<table width="200" border="0" class="table" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="th_border">标题一</th>
+			<th class="th_border">标题二</th>
+			<th class="">标题三</th>
+		</tr>
+		<tr>
+			<td>内容一</td>
+			<td>内容二</td>
+			<td>内容三</td>
+		</tr>
+		<tr>
+			<td>内容一</td>
+			<td>内容二</td>
+			<td>内容三</td>
+		</tr>
+	</table>
 </body>
 </html>
