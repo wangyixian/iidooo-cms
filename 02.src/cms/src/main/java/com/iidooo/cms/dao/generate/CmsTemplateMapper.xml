@@ -1,62 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.framework.dao.generate.DictClassMapper" >
-  <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.DictClass" >
-    <id column="DictClassID" property="dictClassID" jdbcType="INTEGER" />
-    <result column="DictTypeID" property="dictTypeID" jdbcType="INTEGER" />
-    <result column="DictClassCode" property="dictClassCode" jdbcType="VARCHAR" />
-    <result column="DictClassName" property="dictClassName" jdbcType="VARCHAR" />
+<mapper namespace="com.iidooo.cms.dao.generate.CmsTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsTemplate" >
+    <id column="TemplateID" property="templateID" jdbcType="INTEGER" />
+    <result column="TemplateName" property="templateName" jdbcType="VARCHAR" />
+    <result column="TemplateSource" property="templateSource" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-    <result column="IsReadonly" property="isReadonly" jdbcType="INTEGER" />
-    <result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
     <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    DictClassID, DictTypeID, DictClassCode, DictClassName, Remarks, Language, CreateTime, 
-    CreateUser, UpdateTime, UpdateUser, IsReadonly, IsDisable, IsDelete, Version
+    TemplateID, TemplateName, TemplateSource, Remarks, Language, CreateTime, CreateUser, 
+    UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from ido_dict_class
-    where DictClassID = #{dictClassID,jdbcType=INTEGER}
+    from ido_cms_template
+    where TemplateID = #{templateID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ido_dict_class
-    where DictClassID = #{dictClassID,jdbcType=INTEGER}
+    delete from ido_cms_template
+    where TemplateID = #{templateID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.iidooo.framework.dto.generate.DictClass" >
-    insert into ido_dict_class (DictClassID, DictTypeID, DictClassCode, 
-      DictClassName, Remarks, Language, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsReadonly, IsDisable, 
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
+    insert into ido_cms_template (TemplateID, TemplateName, TemplateSource, 
+      Remarks, Language, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
       IsDelete, Version)
-    values (#{dictClassID,jdbcType=INTEGER}, #{dictTypeID,jdbcType=INTEGER}, #{dictClassCode,jdbcType=VARCHAR}, 
-      #{dictClassName,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isReadonly,jdbcType=INTEGER}, #{isDisable,jdbcType=INTEGER}, 
+    values (#{templateID,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, #{templateSource,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
       #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.framework.dto.generate.DictClass" >
-    insert into ido_dict_class
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
+    insert into ido_cms_template
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="dictClassID != null" >
-        DictClassID,
+      <if test="templateID != null" >
+        TemplateID,
       </if>
-      <if test="dictTypeID != null" >
-        DictTypeID,
+      <if test="templateName != null" >
+        TemplateName,
       </if>
-      <if test="dictClassCode != null" >
-        DictClassCode,
-      </if>
-      <if test="dictClassName != null" >
-        DictClassName,
+      <if test="templateSource != null" >
+        TemplateSource,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -76,12 +68,6 @@
       <if test="updateUser != null" >
         UpdateUser,
       </if>
-      <if test="isReadonly != null" >
-        IsReadonly,
-      </if>
-      <if test="isDisable != null" >
-        IsDisable,
-      </if>
       <if test="isDelete != null" >
         IsDelete,
       </if>
@@ -90,17 +76,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="dictClassID != null" >
-        #{dictClassID,jdbcType=INTEGER},
+      <if test="templateID != null" >
+        #{templateID,jdbcType=INTEGER},
       </if>
-      <if test="dictTypeID != null" >
-        #{dictTypeID,jdbcType=INTEGER},
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
       </if>
-      <if test="dictClassCode != null" >
-        #{dictClassCode,jdbcType=VARCHAR},
-      </if>
-      <if test="dictClassName != null" >
-        #{dictClassName,jdbcType=VARCHAR},
+      <if test="templateSource != null" >
+        #{templateSource,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -120,12 +103,6 @@
       <if test="updateUser != null" >
         #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="isReadonly != null" >
-        #{isReadonly,jdbcType=INTEGER},
-      </if>
-      <if test="isDisable != null" >
-        #{isDisable,jdbcType=INTEGER},
-      </if>
       <if test="isDelete != null" >
         #{isDelete,jdbcType=INTEGER},
       </if>
@@ -134,17 +111,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.framework.dto.generate.DictClass" >
-    update ido_dict_class
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
+    update ido_cms_template
     <set >
-      <if test="dictTypeID != null" >
-        DictTypeID = #{dictTypeID,jdbcType=INTEGER},
+      <if test="templateName != null" >
+        TemplateName = #{templateName,jdbcType=VARCHAR},
       </if>
-      <if test="dictClassCode != null" >
-        DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
-      </if>
-      <if test="dictClassName != null" >
-        DictClassName = #{dictClassName,jdbcType=VARCHAR},
+      <if test="templateSource != null" >
+        TemplateSource = #{templateSource,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -164,12 +138,6 @@
       <if test="updateUser != null" >
         UpdateUser = #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="isReadonly != null" >
-        IsReadonly = #{isReadonly,jdbcType=INTEGER},
-      </if>
-      <if test="isDisable != null" >
-        IsDisable = #{isDisable,jdbcType=INTEGER},
-      </if>
       <if test="isDelete != null" >
         IsDelete = #{isDelete,jdbcType=INTEGER},
       </if>
@@ -177,23 +145,20 @@
         Version = #{version,jdbcType=INTEGER},
       </if>
     </set>
-    where DictClassID = #{dictClassID,jdbcType=INTEGER}
+    where TemplateID = #{templateID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.DictClass" >
-    update ido_dict_class
-    set DictTypeID = #{dictTypeID,jdbcType=INTEGER},
-      DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
-      DictClassName = #{dictClassName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
+    update ido_cms_template
+    set TemplateName = #{templateName,jdbcType=VARCHAR},
+      TemplateSource = #{templateSource,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsReadonly = #{isReadonly,jdbcType=INTEGER},
-      IsDisable = #{isDisable,jdbcType=INTEGER},
       IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
-    where DictClassID = #{dictClassID,jdbcType=INTEGER}
+    where TemplateID = #{templateID,jdbcType=INTEGER}
   </update>
 </mapper>

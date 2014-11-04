@@ -7,10 +7,6 @@ public class DictType {
 
     private String dictTypeName;
 
-    private Integer readonlyFlag;
-
-    private Integer disableFlag;
-
     private String remarks;
 
     private String language;
@@ -23,7 +19,11 @@ public class DictType {
 
     private Integer updateUser;
 
-    private Integer deleteFlag;
+    private Integer isReadonly;
+
+    private Integer isDisable;
+
+    private Integer isDelete;
 
     private Integer version;
 
@@ -49,22 +49,6 @@ public class DictType {
 
     public void setDictTypeName(String dictTypeName) {
         this.dictTypeName = dictTypeName == null ? null : dictTypeName.trim();
-    }
-
-    public Integer getReadonlyFlag() {
-        return readonlyFlag;
-    }
-
-    public void setReadonlyFlag(Integer readonlyFlag) {
-        this.readonlyFlag = readonlyFlag;
-    }
-
-    public Integer getDisableFlag() {
-        return disableFlag;
-    }
-
-    public void setDisableFlag(Integer disableFlag) {
-        this.disableFlag = disableFlag;
     }
 
     public String getRemarks() {
@@ -115,12 +99,28 @@ public class DictType {
         this.updateUser = updateUser;
     }
 
-    public Integer getDeleteFlag() {
-        return deleteFlag;
+    public Integer getIsReadonly() {
+        return isReadonly;
     }
 
-    public void setDeleteFlag(Integer deleteFlag) {
-        this.deleteFlag = deleteFlag;
+    public void setIsReadonly(Integer isReadonly) {
+        this.isReadonly = isReadonly;
+    }
+
+    public Integer getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(Integer isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getVersion() {

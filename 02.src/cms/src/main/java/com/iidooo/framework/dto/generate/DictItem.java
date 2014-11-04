@@ -5,19 +5,17 @@ public class DictItem {
 
     private Integer dictClassID;
 
-    private String dictItemCode;
+    private Integer parentItemID;
+
+    private Integer dictItemCode;
 
     private String dictItemName;
 
     private String dictItemValue;
 
-    private Integer sequence;
+    private Integer weight;
 
-    private Integer readonlyFlag;
-
-    private Integer disableFlag;
-
-    private Integer defaultFlag;
+    private Integer isDefault;
 
     private String remarks;
 
@@ -31,7 +29,11 @@ public class DictItem {
 
     private Integer updateUser;
 
-    private Integer deleteFlag;
+    private Integer isReadonly;
+
+    private Integer isDisable;
+
+    private Integer isDelete;
 
     private Integer version;
 
@@ -51,12 +53,20 @@ public class DictItem {
         this.dictClassID = dictClassID;
     }
 
-    public String getDictItemCode() {
+    public Integer getParentItemID() {
+        return parentItemID;
+    }
+
+    public void setParentItemID(Integer parentItemID) {
+        this.parentItemID = parentItemID;
+    }
+
+    public Integer getDictItemCode() {
         return dictItemCode;
     }
 
-    public void setDictItemCode(String dictItemCode) {
-        this.dictItemCode = dictItemCode == null ? null : dictItemCode.trim();
+    public void setDictItemCode(Integer dictItemCode) {
+        this.dictItemCode = dictItemCode;
     }
 
     public String getDictItemName() {
@@ -75,36 +85,20 @@ public class DictItem {
         this.dictItemValue = dictItemValue == null ? null : dictItemValue.trim();
     }
 
-    public Integer getSequence() {
-        return sequence;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
-    public Integer getReadonlyFlag() {
-        return readonlyFlag;
+    public Integer getIsDefault() {
+        return isDefault;
     }
 
-    public void setReadonlyFlag(Integer readonlyFlag) {
-        this.readonlyFlag = readonlyFlag;
-    }
-
-    public Integer getDisableFlag() {
-        return disableFlag;
-    }
-
-    public void setDisableFlag(Integer disableFlag) {
-        this.disableFlag = disableFlag;
-    }
-
-    public Integer getDefaultFlag() {
-        return defaultFlag;
-    }
-
-    public void setDefaultFlag(Integer defaultFlag) {
-        this.defaultFlag = defaultFlag;
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
     }
 
     public String getRemarks() {
@@ -155,12 +149,28 @@ public class DictItem {
         this.updateUser = updateUser;
     }
 
-    public Integer getDeleteFlag() {
-        return deleteFlag;
+    public Integer getIsReadonly() {
+        return isReadonly;
     }
 
-    public void setDeleteFlag(Integer deleteFlag) {
-        this.deleteFlag = deleteFlag;
+    public void setIsReadonly(Integer isReadonly) {
+        this.isReadonly = isReadonly;
+    }
+
+    public Integer getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(Integer isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getVersion() {

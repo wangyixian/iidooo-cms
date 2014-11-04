@@ -1,13 +1,11 @@
-package com.iidooo.framework.dto.generate;
+package com.iidooo.cms.dto.generate;
 
-public class DictClass {
-    private Integer dictClassID;
+public class CmsTemplate {
+    private Integer templateID;
 
-    private Integer dictTypeID;
+    private String templateName;
 
-    private String dictClassCode;
-
-    private String dictClassName;
+    private String templateSource;
 
     private String remarks;
 
@@ -21,44 +19,32 @@ public class DictClass {
 
     private Integer updateUser;
 
-    private Integer isReadonly;
-
-    private Integer isDisable;
-
     private Integer isDelete;
 
     private Integer version;
 
-    public Integer getDictClassID() {
-        return dictClassID;
+    public Integer getTemplateID() {
+        return templateID;
     }
 
-    public void setDictClassID(Integer dictClassID) {
-        this.dictClassID = dictClassID;
+    public void setTemplateID(Integer templateID) {
+        this.templateID = templateID;
     }
 
-    public Integer getDictTypeID() {
-        return dictTypeID;
+    public String getTemplateName() {
+        return templateName;
     }
 
-    public void setDictTypeID(Integer dictTypeID) {
-        this.dictTypeID = dictTypeID;
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName == null ? null : templateName.trim();
     }
 
-    public String getDictClassCode() {
-        return dictClassCode;
+    public String getTemplateSource() {
+        return templateSource;
     }
 
-    public void setDictClassCode(String dictClassCode) {
-        this.dictClassCode = dictClassCode == null ? null : dictClassCode.trim();
-    }
-
-    public String getDictClassName() {
-        return dictClassName;
-    }
-
-    public void setDictClassName(String dictClassName) {
-        this.dictClassName = dictClassName == null ? null : dictClassName.trim();
+    public void setTemplateSource(String templateSource) {
+        this.templateSource = templateSource == null ? null : templateSource.trim();
     }
 
     public String getRemarks() {
@@ -107,22 +93,6 @@ public class DictClass {
 
     public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
-    }
-
-    public Integer getIsReadonly() {
-        return isReadonly;
-    }
-
-    public void setIsReadonly(Integer isReadonly) {
-        this.isReadonly = isReadonly;
-    }
-
-    public Integer getIsDisable() {
-        return isDisable;
-    }
-
-    public void setIsDisable(Integer isDisable) {
-        this.isDisable = isDisable;
     }
 
     public Integer getIsDelete() {

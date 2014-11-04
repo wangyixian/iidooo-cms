@@ -4,26 +4,27 @@
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.DictItem" >
     <id column="DictItemID" property="dictItemID" jdbcType="INTEGER" />
     <result column="DictClassID" property="dictClassID" jdbcType="INTEGER" />
-    <result column="DictItemCode" property="dictItemCode" jdbcType="VARCHAR" />
+    <result column="ParentItemID" property="parentItemID" jdbcType="INTEGER" />
+    <result column="DictItemCode" property="dictItemCode" jdbcType="INTEGER" />
     <result column="DictItemName" property="dictItemName" jdbcType="VARCHAR" />
     <result column="DictItemValue" property="dictItemValue" jdbcType="VARCHAR" />
-    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="ReadonlyFlag" property="readonlyFlag" jdbcType="INTEGER" />
-    <result column="DisableFlag" property="disableFlag" jdbcType="INTEGER" />
-    <result column="DefaultFlag" property="defaultFlag" jdbcType="INTEGER" />
+    <result column="Weight" property="weight" jdbcType="INTEGER" />
+    <result column="IsDefault" property="isDefault" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-    <result column="DeleteFlag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="IsReadonly" property="isReadonly" jdbcType="INTEGER" />
+    <result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    DictItemID, DictClassID, DictItemCode, DictItemName, DictItemValue, Sequence, ReadonlyFlag, 
-    DisableFlag, DefaultFlag, Remarks, Language, CreateTime, CreateUser, UpdateTime, 
-    UpdateUser, DeleteFlag, Version
+    DictItemID, DictClassID, ParentItemID, DictItemCode, DictItemName, DictItemValue, 
+    Weight, IsDefault, Remarks, Language, CreateTime, CreateUser, UpdateTime, UpdateUser, 
+    IsReadonly, IsDisable, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -36,18 +37,20 @@
     where DictItemID = #{dictItemID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.DictItem" >
-    insert into ido_dict_item (DictItemID, DictClassID, DictItemCode, 
-      DictItemName, DictItemValue, Sequence, 
-      ReadonlyFlag, DisableFlag, DefaultFlag, 
-      Remarks, Language, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      DeleteFlag, Version)
-    values (#{dictItemID,jdbcType=INTEGER}, #{dictClassID,jdbcType=INTEGER}, #{dictItemCode,jdbcType=VARCHAR}, 
-      #{dictItemName,jdbcType=VARCHAR}, #{dictItemValue,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, 
-      #{readonlyFlag,jdbcType=INTEGER}, #{disableFlag,jdbcType=INTEGER}, #{defaultFlag,jdbcType=INTEGER}, 
-      #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{deleteFlag,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+    insert into ido_dict_item (DictItemID, DictClassID, ParentItemID, 
+      DictItemCode, DictItemName, DictItemValue, 
+      Weight, IsDefault, Remarks, 
+      Language, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsReadonly, 
+      IsDisable, IsDelete, Version
+      )
+    values (#{dictItemID,jdbcType=INTEGER}, #{dictClassID,jdbcType=INTEGER}, #{parentItemID,jdbcType=INTEGER}, 
+      #{dictItemCode,jdbcType=INTEGER}, #{dictItemName,jdbcType=VARCHAR}, #{dictItemValue,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isReadonly,jdbcType=INTEGER}, 
+      #{isDisable,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.framework.dto.generate.DictItem" >
     insert into ido_dict_item
@@ -58,6 +61,9 @@
       <if test="dictClassID != null" >
         DictClassID,
       </if>
+      <if test="parentItemID != null" >
+        ParentItemID,
+      </if>
       <if test="dictItemCode != null" >
         DictItemCode,
       </if>
@@ -67,17 +73,11 @@
       <if test="dictItemValue != null" >
         DictItemValue,
       </if>
-      <if test="sequence != null" >
-        Sequence,
+      <if test="weight != null" >
+        Weight,
       </if>
-      <if test="readonlyFlag != null" >
-        ReadonlyFlag,
-      </if>
-      <if test="disableFlag != null" >
-        DisableFlag,
-      </if>
-      <if test="defaultFlag != null" >
-        DefaultFlag,
+      <if test="isDefault != null" >
+        IsDefault,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -97,8 +97,14 @@
       <if test="updateUser != null" >
         UpdateUser,
       </if>
-      <if test="deleteFlag != null" >
-        DeleteFlag,
+      <if test="isReadonly != null" >
+        IsReadonly,
+      </if>
+      <if test="isDisable != null" >
+        IsDisable,
+      </if>
+      <if test="isDelete != null" >
+        IsDelete,
       </if>
       <if test="version != null" >
         Version,
@@ -111,8 +117,11 @@
       <if test="dictClassID != null" >
         #{dictClassID,jdbcType=INTEGER},
       </if>
+      <if test="parentItemID != null" >
+        #{parentItemID,jdbcType=INTEGER},
+      </if>
       <if test="dictItemCode != null" >
-        #{dictItemCode,jdbcType=VARCHAR},
+        #{dictItemCode,jdbcType=INTEGER},
       </if>
       <if test="dictItemName != null" >
         #{dictItemName,jdbcType=VARCHAR},
@@ -120,17 +129,11 @@
       <if test="dictItemValue != null" >
         #{dictItemValue,jdbcType=VARCHAR},
       </if>
-      <if test="sequence != null" >
-        #{sequence,jdbcType=INTEGER},
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
       </if>
-      <if test="readonlyFlag != null" >
-        #{readonlyFlag,jdbcType=INTEGER},
-      </if>
-      <if test="disableFlag != null" >
-        #{disableFlag,jdbcType=INTEGER},
-      </if>
-      <if test="defaultFlag != null" >
-        #{defaultFlag,jdbcType=INTEGER},
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -150,8 +153,14 @@
       <if test="updateUser != null" >
         #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="deleteFlag != null" >
-        #{deleteFlag,jdbcType=INTEGER},
+      <if test="isReadonly != null" >
+        #{isReadonly,jdbcType=INTEGER},
+      </if>
+      <if test="isDisable != null" >
+        #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
       </if>
       <if test="version != null" >
         #{version,jdbcType=INTEGER},
@@ -164,8 +173,11 @@
       <if test="dictClassID != null" >
         DictClassID = #{dictClassID,jdbcType=INTEGER},
       </if>
+      <if test="parentItemID != null" >
+        ParentItemID = #{parentItemID,jdbcType=INTEGER},
+      </if>
       <if test="dictItemCode != null" >
-        DictItemCode = #{dictItemCode,jdbcType=VARCHAR},
+        DictItemCode = #{dictItemCode,jdbcType=INTEGER},
       </if>
       <if test="dictItemName != null" >
         DictItemName = #{dictItemName,jdbcType=VARCHAR},
@@ -173,17 +185,11 @@
       <if test="dictItemValue != null" >
         DictItemValue = #{dictItemValue,jdbcType=VARCHAR},
       </if>
-      <if test="sequence != null" >
-        Sequence = #{sequence,jdbcType=INTEGER},
+      <if test="weight != null" >
+        Weight = #{weight,jdbcType=INTEGER},
       </if>
-      <if test="readonlyFlag != null" >
-        ReadonlyFlag = #{readonlyFlag,jdbcType=INTEGER},
-      </if>
-      <if test="disableFlag != null" >
-        DisableFlag = #{disableFlag,jdbcType=INTEGER},
-      </if>
-      <if test="defaultFlag != null" >
-        DefaultFlag = #{defaultFlag,jdbcType=INTEGER},
+      <if test="isDefault != null" >
+        IsDefault = #{isDefault,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -203,8 +209,14 @@
       <if test="updateUser != null" >
         UpdateUser = #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="deleteFlag != null" >
-        DeleteFlag = #{deleteFlag,jdbcType=INTEGER},
+      <if test="isReadonly != null" >
+        IsReadonly = #{isReadonly,jdbcType=INTEGER},
+      </if>
+      <if test="isDisable != null" >
+        IsDisable = #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IsDelete = #{isDelete,jdbcType=INTEGER},
       </if>
       <if test="version != null" >
         Version = #{version,jdbcType=INTEGER},
@@ -215,20 +227,21 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.DictItem" >
     update ido_dict_item
     set DictClassID = #{dictClassID,jdbcType=INTEGER},
-      DictItemCode = #{dictItemCode,jdbcType=VARCHAR},
+      ParentItemID = #{parentItemID,jdbcType=INTEGER},
+      DictItemCode = #{dictItemCode,jdbcType=INTEGER},
       DictItemName = #{dictItemName,jdbcType=VARCHAR},
       DictItemValue = #{dictItemValue,jdbcType=VARCHAR},
-      Sequence = #{sequence,jdbcType=INTEGER},
-      ReadonlyFlag = #{readonlyFlag,jdbcType=INTEGER},
-      DisableFlag = #{disableFlag,jdbcType=INTEGER},
-      DefaultFlag = #{defaultFlag,jdbcType=INTEGER},
+      Weight = #{weight,jdbcType=INTEGER},
+      IsDefault = #{isDefault,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},
-      DeleteFlag = #{deleteFlag,jdbcType=INTEGER},
+      IsReadonly = #{isReadonly,jdbcType=INTEGER},
+      IsDisable = #{isDisable,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
     where DictItemID = #{dictItemID,jdbcType=INTEGER}
   </update>

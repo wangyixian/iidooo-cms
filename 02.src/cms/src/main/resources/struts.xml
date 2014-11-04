@@ -34,7 +34,7 @@
         </global-exception-mappings>
 	</package>
 
-    <include file="struts/struts-cms.xml"></include>
+    <include file="struts/struts-cms-client.xml"></include>
     <!-- <include file="struts-mapper/struts-common.xml"></include>
     <include file="struts-mapper/struts-master.xml"></include>
     <include file="struts-mapper/struts-system.xml"></include> -->
