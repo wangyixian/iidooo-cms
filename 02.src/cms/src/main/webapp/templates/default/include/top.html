@@ -1,16 +1,20 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/common/top.css">
 <div id="top">
-	<div id="top_wrap">
-            <#list cmsPage.blockMap["top"].cmsLinks as link>
-            <div id="top_logo">
-             <#if link.linkCode == "logo">
-             <a href="${link.linkURL}" target="${link.linkTarget}">
-                 <img alt="${link.linkTitle}" src="${SITE_ADDRESS}${link.linkImageURL}">
-             </a>
-             </#if>
-            </div>
-            </#list>
-		
+	<div class="body_wrap">
+		<div class="left">
+			<ul id="top_left_menu">
+				<li><a href="#">设为首页</a></li>
+				<li><a href="#">收藏本站</a></li>
+				<li><a href="#">求片报错</a></li>
+				<li><a href="#">网站地图</a></li>
+			</ul>
+		</div>
+		<div class="right">			
+			<ul id="top_right_menu">
+				<li><span>您好，欢迎来到动漫主题馆！</span></li>
+				<li><a href="#">登录</a></li>
+				<li><a href="#">注册</a></li>
+				<li><a href="#">历史观看记录</a></li>
+			</ul>
+		</div>
 	</div>
 </div>

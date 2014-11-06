@@ -4,24 +4,18 @@ import java.util.List;
 
 import com.iidooo.framework.dao.generate.DictItemMapper;
 import com.iidooo.framework.dto.base.PagingDto;
-import com.iidooo.framework.dto.generate.DictItem;
+import com.iidooo.framework.dto.extend.DictClassDto;
+import com.iidooo.framework.dto.extend.DictItemDto;
 
 public interface DictItemDao extends DictItemMapper{
+    
     /**
-     * 根据 dictItemCode 查询 dictItemValue
+     * 根据字典类查询字典项的List
      * 
-     * @param dictItemCode 字典项的Code
-     * @return dictItemValue 字典项的Value
-     */
-    DictItem selectByItemCode(String dictItemCode);
-
-    /**
-     * 根据字典类的Code查询字典项的List
-     * 
-     * @param dictClassCode 字典类的Code
+     * @param DictClassDto 字典类
      * @return List<SysDictItem> 字典项一览
      */
-    List<DictItem> selectByClassCode(String dictClassCode);
+    List<DictItemDto> selectByDictClass(DictClassDto dictClassDto);
 
     /**
      * 查询获得所有记录数
@@ -36,5 +30,5 @@ public interface DictItemDao extends DictItemMapper{
      * @param dto 分页对象
      * @return List<SysDictItem> 字典项一览
      */
-    List<DictItem> selectAll(PagingDto dto);
+    List<DictItemDto> selectAll(PagingDto dto);
 }

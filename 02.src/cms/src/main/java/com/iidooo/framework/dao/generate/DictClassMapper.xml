@@ -3,7 +3,7 @@
 <mapper namespace="com.iidooo.framework.dao.generate.DictClassMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.DictClass" >
     <id column="DictClassID" property="dictClassID" jdbcType="INTEGER" />
-    <result column="DictTypeID" property="dictTypeID" jdbcType="INTEGER" />
+    <result column="DictTypeCode" property="dictTypeCode" jdbcType="VARCHAR" />
     <result column="DictClassCode" property="dictClassCode" jdbcType="VARCHAR" />
     <result column="DictClassName" property="dictClassName" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    DictClassID, DictTypeID, DictClassCode, DictClassName, Remarks, Language, CreateTime, 
+    DictClassID, DictTypeCode, DictClassCode, DictClassName, Remarks, Language, CreateTime, 
     CreateUser, UpdateTime, UpdateUser, IsReadonly, IsDisable, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,12 +32,12 @@
     where DictClassID = #{dictClassID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.DictClass" >
-    insert into ido_dict_class (DictClassID, DictTypeID, DictClassCode, 
+    insert into ido_dict_class (DictClassID, DictTypeCode, DictClassCode, 
       DictClassName, Remarks, Language, 
       CreateTime, CreateUser, UpdateTime, 
       UpdateUser, IsReadonly, IsDisable, 
       IsDelete, Version)
-    values (#{dictClassID,jdbcType=INTEGER}, #{dictTypeID,jdbcType=INTEGER}, #{dictClassCode,jdbcType=VARCHAR}, 
+    values (#{dictClassID,jdbcType=INTEGER}, #{dictTypeCode,jdbcType=VARCHAR}, #{dictClassCode,jdbcType=VARCHAR}, 
       #{dictClassName,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
       #{updateUser,jdbcType=INTEGER}, #{isReadonly,jdbcType=INTEGER}, #{isDisable,jdbcType=INTEGER}, 
@@ -49,8 +49,8 @@
       <if test="dictClassID != null" >
         DictClassID,
       </if>
-      <if test="dictTypeID != null" >
-        DictTypeID,
+      <if test="dictTypeCode != null" >
+        DictTypeCode,
       </if>
       <if test="dictClassCode != null" >
         DictClassCode,
@@ -93,8 +93,8 @@
       <if test="dictClassID != null" >
         #{dictClassID,jdbcType=INTEGER},
       </if>
-      <if test="dictTypeID != null" >
-        #{dictTypeID,jdbcType=INTEGER},
+      <if test="dictTypeCode != null" >
+        #{dictTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="dictClassCode != null" >
         #{dictClassCode,jdbcType=VARCHAR},
@@ -137,8 +137,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.framework.dto.generate.DictClass" >
     update ido_dict_class
     <set >
-      <if test="dictTypeID != null" >
-        DictTypeID = #{dictTypeID,jdbcType=INTEGER},
+      <if test="dictTypeCode != null" >
+        DictTypeCode = #{dictTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="dictClassCode != null" >
         DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
@@ -181,7 +181,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.DictClass" >
     update ido_dict_class
-    set DictTypeID = #{dictTypeID,jdbcType=INTEGER},
+    set DictTypeCode = #{dictTypeCode,jdbcType=VARCHAR},
       DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
       DictClassName = #{dictClassName,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},

@@ -5,11 +5,15 @@
 <meta name="keywords" content="${currentChannel.metaKeyworlds}">
 <meta name=description content="${currentChannel.metaDescription}">
 <title>${currentChannel.metaTitle}</title>
-<#include "include/head.html"/>
-<link type="text/css" rel="stylesheet" href="${RES_ROOT}/css/index.css">
+<#include "../include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SESSION_SITE_RES_ROOT}/css/index.css">
 </head>
 <body>
-	<#include "include/top.html"/>
-    <#include "include/mainmenu.html"/>
+	<#include "../include/top.html"/>
+    <#include "../include/mainmenu.html"/>
+    <div id="index" class="body_wrap">
+    	首页
+    </div>
+    <#include "../include/footer.html"/>
 </body>
 </html>

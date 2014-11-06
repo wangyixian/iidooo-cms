@@ -21,7 +21,7 @@ public class CmsChannel {
 
     private Integer isHidden;
 
-    private Integer isBlankTarget;
+    private String targetType;
 
     private String URL;
 
@@ -121,12 +121,12 @@ public class CmsChannel {
         this.isHidden = isHidden;
     }
 
-    public Integer getIsBlankTarget() {
-        return isBlankTarget;
+    public String getTargetType() {
+        return targetType;
     }
 
-    public void setIsBlankTarget(Integer isBlankTarget) {
-        this.isBlankTarget = isBlankTarget;
+    public void setTargetType(String targetType) {
+        this.targetType = targetType == null ? null : targetType.trim();
     }
 
     public String getURL() {

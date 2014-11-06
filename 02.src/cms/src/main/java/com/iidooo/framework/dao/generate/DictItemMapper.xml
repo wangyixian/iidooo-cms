@@ -3,9 +3,9 @@
 <mapper namespace="com.iidooo.framework.dao.generate.DictItemMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.DictItem" >
     <id column="DictItemID" property="dictItemID" jdbcType="INTEGER" />
-    <result column="DictClassID" property="dictClassID" jdbcType="INTEGER" />
     <result column="ParentItemID" property="parentItemID" jdbcType="INTEGER" />
-    <result column="DictItemCode" property="dictItemCode" jdbcType="INTEGER" />
+    <result column="DictClassCode" property="dictClassCode" jdbcType="VARCHAR" />
+    <result column="DictItemCode" property="dictItemCode" jdbcType="VARCHAR" />
     <result column="DictItemName" property="dictItemName" jdbcType="VARCHAR" />
     <result column="DictItemValue" property="dictItemValue" jdbcType="VARCHAR" />
     <result column="Weight" property="weight" jdbcType="INTEGER" />
@@ -22,7 +22,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    DictItemID, DictClassID, ParentItemID, DictItemCode, DictItemName, DictItemValue, 
+    DictItemID, ParentItemID, DictClassCode, DictItemCode, DictItemName, DictItemValue, 
     Weight, IsDefault, Remarks, Language, CreateTime, CreateUser, UpdateTime, UpdateUser, 
     IsReadonly, IsDisable, IsDelete, Version
   </sql>
@@ -37,15 +37,15 @@
     where DictItemID = #{dictItemID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.DictItem" >
-    insert into ido_dict_item (DictItemID, DictClassID, ParentItemID, 
+    insert into ido_dict_item (DictItemID, ParentItemID, DictClassCode, 
       DictItemCode, DictItemName, DictItemValue, 
       Weight, IsDefault, Remarks, 
       Language, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, IsReadonly, 
       IsDisable, IsDelete, Version
       )
-    values (#{dictItemID,jdbcType=INTEGER}, #{dictClassID,jdbcType=INTEGER}, #{parentItemID,jdbcType=INTEGER}, 
-      #{dictItemCode,jdbcType=INTEGER}, #{dictItemName,jdbcType=VARCHAR}, #{dictItemValue,jdbcType=VARCHAR}, 
+    values (#{dictItemID,jdbcType=INTEGER}, #{parentItemID,jdbcType=INTEGER}, #{dictClassCode,jdbcType=VARCHAR}, 
+      #{dictItemCode,jdbcType=VARCHAR}, #{dictItemName,jdbcType=VARCHAR}, #{dictItemValue,jdbcType=VARCHAR}, 
       #{weight,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
       #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isReadonly,jdbcType=INTEGER}, 
@@ -58,11 +58,11 @@
       <if test="dictItemID != null" >
         DictItemID,
       </if>
-      <if test="dictClassID != null" >
-        DictClassID,
-      </if>
       <if test="parentItemID != null" >
         ParentItemID,
+      </if>
+      <if test="dictClassCode != null" >
+        DictClassCode,
       </if>
       <if test="dictItemCode != null" >
         DictItemCode,
@@ -114,14 +114,14 @@
       <if test="dictItemID != null" >
         #{dictItemID,jdbcType=INTEGER},
       </if>
-      <if test="dictClassID != null" >
-        #{dictClassID,jdbcType=INTEGER},
-      </if>
       <if test="parentItemID != null" >
         #{parentItemID,jdbcType=INTEGER},
       </if>
+      <if test="dictClassCode != null" >
+        #{dictClassCode,jdbcType=VARCHAR},
+      </if>
       <if test="dictItemCode != null" >
-        #{dictItemCode,jdbcType=INTEGER},
+        #{dictItemCode,jdbcType=VARCHAR},
       </if>
       <if test="dictItemName != null" >
         #{dictItemName,jdbcType=VARCHAR},
@@ -170,14 +170,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.framework.dto.generate.DictItem" >
     update ido_dict_item
     <set >
-      <if test="dictClassID != null" >
-        DictClassID = #{dictClassID,jdbcType=INTEGER},
-      </if>
       <if test="parentItemID != null" >
         ParentItemID = #{parentItemID,jdbcType=INTEGER},
       </if>
+      <if test="dictClassCode != null" >
+        DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
+      </if>
       <if test="dictItemCode != null" >
-        DictItemCode = #{dictItemCode,jdbcType=INTEGER},
+        DictItemCode = #{dictItemCode,jdbcType=VARCHAR},
       </if>
       <if test="dictItemName != null" >
         DictItemName = #{dictItemName,jdbcType=VARCHAR},
@@ -226,9 +226,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.DictItem" >
     update ido_dict_item
-    set DictClassID = #{dictClassID,jdbcType=INTEGER},
-      ParentItemID = #{parentItemID,jdbcType=INTEGER},
-      DictItemCode = #{dictItemCode,jdbcType=INTEGER},
+    set ParentItemID = #{parentItemID,jdbcType=INTEGER},
+      DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
+      DictItemCode = #{dictItemCode,jdbcType=VARCHAR},
       DictItemName = #{dictItemName,jdbcType=VARCHAR},
       DictItemValue = #{dictItemValue,jdbcType=VARCHAR},
       Weight = #{weight,jdbcType=INTEGER},

@@ -35,7 +35,7 @@ public class DictItemServiceImpl implements DictItemService {
 		logger.debug("The begin of the method PropertyValueServiceImpl.getDictItemByItemCode");
 		DictItem sysDictItem = null;
 		try {
-			sysDictItem = sysDictItemDao.selectByItemCode(dictItemCode);
+			//sysDictItem = sysDictItemDao.selectByItemCode(dictItemCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.fatal(e.toString());
@@ -50,7 +50,7 @@ public class DictItemServiceImpl implements DictItemService {
 
 		List<DictItem> sysDictItems = null;
 		try {
-			sysDictItems = sysDictItemDao.selectByClassCode(dictClassCode);
+			//sysDictItems = sysDictItemDao.selectByClassCode(dictClassCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.fatal(e.toString());
@@ -81,7 +81,7 @@ public class DictItemServiceImpl implements DictItemService {
 
 		List<DictItem> dictItems = null;
 		try {
-			dictItems = sysDictItemDao.selectAll(pagingDto);
+			//dictItems = sysDictItemDao.selectAll(pagingDto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.fatal(e.toString());

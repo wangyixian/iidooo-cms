@@ -1,17 +1,15 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/common/mainmenu.css">
-<div id="mainmenu_wrap">
-	<div id="mainmenu_content">
-		<ul>
-			<#list cmsPage.blockMap["mainmenu"].cmsLinks as link>
-			<li>
-			    <#if cmsPage.pageID == link.linkPageID || link.subringPageIDs.contains(cmsPage.pageID)>
-                <a href="${link.linkURL}" target="${link.linkTarget}" class="focus">${link.linkTitle}</a>
-                <#else>
-                <a href="${link.linkURL}" target="${link.linkTarget}">${link.linkTitle}</a>
-                </#if>
-            </li>
-			</#list>
-		</ul>
-	</div>
+<div class="body_wrap">
+	<ul id="mainmenu">
+		<#list allChannels as channel>
+		<#if channel.isHidden == 0>
+		<li>
+		    <#if channel.channelID == currentChannel.channelID>
+               <a href="${SESSION_SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}" class="main_menu_focus">${channel.channelName}</a>
+               <#else>
+               <a href="${SESSION_SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}">${channel.channelName}</a>
+               </#if>
+           </li>
+           </#if>
+		</#list>
+	</ul>
 </div>

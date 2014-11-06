@@ -1,10 +1,19 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="${currentChannel.metaKeyworlds}">
+<meta name=description content="${currentChannel.metaDescription}">
+<title>${currentChannel.metaTitle}</title>
+<#include "../include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SESSION_SITE_RES_ROOT}/css/index.css">
 </head>
 <body>
-	资讯
+	<#include "../include/top.html"/>
+    <#include "../include/mainmenu.html"/>
+    <div id="news" class="body_wrap">
+    	资讯
+    </div>
+    <#include "../include/footer.html"/>
 </body>
 </html>

@@ -3,11 +3,11 @@ package com.iidooo.framework.dto.generate;
 public class DictItem {
     private Integer dictItemID;
 
-    private Integer dictClassID;
-
     private Integer parentItemID;
 
-    private Integer dictItemCode;
+    private String dictClassCode;
+
+    private String dictItemCode;
 
     private String dictItemName;
 
@@ -45,14 +45,6 @@ public class DictItem {
         this.dictItemID = dictItemID;
     }
 
-    public Integer getDictClassID() {
-        return dictClassID;
-    }
-
-    public void setDictClassID(Integer dictClassID) {
-        this.dictClassID = dictClassID;
-    }
-
     public Integer getParentItemID() {
         return parentItemID;
     }
@@ -61,12 +53,20 @@ public class DictItem {
         this.parentItemID = parentItemID;
     }
 
-    public Integer getDictItemCode() {
+    public String getDictClassCode() {
+        return dictClassCode;
+    }
+
+    public void setDictClassCode(String dictClassCode) {
+        this.dictClassCode = dictClassCode == null ? null : dictClassCode.trim();
+    }
+
+    public String getDictItemCode() {
         return dictItemCode;
     }
 
-    public void setDictItemCode(Integer dictItemCode) {
-        this.dictItemCode = dictItemCode;
+    public void setDictItemCode(String dictItemCode) {
+        this.dictItemCode = dictItemCode == null ? null : dictItemCode.trim();
     }
 
     public String getDictItemName() {

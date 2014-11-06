@@ -13,7 +13,7 @@
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="Weight" property="weight" jdbcType="INTEGER" />
     <result column="IsHidden" property="isHidden" jdbcType="INTEGER" />
-    <result column="IsBlankTarget" property="isBlankTarget" jdbcType="INTEGER" />
+    <result column="TargetType" property="targetType" jdbcType="VARCHAR" />
     <result column="URL" property="URL" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="Language" property="language" jdbcType="VARCHAR" />
@@ -25,25 +25,20 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ChannelID, TemplateID, TemplateSource, ParentChannelID, ChannelName, ChannelPath, MetaTitle, MetaKeyworlds, 
-    MetaDescription, Weight, IsHidden, IsBlankTarget, URL, Remarks, Language, CreateTime, 
-    CreateUser, UpdateTime, UpdateUser, IsDelete, Version
-  </sql>
-  <sql id="selectChannelByPath" >
     C.ChannelID, C.TemplateID, T.TemplateSource, C.ParentChannelID, C.ChannelName, C.ChannelPath, C.MetaTitle, C.MetaKeyworlds, 
-    C.MetaDescription, C.Weight, C.IsHidden, C.IsBlankTarget, C.URL, C.Remarks, C.Language, C.CreateTime, 
+    C.MetaDescription, C.Weight, C.IsHidden, C.TargetType, C.URL, C.Remarks, C.Language, C.CreateTime, 
     C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
   </sql> 
   <select id="selectChannelByPath" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="selectChannelByPath" />
+    <include refid="Base_Column_List" />
     from ido_cms_channel C
     inner join IDO_CMS_TEMPLATE T on C.TemplateID = T.TemplateID and c.IsDelete = 0 and T.IsDelete = 0
     and C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
   </select>  
   <select id="selectAllChannels" resultMap="BaseResultMap">
     select 
-    <include refid="selectChannelByPath" />
+    <include refid="Base_Column_List" />
     from ido_cms_channel C
     inner join IDO_CMS_TEMPLATE T on C.TemplateID = T.TemplateID and c.IsDelete = 0 and T.IsDelete = 0
   </select>   

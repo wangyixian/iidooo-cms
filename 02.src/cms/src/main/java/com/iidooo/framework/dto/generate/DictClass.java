@@ -3,7 +3,7 @@ package com.iidooo.framework.dto.generate;
 public class DictClass {
     private Integer dictClassID;
 
-    private Integer dictTypeID;
+    private String dictTypeCode;
 
     private String dictClassCode;
 
@@ -37,12 +37,12 @@ public class DictClass {
         this.dictClassID = dictClassID;
     }
 
-    public Integer getDictTypeID() {
-        return dictTypeID;
+    public String getDictTypeCode() {
+        return dictTypeCode;
     }
 
-    public void setDictTypeID(Integer dictTypeID) {
-        this.dictTypeID = dictTypeID;
+    public void setDictTypeCode(String dictTypeCode) {
+        this.dictTypeCode = dictTypeCode == null ? null : dictTypeCode.trim();
     }
 
     public String getDictClassCode() {

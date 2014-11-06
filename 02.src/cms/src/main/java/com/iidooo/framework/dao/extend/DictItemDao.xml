@@ -1,58 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iidooo.framework.dao.extend.DictItemDao">
-	<resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.DictItem">
+	<resultMap id="BaseResultMap" type="com.iidooo.framework.dto.extend.DictItemDto">
 		<id column="DictItemID" property="dictItemID" jdbcType="INTEGER" />
-		<result column="DictClassID" property="dictClassID" jdbcType="INTEGER" />
+		<result column="ParentItemID" property="parentItemID" jdbcType="INTEGER" />
+		<result column="DictClassCode" property="dictClassCode" jdbcType="VARCHAR" />
 		<result column="DictItemCode" property="dictItemCode" jdbcType="VARCHAR" />
 		<result column="DictItemName" property="dictItemName" jdbcType="VARCHAR" />
 		<result column="DictItemValue" property="dictItemValue" jdbcType="VARCHAR" />
-		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
-		<result column="ReadonlyFlag" property="readonlyFlag" jdbcType="INTEGER" />
-		<result column="DisableFlag" property="disableFlag" jdbcType="INTEGER" />
-		<result column="DefaultFlag" property="defaultFlag" jdbcType="INTEGER" />
+		<result column="Weight" property="weight" jdbcType="INTEGER" />
+		<result column="IsDefault" property="isDefault" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="Language" property="language" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
 		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="DeleteFlag" property="deleteFlag" jdbcType="INTEGER" />
+		<result column="IsReadonly" property="isReadonly" jdbcType="INTEGER" />
+		<result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		DictItemID, DictClassID, DictItemCode, DictItemName, DictItemValue, Sequence,
-		ReadonlyFlag,
-		DisableFlag, DefaultFlag, Remarks, Language, CreateTime, CreateUser, UpdateTime,
-		UpdateUser, DeleteFlag, Version
+		I.DictItemID, I.ParentItemID, I.DictClassCode, I.DictItemCode, I.DictItemName, I.DictItemValue,
+		I.Weight, I.IsDefault, I.Remarks, I.Language, I.CreateTime, I.CreateUser, I.UpdateTime, I.UpdateUser,
+		I.IsReadonly, I.IsDisable, I.IsDelete, I.Version
 	</sql>
-	<sql id="Item_Column_List">
-		Item.DictItemID, Item.DictClassID, Item.DictItemCode, Item.DictItemName,
-		Item.DictItemValue, Item.Sequence, Item.ReadonlyFlag,
-		Item.DisableFlag, Item.DefaultFlag, Item.Remarks, Item.Language,
-		Item.CreateTime, Item.CreateUser, Item.UpdateTime,
-		Item.UpdateUser, Item.DeleteFlag, Item.Version
-	</sql>
-	<select id="selectByItemCode" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+	<select id="selectByDictClass" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.extend.DictClassDto">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_DICT_ITEM
-		where DictItemCode = #{dictItemCode,jdbcType=VARCHAR} and DeleteFlag = 0
+		from IDO_DICT_ITEM I
+		inner join IDO_DICT_CLASS C
+		inner join IDO_DICT_TYPE T
+		on I.DictClassCode = C.DictClassCode
+		and C.DictTypeCode = T.DictTypeCode
+		and C.DictTypeCode = #{dictTypeCode,jdbcType=VARCHAR}
+		and C.DictClassCode = #{dictClassCode,jdbcType=VARCHAR}
+		and	I.IsDelete = 0 and C.IsDelete = 0 and T.IsDelete = 0
 	</select>
-	<select id="selectByClassCode" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		select
-		<include refid="Item_Column_List" />
-		, Class.DictClassID, Class.DictClassCode
-		from IDO_DICT_ITEM as Item
-		join IDO_DICT_CLASS as Class
-		on Item.DictClassID = Class.DictClassID
-		and Class.DictClassCode = #{dictClassCode,jdbcType=VARCHAR}
-		and Item.DeleteFlag = 0 and Class.DeleteFlag = 0
-	</select>
-	<select id="selectAllCount" resultType="java.lang.Integer"
-		parameterType="java.lang.String">
+
+	<select id="selectAllCount" resultType="java.lang.Integer" parameterType="java.lang.String">
 		select count(*)
 		from IDO_DICT_ITEM
 		where DeleteFlag = 0
@@ -63,7 +50,8 @@
 		from IDO_DICT_ITEM
 		where DeleteFlag = 0
 		<if test="start != null and pageSize != null and pageSize != 0">
-			limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+			limit #{start,jdbcType=INTEGER},
+			#{pageSize,jdbcType=INTEGER}
 		</if>
 	</select>
 </mapper>
