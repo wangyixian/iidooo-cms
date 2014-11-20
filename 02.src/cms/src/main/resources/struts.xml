@@ -5,7 +5,7 @@
 
 <struts>
     <constant name="struts.devMode" value="false" />
-    <constant name="struts.objectFactory" value="spring"/>
+    <!-- <constant name="struts.objectFactory" value="spring"/> -->
     <constant name="struts.ui.theme" value="simple" />
     <constant name="struts.custom.i18n.resources" value="languages.msg, languages.ui, system"/>
 	<constant name="struts.multipart.maxSize" value="102400000" />

@@ -16,15 +16,13 @@
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-    <result column="IsReadonly" property="isReadonly" jdbcType="INTEGER" />
-    <result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
     <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     DictItemID, ParentItemID, DictClassCode, DictItemCode, DictItemName, DictItemValue, 
     Weight, IsDefault, Remarks, Language, CreateTime, CreateUser, UpdateTime, UpdateUser, 
-    IsReadonly, IsDisable, IsDelete, Version
+    IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -41,16 +39,14 @@
       DictItemCode, DictItemName, DictItemValue, 
       Weight, IsDefault, Remarks, 
       Language, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsReadonly, 
-      IsDisable, IsDelete, Version
-      )
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
     values (#{dictItemID,jdbcType=INTEGER}, #{parentItemID,jdbcType=INTEGER}, #{dictClassCode,jdbcType=VARCHAR}, 
       #{dictItemCode,jdbcType=VARCHAR}, #{dictItemName,jdbcType=VARCHAR}, #{dictItemValue,jdbcType=VARCHAR}, 
       #{weight,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
       #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isReadonly,jdbcType=INTEGER}, 
-      #{isDisable,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.framework.dto.generate.DictItem" >
     insert into ido_dict_item
@@ -96,12 +92,6 @@
       </if>
       <if test="updateUser != null" >
         UpdateUser,
-      </if>
-      <if test="isReadonly != null" >
-        IsReadonly,
-      </if>
-      <if test="isDisable != null" >
-        IsDisable,
       </if>
       <if test="isDelete != null" >
         IsDelete,
@@ -153,12 +143,6 @@
       <if test="updateUser != null" >
         #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="isReadonly != null" >
-        #{isReadonly,jdbcType=INTEGER},
-      </if>
-      <if test="isDisable != null" >
-        #{isDisable,jdbcType=INTEGER},
-      </if>
       <if test="isDelete != null" >
         #{isDelete,jdbcType=INTEGER},
       </if>
@@ -209,12 +193,6 @@
       <if test="updateUser != null" >
         UpdateUser = #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="isReadonly != null" >
-        IsReadonly = #{isReadonly,jdbcType=INTEGER},
-      </if>
-      <if test="isDisable != null" >
-        IsDisable = #{isDisable,jdbcType=INTEGER},
-      </if>
       <if test="isDelete != null" >
         IsDelete = #{isDelete,jdbcType=INTEGER},
       </if>
@@ -239,8 +217,6 @@
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsReadonly = #{isReadonly,jdbcType=INTEGER},
-      IsDisable = #{isDisable,jdbcType=INTEGER},
       IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
     where DictItemID = #{dictItemID,jdbcType=INTEGER}

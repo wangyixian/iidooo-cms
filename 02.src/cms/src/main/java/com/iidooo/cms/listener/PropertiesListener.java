@@ -50,6 +50,8 @@ public class PropertiesListener extends HttpServlet implements ServletContextLis
                     sc.setAttribute(AttributeConstant.SESSION_SITE_URL, dictItemValue);
                 } else if (DictConstant.DICT_ITEM_SITE_RES_ROOT.equals(dictItemCode)) {
                     sc.setAttribute(AttributeConstant.SESSION_SITE_RES_ROOT, dictItemValue);
+                } else if (DictConstant.DICT_ITEM_CONTENT_RES_ROOT.equals(dictItemCode)) {
+                    sc.setAttribute(AttributeConstant.SESSION_CONTENT_RES_ROOT, dictItemValue);
                 }
             }
         } catch (Exception e) {

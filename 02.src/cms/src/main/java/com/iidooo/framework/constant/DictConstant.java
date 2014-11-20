@@ -1,11 +1,11 @@
 package com.iidooo.framework.constant;
 
 public class DictConstant {
-    
+
     public static final String DICT_TYPE_SYSTEM_PROPERTIES = "SYSTEM_PROPERTIES";
-    
+
     public static final String DICT_CLASS_PROPERTIES_SITE = "PROPERTIES_SITE";
-    
+
     /**
      * 分页设置每页多少的字典项
      */
@@ -36,4 +36,9 @@ public class DictConstant {
      * 站点网址的资源根目录
      */
     public static final String DICT_ITEM_SITE_RES_ROOT = "PROPERTIES_SITE_RES_ROOT";
+
+    /**
+     * The root of the content resource path
+     */
+    public static final String DICT_ITEM_CONTENT_RES_ROOT = "PROPERTIES_CONTENT_RES_ROOT";
 }

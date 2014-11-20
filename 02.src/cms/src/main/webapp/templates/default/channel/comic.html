@@ -6,13 +6,109 @@
 <meta name=description content="${currentChannel.metaDescription}">
 <title>${currentChannel.metaTitle}</title>
 <#include "../include/head.html"/>
-<link type="text/css" rel="stylesheet" href="${SESSION_SITE_RES_ROOT}/css/index.css">
+<link type="text/css" rel="stylesheet" href="${SESSION_SITE_RES_ROOT}/css/channel.css">
 </head>
 <body>
 	<#include "../include/top.html"/>
     <#include "../include/mainmenu.html"/>
-    <div id="comic" class="body_wrap">
-    	漫画
+    <div id="comic" class="body_wrap block_wrap">
+    	<div class="left_block_wrap">
+    		<div id="left_block_1" class="block">
+				<div id="tabsComponent">
+					<ul class="tabs">
+						<li class="current" onmouseover="changeTab(3, 0)">热门连载漫画</li>
+						<li onmouseover="changeTab(3, 1)">经典完结漫画</li>
+						<li onmouseover="changeTab(3, 2)">最新上架漫画</li>
+					</ul>
+					<div class="contents">
+						<div>						
+						<@contentList count='10' channelPath='comic' tagClass='TAG_COMIC_STATUS' tagItem='1' sortBy='PV' sortType='desc'>
+							<ul class="comicList">
+							<#list returnList as content>
+    							<li>
+    								<input type="hidden" value="${content.contentID}"/>
+    								<div><img alt="${content.title}" src="${SESSION_CONTENT_RES_ROOT}${content.titleImage}"></div>
+    								<div class="align_center">${content.title}[${content.subTitle}]</div>
+    							</li>
+    						</#list>
+    						</ul>
+						</@contentList>
+						</div>
+						<div class="hidden">						
+						<@contentList count='10' channelPath='comic' tagClass='TAG_COMIC_STATUS' tagItem='2' sortBy='PV' sortType='desc'>
+							<ul class="comicList">
+							<#list returnList as content>
+    							<li>
+    								<input type="hidden" value="${content.contentID}"/>
+    								<div><img alt="${content.title}" src="${SESSION_CONTENT_RES_ROOT}${content.titleImage}"></div>
+    								<div class="align_center">${content.title}[${content.subTitle}]</div>
+    							</li>
+    						</#list>
+    						</ul>
+						</@contentList>
+						</div>
+						<div class="hidden">
+						<@contentList count='10' channelPath='comic' tagClass='TAG_COMIC_STATUS' tagItem='3' sortBy='PV' sortType='desc'>
+							<ul class="comicList">
+							<#list returnList as content>
+    							<li>
+    								<input type="hidden" value="${content.contentID}"/>
+    								<div><img alt="${content.title}" src="${SESSION_CONTENT_RES_ROOT}${content.titleImage}"></div>
+    								<div class="align_center">${content.title}[${content.subTitle}]</div>
+    							</li>
+    						</#list>
+    						</ul>
+						</@contentList>
+						</div>	
+					</div>
+				</div>
+    		</div>
+    		<div id="left_block_2" class="block">
+    			<div class="title"><span>字母 A - D</span></div>
+				<div class="content">
+					<@contentList count='40' channelPath='comic' tagClass='TAG_LETTER' tagItems='A,B,C,D' sortBy='TAG' sortType='asc'>
+					<ul class="comicTitleList">
+						<#list returnList as content>
+						<li>
+							<input type="hidden" value="${content.contentID}" />
+							・${content.title}
+						</li> 
+						</#list>
+					</ul>
+					</@contentList>
+				</div>
+			</div>
+    		<div id="left_block_3" class="block">
+    			<div class="title"><span>字母 E - H</span></div>
+    			<div class="content"></div>    			
+    		</div>
+    		<div id="left_block_4" class="block">
+    			<div class="title"><span>字母 I - L</span></div>
+    			<div class="content"></div>    			
+    		</div>
+    		<div id="left_block_5" class="block">
+    			<div class="title"><span>字母 M - P</span></div>
+    			<div class="content"></div>    			
+    		</div>
+    		<div id="left_block_6" class="block">
+    			<div class="title"><span>字母 Q - V</span></div>
+    			<div class="content"></div>    			
+    		</div>
+    		<div id="left_block_7" class="block">
+    			<div class="title"><span>字母 W - Z</span></div>
+    			<div class="content"></div>    			
+    		</div>
+    	</div>
+    	<div class="right_block_wrap">
+    		<div id="right_block_1" class="block">
+    			<div class="title"><span>热门漫画更新提醒</span></div>
+    			<div class="content"></div>
+    		</div>
+    		<div id="right_block_2" class="block">
+    			<div class="title"><span>漫画点击排行榜</span></div>
+    			<div class="content"></div>
+    		</div>
+    	</div>
     </div>
     <#include "../include/footer.html"/>
 </body>

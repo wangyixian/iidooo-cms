@@ -16,15 +16,13 @@
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
 		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="IsReadonly" property="isReadonly" jdbcType="INTEGER" />
-		<result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
 		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		I.DictItemID, I.ParentItemID, I.DictClassCode, I.DictItemCode, I.DictItemName, I.DictItemValue,
 		I.Weight, I.IsDefault, I.Remarks, I.Language, I.CreateTime, I.CreateUser, I.UpdateTime, I.UpdateUser,
-		I.IsReadonly, I.IsDisable, I.IsDelete, I.Version
+		I.IsDelete, I.Version
 	</sql>
 	<select id="selectByDictClass" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.extend.DictClassDto">
 		select

@@ -84,7 +84,7 @@ a:hover {
 }
 
 /* 隐藏 */
-.hiden {
+.hidden {
 	display: none;
 }
 
@@ -103,7 +103,7 @@ a:hover {
 	float: right;
 }
 
-/* 网格表 */
+/* Data Grid View */
 .grid {
 	cellspacing: 0px;
 	cellpadding: 0px;
@@ -116,6 +116,48 @@ a:hover {
 
 .grid>tbody>tr>td {
 	border: solid 1px #333333;
+}
+
+/* Tab */
+#tabsComponent {
+	width: 100%;
+	height: 100%;
+}
+
+#tabsComponent .tabs {
+	padding-left: 12px;
+	height: 32px;
+	background: url(../img/tabs_bg.jpg) repeat-x;
+}
+
+#tabsComponent .tabs li {
+	margin: 0 10px 0 0;
+	letter-spacing: 1px;
+	padding: 0px 12px;
+	list-style-type: none;
+	text-align: center;
+	font-weight: 700;
+	float: left;
+	height: 32px;
+	line-height: 32px;
+}
+
+#tabsComponent .tabs .current {
+	color: #C8000A;
+	background: url(../img/tabs_cur_bg.jpg) repeat-x;
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	cursor: pointer;
+}
+
+#tabsComponent .contents {
+	/* -webkit-box-shadow: 0 0 20px black; */
+	padding: 5px;
+	background: white;
+	margin: -1px 0 0 0;
+	height: 100%;
+	width: 100%;
+	position: relative;
 }
 
 /* 文本居中 */
@@ -149,35 +191,13 @@ a:hover {
 	color: #134780;
 }
 
-/* 大标题样式 */
-.block_big_title {
-	height: 40px;
-	line-height: 40px;
-	border-bottom: 1px solid #CCC;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.block_big_title>.main_title {
-	color: #134780;
-}
-
-.block_big_title>.sub_title {
-	color: #888;
-}
-
-/* 主内容摘要部分 */
-#master>.summary {
-	border-bottom: 1px dashed #CCC;
-	padding: 10px 0;
-	font-size: 14px;
-	line-height: 30px;
-	color: #134780;
-}
-
 /* 页面块部分 */
 .block {
 	overflow: hidden;
+	border: 1px solid RGB(204, 204, 204);
+	margin-top: 10px;
+	border-top: 3px solid #134780;
+	background: white;
 }
 
 /* 块标题栏 */
@@ -188,6 +208,7 @@ a:hover {
 	font-size: 14px;
 	font-weight: bold;
 	color: #134780;
+	padding: 0px 5px;
 }
 
 .block>.content {
@@ -205,6 +226,23 @@ a:hover {
 .block>.content>.item>.item_title {
 	font-weight: bold;
 	font-size: 13px;
+}
+
+/* 大标题样式 */
+.block_big_title {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #CCC;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.block_big_title>.main_title {
+	color: #134780;
+}
+
+.block_big_title>.sub_title {
+	color: #888;
 }
 
 .title_zh {
@@ -228,7 +266,6 @@ a:hover {
 	margin-top: 10px;
 }
 
-
 /* 顶部 */
 #top {
 	/* background: url(../image/top/top_bg.jpg) repeat-x; */
@@ -241,16 +278,18 @@ a:hover {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #E8E8E8;
+	height: 30px;
+	line-height: 30px;
 }
 
 #top_left_menu>li {
 	float: left;
-	margin: 5px 10px 5px 0px;
+	margin: auto 10px auto 0px;
 }
 
 #top_right_menu>li {
 	float: left;
-	margin:5px 0px 5px 10px;
+	margin: auto 0px auto 10px;
 }
 
 /* 主菜单 */
@@ -266,7 +305,7 @@ a:hover {
 	width: 100px;
 	height: 40px;
 	line-height: 40px;
-	text-align : center;
+	text-align: center;
 	float: left;
 	margin: 0px;
 	padding: 0px;
@@ -280,7 +319,7 @@ a:hover {
 }
 
 #mainmenu>li>a:hover {
-    background-color: RGB(0, 32, 133);
+	background-color: RGB(0, 32, 133);
 	font-weight: bold;
 }
 

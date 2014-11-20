@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+#comic>.left_block_wrap {
+	float: left;
+	width: 730px;
+}
+
+#comic>.left_block_wrap>#left_block_1 {
+	
+}
+
+#comic>.right_block_wrap>#right_block_1 {
+	height: 240px;
+}
+
+#comic>.right_block_wrap {
+	float: right;
+	width: 240px;
+}
+
+#comic .comicList li {
+	float: left;
+	background: url(../img/cover_bg.gif) center 0 no-repeat;
+	width: 144px;
+	height: 194px;
+	text-align: center;
+	line-height: 2.0em;
+	overflow: hidden;
+}
+
+#comic .comicTitleList li {
+	float: left;
+	width: 100px;
+}
+
+#comic .comicList img {
+	width: 120px;
+	height: 160px;
+	display: block;
+	background: url(../img/loading.gif) center no-repeat;
+	margin: 1px auto 8px;
+	margin-right: 15px;
+}

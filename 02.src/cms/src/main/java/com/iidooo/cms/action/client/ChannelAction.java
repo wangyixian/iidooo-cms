@@ -1,6 +1,5 @@
 package com.iidooo.cms.action.client;
 
-import java.nio.channels.Channels;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.constant.AttributeConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.service.ChannelService;
-import com.iidooo.framework.action.BaseAction;
 
-public class ChannelAction extends BaseAction {
+public class ChannelAction extends CmsBaseAction {
 
     /**
      * 

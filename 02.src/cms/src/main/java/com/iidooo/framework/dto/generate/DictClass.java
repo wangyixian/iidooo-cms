@@ -21,10 +21,6 @@ public class DictClass {
 
     private Integer updateUser;
 
-    private Integer isReadonly;
-
-    private Integer isDisable;
-
     private Integer isDelete;
 
     private Integer version;
@@ -107,22 +103,6 @@ public class DictClass {
 
     public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
-    }
-
-    public Integer getIsReadonly() {
-        return isReadonly;
-    }
-
-    public void setIsReadonly(Integer isReadonly) {
-        this.isReadonly = isReadonly;
-    }
-
-    public Integer getIsDisable() {
-        return isDisable;
-    }
-
-    public void setIsDisable(Integer isDisable) {
-        this.isDisable = isDisable;
     }
 
     public Integer getIsDelete() {

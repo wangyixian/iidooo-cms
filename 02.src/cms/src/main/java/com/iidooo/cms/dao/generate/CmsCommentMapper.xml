@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.generate.CmsCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsComment" >
+    <id column="CommentID" property="commentID" jdbcType="INTEGER" />
+    <result column="ParentCommentID" property="parentCommentID" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="Language" property="language" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.generate.CmsComment" extends="BaseResultMap" >
+    <result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CommentID, ParentCommentID, Remarks, Language, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, IsDelete, Version
+  </sql>
+  <sql id="Blob_Column_List" >
+    Comment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ido_cms_comment
+    where CommentID = #{commentID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ido_cms_comment
+    where CommentID = #{commentID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
+    insert into ido_cms_comment (CommentID, ParentCommentID, Remarks, 
+      Language, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version, Comment)
+    values (#{commentID,jdbcType=INTEGER}, #{parentCommentID,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{comment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
+    insert into ido_cms_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentID != null" >
+        CommentID,
+      </if>
+      <if test="parentCommentID != null" >
+        ParentCommentID,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="language != null" >
+        Language,
+      </if>
+      <if test="createTime != null" >
+        CreateTime,
+      </if>
+      <if test="createUser != null" >
+        CreateUser,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser,
+      </if>
+      <if test="isDelete != null" >
+        IsDelete,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentID != null" >
+        #{commentID,jdbcType=INTEGER},
+      </if>
+      <if test="parentCommentID != null" >
+        #{parentCommentID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
+    update ido_cms_comment
+    <set >
+      <if test="parentCommentID != null" >
+        ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        Language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CreateUser = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IsDelete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        Version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CommentID = #{commentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
+    update ido_cms_comment
+    set ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Language = #{language,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=INTEGER},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER},
+      Comment = #{comment,jdbcType=LONGVARCHAR}
+    where CommentID = #{commentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
+    update ido_cms_comment
+    set ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Language = #{language,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=INTEGER},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER}
+    where CommentID = #{commentID,jdbcType=INTEGER}
+  </update>
+</mapper>
