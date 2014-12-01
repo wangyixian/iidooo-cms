@@ -1,17 +1,15 @@
 package com.iidooo.cms.dto.generate;
 
-public class CmsTag {
+public class CmsContentTag {
     private Integer tagID;
 
     private Integer contentID;
 
     private String classCode;
 
-    private Integer itemCode;
+    private String itemCode;
 
     private String remarks;
-
-    private String language;
 
     private String createTime;
 
@@ -49,12 +47,12 @@ public class CmsTag {
         this.classCode = classCode == null ? null : classCode.trim();
     }
 
-    public Integer getItemCode() {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(Integer itemCode) {
-        this.itemCode = itemCode;
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode == null ? null : itemCode.trim();
     }
 
     public String getRemarks() {
@@ -63,14 +61,6 @@ public class CmsTag {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language == null ? null : language.trim();
     }
 
     public String getCreateTime() {

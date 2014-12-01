@@ -56,4 +56,16 @@ public class ChannelServiceImpl implements ChannelService {
             return null;
         }
     }
+
+    public CmsChannelDto getChannelByID(int channelID) {
+        try {
+            CmsChannelDto channelDto = null;
+            channelDto = cmsChannelDao.selectChannelByID(channelID);
+            return channelDto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
 }

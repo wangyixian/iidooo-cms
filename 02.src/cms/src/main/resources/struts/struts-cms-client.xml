@@ -4,9 +4,13 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <package name="client" extends="basic">
-        <action name="channel" class="com.iidooo.cms.action.client.ChannelAction">
-            <result name="success" type="freemarker">${currentChannel.templateSource}</result>
-        </action>
-    </package>
+	<package name="client" extends="basic">
+		<action name="channel" class="com.iidooo.cms.action.client.ChannelAction">
+			<result name="success" type="freemarker">${currentChannel.templateSource}</result>
+		</action>
+		<action name="content" class="com.iidooo.cms.action.client.ContentAction">
+			<result name="success" type="freemarker">${currentContent.templateSource}</result>
+			<result name="none" type="freemarker">TO DO</result>
+		</action>
+	</package>
 </struts>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.extend.CmsStatisticsDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsStatisticsDto" >
+    <id column="StatisticsID" property="statisticsID" jdbcType="INTEGER" />
+    <result column="TableName" property="tableName" jdbcType="VARCHAR" />
+    <result column="TableDataID" property="tableDataID" jdbcType="INTEGER" />
+    <result column="StatisticsIP" property="statisticsIP" jdbcType="VARCHAR" />
+    <result column="StatisticsType" property="statisticsType" jdbcType="INTEGER" />
+    <result column="StatisticsValue" property="statisticsValue" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    StatisticsID, TableName, TableDataID, StatisticsIP, StatisticsType, StatisticsValue, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+  </sql>
+  <select id="selectContentPV" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select sum(StatisticsValue)
+    from IDO_CMS_STATISTICS
+    where TableName = 'IDO_CMS_CONTENT' and TableDataID = #{contentID,jdbcType=INTEGER} 
+    and StatisticsType = 1 and IsDelete = 0
+  </select>
+</mapper>

@@ -9,7 +9,6 @@
     <result column="StatisticsType" property="statisticsType" jdbcType="INTEGER" />
     <result column="StatisticsValue" property="statisticsValue" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -19,7 +18,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     StatisticsID, TableName, TableDataID, StatisticsIP, StatisticsType, StatisticsValue, 
-    Remarks, Language, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -34,14 +33,14 @@
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsStatistics" >
     insert into ido_cms_statistics (StatisticsID, TableName, TableDataID, 
       StatisticsIP, StatisticsType, StatisticsValue, 
-      Remarks, Language, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      IsDelete, Version)
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
     values (#{statisticsID,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{tableDataID,jdbcType=INTEGER}, 
       #{statisticsIP,jdbcType=VARCHAR}, #{statisticsType,jdbcType=INTEGER}, #{statisticsValue,jdbcType=INTEGER}, 
-      #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsStatistics" >
     insert into ido_cms_statistics
@@ -66,9 +65,6 @@
       </if>
       <if test="remarks != null" >
         Remarks,
-      </if>
-      <if test="language != null" >
-        Language,
       </if>
       <if test="createTime != null" >
         CreateTime,
@@ -111,9 +107,6 @@
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=VARCHAR},
       </if>
@@ -155,9 +148,6 @@
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="language != null" >
-        Language = #{language,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null" >
         CreateTime = #{createTime,jdbcType=VARCHAR},
       </if>
@@ -187,7 +177,6 @@
       StatisticsType = #{statisticsType,jdbcType=INTEGER},
       StatisticsValue = #{statisticsValue,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},

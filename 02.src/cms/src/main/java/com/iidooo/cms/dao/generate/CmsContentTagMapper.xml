@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.cms.dao.generate.CmsTagMapper" >
-  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsTag" >
+<mapper namespace="com.iidooo.cms.dao.generate.CmsContentTagMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsContentTag" >
     <id column="TagID" property="tagID" jdbcType="INTEGER" />
     <result column="ContentID" property="contentID" jdbcType="INTEGER" />
     <result column="ClassCode" property="classCode" jdbcType="VARCHAR" />
-    <result column="ItemCode" property="itemCode" jdbcType="INTEGER" />
+    <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -16,33 +15,31 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    TagID, ContentID, ClassCode, ItemCode, Remarks, Language, CreateTime, CreateUser, 
-    UpdateTime, UpdateUser, IsDelete, Version
+    TagID, ContentID, ClassCode, ItemCode, Remarks, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from ido_cms_tag
+    from ido_cms_content_tag
     where TagID = #{tagID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ido_cms_tag
+    delete from ido_cms_content_tag
     where TagID = #{tagID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsTag" >
-    insert into ido_cms_tag (TagID, ContentID, ClassCode, 
-      ItemCode, Remarks, Language, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsContentTag" >
+    insert into ido_cms_content_tag (TagID, ContentID, ClassCode, 
+      ItemCode, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version)
     values (#{tagID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{classCode,jdbcType=VARCHAR}, 
-      #{itemCode,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+      #{itemCode,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsTag" >
-    insert into ido_cms_tag
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsContentTag" >
+    insert into ido_cms_content_tag
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tagID != null" >
         TagID,
@@ -58,9 +55,6 @@
       </if>
       <if test="remarks != null" >
         Remarks,
-      </if>
-      <if test="language != null" >
-        Language,
       </if>
       <if test="createTime != null" >
         CreateTime,
@@ -92,13 +86,10 @@
         #{classCode,jdbcType=VARCHAR},
       </if>
       <if test="itemCode != null" >
-        #{itemCode,jdbcType=INTEGER},
+        #{itemCode,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=VARCHAR},
@@ -120,8 +111,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsTag" >
-    update ido_cms_tag
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsContentTag" >
+    update ido_cms_content_tag
     <set >
       <if test="contentID != null" >
         ContentID = #{contentID,jdbcType=INTEGER},
@@ -130,13 +121,10 @@
         ClassCode = #{classCode,jdbcType=VARCHAR},
       </if>
       <if test="itemCode != null" >
-        ItemCode = #{itemCode,jdbcType=INTEGER},
+        ItemCode = #{itemCode,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="language != null" >
-        Language = #{language,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         CreateTime = #{createTime,jdbcType=VARCHAR},
@@ -159,13 +147,12 @@
     </set>
     where TagID = #{tagID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsTag" >
-    update ido_cms_tag
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsContentTag" >
+    update ido_cms_content_tag
     set ContentID = #{contentID,jdbcType=INTEGER},
       ClassCode = #{classCode,jdbcType=VARCHAR},
-      ItemCode = #{itemCode,jdbcType=INTEGER},
+      ItemCode = #{itemCode,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},

@@ -1,13 +1,9 @@
 package com.iidooo.cms.freemarker.directive;
 
-import static freemarker.template.ObjectWrapper.DEFAULT_WRAPPER;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +27,7 @@ public class ContentList implements TemplateDirectiveModel {
     @Autowired
     private CmsContentDao cmsContentDao;
 
-    public void execute(Environment evn, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException,
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException,
             IOException {
         try {
             Map<String, Object> daoParams = FreeMarkerUtil.convertDirectiveParams(params);
@@ -50,19 +46,8 @@ public class ContentList implements TemplateDirectiveModel {
             } else if (sortBy.equals(FreemarkerConstant.PARAM_SORT_BY_TAG)) {
                 cmsContentDtos = cmsContentDao.selectContentsByTag(daoParams);
             }
-            
-            Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>();
-            paramWrap.put(FreemarkerConstant.RETURN_LIST, DEFAULT_WRAPPER.wrap(cmsContentDtos));
-            
-            Set<Map.Entry<String, TemplateModel>> entrySet = paramWrap.entrySet();
-            String key;
-            TemplateModel value;
-            for (Map.Entry<String, TemplateModel> entry : entrySet) {
-                key = entry.getKey();
-                value = entry.getValue();
-                evn.setVariable(key, value);
-            }
-            body.render(evn.getOut());
+            FreeMarkerUtil.setDirectiveResult(cmsContentDtos, FreemarkerConstant.RETURN_LIST, env, body);
+           
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

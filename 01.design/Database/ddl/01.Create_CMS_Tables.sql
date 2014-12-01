@@ -16,13 +16,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_DICT_TYPE` (
   `DictTypeCode` VARCHAR(128) NOT NULL COMMENT '字典类型编码',
   `DictTypeName` VARCHAR(256) NOT NULL COMMENT '字典类型名',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '是否是只读，非0即只读',
-  `IsDisable` INT NOT NULL COMMENT '非0即不可用',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DictTypeID`))
@@ -37,13 +34,10 @@ DROP TABLE IF EXISTS `IDOCMS`.`IDO_SAMPLE` ;
 
 CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_SAMPLE` (
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NULL COMMENT '只读',
-  `IsDisable` INT NOT NULL COMMENT '有效无效标识',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本')
 ENGINE = InnoDB;
@@ -60,13 +54,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_DICT_CLASS` (
   `DictClassCode` VARCHAR(128) NOT NULL COMMENT '字典类的编码',
   `DictClassName` VARCHAR(256) NOT NULL COMMENT '字典类名字',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '非0即只读，不能修改',
-  `IsDisable` INT NOT NULL COMMENT '非0即不可用',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DictClassID`))
@@ -89,13 +80,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_DICT_ITEM` (
   `Weight` INT NOT NULL COMMENT '字典项目的序列',
   `IsDefault` INT NOT NULL COMMENT '非0即默认选项',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '非0即只读',
-  `IsDisable` INT NOT NULL COMMENT '非0即不可用',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DictItemID`))
@@ -113,14 +101,12 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_SECURITY_USER` (
   `LoginID` VARCHAR(256) NOT NULL COMMENT '登录ID',
   `Password` VARCHAR(256) NOT NULL COMMENT '登录密码',
   `LoginTime` VARCHAR(32) NOT NULL COMMENT '登录时间',
+  `IsDisable` INT NOT NULL COMMENT '不可用',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '只读',
-  `IsDisable` INT NOT NULL COMMENT '不可用',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`UserID`))
@@ -137,13 +123,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_SECURITY_ROLE` (
   `RoleID` INT NOT NULL AUTO_INCREMENT COMMENT '角色ID主键',
   `RoleName` VARCHAR(256) NOT NULL COMMENT '角色名',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '只读标识',
-  `IsDisable` INT NOT NULL COMMENT '无效标识',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`RoleID`))
@@ -161,13 +144,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_SECURITY_USER_ROLE` (
   `UserID` INT NOT NULL COMMENT '角色ID外键',
   `RoleID` INT NOT NULL COMMENT '角色ID',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '只读标识',
-  `IsDisable` INT NOT NULL COMMENT '无效标识',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`UserRoleID`))
@@ -186,13 +166,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_SECURITY_RESOURCE` (
   `ResourceName` VARCHAR(128) NOT NULL COMMENT '资源名称',
   `ResourceURL` VARCHAR(1024) NOT NULL COMMENT '资源路径',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '只读标识',
-  `IsDisable` INT NOT NULL COMMENT '无效标识',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`ResourceID`))
@@ -210,13 +187,10 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_SECURITY_ROLE_RESOURCE` (
   `RoleID` INT NOT NULL COMMENT '角色ID',
   `ResourceID` VARCHAR(128) NOT NULL COMMENT '资源ID',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsReadonly` INT NOT NULL COMMENT '只读标识',
-  `IsDisable` INT NOT NULL COMMENT '无效标识',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
   `Version` INT NOT NULL COMMENT '排他用该字段的版本',
   PRIMARY KEY (`RoleResourceID`))
@@ -230,14 +204,29 @@ COMMENT = '安全权限的角色资源表';
 DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_CONTENT` ;
 
 CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_CONTENT` (
+  `ContentID` INT NOT NULL AUTO_INCREMENT COMMENT '内容主键ID',
+  `ChannelID` INT NOT NULL COMMENT '所属栏目',
+  `TemplateID` INT NOT NULL COMMENT '所属模板',
+  `Title` VARCHAR(256) NOT NULL COMMENT '内容标题',
+  `TitleImage` VARCHAR(1024) NOT NULL COMMENT '图片标题的URL',
+  `SubTitle` VARCHAR(256) NOT NULL COMMENT '副标题',
+  `MetaTitle` VARCHAR(256) NOT NULL,
+  `MetaKeyworlds` VARCHAR(1024) NOT NULL COMMENT '关键字',
+  `MetaDescription` VARCHAR(1024) NOT NULL COMMENT '描述',
+  `ContentSummary` VARCHAR(512) NOT NULL,
+  `ContentBody` TEXT NOT NULL COMMENT '文本内容',
+  `ContentSource` VARCHAR(1024) NOT NULL COMMENT '内容来源',
+  `ContentAuthor` VARCHAR(256) NOT NULL COMMENT '作者',
+  `Weight` INT NOT NULL,
+  `IsAllowComment` INT NOT NULL COMMENT '是否允许评论',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
   `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本')
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`ContentID`))
 ENGINE = InnoDB
 COMMENT = '内容表';
 
@@ -254,14 +243,13 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_CHANNEL` (
   `ChannelName` VARCHAR(64) NOT NULL COMMENT '栏目名称',
   `ChannelPath` VARCHAR(256) NOT NULL COMMENT '栏目路径',
   `MetaTitle` VARCHAR(256) NOT NULL COMMENT 'Meta标题',
-  `MetaKeyworlds` VARCHAR(256) NOT NULL COMMENT '关键字',
+  `MetaKeyworlds` VARCHAR(1024) NOT NULL COMMENT '关键字',
   `MetaDescription` VARCHAR(1024) NOT NULL COMMENT 'Meta描述',
   `Weight` INT NOT NULL COMMENT '权重',
   `IsHidden` INT NOT NULL COMMENT '栏目的不可见',
   `TargetType` VARCHAR(16) NOT NULL COMMENT '是否在新窗口打开',
   `URL` VARCHAR(1024) NOT NULL,
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
@@ -280,7 +268,6 @@ DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_SAMPLE` ;
 
 CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_SAMPLE` (
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
@@ -301,7 +288,6 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_TEMPLATE` (
   `TemplateName` VARCHAR(128) NOT NULL,
   `TemplateSource` VARCHAR(1024) NOT NULL COMMENT '模板路径',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `Language` VARCHAR(32) NOT NULL COMMENT '多语言设置',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
@@ -311,6 +297,190 @@ CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_TEMPLATE` (
   PRIMARY KEY (`TemplateID`))
 ENGINE = InnoDB
 COMMENT = '内容表';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_FIELD_MODEL`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_FIELD_MODEL` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_FIELD_MODEL` (
+  `ModelID` INT NOT NULL AUTO_INCREMENT COMMENT '字段模型的主键ID',
+  `ModelName` VARCHAR(128) NOT NULL COMMENT '模型名',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`ModelID`))
+ENGINE = InnoDB
+COMMENT = '扩展字段模型';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_FIELD_CONFIG`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_FIELD_CONFIG` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_FIELD_CONFIG` (
+  `FieldID` INT NOT NULL AUTO_INCREMENT COMMENT '字段主键ID',
+  `ModelID` INT NOT NULL COMMENT '关联模型',
+  `FieldCode` VARCHAR(128) NOT NULL COMMENT '字段编码',
+  `FieldName` VARCHAR(128) NOT NULL COMMENT '字段名',
+  `FieldType` INT NOT NULL COMMENT '字段类型',
+  `Weight` INT NOT NULL COMMENT '权重',
+  `DefaultValue` VARCHAR(256) NOT NULL COMMENT '默认值',
+  `Options` VARCHAR(512) NOT NULL COMMENT '字段可选项，多个用,分割',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`FieldID`))
+ENGINE = InnoDB
+COMMENT = '字段配置';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_FIELD_DATA`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_FIELD_DATA` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_FIELD_DATA` (
+  `DataID` INT NOT NULL AUTO_INCREMENT COMMENT '字段数据主键',
+  `TableDataID` INT NOT NULL COMMENT '表数据关联ID',
+  `FieldCode` VARCHAR(128) NOT NULL COMMENT '关联字段',
+  `FieldValue` VARCHAR(256) NOT NULL COMMENT '字段的值',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`DataID`))
+ENGINE = InnoDB
+COMMENT = '字段数据';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_CMS_ATTACH_ALBUM`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_ATTACH_ALBUM` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_ATTACH_ALBUM` (
+  `AlbumID` INT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `ContentID` INT NOT NULL COMMENT '所属内容',
+  `TemplateID` INT NOT NULL,
+  `Title` VARCHAR(256) NOT NULL COMMENT '专辑名',
+  `SubTitle` VARCHAR(256) NOT NULL,
+  `Classify` INT NOT NULL COMMENT '专辑类型',
+  `Weight` INT NOT NULL,
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`AlbumID`))
+ENGINE = InnoDB
+COMMENT = '附件专辑';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_CMS_ATTACH`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_ATTACH` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_ATTACH` (
+  `AttachID` INT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `AttachName` VARCHAR(256) NOT NULL COMMENT '附件名称',
+  `AttachURL` VARCHAR(1024) NOT NULL COMMENT '附件路径',
+  `Weight` INT NOT NULL,
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`AttachID`))
+ENGINE = InnoDB
+COMMENT = '附件表';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_CMS_CONTENT_TAG`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_CONTENT_TAG` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_CONTENT_TAG` (
+  `TagID` INT NOT NULL AUTO_INCREMENT,
+  `ContentID` INT NOT NULL COMMENT '关联内容ID',
+  `ClassCode` VARCHAR(128) NOT NULL COMMENT '标签分类',
+  `ItemCode` VARCHAR(128) NOT NULL COMMENT '标签项',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`TagID`))
+ENGINE = InnoDB
+COMMENT = '内容标签关联表';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_CMS_STATISTICS`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_STATISTICS` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_STATISTICS` (
+  `StatisticsID` INT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `TableName` VARCHAR(128) NOT NULL COMMENT '统计表名',
+  `TableDataID` INT NOT NULL COMMENT '统计目标数据',
+  `StatisticsIP` VARCHAR(256) NOT NULL COMMENT '统计IP地址',
+  `StatisticsType` INT NOT NULL COMMENT '统计类型',
+  `StatisticsValue` INT NOT NULL COMMENT '统计值',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`StatisticsID`))
+ENGINE = InnoDB
+COMMENT = '统计表';
+
+
+-- -----------------------------------------------------
+-- Table `IDOCMS`.`IDO_CMS_COMMENT`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDOCMS`.`IDO_CMS_COMMENT` ;
+
+CREATE TABLE IF NOT EXISTS `IDOCMS`.`IDO_CMS_COMMENT` (
+  `CommentID` INT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `TableName` VARCHAR(128) NOT NULL,
+  `TableDataID` INT NOT NULL,
+  `ParentCommentID` INT NOT NULL COMMENT '上级评论ID',
+  `Comment` TEXT NOT NULL COMMENT '评论内容',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`CommentID`))
+ENGINE = InnoDB
+COMMENT = '评论表';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -1,6 +1,6 @@
 function changeTab(sum, cur) {
-	$allTabs = $("#tabsComponent .tabs li");
-	$allContents = $("#tabsComponent .contents>div");
+	$allTabs = $("#tabs .tabs li");
+	$allContents = $("#tabs .contents>div");
 
 	var i = 0;
 	$allTabs.each(function() {

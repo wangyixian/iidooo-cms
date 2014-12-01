@@ -25,22 +25,12 @@ public class ChannelAction extends CmsBaseAction {
 
     private CmsChannelDto currentChannel;
 
-    private List<CmsChannelDto> allChannels;
-
     public CmsChannelDto getCurrentChannel() {
         return currentChannel;
     }
 
     public void setCurrentChannel(CmsChannelDto currentChannel) {
         this.currentChannel = currentChannel;
-    }
-
-    public List<CmsChannelDto> getAllChannels() {
-        return allChannels;
-    }
-
-    public void setAllChannels(List<CmsChannelDto> allChannels) {
-        this.allChannels = allChannels;
     }
 
     @Override
@@ -52,11 +42,10 @@ public class ChannelAction extends CmsBaseAction {
                 channelPath = AttributeConstant.CHANNEL_PATH_INDEX;
             }
             currentChannel = channelService.getChannelByPath(channelPath);
-            allChannels = channelService.getAllChannels();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
-            logger.fatal(e);
+            logger.fatal(e.getMessage());
             return ERROR;
         }
     }

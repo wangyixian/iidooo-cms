@@ -3,11 +3,13 @@ package com.iidooo.cms.dto.generate;
 public class CmsComment {
     private Integer commentID;
 
+    private String tableName;
+
+    private Integer tableDataID;
+
     private Integer parentCommentID;
 
     private String remarks;
-
-    private String language;
 
     private String createTime;
 
@@ -31,6 +33,22 @@ public class CmsComment {
         this.commentID = commentID;
     }
 
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName == null ? null : tableName.trim();
+    }
+
+    public Integer getTableDataID() {
+        return tableDataID;
+    }
+
+    public void setTableDataID(Integer tableDataID) {
+        this.tableDataID = tableDataID;
+    }
+
     public Integer getParentCommentID() {
         return parentCommentID;
     }
@@ -45,14 +63,6 @@ public class CmsComment {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language == null ? null : language.trim();
     }
 
     public String getCreateTime() {

@@ -6,7 +6,7 @@
 <meta name=description content="${currentChannel.metaDescription}">
 <title>${currentChannel.metaTitle}</title>
 <#include "../include/head.html"/>
-<link type="text/css" rel="stylesheet" href="${SESSION_SITE_RES_ROOT}/css/channel.css">
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/channel.css">
 </head>
 <body>
 	<#include "../include/top.html"/>
@@ -14,7 +14,7 @@
     <div id="comic" class="body_wrap block_wrap">
     	<div class="left_block_wrap">
     		<div id="left_block_1" class="block">
-				<div id="tabsComponent">
+				<div id="tabs">
 					<ul class="tabs">
 						<li class="current" onmouseover="changeTab(3, 0)">热门连载漫画</li>
 						<li onmouseover="changeTab(3, 1)">经典完结漫画</li>
@@ -25,12 +25,16 @@
 						<@contentList count='10' channelPath='comic' tagClass='TAG_COMIC_STATUS' tagItem='1' sortBy='PV' sortType='desc'>
 							<ul class="comicList">
 							<#list returnList as content>
-    							<li>
-    								<input type="hidden" value="${content.contentID}"/>
-    								<div><img alt="${content.title}" src="${SESSION_CONTENT_RES_ROOT}${content.titleImage}"></div>
-    								<div class="align_center">${content.title}[${content.subTitle}]</div>
-    							</li>
-    						</#list>
+								<li>
+									<div>
+										<a href="${SITE_URL}/content?contentID=${content.contentID}"><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></a>
+									</div>
+									<div class="align_center">
+										<a href="${SITE_URL}/content?contentID=${content.contentID}">${content.title}</a>
+										[${content.subTitle}]
+									</div>
+								</li>
+							</#list>
     						</ul>
 						</@contentList>
 						</div>
@@ -39,8 +43,7 @@
 							<ul class="comicList">
 							<#list returnList as content>
     							<li>
-    								<input type="hidden" value="${content.contentID}"/>
-    								<div><img alt="${content.title}" src="${SESSION_CONTENT_RES_ROOT}${content.titleImage}"></div>
+    								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
     								<div class="align_center">${content.title}[${content.subTitle}]</div>
     							</li>
     						</#list>
@@ -52,8 +55,7 @@
 							<ul class="comicList">
 							<#list returnList as content>
     							<li>
-    								<input type="hidden" value="${content.contentID}"/>
-    								<div><img alt="${content.title}" src="${SESSION_CONTENT_RES_ROOT}${content.titleImage}"></div>
+    								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
     								<div class="align_center">${content.title}[${content.subTitle}]</div>
     							</li>
     						</#list>
@@ -70,7 +72,6 @@
 					<ul class="comicTitleList">
 						<#list returnList as content>
 						<li>
-							<input type="hidden" value="${content.contentID}" />
 							・${content.title}
 						</li> 
 						</#list>

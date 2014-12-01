@@ -2,6 +2,7 @@ package com.iidooo.framework.action;
 
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -115,4 +116,9 @@ public abstract class BaseAction extends ActionSupport {
 		logger.debug("The end of the method getResponse");
 		return response;
 	}
+	
+	public ServletContext getServletContext() {
+	    ServletContext servletContext = ServletActionContext.getServletContext();
+	    return servletContext;
+    }
 }

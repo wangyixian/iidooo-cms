@@ -11,7 +11,6 @@
 		<result column="Weight" property="weight" jdbcType="INTEGER" />
 		<result column="IsDefault" property="isDefault" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-		<result column="Language" property="language" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -21,7 +20,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		I.DictItemID, I.ParentItemID, I.DictClassCode, I.DictItemCode, I.DictItemName, I.DictItemValue,
-		I.Weight, I.IsDefault, I.Remarks, I.Language, I.CreateTime, I.CreateUser, I.UpdateTime, I.UpdateUser,
+		I.Weight, I.IsDefault, I.Remarks, I.CreateTime, I.CreateUser, I.UpdateTime, I.UpdateUser,
 		I.IsDelete, I.Version
 	</sql>
 	<select id="selectByDictClass" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.extend.DictClassDto">

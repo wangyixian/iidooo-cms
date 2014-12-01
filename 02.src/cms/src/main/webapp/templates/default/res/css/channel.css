@@ -27,6 +27,22 @@
 	line-height: 2.0em;
 	overflow: hidden;
 }
+/* 
+#comic .comicList li .subTitle {
+	width: 120px;
+	margin-left: 9px;
+	position: absolute;
+	background: black;
+	opacity: 0.8;
+	height: 20px;
+	line-height: 20px;
+}
+
+#comic .comicList li .subTitle a {
+	color: white;
+	text-decoration: none;
+	display: inline-block;
+} */
 
 #comic .comicTitleList li {
 	float: left;

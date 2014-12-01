@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsAttachAlbum" >
     <id column="AlbumID" property="albumID" jdbcType="INTEGER" />
     <result column="ContentID" property="contentID" jdbcType="INTEGER" />
-    <result column="AlbumName" property="albumName" jdbcType="VARCHAR" />
-    <result column="AlbumType" property="albumType" jdbcType="INTEGER" />
+    <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="SubTitle" property="subTitle" jdbcType="VARCHAR" />
+    <result column="Classify" property="classify" jdbcType="INTEGER" />
     <result column="Weight" property="weight" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -17,7 +18,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    AlbumID, ContentID, AlbumName, AlbumType, Weight, Remarks, Language, CreateTime, 
+    AlbumID, ContentID, TemplateID, Title, SubTitle, Classify, Weight, Remarks, CreateTime, 
     CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -31,16 +32,16 @@
     where AlbumID = #{albumID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsAttachAlbum" >
-    insert into ido_cms_attach_album (AlbumID, ContentID, AlbumName, 
-      AlbumType, Weight, Remarks, 
-      Language, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsDelete, 
-      Version)
-    values (#{albumID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{albumName,jdbcType=VARCHAR}, 
-      #{albumType,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER})
+    insert into ido_cms_attach_album (AlbumID, ContentID, TemplateID, 
+      Title, SubTitle, Classify, 
+      Weight, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version)
+    values (#{albumID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, #{classify,jdbcType=INTEGER}, 
+      #{weight,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsAttachAlbum" >
     insert into ido_cms_attach_album
@@ -51,20 +52,23 @@
       <if test="contentID != null" >
         ContentID,
       </if>
-      <if test="albumName != null" >
-        AlbumName,
+      <if test="templateID != null" >
+        TemplateID,
       </if>
-      <if test="albumType != null" >
-        AlbumType,
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="subTitle != null" >
+        SubTitle,
+      </if>
+      <if test="classify != null" >
+        Classify,
       </if>
       <if test="weight != null" >
         Weight,
       </if>
       <if test="remarks != null" >
         Remarks,
-      </if>
-      <if test="language != null" >
-        Language,
       </if>
       <if test="createTime != null" >
         CreateTime,
@@ -92,20 +96,23 @@
       <if test="contentID != null" >
         #{contentID,jdbcType=INTEGER},
       </if>
-      <if test="albumName != null" >
-        #{albumName,jdbcType=VARCHAR},
+      <if test="templateID != null" >
+        #{templateID,jdbcType=INTEGER},
       </if>
-      <if test="albumType != null" >
-        #{albumType,jdbcType=INTEGER},
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null" >
+        #{classify,jdbcType=INTEGER},
       </if>
       <if test="weight != null" >
         #{weight,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=VARCHAR},
@@ -133,20 +140,23 @@
       <if test="contentID != null" >
         ContentID = #{contentID,jdbcType=INTEGER},
       </if>
-      <if test="albumName != null" >
-        AlbumName = #{albumName,jdbcType=VARCHAR},
+      <if test="templateID != null" >
+        TemplateID = #{templateID,jdbcType=INTEGER},
       </if>
-      <if test="albumType != null" >
-        AlbumType = #{albumType,jdbcType=INTEGER},
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        SubTitle = #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null" >
+        Classify = #{classify,jdbcType=INTEGER},
       </if>
       <if test="weight != null" >
         Weight = #{weight,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="language != null" >
-        Language = #{language,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         CreateTime = #{createTime,jdbcType=VARCHAR},
@@ -172,11 +182,12 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsAttachAlbum" >
     update ido_cms_attach_album
     set ContentID = #{contentID,jdbcType=INTEGER},
-      AlbumName = #{albumName,jdbcType=VARCHAR},
-      AlbumType = #{albumType,jdbcType=INTEGER},
+      TemplateID = #{templateID,jdbcType=INTEGER},
+      Title = #{title,jdbcType=VARCHAR},
+      SubTitle = #{subTitle,jdbcType=VARCHAR},
+      Classify = #{classify,jdbcType=INTEGER},
       Weight = #{weight,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},

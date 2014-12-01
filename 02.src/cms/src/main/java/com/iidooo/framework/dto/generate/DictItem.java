@@ -19,8 +19,6 @@ public class DictItem {
 
     private String remarks;
 
-    private String language;
-
     private String createTime;
 
     private Integer createUser;
@@ -103,14 +101,6 @@ public class DictItem {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language == null ? null : language.trim();
     }
 
     public String getCreateTime() {

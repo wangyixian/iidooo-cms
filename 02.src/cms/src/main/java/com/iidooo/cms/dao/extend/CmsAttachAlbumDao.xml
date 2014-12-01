@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.extend.CmsAttachAlbumDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsAttachAlbumDto" >
+    <id column="AlbumID" property="albumID" jdbcType="INTEGER" />
+    <result column="ContentID" property="contentID" jdbcType="INTEGER" />
+    <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="SubTitle" property="subTitle" jdbcType="VARCHAR" />
+    <result column="Classify" property="classify" jdbcType="INTEGER" />
+    <result column="DictItemValue" property="classifyName" jdbcType="INTEGER" />    
+    <result column="Weight" property="weight" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    A.AlbumID, A.ContentID, A.TemplateID, A.Title, A.SubTitle, A.Classify, A.Weight, A.Remarks, A.CreateTime, 
+    A.CreateUser, A.UpdateTime, A.UpdateUser, A.IsDelete, A.Version
+  </sql>
+  <select id="selectAttachAlbums" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT 
+    <include refid="Base_Column_List" />, I.DictItemValue
+    FROM IDO_CMS_ATTACH_ALBUM A
+    LEFT OUTER JOIN IDO_DICT_ITEM I
+    ON I.DictClassCode = 'ATTACH_ALBUM_CLASSIFY' AND A.Classify = I.DictItemCode 
+    AND A.ContentID = #{contentID,jdbcType=INTEGER} 
+    AND A.IsDelete = 0 AND I.IsDelete = 0
+    ORDER BY A.${sortBy} ${sortType}
+  </select>
+</mapper>

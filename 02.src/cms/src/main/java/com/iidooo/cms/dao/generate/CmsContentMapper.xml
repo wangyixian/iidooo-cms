@@ -17,7 +17,6 @@
     <result column="Weight" property="weight" jdbcType="INTEGER" />
     <result column="IsAllowComment" property="isAllowComment" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -31,7 +30,7 @@
   <sql id="Base_Column_List" >
     ContentID, ChannelID, TemplateID, Title, TitleImage, SubTitle, MetaTitle, MetaKeyworlds, 
     MetaDescription, ContentSummary, ContentSource, ContentAuthor, Weight, IsAllowComment, 
-    Remarks, Language, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <sql id="Blob_Column_List" >
     ContentBody
@@ -54,17 +53,17 @@
       MetaTitle, MetaKeyworlds, MetaDescription, 
       ContentSummary, ContentSource, ContentAuthor, 
       Weight, IsAllowComment, Remarks, 
-      Language, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsDelete, 
-      Version, ContentBody)
+      CreateTime, CreateUser, UpdateTime, 
+      UpdateUser, IsDelete, Version, 
+      ContentBody)
     values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
       #{title,jdbcType=VARCHAR}, #{titleImage,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, 
       #{metaTitle,jdbcType=VARCHAR}, #{metaKeyworlds,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, 
       #{contentSummary,jdbcType=VARCHAR}, #{contentSource,jdbcType=VARCHAR}, #{contentAuthor,jdbcType=VARCHAR}, 
       #{weight,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER}, #{contentBody,jdbcType=LONGVARCHAR})
+      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+      #{contentBody,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
     insert into ido_cms_content
@@ -113,9 +112,6 @@
       </if>
       <if test="remarks != null" >
         Remarks,
-      </if>
-      <if test="language != null" >
-        Language,
       </if>
       <if test="createTime != null" >
         CreateTime,
@@ -185,9 +181,6 @@
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=VARCHAR},
       </if>
@@ -256,9 +249,6 @@
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="language != null" >
-        Language = #{language,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null" >
         CreateTime = #{createTime,jdbcType=VARCHAR},
       </if>
@@ -299,7 +289,6 @@
       Weight = #{weight,jdbcType=INTEGER},
       IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
@@ -325,7 +314,6 @@
       Weight = #{weight,jdbcType=INTEGER},
       IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},

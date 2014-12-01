@@ -3,9 +3,10 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsCommentMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsComment" >
     <id column="CommentID" property="commentID" jdbcType="INTEGER" />
+    <result column="TableName" property="tableName" jdbcType="VARCHAR" />
+    <result column="TableDataID" property="tableDataID" jdbcType="INTEGER" />
     <result column="ParentCommentID" property="parentCommentID" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="Language" property="language" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -17,8 +18,8 @@
     <result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    CommentID, ParentCommentID, Remarks, Language, CreateTime, CreateUser, UpdateTime, 
-    UpdateUser, IsDelete, Version
+    CommentID, TableName, TableDataID, ParentCommentID, Remarks, CreateTime, CreateUser, 
+    UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <sql id="Blob_Column_List" >
     Comment
@@ -36,14 +37,16 @@
     where CommentID = #{commentID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
-    insert into ido_cms_comment (CommentID, ParentCommentID, Remarks, 
-      Language, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsDelete, 
-      Version, Comment)
-    values (#{commentID,jdbcType=INTEGER}, #{parentCommentID,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{language,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER}, #{comment,jdbcType=LONGVARCHAR})
+    insert into ido_cms_comment (CommentID, TableName, TableDataID, 
+      ParentCommentID, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version, Comment
+      )
+    values (#{commentID,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{tableDataID,jdbcType=INTEGER}, 
+      #{parentCommentID,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, #{comment,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
     insert into ido_cms_comment
@@ -51,14 +54,17 @@
       <if test="commentID != null" >
         CommentID,
       </if>
+      <if test="tableName != null" >
+        TableName,
+      </if>
+      <if test="tableDataID != null" >
+        TableDataID,
+      </if>
       <if test="parentCommentID != null" >
         ParentCommentID,
       </if>
       <if test="remarks != null" >
         Remarks,
-      </if>
-      <if test="language != null" >
-        Language,
       </if>
       <if test="createTime != null" >
         CreateTime,
@@ -86,14 +92,17 @@
       <if test="commentID != null" >
         #{commentID,jdbcType=INTEGER},
       </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableDataID != null" >
+        #{tableDataID,jdbcType=INTEGER},
+      </if>
       <if test="parentCommentID != null" >
         #{parentCommentID,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=VARCHAR},
@@ -121,14 +130,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
     update ido_cms_comment
     <set >
+      <if test="tableName != null" >
+        TableName = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableDataID != null" >
+        TableDataID = #{tableDataID,jdbcType=INTEGER},
+      </if>
       <if test="parentCommentID != null" >
         ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="language != null" >
-        Language = #{language,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         CreateTime = #{createTime,jdbcType=VARCHAR},
@@ -156,9 +168,10 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
     update ido_cms_comment
-    set ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
+    set TableName = #{tableName,jdbcType=VARCHAR},
+      TableDataID = #{tableDataID,jdbcType=INTEGER},
+      ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
@@ -170,9 +183,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsComment" >
     update ido_cms_comment
-    set ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
+    set TableName = #{tableName,jdbcType=VARCHAR},
+      TableDataID = #{tableDataID,jdbcType=INTEGER},
+      ParentCommentID = #{parentCommentID,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Language = #{language,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},

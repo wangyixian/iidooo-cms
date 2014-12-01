@@ -1,15 +1,18 @@
 <div class="body_wrap">
+	<@channelList level='0' sortBy='Weight' sortType='asc'>
 	<ul id="mainmenu">
-		<#list allChannels as channel>
+		<#list returnList as channel>
 		<#if channel.isHidden == 0>
 		<li>
-		    <#if channel.channelID == currentChannel.channelID>
-               <a href="${SESSION_SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}" class="main_menu_focus">${channel.channelName}</a>
-               <#else>
-               <a href="${SESSION_SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}">${channel.channelName}</a>
-               </#if>
-           </li>
-           </#if>
+		<#if (currentChannel?? && channel.channelID == currentChannel.channelID) || 
+			(currentContent?? && channel.channelID = currentContent.channelID)>
+        	<a href="${SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}" class="main_menu_focus">${channel.channelName}</a>
+        <#else>
+        	<a href="${SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}">${channel.channelName}</a>
+        </#if>
+        </li>
+    	</#if>
 		</#list>
 	</ul>
+	</@channelList>
 </div>
