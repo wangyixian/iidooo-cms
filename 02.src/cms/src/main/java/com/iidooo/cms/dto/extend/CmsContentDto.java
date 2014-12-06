@@ -10,10 +10,6 @@ public class CmsContentDto extends CmsContent {
 
     private String templateSource;
 
-    private String channelName;
-
-    private String channelPath;
-
     private String updateDate;
 
     private List<CmsContentTagDto> tags;
@@ -24,22 +20,6 @@ public class CmsContentDto extends CmsContent {
 
     public void setTemplateSource(String templateSource) {
         this.templateSource = templateSource;
-    }
-
-    public String getChannelName() {
-        return channelName;
-    }
-
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
-    }
-
-    public String getChannelPath() {
-        return channelPath;
-    }
-
-    public void setChannelPath(String channelPath) {
-        this.channelPath = channelPath;
     }
 
     public String getUpdateDate() {

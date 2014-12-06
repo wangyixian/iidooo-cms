@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.constant.AttributeConstant;
+import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.dto.extend.CmsContentTagDto;
+import com.iidooo.cms.service.ChannelService;
 import com.iidooo.cms.service.ContentService;
 
 public class ContentAction extends CmsBaseAction {
@@ -25,11 +27,24 @@ public class ContentAction extends CmsBaseAction {
 
     @Autowired
     private ContentService contentService;
+    
+    @Autowired
+    private ChannelService channelService;
+    
+    private CmsChannelDto currentChannel;
 
     private CmsContentDto currentContent;
 
     private Map<String, String> tagMap;
 
+    public CmsChannelDto getCurrentChannel() {
+        return currentChannel;
+    }
+
+    public void setCurrentChannel(CmsChannelDto currentChannel) {
+        this.currentChannel = currentChannel;
+    }
+    
     public CmsContentDto getCurrentContent() {
         return currentContent;
     }
@@ -59,7 +74,11 @@ public class ContentAction extends CmsBaseAction {
                 return NONE;
             }
             currentContent = contentService.getContentByID(Integer.parseInt(contentID));
-
+            if (currentContent == null) {
+                return NONE;
+            }
+            currentChannel = channelService.getChannelByID(currentContent.getChannelID());
+            
             ServletContext sc = this.getServletContext();
             for (CmsContentTagDto cmsTagDto : currentContent.getTags()) {
                 String classCode = cmsTagDto.getClassCode();

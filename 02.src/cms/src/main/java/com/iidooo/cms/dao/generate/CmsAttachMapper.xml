@@ -3,8 +3,10 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsAttachMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsAttach" >
     <id column="AttachID" property="attachID" jdbcType="INTEGER" />
-    <result column="AttachName" property="attachName" jdbcType="VARCHAR" />
-    <result column="AttachURL" property="attachURL" jdbcType="VARCHAR" />
+    <result column="AlbumID" property="albumID" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="SubName" property="subName" jdbcType="VARCHAR" />
+    <result column="URL" property="URL" jdbcType="VARCHAR" />
     <result column="Weight" property="weight" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -15,7 +17,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    AttachID, AttachName, AttachURL, Weight, Remarks, CreateTime, CreateUser, UpdateTime, 
+    AttachID, AlbumID, Name, SubName, URL, Weight, Remarks, CreateTime, CreateUser, UpdateTime, 
     UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,14 +31,16 @@
     where AttachID = #{attachID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
-    insert into ido_cms_attach (AttachID, AttachName, AttachURL, 
-      Weight, Remarks, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      IsDelete, Version)
-    values (#{attachID,jdbcType=INTEGER}, #{attachName,jdbcType=VARCHAR}, #{attachURL,jdbcType=VARCHAR}, 
-      #{weight,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+    insert into ido_cms_attach (AttachID, AlbumID, Name, 
+      SubName, URL, Weight, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
+    values (#{attachID,jdbcType=INTEGER}, #{albumID,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{subName,jdbcType=VARCHAR}, #{URL,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
     insert into ido_cms_attach
@@ -44,11 +48,17 @@
       <if test="attachID != null" >
         AttachID,
       </if>
-      <if test="attachName != null" >
-        AttachName,
+      <if test="albumID != null" >
+        AlbumID,
       </if>
-      <if test="attachURL != null" >
-        AttachURL,
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="subName != null" >
+        SubName,
+      </if>
+      <if test="URL != null" >
+        URL,
       </if>
       <if test="weight != null" >
         Weight,
@@ -79,11 +89,17 @@
       <if test="attachID != null" >
         #{attachID,jdbcType=INTEGER},
       </if>
-      <if test="attachName != null" >
-        #{attachName,jdbcType=VARCHAR},
+      <if test="albumID != null" >
+        #{albumID,jdbcType=INTEGER},
       </if>
-      <if test="attachURL != null" >
-        #{attachURL,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null" >
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="URL != null" >
+        #{URL,jdbcType=VARCHAR},
       </if>
       <if test="weight != null" >
         #{weight,jdbcType=INTEGER},
@@ -114,11 +130,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
     update ido_cms_attach
     <set >
-      <if test="attachName != null" >
-        AttachName = #{attachName,jdbcType=VARCHAR},
+      <if test="albumID != null" >
+        AlbumID = #{albumID,jdbcType=INTEGER},
       </if>
-      <if test="attachURL != null" >
-        AttachURL = #{attachURL,jdbcType=VARCHAR},
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null" >
+        SubName = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="URL != null" >
+        URL = #{URL,jdbcType=VARCHAR},
       </if>
       <if test="weight != null" >
         Weight = #{weight,jdbcType=INTEGER},
@@ -149,8 +171,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
     update ido_cms_attach
-    set AttachName = #{attachName,jdbcType=VARCHAR},
-      AttachURL = #{attachURL,jdbcType=VARCHAR},
+    set AlbumID = #{albumID,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR},
+      SubName = #{subName,jdbcType=VARCHAR},
+      URL = #{URL,jdbcType=VARCHAR},
       Weight = #{weight,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

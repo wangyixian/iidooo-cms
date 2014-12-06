@@ -3,9 +3,13 @@ package com.iidooo.cms.dto.generate;
 public class CmsAttach {
     private Integer attachID;
 
-    private String attachName;
+    private Integer albumID;
 
-    private String attachURL;
+    private String name;
+
+    private String subName;
+
+    private String URL;
 
     private Integer weight;
 
@@ -31,20 +35,36 @@ public class CmsAttach {
         this.attachID = attachID;
     }
 
-    public String getAttachName() {
-        return attachName;
+    public Integer getAlbumID() {
+        return albumID;
     }
 
-    public void setAttachName(String attachName) {
-        this.attachName = attachName == null ? null : attachName.trim();
+    public void setAlbumID(Integer albumID) {
+        this.albumID = albumID;
     }
 
-    public String getAttachURL() {
-        return attachURL;
+    public String getName() {
+        return name;
     }
 
-    public void setAttachURL(String attachURL) {
-        this.attachURL = attachURL == null ? null : attachURL.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getSubName() {
+        return subName;
+    }
+
+    public void setSubName(String subName) {
+        this.subName = subName == null ? null : subName.trim();
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL == null ? null : URL.trim();
     }
 
     public Integer getWeight() {

@@ -4,8 +4,7 @@
 		<#list returnList as channel>
 		<#if channel.isHidden == 0>
 		<li>
-		<#if (currentChannel?? && channel.channelID == currentChannel.channelID) || 
-			(currentContent?? && channel.channelID = currentContent.channelID)>
+		<#if channel.channelID == currentChannel.channelID>
         	<a href="${SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}" class="main_menu_focus">${channel.channelName}</a>
         <#else>
         	<a href="${SITE_URL}/channel?path=${channel.channelPath}" target="${channel.targetType}">${channel.channelName}</a>

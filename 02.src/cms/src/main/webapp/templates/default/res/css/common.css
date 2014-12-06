@@ -64,6 +64,10 @@ p {
 	word-wrap: break-word;
 }
 
+select {
+	vertical-align: middle;
+}
+
 h1, h2, h3, h4 {
 	margin: 0;
 }
@@ -342,6 +346,14 @@ a:hover {
 	background-color: RGB(54, 54, 54);
 	color: RGB(204, 204, 204);
 	padding: 5px;
+}
+
+#foot a {
+	color: RGB(204, 204, 204);
+}
+
+#foot a:hover {
+	color: white;
 }
 
 /* The style of bread crumbs */

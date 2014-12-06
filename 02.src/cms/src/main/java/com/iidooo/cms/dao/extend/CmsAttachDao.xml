@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.extend.CmsAttachDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsAttachDto" >
+    <id column="AttachID" property="attachID" jdbcType="INTEGER" />
+    <result column="AlbumID" property="albumID" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="SubName" property="subName" jdbcType="VARCHAR" />
+    <result column="URL" property="URL" jdbcType="VARCHAR" />
+    <result column="Weight" property="weight" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    A.AttachID, A.AlbumID, A.Name, A.SubName, A.URL, A.Weight, A.Remarks, A.CreateTime, A.CreateUser, A.UpdateTime, 
+    A.UpdateUser, A.IsDelete, A.Version
+  </sql>
+  <select id="selectAttachsByAlbumID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM IDO_CMS_ATTACH A
+    WHERE A.AlbumID = #{albumID,jdbcType=INTEGER} AND A.IsDelete = 0 
+    ORDER BY A.Weight
+  </select>
+  
+</mapper>

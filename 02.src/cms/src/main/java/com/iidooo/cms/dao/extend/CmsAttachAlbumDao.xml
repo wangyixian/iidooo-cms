@@ -3,12 +3,13 @@
 <mapper namespace="com.iidooo.cms.dao.extend.CmsAttachAlbumDao" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsAttachAlbumDto" >
     <id column="AlbumID" property="albumID" jdbcType="INTEGER" />
-    <result column="ContentID" property="contentID" jdbcType="INTEGER" />
+    <result column="ContentID" property="contentID" jdbcType="INTEGER" />    
     <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
+    <result column="TemplateSource" property="templateSource" jdbcType="VARCHAR" />
     <result column="Title" property="title" jdbcType="VARCHAR" />
     <result column="SubTitle" property="subTitle" jdbcType="VARCHAR" />
     <result column="Classify" property="classify" jdbcType="INTEGER" />
-    <result column="DictItemValue" property="classifyName" jdbcType="INTEGER" />    
+    <result column="ClassifyName" property="classifyName" jdbcType="VARCHAR" />    
     <result column="Weight" property="weight" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -24,12 +25,31 @@
   </sql>
   <select id="selectAttachAlbums" resultMap="BaseResultMap" parameterType="java.util.Map" >
     SELECT 
-    <include refid="Base_Column_List" />, I.DictItemValue
+    <include refid="Base_Column_List" />, I.DictItemValue as ClassifyName
     FROM IDO_CMS_ATTACH_ALBUM A
     LEFT OUTER JOIN IDO_DICT_ITEM I
     ON I.DictClassCode = 'ATTACH_ALBUM_CLASSIFY' AND A.Classify = I.DictItemCode 
     AND A.ContentID = #{contentID,jdbcType=INTEGER} 
     AND A.IsDelete = 0 AND I.IsDelete = 0
     ORDER BY A.${sortBy} ${sortType}
+  </select>
+  <select id="selectAttachAlbumByID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    <include refid="Base_Column_List" />, 
+    T.TemplateSource
+    FROM IDO_CMS_ATTACH_ALBUM A
+    JOIN IDO_CMS_TEMPLATE T
+    ON A.AlbumID = #{albumID,jdbcType=INTEGER} 
+    AND A.TemplateID = T.TemplateID
+    AND A.IsDelete = 0 AND T.IsDelete = 0
+  </select>
+  <select id="selectAttachAlbumsByClassify" resultMap="BaseResultMap" parameterType="com.iidooo.cms.dto.extend.CmsAttachAlbumDto" >
+  	SELECT 
+  	<include refid="Base_Column_List" /> 
+  	FROM IDO_CMS_ATTACH_ALBUM A
+  	WHERE A.ContentID = #{contentID,jdbcType=INTEGER} 
+  	AND A.Classify = #{classify,jdbcType=INTEGER} 
+  	AND A.IsDelete = 0 
+  	ORDER BY A.Weight
   </select>
 </mapper>

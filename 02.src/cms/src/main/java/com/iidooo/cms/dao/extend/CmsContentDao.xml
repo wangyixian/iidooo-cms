@@ -3,9 +3,7 @@
 <mapper namespace="com.iidooo.cms.dao.extend.CmsContentDao">
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsContentDto">
 		<id column="ContentID" property="contentID" jdbcType="INTEGER" />
-		<result column="ChannelID" property="channelID" jdbcType="INTEGER" />
-		<result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
-		<result column="ChannelPath" property="channelPath" jdbcType="VARCHAR" />		
+		<result column="ChannelID" property="channelID" jdbcType="INTEGER" />		
 		<result column="TemplateID" property="templateID" jdbcType="INTEGER" />
 		<result column="TemplateSource" property="templateSource" jdbcType="VARCHAR" />
 		<result column="Title" property="title" jdbcType="VARCHAR" />
@@ -74,14 +72,14 @@
 		on C.ContentID = T.ContentID order by T.ItemCode ${sortType} limit 0, ${count}
 	</select>
 	<select id="selectContentByID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />, T.TemplateSource, L.ChannelName, L.ChannelPath
+		SELECT
+		<include refid="Base_Column_List" />, T.TemplateSource
 		,
 		<include refid="Blob_Column_List" />
-		from IDO_CMS_CONTENT C
-		inner join IDO_CMS_CHANNEL L on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
-		inner join IDO_CMS_TEMPLATE T on C.TemplateID = T.TemplateID and  T.IsDelete = 0
-		and C.ContentID = #{contentID,jdbcType=INTEGER}    
+		FROM IDO_CMS_CONTENT C		
+		INNER JOIN IDO_CMS_TEMPLATE T 
+		ON C.TemplateID = T.TemplateID AND C.ContentID = #{contentID,jdbcType=INTEGER}    
+		AND C.IsDelete = 0 AND T.IsDelete = 0 
 	</select>
 
 </mapper>

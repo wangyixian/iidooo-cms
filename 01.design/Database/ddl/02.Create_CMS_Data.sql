@@ -223,7 +223,7 @@ VALUES (10, 'TAG_COUNTRY', '1', '', now(), 1, now(), 1, 0, 1);
 
 -- 附件专辑构建
 INSERT INTO `IDO_CMS_ATTACH_ALBUM` (`ContentID`, `TemplateID`, `Title`, `SubTitle`, `Classify`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (1, 8, '第1话', 'ROMANCE DOWN 冒险！', 1, 1, '', now(), 1, now(), 1, 0, 1);
+VALUES (1, 8, '第1卷', '冒险之序幕', 1, 1, '', now(), 1, now(), 1, 0, 1);
 INSERT INTO `IDO_CMS_ATTACH_ALBUM` (`ContentID`, `TemplateID`, `Title`, `SubTitle`, `Classify`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES (1, 8, '第2话', 'ROMANCE DOWN 冒险！', 1, 1, '', now(), 1, now(), 1, 0, 1);
 INSERT INTO `IDO_CMS_ATTACH_ALBUM` (`ContentID`, `TemplateID`, `Title`, `SubTitle`, `Classify`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
@@ -242,6 +242,29 @@ INSERT INTO `IDO_CMS_ATTACH_ALBUM` (`ContentID`, `TemplateID`, `Title`, `SubTitl
 VALUES (1, 8, '第9话', 'ROMANCE DOWN 冒险！', 1, 1, '', now(), 1, now(), 1, 0, 1);
 INSERT INTO `IDO_CMS_ATTACH_ALBUM` (`ContentID`, `TemplateID`, `Title`, `SubTitle`, `Classify`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES (1, 8, '第10话', 'ROMANCE DOWN 冒险！', 1, 1, '', now(), 1, now(), 1, 0, 1);
+
+-- 构建附件内容
+-- 海贼王第一卷
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第1页', '', '/comic/海贼王/Album/正番/第1卷/001.jpg', 1, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第2页', '', '/comic/海贼王/Album/正番/第1卷/002.jpg', 2, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第3页', '', '/comic/海贼王/Album/正番/第1卷/003.jpg', 3, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第4页', '', '/comic/海贼王/Album/正番/第1卷/004.jpg', 4, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第5页', '', '/comic/海贼王/Album/正番/第1卷/005.jpg', 5, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第6页', '', '/comic/海贼王/Album/正番/第1卷/006.jpg', 6, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第7页', '', '/comic/海贼王/Album/正番/第1卷/007.jpg', 7, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第8页', '', '/comic/海贼王/Album/正番/第1卷/008.jpg', 8, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第9页', '', '/comic/海贼王/Album/正番/第1卷/009.jpg', 9, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_ATTACH` (`AlbumID`, `Name`, `SubName`, `URL`, `Weight`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '第10页', '', '/comic/海贼王/Album/正番/第1卷/010.jpg', 10, '', now(), 1, now(), 1, 0, 1);
 
 -- 统计信息构建
 INSERT INTO `IDO_CMS_STATISTICS` (`TableName`, `TableDataID`, `StatisticsIP`, `StatisticsType`, `StatisticsValue`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`)

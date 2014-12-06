@@ -1,20 +1,20 @@
 @CHARSET "UTF-8";
 
-#comicAlbum>.left_block_wrap {
+#comicContent>.left_block_wrap {
 	float: left;
 	width: 310px;
 }
 
-#comicAlbum>.right_block_wrap {
+#comicContent>.right_block_wrap {
 	float: right;
 	width: 660px;
 }
 
-#comicAlbum .titleImage {
+#comicContent .titleImage {
 	margin-left: 15px;
 }
 
-#comicAlbum .comicInfo {
+#comicContent .comicInfo {
 	overflow: hidden;
 }
 
@@ -50,5 +50,4 @@
 	color: red;
 	cursor: pointer;
 	font-weight: bold;
-}
 }

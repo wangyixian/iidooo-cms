@@ -2,50 +2,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="${currentContent.metaKeyworlds}">
-<meta name=description content="${currentContent.metaDescription}">
-<title>${currentContent.metaTitle}</title>
+<title>${currentContent.title}-${currentAlbum.title}-${SITE_NAME}</title>
 <#include "../include/head.html"/>
-<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/content.css">
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/comicAlbum.css">
+<script type="text/javascript" src="${SITE_RES_ROOT}/js/comicAlbum.js"></script>
 </head>
-<body>
+<body>	
 	<#include "../include/top.html"/>
     <#include "../include/mainmenu.html"/>
-	<#include "../include/content_crumbs.html"/>
-	<div id="comicAlbum" class="body_wrap">		
-		<div class="left_block_wrap">
-			<div id="right_block_1" class="block">
-    			<div class="title"><h1>${currentContent.title}漫画</h1></div>
-    			<div class="content">
-    				<div>
-	    				<div class="left">
-	    					<p>原著作者：${currentContent.contentAuthor}</p>
-	    					<p>字母索引：${tagMap["TAG_LETTER"]}</p>
-	    					<p>漫画状态：${tagMap["TAG_COMIC_STATUS"]}</p>
-	    					<p>漫画类型：${tagMap["TAG_COMIC_TYPE"]}</p>
-	    					<p>漫画区域：${tagMap["TAG_COUNTRY"]}</p>
-	    					<p>更新时间：${currentContent.updateDate}</p>
-	    					<p>最新更新：${currentContent.subTitle}</p>
-	    					<p>观看次数：<@statistics contentID="${currentContent.contentID}" statisticsBy="PV">${returnValue}</@statistics></p>
-	    				</div>
-	    				<div class="right">
-	   						<img alt="${currentContent.title}" src="${CONTENT_RES_ROOT}${currentContent.titleImage}">
-	    				</div>
-    				</div>
-    				<br/>
-    				<div>
-    					<p><strong>${currentContent.title}漫画简介：</strong></p>
-    					${currentContent.contentSummary}
-    				</div>
-    			</div>
-    		</div>
-    		<div id="right_block_2" class="block">
-    			<div class="title"><h1></h1></div>
-    			<div class="content"></div>
-    		</div>
+    <#include "../include/album_crumbs.html"/>    
+	<div id="album">
+		<div class="body_wrap align_center controlBar">
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">目录列表</a>
+			<a id="preAlbum" class="button" href="${SITE_URL}/album?albumID=${currentAlbum.preAlbumID}">上一章</a>
+			<a class="button" href="#" onclick="changeSelected(true)">上一页</a>
+			<select id="selectPage1" onchange="changePage(1)">
+				<#list currentAlbum.cmsAttachDtos as attach>
+				<option value="${CONTENT_RES_ROOT}${attach.URL }">${attach.name}</option>
+				</#list>
+			</select>
+			<a class="button" href="#" onclick="changeSelected(false)">下一页</a>
+			<a id="nextAlbum" class="button" href="${SITE_URL}/album?albumID=${currentAlbum.nextAlbumID}">下一章</a>
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">返回目录</a>
 		</div>
-		<div class="right_block_wrap">
-		    
+		<div class="body_wrap">
+			<div class="tip">
+			提示：（键盘右键→）下一页，（键盘左键←）上一页，（键盘Z）上一章，（键盘X）下一章，（键盘F11）全屏浏览，（键盘ESC）退出全屏。 
+			</div>
+		</div>
+		<div class="comic_page">
+			<img id="previousPage" class="comic_page" onclick="changeSelected(false)"></img>
+			<img id="currentPage" class="comic_page" onclick="changeSelected(false)"></img>
+			<img id="nextPage" class="comic_page" onclick="changeSelected(false)"></img>
+		</div>
+		<div class="body_wrap align_center controlBar">
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">目录列表</a>
+			<a class="button" href="${SITE_URL}/album?albumID=${currentAlbum.preAlbumID}">上一章</a>
+			<a class="button" href="#" onclick="changeSelected(true)">上一页</a>
+			<select id="selectPage2" onchange="changePage(2)">
+				<#list currentAlbum.cmsAttachDtos as attach>
+				<option value="${CONTENT_RES_ROOT}${attach.URL }">${attach.name}</option>
+				</#list>
+			</select>
+			<a class="button" href="#" onclick="changeSelected(false)">下一页</a>
+			<a class="button" href="${SITE_URL}/album?albumID=${currentAlbum.nextAlbumID}">下一章</a>
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">返回目录</a>
 		</div>
 	</div>
 	<#include "../include/footer.html"/>

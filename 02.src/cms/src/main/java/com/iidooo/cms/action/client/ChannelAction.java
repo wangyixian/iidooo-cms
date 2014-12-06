@@ -1,6 +1,7 @@
 package com.iidooo.cms.action.client;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,6 +43,10 @@ public class ChannelAction extends CmsBaseAction {
                 channelPath = AttributeConstant.CHANNEL_PATH_INDEX;
             }
             currentChannel = channelService.getChannelByPath(channelPath);
+            
+            if (currentChannel == null) {
+                return NONE;
+            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
