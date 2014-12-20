@@ -3,6 +3,7 @@ package com.iidooo.cms.action.client;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.freemarker.directive.AttachAlbumList;
+import com.iidooo.cms.freemarker.directive.AttachList;
 import com.iidooo.cms.freemarker.directive.ChannelList;
 import com.iidooo.cms.freemarker.directive.ContentList;
 import com.iidooo.cms.freemarker.directive.Statistics;
@@ -28,6 +29,9 @@ public abstract class CmsBaseAction extends BaseAction {
     
     @Autowired
     private AttachAlbumList attachAlbumList;
+    
+    @Autowired
+    private AttachList attachList;
 
     public ContentList getContentList() {
         return contentList;
@@ -43,6 +47,10 @@ public abstract class CmsBaseAction extends BaseAction {
     
     public AttachAlbumList getAttachAlbumList(){
         return attachAlbumList;
+    }
+
+    public AttachList getAttachList() {
+        return attachList;
     }
 
     // End Regist

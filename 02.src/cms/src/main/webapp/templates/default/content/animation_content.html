@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="${currentContent.metaKeyworlds}">
+<meta name=description content="${currentContent.metaDescription}">
+<title>${currentContent.metaTitle}-${SITE_NAME}</title>
+<#include "../include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/animation_content.css">
+</head>
+<body>
+	<#include "../include/top.html"/>
+    <#include "../include/mainmenu.html"/>
+	<#include "../include/content_crumbs.html"/>
+	<div id="comicContent" class="body_wrap">		
+		<div class="left_block_wrap">
+			<div id="left_block_1" class="block">
+    			<div class="title"><h1>${currentContent.title}动画</h1></div>
+    			<div class="content">
+    				<div>
+	    				<div class="left">
+	    					<p>原著作者：${currentContent.contentAuthor}</p>
+	    					<p>字母索引：${tagMap["TAG_LETTER"]}</p>
+	    					<p>漫画状态：${tagMap["TAG_COMIC_STATUS"]}</p>
+	    					<p>漫画类型：${tagMap["TAG_COMIC_TYPE"]}</p>
+	    					<p>漫画区域：${tagMap["TAG_COUNTRY"]}</p>
+	    					<p>更新时间：${currentContent.updateDate}</p>
+	    					<p>最新更新：${currentContent.subTitle}</p>
+	    					<p>观看次数：<@statistics contentID="${currentContent.contentID}" statisticsBy="PV">${returnValue}</@statistics></p>
+	    				</div>
+	    				<div class="right titleImage">
+	   						<img alt="${currentContent.title}" src="${CONTENT_RES_ROOT}${currentContent.titleImage}">
+	    				</div>
+    				</div>
+    				<br/>
+    				<div>
+    					<p><strong>${currentContent.title}动画简介：</strong></p>
+    					${currentContent.contentSummary}
+    				</div>
+    			</div>
+    		</div>
+    		<div id="left_block_2" class="block">
+    			<div class="title"><h1></h1></div>
+    			<div class="content"></div>
+    		</div>
+		</div>
+		<div class="right_block_wrap">
+			<@attachList contentID = "${currentContent.contentID}" sortBy="weight" sortType="desc">
+			<#list returnMap?keys as key>
+		    <div id="right_block_1" class="block">
+    			<div class="title"><h3>${currentContent.title}动画<strong>${key}</strong></h3></div>
+    			<div class="content albums">
+    			<ul>
+    			<#list returnMap[key] as attach>
+    			<li>
+    				<!-- <a href="${SITE_URL}/attach?attachID=${attach.attachID}">
+    					${attach.name}
+    				</a> -->
+    				<a href="${attach.URL}">
+    					${attach.name}
+    				</a>
+    			</li>
+    			</#list>
+    			</ul>
+    			</div>
+    		</div>
+    		</#list>
+    		</@attachList>
+		</div>
+	</div>
+	<#include "../include/footer.html"/>
+</body>
+</html>

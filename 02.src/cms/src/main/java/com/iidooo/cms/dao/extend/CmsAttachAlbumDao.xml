@@ -27,7 +27,7 @@
     SELECT 
     <include refid="Base_Column_List" />, I.DictItemValue as ClassifyName
     FROM IDO_CMS_ATTACH_ALBUM A
-    LEFT OUTER JOIN IDO_DICT_ITEM I
+    JOIN IDO_DICT_ITEM I
     ON I.DictClassCode = 'ATTACH_ALBUM_CLASSIFY' AND A.Classify = I.DictItemCode 
     AND A.ContentID = #{contentID,jdbcType=INTEGER} 
     AND A.IsDelete = 0 AND I.IsDelete = 0

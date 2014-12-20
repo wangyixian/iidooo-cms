@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="${currentChannel.metaKeyworlds}">
+<meta name=description content="${currentChannel.metaDescription}">
+<title>${currentChannel.metaTitle}-${SITE_NAME}</title>
+<#include "../include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/index/index.css">
+</head>
+<body>
+	<#include "../include/top.html"/>
+	<#include "../include/logo.html"/>
+    <#include "../include/mainmenu.html"/>
+    <div id="index" class="body_wrap">
+    	<div id="banner" class="banner"><img src="${SITE_RES_ROOT}/img/index/banner.png"></div>
+    	<div>
+    		<div>
+    			<div class="block">
+    				<div class="title">
+    					<a class="main_title">
+    						精品展示
+    						<span class="mark_top"></span>
+    						<span class="mark_bottom"></span>
+    					</a>
+    					<a class="right more">更多精品葡萄酒&gt;&gt;</a>
+    				</div>
+    				<div class="content">
+    				<@contentList count='8' channelPath='product' sortBy='Weight' sortType="asc">
+    					<ul class="product_list">
+						<#list returnList as content>
+   							<li >
+   								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
+   								<div class="align_center">${content.title}</div>
+   							</li>
+   						</#list>
+    					</ul>
+    				</@contentList>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="right_block_wrap">
+    			<div class="block">
+    				<div class="title"></div>
+    				<div class="content"></div>
+    			</div>
+    			
+    		</div>
+    	</div>
+    </div>
+    <#include "../include/footer.html"/>
+</body>
+</html>

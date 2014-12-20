@@ -1,0 +1,119 @@
+@CHARSET "UTF-8";
+
+.left_block_wrap {
+	float: left;
+	width: 750px;
+}
+
+.right_block_wrap {
+	float: right;
+	width: 240px;
+}
+
+.product_list li {
+	float: left;
+	background: url(../img/cover_bg.gif) center 0 no-repeat;
+	margin-top: 10px;
+	width: 235px;
+	border-bottom: 1px dotted #C1C1C1;
+	overflow: hidden;
+}
+
+.product_list img {
+	width: 220px;
+	height: 220px;
+	display: block;
+	margin: 0 auto;
+	vertical-align: middle;
+}
+
+/* The block box of the page */
+.block {
+	overflow: hidden;
+	margin-top: 10px;
+	/* border-top: 3px solid #134780; */
+	background: white;
+}
+
+/* The block title */
+.block .title {
+	border: 1px solid #CCC;
+	background: white;
+	height: 37px;
+}
+
+.block .main_title {
+	color: #C1272D;
+	position: absolute;
+	font-size: 21px;
+	padding: 0 20px 0 30px;
+	text-align: center;
+	line-height: 37px;
+	text-transform: uppercase;
+	border-right: 1px solid #CCC;
+	white-space: nowrap;
+	line-height: 37px;
+	background: url(../../img/index/mainpage.png);
+	background-position: -180px -557px;
+}
+
+.block .more {
+	font-size: 14px;
+	float: right;
+	line-height: 37px;
+	position: relative;
+	right: 20px;
+}
+
+.block .title .mark_top {
+	position: absolute;
+	width: 100%;
+	height: 3px;
+	background: #C1272D;
+	left: 0;
+	top: -3px;
+}
+
+.block .title .mark_bottom {
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background: white;
+	left: 0;
+	bottom: -1px;
+}
+
+.block .content {
+	border-right: 1px solid #CCC;
+	border-left: 1px solid #CCC;
+}
+
+}
+/* 块内容项 */
+.block>.content>.item {
+	border-bottom: 1px dashed #CCC;
+	overflow: hidden;
+	padding: 5px 0;
+}
+
+.block>.content>.item>.item_title {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+/* 大标题样式 */
+.block_big_title {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #CCC;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.block_big_title>.main_title {
+	color: #134780;
+}
+
+.block_big_title>.sub_title {
+	color: #888;
+}

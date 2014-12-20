@@ -12,7 +12,6 @@
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="Weight" property="weight" jdbcType="INTEGER" />
     <result column="IsHidden" property="isHidden" jdbcType="INTEGER" />
-    <result column="TargetType" property="targetType" jdbcType="VARCHAR" />
     <result column="URL" property="URL" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -24,7 +23,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     ChannelID, TemplateID, ParentChannelID, ChannelName, ChannelPath, MetaTitle, MetaKeyworlds, 
-    MetaDescription, Weight, IsHidden, TargetType, URL, Remarks, CreateTime, CreateUser, 
+    MetaDescription, Weight, IsHidden, URL, Remarks, CreateTime, CreateUser, 
     UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -41,14 +40,14 @@
     insert into ido_cms_channel (ChannelID, TemplateID, ParentChannelID, 
       ChannelName, ChannelPath, MetaTitle, 
       MetaKeyworlds, MetaDescription, Weight, 
-      IsHidden, TargetType, URL, 
+      IsHidden, URL, 
       Remarks, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, IsDelete, 
       Version)
     values (#{channelID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, #{parentChannelID,jdbcType=INTEGER}, 
       #{channelName,jdbcType=VARCHAR}, #{channelPath,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, 
       #{metaKeyworlds,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, 
-      #{isHidden,jdbcType=INTEGER}, #{targetType,jdbcType=VARCHAR}, #{URL,jdbcType=VARCHAR}, 
+      #{isHidden,jdbcType=INTEGER}, #{URL,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER})
@@ -85,9 +84,6 @@
       </if>
       <if test="isHidden != null" >
         IsHidden,
-      </if>
-      <if test="targetType != null" >
-        TargetType,
       </if>
       <if test="URL != null" >
         URL,
@@ -145,9 +141,6 @@
       <if test="isHidden != null" >
         #{isHidden,jdbcType=INTEGER},
       </if>
-      <if test="targetType != null" >
-        #{targetType,jdbcType=VARCHAR},
-      </if>
       <if test="URL != null" >
         #{URL,jdbcType=VARCHAR},
       </if>
@@ -204,9 +197,6 @@
       <if test="isHidden != null" >
         IsHidden = #{isHidden,jdbcType=INTEGER},
       </if>
-      <if test="targetType != null" >
-        TargetType = #{targetType,jdbcType=VARCHAR},
-      </if>
       <if test="URL != null" >
         URL = #{URL,jdbcType=VARCHAR},
       </if>
@@ -245,7 +235,6 @@
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       Weight = #{weight,jdbcType=INTEGER},
       IsHidden = #{isHidden,jdbcType=INTEGER},
-      TargetType = #{targetType,jdbcType=VARCHAR},
       URL = #{URL,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

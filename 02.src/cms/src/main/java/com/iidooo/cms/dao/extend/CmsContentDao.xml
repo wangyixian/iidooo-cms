@@ -71,6 +71,15 @@
 		and T.IsDelete = 0) T
 		on C.ContentID = T.ContentID order by T.ItemCode ${sortType} limit 0, ${count}
 	</select>
+	<select id="selectContents" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM IDO_CMS_CONTENT C
+		INNER JOIN IDO_CMS_CHANNEL L
+		ON C.ChannelID = L.ChannelID AND L.ChannelPath = #{channelPath,jdbcType=VARCHAR} 
+		AND L.IsDelete = 0 AND C.IsDelete = 0
+		ORDER BY ${sortBy} ${sortType} LIMIT 0, ${count}
+	</select>
 	<select id="selectContentByID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
 		SELECT
 		<include refid="Base_Column_List" />, T.TemplateSource

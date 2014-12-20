@@ -16,5 +16,9 @@
 			<result name="success" type="freemarker">${currentAlbum.templateSource}</result>
 			<result name="none" type="freemarker">TO DO</result>
 		</action>
+		<action name="attach" class="com.iidooo.cms.action.client.AttachAction">
+			<result name="success" type="freemarker">${currentAttach.templateSource}</result>
+			<result name="none" type="freemarker">TO DO</result>
+		</action>
 	</package>
 </struts>

@@ -45,6 +45,8 @@ public class ContentList implements TemplateDirectiveModel {
                 cmsContentDtos = cmsContentDao.selectContentsByPV(daoParams);
             } else if (sortBy.equals(FreemarkerConstant.PARAM_SORT_BY_TAG)) {
                 cmsContentDtos = cmsContentDao.selectContentsByTag(daoParams);
+            } else {
+                cmsContentDtos = cmsContentDao.selectContents(daoParams);
             }
             FreeMarkerUtil.setDirectiveResult(cmsContentDtos, FreemarkerConstant.RETURN_LIST, env, body);
            

@@ -9,6 +9,8 @@ public class CmsContent {
 
     private String title;
 
+    private String alias;
+
     private String titleImage;
 
     private String subTitle;
@@ -75,6 +77,14 @@ public class CmsContent {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias == null ? null : alias.trim();
     }
 
     public String getTitleImage() {

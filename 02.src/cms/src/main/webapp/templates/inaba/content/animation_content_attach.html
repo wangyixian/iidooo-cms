@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="${currentContent.metaKeyworlds}">
+<meta name=description content="${currentContent.metaDescription}">
+<title>${currentAttach.name}-${currentContent.metaTitle}-${SITE_NAME}</title>
+<#include "../include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/animation_content_attach.css">
+</head>
+<body>
+	<#include "../include/top.html"/>
+    <#include "../include/mainmenu.html"/>
+	<#include "../include/attach_crumbs.html"/>	
+	<div class="body_wrap">
+		<div>
+			<object width=1300 height=448>
+				<param name="movie" value="http://share.vrs.sohu.com/2137077/v.swf&topBar=1&autoplay=false&plid=1007474&pub_catecode=0&from=page"></param>
+				<param name="allowFullScreen" value="true"></param>
+				<param name="allowscriptaccess" value="always"></param>
+				<param name="wmode" value="Transparent"></param>
+				<embed width=1300 height=448 wmode="Transparent" allowfullscreen="true" allowscriptaccess="always" quality="high"
+					src="http://share.vrs.sohu.com/2137077/v.swf&topBar=1&autoplay=false&plid=1007474&pub_catecode=0&from=page" type="application/x-shockwave-flash" /></embed>
+			</object>
+		</div>
+		<div>
+			<@attachList contentID = "${currentContent.contentID}" sortBy="weight" sortType="desc">
+			<#list returnMap?keys as key>
+		    <div class="block">
+    			<div class="title"><h3>${currentContent.title}动画<strong>${key}</strong></h3></div>
+    			<div class="content">
+    			<ul>
+    			<#list returnMap[key] as attach>
+    			<li>
+    				<a href="${SITE_URL}/attach?attachID=${attach.attachID}">
+    					${attach.name}
+    				</a>
+    			</li>
+    			</#list>
+    			</ul>
+    			</div>
+    		</div>
+    		</#list>
+    		</@attachList>
+		</div>
+	</div>	
+	<#include "../include/footer.html"/>
+</body>
+</html>

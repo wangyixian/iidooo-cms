@@ -27,6 +27,7 @@ img {
 	/* 图片无边框 */
 	border: 0px;
 	vertical-align: middle;
+	background: url(../img/loading.gif) center no-repeat;
 }
 
 ol, ul, li {
@@ -104,6 +105,7 @@ a:hover {
 
 /* 隐藏 */
 .hidden {
+	visibility: hidden;
 	display: none;
 }
 
@@ -209,6 +211,15 @@ a:hover {
 	cursor: pointer;
 	color: #134780;
 }
+
+.left_block_wrap {
+	float: left;
+	width: 730px;
+}
+
+.right_block_wrap {
+	float: right;
+
 
 /* The block box of the page */
 .block {

@@ -5,6 +5,8 @@ public class CmsAttach {
 
     private Integer albumID;
 
+    private Integer templateID;
+
     private String name;
 
     private String subName;
@@ -41,6 +43,14 @@ public class CmsAttach {
 
     public void setAlbumID(Integer albumID) {
         this.albumID = albumID;
+    }
+
+    public Integer getTemplateID() {
+        return templateID;
+    }
+
+    public void setTemplateID(Integer templateID) {
+        this.templateID = templateID;
     }
 
     public String getName() {

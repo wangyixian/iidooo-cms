@@ -6,6 +6,7 @@
     <result column="ChannelID" property="channelID" jdbcType="INTEGER" />
     <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
     <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Alias" property="alias" jdbcType="VARCHAR" />
     <result column="TitleImage" property="titleImage" jdbcType="VARCHAR" />
     <result column="SubTitle" property="subTitle" jdbcType="VARCHAR" />
     <result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
@@ -28,9 +29,10 @@
     <result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ContentID, ChannelID, TemplateID, Title, TitleImage, SubTitle, MetaTitle, MetaKeyworlds, 
-    MetaDescription, ContentSummary, ContentSource, ContentAuthor, Weight, IsAllowComment, 
-    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    ContentID, ChannelID, TemplateID, Title, Alias, TitleImage, SubTitle, MetaTitle, 
+    MetaKeyworlds, MetaDescription, ContentSummary, ContentSource, ContentAuthor, Weight, 
+    IsAllowComment, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, 
+    Version
   </sql>
   <sql id="Blob_Column_List" >
     ContentBody
@@ -49,21 +51,21 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
     insert into ido_cms_content (ContentID, ChannelID, TemplateID, 
-      Title, TitleImage, SubTitle, 
-      MetaTitle, MetaKeyworlds, MetaDescription, 
-      ContentSummary, ContentSource, ContentAuthor, 
-      Weight, IsAllowComment, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version, 
-      ContentBody)
+      Title, Alias, TitleImage, 
+      SubTitle, MetaTitle, MetaKeyworlds, 
+      MetaDescription, ContentSummary, ContentSource, 
+      ContentAuthor, Weight, IsAllowComment, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version, ContentBody)
     values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{titleImage,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, 
-      #{metaTitle,jdbcType=VARCHAR}, #{metaKeyworlds,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, 
-      #{contentSummary,jdbcType=VARCHAR}, #{contentSource,jdbcType=VARCHAR}, #{contentAuthor,jdbcType=VARCHAR}, 
-      #{weight,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
-      #{contentBody,jdbcType=LONGVARCHAR})
+      #{title,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{titleImage,jdbcType=VARCHAR}, 
+      #{subTitle,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{metaKeyworlds,jdbcType=VARCHAR}, 
+      #{metaDescription,jdbcType=VARCHAR}, #{contentSummary,jdbcType=VARCHAR}, #{contentSource,jdbcType=VARCHAR}, 
+      #{contentAuthor,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{contentBody,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
     insert into ido_cms_content
@@ -79,6 +81,9 @@
       </if>
       <if test="title != null" >
         Title,
+      </if>
+      <if test="alias != null" >
+        Alias,
       </if>
       <if test="titleImage != null" >
         TitleImage,
@@ -148,6 +153,9 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
+      </if>
       <if test="titleImage != null" >
         #{titleImage,jdbcType=VARCHAR},
       </if>
@@ -216,6 +224,9 @@
       <if test="title != null" >
         Title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="alias != null" >
+        Alias = #{alias,jdbcType=VARCHAR},
+      </if>
       <if test="titleImage != null" >
         TitleImage = #{titleImage,jdbcType=VARCHAR},
       </if>
@@ -278,6 +289,7 @@
     set ChannelID = #{channelID,jdbcType=INTEGER},
       TemplateID = #{templateID,jdbcType=INTEGER},
       Title = #{title,jdbcType=VARCHAR},
+      Alias = #{alias,jdbcType=VARCHAR},
       TitleImage = #{titleImage,jdbcType=VARCHAR},
       SubTitle = #{subTitle,jdbcType=VARCHAR},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
@@ -303,6 +315,7 @@
     set ChannelID = #{channelID,jdbcType=INTEGER},
       TemplateID = #{templateID,jdbcType=INTEGER},
       Title = #{title,jdbcType=VARCHAR},
+      Alias = #{alias,jdbcType=VARCHAR},
       TitleImage = #{titleImage,jdbcType=VARCHAR},
       SubTitle = #{subTitle,jdbcType=VARCHAR},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
