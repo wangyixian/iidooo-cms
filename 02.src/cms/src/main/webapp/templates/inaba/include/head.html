@@ -1,3 +1,9 @@
+<meta name="keywords" content="${currentChannel.metaKeyworlds}">
+<meta name=description content="${currentChannel.metaDescription}">
+<title>	
+	<#if currentContent??>${currentContent.metaTitle}-</#if>
+	${currentChannel.metaTitle}-${SITE_NAME}
+</title>
 <script type="text/javascript" src="${SITE_RES_ROOT}/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="${SITE_RES_ROOT}/js/common.js"></script>
 <link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/common.css">

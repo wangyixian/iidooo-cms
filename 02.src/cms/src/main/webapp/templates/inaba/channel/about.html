@@ -2,128 +2,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="${currentChannel.metaKeyworlds}">
-<meta name=description content="${currentChannel.metaDescription}">
-<title>${currentChannel.metaTitle}-${SITE_NAME}</title>
 <#include "../include/head.html"/>
-<script type="text/javascript" src="${SITE_RES_ROOT}/js/animation.js"></script>
-<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/animation.css">
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/channel/about.css">
 </head>
 <body>
 	<#include "../include/top.html"/>
+	<#include "../include/logo.html"/>
     <#include "../include/mainmenu.html"/>
-    <div id="animation" class="body_wrap block_wrap">
-    	<div class="left_block_wrap">
-    		<div id="left_block_1" class="block">
-				<div id="tabs">
-					<ul class="tabs">
-						<li class="current" onmouseover="changeTab(3, 0)">热门连载动画</li>
-						<li onmouseover="changeTab(3, 1)">经典完结动画</li>
-						<li onmouseover="changeTab(3, 2)">最新上架动画</li>
-					</ul>
-					<div class="contents">
-						<div>						
-						<@contentList count='10' channelPath='animation' tagClass='TAG_COMIC_STATUS' tagItem='1' sortBy='PV' sortType='desc'>
-							<ul class="comicList">
-								<#list returnList as content>
-								<li>
-									<div>
-										<a class="picture" href="${SITE_URL}/content?contentID=${content.contentID}" onmouseover="showPlay()">
-											<img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}">
-											<span class="subTitle">${content.subTitle}</span>
-											<span class="play"></span>
-										</a>
-										<a class="title" href="${SITE_URL}/content?contentID=${content.contentID}">${content.title}</a>
-									</div>
-								</li>
-								</#list>
-    						</ul>
-						</@contentList>
-						</div>
-						<div class="hidden">						
-						<@contentList count='10' channelPath='animation' tagClass='TAG_COMIC_STATUS' tagItem='2' sortBy='PV' sortType='desc'>
-							<ul class="comicList">
-							<#list returnList as content>
-								<li>
-									<div>
-										<a href="${SITE_URL}/content?contentID=${content.contentID}">
-											<img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}">
-											<span class="subTitle">${content.subTitle}</span>
-											<span class="play"></span>
-										</a>
-										<a href="${SITE_URL}/content?contentID=${content.contentID}">${content.title}</a>
-									</div>
-								</li>
-    						</#list>
-    						</ul>
-						</@contentList>
-						</div>
-						<div class="hidden">
-						<@contentList count='10' channelPath='animation' tagClass='TAG_COMIC_STATUS' tagItem='3' sortBy='PV' sortType='desc'>
-							<ul class="comicList">
-							<#list returnList as content>
-								<li>
-									<div>
-										<a href="${SITE_URL}/content?contentID=${content.contentID}">
-											<img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}">
-											<span class="subTitle">${content.subTitle}</span>
-											<span class="play"></span>
-										</a>
-										<a href="${SITE_URL}/content?contentID=${content.contentID}">${content.title}</a>
-									</div>
-								</li>
-    						</#list>
-    						</ul>
-						</@contentList>
-						</div>	
-					</div>
-				</div>
-    		</div>
-    		<div id="left_block_2" class="block">
-    			<div class="title"><span>字母 A - D</span></div>
-				<div class="content">
-					<@contentList count='40' channelPath='animation' tagClass='TAG_LETTER' tagItems='A,B,C,D' sortBy='TAG' sortType='asc'>
-					<ul class="comicTitleList">
-						<#list returnList as content>
-						<li>
-							・${content.title}
-						</li> 
-						</#list>
-					</ul>
-					</@contentList>
-				</div>
-			</div>
-    		<div id="left_block_3" class="block">
-    			<div class="title"><span>字母 E - H</span></div>
-    			<div class="content"></div>    			
-    		</div>
-    		<div id="left_block_4" class="block">
-    			<div class="title"><span>字母 I - L</span></div>
-    			<div class="content"></div>    			
-    		</div>
-    		<div id="left_block_5" class="block">
-    			<div class="title"><span>字母 M - P</span></div>
-    			<div class="content"></div>    			
-    		</div>
-    		<div id="left_block_6" class="block">
-    			<div class="title"><span>字母 Q - V</span></div>
-    			<div class="content"></div>    			
-    		</div>
-    		<div id="left_block_7" class="block">
-    			<div class="title"><span>字母 W - Z</span></div>
-    			<div class="content"></div>    			
-    		</div>
-    	</div>
-    	<div class="right_block_wrap">
-    		<div id="right_block_1" class="block">
-    			<div class="title"><span>热门漫画更新提醒</span></div>
-    			<div class="content"></div>
-    		</div>
-    		<div id="right_block_2" class="block">
-    			<div class="title"><span>漫画点击排行榜</span></div>
-    			<div class="content"></div>
-    		</div>
-    	</div>
+    <div id="about" class="body_wrap">
+    	关于我们
     </div>
     <#include "../include/footer.html"/>
 </body>

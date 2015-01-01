@@ -49,7 +49,10 @@
 		left outer join
 		(SELECT count(*) PV, TableDataID FROM IDO_CMS_STATISTICS S
 		where s.TableName = "IDO_CMS_CONTENT" and s.StatisticsType = 1 and S.IsDelete = 0) S
-		on S.TableDataID = C.ContentID order by S.PV ${sortType} limit 0, ${count}
+		on S.TableDataID = C.ContentID order by S.PV ${sortType}
+		<if test="count != null">
+		LIMIT 0, ${count}
+		</if>
 	</select>
 
 	<select id="selectContentsByTag" resultMap="BaseResultMap" parameterType="java.util.Map">
@@ -62,14 +65,17 @@
 		(SELECT ContentID, ItemCode FROM IDO_CMS_CONTENT_TAG T
 		where T.ClassCode = #{tagClass,jdbcType=VARCHAR} and
 		<if test="tagItem != null">
-			T.ItemCode like #{tagItem,jdbcType=VARCHAR}
+			T.ItemCode = #{tagItem,jdbcType=VARCHAR}
 		</if>
 		<if test="tagItems != null">
 			T.ItemCode in
 			<foreach item="item" index="index" collection="tagItems" open="(" separator="," close=")">#{item}</foreach>
 		</if>
 		and T.IsDelete = 0) T
-		on C.ContentID = T.ContentID order by T.ItemCode ${sortType} limit 0, ${count}
+		on C.ContentID = T.ContentID order by T.ItemCode ${sortType} 
+		<if test="count != null">
+		LIMIT 0, ${count}
+		</if>
 	</select>
 	<select id="selectContents" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
 		SELECT
@@ -78,7 +84,23 @@
 		INNER JOIN IDO_CMS_CHANNEL L
 		ON C.ChannelID = L.ChannelID AND L.ChannelPath = #{channelPath,jdbcType=VARCHAR} 
 		AND L.IsDelete = 0 AND C.IsDelete = 0
-		ORDER BY ${sortBy} ${sortType} LIMIT 0, ${count}
+		<if test="tagClass != null">
+		INNER JOIN
+		(SELECT ContentID, ItemCode FROM IDO_CMS_CONTENT_TAG T
+		WHERE T.ClassCode = #{tagClass,jdbcType=VARCHAR} AND
+		<if test="tagItem != null">
+			T.ItemCode = #{tagItem,jdbcType=VARCHAR}
+		</if>
+		<if test="tagItems != null">
+			T.ItemCode IN
+			<foreach item="item" index="index" collection="tagItems" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		AND T.IsDelete = 0) T ON C.ContentID = T.ContentID
+		</if>
+		ORDER BY ${sortBy} ${sortType} 
+		<if test="count != null">
+		LIMIT 0, ${count}
+		</if>
 	</select>
 	<select id="selectContentByID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
 		SELECT

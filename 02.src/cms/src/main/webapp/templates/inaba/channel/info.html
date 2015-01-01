@@ -2,17 +2,98 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="${currentChannel.metaKeyworlds}">
-<meta name=description content="${currentChannel.metaDescription}">
-<title>${currentChannel.metaTitle}</title>
 <#include "../include/head.html"/>
-<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/index.css">
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/channel/info.css">
 </head>
 <body>
 	<#include "../include/top.html"/>
+	<#include "../include/logo.html"/>
     <#include "../include/mainmenu.html"/>
     <div id="news" class="body_wrap">
-    	资讯
+    	<div class="left_block_wrap">
+    		<div class="block">
+    			<div class="block_title_21">热门文章</div>
+    			<div class="block_content">
+	    			<ul> 
+					<@contentList count='5' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='1' sortBy='Weight' sortType="asc">
+					<#list returnList as content>
+						<li>
+							<div class="block_content_item">
+								<span><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></span>
+								<span class="content_title">${content.title}</span>
+							</div>
+						</li>
+	 				</#list>
+	  				</@contentList>
+	  				</ul>
+    			</div>
+    		</div>
+    		<div class="block">
+    			<div class="block_title_21">热点新闻</div>
+    			<div class="block_content">
+	    			<ul> 
+					<@contentList count='5' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='2' sortBy='Weight' sortType="asc">
+					<#list returnList as content>
+						<li >
+							<div class="block_content_item">
+								<span class="block_content_item_title">${content.title}</span>
+								<span class="block_content_item_date">${content.updateDate}</span>
+							</div>
+						</li>
+	 				</#list>
+	  				</@contentList>
+	  				</ul>
+    			</div>
+    		</div>
+    		<div class="block">
+    			<div class="block_title_21">葡萄酒知识</div>
+    			<div class="block_content">
+	    			<ul> 
+					<@contentList count='5' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='3' sortBy='Weight' sortType="asc">
+					<#list returnList as content>
+						<li >
+							<div class="block_content_item">
+								<span class="block_content_item_title">${content.title}</span>
+								<span class="block_content_item_date">${content.updateDate}</span>
+							</div>
+						</li>
+	 				</#list>
+	  				</@contentList>
+	  				</ul>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="right_block_wrap">
+    		<div class="block">
+    			<ul> 
+				<@contentList count='7' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='4' sortBy='Weight' sortType="asc">
+				<#list returnList as content>
+					<li>
+						<#if content_index == 0>
+						<div class="top_blog">
+							<div class="blog_title">${content.title}</div>
+							<div class="blog_date">${content.updateDate}|${content.contentAuthor}</div>
+							<div class="blog_image"><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
+							<div class="blog_summary">${content.contentSummary}</div>
+						</div>
+						<#else>
+						<div class="blog">
+							<div class="left">
+								<div class="blog_title">${content.title}</div>
+								<div class="blog_date">${content.updateDate}|${content.contentAuthor}</div>
+								<div class="blog_summary">${content.contentSummary}</div>
+							</div>
+							<div class="right">							
+								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
+							</div>
+						</div>
+						</#if>
+					</li>
+ 				</#list>
+  				</@contentList>
+  				</ul>
+    		</div>
+    	</div>
     </div>
     <#include "../include/footer.html"/>
 </body>

@@ -2,21 +2,22 @@
 
 .left_block_wrap {
 	float: left;
-	width: 750px;
+	width: 700px;
 }
 
 .right_block_wrap {
 	float: right;
-	width: 240px;
+	width: 270px;
 }
 
 .product_list li {
 	float: left;
-	background: url(../img/cover_bg.gif) center 0 no-repeat;
 	margin-top: 10px;
-	width: 235px;
+	width: 243px;
+	text-align: center;
 	border-bottom: 1px dotted #C1C1C1;
 	overflow: hidden;
+	margin-bottom: 10px;
 }
 
 .product_list img {
@@ -35,14 +36,61 @@
 	background: white;
 }
 
-/* The block title */
-.block .title {
+#slide {
+	overflow: hidden;
+	width: 700px;
+}
+
+#slide li {
+	float: left;
+}
+
+.slideul1 {
+	width: 3999px;
+}
+
+#nominate .title {
+	border-bottom: 2px solid #C1272D;
+	background: white;
+	height: 37px;
+}
+
+#info .title {
+	border-bottom: 2px solid #CCC;
+	background: white;
+	height: 37px;
+}
+
+#hot .title {
 	border: 1px solid #CCC;
 	background: white;
 	height: 37px;
 }
 
-.block .main_title {
+#nominate .main_title {
+	background: url(../../img/index/mainpage.png);
+	background-position: -180px -560px;
+	color: #C1272D;
+	font-size: 21px;
+	padding: 0 20px 0 30px;
+	text-align: center;
+	line-height: 37px;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+#info .main_title {
+	font-size: 21px;
+	text-align: center;
+	line-height: 37px;
+	text-transform: uppercase;
+	white-space: nowrap;
+	line-height: 37px;
+}
+
+#hot .main_title {
+	background: url(../../img/index/mainpage.png);
+	background-position: -148px -753px;
 	color: #C1272D;
 	position: absolute;
 	font-size: 21px;
@@ -53,8 +101,6 @@
 	border-right: 1px solid #CCC;
 	white-space: nowrap;
 	line-height: 37px;
-	background: url(../../img/index/mainpage.png);
-	background-position: -180px -557px;
 }
 
 .block .more {
@@ -83,37 +129,27 @@
 	bottom: -1px;
 }
 
-.block .content {
+#info .content {
+	padding: 5px 0 5px 0;
+	font-size: 12px;
+	line-height: 24px;
+	overflow: hidden;
+}
+
+#info .content .content_title {
+	overflow: hidden;
+	display: block;
+	float: left;
+	width: 200px;
+}
+
+#info .content .date {
+	overflow: hidden;
+	display: block;
+	float: right;
+}
+
+#hot .content {
 	border-right: 1px solid #CCC;
 	border-left: 1px solid #CCC;
-}
-
-}
-/* 块内容项 */
-.block>.content>.item {
-	border-bottom: 1px dashed #CCC;
-	overflow: hidden;
-	padding: 5px 0;
-}
-
-.block>.content>.item>.item_title {
-	font-weight: bold;
-	font-size: 13px;
-}
-
-/* 大标题样式 */
-.block_big_title {
-	height: 40px;
-	line-height: 40px;
-	border-bottom: 1px solid #CCC;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.block_big_title>.main_title {
-	color: #134780;
-}
-
-.block_big_title>.sub_title {
-	color: #888;
 }

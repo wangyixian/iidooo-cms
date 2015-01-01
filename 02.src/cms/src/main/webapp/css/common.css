@@ -157,8 +157,8 @@ a:hover {
 
 .frame {
 	overflow: hidden;
+	border-radius: 3px;
 	border: 1px solid RGB(204, 204, 204);
-	background: white;
 }
 
 /* Data Grid View */
@@ -274,50 +274,42 @@ a:hover {
 	margin-top: 10px;
 }
 
-/* 顶部 */
-#top {
+/* The top bar */
+#top_wrap {
 	width: 100%;
 	border-color: #666;
-	background: black;
-	color: white;
-	height: 40px;
-	line-height: 40px;
 }
 
-#top_left_menu>li {
-	float: left;
-	margin: auto 10px auto 0px;
+#top_wrap>#logo {
+	vertical-align: middle;
+	display: table-cell;
 }
 
-#top_right_menu>li {
-	float: left;
-	margin: auto 0px auto 10px;
+#top_wrap>#menu_wrap {
+	width: 100%;
+	display: block;
 }
 
-#logo {
-	margin: 10px 0 0 0;
-	height: 90px;
-	line-height: 90px;
+#top_wrap>#menu_wrap>#login_info {
+	height: 30px;
 }
 
-.logo img {
-	height: 90px;
-	width: 200px;
+#top_wrap>#menu_wrap>#menu {
+	background-color: #134780;
+	height: 35px;
 }
 
-/* 主菜单 */
-#mainmenu {
-	background-color: RGB(158, 8, 33);
-	height: 40px;
-	margin: 10px 0px 0px 0px;
-	overflow: hidden;
-	color: white;
+#top_wrap>#menu_wrap>#menu ul {
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	height: 35px;
 }
 
-#mainmenu>li {
+#top_wrap>#menu_wrap>#menu ul li {
 	width: 100px;
-	height: 40px;
-	line-height: 40px;
+	height: 35px;
+	line-height: 35px;
 	text-align: center;
 	float: left;
 	margin: 0px;
@@ -325,19 +317,18 @@ a:hover {
 	text-align: center;
 }
 
-/* 主菜单的超链接效果 */
-#mainmenu>li>a {
-	color: white;
+#top_wrap>#menu_wrap>#menu a {
+	color: #CCC;
 	display: block;
 }
 
-#mainmenu>li>a:hover {
-	background-color: RGB(143, 1, 0);
+#top_wrap>#menu_wrap>#menu a:hover {
+	background-color: RGB(0, 32, 133);
 	font-weight: bold;
 }
 
-.main_menu_focus {
-	background-color: RGB(143, 1, 0);
+#top_wrap>#menu_wrap>#menu .focus {
+	background-color: RGB(0, 32, 133);
 	font-weight: bold;
 }
 

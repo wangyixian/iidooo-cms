@@ -22,23 +22,23 @@
 
 	<!-- 数据库用户管理 -->
 
-	<security:authentication-manager>
+<!-- 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
 				<security:user name="bob" password="bobspassword" authorities="ROLE_USER" />
 			</security:user-service>
 		</security:authentication-provider>
-	</security:authentication-manager>
+	</security:authentication-manager> -->
 
 	<!-- <security:authentication-manager> <security:authentication-provider> <security:jdbc-user-service data-source-ref="dataSource" /> </security:authentication-provider> 
 		</security:authentication-manager> -->
 
-	<security:http auto-config='true'>
+<!-- 	<security:http auto-config='true'>
 		<security:intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/**" access="ROLE_USER" />
 		<security:form-login />
-	</security:http>
+	</security:http> -->
 
 	<!-- 数据源配置 -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

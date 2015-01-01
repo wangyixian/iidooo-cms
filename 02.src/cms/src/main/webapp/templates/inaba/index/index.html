@@ -2,9 +2,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="${currentChannel.metaKeyworlds}">
-<meta name=description content="${currentChannel.metaDescription}">
-<title>${currentChannel.metaTitle}-${SITE_NAME}</title>
 <#include "../include/head.html"/>
 <link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/index/index.css">
 </head>
@@ -15,15 +12,64 @@
     <div id="index" class="body_wrap">
     	<div id="banner" class="banner"><img src="${SITE_RES_ROOT}/img/index/banner.png"></div>
     	<div>
+			<div class="left_block_wrap">
+				<div id="nominate" class="block">
+					<div class="title">
+						<a class="main_title">精品展示</a>
+    					<a class="right more">更多&gt;&gt;</a>
+					</div>
+					<div id="slide" class="content">
+						<ul class="slideul1"> 
+							<li class="slideli1"> 
+								<@contentList count='10' channelPath='product' tagClass='TAG_PRODUCT_TYPE' tagItem='1' sortBy='Weight' sortType="asc">
+		    					<ul class="slideul2">
+								<#list returnList as content>
+		   							<li >
+		   								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
+		   								<div class="align_center">${content.title}</div>
+		   							</li>
+		   						</#list>
+		    					</ul>
+		    					</@contentList>
+    						</li>
+    						<li class="slideli2"></li> 
+    					</ul>
+					</div>
+				</div>
+			</div>
+			<div class="right_block_wrap">
+				<div id="info" class="block">
+					<div class="title">
+						<a class="main_title">最新资讯</a>
+						<a class="right more">更多&gt;&gt;</a>
+					</div>
+					<div class="content">
+					<@contentList count='7' channelPath='info' sortBy='UpdateTime' sortType="desc">
+    					<ul>
+						<#list returnList as content>
+   							<li>
+   								<div class="block_content_item">
+	   								<span class="content_title">${content.title}</span>
+	   								<span class="date">${content.updateDate}</span>
+   								</div>
+   							</li>
+   						</#list>
+    					</ul>
+	    			</@contentList>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<div>
     		<div>
-    			<div class="block">
+    			<div id="hot" class="block">
     				<div class="title">
     					<a class="main_title">
-    						精品展示
+    						热销红酒
     						<span class="mark_top"></span>
     						<span class="mark_bottom"></span>
     					</a>
-    					<a class="right more">更多精品葡萄酒&gt;&gt;</a>
+    					<a class="right more">更多&gt;&gt;</a>
     				</div>
     				<div class="content">
     				<@contentList count='8' channelPath='product' sortBy='Weight' sortType="asc">
@@ -39,15 +85,10 @@
     				</div>
     			</div>
     		</div>
-    		<div class="right_block_wrap">
-    			<div class="block">
-    				<div class="title"></div>
-    				<div class="content"></div>
-    			</div>
-    			
-    		</div>
     	</div>
     </div>
     <#include "../include/footer.html"/>
 </body>
+
+<script type="text/javascript" src="${SITE_RES_ROOT}/js/scroll.js"></script>
 </html>

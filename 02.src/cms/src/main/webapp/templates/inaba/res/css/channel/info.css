@@ -1,49 +1,53 @@
 @CHARSET "UTF-8";
 
-#album .button {
-	color: #555;
-	border: 1px solid #CCC;
-	text-shadow: 1px 1px 0 white;
-	display: inline-block;
-	height: 26px;
-	line-height: 26px;
-	font-weight: bold;
-	font-size: 14px;
-	margin: 0 5px;
-	padding: 0 15px;
-	text-align: center;
-	vertical-align: middle;
-	text-decoration: none;
-	border-radius: 2px;
-	background-color: #FFF8D9;
+.left_block_wrap {
+	float: left;
+	width: 300px;
 }
 
-#album a:hover {
-	cursor: pointer;
-	color: #F60;
-	background-color: #FEBE8F;
+.right_block_wrap {
+	float: right;
+	width: 660px;
 }
 
-#album .controlBar {
-	margin-top: 10px;
+.block_content_item_title {
+	overflow: hidden;
+	display: block;
+	float: left;
+	width: 200px;
 }
 
-#album .tip {
-	margin-top: 10px;
-	border: 1px solid #FEBE8F;
-	background-color: #FFF8D9;
-	color: #EB6100;
-	height: 20px;
-	line-height: 20px;
-	border-radius: 2px;
-	padding: 5px 10px;
+.block_content_item_date {
+	overflow: hidden;
+	display: block;
+	float: right;
 }
 
-#album .comic_page {
-	margin: 5px 5px 0 5px;
+.top_blog, .blog {
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding: 0 0 5px 0;
 }
 
-#album .comic_page img {
-	background: url(../img/loading.gif) center no-repeat;
-	width: 100%;
+.blog_title {
+	background: white;
+	line-height: 37px;
+	color: #C1272D;
+	font-size: 21px;
+}
+
+.blog_date {
+	padding: 0 0 5px 0;
+}
+
+.blog_image {
+	width: 660px;
+}
+
+.blog_image img{
+	width: 660px;
+}
+
+.blog_summary {
+	padding: 5px 0;
 }

@@ -26,10 +26,10 @@ public abstract class CmsBaseAction extends BaseAction {
 
     @Autowired
     private Statistics statistics;
-    
+
     @Autowired
     private AttachAlbumList attachAlbumList;
-    
+
     @Autowired
     private AttachList attachList;
 
@@ -44,8 +44,8 @@ public abstract class CmsBaseAction extends BaseAction {
     public Statistics getStatistics() {
         return statistics;
     }
-    
-    public AttachAlbumList getAttachAlbumList(){
+
+    public AttachAlbumList getAttachAlbumList() {
         return attachAlbumList;
     }
 
