@@ -16,11 +16,10 @@
 	    		<dd>
 	    			<div>
 	    			<a href="#" class="selected">全部</a>
-		    		<@dictItemList tagClass = "TAG_PRODUCT_COUNTRY">
-		    			<#list returnList as item>
-		    			<a href="#">${item.dictItemName}</a>
-		    			</#list>
-		    		</@dictItemList>
+		    		<a href="#">法国</a>
+		    		<a href="#">德国</a>
+		    		<a href="#">意大利</a>
+		    		<a href="#">西班牙</a>
 	    			</div>
 	    		</dd>
 	    	</dl>	
@@ -29,11 +28,10 @@
 	    		<dd>
 	    			<div>
 	    			<a href="#" class="selected">全部</a>
-		    		<@dictItemList tagClass = "TAG_PRODUCT_GROWING">
-		    			<#list returnList as item>
-		    			<a href="#">${item.dictItemName}</a>
-		    			</#list>
-		    		</@dictItemList>
+		    		<a href="#">法国罗纳河谷</a>
+		    		<a href="#">法国产区桃红葡萄酒</a>
+		    		<a href="#">法国优质产区原装干红</a>
+		    		<a href="#">法国波尔多产区</a>
 	    			</div>
 	    		</dd>
 	    	</dl>	
@@ -42,28 +40,27 @@
 	    		<dd>
 	    			<div>
 	    			<a href="#" class="selected">全部</a>
-		    		<@dictItemList tagClass = "TAG_PRODUCT_CLASSIFY">
-		    			<#list returnList as item>
-		    			<a href="#">${item.dictItemName}</a>
-		    			</#list>
-		    		</@dictItemList>
+		    		<a href="#">红酒</a>
+		    		<a href="#">干白</a>
+		    		<a href="#">起泡酒</a>
+		    		<a href="#">冰酒</a>
 	    			</div>
 	    		</dd>
 	    	</dl>    	
     	</div>
 		<div id="products" class="block">
-			<@contentList channelPath='product' sortBy='Weight' sortType="desc">
+			<@directiveContentList channelPath='product' sortBy='Sequence' sortType="desc">
 			<ul>
 				<#list returnList as content>
 				<li class="left">
 					<div>
-						<img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}">
+						<img alt="${content.contentTitle}" src="${CONTENT_RES_ROOT}${content.contentImageTitle}">
 					</div>
-					<div class="align_center">${content.title}</div>
+					<div class="align_center">${content.contentTitle}</div>
 				</li>
 				</#list>
 			</ul>
-			</@contentList>
+			</@directiveContentList>
 		</div>
 	</div>
     <#include "../include/footer.html"/>

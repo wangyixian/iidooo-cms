@@ -1,5 +1,5 @@
 <div class="body_wrap">
-	<@channelList level='0' sortBy='Weight' sortType='asc'>
+	<@directiveChannelList level='0' sortBy='Sequence' sortType='asc'>
 	<ul id="mainmenu">
 		<#list returnList as channel>
 		<#if channel.isHidden == 0>
@@ -13,5 +13,5 @@
     	</#if>
 		</#list>
 	</ul>
-	</@channelList>
+	</@directiveChannelList>
 </div>

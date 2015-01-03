@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="top_wrap">
-	<div id="logo" class="left">
-		<a href="index.action" target="_self"> <img alt="IIDOOO CMS" src="/cms/image/logo.png">
+	<div id="logo">
+		<a href="index.action" target="_self"> <img alt="IIDOOO CMS" src="${SITE_URL}/image/logo.png">
 		</a>
 	</div>
-	<div id="menu_wrap" class="left">
+	<div id="menu_wrap">
 		<div id="login_info"></div>
 		<div id="menu">
 			<ul>

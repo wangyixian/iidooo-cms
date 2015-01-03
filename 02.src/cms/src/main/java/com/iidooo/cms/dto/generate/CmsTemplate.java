@@ -5,7 +5,7 @@ public class CmsTemplate {
 
     private String templateName;
 
-    private String templateSource;
+    private String templatePath;
 
     private String remarks;
 
@@ -37,12 +37,12 @@ public class CmsTemplate {
         this.templateName = templateName == null ? null : templateName.trim();
     }
 
-    public String getTemplateSource() {
-        return templateSource;
+    public String getTemplatePath() {
+        return templatePath;
     }
 
-    public void setTemplateSource(String templateSource) {
-        this.templateSource = templateSource == null ? null : templateSource.trim();
+    public void setTemplatePath(String templatePath) {
+        this.templatePath = templatePath == null ? null : templatePath.trim();
     }
 
     public String getRemarks() {

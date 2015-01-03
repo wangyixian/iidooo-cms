@@ -1,5 +1,9 @@
 package com.iidooo.cms.admin.service;
 
-public interface ChannelListService {
+import java.util.List;
 
+import com.iidooo.cms.dto.extend.CmsChannelDto;
+
+public interface ChannelListService {
+    List<CmsChannelDto> getChannelList(int parentID);
 }

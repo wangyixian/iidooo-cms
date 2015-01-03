@@ -15,16 +15,16 @@
     			<div class="block_title_21">热门文章</div>
     			<div class="block_content">
 	    			<ul> 
-					<@contentList count='5' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='1' sortBy='Weight' sortType="asc">
+					<@directiveContentList count='5' channelPath='info' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='1' --> sortBy='Sequence' sortType="asc">
 					<#list returnList as content>
 						<li>
 							<div class="block_content_item">
-								<span><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></span>
-								<span class="content_title">${content.title}</span>
+								<span><img alt="${content.contentTitle}" src="${CONTENT_RES_ROOT}${content.contentImageTitle}"></span>
+								<span class="content_title">${content.contentTitle}</span>
 							</div>
 						</li>
 	 				</#list>
-	  				</@contentList>
+	  				</@directiveContentList>
 	  				</ul>
     			</div>
     		</div>
@@ -32,16 +32,16 @@
     			<div class="block_title_21">热点新闻</div>
     			<div class="block_content">
 	    			<ul> 
-					<@contentList count='5' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='2' sortBy='Weight' sortType="asc">
+					<@directiveContentList count='5' channelPath='info' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='2'  -->sortBy='Sequence' sortType="asc">
 					<#list returnList as content>
 						<li >
 							<div class="block_content_item">
-								<span class="block_content_item_title">${content.title}</span>
+								<span class="block_content_item_title">${content.contentTitle}</span>
 								<span class="block_content_item_date">${content.updateDate}</span>
 							</div>
 						</li>
 	 				</#list>
-	  				</@contentList>
+	  				</@directiveContentList>
 	  				</ul>
     			</div>
     		</div>
@@ -49,16 +49,16 @@
     			<div class="block_title_21">葡萄酒知识</div>
     			<div class="block_content">
 	    			<ul> 
-					<@contentList count='5' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='3' sortBy='Weight' sortType="asc">
+					<@directiveContentList count='5' channelPath='info' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='3'  -->sortBy='Sequence' sortType="asc">
 					<#list returnList as content>
 						<li >
 							<div class="block_content_item">
-								<span class="block_content_item_title">${content.title}</span>
+								<span class="block_content_item_title">${content.contentTitle}</span>
 								<span class="block_content_item_date">${content.updateDate}</span>
 							</div>
 						</li>
 	 				</#list>
-	  				</@contentList>
+	  				</@directiveContentList>
 	  				</ul>
     			</div>
     		</div>
@@ -66,31 +66,31 @@
     	<div class="right_block_wrap">
     		<div class="block">
     			<ul> 
-				<@contentList count='7' channelPath='info' tagClass='TAG_INFO_CLASSIFY' tagItem='4' sortBy='Weight' sortType="asc">
+				<@directiveContentList count='10' channelPath='article' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='4' --> sortBy='Sequence' sortType="asc">
 				<#list returnList as content>
 					<li>
 						<#if content_index == 0>
 						<div class="top_blog">
-							<div class="blog_title">${content.title}</div>
+							<div class="blog_title">${content.contentTitle}</div>
 							<div class="blog_date">${content.updateDate}|${content.contentAuthor}</div>
-							<div class="blog_image"><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
+							<div class="blog_image"><img alt="${content.contentTitle}" src="${CONTENT_RES_ROOT}${content.contentImageTitle}"></div>
 							<div class="blog_summary">${content.contentSummary}</div>
 						</div>
 						<#else>
 						<div class="blog">
 							<div class="left">
-								<div class="blog_title">${content.title}</div>
+								<div class="blog_title">${content.contentTitle}</div>
 								<div class="blog_date">${content.updateDate}|${content.contentAuthor}</div>
 								<div class="blog_summary">${content.contentSummary}</div>
 							</div>
 							<div class="right">							
-								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
+								<div><img alt="${content.contentTitle}" src="${CONTENT_RES_ROOT}${content.contentImageTitle}"></div>
 							</div>
 						</div>
 						</#if>
 					</li>
  				</#list>
-  				</@contentList>
+  				</@directiveContentList>
   				</ul>
     		</div>
     	</div>

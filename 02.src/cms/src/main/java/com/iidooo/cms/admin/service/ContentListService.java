@@ -1,5 +1,9 @@
 package com.iidooo.cms.admin.service;
 
-public interface ContentListService {
+import java.util.List;
 
+import com.iidooo.cms.dto.extend.CmsContentDto;
+
+public interface ContentListService {
+    List<CmsContentDto> getAllContents();
 }

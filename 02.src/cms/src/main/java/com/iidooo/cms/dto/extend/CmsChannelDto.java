@@ -3,16 +3,16 @@ package com.iidooo.cms.dto.extend;
 import com.iidooo.cms.dto.generate.CmsChannel;
 
 public class CmsChannelDto extends CmsChannel {
-    private String templateSource;
+    private String templatePath;
 
     private int level;
 
-    public String getTemplateSource() {
-        return templateSource;
+    public String getTemplatePath() {
+        return templatePath;
     }
 
-    public void setTemplateSource(String templateSource) {
-        this.templateSource = templateSource;
+    public void setTemplatePath(String templatePath) {
+        this.templatePath = templatePath;
     }
 
     public int getLevel() {

@@ -5,7 +5,7 @@ public class CmsChannel {
 
     private Integer templateID;
 
-    private Integer parentChannelID;
+    private Integer parentID;
 
     private String channelName;
 
@@ -13,15 +13,15 @@ public class CmsChannel {
 
     private String metaTitle;
 
-    private String metaKeyworlds;
+    private String metaKeywords;
 
     private String metaDescription;
 
-    private Integer weight;
+    private Integer sequence;
 
     private Integer isHidden;
 
-    private String URL;
+    private String externalURL;
 
     private String remarks;
 
@@ -53,12 +53,12 @@ public class CmsChannel {
         this.templateID = templateID;
     }
 
-    public Integer getParentChannelID() {
-        return parentChannelID;
+    public Integer getParentID() {
+        return parentID;
     }
 
-    public void setParentChannelID(Integer parentChannelID) {
-        this.parentChannelID = parentChannelID;
+    public void setParentID(Integer parentID) {
+        this.parentID = parentID;
     }
 
     public String getChannelName() {
@@ -85,12 +85,12 @@ public class CmsChannel {
         this.metaTitle = metaTitle == null ? null : metaTitle.trim();
     }
 
-    public String getMetaKeyworlds() {
-        return metaKeyworlds;
+    public String getMetaKeywords() {
+        return metaKeywords;
     }
 
-    public void setMetaKeyworlds(String metaKeyworlds) {
-        this.metaKeyworlds = metaKeyworlds == null ? null : metaKeyworlds.trim();
+    public void setMetaKeywords(String metaKeywords) {
+        this.metaKeywords = metaKeywords == null ? null : metaKeywords.trim();
     }
 
     public String getMetaDescription() {
@@ -101,12 +101,12 @@ public class CmsChannel {
         this.metaDescription = metaDescription == null ? null : metaDescription.trim();
     }
 
-    public Integer getWeight() {
-        return weight;
+    public Integer getSequence() {
+        return sequence;
     }
 
-    public void setWeight(Integer weight) {
-        this.weight = weight;
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public Integer getIsHidden() {
@@ -117,12 +117,12 @@ public class CmsChannel {
         this.isHidden = isHidden;
     }
 
-    public String getURL() {
-        return URL;
+    public String getExternalURL() {
+        return externalURL;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL == null ? null : URL.trim();
+    public void setExternalURL(String externalURL) {
+        this.externalURL = externalURL == null ? null : externalURL.trim();
     }
 
     public String getRemarks() {

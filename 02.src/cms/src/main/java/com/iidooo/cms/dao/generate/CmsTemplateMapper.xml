@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsTemplate" >
     <id column="TemplateID" property="templateID" jdbcType="INTEGER" />
     <result column="TemplateName" property="templateName" jdbcType="VARCHAR" />
-    <result column="TemplateSource" property="templateSource" jdbcType="VARCHAR" />
+    <result column="TemplatePath" property="templatePath" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -14,31 +14,31 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    TemplateID, TemplateName, TemplateSource, Remarks, CreateTime, CreateUser, UpdateTime, 
+    TemplateID, TemplateName, TemplatePath, Remarks, CreateTime, CreateUser, UpdateTime, 
     UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from ido_cms_template
+    from IDO_CMS_TEMPLATE
     where TemplateID = #{templateID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ido_cms_template
+    delete from IDO_CMS_TEMPLATE
     where TemplateID = #{templateID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
-    insert into ido_cms_template (TemplateID, TemplateName, TemplateSource, 
+    insert into IDO_CMS_TEMPLATE (TemplateID, TemplateName, TemplatePath, 
       Remarks, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, IsDelete, 
       Version)
-    values (#{templateID,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, #{templateSource,jdbcType=VARCHAR}, 
+    values (#{templateID,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, #{templatePath,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
-    insert into ido_cms_template
+    insert into IDO_CMS_TEMPLATE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="templateID != null" >
         TemplateID,
@@ -46,8 +46,8 @@
       <if test="templateName != null" >
         TemplateName,
       </if>
-      <if test="templateSource != null" >
-        TemplateSource,
+      <if test="templatePath != null" >
+        TemplatePath,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -78,8 +78,8 @@
       <if test="templateName != null" >
         #{templateName,jdbcType=VARCHAR},
       </if>
-      <if test="templateSource != null" >
-        #{templateSource,jdbcType=VARCHAR},
+      <if test="templatePath != null" >
+        #{templatePath,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -105,13 +105,13 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
-    update ido_cms_template
+    update IDO_CMS_TEMPLATE
     <set >
       <if test="templateName != null" >
         TemplateName = #{templateName,jdbcType=VARCHAR},
       </if>
-      <if test="templateSource != null" >
-        TemplateSource = #{templateSource,jdbcType=VARCHAR},
+      <if test="templatePath != null" >
+        TemplatePath = #{templatePath,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -138,9 +138,9 @@
     where TemplateID = #{templateID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsTemplate" >
-    update ido_cms_template
+    update IDO_CMS_TEMPLATE
     set TemplateName = #{templateName,jdbcType=VARCHAR},
-      TemplateSource = #{templateSource,jdbcType=VARCHAR},
+      TemplatePath = #{templatePath,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

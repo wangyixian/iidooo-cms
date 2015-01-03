@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>IDOOO CMS</title>
 <jsp:include page="include/Header.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="/cms/css/index.css">
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/Index.css">
 </head>
 <body>
 	<jsp:include page="include/Top.jsp"></jsp:include>

@@ -12,5 +12,7 @@ public interface CmsContentDao {
     
     List<CmsContentDto> selectContents(Map<String, Object> params);
     
+    List<CmsContentDto> selectAll();
+    
     CmsContentDto selectContentByID(int contentID);
 }

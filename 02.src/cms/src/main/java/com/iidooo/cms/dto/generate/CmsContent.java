@@ -1,23 +1,25 @@
 package com.iidooo.cms.dto.generate;
 
-public class CmsContent {
+import com.iidooo.framework.dto.base.PagingDto;
+
+public class CmsContent extends PagingDto{
     private Integer contentID;
 
     private Integer channelID;
 
     private Integer templateID;
 
-    private String title;
+    private String contentTitle;
 
-    private String alias;
+    private String contentSubTitle;
 
-    private String titleImage;
+    private String contentImageTitle;
 
-    private String subTitle;
+    private String contentAlias;
 
     private String metaTitle;
 
-    private String metaKeyworlds;
+    private String metaKeywords;
 
     private String metaDescription;
 
@@ -27,7 +29,7 @@ public class CmsContent {
 
     private String contentAuthor;
 
-    private Integer weight;
+    private Integer sequence;
 
     private Integer isAllowComment;
 
@@ -71,36 +73,36 @@ public class CmsContent {
         this.templateID = templateID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getContentTitle() {
+        return contentTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setContentTitle(String contentTitle) {
+        this.contentTitle = contentTitle == null ? null : contentTitle.trim();
     }
 
-    public String getAlias() {
-        return alias;
+    public String getContentSubTitle() {
+        return contentSubTitle;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias == null ? null : alias.trim();
+    public void setContentSubTitle(String contentSubTitle) {
+        this.contentSubTitle = contentSubTitle == null ? null : contentSubTitle.trim();
     }
 
-    public String getTitleImage() {
-        return titleImage;
+    public String getContentImageTitle() {
+        return contentImageTitle;
     }
 
-    public void setTitleImage(String titleImage) {
-        this.titleImage = titleImage == null ? null : titleImage.trim();
+    public void setContentImageTitle(String contentImageTitle) {
+        this.contentImageTitle = contentImageTitle == null ? null : contentImageTitle.trim();
     }
 
-    public String getSubTitle() {
-        return subTitle;
+    public String getContentAlias() {
+        return contentAlias;
     }
 
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle == null ? null : subTitle.trim();
+    public void setContentAlias(String contentAlias) {
+        this.contentAlias = contentAlias == null ? null : contentAlias.trim();
     }
 
     public String getMetaTitle() {
@@ -111,12 +113,12 @@ public class CmsContent {
         this.metaTitle = metaTitle == null ? null : metaTitle.trim();
     }
 
-    public String getMetaKeyworlds() {
-        return metaKeyworlds;
+    public String getMetaKeywords() {
+        return metaKeywords;
     }
 
-    public void setMetaKeyworlds(String metaKeyworlds) {
-        this.metaKeyworlds = metaKeyworlds == null ? null : metaKeyworlds.trim();
+    public void setMetaKeywords(String metaKeywords) {
+        this.metaKeywords = metaKeywords == null ? null : metaKeywords.trim();
     }
 
     public String getMetaDescription() {
@@ -151,12 +153,12 @@ public class CmsContent {
         this.contentAuthor = contentAuthor == null ? null : contentAuthor.trim();
     }
 
-    public Integer getWeight() {
-        return weight;
+    public Integer getSequence() {
+        return sequence;
     }
 
-    public void setWeight(Integer weight) {
-        this.weight = weight;
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public Integer getIsAllowComment() {

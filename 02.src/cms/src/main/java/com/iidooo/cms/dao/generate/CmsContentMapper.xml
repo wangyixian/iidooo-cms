@@ -5,17 +5,17 @@
     <id column="ContentID" property="contentID" jdbcType="INTEGER" />
     <result column="ChannelID" property="channelID" jdbcType="INTEGER" />
     <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
-    <result column="Title" property="title" jdbcType="VARCHAR" />
-    <result column="Alias" property="alias" jdbcType="VARCHAR" />
-    <result column="TitleImage" property="titleImage" jdbcType="VARCHAR" />
-    <result column="SubTitle" property="subTitle" jdbcType="VARCHAR" />
+    <result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
+    <result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
+    <result column="ContentImageTitle" property="contentImageTitle" jdbcType="VARCHAR" />
+    <result column="ContentAlias" property="contentAlias" jdbcType="VARCHAR" />
     <result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
-    <result column="MetaKeyworlds" property="metaKeyworlds" jdbcType="VARCHAR" />
+    <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
     <result column="ContentSource" property="contentSource" jdbcType="VARCHAR" />
     <result column="ContentAuthor" property="contentAuthor" jdbcType="VARCHAR" />
-    <result column="Weight" property="weight" jdbcType="INTEGER" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="IsAllowComment" property="isAllowComment" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -29,10 +29,10 @@
     <result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ContentID, ChannelID, TemplateID, Title, Alias, TitleImage, SubTitle, MetaTitle, 
-    MetaKeyworlds, MetaDescription, ContentSummary, ContentSource, ContentAuthor, Weight, 
-    IsAllowComment, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, 
-    Version
+    ContentID, ChannelID, TemplateID, ContentTitle, ContentSubTitle, ContentImageTitle, 
+    ContentAlias, MetaTitle, MetaKeywords, MetaDescription, ContentSummary, ContentSource, 
+    ContentAuthor, Sequence, IsAllowComment, Remarks, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, IsDelete, Version
   </sql>
   <sql id="Blob_Column_List" >
     ContentBody
@@ -42,33 +42,33 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from ido_cms_content
+    from IDO_CMS_CONTENT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ido_cms_content
+    delete from IDO_CMS_CONTENT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
-    insert into ido_cms_content (ContentID, ChannelID, TemplateID, 
-      Title, Alias, TitleImage, 
-      SubTitle, MetaTitle, MetaKeyworlds, 
+    insert into IDO_CMS_CONTENT (ContentID, ChannelID, TemplateID, 
+      ContentTitle, ContentSubTitle, ContentImageTitle, 
+      ContentAlias, MetaTitle, MetaKeywords, 
       MetaDescription, ContentSummary, ContentSource, 
-      ContentAuthor, Weight, IsAllowComment, 
+      ContentAuthor, Sequence, IsAllowComment, 
       Remarks, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, IsDelete, 
       Version, ContentBody)
     values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{titleImage,jdbcType=VARCHAR}, 
-      #{subTitle,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{metaKeyworlds,jdbcType=VARCHAR}, 
+      #{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR}, 
+      #{contentAlias,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, 
       #{metaDescription,jdbcType=VARCHAR}, #{contentSummary,jdbcType=VARCHAR}, #{contentSource,jdbcType=VARCHAR}, 
-      #{contentAuthor,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, 
+      #{contentAuthor,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, 
       #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER}, #{contentBody,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
-    insert into ido_cms_content
+    insert into IDO_CMS_CONTENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="contentID != null" >
         ContentID,
@@ -79,23 +79,23 @@
       <if test="templateID != null" >
         TemplateID,
       </if>
-      <if test="title != null" >
-        Title,
+      <if test="contentTitle != null" >
+        ContentTitle,
       </if>
-      <if test="alias != null" >
-        Alias,
+      <if test="contentSubTitle != null" >
+        ContentSubTitle,
       </if>
-      <if test="titleImage != null" >
-        TitleImage,
+      <if test="contentImageTitle != null" >
+        ContentImageTitle,
       </if>
-      <if test="subTitle != null" >
-        SubTitle,
+      <if test="contentAlias != null" >
+        ContentAlias,
       </if>
       <if test="metaTitle != null" >
         MetaTitle,
       </if>
-      <if test="metaKeyworlds != null" >
-        MetaKeyworlds,
+      <if test="metaKeywords != null" >
+        MetaKeywords,
       </if>
       <if test="metaDescription != null" >
         MetaDescription,
@@ -109,8 +109,8 @@
       <if test="contentAuthor != null" >
         ContentAuthor,
       </if>
-      <if test="weight != null" >
-        Weight,
+      <if test="sequence != null" >
+        Sequence,
       </if>
       <if test="isAllowComment != null" >
         IsAllowComment,
@@ -150,23 +150,23 @@
       <if test="templateID != null" >
         #{templateID,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="contentTitle != null" >
+        #{contentTitle,jdbcType=VARCHAR},
       </if>
-      <if test="alias != null" >
-        #{alias,jdbcType=VARCHAR},
+      <if test="contentSubTitle != null" >
+        #{contentSubTitle,jdbcType=VARCHAR},
       </if>
-      <if test="titleImage != null" >
-        #{titleImage,jdbcType=VARCHAR},
+      <if test="contentImageTitle != null" >
+        #{contentImageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="subTitle != null" >
-        #{subTitle,jdbcType=VARCHAR},
+      <if test="contentAlias != null" >
+        #{contentAlias,jdbcType=VARCHAR},
       </if>
       <if test="metaTitle != null" >
         #{metaTitle,jdbcType=VARCHAR},
       </if>
-      <if test="metaKeyworlds != null" >
-        #{metaKeyworlds,jdbcType=VARCHAR},
+      <if test="metaKeywords != null" >
+        #{metaKeywords,jdbcType=VARCHAR},
       </if>
       <if test="metaDescription != null" >
         #{metaDescription,jdbcType=VARCHAR},
@@ -180,8 +180,8 @@
       <if test="contentAuthor != null" >
         #{contentAuthor,jdbcType=VARCHAR},
       </if>
-      <if test="weight != null" >
-        #{weight,jdbcType=INTEGER},
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isAllowComment != null" >
         #{isAllowComment,jdbcType=INTEGER},
@@ -213,7 +213,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
-    update ido_cms_content
+    update IDO_CMS_CONTENT
     <set >
       <if test="channelID != null" >
         ChannelID = #{channelID,jdbcType=INTEGER},
@@ -221,23 +221,23 @@
       <if test="templateID != null" >
         TemplateID = #{templateID,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        Title = #{title,jdbcType=VARCHAR},
+      <if test="contentTitle != null" >
+        ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       </if>
-      <if test="alias != null" >
-        Alias = #{alias,jdbcType=VARCHAR},
+      <if test="contentSubTitle != null" >
+        ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
       </if>
-      <if test="titleImage != null" >
-        TitleImage = #{titleImage,jdbcType=VARCHAR},
+      <if test="contentImageTitle != null" >
+        ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="subTitle != null" >
-        SubTitle = #{subTitle,jdbcType=VARCHAR},
+      <if test="contentAlias != null" >
+        ContentAlias = #{contentAlias,jdbcType=VARCHAR},
       </if>
       <if test="metaTitle != null" >
         MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       </if>
-      <if test="metaKeyworlds != null" >
-        MetaKeyworlds = #{metaKeyworlds,jdbcType=VARCHAR},
+      <if test="metaKeywords != null" >
+        MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       </if>
       <if test="metaDescription != null" >
         MetaDescription = #{metaDescription,jdbcType=VARCHAR},
@@ -251,8 +251,8 @@
       <if test="contentAuthor != null" >
         ContentAuthor = #{contentAuthor,jdbcType=VARCHAR},
       </if>
-      <if test="weight != null" >
-        Weight = #{weight,jdbcType=INTEGER},
+      <if test="sequence != null" >
+        Sequence = #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isAllowComment != null" >
         IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
@@ -285,20 +285,20 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
-    update ido_cms_content
+    update IDO_CMS_CONTENT
     set ChannelID = #{channelID,jdbcType=INTEGER},
       TemplateID = #{templateID,jdbcType=INTEGER},
-      Title = #{title,jdbcType=VARCHAR},
-      Alias = #{alias,jdbcType=VARCHAR},
-      TitleImage = #{titleImage,jdbcType=VARCHAR},
-      SubTitle = #{subTitle,jdbcType=VARCHAR},
+      ContentTitle = #{contentTitle,jdbcType=VARCHAR},
+      ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
+      ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
+      ContentAlias = #{contentAlias,jdbcType=VARCHAR},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
-      MetaKeyworlds = #{metaKeyworlds,jdbcType=VARCHAR},
+      MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
       ContentSource = #{contentSource,jdbcType=VARCHAR},
       ContentAuthor = #{contentAuthor,jdbcType=VARCHAR},
-      Weight = #{weight,jdbcType=INTEGER},
+      Sequence = #{sequence,jdbcType=INTEGER},
       IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
@@ -311,20 +311,20 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
-    update ido_cms_content
+    update IDO_CMS_CONTENT
     set ChannelID = #{channelID,jdbcType=INTEGER},
       TemplateID = #{templateID,jdbcType=INTEGER},
-      Title = #{title,jdbcType=VARCHAR},
-      Alias = #{alias,jdbcType=VARCHAR},
-      TitleImage = #{titleImage,jdbcType=VARCHAR},
-      SubTitle = #{subTitle,jdbcType=VARCHAR},
+      ContentTitle = #{contentTitle,jdbcType=VARCHAR},
+      ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
+      ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
+      ContentAlias = #{contentAlias,jdbcType=VARCHAR},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
-      MetaKeyworlds = #{metaKeyworlds,jdbcType=VARCHAR},
+      MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
       ContentSource = #{contentSource,jdbcType=VARCHAR},
       ContentAuthor = #{contentAuthor,jdbcType=VARCHAR},
-      Weight = #{weight,jdbcType=INTEGER},
+      Sequence = #{sequence,jdbcType=INTEGER},
       IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

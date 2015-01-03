@@ -21,16 +21,16 @@
 					<div id="slide" class="content">
 						<ul class="slideul1"> 
 							<li class="slideli1"> 
-								<@contentList count='10' channelPath='product' tagClass='TAG_PRODUCT_TYPE' tagItem='1' sortBy='Weight' sortType="asc">
+								<@directiveContentList count='5' channelPath='product' <!-- tagClass='TAG_PRODUCT_TYPE' tagItem='1' --> sortBy='Sequence' sortType="asc">
 		    					<ul class="slideul2">
 								<#list returnList as content>
 		   							<li >
-		   								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
-		   								<div class="align_center">${content.title}</div>
+		   								<div><img alt="${content.contentTitle}" src="${CONTENT_RES_ROOT}${content.contentImageTitle}"></div>
+		   								<div class="align_center">${content.contentTitle}</div>
 		   							</li>
 		   						</#list>
 		    					</ul>
-		    					</@contentList>
+		    					</@directiveContentList>
     						</li>
     						<li class="slideli2"></li> 
     					</ul>
@@ -44,18 +44,18 @@
 						<a class="right more">更多&gt;&gt;</a>
 					</div>
 					<div class="content">
-					<@contentList count='7' channelPath='info' sortBy='UpdateTime' sortType="desc">
+					<@directiveContentList count='7' channelPath='info' sortBy='UpdateTime' sortType="desc">
     					<ul>
 						<#list returnList as content>
    							<li>
    								<div class="block_content_item">
-	   								<span class="content_title">${content.title}</span>
+	   								<span class="content_title">${content.contentTitle}</span>
 	   								<span class="date">${content.updateDate}</span>
    								</div>
    							</li>
    						</#list>
     					</ul>
-	    			</@contentList>
+	    			</@directiveContentList>
 					</div>
 				</div>				
 			</div>
@@ -72,16 +72,16 @@
     					<a class="right more">更多&gt;&gt;</a>
     				</div>
     				<div class="content">
-    				<@contentList count='8' channelPath='product' sortBy='Weight' sortType="asc">
+    				<@directiveContentList count='8' channelPath='product' sortBy='Sequence' sortType="asc">
     					<ul class="product_list">
 						<#list returnList as content>
    							<li >
-   								<div><img alt="${content.title}" src="${CONTENT_RES_ROOT}${content.titleImage}"></div>
-   								<div class="align_center">${content.title}</div>
+   								<div><img alt="${content.contentTitle}" src="${CONTENT_RES_ROOT}${content.contentImageTitle}"></div>
+   								<div class="align_center">${content.contentTitle}</div>
    							</li>
    						</#list>
     					</ul>
-    				</@contentList>
+    				</@directiveContentList>
     				</div>
     			</div>
     		</div>

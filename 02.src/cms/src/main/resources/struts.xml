@@ -20,7 +20,7 @@
           <interceptor name="AuthInterceptor" class="com.iidooo.framework.interceptor.AuthInterceptor"></interceptor>
           <interceptor-stack name="DefaultInterceptorWrap">
               <interceptor-ref name="defaultStack" />
-              <interceptor-ref name="AuthInterceptor" />
+              <!-- <interceptor-ref name="AuthInterceptor" /> -->
           </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="DefaultInterceptorWrap" />

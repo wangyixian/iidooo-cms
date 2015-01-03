@@ -3,9 +3,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>后台用户登录</title>
 <jsp:include page="include/Header.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="/cms/css/login.css">
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/Login.css">
 <script type="text/javascript">
 function login(){
 	window.form.submit();
