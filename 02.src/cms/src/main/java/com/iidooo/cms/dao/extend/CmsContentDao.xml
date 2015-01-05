@@ -30,13 +30,25 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		C.ContentID, C.ChannelID, C.TemplateID, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
-		C.ContentAlias, C.MetaTitle, C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.ContentSource,
-		C.ContentAuthor, C.Sequence, C.IsAllowComment, C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime,
+		C.ContentAlias, C.MetaTitle,
+		C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.ContentSource,
+		C.ContentAuthor, C.Sequence, C.IsAllowComment, C.Remarks, C.CreateTime,
+		C.CreateUser, C.UpdateTime,
 		C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
+	
+	<select id="selectAllCount" resultType="java.lang.Integer">
+		select count(*) from IDO_CMS_CONTENT C where C.IsDelete = 0
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.base.PagingDto">
+		select
+		<include refid="Base_Column_List" />
+		from IDO_CMS_CONTENT C where C.IsDelete = 0 order by C.UpdateTime desc limit #{start}, #{end}
+	</select>
+
 	<select id="selectContentsByPV" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
 		<include refid="Base_Column_List" />

@@ -21,6 +21,7 @@
 			<div class="block">
 				<table class="grid">
 					<tr>
+						<th>ID</th>
 						<th>栏目名称</th>
 						<th>访问路径</th>
 						<th>是否隐藏</th>
@@ -30,16 +31,19 @@
 					</tr>
 					<s:iterator id="channel" value="channelList" status="st">
 						<tr>
+							<td>${channel.channelID }</td>
 							<td>${channel.channelName }</td>
 							<td>${channel.channelPath }</td>
 							<td class="align_center">${channel.isHidden }</td>
 							<td class="align_center">${channel.updateTime}</td>
 							<td class="align_center">${channel.updateUser}</td>
-							<td class="align_center"><a>修改</a>|<a>删除</a></td>
+							<td class="align_center">
+								<a>修改</a>|<a>删除</a>|<a>上移</a>|<a>下移</a>
+							</td>
 						</tr>
 					</s:iterator>
 				</table>
-				<button onclick="btnCreate()">添加</button>
+				<input type="button" onclick="btnCreate()" value="添加">
 			</div>
 		</div>
 	</div>

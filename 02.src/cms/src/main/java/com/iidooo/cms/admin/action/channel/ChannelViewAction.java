@@ -1,15 +1,13 @@
-package com.iidooo.cms.admin.action;
-
-import java.util.List;
+package com.iidooo.cms.admin.action.channel;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.admin.service.ChannelDetailService;
+import com.iidooo.cms.admin.service.channel.ChannelCreateService;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.framework.action.BaseAction;
 
-public class ChannelDetailAction extends BaseAction {
+public class ChannelViewAction extends BaseAction {
 
     /**
      * 
@@ -19,9 +17,11 @@ public class ChannelDetailAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
 
     @Autowired
-    private ChannelDetailService channelCreateService;
+    private ChannelCreateService channelDetailService;
 
     private CmsChannelDto channel;
+
+    private String mode;
 
     public CmsChannelDto getChannel() {
         return channel;
@@ -29,6 +29,14 @@ public class ChannelDetailAction extends BaseAction {
 
     public void setChannel(CmsChannelDto channel) {
         this.channel = channel;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public String init() {
@@ -41,9 +49,9 @@ public class ChannelDetailAction extends BaseAction {
         }
     }
 
-    public String create() {
+    public String save() {
         try {
-            channelCreateService.createChannel(channel);
+            channelDetailService.createChannel(channel);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,8 +59,8 @@ public class ChannelDetailAction extends BaseAction {
             return ERROR;
         }
     }
-    
-    public void validateCreate() {
+
+    public void validatesave() {
         try {
         } catch (Exception e) {
             e.printStackTrace();

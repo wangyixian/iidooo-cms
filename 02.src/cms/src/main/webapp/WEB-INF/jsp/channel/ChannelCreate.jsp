@@ -44,7 +44,8 @@
 						<td><input type="text" name="channel.externalURL"></td>
 					</tr>
 				</table>
-				<button>创建</button><button>重置</button>
+				<input type="button" value="创建">
+				<input type="button" value="重置">
 			</div>
 		</div>
 	</div>

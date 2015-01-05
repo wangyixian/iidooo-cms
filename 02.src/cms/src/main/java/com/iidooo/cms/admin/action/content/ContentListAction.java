@@ -1,15 +1,16 @@
-package com.iidooo.cms.admin.action;
+package com.iidooo.cms.admin.action.content;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.admin.service.ContentListService;
+import com.iidooo.cms.admin.action.channel.ChannelListAction;
+import com.iidooo.cms.admin.service.content.ContentListService;
 import com.iidooo.cms.dto.extend.CmsContentDto;
-import com.iidooo.framework.action.BaseAction;
+import com.iidooo.framework.action.PagingActionSupport;
 
-public class ContentListAction extends BaseAction {
+public class ContentListAction extends PagingActionSupport {
 
     /**
      * 
@@ -33,6 +34,9 @@ public class ContentListAction extends BaseAction {
 
     public String init() {
         try {
+            int recordSum = contentListService.getAllContentsCount();
+            this.executePaging(recordSum);
+            this.contentList = contentListService.getAllContents(this.getPagingDto());
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

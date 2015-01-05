@@ -28,6 +28,11 @@ img {
 	/* 图片无边框 */
 	border: 0px;
 	vertical-align: middle;
+	width: 100%;
+}
+
+table {
+	width: 100%;
 }
 
 ol, ul, li {
@@ -98,6 +103,16 @@ a:hover {
 	color: #C1272D;
 }
 
+.left_side_wrap {
+	width: 230px;
+	float: left;
+}
+
+.right_side_wrap {
+	margin-left: 230px;
+	margin-right: 10px;
+}
+
 /* 清除浮动 */
 .clear {
 	clear: both;
@@ -124,37 +139,6 @@ a:hover {
 	float: right;
 }
 
-.block {
-	margin-top: 10px;
-}
-
-.block_content {
-	padding: 5px 0 5px 0;
-	overflow: hidden;
-}
-
-.block_title_21 {
-	border-bottom: 2px solid #CCC;
-	background: white;
-	line-height: 37px;
-	/* color: #C1272D; */
-	font-size: 21px;
-}
-
-.block_title_21_red {
-	border-bottom: 2px solid #C1272D;
-	background: white;
-	line-height: 37px;
-	color: #C1272D;
-	font-size: 21px;
-}
-
-.block_content_item {
-	border-bottom: 1px dashed #CCC;
-	overflow: hidden;
-	padding: 5px 0;
-}
-
 .frame {
 	overflow: hidden;
 	border-radius: 3px;
@@ -174,6 +158,10 @@ a:hover {
 
 .grid>tbody>tr>td {
 	border: solid 1px #333333;
+}
+
+.block {
+	margin-top: 10px;
 }
 
 /* The style of tabs */
@@ -238,78 +226,41 @@ a:hover {
 	vertical-align: text-top;
 }
 
-/* 更多>> 链接 */
-.more {
-	font-size: 12px;
-	font-weight: normal;
-}
-
-.more a {
-	color: #0B8F45;
-}
-
-.more a:hover {
-	cursor: pointer;
-	color: #134780;
-}
-
-.title_zh {
-	color: #134780;
-}
-
-.title_en {
-	color: #888;
-}
-
-/* 网页内容部分的包裹 */
-.body_wrap {
-	width: 980px;
-	margin: 0 auto;
-	overflow: hidden;
-}
-
-/* 页面的横幅部分 */
-#banner {
-	width: 980px;
-	margin-top: 10px;
-}
-
-/* The top bar */
+/* 顶部的区域 */
 #top_wrap {
 	width: 100%;
-	border-color: #666;
+	background-color: #134780;
+	height: 70px;
 }
 
 #top_wrap>#logo {
-	vertical-align: middle;
-	display: table-cell;
+	float: left;
 }
 
 #top_wrap>#menu_wrap {
-	width: 100%;
-	display: block;
+	margin-left: 230px;
+	color: white;
 }
 
 #top_wrap>#menu_wrap>#login_info {
-	height: 30px;
+	height: 40px;
 }
 
 #top_wrap>#menu_wrap>#menu {
-	background-color: #134780;
-	height: 35px;
+	height: 30px;
 }
 
 #top_wrap>#menu_wrap>#menu ul {
 	margin: 0px;
 	padding: 0px;
 	font-size: 14px;
-	height: 35px;
+	height: 30px;
 }
 
 #top_wrap>#menu_wrap>#menu ul li {
 	width: 100px;
-	height: 35px;
-	line-height: 35px;
+	height: 30px;
+	line-height: 30px;
 	text-align: center;
 	float: left;
 	margin: 0px;
@@ -318,7 +269,7 @@ a:hover {
 }
 
 #top_wrap>#menu_wrap>#menu a {
-	color: #CCC;
+	color: white;
 	display: block;
 }
 

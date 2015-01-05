@@ -1,4 +1,4 @@
-package com.iidooo.cms.admin.service.impl;
+package com.iidooo.cms.admin.service.impl.channel;
 
 import java.util.List;
 
@@ -6,24 +6,20 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.admin.service.ChannelListService;
+import com.iidooo.cms.admin.service.channel.ChannelCreateService;
 import com.iidooo.cms.dao.extend.CmsChannelDao;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 
 @Service
-public class ChannelListServiceImpl implements ChannelListService {
-
-    private static final Logger logger = Logger.getLogger(ChannelListServiceImpl.class);
+public class ChanneUpdateServiceImpl implements ChannelCreateService {
+    private static final Logger logger = Logger.getLogger(ChanneUpdateServiceImpl.class);
 
     @Autowired
     private CmsChannelDao cmsChannelDao;
 
     @Override
-    public List<CmsChannelDto> getChannelList(int parentID) {
+    public void createChannel(CmsChannelDto channel) {
         try {
-            List<CmsChannelDto> channelList = null;
-            channelList = cmsChannelDao.selectChannelsByParentID(parentID);
-            return channelList;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

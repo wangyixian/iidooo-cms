@@ -1,4 +1,4 @@
-package com.iidooo.cms.admin.service;
+package com.iidooo.cms.admin.service.channel;
 
 import java.util.List;
 

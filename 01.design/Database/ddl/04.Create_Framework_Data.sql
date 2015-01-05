@@ -2,8 +2,6 @@
 -- IDO_DICT_TYPE的初始化数据
 -- -----------------------------------------------------
 INSERT INTO `IDO_DICT_TYPE` (`DictTypeCode`, `DictTypeName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('SYSTEM_PROPERTIES', '系统配置', '', now(), 1, now(), 1, 0, 1);
-INSERT INTO `IDO_DICT_TYPE` (`DictTypeCode`, `DictTypeName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('CMS_TAGS', '内容标签', '', now(), 1, now(), 1, 0, 1);
 INSERT INTO `IDO_DICT_TYPE` (`DictTypeCode`, `DictTypeName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('CMS_COMMON', '内容通用字典', '', now(), 1, now(), 1, 0, 1);
@@ -15,13 +13,9 @@ INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, 
 VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_MAIL', '邮件配置', '', now(), 1, now(), 1, 0, 1);
 
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_PAGING', '分页配置', '', now(), 1, now(), 1, 0, 1);
-
-INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_LANG', '语言类型', '', now(), 1, now(), 1, 0, 1);
 
-INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_SITE', '站点配置', '', now(), 1, now(), 1, 0, 1);
+
 
 -- 在线动漫标签类
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
@@ -57,8 +51,7 @@ VALUES (0, 'PROPERTIES_MAIL', 'PROPERTIES_MAIL_VALIDATOR', '邮件认证', 'true
 INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES (0, 'PROPERTIES_MAIL', 'PROPERTIES_MAIL_FORMAT', '邮件格式', 'iidooo.com', 5, 0, '', now(), 1, now(), 1, 0, 1);
 
-INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (0, 'PROPERTIES_PAGING', 'PROPERTIES_PAGING_PAGESIZE', '每页显示行总数', '5', 1, 0, '', now(), 1, now(), 1, 0, 1);
+
 
 INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES (0, 'PROPERTIES_LANG', 'PROPERTIES_LANG_ZHCN', '简体中文', 'zh_CN', 1, 0, '', now(), 1, now(), 1, 0, 1);
@@ -71,22 +64,6 @@ VALUES (0, 'PROPERTIES_LANG', 'PROPERTIES_LANG_JAPANESE', '日本語', 'ja_JP', 
 
 INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES (0, 'PROPERTIES_LANG', 'PROPERTIES_LANG_ENGLISH', 'English', 'en_US', 4, 0, '', now(), 1, now(), 1, 0, 1);
-
--- 站点配置
-INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (0, 'PROPERTIES_SITE', 'SITE_DOMAIN', '域名', 'www.iidooo.com', 1, 0, '', now(), 1, now(), 1, 0, 1);
-
-INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (0, 'PROPERTIES_SITE', 'SITE_NAME', '动漫主题馆', '动漫主题馆', 3, 0, '', now(), 1, now(), 1, 0, 1);
-
-INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (0, 'PROPERTIES_SITE', 'SITE_URL', '网址', 'http://localhost:8080/cms', 2, 0, '', now(), 1, now(), 1, 0, 1);
-
-INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (0, 'PROPERTIES_SITE', 'SITE_RES_ROOT', '资源根目录', 'http://localhost:8080/cms/templates/default/res', 3, 0, '', now(), 1, now(), 1, 0, 1);
-
-INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES (0, 'PROPERTIES_SITE', 'CONTENT_RES_ROOT', '内容资源根目录', 'http://localhost:8080/cms/res', 3, 0, '', now(), 1, now(), 1, 0, 1);
 
 -- 动漫状态
 INSERT INTO `IDO_DICT_ITEM` (`ParentItemID`, `DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Weight`, `IsDefault`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 

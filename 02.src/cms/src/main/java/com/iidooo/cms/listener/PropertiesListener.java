@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.cms.constant.SpringConstant;
 import com.iidooo.framework.constant.DictConstant;
+import com.iidooo.framework.constant.SpringConstant;
 import com.iidooo.framework.dao.extend.DictItemDao;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.utility.SpringUtil;
@@ -41,34 +41,34 @@ public class PropertiesListener extends HttpServlet implements ServletContextLis
                 String dictItemValue = dictItemDto.getDictItemValue();
                 sc.setAttribute(dictItemCode, dictItemValue);
             }
-
-            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COMIC_STATUS);
-            for (DictItemDto dictItemDto : dictItems) {
-                String dictItemCode = dictItemDto.getDictItemCode();
-                String dictItemValue = dictItemDto.getDictItemValue();
-                sc.setAttribute(DictConstant.DICT_CLASS_TAG_COMIC_STATUS + "_" + dictItemCode, dictItemValue);
-            }
-
-            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COMIC_TYPE);
-            for (DictItemDto dictItemDto : dictItems) {
-                String dictItemCode = dictItemDto.getDictItemCode();
-                String dictItemValue = dictItemDto.getDictItemValue();
-                sc.setAttribute(DictConstant.DICT_CLASS_TAG_COMIC_TYPE + "_" + dictItemCode, dictItemValue);
-            }
-
-            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_LETTER);
-            for (DictItemDto dictItemDto : dictItems) {
-                String dictItemCode = dictItemDto.getDictItemCode();
-                String dictItemValue = dictItemDto.getDictItemValue();
-                sc.setAttribute(DictConstant.DICT_CLASS_TAG_LETTER + "_" + dictItemCode, dictItemValue);
-            }
-
-            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COUNTRY);
-            for (DictItemDto dictItemDto : dictItems) {
-                String dictItemCode = dictItemDto.getDictItemCode();
-                String dictItemValue = dictItemDto.getDictItemValue();
-                sc.setAttribute(DictConstant.DICT_CLASS_TAG_COUNTRY + "_" + dictItemCode, dictItemValue);
-            }
+//
+//            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COMIC_STATUS);
+//            for (DictItemDto dictItemDto : dictItems) {
+//                String dictItemCode = dictItemDto.getDictItemCode();
+//                String dictItemValue = dictItemDto.getDictItemValue();
+//                sc.setAttribute(DictConstant.DICT_CLASS_TAG_COMIC_STATUS + "_" + dictItemCode, dictItemValue);
+//            }
+//
+//            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COMIC_TYPE);
+//            for (DictItemDto dictItemDto : dictItems) {
+//                String dictItemCode = dictItemDto.getDictItemCode();
+//                String dictItemValue = dictItemDto.getDictItemValue();
+//                sc.setAttribute(DictConstant.DICT_CLASS_TAG_COMIC_TYPE + "_" + dictItemCode, dictItemValue);
+//            }
+//
+//            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_LETTER);
+//            for (DictItemDto dictItemDto : dictItems) {
+//                String dictItemCode = dictItemDto.getDictItemCode();
+//                String dictItemValue = dictItemDto.getDictItemValue();
+//                sc.setAttribute(DictConstant.DICT_CLASS_TAG_LETTER + "_" + dictItemCode, dictItemValue);
+//            }
+//
+//            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COUNTRY);
+//            for (DictItemDto dictItemDto : dictItems) {
+//                String dictItemCode = dictItemDto.getDictItemCode();
+//                String dictItemValue = dictItemDto.getDictItemValue();
+//                sc.setAttribute(DictConstant.DICT_CLASS_TAG_COUNTRY + "_" + dictItemCode, dictItemValue);
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

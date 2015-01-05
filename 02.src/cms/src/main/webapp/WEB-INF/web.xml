@@ -73,6 +73,10 @@
 	</context-param>
 
 	<listener>
+		<listener-class>com.iidooo.framework.listener.ApplicationListener</listener-class>
+	</listener>
+
+	<listener>
 		<listener-class>com.iidooo.cms.listener.PropertiesListener</listener-class>
 	</listener>
 
