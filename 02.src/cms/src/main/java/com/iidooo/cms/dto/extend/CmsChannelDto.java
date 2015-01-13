@@ -1,11 +1,14 @@
 package com.iidooo.cms.dto.extend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.iidooo.cms.dto.generate.CmsChannel;
 
 public class CmsChannelDto extends CmsChannel {
     private String templatePath;
-
-    private int level;
+    
+    private List<CmsChannelDto> children;
 
     public String getTemplatePath() {
         return templatePath;
@@ -15,11 +18,14 @@ public class CmsChannelDto extends CmsChannel {
         this.templatePath = templatePath;
     }
 
-    public int getLevel() {
-        return level;
+    public List<CmsChannelDto> getChildren() {
+        if (children == null) {
+            children = new ArrayList<CmsChannelDto>();
+        }
+        return children;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setChildren(List<CmsChannelDto> children) {
+        this.children = children;
     }
 }

@@ -34,21 +34,21 @@ public class ChannelServiceImpl implements ChannelService {
     public List<CmsChannelDto> getAllChannels() {
         try {
             List<CmsChannelDto> allChannelDtos = cmsChannelDao.selectAllChannels();
-
-            HashMap<Integer, CmsChannelDto> channelDtosMap = new HashMap<Integer, CmsChannelDto>();
-            for (CmsChannelDto cmsChannelDto : allChannelDtos) {
-                channelDtosMap.put(cmsChannelDto.getChannelID(), cmsChannelDto);
-            }
-
-            for (CmsChannelDto cmsChannelDto : allChannelDtos) {
-                int level = 1;
-                CmsChannelDto parentChannel = channelDtosMap.get(cmsChannelDto.getParentID());
-                while (parentChannel != null) {
-                    level++;
-                    parentChannel = channelDtosMap.get(parentChannel.getParentID());
-                }
-                cmsChannelDto.setLevel(level);
-            }
+//
+//            HashMap<Integer, CmsChannelDto> channelDtosMap = new HashMap<Integer, CmsChannelDto>();
+//            for (CmsChannelDto cmsChannelDto : allChannelDtos) {
+//                channelDtosMap.put(cmsChannelDto.getChannelID(), cmsChannelDto);
+//            }
+//
+//            for (CmsChannelDto cmsChannelDto : allChannelDtos) {
+//                int level = 1;
+//                CmsChannelDto parentChannel = channelDtosMap.get(cmsChannelDto.getParentID());
+//                while (parentChannel != null) {
+//                    level++;
+//                    parentChannel = channelDtosMap.get(parentChannel.getParentID());
+//                }
+//                cmsChannelDto.setLevel(level);
+//            }
             return allChannelDtos;
         } catch (Exception e) {
             e.printStackTrace();

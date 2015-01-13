@@ -32,24 +32,25 @@
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="channelCreateInit" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="init">
-			<result name="success">/WEB-INF/jsp/channel/ChannelCreate.jsp</result>
+
+		<action name="channelDetail" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="init">
+			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelCreate" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="create">
-			<result name="success">/WEB-INF/jsp/channel/ChannelView.jsp</result>
+			<result name="success" type="redirect">channelDetail.action?channelID=${channel.channelID}&amp;mode=2</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="channelUpdateInit" class="com.iidooo.cms.admin.action.channel.ChannelUpdateAction" method="init">
-			<result name="success">/WEB-INF/jsp/channel/ChannelUpdate.jsp</result>
+		<action name="channelUpdate" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="Update">
+			<result name="success" type="redirect">channelDetail.action?channelID=${channel.channelID}&amp;mode=2</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="channelUpdate" class="com.iidooo.cms.admin.action.channel.ChannelUpdateAction" method="update">
-			<result name="success">/WEB-INF/jsp/channel/ChannelView.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
-		<action name="channelView" class="com.iidooo.cms.admin.action.channel.ChannelViewAction" method="init">
-			<result name="success">/WEB-INF/jsp/channel/ChannelView.jsp</result>
+		<action name="channelDelete" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="Delete">
+			<result name="success" type="redirect">channelList.action</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 

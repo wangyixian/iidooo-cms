@@ -12,8 +12,8 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://112.124.12.199:3306/inabacms?useUnicode=true&amp;characterEncoding=utf8"
-			userId="inaba" password="inabajxfsy;">
+			connectionURL="jdbc:mysql://localhost:3306/inabacms?useUnicode=true&amp;characterEncoding=utf8"
+			userId="root" password="wangyixian">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -32,19 +32,19 @@
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.iidooo.cms.dao.generate" targetProject="cms">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-				<!--
+		
 		<table schema="inabacms" tableName="IDO_CMS_CHANNEL" domainObjectName="CmsChannel"
 		enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
 		enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 		</table>		
 		
+				<!--
 		<table schema="inabacms" tableName="IDO_CMS_TEMPLATE" domainObjectName="CmsTemplate"
 		enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
 		enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 		</table>	
-	-->
 		
 		<table schema="inabacms" tableName="IDO_CMS_CONTENT" domainObjectName="CmsContent"
 		enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
@@ -52,6 +52,7 @@
 			<property name="useActualColumnNames" value="true" />
 		</table>
 				
+	-->
 		<!--
 		<table schema="IDOCMS" tableName="IDO_CMS_CONTENT_TAG" domainObjectName="CmsContentTag"
 		enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"

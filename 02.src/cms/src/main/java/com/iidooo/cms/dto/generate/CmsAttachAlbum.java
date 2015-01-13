@@ -1,6 +1,8 @@
 package com.iidooo.cms.dto.generate;
 
-public class CmsAttachAlbum {
+import com.iidooo.framework.dto.base.BaseDto;
+
+public class CmsAttachAlbum extends BaseDto{
     private Integer albumID;
 
     private Integer contentID;
@@ -14,20 +16,6 @@ public class CmsAttachAlbum {
     private Integer classify;
 
     private Integer weight;
-
-    private String remarks;
-
-    private String createTime;
-
-    private Integer createUser;
-
-    private String updateTime;
-
-    private Integer updateUser;
-
-    private Integer isDelete;
-
-    private Integer version;
 
     public Integer getAlbumID() {
         return albumID;
@@ -83,61 +71,5 @@ public class CmsAttachAlbum {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
-    }
-
-    public Integer getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime == null ? null : updateTime.trim();
-    }
-
-    public Integer getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(Integer updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 }

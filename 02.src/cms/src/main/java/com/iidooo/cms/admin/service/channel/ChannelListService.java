@@ -6,4 +6,6 @@ import com.iidooo.cms.dto.extend.CmsChannelDto;
 
 public interface ChannelListService {
     List<CmsChannelDto> getChannelList(int parentID);
+    
+    List<CmsChannelDto> getAllChannelList();
 }

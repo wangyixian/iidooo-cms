@@ -1,3 +1,33 @@
+
+-- -----------------------------------------------------
+-- Table `IDO_CMS_CHANNEL`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDO_CMS_CHANNEL` ;
+
+CREATE TABLE IF NOT EXISTS `IDO_CMS_CHANNEL` (
+  `ChannelID` INT NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
+  `ParentID` INT NOT NULL COMMENT '父栏目ID',
+  `TemplateID` INT NOT NULL COMMENT '关联模板路径',
+  `ChannelName` VARCHAR(64) NOT NULL COMMENT '栏目名称',
+  `ChannelPath` VARCHAR(256) NOT NULL COMMENT '栏目路径',
+  `ChannelLevel` INT NOT NULL COMMENT '栏目层次，可以更精确获取部分栏目',
+  `MetaTitle` VARCHAR(256) NOT NULL COMMENT 'Meta标题',
+  `MetaKeywords` VARCHAR(1024) NOT NULL COMMENT '关键字',
+  `MetaDescription` VARCHAR(1024) NOT NULL COMMENT 'Meta描述',
+  `Sequence` INT NOT NULL COMMENT '权重',
+  `IsHidden` INT NOT NULL COMMENT '栏目的不可见',
+  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
+  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
+  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
+  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
+  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
+  PRIMARY KEY (`ChannelID`))
+ENGINE = InnoDB
+COMMENT = '栏目表';
+
+
 -- -----------------------------------------------------
 -- Table `IDO_CMS_CONTENT`
 -- -----------------------------------------------------
@@ -31,33 +61,6 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT` (
 ENGINE = InnoDB
 COMMENT = '内容表';
 
--- -----------------------------------------------------
--- Table `IDO_CMS_CHANNEL`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `IDO_CMS_CHANNEL` ;
-
-CREATE TABLE IF NOT EXISTS `IDO_CMS_CHANNEL` (
-  `ChannelID` INT NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
-  `TemplateID` INT NOT NULL COMMENT '关联模板ID',
-  `ParentID` INT NOT NULL COMMENT '父栏目ID',
-  `ChannelName` VARCHAR(64) NOT NULL COMMENT '栏目名称',
-  `ChannelPath` VARCHAR(256) NOT NULL COMMENT '栏目路径',
-  `MetaTitle` VARCHAR(256) NOT NULL COMMENT 'Meta标题',
-  `MetaKeywords` VARCHAR(1024) NOT NULL COMMENT '关键字',
-  `MetaDescription` VARCHAR(1024) NOT NULL COMMENT 'Meta描述',
-  `Sequence` INT NOT NULL COMMENT '权重',
-  `IsHidden` INT NOT NULL COMMENT '栏目的不可见',
-  `ExternalURL` VARCHAR(1024) NOT NULL COMMENT '外部链接',
-  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
-  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
-  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
-  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
-  PRIMARY KEY (`ChannelID`))
-ENGINE = InnoDB
-COMMENT = '栏目表';
 
 -- -----------------------------------------------------
 -- Table `IDO_CMS_TEMPLATE`

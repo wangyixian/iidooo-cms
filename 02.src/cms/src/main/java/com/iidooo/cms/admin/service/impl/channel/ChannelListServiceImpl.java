@@ -30,4 +30,17 @@ public class ChannelListServiceImpl implements ChannelListService {
             throw e;
         }
     }
+
+    @Override
+    public List<CmsChannelDto> getAllChannelList() {
+        try {
+            List<CmsChannelDto> channelList = null;
+            channelList = cmsChannelDao.selectAllChannels();
+            return channelList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
 }
