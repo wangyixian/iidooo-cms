@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.generate.CmsStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsStatistics" >
+    <id column="StatisticsID" property="statisticsID" jdbcType="INTEGER" />
+    <result column="TableName" property="tableName" jdbcType="VARCHAR" />
+    <result column="TableDataID" property="tableDataID" jdbcType="INTEGER" />
+    <result column="StatisticsIP" property="statisticsIP" jdbcType="VARCHAR" />
+    <result column="StatisticsType" property="statisticsType" jdbcType="INTEGER" />
+    <result column="StatisticsValue" property="statisticsValue" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    StatisticsID, TableName, TableDataID, StatisticsIP, StatisticsType, StatisticsValue, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ido_cms_statistics
+    where StatisticsID = #{statisticsID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ido_cms_statistics
+    where StatisticsID = #{statisticsID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsStatistics" >
+    insert into ido_cms_statistics (StatisticsID, TableName, TableDataID, 
+      StatisticsIP, StatisticsType, StatisticsValue, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
+    values (#{statisticsID,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{tableDataID,jdbcType=INTEGER}, 
+      #{statisticsIP,jdbcType=VARCHAR}, #{statisticsType,jdbcType=INTEGER}, #{statisticsValue,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsStatistics" >
+    insert into ido_cms_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statisticsID != null" >
+        StatisticsID,
+      </if>
+      <if test="tableName != null" >
+        TableName,
+      </if>
+      <if test="tableDataID != null" >
+        TableDataID,
+      </if>
+      <if test="statisticsIP != null" >
+        StatisticsIP,
+      </if>
+      <if test="statisticsType != null" >
+        StatisticsType,
+      </if>
+      <if test="statisticsValue != null" >
+        StatisticsValue,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="createTime != null" >
+        CreateTime,
+      </if>
+      <if test="createUser != null" >
+        CreateUser,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser,
+      </if>
+      <if test="isDelete != null" >
+        IsDelete,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statisticsID != null" >
+        #{statisticsID,jdbcType=INTEGER},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableDataID != null" >
+        #{tableDataID,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsIP != null" >
+        #{statisticsIP,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticsType != null" >
+        #{statisticsType,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsValue != null" >
+        #{statisticsValue,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsStatistics" >
+    update ido_cms_statistics
+    <set >
+      <if test="tableName != null" >
+        TableName = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableDataID != null" >
+        TableDataID = #{tableDataID,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsIP != null" >
+        StatisticsIP = #{statisticsIP,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticsType != null" >
+        StatisticsType = #{statisticsType,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsValue != null" >
+        StatisticsValue = #{statisticsValue,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CreateUser = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IsDelete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        Version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where StatisticsID = #{statisticsID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsStatistics" >
+    update ido_cms_statistics
+    set TableName = #{tableName,jdbcType=VARCHAR},
+      TableDataID = #{tableDataID,jdbcType=INTEGER},
+      StatisticsIP = #{statisticsIP,jdbcType=VARCHAR},
+      StatisticsType = #{statisticsType,jdbcType=INTEGER},
+      StatisticsValue = #{statisticsValue,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=INTEGER},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER}
+    where StatisticsID = #{statisticsID,jdbcType=INTEGER}
+  </update>
+</mapper>

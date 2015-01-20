@@ -1,0 +1,69 @@
+@CHARSET "UTF-8";
+
+/* 幻灯片 */
+#slide {
+	height: 300px;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+.slides {
+	position: relative;
+	border: solid 1px #ddd;
+}
+
+.slides>.slide-pic {
+	overflow: hidden;
+}
+
+.slides>.slide-pic>li {
+	display: none;
+}
+
+/* 必要元素 */
+.slides>.slide-pic>li.current {
+	display: block;
+}
+
+/* 必要元素 */
+.slides>.slide-li {
+	left: 0px;
+	bottom: 1px;
+	position: absolute;
+}
+
+ /* 必要元素 */
+.slides>.slide-li> li {
+	float: left;
+	width: 154px;
+	line-height: 30px;
+	margin-right: 1px;
+	height: 30px;
+	text-align: center;
+}
+
+.slides>.slide-li a {
+	display: block;
+	font-size: 14px;
+	color: #fff;
+	height: 30px;
+	text-decoration: none;
+}
+
+.slides>.slide-li li.current a {
+	color: #333;
+	text-decoration: none;
+}
+
+.slides>.op {
+	filter: alpha(opacity = 60);
+	opacity: 0.6;
+}
+ 
+.slides>.op li {
+	background: #666;
+}
+
+.slides>.op li.current {
+	background: #fff;
+}

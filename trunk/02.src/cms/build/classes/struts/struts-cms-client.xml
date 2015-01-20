@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="client" extends="basic">
+		<action name="index" class="com.iidooo.cms.client.action.IndexAction" method="init">
+			<result name="success" type="freemarker">${SITE_RES_ROOT}/index/index.html</result>
+		</action>
+		<action name="channel" class="com.iidooo.cms.client.action.ChannelAction">
+			<result name="success" type="freemarker">${currentChannel.templatePath}</result>
+		</action>
+		<action name="content" class="com.iidooo.cms.client.action.ContentAction">
+			<result name="success" type="freemarker">${currentContent.templatePath}</result>
+			<result name="none" type="freemarker">TO DO</result>
+		</action>
+		<action name="album" class="com.iidooo.cms.client.action.AttachAlbumAction">
+			<result name="success" type="freemarker">${currentAlbum.templatePath}</result>
+			<result name="none" type="freemarker">TO DO</result>
+		</action>
+		<action name="attach" class="com.iidooo.cms.client.action.AttachAction">
+			<result name="success" type="freemarker">${currentAttach.templatePath}</result>
+			<result name="none" type="freemarker">TO DO</result>
+		</action>
+	</package>
+</struts>

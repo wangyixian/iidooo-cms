@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>${currentContent.title}-${currentAlbum.title}-${SITE_NAME}</title>
+<#include "../include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/comic_album.css">
+<script type="text/javascript" src="${SITE_RES_ROOT}/js/comic_album.js"></script>
+</head>
+<body>	
+	<#include "../include/top.html"/>
+    <#include "../include/mainmenu.html"/>
+    <#include "../include/album_crumbs.html"/>    
+	<div id="album">
+		<div class="body_wrap align_center controlBar">
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">目录列表</a>
+			<a id="preAlbum" class="button" href="${SITE_URL}/album?albumID=${currentAlbum.preAlbumID}">上一章</a>
+			<a class="button" href="#" onclick="changeSelected(true)">上一页</a>
+			<select id="selectPage1" onchange="changePage(1)">
+				<#list currentAlbum.cmsAttachDtos as attach>
+				<option value="${CONTENT_RES_ROOT}${attach.URL }">${attach.name}</option>
+				</#list>
+			</select>
+			<a class="button" href="#" onclick="changeSelected(false)">下一页</a>
+			<a id="nextAlbum" class="button" href="${SITE_URL}/album?albumID=${currentAlbum.nextAlbumID}">下一章</a>
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">返回目录</a>
+		</div>
+		<div class="body_wrap">
+			<div class="tip">
+			提示：（键盘右键→）下一页，（键盘左键←）上一页，（键盘Z）上一章，（键盘X）下一章，（键盘F11）全屏浏览，（键盘ESC）退出全屏。 
+			</div>
+		</div>
+		<div class="comic_page">
+			<img id="previousPage" class="comic_page" onclick="changeSelected(false)"></img>
+			<img id="currentPage" class="comic_page" onclick="changeSelected(false)"></img>
+			<img id="nextPage" class="comic_page" onclick="changeSelected(false)"></img>
+		</div>
+		<div class="body_wrap align_center controlBar">
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">目录列表</a>
+			<a class="button" href="${SITE_URL}/album?albumID=${currentAlbum.preAlbumID}">上一章</a>
+			<a class="button" href="#" onclick="changeSelected(true)">上一页</a>
+			<select id="selectPage2" onchange="changePage(2)">
+				<#list currentAlbum.cmsAttachDtos as attach>
+				<option value="${CONTENT_RES_ROOT}${attach.URL }">${attach.name}</option>
+				</#list>
+			</select>
+			<a class="button" href="#" onclick="changeSelected(false)">下一页</a>
+			<a class="button" href="${SITE_URL}/album?albumID=${currentAlbum.nextAlbumID}">下一章</a>
+			<a class="button" href="${SITE_URL}/content?contentID=${currentContent.contentID}" title="${currentContent.title}全集">返回目录</a>
+		</div>
+	</div>
+	<#include "../include/footer.html"/>
+</body>
+</html>

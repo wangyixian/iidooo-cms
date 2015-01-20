@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+
+#top {
+	/* background: url(../image/top/top_bg.jpg) repeat-x; */
+	width: 100%;
+	/* position: fixed; */
+	/* top: 0; */
+	/* z-index: 999999999; */
+	/* box-shadow: 0 1px 8px #666; */
+}
+
+#logo_wrap {
+	width: 980px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+#logo {
+	line-height: 91px;
+	height: 91px;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+#main_menu_wrap {
+	background-color: #134780;
+	width: 100%;
+	overflow: hidden;
+}
+
+#main_menu {
+	height: 40px;
+	width: 980px;
+	margin: 0 auto;
+	overflow: hidden;
+	color: #CCC;
+}
+
+#main_menu>ul {
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	height: 40px;
+}
+
+#main_menu>ul>li {
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+/* 主菜单的超链接效果 */
+#main_menu>ul>li>a {
+	color: #CCC;
+	display: block;
+}
+
+#main_menu>ul>li>a:hover {
+	background-color: RGB(0, 32, 133);
+	font-weight: bold;
+}
+
+#main_menu>ul>li>.focus {
+	background-color: RGB(0, 32, 133);
+	font-weight: bold;
+}

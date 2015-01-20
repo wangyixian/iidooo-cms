@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="${cmsPage.pageKeywords}">
+<meta name=description content="${cmsPage.pageDescription}">
+<title>${cmsPage.pageTitle}</title>
+<#include "include/head.html"/>
+<link type="text/css" rel="stylesheet" href="${SITE_ADDRESS}/themes/default/css/services.css">
+</head>
+<body>
+    <#include "include/top.html"/>
+    <#include "include/mainmenu.html"/>
+    <div id="main_wrap">
+        <div id="main_content">
+             <div id="services">
+<!--                 <div class="block_big_title">
+                   <span class="main_title">${cmsPage.blockMap["services"].blockTitle}</span>
+                   <span class="sub_title"> ${cmsPage.blockMap["services"].blockSubTitle}</span>
+                </div>  -->
+                <div class="block_content">
+                    <#list cmsPage.blockMap["services"].cmsLinks as link>
+                    <div class="content_item">
+                        <div class="content_item_image">
+                            <a href="${link.linkURL}" target="${link.linkTarget}"><img alt="${link.linkTitle}" src="${link.linkImageURL}"></a>
+                        </div>
+                        <div class="content_item_title">
+                            <a href="${link.linkURL}" target="${link.linkTarget}"><span class="main_title">${link.linkTitle}</span></a>
+                            <a href="${link.linkURL}" target="${link.linkTarget}"><span class="sub_title">${link.linkSubTitle}</span></a>
+                            <span>${link.linkDescription}</span>
+                        </div>
+                    </div>              
+                    </#list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <#include "include/footer.html"/>
+</body>
+</html>

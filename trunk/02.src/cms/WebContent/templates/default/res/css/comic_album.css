@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+#album .button {
+	color: #555;
+	border: 1px solid #CCC;
+	text-shadow: 1px 1px 0 white;
+	display: inline-block;
+	height: 26px;
+	line-height: 26px;
+	font-weight: bold;
+	font-size: 14px;
+	margin: 0 5px;
+	padding: 0 15px;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	border-radius: 2px;
+	background-color: #FFF8D9;
+}
+
+#album a:hover {
+	cursor: pointer;
+	color: #F60;
+	background-color: #FEBE8F;
+}
+
+#album .controlBar {
+	margin-top: 10px;
+}
+
+#album .tip {
+	margin-top: 10px;
+	border: 1px solid #FEBE8F;
+	background-color: #FFF8D9;
+	color: #EB6100;
+	height: 20px;
+	line-height: 20px;
+	border-radius: 2px;
+	padding: 5px 10px;
+}
+
+#album .comic_page {
+	margin: 5px 5px 0 5px;
+}
+
+#album .comic_page img {
+	background: url(../img/loading.gif) center no-repeat;
+	width: 100%;
+}
