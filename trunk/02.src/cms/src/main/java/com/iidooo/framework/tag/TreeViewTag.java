@@ -1,7 +1,7 @@
 package com.iidooo.framework.tag;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
@@ -10,112 +10,87 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.log4j.Logger;
 
+import com.iidooo.framework.utility.StringUtil;
+
 public class TreeViewTag extends SimpleTagSupport {
-	
-	private static final Logger logger = Logger.getLogger(TreeViewTag.class);
 
-	private ArrayList<TreeNode> rootTreeNodes;
-	private boolean recursion = true;
+    private static final Logger logger = Logger.getLogger(TreeViewTag.class);
 
-	public ArrayList<TreeNode> getRootTreeNodes() {
-		return rootTreeNodes;
-	}
+    private final String FILE_TREE_NODE = "<span class='file'><a href={0}>{1}</a></span>";
 
-	public void setRootTreeNodes(ArrayList<TreeNode> rootTreeNodes) {
-		this.rootTreeNodes = rootTreeNodes;
-	}
+    private final String FOLD_TREE_NODE = "<span class='folder'><a href={0}>{1}</a></span>";
 
-	public boolean isRecursion() {
-		return recursion;
-	}
+    private TreeNode root;
+    private boolean recursion = true;
 
-	public void setRecursion(boolean recursion) {
-		this.recursion = recursion;
-	}
+    public TreeNode getRoot() {
+        return root;
+    }
 
-	@Override
-	public void doTag() throws JspException, IOException {
-		try {
-			JspContext jspCtx = getJspContext();
-			JspWriter out = jspCtx.getOut();
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
 
-			out.println("<ul class='treeview' id='tree'>");
+    public boolean isRecursion() {
+        return recursion;
+    }
 
-			for (TreeNode treeNode : rootTreeNodes) {
-				if (treeNode == null) {
-					continue;
-				}
-				printHTML(out, treeNode);
-			}
+    public void setRecursion(boolean recursion) {
+        this.recursion = recursion;
+    }
 
-			out.println("</ul>");			
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.fatal(e.getMessage());
-		}
-	}
+    @Override
+    public void doTag() throws JspException, IOException {
+        try {
+            JspContext jspCtx = getJspContext();
+            JspWriter out = jspCtx.getOut();
 
-	private void appendTreeNode(JspWriter out, ArrayList<TreeNode> children)
-			throws JspException, IOException {
+            out.println("<ul class='filetree' id='tree'>");
+            String folder = StringUtil.replace(FOLD_TREE_NODE, root.getUrl(), root.getName());
+            out.println("<li>" + folder);
 
-		if (children.size() <= 0) {
-			return;
-		}
+            List<TreeNode> children = root.getChildren();
+            if (children.size() > 0) {
+                out.println("<ul>");
+                for (TreeNode treeNode : children) {
+                    printHTML(out, treeNode);
+                }
+                out.println("</ul>");
+            }
+            out.println("</li>");
+            out.println("</ul>");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e.getMessage());
+        }
+    }
 
-		out.println("<ul style='display: none;'>");
-		for (TreeNode treeNode : children) {
-			printHTML(out, treeNode);
-		}
+    private void printHTML(JspWriter out, TreeNode treeNode) throws JspException, IOException {
+        try {
 
-		out.println("</ul>");
-	}
+            // If has children, the node class should be set
+            if (treeNode.getChildren().size() > 0) {
+                String folder = StringUtil.replace(FOLD_TREE_NODE, treeNode.getUrl(), treeNode.getName());
+                out.println("<li class='closed'>" + folder);
 
-	private void printHTML(JspWriter out, TreeNode treeNode)
-			throws JspException, IOException {
-
-		//If has image, the image will display in the node
-		if (treeNode.getIcon() != null && treeNode.getIcon() != "") {
-			out.println("<img src='" + treeNode.getIcon() + "'/>");
-		}
-
-		//If has children, the node class should be set
-		if (recursion) {
-			if (treeNode.getChildren() != null && treeNode.getChildren().size() > 0) {
-				out.println("<li class='tree-node expandable'>");
-				out.println("<div class='hitarea expandable-hitarea'></div>");
-			}
-			else {
-				out.println("<li class='tree-node'>");
-			}
-		}
-		else {
-			out.println("<li class='tree-node expandable'>");
-			out.println("<div class='hitarea expandable-hitarea'></div>");
-		}
-
-		out.println("<input id='code' type='hidden' value='" + treeNode.getCode() + "'>");
-		out.println("<input id='tag' type='hidden' value='" + treeNode.getTag() + "'>");
-		out.println("<input id='name' type='hidden' value='" + treeNode.getName() + "'>");
-		out.println("<input id='url' type='hidden' value='" + treeNode.getUrl() + "'>");
-		out.println("<span class='tree-nod'>");
-		//if (treeNode.getUrl() != null && treeNode.getUrl() != "") {
-			//out.println("<a href='" + treeNode.getUrl() + "' >");
-		//}
-		out.println(treeNode.getName());
-
-		//if (treeNode.getUrl() != null && treeNode.getUrl() != "") {
-			//out.println("</a>");
-		//}
-		out.println("</span>");
-		if (recursion) {
-			appendTreeNode(out, treeNode.getChildren());
-		}
-		else {
-			out.println("<ul style='display: none;'>");
-
-			out.println("</ul>");
-		}
-		out.println("</li>");
-	}
+                // If the flag of recursion is true, should show the sub children tree node.
+                if (recursion) {
+                    List<TreeNode> children = treeNode.getChildren();
+                    out.println("<ul>");
+                    for (TreeNode child : children) {
+                        this.printHTML(out, child);
+                    }
+                    out.println("</ul>");
+                }
+                out.println(" </li>");
+            } else {
+                String file = StringUtil.replace(FILE_TREE_NODE, treeNode.getUrl(), treeNode.getName());
+                out.println("<li>" + file + "</li>");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
 
 }

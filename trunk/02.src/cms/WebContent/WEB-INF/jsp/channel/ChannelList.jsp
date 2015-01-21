@@ -19,7 +19,7 @@
 	})
 
 	function btnCreate() {
-		window.location.href = "channelDetail.action?mode=1";
+		window.location.href = "channelDetail.action";
 	}
 </script>
 </head>
@@ -31,17 +31,18 @@
 		</div>
 		<div class="right_side_wrap">
 			<div class="bread_crumb">
-				<span>当前的位置：</span>栏目管理 - 栏目列表
+				<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
 			</div>
 			<div>
+				<span class="info_message center"><s:actionmessage /></span>
 				<table class="grid">
 					<tr>
 						<th width="5%">ID</th>
 						<th width="15%">栏目名称</th>
 						<th width="15%">访问路径</th>
 						<th width="5%">隐藏</th>
+						<th width="20%">创建时间</th>
 						<th width="20%">更新时间</th>
-						<th width="20%">最后更新者</th>
 						<th width="20%">操作</th>
 					</tr>
 					<s:iterator id="channel" value="channelList" status="st">
@@ -53,11 +54,10 @@
 								<s:if test="#channel.isHidden == 0">否</s:if>
 								<s:else>是</s:else>
 							</td>
+							<td class="align_center">${channel.createTime}</td>
 							<td class="align_center">${channel.updateTime}</td>
-							<td class="align_center">${channel.updateUser}</td>
 							<td class="align_center">
-								<a href="channelDetail.action?mode=2&channelID=${channel.channelID }">修改</a>|
-								<a href="channelListDelete.action?channelID=${channel.channelID }">删除</a>|
+								<a href="channelDetail.action?channel.channelID=${channel.channelID }">详细</a>|
 								<a href="channelListMove.action?direct=1&channelID=${channel.channelID }">上移</a>|
 								<a href="channelListMove.action?direct=2&channelID=${channel.channelID }">下移</a>
 							</td>

@@ -11,29 +11,6 @@ public class TreeNode {
 	private String url;
 	private Object tag;
 	
-	public TreeNode(String code, String name) {
-		children = new ArrayList<TreeNode>();
-
-		this.code = code;
-		this.name = name;
-	}
-
-	public TreeNode(String code, String name, TreeNode parentNode) {
-		children = new ArrayList<TreeNode>();
-
-		this.code = code;
-		this.name = name;
-		if (parentNode != null) {
-			this.parent = parentNode;
-			this.parent.children.add(this);
-		}
-	}
-
-	public TreeNode(String code, String name, Object tag) {
-		this.code = code;
-		this.name = name;
-		this.tag = tag;
-	}
 
 	public String getCode() {
 		return code;
@@ -49,6 +26,9 @@ public class TreeNode {
 
 	public void setParent(TreeNode parent) {
 		this.parent = parent;
+		if (this.parent != null) {
+            this.parent.getChildren().add(this);
+        }
 	}
 
 	public String getName() {
@@ -60,6 +40,9 @@ public class TreeNode {
 	}
 
 	public ArrayList<TreeNode> getChildren() {
+	    if (children == null) {
+            children = new ArrayList<TreeNode>();
+        }
 		return children;
 	}
 
@@ -91,18 +74,4 @@ public class TreeNode {
 		this.tag = tag;
 	}
 	
-	@Override
-	public String toString(){
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("<li class='tree-node expandable'>");
-		sb.append("<div class='hitarea expandable-hitarea'></div>");
-		sb.append("<input id='code' type='hidden' value='" + this.code + "'>");
-		sb.append("<input id='tag' type='hidden' value='" + this.tag + "'>");
-		sb.append("<input id='tag' type='hidden' value='" + this.url + "'>");
-		sb.append("<span>" + this.name + "</span>");
-		sb.append("<ul style='display: none;'></ul></li>");
-		
-		return sb.toString();
-	}
 }

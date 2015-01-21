@@ -8,4 +8,12 @@ public interface ChannelListService {
     List<CmsChannelDto> getChannelList(int parentID);
     
     List<CmsChannelDto> getAllChannelList();
+    
+    /**
+     * Delete the channel
+     * @param channel This channel should be delete.
+     * @return Delete success or not.
+     * @throws Exception This exception will be throw when exception happened.
+     */
+    boolean deleteChannel(CmsChannelDto channel) throws Exception;;
 }

@@ -2,19 +2,53 @@ package com.iidooo.framework.utility;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Utility Class of String Operation
+ * @author Ethan
+ *
+ */
 public class StringUtil {
     
     private static final Logger logger = Logger.getLogger(StringUtil.class);
     
     /**
-     * 文字列是否是null或者空白的check
+     * Weather the string is null or empty
      *
-     * @param str String check文字列
+     * @param str This string will be checked
      *
-     * @return boolean True:null或者是空白
+     * @return boolean If null or empty, return true
      */
     public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
+        try {
+            if (str == null || str.length() <= 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
     }
 
+    /**
+     * Replace the old string by the array of new strings.
+     * The old string's {1}, {2}... are the replace object.
+     * @param old This old string should be replaced.
+     * @param news These new strings will replace the old string's {1}, {2}
+     * @return The result of the replace string.
+     */
+    public static String replace(String old, String...news) {
+        try {
+            String result = old;
+            for (int i = 0; i < news.length; i++) {
+                result = result.replace("{"+ i +"}", news[i]);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return old;
+        }
+    }
 }

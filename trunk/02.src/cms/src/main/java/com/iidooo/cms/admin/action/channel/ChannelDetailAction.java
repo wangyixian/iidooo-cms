@@ -8,13 +8,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.admin.service.channel.ChannelDetailService;
-import com.iidooo.cms.constant.AttributeConstant;
+import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsTemplateDto;
 import com.iidooo.framework.action.BaseAction;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.exception.ExclusiveException;
+import com.iidooo.framework.tag.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 import com.iidooo.framework.utility.ValidateUtil;
 
@@ -30,28 +31,29 @@ public class ChannelDetailAction extends BaseAction {
     @Autowired
     private ChannelDetailService channelDetailService;
 
-    private CmsChannelDto channel;
+    // The channel tree's root node
+    private TreeNode rootTreeNode;
 
-    private int mode;
+    private CmsChannelDto channel;
 
     private List<CmsChannelDto> allChannels;
 
     private List<CmsTemplateDto> allTemplates;
 
+    public TreeNode getRootTreeNode() {
+        return rootTreeNode;
+    }
+
+    public void setRootTreeNode(TreeNode rootTreeNode) {
+        this.rootTreeNode = rootTreeNode;
+    }
+    
     public CmsChannelDto getChannel() {
         return channel;
     }
 
     public void setChannel(CmsChannelDto channel) {
         this.channel = channel;
-    }
-
-    public int getMode() {
-        return mode;
-    }
-
-    public void setMode(int mode) {
-        this.mode = mode;
     }
 
     public List<CmsChannelDto> getAllChannels() {
@@ -72,35 +74,47 @@ public class ChannelDetailAction extends BaseAction {
 
     public String init() {
         try {
+
+            // Build the channel tree' root node.
+            rootTreeNode = new TreeNode();
+            rootTreeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, "0"));
+            rootTreeNode.setName(this.getText("LABEL_TREE_ROOT"));
+
             this.allChannels = channelDetailService.getAllChannels();
-            Map<Integer, CmsChannelDto> channelMap = new HashMap<Integer, CmsChannelDto>();
-            for (CmsChannelDto cmsChannelDto : allChannels) {
-                channelMap.put(cmsChannelDto.getChannelID(), cmsChannelDto);
+
+            Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
+            for (CmsChannelDto channel : allChannels) {
+                // Build the tree node of the CmsChannelDto
+                TreeNode treeNode = new TreeNode();
+                treeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_DETAIL_INIT, channel.getChannelID().toString()));
+                treeNode.setName(channel.getChannelName());
+                treeNode.setTag(channel);
+
+                // Set the root tree node as the parent tree node, if the parent ID is 0.
+                if (channel.getParentID() == 0) {
+                    treeNode.setParent(rootTreeNode);
+                }
+
+                channelMap.put(channel.getChannelID(), treeNode);
             }
-            // Set the children
-            for (CmsChannelDto cmsChannelDto : allChannels) {
-                if (cmsChannelDto.getParentID() != 0) {
-                    CmsChannelDto parent = channelMap.get(cmsChannelDto.getParentID());
-                    parent.getChildren().add(cmsChannelDto);
+
+            // Set the tree node's parent
+            for (CmsChannelDto channel : allChannels) {
+                if (channel.getParentID() != 0) {
+                    TreeNode treeNode = channelMap.get(channel.getChannelID());
+                    TreeNode parent = channelMap.get(channel.getParentID());
+                    parent.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, channel.getParentID().toString()));
+                    treeNode.setParent(parent);
                 }
             }
 
             this.allTemplates = channelDetailService.getAllTemplates();
-
-            switch (this.mode) {
-            case 1:
-                // The create model
-                break;
-            case 2:
-                // The update model
-                String channelIDStr = this.getRequestValue(AttributeConstant.CHANNEL_ID);
-                int channelID = Integer.parseInt(channelIDStr);
-                CmsChannelDto cmsChannelDto = channelDetailService.getCurrentChannel(channelID);
-                channel = cmsChannelDto;
-                break;
-            default:
-                break;
+            
+            // The modify mode will trace the channel ID.
+            if (channel != null) {
+                channel = channelDetailService.getCurrentChannel(channel.getChannelID());
             }
+            
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.iidooo.cms.admin.service.channel.ChannelListService;
 import com.iidooo.cms.dao.extend.CmsChannelDao;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
+import com.iidooo.framework.exception.ExclusiveException;
 
 @Service
 public class ChannelListServiceImpl implements ChannelListService {
@@ -37,6 +38,23 @@ public class ChannelListServiceImpl implements ChannelListService {
             List<CmsChannelDto> channelList = null;
             channelList = cmsChannelDao.selectAllChannels();
             return channelList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
+    public boolean deleteChannel(CmsChannelDto channel) throws Exception {
+        try {
+            int count = cmsChannelDao.exclusiveCheck(channel.getChannelID(), channel.getVersion());
+            if (count <= 0) {
+                ExclusiveException exclusiveException = new ExclusiveException();
+                throw (exclusiveException);
+            }
+            cmsChannelDao.delete(channel.getChannelID());
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

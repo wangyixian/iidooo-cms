@@ -13,7 +13,7 @@ public class BaseDto {
     private String updateTime;
 
     private Integer updateUser;
-
+    
     private Integer isDelete;
 
     private Integer version;
