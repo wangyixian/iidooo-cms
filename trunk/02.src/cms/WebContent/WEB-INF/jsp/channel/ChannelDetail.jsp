@@ -47,7 +47,7 @@
 		</div>
 		<div class="right_side_wrap">
 			<div class="bread_crumb">
-				<span>当前的位置：</span><span>栏目管理 - 栏目添加</span>
+				<span>当前的位置：</span><span>栏目管理 - 栏目详细</span>
 			</div>
 			<div>
 				<s:form id="form">
@@ -57,7 +57,7 @@
 						<tr>
 							<th class="required" width="10%">上级栏目</th>
 							<td>
-								<select name="channel.channelID">
+								<select name="channel.parentID">
 									<option value="0">顶级栏目</option>
 									<s:iterator value="allChannels" status="st" id="item">
 										<s:if test="channel.parentID == #item.channelID">
@@ -130,13 +130,13 @@
 						</tr>
 					</table>
 					<div class="button_bar">
-						<s:if test="mode == 1">
+						<s:if test="channel == null">
 							<input type="button" value="创建" onclick="return createChannel();">
 						</s:if>
-						<s:elseif test="mode == 2">
+						<s:else>
 							<input type="button" value="更新" onclick="return updateChannel();">
 							<input type="button" value="删除" onclick="return deleteChannel();">
-						</s:elseif>
+						</s:else>
 						<input type="button" value="返回" onclick="return returnBack();">
 					</div>
 				</s:form>

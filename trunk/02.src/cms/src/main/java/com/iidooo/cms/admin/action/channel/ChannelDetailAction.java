@@ -140,6 +140,13 @@ public class ChannelDetailAction extends BaseAction {
     public void validateCreate() {
         try {
             commonValidate();
+
+            // Check the same channel path is existed or not.
+            CmsChannelDto cmsChannelDto = channelDetailService.getChannelByPath(channel.getChannelPath());
+            if (cmsChannelDto != null) {
+                String msg = this.getText("MSG_CHANNEL_EXISTED", new String[] { getText("LABEL_CHANNEL_PATH") });
+                addFieldError("channel.channelPath", msg);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -182,11 +189,6 @@ public class ChannelDetailAction extends BaseAction {
                 String msg = this.getText("MSG_COMMON_REQUIRED", new String[] { getText("LABEL_CHANNEL_PATH") });
                 addFieldError("channel.channelPath", msg);
             }
-            CmsChannelDto cmsChannelDto = channelDetailService.getChannelByPath(channel.getChannelPath());
-            if (cmsChannelDto != null) {
-                String msg = this.getText("MSG_CHANNEL_EXISTED", new String[] { getText("LABEL_CHANNEL_PATH") });
-                addFieldError("channel.channelPath", msg);
-            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -195,6 +197,8 @@ public class ChannelDetailAction extends BaseAction {
 
     public String delete() {
         try {
+            SecurityUserDto securityUserDto = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            channel.setForUpdate(securityUserDto.getUserID());
             channelDetailService.deleteChannel(channel);
             addActionMessage(getText("MSG_DELETE_SUCCESS"));
             return SUCCESS;

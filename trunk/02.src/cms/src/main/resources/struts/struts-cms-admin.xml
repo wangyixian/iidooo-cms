@@ -43,12 +43,12 @@
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="channelUpdate" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="Update">
+		<action name="channelUpdate" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="update">
 			<result name="success" type="redirect">channelList.action?channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="channelDelete" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="Delete">
+		<action name="channelDelete" class="com.iidooo.cms.admin.action.channel.ChannelDetailAction" method="delete">
 			<result name="success" type="redirect">channelList.action?channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
