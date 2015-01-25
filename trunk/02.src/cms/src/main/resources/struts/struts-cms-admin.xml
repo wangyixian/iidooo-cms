@@ -58,24 +58,16 @@
 			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="contentCreateInit" class="com.iidooo.cms.admin.action.content.ContentCreateAction" method="init">
-			<result name="success">/WEB-INF/jsp/content/ContentCreate.jsp</result>
+		<action name="contentDetail" class="com.iidooo.cms.admin.action.content.ContentDetailAction" method="init">
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="contentCreate" class="com.iidooo.cms.admin.action.content.ContentCreateAction" method="create">
-			<result name="success">/WEB-INF/jsp/content/ContentView.jsp</result>
+		<action name="contentCreate" class="com.iidooo.cms.admin.action.content.ContentDetailAction" method="create">
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="contentUpdateInit" class="com.iidooo.cms.admin.action.content.ContentUpdateAction" method="init">
-			<result name="success">/WEB-INF/jsp/content/ContentCreate.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
-		<action name="contentUpdate" class="com.iidooo.cms.admin.action.content.ContentUpdateAction" method="update">
-			<result name="success">/WEB-INF/jsp/content/ContentView.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
-		<action name="contentView" class="com.iidooo.cms.admin.action.content.ContentViewAction" method="init">
-			<result name="success">/WEB-INF/jsp/content/ContentView.jsp</result>
+		<action name="contentUpdate" class="com.iidooo.cms.admin.action.content.ContentDetailAction" method="update">
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 	</package>

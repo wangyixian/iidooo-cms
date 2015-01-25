@@ -6,7 +6,12 @@ import java.util.Map;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 
 public interface CmsChannelDao {
-    List<CmsChannelDto> selectAllChannels();
+    
+    /**
+     * Select all of the channels
+     * @return The list of channels
+     */
+    List<CmsChannelDto> selectAll();
 
     /**
      * Get the channel list by the parent ID

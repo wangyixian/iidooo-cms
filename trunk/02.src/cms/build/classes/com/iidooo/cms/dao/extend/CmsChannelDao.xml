@@ -48,7 +48,7 @@
 		C.ChannelID =
 		#{channelID,jdbcType=INTEGER}
 	</select>
-	<select id="selectAllChannels" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		, T.TemplatePath

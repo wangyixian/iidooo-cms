@@ -19,23 +19,6 @@ CREATE TABLE IF NOT EXISTS `IDO_DICT_TYPE` (
 ENGINE = InnoDB
 COMMENT = '字典类型表';
 
-
--- -----------------------------------------------------
--- Table `IDO_SAMPLE`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `IDO_SAMPLE` ;
-
-CREATE TABLE IF NOT EXISTS `IDO_SAMPLE` (
-  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
-  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
-  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
-  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本')
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `IDO_DICT_CLASS`
 -- -----------------------------------------------------
@@ -201,6 +184,7 @@ DROP TABLE IF EXISTS `IDO_FIELD_MODEL` ;
 CREATE TABLE IF NOT EXISTS `IDO_FIELD_MODEL` (
   `ModelID` INT NOT NULL AUTO_INCREMENT COMMENT '字段模型的主键ID',
   `ModelName` VARCHAR(128) NOT NULL COMMENT '模型名',
+  `Sequence` INT NOT NULL COMMENT '模型顺序',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
@@ -221,10 +205,11 @@ DROP TABLE IF EXISTS `IDO_FIELD_CONFIG` ;
 CREATE TABLE IF NOT EXISTS `IDO_FIELD_CONFIG` (
   `FieldID` INT NOT NULL AUTO_INCREMENT COMMENT '字段主键ID',
   `ModelID` INT NOT NULL COMMENT '关联模型',
-  `FieldCode` VARCHAR(128) NOT NULL COMMENT '字段编码',
-  `FieldName` VARCHAR(128) NOT NULL COMMENT '字段名',
+  `TableName` VARCHAR(128) NOT NULL COMMENT '表名称',
+  `FieldName` VARCHAR(128) NOT NULL COMMENT '字段编码',
+  `FieldTitle` VARCHAR(256) NOT NULL COMMENT '字段名',
   `FieldType` INT NOT NULL COMMENT '字段类型',
-  `Weight` INT NOT NULL COMMENT '权重',
+  `Sequence` INT NOT NULL COMMENT '权重',
   `DefaultValue` VARCHAR(256) NOT NULL COMMENT '默认值',
   `Options` VARCHAR(512) NOT NULL COMMENT '字段可选项，多个用,分割',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
@@ -246,8 +231,8 @@ DROP TABLE IF EXISTS `IDO_FIELD_DATA` ;
 
 CREATE TABLE IF NOT EXISTS `IDO_FIELD_DATA` (
   `DataID` INT NOT NULL AUTO_INCREMENT COMMENT '字段数据主键',
+  `FieldID` INT NOT NULL COMMENT '关联字段',
   `TableDataID` INT NOT NULL COMMENT '表数据关联ID',
-  `FieldCode` VARCHAR(128) NOT NULL COMMENT '关联字段',
   `FieldValue` VARCHAR(256) NOT NULL COMMENT '字段的值',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
@@ -262,7 +247,7 @@ COMMENT = '字段数据';
 
 
 -- -----------------------------------------------------
--- Table `IDOCMS`.`IDO_CMS_USER`
+-- Table `IDO_CMS_USER`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `IDO_CMS_USER` ;
 
@@ -328,14 +313,11 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT` (
   `ContentTitle` VARCHAR(256) NOT NULL COMMENT '内容标题',
   `ContentSubTitle` VARCHAR(256) NOT NULL COMMENT '副标题',
   `ContentImageTitle` VARCHAR(1024) NOT NULL COMMENT '图片标题的URL',
-  `ContentAlias` VARCHAR(256) NOT NULL COMMENT '别名',
   `MetaTitle` VARCHAR(256) NOT NULL,
   `MetaKeywords` VARCHAR(1024) NOT NULL COMMENT '关键字',
   `MetaDescription` VARCHAR(1024) NOT NULL COMMENT '描述',
   `ContentSummary` VARCHAR(512) NOT NULL,
   `ContentBody` TEXT NOT NULL COMMENT '文本内容',
-  `ContentSource` VARCHAR(1024) NOT NULL COMMENT '内容来源',
-  `ContentAuthor` VARCHAR(256) NOT NULL COMMENT '作者',
   `Sequence` INT NOT NULL,
   `IsAllowComment` INT NOT NULL COMMENT '是否允许评论',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',

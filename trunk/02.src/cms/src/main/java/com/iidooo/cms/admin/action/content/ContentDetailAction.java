@@ -10,7 +10,7 @@ import com.iidooo.cms.admin.service.channel.ChannelListService;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.framework.action.BaseAction;
 
-public class ContentCreateAction extends BaseAction{
+public class ContentDetailAction extends BaseAction{
 
     /**
      * 

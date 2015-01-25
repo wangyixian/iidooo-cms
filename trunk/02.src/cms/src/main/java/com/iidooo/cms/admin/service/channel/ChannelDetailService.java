@@ -20,13 +20,7 @@ public interface ChannelDetailService {
      * @return CmsChannelDto对象
      */
     CmsChannelDto getChannelByPath(String channelPath);
-    
-    /**
-     * 得到所有的栏目列表
-     * @return 栏目列表
-     */
-    List<CmsChannelDto> getAllChannels();
-    
+       
     /**
      * 得到所有的模板列表
      * @return 模板列表

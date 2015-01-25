@@ -51,18 +51,6 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     }
 
     @Override
-    public List<CmsChannelDto> getAllChannels() {
-        try {
-            List<CmsChannelDto> cmsChannelDtos = cmsChannelDao.selectAllChannels();
-            return cmsChannelDtos;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
-
-    @Override
     public List<CmsTemplateDto> getAllTemplates() {
         try {
             List<CmsTemplateDto> cmsTemplateDtos = CmsTemplateDao.selectAll();

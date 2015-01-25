@@ -11,6 +11,7 @@ import com.iidooo.cms.admin.service.channel.ChannelDetailService;
 import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsTemplateDto;
+import com.iidooo.cms.service.ChannelService;
 import com.iidooo.framework.action.BaseAction;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
@@ -28,6 +29,9 @@ public class ChannelDetailAction extends BaseAction {
 
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
 
+    @Autowired
+    private ChannelService channelService;
+    
     @Autowired
     private ChannelDetailService channelDetailService;
 
@@ -80,7 +84,7 @@ public class ChannelDetailAction extends BaseAction {
             rootTreeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, "0"));
             rootTreeNode.setName(this.getText("LABEL_TREE_ROOT"));
 
-            this.allChannels = channelDetailService.getAllChannels();
+            this.allChannels = channelService.getAllChannels();
 
             Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
             for (CmsChannelDto channel : allChannels) {

@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.admin.service.channel.ChannelListService;
 import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
+import com.iidooo.cms.service.ChannelService;
 import com.iidooo.framework.action.PagingActionSupport;
-import com.iidooo.framework.exception.ExclusiveException;
 import com.iidooo.framework.tag.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 
@@ -24,7 +24,10 @@ public class ChannelListAction extends PagingActionSupport {
     private static final long serialVersionUID = 1L;
 
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
-
+    
+    @Autowired
+    private ChannelService channelService;
+    
     @Autowired
     private ChannelListService channelListService;
 
@@ -68,7 +71,7 @@ public class ChannelListAction extends PagingActionSupport {
             rootTreeNode.setName(this.getText("LABEL_TREE_ROOT"));
 
             channelList = new ArrayList<CmsChannelDto>();
-            List<CmsChannelDto> allChannels = channelListService.getAllChannelList();
+            List<CmsChannelDto> allChannels = channelService.getAllChannels();
 
             Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
             for (CmsChannelDto channel : allChannels) {

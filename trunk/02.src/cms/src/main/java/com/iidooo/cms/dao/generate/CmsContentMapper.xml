@@ -8,13 +8,10 @@
     <result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
     <result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
     <result column="ContentImageTitle" property="contentImageTitle" jdbcType="VARCHAR" />
-    <result column="ContentAlias" property="contentAlias" jdbcType="VARCHAR" />
     <result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
     <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
-    <result column="ContentSource" property="contentSource" jdbcType="VARCHAR" />
-    <result column="ContentAuthor" property="contentAuthor" jdbcType="VARCHAR" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="IsAllowComment" property="isAllowComment" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -30,9 +27,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     ContentID, ChannelID, TemplateID, ContentTitle, ContentSubTitle, ContentImageTitle, 
-    ContentAlias, MetaTitle, MetaKeywords, MetaDescription, ContentSummary, ContentSource, 
-    ContentAuthor, Sequence, IsAllowComment, Remarks, CreateTime, CreateUser, UpdateTime, 
-    UpdateUser, IsDelete, Version
+    MetaTitle, MetaKeywords, MetaDescription, ContentSummary, Sequence, IsAllowComment, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <sql id="Blob_Column_List" >
     ContentBody
@@ -52,17 +48,15 @@
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
     insert into IDO_CMS_CONTENT (ContentID, ChannelID, TemplateID, 
       ContentTitle, ContentSubTitle, ContentImageTitle, 
-      ContentAlias, MetaTitle, MetaKeywords, 
-      MetaDescription, ContentSummary, ContentSource, 
-      ContentAuthor, Sequence, IsAllowComment, 
+      MetaTitle, MetaKeywords, MetaDescription, 
+      ContentSummary, Sequence, IsAllowComment, 
       Remarks, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, IsDelete, 
       Version, ContentBody)
     values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
       #{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR}, 
-      #{contentAlias,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, 
-      #{metaDescription,jdbcType=VARCHAR}, #{contentSummary,jdbcType=VARCHAR}, #{contentSource,jdbcType=VARCHAR}, 
-      #{contentAuthor,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, 
+      #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, 
+      #{contentSummary,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, 
       #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER}, #{contentBody,jdbcType=LONGVARCHAR})
@@ -88,9 +82,6 @@
       <if test="contentImageTitle != null" >
         ContentImageTitle,
       </if>
-      <if test="contentAlias != null" >
-        ContentAlias,
-      </if>
       <if test="metaTitle != null" >
         MetaTitle,
       </if>
@@ -102,12 +93,6 @@
       </if>
       <if test="contentSummary != null" >
         ContentSummary,
-      </if>
-      <if test="contentSource != null" >
-        ContentSource,
-      </if>
-      <if test="contentAuthor != null" >
-        ContentAuthor,
       </if>
       <if test="sequence != null" >
         Sequence,
@@ -159,9 +144,6 @@
       <if test="contentImageTitle != null" >
         #{contentImageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="contentAlias != null" >
-        #{contentAlias,jdbcType=VARCHAR},
-      </if>
       <if test="metaTitle != null" >
         #{metaTitle,jdbcType=VARCHAR},
       </if>
@@ -173,12 +155,6 @@
       </if>
       <if test="contentSummary != null" >
         #{contentSummary,jdbcType=VARCHAR},
-      </if>
-      <if test="contentSource != null" >
-        #{contentSource,jdbcType=VARCHAR},
-      </if>
-      <if test="contentAuthor != null" >
-        #{contentAuthor,jdbcType=VARCHAR},
       </if>
       <if test="sequence != null" >
         #{sequence,jdbcType=INTEGER},
@@ -230,9 +206,6 @@
       <if test="contentImageTitle != null" >
         ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
       </if>
-      <if test="contentAlias != null" >
-        ContentAlias = #{contentAlias,jdbcType=VARCHAR},
-      </if>
       <if test="metaTitle != null" >
         MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       </if>
@@ -244,12 +217,6 @@
       </if>
       <if test="contentSummary != null" >
         ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-      </if>
-      <if test="contentSource != null" >
-        ContentSource = #{contentSource,jdbcType=VARCHAR},
-      </if>
-      <if test="contentAuthor != null" >
-        ContentAuthor = #{contentAuthor,jdbcType=VARCHAR},
       </if>
       <if test="sequence != null" >
         Sequence = #{sequence,jdbcType=INTEGER},
@@ -291,13 +258,10 @@
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
       ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
-      ContentAlias = #{contentAlias,jdbcType=VARCHAR},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-      ContentSource = #{contentSource,jdbcType=VARCHAR},
-      ContentAuthor = #{contentAuthor,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
       IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
@@ -317,13 +281,10 @@
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
       ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
-      ContentAlias = #{contentAlias,jdbcType=VARCHAR},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-      ContentSource = #{contentSource,jdbcType=VARCHAR},
-      ContentAuthor = #{contentAuthor,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
       IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},

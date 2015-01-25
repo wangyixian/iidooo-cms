@@ -8,13 +8,10 @@
 		<result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
 		<result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
 		<result column="ContentImageTitle" property="contentImageTitle" jdbcType="VARCHAR" />
-		<result column="ContentAlias" property="contentAlias" jdbcType="VARCHAR" />
 		<result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
 		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
 		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
-		<result column="ContentSource" property="contentSource" jdbcType="VARCHAR" />
-		<result column="ContentAuthor" property="contentAuthor" jdbcType="VARCHAR" />
 		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
 		<result column="IsAllowComment" property="isAllowComment" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -30,15 +27,26 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		C.ContentID, C.ChannelID, C.TemplateID, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
-		C.ContentAlias, C.MetaTitle,
-		C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.ContentSource,
-		C.ContentAuthor, C.Sequence, C.IsAllowComment, C.Remarks, C.CreateTime,
+		C.MetaTitle,
+		C.MetaKeywords, C.MetaDescription, C.ContentSummary, 
+		C.Sequence, C.IsAllowComment, C.Remarks, C.CreateTime,
 		C.CreateUser, C.UpdateTime,
 		C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
+	
+	<select id="selectChannelContentsCount" resultType="java.lang.Integer">
+		select count(*) from IDO_CMS_CONTENT C where C.IsDelete = 0 and C.ChannelID in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item.channelID}</foreach>
+	</select>
+	<select id="selectChannelContents" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from IDO_CMS_CONTENT C where C.IsDelete = 0 and C.ChannelID in
+		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item.channelID}</foreach>
+		order by C.UpdateTime desc limit #{page.start}, #{page.end}
+	</select>
 	
 	<select id="selectAllCount" resultType="java.lang.Integer">
 		select count(*) from IDO_CMS_CONTENT C where C.IsDelete = 0
