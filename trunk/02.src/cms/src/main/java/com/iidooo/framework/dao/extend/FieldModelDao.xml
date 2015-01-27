@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.extend.FieldModelDto" >
     <id column="ModelID" property="modelID" jdbcType="INTEGER" />
     <result column="ModelName" property="modelName" jdbcType="VARCHAR" />
+    <result column="ModelType" property="modelType" jdbcType="INTEGER" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -14,8 +15,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ModelID, ModelName, Sequence, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
-    IsDelete, Version
+    ModelID, ModelName, ModelType, Sequence, Remarks, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

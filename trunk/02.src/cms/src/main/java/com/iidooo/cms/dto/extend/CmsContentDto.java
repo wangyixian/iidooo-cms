@@ -6,13 +6,19 @@ import com.iidooo.cms.dto.generate.CmsContent;
 
 public class CmsContentDto extends CmsContent {
 
+    private String channelName;
+    
     private String templatePath;
 
-    private String createDate;
-
-    private String updateDate;
-
     private List<CmsContentTagDto> tags;
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
 
     public String getTemplatePath() {
         return templatePath;
@@ -20,18 +26,6 @@ public class CmsContentDto extends CmsContent {
 
     public void setTemplatePath(String templatePath) {
         this.templatePath = templatePath;
-    }
-
-    public String getCreateDate() {
-        String updateTime = this.getUpdateTime();
-        createDate = updateTime.substring(0, 10);
-        return createDate;
-    }
-
-    public String getUpdateDate() {
-        String updateTime = this.getUpdateTime();
-        updateDate = updateTime.substring(0, 10);
-        return updateDate;
     }
 
     public List<CmsContentTagDto> getTags() {

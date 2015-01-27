@@ -1,13 +1,23 @@
 -- IDO_DICT_TYPE
 INSERT INTO `IDO_DICT_TYPE` (`DictTypeCode`, `DictTypeName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('SYSTEM_PROPERTIES', '系统配置', 1, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_TYPE` (`DictTypeCode`, `DictTypeName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PROPERTIES', '扩展字段配置', 2, '', now(), 1, now(), 1, 0, 1);
 
 -- IDO_DICT_CLASS
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_PAGING', '分页配置', 1, '', now(), 1, now(), 1, 0, 1);
 
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_SITE', '站点配置', 1, '', now(), 1, now(), 1, 0, 1);
+VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_SITE', '站点配置', 2, '', now(), 1, now(), 1, 0, 1);
+
+-- FIELD_PROPERTIES
+INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_TYPE', '产品类型', 3, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_COUNTRY', '产品国家', 4, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_ORIGIN', '产品产地', 5, '', now(), 1, now(), 1, 0, 1);
 
 -- IDO_DICT_ITEM
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
@@ -26,14 +36,46 @@ VALUES ('PROPERTIES_SITE', 'SITE_RES_ROOT', '资源根目录', 'http://localhost
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('PROPERTIES_SITE', 'CONTENT_RES_ROOT', '内容资源根目录', 'http://localhost:8080/cms/res', 4, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
 
+-- FIELD_PRODUCT_TYPE
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_TYPE', '1', '红酒', '红酒', 1, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_TYPE', '2', '干白', '干白', 2, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_TYPE', '3', '起泡酒', '起泡酒', 3, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_TYPE', '4', '冰酒', '冰酒', 4, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+-- FIELD_PRODUCT_COUNTRY
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_COUNTRY', '1', '法国', '法国', 1, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_COUNTRY', '2', '德国', '德国', 2, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_COUNTRY', '3', '意大利', '意大利', 3, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_COUNTRY', '4', '西班牙', '西班牙', 4, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+-- FIELD_PRODUCT_ORIGIN
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_ORIGIN', '1', '法国罗纳河谷', '法国罗纳河谷', 1, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_ORIGIN', '2', '法国产区桃红葡萄酒', '法国产区桃红葡萄酒', 2, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_ORIGIN', '3', '法国优质产区原装干红', '法国优质产区原装干红', 3, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PRODUCT_ORIGIN', '4', '法国波尔多产区', '法国波尔多产区', 4, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+
+-- IDO_FIELD_MODEL
+INSERT INTO `IDO_FIELD_MODEL` (`ModelName`, `ModelType`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`) 
+VALUES ('产品', 1, 1, '', now(), 1, now(), 1, 0);
+
 -- IDO_SECURITY_USER
 INSERT INTO `IDO_SECURITY_USER` 
-(`LoginID`, `Password`, `LoginTime`, `IsDisable`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('admin', md5(111111), now(), 0, '', now(), 1, now(), 1, 0, 1);
+(`UserName`, `LoginID`, `Password`, `LoginTime`, `IsDisable`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('超级管理员', 'admin', md5(111111), now(), 0, '', now(), 1, now(), 1, 0, 1);
 
 -- IDO_CMS_USER
-INSERT INTO `IDO_CMS_USER` (`UserName`, `Sex`, `Birthday`, `Email`, `WeChat`, `Telphone`, `Description`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('超级管理员', '1', '1984-07-24', 'wangyixian@iidooo.com', 'ouitiken', '13816867453', '网站超级管理员', '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_CMS_USER` (`UserID`,`Sex`, `Birthday`, `Email`, `WeChat`, `Telphone`, `Description`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, '1', '1984-07-24', 'wangyixian@iidooo.com', 'ouitiken', '13816867453', '网站超级管理员', '', now(), 1, now(), 1, 0, 1);
 
 -- IDO_CMS_CHANNEL
 INSERT INTO `IDO_CMS_CHANNEL`

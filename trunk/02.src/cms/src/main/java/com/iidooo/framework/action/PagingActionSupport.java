@@ -7,7 +7,7 @@ import com.iidooo.framework.dto.base.PagingDto;
 
 
 /**
- * 执行分页的基础Action类
+ * The support action of doing page split
  * 
  * @author wangyixian
  * 
@@ -21,47 +21,34 @@ public class PagingActionSupport extends BaseAction {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 分页用Dto
+	 * The paging dto
 	 */
 	private PagingDto pagingDto;
 
-	/**
-	 * 分页用Dto的Get方法
-	 * 
-	 * @return PagingDto
-	 */
 	public PagingDto getPagingDto() {
 		return pagingDto;
 	}
 
-	/**
-	 * 分页用Dto的Set方法
-	 * 
-	 * @param pagingDto 分页用Dto
-	 */
 	public void setPagingDto(PagingDto pagingDto) {
 		this.pagingDto = pagingDto;
 	}
 
 	/**
-	 * 执行分页
+	 * Execute paging
 	 * 
-	 * @param recordSum 记录总数
-	 * @throws Exception 抛出默认异常
+	 * @param recordSum The record sum
+	 * @throws Exception The default exception will be thrown.
 	 */
 	public void executePaging(int recordSum) throws Exception {
-		logger.debug("The begin of the method SJFPagingActionSupport.executePaging");
-
 		try {
-			// 每页显示多少行从数据库中字典项获取
+			// Read the defined page size
 		    int pageSize = (int)this.getApplicationValue(DictConstant.DICT_ITEM_PAGE_SIZE);
 
-			// 初始执行Action时分页对象需要实例化
 			if (pagingDto == null) {
 				pagingDto = new PagingDto();
 			}
 
-			// 设置分页对象的相关属性值
+			// Set paging dto fields.
 			pagingDto.setPageSize(pageSize);
 			pagingDto.setRecordSum(recordSum);
 			pagingDto.setPageSum(this.getPageSum());
@@ -72,24 +59,18 @@ public class PagingActionSupport extends BaseAction {
 			logger.fatal(e.toString());
 			throw e;
 		}
-		logger.debug("The begin of the method SJFPagingActionSupport.executePaging");
 	}
 
 	/**
-	 * 计算出分页总数
+	 * Calculate the page sum
 	 * 
-	 * @return 分页总数
+	 * @return The page sum
 	 */
-	private int getPageSum() {
-		logger.debug("The begin of the method SJFPagingActionSupport.getPageSum");
-		
+	private int getPageSum() {		
 		int pageSum = pagingDto.getRecordSum() / pagingDto.getPageSize();
 		if (pagingDto.getRecordSum() % pagingDto.getPageSize() > 0) {
 			pageSum++;
-		}
-		
-		logger.debug("The begin of the method SJFPagingActionSupport.getPageSum");
-		
+		}		
 		return pageSum;
 	}
 }

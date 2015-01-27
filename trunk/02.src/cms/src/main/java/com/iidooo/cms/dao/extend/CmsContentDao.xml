@@ -38,14 +38,16 @@
 	</sql>
 	
 	<select id="selectChannelContentsCount" resultType="java.lang.Integer">
-		select count(*) from IDO_CMS_CONTENT C where C.IsDelete = 0 and C.ChannelID in
+		select count(C.ContentID) from IDO_CMS_CONTENT C 
+		join IDO_CMS_CHANNEL L on C.IsDelete = 0 and C.ChannelID = L.ChannelID and C.ChannelID in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item.channelID}</foreach>
 	</select>
 	<select id="selectChannelContents" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" />
-		from IDO_CMS_CONTENT C where C.IsDelete = 0 and C.ChannelID in
+		select <include refid="Base_Column_List" />, L.ChannelName as channelName
+		from IDO_CMS_CONTENT C 
+		join IDO_CMS_CHANNEL L on C.IsDelete = 0 and C.ChannelID = L.ChannelID and C.ChannelID in
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item.channelID}</foreach>
-		order by C.UpdateTime desc limit #{page.start}, #{page.end}
+		order by C.ChannelID asc, C.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.end}
 	</select>
 	
 	<select id="selectAllCount" resultType="java.lang.Integer">

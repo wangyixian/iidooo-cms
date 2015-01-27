@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.FieldModel" >
     <id column="ModelID" property="modelID" jdbcType="INTEGER" />
     <result column="ModelName" property="modelName" jdbcType="VARCHAR" />
+    <result column="ModelType" property="modelType" jdbcType="INTEGER" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -14,8 +15,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ModelID, ModelName, Sequence, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
-    IsDelete, Version
+    ModelID, ModelName, ModelType, Sequence, Remarks, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,14 +29,14 @@
     where ModelID = #{modelID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.FieldModel" >
-    insert into IDO_FIELD_MODEL (ModelID, ModelName, Sequence, 
-      Remarks, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsDelete, 
-      Version)
-    values (#{modelID,jdbcType=INTEGER}, #{modelName,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, 
-      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER})
+    insert into IDO_FIELD_MODEL (ModelID, ModelName, ModelType, 
+      Sequence, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version)
+    values (#{modelID,jdbcType=INTEGER}, #{modelName,jdbcType=VARCHAR}, #{modelType,jdbcType=INTEGER}, 
+      #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.framework.dto.generate.FieldModel" >
     insert into IDO_FIELD_MODEL
@@ -45,6 +46,9 @@
       </if>
       <if test="modelName != null" >
         ModelName,
+      </if>
+      <if test="modelType != null" >
+        ModelType,
       </if>
       <if test="sequence != null" >
         Sequence,
@@ -78,6 +82,9 @@
       <if test="modelName != null" >
         #{modelName,jdbcType=VARCHAR},
       </if>
+      <if test="modelType != null" >
+        #{modelType,jdbcType=INTEGER},
+      </if>
       <if test="sequence != null" >
         #{sequence,jdbcType=INTEGER},
       </if>
@@ -110,6 +117,9 @@
       <if test="modelName != null" >
         ModelName = #{modelName,jdbcType=VARCHAR},
       </if>
+      <if test="modelType != null" >
+        ModelType = #{modelType,jdbcType=INTEGER},
+      </if>
       <if test="sequence != null" >
         Sequence = #{sequence,jdbcType=INTEGER},
       </if>
@@ -140,6 +150,7 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.FieldModel" >
     update IDO_FIELD_MODEL
     set ModelName = #{modelName,jdbcType=VARCHAR},
+      ModelType = #{modelType,jdbcType=INTEGER},
       Sequence = #{sequence,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

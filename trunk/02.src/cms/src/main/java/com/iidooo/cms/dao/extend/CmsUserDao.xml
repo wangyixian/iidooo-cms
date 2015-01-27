@@ -3,7 +3,6 @@
 <mapper namespace="com.iidooo.cms.dao.extend.CmsUserDao" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsUserDto" >
     <id column="UserID" property="userID" jdbcType="INTEGER" />
-    <result column="UserName" property="userName" jdbcType="VARCHAR" />
     <result column="Sex" property="sex" jdbcType="INTEGER" />
     <result column="Birthday" property="birthday" jdbcType="CHAR" />
     <result column="Email" property="email" jdbcType="VARCHAR" />
@@ -19,7 +18,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    UserID, UserName, Sex, Birthday, Email, WeChat, Telphone, Description, Remarks, CreateTime, 
+    UserID, Sex, Birthday, Email, WeChat, Telphone, Description, Remarks, CreateTime, 
     CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
 </mapper>

@@ -1,5 +1,8 @@
 package com.iidooo.framework.action;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +21,7 @@ public class LoginAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(LoginAction.class);
 
     @Autowired
-    private LoginService authService;
+    private LoginService loginService;
 
     private SecurityUserDto securityUser;
 
@@ -43,6 +46,9 @@ public class LoginAction extends BaseAction {
     public String login() {
         try {
             this.setSession(SessionConstant.SECURITY_USER, securityUser);
+            
+            Map<Integer, String> usersMap = loginService.getUsersMap();
+            this.setSession(SessionConstant.SECURITY_USERS_MAP, usersMap);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +67,7 @@ public class LoginAction extends BaseAction {
             if (StringUtil.isEmpty(password)) {
                 addFieldError("authService.password", this.getText("MSG_COMMON_REQUIRED", new String[] { getText("LABEL_LOGIN_ID") }));
             }
-            securityUser = authService.auth(loginID, password);
+            securityUser = loginService.auth(loginID, password);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

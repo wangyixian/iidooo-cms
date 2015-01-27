@@ -21,44 +21,51 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../include/Top.jsp"></jsp:include>
-	<div class="body_wrap">
-		<div class="left_side_wrap">
-			<f:tree root="${rootTreeNode}" recursion="true" />
-		</div>
-		<div class="right_side_wrap">
-			<div class="bread_crumb">
-				<span>当前的位置：</span><span>内容管理 - 内容列表</span>
+	<form id="form" action="" method="post">
+		<jsp:include page="../include/Top.jsp"></jsp:include>
+		<div class="body_wrap">
+			<input type="hidden" name="channelID" value="${channelID }">
+			<div class="left_side_wrap">
+				<f:tree root="${rootTreeNode}" recursion="true" />
 			</div>
-			<div class="block">
+			<div class="right_side_wrap">
+				<div class="bread_crumb">
+					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
+				</div>
 				<input type="button" onclick="btnCreate()" value="发布">
-			</div>
-			<div class="block">
-				<table class="grid">
-					<tr>
-						<th width="5%">ID</th>
-						<th width="35%">标题</th>
-						<th width="10%">发布者</th>
-						<th width="15%">发布时间</th>
-						<th width="10%">更新者</th>
-						<th width="15%">更新时间</th>
-						<th width="10%">操作</th>
-					</tr>
-					<s:iterator id="content" value="contentList" status="st">
+				<div class="block">
+					<table class="grid">
 						<tr>
-							<td class="align_center">${content.contentID}</td>
-							<td>${content.contentTitle}</td>
-							<td class="align_center">${content.createUser}</td>
-							<td class="align_center">${content.createDate}</td>
-							<td class="align_center">${content.updateUser}</td>
-							<td class="align_center">${content.updateDate}</td>
-							<td class="align_center"><a>查看</a>|<a>修改</a>|<a>删除</a></td>
+							<th width="5%">ID</th>
+							<th width="10%">栏目</th>
+							<th width="25%">标题</th>
+							<th width="10%">发布者</th>
+							<th width="15%">发布时间</th>
+							<th width="10%">更新者</th>
+							<th width="15%">更新时间</th>
+							<th width="10%">操作</th>
 						</tr>
-					</s:iterator>
-				</table>
-				<jsp:include page="../include/Paging.jsp"></jsp:include>
+						<s:iterator id="content" value="contentList" status="st">
+							<tr>
+								<td class="align_center">${content.contentID}</td>
+								<td>${content.channelName}</td>
+								<td>
+									<a href="contentDetail.action?content.contentID=${content.contentID }">
+										${content.contentTitle}
+									</a>
+								</td>
+								<td class="align_center">${SECURITY_USERS_MAP[content.createUser]}</td>
+								<td class="align_center">${content.createTime}</td>
+								<td class="align_center">${SECURITY_USERS_MAP[content.updateUser]}</td>
+								<td class="align_center">${content.updateTime}</td>
+								<td class="align_center"><a>浏览</a>|<a>上移</a>|<a>下移</a></td>
+							</tr>
+						</s:iterator>
+					</table>
+					<jsp:include page="../include/Paging.jsp"></jsp:include>
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </body>
 </html>

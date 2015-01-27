@@ -5,6 +5,8 @@ import com.iidooo.framework.dto.base.BaseDto;
 public class SecurityUser extends BaseDto{
     private Integer userID;
 
+    private String userName;
+
     private String loginID;
 
     private String password;
@@ -19,6 +21,14 @@ public class SecurityUser extends BaseDto{
 
     public void setUserID(Integer userID) {
         this.userID = userID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getLoginID() {
@@ -52,5 +62,4 @@ public class SecurityUser extends BaseDto{
     public void setIsDisable(Integer isDisable) {
         this.isDisable = isDisable;
     }
-
 }

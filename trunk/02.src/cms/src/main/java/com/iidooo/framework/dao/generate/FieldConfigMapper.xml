@@ -9,8 +9,7 @@
     <result column="FieldTitle" property="fieldTitle" jdbcType="VARCHAR" />
     <result column="FieldType" property="fieldType" jdbcType="INTEGER" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="DefaultValue" property="defaultValue" jdbcType="VARCHAR" />
-    <result column="Options" property="options" jdbcType="VARCHAR" />
+    <result column="DictClassCode" property="dictClassCode" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -20,8 +19,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    FieldID, ModelID, TableName, FieldName, FieldTitle, FieldType, Sequence, DefaultValue, 
-    Options, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    FieldID, ModelID, TableName, FieldName, FieldTitle, FieldType, Sequence, DictClassCode, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -36,16 +35,16 @@
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.FieldConfig" >
     insert into IDO_FIELD_CONFIG (FieldID, ModelID, TableName, 
       FieldName, FieldTitle, FieldType, 
-      Sequence, DefaultValue, Options, 
-      Remarks, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsDelete, 
-      Version)
+      Sequence, DictClassCode, Remarks, 
+      CreateTime, CreateUser, UpdateTime, 
+      UpdateUser, IsDelete, Version
+      )
     values (#{fieldID,jdbcType=INTEGER}, #{modelID,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, 
       #{fieldName,jdbcType=VARCHAR}, #{fieldTitle,jdbcType=VARCHAR}, #{fieldType,jdbcType=INTEGER}, 
-      #{sequence,jdbcType=INTEGER}, #{defaultValue,jdbcType=VARCHAR}, #{options,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER})
+      #{sequence,jdbcType=INTEGER}, #{dictClassCode,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.framework.dto.generate.FieldConfig" >
     insert into IDO_FIELD_CONFIG
@@ -71,11 +70,8 @@
       <if test="sequence != null" >
         Sequence,
       </if>
-      <if test="defaultValue != null" >
-        DefaultValue,
-      </if>
-      <if test="options != null" >
-        Options,
+      <if test="dictClassCode != null" >
+        DictClassCode,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -121,11 +117,8 @@
       <if test="sequence != null" >
         #{sequence,jdbcType=INTEGER},
       </if>
-      <if test="defaultValue != null" >
-        #{defaultValue,jdbcType=VARCHAR},
-      </if>
-      <if test="options != null" >
-        #{options,jdbcType=VARCHAR},
+      <if test="dictClassCode != null" >
+        #{dictClassCode,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -171,11 +164,8 @@
       <if test="sequence != null" >
         Sequence = #{sequence,jdbcType=INTEGER},
       </if>
-      <if test="defaultValue != null" >
-        DefaultValue = #{defaultValue,jdbcType=VARCHAR},
-      </if>
-      <if test="options != null" >
-        Options = #{options,jdbcType=VARCHAR},
+      <if test="dictClassCode != null" >
+        DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -209,8 +199,7 @@
       FieldTitle = #{fieldTitle,jdbcType=VARCHAR},
       FieldType = #{fieldType,jdbcType=INTEGER},
       Sequence = #{sequence,jdbcType=INTEGER},
-      DefaultValue = #{defaultValue,jdbcType=VARCHAR},
-      Options = #{options,jdbcType=VARCHAR},
+      DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

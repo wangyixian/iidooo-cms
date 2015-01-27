@@ -3,7 +3,6 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsUserMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsUser" >
     <id column="UserID" property="userID" jdbcType="INTEGER" />
-    <result column="UserName" property="userName" jdbcType="VARCHAR" />
     <result column="Sex" property="sex" jdbcType="INTEGER" />
     <result column="Birthday" property="birthday" jdbcType="CHAR" />
     <result column="Email" property="email" jdbcType="VARCHAR" />
@@ -19,7 +18,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    UserID, UserName, Sex, Birthday, Email, WeChat, Telphone, Description, Remarks, CreateTime, 
+    UserID, Sex, Birthday, Email, WeChat, Telphone, Description, Remarks, CreateTime, 
     CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -33,27 +32,22 @@
     where UserID = #{userID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsUser" >
-    insert into IDO_CMS_USER (UserID, UserName, Sex, 
-      Birthday, Email, WeChat, 
-      Telphone, Description, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
-    values (#{userID,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
-      #{birthday,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{weChat,jdbcType=VARCHAR}, 
-      #{telphone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+    insert into IDO_CMS_USER (UserID, Sex, Birthday, 
+      Email, WeChat, Telphone, 
+      Description, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version)
+    values (#{userID,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=CHAR}, 
+      #{email,jdbcType=VARCHAR}, #{weChat,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsUser" >
     insert into IDO_CMS_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userID != null" >
         UserID,
-      </if>
-      <if test="userName != null" >
-        UserName,
       </if>
       <if test="sex != null" >
         Sex,
@@ -99,9 +93,6 @@
       <if test="userID != null" >
         #{userID,jdbcType=INTEGER},
       </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
       <if test="sex != null" >
         #{sex,jdbcType=INTEGER},
       </if>
@@ -146,9 +137,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsUser" >
     update IDO_CMS_USER
     <set >
-      <if test="userName != null" >
-        UserName = #{userName,jdbcType=VARCHAR},
-      </if>
       <if test="sex != null" >
         Sex = #{sex,jdbcType=INTEGER},
       </if>
@@ -193,8 +181,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsUser" >
     update IDO_CMS_USER
-    set UserName = #{userName,jdbcType=VARCHAR},
-      Sex = #{sex,jdbcType=INTEGER},
+    set Sex = #{sex,jdbcType=INTEGER},
       Birthday = #{birthday,jdbcType=CHAR},
       Email = #{email,jdbcType=VARCHAR},
       WeChat = #{weChat,jdbcType=VARCHAR},

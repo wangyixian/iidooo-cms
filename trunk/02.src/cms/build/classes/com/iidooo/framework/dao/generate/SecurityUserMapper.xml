@@ -3,6 +3,7 @@
 <mapper namespace="com.iidooo.framework.dao.generate.SecurityUserMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.SecurityUser" >
     <id column="UserID" property="userID" jdbcType="INTEGER" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR" />
     <result column="LoginID" property="loginID" jdbcType="VARCHAR" />
     <result column="Password" property="password" jdbcType="VARCHAR" />
     <result column="LoginTime" property="loginTime" jdbcType="VARCHAR" />
@@ -16,7 +17,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    UserID, LoginID, Password, LoginTime, IsDisable, Remarks, CreateTime, CreateUser, 
+    UserID, UserName, LoginID, Password, LoginTime, IsDisable, Remarks, CreateTime, CreateUser, 
     UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -30,22 +31,25 @@
     where UserID = #{userID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.SecurityUser" >
-    insert into IDO_SECURITY_USER (UserID, LoginID, Password, 
-      LoginTime, IsDisable, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
-    values (#{userID,jdbcType=INTEGER}, #{loginID,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{loginTime,jdbcType=VARCHAR}, #{isDisable,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+    insert into IDO_SECURITY_USER (UserID, UserName, LoginID, 
+      Password, LoginTime, IsDisable, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
+    values (#{userID,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{loginID,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{loginTime,jdbcType=VARCHAR}, #{isDisable,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.framework.dto.generate.SecurityUser" >
     insert into IDO_SECURITY_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userID != null" >
         UserID,
+      </if>
+      <if test="userName != null" >
+        UserName,
       </if>
       <if test="loginID != null" >
         LoginID,
@@ -85,6 +89,9 @@
       <if test="userID != null" >
         #{userID,jdbcType=INTEGER},
       </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
       <if test="loginID != null" >
         #{loginID,jdbcType=VARCHAR},
       </if>
@@ -123,6 +130,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.framework.dto.generate.SecurityUser" >
     update IDO_SECURITY_USER
     <set >
+      <if test="userName != null" >
+        UserName = #{userName,jdbcType=VARCHAR},
+      </if>
       <if test="loginID != null" >
         LoginID = #{loginID,jdbcType=VARCHAR},
       </if>
@@ -161,7 +171,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.SecurityUser" >
     update IDO_SECURITY_USER
-    set LoginID = #{loginID,jdbcType=VARCHAR},
+    set UserName = #{userName,jdbcType=VARCHAR},
+      LoginID = #{loginID,jdbcType=VARCHAR},
       Password = #{password,jdbcType=VARCHAR},
       LoginTime = #{loginTime,jdbcType=VARCHAR},
       IsDisable = #{isDisable,jdbcType=INTEGER},

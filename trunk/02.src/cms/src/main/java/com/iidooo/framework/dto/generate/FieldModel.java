@@ -5,6 +5,8 @@ public class FieldModel {
 
     private String modelName;
 
+    private Integer modelType;
+
     private Integer sequence;
 
     private String remarks;
@@ -35,6 +37,14 @@ public class FieldModel {
 
     public void setModelName(String modelName) {
         this.modelName = modelName == null ? null : modelName.trim();
+    }
+
+    public Integer getModelType() {
+        return modelType;
+    }
+
+    public void setModelType(Integer modelType) {
+        this.modelType = modelType;
     }
 
     public Integer getSequence() {

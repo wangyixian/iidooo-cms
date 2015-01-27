@@ -3,12 +3,14 @@ package com.iidooo.framework.constant;
 public class SessionConstant {
 
     /**
-     * 登录用户的Session所用Key
+     * The Session Key of the login user
      */
     public static final String SECURITY_USER = "SECURITY_USER";
     
     /**
-     * 登录用户的Session所用Key
+     * The session key of all of the users.
+     * Map Key: UserID
+     * Map Name: UserName
      */
-    public static final String SECURITY_LOGIN_ID = "SECURITY_LOGIN_ID";
+    public static final String SECURITY_USERS_MAP = "SECURITY_USERS_MAP";
 }
