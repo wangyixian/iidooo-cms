@@ -24,10 +24,10 @@ public class ChannelListAction extends PagingActionSupport {
     private static final long serialVersionUID = 1L;
 
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
-    
+
     @Autowired
     private ChannelService channelService;
-    
+
     @Autowired
     private ChannelListService channelListService;
 
@@ -65,40 +65,17 @@ public class ChannelListAction extends PagingActionSupport {
 
     public String init() {
         try {
+
             // Build the channel tree' root node.
-            rootTreeNode = new TreeNode();
-            rootTreeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, "0"));
-            rootTreeNode.setName(this.getText("LABEL_TREE_ROOT"));
+            String rootName = this.getText("LABEL_TREE_ROOT");
+            rootTreeNode = channelService.getRootTree(rootName, URLConstant.CHANNEL_LIST_INIT, URLConstant.CHANNEL_DETAIL_INIT);
 
             channelList = new ArrayList<CmsChannelDto>();
             List<CmsChannelDto> allChannels = channelService.getAllChannels();
-
-            Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
             for (CmsChannelDto channel : allChannels) {
-                // Build the tree node of the CmsChannelDto
-                TreeNode treeNode = new TreeNode();
-                treeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_DETAIL_INIT, channel.getChannelID().toString()));
-                treeNode.setName(channel.getChannelName());
-                treeNode.setTag(channel);
-
-                // Set the root tree node as the parent tree node, if the parent ID is 0.
-                if (channel.getParentID() == 0) {
-                    treeNode.setParent(rootTreeNode);
-                }
 
                 if (channel.getParentID() == this.channelID) {
                     channelList.add(channel);
-                }
-                channelMap.put(channel.getChannelID(), treeNode);
-            }
-
-            // Set the tree node's parent
-            for (CmsChannelDto channel : allChannels) {
-                if (channel.getParentID() != 0) {
-                    TreeNode treeNode = channelMap.get(channel.getChannelID());
-                    TreeNode parent = channelMap.get(channel.getParentID());
-                    parent.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, channel.getParentID().toString()));
-                    treeNode.setParent(parent);
                 }
             }
             return SUCCESS;

@@ -21,11 +21,7 @@ public interface ChannelDetailService {
      */
     CmsChannelDto getChannelByPath(String channelPath);
        
-    /**
-     * 得到所有的模板列表
-     * @return 模板列表
-     */
-    List<CmsTemplateDto> getAllTemplates();
+    
     
     /**
      * 创建栏目

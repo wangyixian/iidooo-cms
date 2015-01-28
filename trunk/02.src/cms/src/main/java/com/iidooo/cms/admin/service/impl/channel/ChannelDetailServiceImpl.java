@@ -20,9 +20,6 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     @Autowired
     private CmsChannelDao cmsChannelDao;
 
-    @Autowired
-    private CmsTemplateDao CmsTemplateDao;
-
     @Override
     public boolean createChannel(CmsChannelDto channel) {
         try {
@@ -50,17 +47,6 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
         }
     }
 
-    @Override
-    public List<CmsTemplateDto> getAllTemplates() {
-        try {
-            List<CmsTemplateDto> cmsTemplateDtos = CmsTemplateDao.selectAll();
-            return cmsTemplateDtos;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
 
     @Override
     public CmsChannelDto getChannelByPath(String channelPath) {

@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.admin.service.impl.channel.ChannelListServiceImpl;
+import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dao.extend.CmsChannelDao;
 import com.iidooo.cms.dao.extend.CmsContentDao;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.service.ChannelService;
+import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.utility.StringUtil;
 
 @Service
 public class ChannelServiceImpl implements ChannelService {
@@ -24,6 +27,89 @@ public class ChannelServiceImpl implements ChannelService {
     @Autowired
     private CmsChannelDao cmsChannelDao;
 
+    @Override
+    public TreeNode getRootTree(String rootName, String baseURL) {
+        try {
+            TreeNode rootTreeNode = new TreeNode();
+            rootTreeNode.setUrl(StringUtil.replace(baseURL, "0"));
+            rootTreeNode.setName(rootName);
+
+            List<CmsChannelDto> allChannels = this.getAllChannels();
+
+            Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
+            for (CmsChannelDto channel : allChannels) {
+                // Build the tree node of the CmsChannelDto
+                TreeNode treeNode = new TreeNode();
+                treeNode.setUrl(StringUtil.replace(baseURL, channel.getChannelID().toString()));
+                treeNode.setName(channel.getChannelName());
+                treeNode.setTag(channel);
+
+                // Set the root tree node as the parent tree node, if the parent ID is 0.
+                if (channel.getParentID() == 0) {
+                    treeNode.setParent(rootTreeNode);
+                }
+
+                channelMap.put(channel.getChannelID(), treeNode);
+            }
+
+            // Set the tree node's parent
+            for (CmsChannelDto channel : allChannels) {
+                if (channel.getParentID() != 0) {
+                    TreeNode treeNode = channelMap.get(channel.getChannelID());
+                    TreeNode parent = channelMap.get(channel.getParentID());
+                    treeNode.setParent(parent);
+                }
+            }
+            return rootTreeNode;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
+    public TreeNode getRootTree(String rootName, String baseURLList, String baseURLDetail) {
+        try {
+            TreeNode rootTreeNode = new TreeNode();
+            rootTreeNode.setUrl(StringUtil.replace(baseURLList, "0"));
+            rootTreeNode.setName(rootName);
+
+            List<CmsChannelDto> allChannels = this.getAllChannels();
+
+            Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
+            for (CmsChannelDto channel : allChannels) {
+                // Build the tree node of the CmsChannelDto
+                TreeNode treeNode = new TreeNode();
+                treeNode.setUrl(StringUtil.replace(baseURLDetail, channel.getChannelID().toString()));
+                treeNode.setName(channel.getChannelName());
+                treeNode.setTag(channel);
+
+                // Set the root tree node as the parent tree node, if the parent ID is 0.
+                if (channel.getParentID() == 0) {
+                    treeNode.setParent(rootTreeNode);
+                }
+
+                channelMap.put(channel.getChannelID(), treeNode);
+            }
+
+            // Set the tree node's parent
+            for (CmsChannelDto channel : allChannels) {
+                if (channel.getParentID() != 0) {
+                    TreeNode treeNode = channelMap.get(channel.getChannelID());
+                    TreeNode parent = channelMap.get(channel.getParentID());
+                    parent.setUrl(StringUtil.replace(baseURLList, channel.getParentID().toString()));
+                    treeNode.setParent(parent);
+                }
+            }
+            return rootTreeNode;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+    
     @Override
     public List<CmsChannelDto> getAllChannels() {
         try {
@@ -116,5 +202,4 @@ public class ChannelServiceImpl implements ChannelService {
             throw e;
         }
     }
-
 }

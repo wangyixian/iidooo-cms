@@ -18,6 +18,12 @@
 			persist : "location"
 		});
 	})
+	
+	function btnCreate(){
+		var modelID = $("#selModel").val();
+		window.location.href = "contentDetail.action?fieldModel.modelID="+modelID;
+	}
+	
 </script>
 </head>
 <body>
@@ -32,7 +38,14 @@
 				<div class="bread_crumb">
 					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
 				</div>
-				<input type="button" onclick="btnCreate()" value="发布">
+				<div>
+					<select id="selModel">
+						<s:iterator value="fieldModelList" id="item" status="st">
+						<option value="${item.modelID }">${item.modelName }</option>
+						</s:iterator>
+					</select>
+					<input type="button" onclick="btnCreate()" value="发布">
+				</div>
 				<div class="block">
 					<table class="grid">
 						<tr>

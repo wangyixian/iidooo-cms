@@ -13,11 +13,17 @@ VALUES ('SYSTEM_PROPERTIES', 'PROPERTIES_SITE', '站点配置', 2, '', now(), 1,
 
 -- FIELD_PROPERTIES
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_TYPE', '产品类型', 3, '', now(), 1, now(), 1, 0, 1);
+VALUES ('FIELD_PROPERTIES', 'FIELD_MODEL_TYPE', '模型类型', 3, '', now(), 1, now(), 1, 0, 1);
+
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_COUNTRY', '产品国家', 4, '', now(), 1, now(), 1, 0, 1);
+VALUES ('FIELD_PROPERTIES', 'FIELD_TYPE', '字段类型', 4, '', now(), 1, now(), 1, 0, 1);
+
 INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
-VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_ORIGIN', '产品产地', 5, '', now(), 1, now(), 1, 0, 1);
+VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_TYPE', '产品类型', 5, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_COUNTRY', '产品国家', 6, '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_CLASS` (`DictTypeCode`, `DictClassCode`, `DictClassName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_PROPERTIES', 'FIELD_PRODUCT_ORIGIN', '产品产地', 7, '', now(), 1, now(), 1, 0, 1);
 
 -- IDO_DICT_ITEM
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
@@ -35,6 +41,28 @@ VALUES ('PROPERTIES_SITE', 'SITE_RES_ROOT', '资源根目录', 'http://localhost
 
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
 VALUES ('PROPERTIES_SITE', 'CONTENT_RES_ROOT', '内容资源根目录', 'http://localhost:8080/cms/res', 4, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
+
+-- FIELD_MODEL_TYPE
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_MODEL_TYPE', '1', '内容模型', '内容模型', 1, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+
+-- FIELD_TYPE
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '1', '字符串文本', '字符串文本', 1, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '2', '整型文本', '整型文本', 2, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '3', '浮点型文本', '浮点型文本', 3, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '4', '文本区域', '文本区域', 4, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '5', '日期', '日期', 5, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '6', '下拉列表', '下拉列表', 6, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '7', '复选框', '复选框', 7, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('FIELD_TYPE', '8', '单选框', '单选框', 8, 1, 0, 0,'', now(), 1, now(), 1, 0, 1);
 
 -- FIELD_PRODUCT_TYPE
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
@@ -65,8 +93,16 @@ INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `D
 VALUES ('FIELD_PRODUCT_ORIGIN', '4', '法国波尔多产区', '法国波尔多产区', 4, 0, 0, 0,'', now(), 1, now(), 1, 0, 1);
 
 -- IDO_FIELD_MODEL
-INSERT INTO `IDO_FIELD_MODEL` (`ModelName`, `ModelType`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`) 
-VALUES ('产品', 1, 1, '', now(), 1, now(), 1, 0);
+INSERT INTO `IDO_FIELD_MODEL` (`ModelName`, `ModelType`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES ('产品', 1, 1, '', now(), 1, now(), 1, 0, 1);
+
+-- IDO_FIELD_CONFIG
+INSERT INTO `IDO_FIELD_CONFIG` (`ModelID`, `TableName`, `FieldName`, `FieldTitle`, `FieldType`, `Sequence`, `DictClassCode`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, 'IDO_CMS_CONTENT', 'ProductType', '产品类型', 6, 1, 'FIELD_PRODUCT_TYPE', '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_FIELD_CONFIG` (`ModelID`, `TableName`, `FieldName`, `FieldTitle`, `FieldType`, `Sequence`, `DictClassCode`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, 'IDO_CMS_CONTENT', 'ProductType', '产品类型', 6, 2, 'FIELD_PRODUCT_COUNTRY', '', now(), 1, now(), 1, 0, 1);
+INSERT INTO `IDO_FIELD_CONFIG` (`ModelID`, `TableName`, `FieldName`, `FieldTitle`, `FieldType`, `Sequence`, `DictClassCode`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`, `IsDelete`, `Version`) 
+VALUES (1, 'IDO_CMS_CONTENT', 'ProductType', '产品类型', 6, 3, 'FIELD_PRODUCT_ORIGIN', '', now(), 1, now(), 1, 0, 1);
 
 -- IDO_SECURITY_USER
 INSERT INTO `IDO_SECURITY_USER` 

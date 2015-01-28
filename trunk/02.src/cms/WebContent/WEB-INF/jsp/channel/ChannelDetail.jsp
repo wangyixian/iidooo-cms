@@ -40,17 +40,17 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../include/Top.jsp"></jsp:include>
-	<div class="body_wrap">
-		<div class="left_side_wrap">
-			<f:tree root="${rootTreeNode}" recursion="true" />
-		</div>
-		<div class="right_side_wrap">
-			<div class="bread_crumb">
-				<span>当前的位置：</span><span>栏目管理 - 栏目详细</span>
+	<form id="form" method="post">
+		<jsp:include page="../include/Top.jsp"></jsp:include>
+		<div class="body_wrap">
+			<div class="left_side_wrap">
+				<f:tree root="${rootTreeNode}" recursion="true" />
 			</div>
-			<div>
-				<s:form id="form">
+			<div class="right_side_wrap">
+				<div class="bread_crumb">
+					<span>当前的位置：</span><span>栏目管理 - 栏目详细</span>
+				</div>
+				<div>
 					<input type="hidden" name="channel.channelID" value="${channel.channelID }">
 					<input type="hidden" name="channel.version"	value="${channel.version }">
 					<table class="grid">
@@ -138,10 +138,10 @@
 							<input type="button" value="删除" onclick="return deleteChannel();">
 						</s:else>
 						<input type="button" value="返回" onclick="return returnBack();">
-					</div>
-				</s:form>
+					</div>					
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </body>
 </html>

@@ -12,6 +12,7 @@ import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsTemplateDto;
 import com.iidooo.cms.service.ChannelService;
+import com.iidooo.cms.service.TemplateService;
 import com.iidooo.framework.action.BaseAction;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
@@ -33,6 +34,9 @@ public class ChannelDetailAction extends BaseAction {
     private ChannelService channelService;
     
     @Autowired
+    private TemplateService templateService;
+
+    @Autowired
     private ChannelDetailService channelDetailService;
 
     // The channel tree's root node
@@ -51,7 +55,7 @@ public class ChannelDetailAction extends BaseAction {
     public void setRootTreeNode(TreeNode rootTreeNode) {
         this.rootTreeNode = rootTreeNode;
     }
-    
+
     public CmsChannelDto getChannel() {
         return channel;
     }
@@ -80,45 +84,16 @@ public class ChannelDetailAction extends BaseAction {
         try {
 
             // Build the channel tree' root node.
-            rootTreeNode = new TreeNode();
-            rootTreeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, "0"));
-            rootTreeNode.setName(this.getText("LABEL_TREE_ROOT"));
+            String rootName = this.getText("LABEL_TREE_ROOT");
+            rootTreeNode = channelService.getRootTree(rootName, URLConstant.CHANNEL_LIST_INIT, URLConstant.CHANNEL_DETAIL_INIT);
 
-            this.allChannels = channelService.getAllChannels();
+            this.allTemplates = templateService.getAllTemplates();
 
-            Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
-            for (CmsChannelDto channel : allChannels) {
-                // Build the tree node of the CmsChannelDto
-                TreeNode treeNode = new TreeNode();
-                treeNode.setUrl(StringUtil.replace(URLConstant.CHANNEL_DETAIL_INIT, channel.getChannelID().toString()));
-                treeNode.setName(channel.getChannelName());
-                treeNode.setTag(channel);
-
-                // Set the root tree node as the parent tree node, if the parent ID is 0.
-                if (channel.getParentID() == 0) {
-                    treeNode.setParent(rootTreeNode);
-                }
-
-                channelMap.put(channel.getChannelID(), treeNode);
-            }
-
-            // Set the tree node's parent
-            for (CmsChannelDto channel : allChannels) {
-                if (channel.getParentID() != 0) {
-                    TreeNode treeNode = channelMap.get(channel.getChannelID());
-                    TreeNode parent = channelMap.get(channel.getParentID());
-                    parent.setUrl(StringUtil.replace(URLConstant.CHANNEL_LIST_INIT, channel.getParentID().toString()));
-                    treeNode.setParent(parent);
-                }
-            }
-
-            this.allTemplates = channelDetailService.getAllTemplates();
-            
             // The modify mode will trace the channel ID.
             if (channel != null) {
                 channel = channelDetailService.getCurrentChannel(channel.getChannelID());
             }
-            
+
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

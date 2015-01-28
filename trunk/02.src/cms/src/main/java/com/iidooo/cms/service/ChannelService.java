@@ -3,9 +3,14 @@ package com.iidooo.cms.service;
 import java.util.List;
 
 import com.iidooo.cms.dto.extend.CmsChannelDto;
+import com.iidooo.framework.tag.TreeNode;
 
 public interface ChannelService {
 
+    TreeNode getRootTree(String rootName, String baseURL);
+    
+    TreeNode getRootTree(String rootName, String baseURLList, String baseURLDetail);
+    
     /**
      * Get all of the channels
      * @return The list of all of channels
