@@ -1,21 +1,35 @@
 package com.iidooo.cms.dto.generate;
 
-import com.iidooo.framework.dto.base.BaseDto;
-
-public class CmsAttach extends BaseDto{
+public class CmsAttach {
     private Integer attachID;
 
-    private Integer albumID;
+    private Integer contentID;
 
-    private Integer templateID;
+    private String attachName;
 
-    private String name;
+    private String attachURL;
 
-    private String subName;
+    private String filePath;
 
-    private String URL;
+    private String fileType;
 
-    private Integer weight;
+    private Integer fileSize;
+
+    private Integer sequence;
+
+    private String remarks;
+
+    private String createTime;
+
+    private Integer createUser;
+
+    private String updateTime;
+
+    private Integer updateUser;
+
+    private Integer isDelete;
+
+    private Integer version;
 
     public Integer getAttachID() {
         return attachID;
@@ -25,51 +39,115 @@ public class CmsAttach extends BaseDto{
         this.attachID = attachID;
     }
 
-    public Integer getAlbumID() {
-        return albumID;
+    public Integer getContentID() {
+        return contentID;
     }
 
-    public void setAlbumID(Integer albumID) {
-        this.albumID = albumID;
+    public void setContentID(Integer contentID) {
+        this.contentID = contentID;
     }
 
-    public Integer getTemplateID() {
-        return templateID;
+    public String getAttachName() {
+        return attachName;
     }
 
-    public void setTemplateID(Integer templateID) {
-        this.templateID = templateID;
+    public void setAttachName(String attachName) {
+        this.attachName = attachName == null ? null : attachName.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getAttachURL() {
+        return attachURL;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setAttachURL(String attachURL) {
+        this.attachURL = attachURL == null ? null : attachURL.trim();
     }
 
-    public String getSubName() {
-        return subName;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setSubName(String subName) {
-        this.subName = subName == null ? null : subName.trim();
+    public void setFilePath(String filePath) {
+        this.filePath = filePath == null ? null : filePath.trim();
     }
 
-    public String getURL() {
-        return URL;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL == null ? null : URL.trim();
+    public void setFileType(String fileType) {
+        this.fileType = fileType == null ? null : fileType.trim();
     }
 
-    public Integer getWeight() {
-        return weight;
+    public Integer getFileSize() {
+        return fileSize;
     }
 
-    public void setWeight(Integer weight) {
-        this.weight = weight;
+    public void setFileSize(Integer fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
+    }
+
+    public Integer getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
+    }
+
+    public Integer getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

@@ -2,7 +2,6 @@ package com.iidooo.cms.client.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.client.directive.AttachAlbumListDirective;
 import com.iidooo.cms.client.directive.AttachListDirective;
 import com.iidooo.cms.client.directive.ChannelListDirective;
 import com.iidooo.cms.client.directive.ContentListDirective;
@@ -26,9 +25,6 @@ public abstract class CmsBaseAction extends BaseAction {
 
     @Autowired
     private StatisticsDirective directiveStatistics;
-
-    @Autowired
-    private AttachAlbumListDirective directiveAttachAlbumList;
 
     @Autowired
     private AttachListDirective directiveAttachList;
@@ -55,14 +51,6 @@ public abstract class CmsBaseAction extends BaseAction {
 
     public void setDirectiveStatistics(StatisticsDirective directiveStatistics) {
         this.directiveStatistics = directiveStatistics;
-    }
-
-    public AttachAlbumListDirective getDirectiveAttachAlbumList() {
-        return directiveAttachAlbumList;
-    }
-
-    public void setDirectiveAttachAlbumList(AttachAlbumListDirective directiveAttachAlbumList) {
-        this.directiveAttachAlbumList = directiveAttachAlbumList;
     }
 
     public AttachListDirective getDirectiveAttachList() {

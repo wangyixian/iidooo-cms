@@ -1,6 +1,11 @@
 package com.iidooo.framework.interceptor;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.iidooo.framework.action.LoginAction;
 import com.iidooo.framework.action.BaseAction;
@@ -26,6 +31,16 @@ public class AuthInterceptor extends AbstractInterceptor {
         
         Map<String, Object> session = ActionContext.getContext().getSession();
         if (session == null || !session.containsKey(SessionConstant.SECURITY_USER)) {
+            if (session == null) {
+                session = new HashMap<String, Object>();
+            }
+            
+            // Set the Redirect URL after login.
+            HttpServletRequest request = (HttpServletRequest) invocation.getInvocationContext().get(ServletActionContext.HTTP_REQUEST);
+            String url = request.getRequestURI();
+            String parameters = request.getQueryString();
+            session.put(SessionConstant.REDIRECT_URL, url + "?" +parameters);
+            ActionContext.getContext().setSession(session);
             return BaseAction.LOGIN;
         }
         return invocation.invoke();

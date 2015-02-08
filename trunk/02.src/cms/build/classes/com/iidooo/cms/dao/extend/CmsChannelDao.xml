@@ -101,7 +101,7 @@
 		#{updateUser,jdbcType=INTEGER}, 0, 1)
 	</insert>
 
-	<update id="update" parameterType="com.iidooo.cms.dto.generate.CmsChannel">
+	<update id="update" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
 		update IDO_CMS_CHANNEL
 		set ParentID = #{parentID,jdbcType=INTEGER},
 		TemplateID = #{templateID,jdbcType=INTEGER},
@@ -120,7 +120,7 @@
 		where ChannelID = #{channelID,jdbcType=INTEGER}
 	</update>
 
-	<update id="delete" parameterType="java.lang.Integer">
+	<update id="delete" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
 		update IDO_CMS_CHANNEL
 		set IsDelete = 1,
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},

@@ -35,4 +35,5 @@
 
 	<include file="struts/struts-cms-client.xml"></include>
 	<include file="struts/struts-cms-admin.xml"></include>
+	
 </struts>

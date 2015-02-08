@@ -41,9 +41,12 @@ public class TreeViewTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+        logger.debug("TreeViewTag doTag method execute start.");
+        JspContext jspCtx = null;
+        JspWriter out = null;
         try {
-            JspContext jspCtx = getJspContext();
-            JspWriter out = jspCtx.getOut();
+            jspCtx = getJspContext();
+            out = jspCtx.getOut();
 
             out.println("<ul class='filetree' id='tree'>");
             String folder = StringUtil.replace(FOLD_TREE_NODE, root.getUrl(), root.getName());
@@ -56,13 +59,17 @@ public class TreeViewTag extends SimpleTagSupport {
                     printHTML(out, treeNode);
                 }
                 out.println("</ul>");
+            } else {
+                logger.warn("The root tree node has not any child.");
             }
             out.println("</li>");
             out.println("</ul>");
+            logger.debug("TreeViewTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();
-            logger.fatal(e.getMessage());
-        }
+            logger.fatal(e);
+            logger.warn("TreeViewTag doTag method execute end with exception.");
+        }        
     }
 
     private void printHTML(JspWriter out, TreeNode treeNode) throws JspException, IOException {

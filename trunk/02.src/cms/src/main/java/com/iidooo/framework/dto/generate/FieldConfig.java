@@ -1,15 +1,11 @@
 package com.iidooo.framework.dto.generate;
 
-import com.iidooo.framework.dto.base.BaseDto;
-
-public class FieldConfig extends BaseDto{
+public class FieldConfig {
     private Integer fieldID;
 
     private Integer modelID;
 
-    private String tableName;
-
-    private String fieldName;
+    private String fieldCode;
 
     private String fieldTitle;
 
@@ -18,6 +14,22 @@ public class FieldConfig extends BaseDto{
     private Integer sequence;
 
     private String dictClassCode;
+
+    private String defaultValue;
+
+    private String remarks;
+
+    private String createTime;
+
+    private Integer createUser;
+
+    private String updateTime;
+
+    private Integer updateUser;
+
+    private Integer isDelete;
+
+    private Integer version;
 
     public Integer getFieldID() {
         return fieldID;
@@ -35,20 +47,12 @@ public class FieldConfig extends BaseDto{
         this.modelID = modelID;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getFieldCode() {
+        return fieldCode;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName == null ? null : tableName.trim();
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName == null ? null : fieldName.trim();
+    public void setFieldCode(String fieldCode) {
+        this.fieldCode = fieldCode == null ? null : fieldCode.trim();
     }
 
     public String getFieldTitle() {
@@ -81,5 +85,69 @@ public class FieldConfig extends BaseDto{
 
     public void setDictClassCode(String dictClassCode) {
         this.dictClassCode = dictClassCode == null ? null : dictClassCode.trim();
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue == null ? null : defaultValue.trim();
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
+    }
+
+    public Integer getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
+    }
+
+    public Integer getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

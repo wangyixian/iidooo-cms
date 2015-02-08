@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.iidooo.framework.enumeration.BeanName;
+
 /**
  * Spring框架共通处理类
  * 
@@ -23,10 +25,10 @@ public class SpringUtil {
 	 *            对象的实例名
 	 * @return 从容器中获取的对象
 	 */
-	public static Object getBean(ServletContext sc, String beanName) {
+	public static Object getBean(ServletContext sc, BeanName beanName) {
 	    try {
 	        ApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(sc);
-	        Object beanObj = appContext.getBean(beanName);
+	        Object beanObj = appContext.getBean(beanName.toString());
 	        return beanObj;
         } catch (Exception e) {
             e.printStackTrace();

@@ -5,10 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.client.service.AttachAlbumService;
 import com.iidooo.cms.client.service.AttachService;
 import com.iidooo.cms.constant.AttributeConstant;
-import com.iidooo.cms.dto.extend.CmsAttachAlbumDto;
 import com.iidooo.cms.dto.extend.CmsAttachDto;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
@@ -22,9 +20,6 @@ public class AttachAction extends CmsBaseAction {
     private static final long serialVersionUID = 1L;
 
     private static final Logger logger = Logger.getLogger(AttachAction.class);
-
-    @Autowired
-    private AttachAlbumService attachAlbumService;
     
     @Autowired
     private ChannelService channelService;
@@ -38,8 +33,6 @@ public class AttachAction extends CmsBaseAction {
     private CmsChannelDto currentChannel;
 
     private CmsContentDto currentContent;
-
-    private CmsAttachAlbumDto currentAlbum;
     
     private CmsAttachDto currentAttach;
 
@@ -57,14 +50,6 @@ public class AttachAction extends CmsBaseAction {
 
     public void setCurrentContent(CmsContentDto currentContent) {
         this.currentContent = currentContent;
-    }
-
-    public CmsAttachAlbumDto getCurrentAlbum() {
-        return currentAlbum;
-    }
-
-    public void setCurrentAlbum(CmsAttachAlbumDto currentAlbum) {
-        this.currentAlbum = currentAlbum;
     }
 
     public CmsAttachDto getCurrentAttach() {
@@ -87,9 +72,8 @@ public class AttachAction extends CmsBaseAction {
             if (currentAttach == null) {
                 return NONE;
             }
-            
-            this.currentAlbum = attachAlbumService.getAttachAlbumDto(currentAttach.getAlbumID());            
-            this.currentContent = contentService.getContentByID(this.currentAlbum.getContentID());
+                    
+            this.currentContent = contentService.getContentByID(this.currentAttach.getContentID());
             this.currentChannel = channelService.getChannelByID(this.currentContent.getChannelID());
             return SUCCESS;
         } catch (Exception e) {

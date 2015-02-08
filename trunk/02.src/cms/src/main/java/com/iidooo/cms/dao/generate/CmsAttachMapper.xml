@@ -3,12 +3,13 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsAttachMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsAttach" >
     <id column="AttachID" property="attachID" jdbcType="INTEGER" />
-    <result column="AlbumID" property="albumID" jdbcType="INTEGER" />
-    <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
-    <result column="Name" property="name" jdbcType="VARCHAR" />
-    <result column="SubName" property="subName" jdbcType="VARCHAR" />
-    <result column="URL" property="URL" jdbcType="VARCHAR" />
-    <result column="Weight" property="weight" jdbcType="INTEGER" />
+    <result column="ContentID" property="contentID" jdbcType="INTEGER" />
+    <result column="AttachName" property="attachName" jdbcType="VARCHAR" />
+    <result column="AttachURL" property="attachURL" jdbcType="VARCHAR" />
+    <result column="FilePath" property="filePath" jdbcType="VARCHAR" />
+    <result column="FileType" property="fileType" jdbcType="VARCHAR" />
+    <result column="FileSize" property="fileSize" jdbcType="INTEGER" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -18,54 +19,59 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    AttachID, AlbumID, TemplateID, Name, SubName, URL, Weight, Remarks, CreateTime, CreateUser, 
-    UpdateTime, UpdateUser, IsDelete, Version
+    AttachID, ContentID, AttachName, AttachURL, FilePath, FileType, FileSize, Sequence, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from ido_cms_attach
+    from IDO_CMS_ATTACH
     where AttachID = #{attachID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ido_cms_attach
+    delete from IDO_CMS_ATTACH
     where AttachID = #{attachID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
-    insert into ido_cms_attach (AttachID, AlbumID, TemplateID, 
-      Name, SubName, URL, 
-      Weight, Remarks, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      IsDelete, Version)
-    values (#{attachID,jdbcType=INTEGER}, #{albumID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{subName,jdbcType=VARCHAR}, #{URL,jdbcType=VARCHAR}, 
-      #{weight,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+    insert into IDO_CMS_ATTACH (AttachID, ContentID, AttachName, 
+      AttachURL, FilePath, FileType, 
+      FileSize, Sequence, Remarks, 
+      CreateTime, CreateUser, UpdateTime, 
+      UpdateUser, IsDelete, Version
+      )
+    values (#{attachID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{attachName,jdbcType=VARCHAR}, 
+      #{attachURL,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
-    insert into ido_cms_attach
+    insert into IDO_CMS_ATTACH
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="attachID != null" >
         AttachID,
       </if>
-      <if test="albumID != null" >
-        AlbumID,
+      <if test="contentID != null" >
+        ContentID,
       </if>
-      <if test="templateID != null" >
-        TemplateID,
+      <if test="attachName != null" >
+        AttachName,
       </if>
-      <if test="name != null" >
-        Name,
+      <if test="attachURL != null" >
+        AttachURL,
       </if>
-      <if test="subName != null" >
-        SubName,
+      <if test="filePath != null" >
+        FilePath,
       </if>
-      <if test="URL != null" >
-        URL,
+      <if test="fileType != null" >
+        FileType,
       </if>
-      <if test="weight != null" >
-        Weight,
+      <if test="fileSize != null" >
+        FileSize,
+      </if>
+      <if test="sequence != null" >
+        Sequence,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -93,23 +99,26 @@
       <if test="attachID != null" >
         #{attachID,jdbcType=INTEGER},
       </if>
-      <if test="albumID != null" >
-        #{albumID,jdbcType=INTEGER},
+      <if test="contentID != null" >
+        #{contentID,jdbcType=INTEGER},
       </if>
-      <if test="templateID != null" >
-        #{templateID,jdbcType=INTEGER},
+      <if test="attachName != null" >
+        #{attachName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="attachURL != null" >
+        #{attachURL,jdbcType=VARCHAR},
       </if>
-      <if test="subName != null" >
-        #{subName,jdbcType=VARCHAR},
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
       </if>
-      <if test="URL != null" >
-        #{URL,jdbcType=VARCHAR},
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
       </if>
-      <if test="weight != null" >
-        #{weight,jdbcType=INTEGER},
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -135,25 +144,28 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
-    update ido_cms_attach
+    update IDO_CMS_ATTACH
     <set >
-      <if test="albumID != null" >
-        AlbumID = #{albumID,jdbcType=INTEGER},
+      <if test="contentID != null" >
+        ContentID = #{contentID,jdbcType=INTEGER},
       </if>
-      <if test="templateID != null" >
-        TemplateID = #{templateID,jdbcType=INTEGER},
+      <if test="attachName != null" >
+        AttachName = #{attachName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        Name = #{name,jdbcType=VARCHAR},
+      <if test="attachURL != null" >
+        AttachURL = #{attachURL,jdbcType=VARCHAR},
       </if>
-      <if test="subName != null" >
-        SubName = #{subName,jdbcType=VARCHAR},
+      <if test="filePath != null" >
+        FilePath = #{filePath,jdbcType=VARCHAR},
       </if>
-      <if test="URL != null" >
-        URL = #{URL,jdbcType=VARCHAR},
+      <if test="fileType != null" >
+        FileType = #{fileType,jdbcType=VARCHAR},
       </if>
-      <if test="weight != null" >
-        Weight = #{weight,jdbcType=INTEGER},
+      <if test="fileSize != null" >
+        FileSize = #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null" >
+        Sequence = #{sequence,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -180,13 +192,14 @@
     where AttachID = #{attachID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsAttach" >
-    update ido_cms_attach
-    set AlbumID = #{albumID,jdbcType=INTEGER},
-      TemplateID = #{templateID,jdbcType=INTEGER},
-      Name = #{name,jdbcType=VARCHAR},
-      SubName = #{subName,jdbcType=VARCHAR},
-      URL = #{URL,jdbcType=VARCHAR},
-      Weight = #{weight,jdbcType=INTEGER},
+    update IDO_CMS_ATTACH
+    set ContentID = #{contentID,jdbcType=INTEGER},
+      AttachName = #{attachName,jdbcType=VARCHAR},
+      AttachURL = #{attachURL,jdbcType=VARCHAR},
+      FilePath = #{filePath,jdbcType=VARCHAR},
+      FileType = #{fileType,jdbcType=VARCHAR},
+      FileSize = #{fileSize,jdbcType=INTEGER},
+      Sequence = #{sequence,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

@@ -5,5 +5,5 @@ import java.util.List;
 import com.iidooo.framework.dto.extend.FieldModelDto;
 
 public interface FieldModelDao {
-    List<FieldModelDto> selectByModelType(int modelType);
+    List<FieldModelDto> selectByTableName(String tableName);
 }

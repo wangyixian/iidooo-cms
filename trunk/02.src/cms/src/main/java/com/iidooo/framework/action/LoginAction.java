@@ -3,6 +3,8 @@ package com.iidooo.framework.action;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,6 +51,12 @@ public class LoginAction extends BaseAction {
             
             Map<Integer, String> usersMap = loginService.getUsersMap();
             this.setSession(SessionConstant.SECURITY_USERS_MAP, usersMap);
+            
+            Object redirectURL = this.getSessionValue(SessionConstant.REDIRECT_URL);
+            if (redirectURL != null && redirectURL instanceof String) {
+                HttpServletResponse response = this.getResponse();
+                response.sendRedirect(redirectURL.toString());
+            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

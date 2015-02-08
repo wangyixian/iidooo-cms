@@ -5,7 +5,7 @@ public class FieldModel {
 
     private String modelName;
 
-    private Integer modelType;
+    private String tableName;
 
     private Integer sequence;
 
@@ -39,12 +39,12 @@ public class FieldModel {
         this.modelName = modelName == null ? null : modelName.trim();
     }
 
-    public Integer getModelType() {
-        return modelType;
+    public String getTableName() {
+        return tableName;
     }
 
-    public void setModelType(Integer modelType) {
-        this.modelType = modelType;
+    public void setTableName(String tableName) {
+        this.tableName = tableName == null ? null : tableName.trim();
     }
 
     public Integer getSequence() {

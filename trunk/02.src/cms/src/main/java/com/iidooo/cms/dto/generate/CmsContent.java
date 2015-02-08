@@ -5,6 +5,8 @@ import com.iidooo.framework.dto.base.BaseDto;
 public class CmsContent extends BaseDto{
     private Integer contentID;
 
+    private Integer modelID;
+
     private Integer channelID;
 
     private Integer templateID;
@@ -35,6 +37,14 @@ public class CmsContent extends BaseDto{
 
     public void setContentID(Integer contentID) {
         this.contentID = contentID;
+    }
+
+    public Integer getModelID() {
+        return modelID;
+    }
+
+    public void setModelID(Integer modelID) {
+        this.modelID = modelID;
     }
 
     public Integer getChannelID() {

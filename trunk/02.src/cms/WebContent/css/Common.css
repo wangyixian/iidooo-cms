@@ -39,7 +39,6 @@ img {
 	/* 图片无边框 */
 	border: 0px;
 	vertical-align: middle;
-	width: 100%;
 }
 
 table {
@@ -357,4 +356,17 @@ a:hover {
 
 .width_20{
 	width:20px;
+}
+
+.width_400PX{
+	width:400px;
+}
+
+.width_90PER{
+	width:90%;
+}
+
+.img-preview {
+	width: 200px;
+	height: 150px;
 }

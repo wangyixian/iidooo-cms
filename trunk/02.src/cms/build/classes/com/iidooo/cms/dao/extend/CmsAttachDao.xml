@@ -3,13 +3,13 @@
 <mapper namespace="com.iidooo.cms.dao.extend.CmsAttachDao" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsAttachDto" >
     <id column="AttachID" property="attachID" jdbcType="INTEGER" />
-    <result column="AlbumID" property="albumID" jdbcType="INTEGER" />
-    <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
-    <result column="TemplateSource" property="templateSource" jdbcType="VARCHAR" />
-    <result column="Name" property="name" jdbcType="VARCHAR" />
-    <result column="SubName" property="subName" jdbcType="VARCHAR" />
-    <result column="URL" property="URL" jdbcType="VARCHAR" />
-    <result column="Weight" property="weight" jdbcType="INTEGER" />
+    <result column="ContentID" property="contentID" jdbcType="INTEGER" />
+    <result column="AttachName" property="attachName" jdbcType="VARCHAR" />
+    <result column="AttachURL" property="attachURL" jdbcType="VARCHAR" />
+    <result column="FilePath" property="filePath" jdbcType="VARCHAR" />
+    <result column="FileType" property="fileType" jdbcType="VARCHAR" />
+    <result column="FileSize" property="fileSize" jdbcType="INTEGER" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -19,8 +19,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    A.AttachID, A.AlbumID, A.TemplateID, A.Name, A.SubName, A.URL, A.Weight, A.Remarks, A.CreateTime, A.CreateUser,
-    A.UpdateTime, A.UpdateUser, A.IsDelete, A.Version
+    A.AttachID, A.ContentID, A.AttachName, A.AttachURL, A.FilePath, A.FileType, A.FileSize, A.Sequence, 
+    A.Remarks, A.CreateTime, A.CreateUser, A.UpdateTime, A.UpdateUser, A.IsDelete, A.Version
   </sql>
   <select id="selectAttachsByAlbumID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     SELECT 

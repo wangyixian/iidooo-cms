@@ -32,4 +32,12 @@ public interface CmsContentDao {
     List<CmsContentDto> selectChannelContents(@Param("channels")List<CmsChannelDto> channels, @Param("page")PagingDto page);
     
     CmsContentDto selectContentByID(int contentID);
+    
+    int selectMaxSequence();
+    
+    int insert(CmsContentDto content);
+    
+    int updateByPrimaryKey(CmsContentDto content);
+    
+    int deleteByPrimaryKey(CmsContentDto content);
 }

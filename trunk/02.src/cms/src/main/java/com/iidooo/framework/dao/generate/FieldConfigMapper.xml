@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="com.iidooo.framework.dto.generate.FieldConfig" >
     <id column="FieldID" property="fieldID" jdbcType="INTEGER" />
     <result column="ModelID" property="modelID" jdbcType="INTEGER" />
-    <result column="TableName" property="tableName" jdbcType="VARCHAR" />
-    <result column="FieldName" property="fieldName" jdbcType="VARCHAR" />
+    <result column="FieldCode" property="fieldCode" jdbcType="VARCHAR" />
     <result column="FieldTitle" property="fieldTitle" jdbcType="VARCHAR" />
     <result column="FieldType" property="fieldType" jdbcType="INTEGER" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="DictClassCode" property="dictClassCode" jdbcType="VARCHAR" />
+    <result column="DefaultValue" property="defaultValue" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -19,7 +19,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    FieldID, ModelID, TableName, FieldName, FieldTitle, FieldType, Sequence, DictClassCode, 
+    FieldID, ModelID, FieldCode, FieldTitle, FieldType, Sequence, DictClassCode, DefaultValue, 
     Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -33,15 +33,15 @@
     where FieldID = #{fieldID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.framework.dto.generate.FieldConfig" >
-    insert into IDO_FIELD_CONFIG (FieldID, ModelID, TableName, 
-      FieldName, FieldTitle, FieldType, 
-      Sequence, DictClassCode, Remarks, 
+    insert into IDO_FIELD_CONFIG (FieldID, ModelID, FieldCode, 
+      FieldTitle, FieldType, Sequence, 
+      DictClassCode, DefaultValue, Remarks, 
       CreateTime, CreateUser, UpdateTime, 
       UpdateUser, IsDelete, Version
       )
-    values (#{fieldID,jdbcType=INTEGER}, #{modelID,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, 
-      #{fieldName,jdbcType=VARCHAR}, #{fieldTitle,jdbcType=VARCHAR}, #{fieldType,jdbcType=INTEGER}, 
-      #{sequence,jdbcType=INTEGER}, #{dictClassCode,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+    values (#{fieldID,jdbcType=INTEGER}, #{modelID,jdbcType=INTEGER}, #{fieldCode,jdbcType=VARCHAR}, 
+      #{fieldTitle,jdbcType=VARCHAR}, #{fieldType,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, 
+      #{dictClassCode,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
       #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
       )
@@ -55,11 +55,8 @@
       <if test="modelID != null" >
         ModelID,
       </if>
-      <if test="tableName != null" >
-        TableName,
-      </if>
-      <if test="fieldName != null" >
-        FieldName,
+      <if test="fieldCode != null" >
+        FieldCode,
       </if>
       <if test="fieldTitle != null" >
         FieldTitle,
@@ -72,6 +69,9 @@
       </if>
       <if test="dictClassCode != null" >
         DictClassCode,
+      </if>
+      <if test="defaultValue != null" >
+        DefaultValue,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -102,11 +102,8 @@
       <if test="modelID != null" >
         #{modelID,jdbcType=INTEGER},
       </if>
-      <if test="tableName != null" >
-        #{tableName,jdbcType=VARCHAR},
-      </if>
-      <if test="fieldName != null" >
-        #{fieldName,jdbcType=VARCHAR},
+      <if test="fieldCode != null" >
+        #{fieldCode,jdbcType=VARCHAR},
       </if>
       <if test="fieldTitle != null" >
         #{fieldTitle,jdbcType=VARCHAR},
@@ -119,6 +116,9 @@
       </if>
       <if test="dictClassCode != null" >
         #{dictClassCode,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null" >
+        #{defaultValue,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -149,11 +149,8 @@
       <if test="modelID != null" >
         ModelID = #{modelID,jdbcType=INTEGER},
       </if>
-      <if test="tableName != null" >
-        TableName = #{tableName,jdbcType=VARCHAR},
-      </if>
-      <if test="fieldName != null" >
-        FieldName = #{fieldName,jdbcType=VARCHAR},
+      <if test="fieldCode != null" >
+        FieldCode = #{fieldCode,jdbcType=VARCHAR},
       </if>
       <if test="fieldTitle != null" >
         FieldTitle = #{fieldTitle,jdbcType=VARCHAR},
@@ -166,6 +163,9 @@
       </if>
       <if test="dictClassCode != null" >
         DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null" >
+        DefaultValue = #{defaultValue,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -194,12 +194,12 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.framework.dto.generate.FieldConfig" >
     update IDO_FIELD_CONFIG
     set ModelID = #{modelID,jdbcType=INTEGER},
-      TableName = #{tableName,jdbcType=VARCHAR},
-      FieldName = #{fieldName,jdbcType=VARCHAR},
+      FieldCode = #{fieldCode,jdbcType=VARCHAR},
       FieldTitle = #{fieldTitle,jdbcType=VARCHAR},
       FieldType = #{fieldType,jdbcType=INTEGER},
       Sequence = #{sequence,jdbcType=INTEGER},
       DictClassCode = #{dictClassCode,jdbcType=VARCHAR},
+      DefaultValue = #{defaultValue,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

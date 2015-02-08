@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import com.iidooo.framework.constant.DictConstant;
-import com.iidooo.framework.constant.SpringConstant;
 import com.iidooo.framework.dao.extend.DictItemDao;
 import com.iidooo.framework.dto.extend.DictItemDto;
+import com.iidooo.framework.enumeration.BeanName;
 import com.iidooo.framework.utility.SpringUtil;
 
 public class PropertiesListener extends HttpServlet implements ServletContextListener {
@@ -34,7 +34,7 @@ public class PropertiesListener extends HttpServlet implements ServletContextLis
             ServletContext sc = arg0.getServletContext();
 
             // Set the site's properties into the ServletContext
-            DictItemDao dictItemDao = (DictItemDao) SpringUtil.getBean(sc, SpringConstant.BEAN_DICT_ITEM_DAO);
+            DictItemDao dictItemDao = (DictItemDao) SpringUtil.getBean(sc, BeanName.dictItemDao);
             List<DictItemDto> dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_PROPERTIES_SITE);
             for (DictItemDto dictItemDto : dictItems) {
                 String dictItemCode = dictItemDto.getDictItemCode();

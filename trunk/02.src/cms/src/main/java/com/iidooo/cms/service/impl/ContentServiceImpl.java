@@ -28,8 +28,8 @@ public class ContentServiceImpl implements ContentService {
         try {
             CmsContentDto cmsContentDto = cmsContentDao.selectContentByID(contentID);
 
-            List<CmsContentTagDto> cmsTagDtos = cmsTagDao.selectTagsByContentID(contentID);
-            cmsContentDto.setTags(cmsTagDtos);
+//            List<CmsContentTagDto> cmsTagDtos = cmsTagDao.selectTagsByContentID(contentID);
+//            cmsContentDto.setTags(cmsTagDtos);
 
             return cmsContentDto;
         } catch (Exception e) {
@@ -37,6 +37,18 @@ public class ContentServiceImpl implements ContentService {
             logger.fatal(e.getMessage());
             throw e;
         }
+    }
+
+    @Override
+    public int getMaxSequence() {
+        try {
+            int sequence = cmsContentDao.selectMaxSequence();
+            return sequence;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return 0;
     }
 
 }

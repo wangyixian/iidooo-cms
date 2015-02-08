@@ -185,7 +185,7 @@ DROP TABLE IF EXISTS `IDO_FIELD_MODEL` ;
 CREATE TABLE IF NOT EXISTS `IDO_FIELD_MODEL` (
   `ModelID` INT NOT NULL AUTO_INCREMENT COMMENT '字段模型的主键ID',
   `ModelName` VARCHAR(128) NOT NULL COMMENT '模型名',
-  `ModelType` INT NOT NULL COMMENT '模型类型：1＝内容模型',
+  `TableName` VARCHAR(128) NOT NULL COMMENT '模型所属表名',
   `Sequence` INT NOT NULL COMMENT '模型顺序',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
@@ -207,12 +207,12 @@ DROP TABLE IF EXISTS `IDO_FIELD_CONFIG` ;
 CREATE TABLE IF NOT EXISTS `IDO_FIELD_CONFIG` (
   `FieldID` INT NOT NULL AUTO_INCREMENT COMMENT '字段主键ID',
   `ModelID` INT NOT NULL COMMENT '关联模型',
-  `TableName` VARCHAR(128) NOT NULL COMMENT '表名称',
-  `FieldName` VARCHAR(128) NOT NULL COMMENT '字段编码',
+  `FieldCode` VARCHAR(128) NOT NULL COMMENT '字段编码',
   `FieldTitle` VARCHAR(256) NOT NULL COMMENT '字段名',
   `FieldType` INT NOT NULL COMMENT '字段类型',
   `Sequence` INT NOT NULL COMMENT '权重',
   `DictClassCode` VARCHAR(128) NOT NULL COMMENT '关联的字典类code',
+  `DefaultValue` VARCHAR(256) NOT NULL COMMENT '字段默认值',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
@@ -223,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `IDO_FIELD_CONFIG` (
   PRIMARY KEY (`FieldID`))
 ENGINE = InnoDB
 COMMENT = '字段配置';
+
 
 
 -- -----------------------------------------------------
@@ -308,6 +309,7 @@ DROP TABLE IF EXISTS `IDO_CMS_CONTENT` ;
 
 CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT` (
   `ContentID` INT NOT NULL AUTO_INCREMENT COMMENT '内容主键ID',
+  `ModelID` INT NOT NULL COMMENT '所属字段模型ID',
   `ChannelID` INT NOT NULL COMMENT '所属栏目',
   `TemplateID` INT NOT NULL COMMENT '所属模板',
   `ContentTitle` VARCHAR(256) NOT NULL COMMENT '内容标题',
@@ -352,32 +354,6 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_TEMPLATE` (
 ENGINE = InnoDB
 COMMENT = '内容表';
 
-
--- -----------------------------------------------------
--- Table `IDO_CMS_ATTACH_ALBUM`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `IDO_CMS_ATTACH_ALBUM` ;
-
-CREATE TABLE IF NOT EXISTS `IDO_CMS_ATTACH_ALBUM` (
-  `AlbumID` INT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `ContentID` INT NOT NULL COMMENT '所属内容',
-  `TemplateID` INT NOT NULL,
-  `AlbumTitle` VARCHAR(256) NOT NULL COMMENT '专辑名',
-  `AlbumSubTitle` VARCHAR(256) NOT NULL,
-  `AlbumClassify` INT NOT NULL COMMENT '专辑类型',
-  `Sequence` INT NOT NULL,
-  `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
-  `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
-  `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
-  `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
-  `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
-  PRIMARY KEY (`AlbumID`))
-ENGINE = InnoDB
-COMMENT = '附件专辑';
-
-
 -- -----------------------------------------------------
 -- Table `IDO_CMS_ATTACH`
 -- -----------------------------------------------------
@@ -385,11 +361,12 @@ DROP TABLE IF EXISTS `IDO_CMS_ATTACH` ;
 
 CREATE TABLE IF NOT EXISTS `IDO_CMS_ATTACH` (
   `AttachID` INT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `AlbumID` INT NOT NULL COMMENT '所属专辑',
-  `TemplateID` INT NOT NULL,
-  `AttachTitle` VARCHAR(256) NOT NULL COMMENT '附件名称',
-  `AttachSubTitle` VARCHAR(256) NOT NULL,
+  `ContentID` INT NOT NULL COMMENT '内容ID',
+  `AttachName` VARCHAR(256) NOT NULL COMMENT '附件名称',
   `AttachURL` VARCHAR(1024) NOT NULL COMMENT '附件路径',
+  `FilePath` VARCHAR(1024) NOT NULL COMMENT '文件在服务器上的路径',
+  `FileType` VARCHAR(8) NOT NULL COMMENT '文件扩展名',
+  `FileSize` INT NOT NULL COMMENT '文件大小 ',
   `Sequence` INT NOT NULL,
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',

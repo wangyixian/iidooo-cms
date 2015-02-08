@@ -1,7 +1,5 @@
 package com.iidooo.framework.dto.base;
 
-import com.iidooo.framework.constant.DateConstant;
-import com.iidooo.framework.utility.DateTimeUtil;
 
 public class BaseDto {
     private String remarks;
@@ -74,15 +72,15 @@ public class BaseDto {
         this.version = version;
     }
     
-    public void setForCreate(int userID){
-        this.createUser = userID;
-        this.createTime = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
+    public void setCommonData(int userID, String dataTime, boolean isCreate){
+        if (isCreate) {
+            this.createUser = userID;
+            this.createTime = dataTime;
+        }
         this.updateUser = userID;
-        this.updateTime = this.createTime;
-    }
-    
-    public void setForUpdate(int userID){
-        this.updateUser = userID;
-        this.updateTime = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
+        this.updateTime = dataTime;
+        if (remarks == null) {
+            remarks = "";
+        }
     }
 }

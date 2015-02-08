@@ -21,7 +21,8 @@
 	
 	function btnCreate(){
 		var modelID = $("#selModel").val();
-		window.location.href = "contentDetail.action?fieldModel.modelID="+modelID;
+		var channelID = $("#hidChannelID").val();
+		window.location.href = "contentDetail.action?content.modelID="+modelID+"&content.channelID=" + channelID;
 	}
 	
 </script>
@@ -30,7 +31,7 @@
 	<form id="form" action="" method="post">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div class="body_wrap">
-			<input type="hidden" name="channelID" value="${channelID }">
+			<input id="hidChannelID" type="hidden" name="channelID" value="${channelID }">
 			<div class="left_side_wrap">
 				<f:tree root="${rootTreeNode}" recursion="true" />
 			</div>
@@ -40,6 +41,7 @@
 				</div>
 				<div>
 					<select id="selModel">
+						<option value="0">默认</option>
 						<s:iterator value="fieldModelList" id="item" status="st">
 						<option value="${item.modelID }">${item.modelName }</option>
 						</s:iterator>
