@@ -33,9 +33,9 @@ public class ChannelListDirective implements TemplateDirectiveModel {
         try {
             Map<String, Object> daoParams = FreeMarkerUtil.convertDirectiveParams(params);
             List<CmsChannelDto> cmsChannelDtos = new ArrayList<CmsChannelDto>();
-            String level = (String) daoParams.get(FreemarkerConstant.PARAM_CHANNEL_LEVEL);
+            String level = (String) daoParams.get(FreemarkerConstant.PARAM_CHANNEL_PARENT_ID);
             if (level.equals("0")) {
-                cmsChannelDtos = cmsChannelDao.selectTopChannels(daoParams);
+                cmsChannelDtos = cmsChannelDao.selectByParentID(0);
             }
 
             FreeMarkerUtil.setDirectiveResult(cmsChannelDtos, FreemarkerConstant.RETURN_LIST, env, body);

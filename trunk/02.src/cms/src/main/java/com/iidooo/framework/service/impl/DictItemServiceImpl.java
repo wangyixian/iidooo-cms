@@ -1,5 +1,6 @@
 package com.iidooo.framework.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,22 +22,16 @@ import com.iidooo.framework.service.DictItemService;
 @Service
 public class DictItemServiceImpl implements DictItemService {
 
-	/**
-	 * SysDictItemServiceImpl的Logger处理
-	 */
 	private static final Logger logger = Logger.getLogger(DictItemServiceImpl.class);
 
-	/**
-	 * 字典项的数据处理类
-	 */
 	@Autowired
-	private DictItemDao sysDictItemDao;
+	private DictItemDao dictItemDao;
 
 	public DictItemDto getDictItemByItemCode(String dictItemCode) {
 		logger.debug("The begin of the method PropertyValueServiceImpl.getDictItemByItemCode");
 		DictItemDto sysDictItem = null;
 		try {
-			sysDictItem = sysDictItemDao.selectByItemCode(dictItemCode);
+			sysDictItem = dictItemDao.selectByItemCode(dictItemCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.fatal(e.toString());
@@ -44,20 +39,31 @@ public class DictItemServiceImpl implements DictItemService {
 
 		logger.debug("The end of the method PropertyValueServiceImpl.getDictItemByItemCode");
 		return sysDictItem;
-	}
+	}	
+	
+	@Override
+    public List<DictItemDto> getByClassCode(String dictClassCode) {
+	    List<DictItemDto> sysDictItems = new ArrayList<DictItemDto>();
+        try {
+            sysDictItems = dictItemDao.selectByClassCode(dictClassCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return sysDictItems;
+    }
 
-	public List<DictItemDto> getDictItemsByClassCode(String dictClassCode) {
-		logger.debug("The begin of the method PropertyValueServiceImpl.getDictItemsByClassCode");
 
-		List<DictItemDto> sysDictItems = null;
+
+    @Override
+	public List<DictItemDto> getByClassCode(List<String> dictClassCodes) {
+		List<DictItemDto> sysDictItems = new ArrayList<DictItemDto>();
 		try {
-			sysDictItems = sysDictItemDao.selectByClassCode(dictClassCode);
+			sysDictItems = dictItemDao.selectByClassCodes(dictClassCodes);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e.toString());
+			logger.fatal(e);
 		}
-
-		logger.debug("The end of the method PropertyValueServiceImpl.getDictItemsByClassCode");
 		return sysDictItems;
 	}
 
@@ -67,7 +73,7 @@ public class DictItemServiceImpl implements DictItemService {
 		int sum = 0;
 
 		try {
-			sum = sysDictItemDao.selectAllCount();
+			sum = dictItemDao.selectAllCount();
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.fatal(e.toString());
@@ -82,7 +88,7 @@ public class DictItemServiceImpl implements DictItemService {
 
 		List<DictItemDto> dictItems = null;
 		try {
-			dictItems = sysDictItemDao.selectAll(pagingDto);
+			dictItems = dictItemDao.selectAll(pagingDto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.fatal(e.toString());

@@ -21,27 +21,26 @@ public class ChannelAction extends CmsBaseAction {
     @Autowired
     private ChannelService channelService;
 
-    private CmsChannelDto currentChannel;
+    private CmsChannelDto channel;
 
-    public CmsChannelDto getCurrentChannel() {
-        return currentChannel;
+    public CmsChannelDto getChannel() {
+        return channel;
     }
 
-    public void setCurrentChannel(CmsChannelDto currentChannel) {
-        this.currentChannel = currentChannel;
+    public void setChannel(CmsChannelDto channel) {
+        this.channel = channel;
     }
 
     @Override
     public String execute() throws Exception {
         try {
-            HttpServletRequest request = this.getRequest();
-            String channelPath = request.getParameter(AttributeConstant.CHANNEL_PATH);
-            if (channelPath == null || channelPath == "") {
-                channelPath = AttributeConstant.CHANNEL_PATH_INDEX;
+            if(channel == null || channel.getChannelPath() == null){
+                channel.setChannelPath(AttributeConstant.CHANNEL_PATH_INDEX);
             }
-            currentChannel = channelService.getChannelByPath(channelPath);
             
-            if (currentChannel == null) {
+            channel = channelService.getChannelByPath(channel.getChannelPath());
+
+            if (channel == null) {
                 return NONE;
             }
             return SUCCESS;

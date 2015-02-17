@@ -18,8 +18,14 @@
 		});
 	})
 
-	function btnCreate() {
-		window.location.href = "channelDetail.action";
+	function btnCreate(parentID) {
+		window.location.href = "channelDetail.action?channel.parentID=" + parentID;
+	}
+	
+	function deleteChannel(parentChannelID, channelID, version){
+		if (confirm("确定要删除该栏目吗？")) {
+			window.location.href = "channelListDelete.action?parentChannelID="+parentChannelID+"&channel.channelID=" + channelID + "&version=" + version;
+	    }
 	}
 </script>
 </head>
@@ -34,7 +40,10 @@
 				<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
 			</div>
 			<div>
-				<span class="info_message center"><s:actionmessage /></span>
+				<span class="info_message center">
+					<s:actionerror/>
+					<s:actionmessage />
+				</span>
 				<table class="grid">
 					<tr>
 						<th width="5%">ID</th>
@@ -66,13 +75,14 @@
 							<td class="align_center">${channel.updateTime}</td>
 							<td class="align_center">
 								<a href="channelListMove.action?direct=1&channelID=${channel.channelID }">上移</a>|
-								<a href="channelListMove.action?direct=2&channelID=${channel.channelID }">下移</a>
+								<a href="channelListMove.action?direct=2&channelID=${channel.channelID }">下移</a>|
+								<a href="#" onclick="return deleteChannel(${parentChannelID}, ${channel.channelID }, ${channel.version })">删除</a>
 							</td>
 						</tr>
 					</s:iterator>
 				</table>
 				<div class="button_bar">
-					<input type="button" class="button" onclick="btnCreate()" value="添加">
+					<input type="button" class="button" onclick="btnCreate(${parentChannel.channelID})" value="添加">
 				</div>
 			</div>
 		</div>

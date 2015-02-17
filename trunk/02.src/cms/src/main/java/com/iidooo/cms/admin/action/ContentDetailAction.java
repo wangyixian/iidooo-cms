@@ -135,20 +135,20 @@ public class ContentDetailAction extends BaseDetailAction {
 
             fieldModels = fieldModelService.getFieldModelList(TableName.IDO_CMS_CONTENT);
             
-            // The modify mode
-            if (content != null && content.getContentID() != null && content.getContentID() > 0) {
-                content = contentService.getContentByID(content.getContentID());
-                fieldConfigs = fieldConfigService.getFieldConfigList(content.getModelID());
-                // The content existed, should get the extend field data.
-                if (fieldConfigs != null && fieldConfigs.size() > 0) {
-                    fieldDatas = fieldDataService.getFieldDataList(fieldConfigs, content.getContentID());
-                }
-            } else {
-                // The create mode
-                if (content != null && content.getModelID() != null && content.getModelID() > 0) {
-                    fieldConfigs = fieldConfigService.getFieldConfigList(content.getModelID());
-                }
-            }
+//            // The modify mode
+//            if (content != null && content.getContentID() != null && content.getContentID() > 0) {
+//                content = contentService.getContentByID(content.getContentID());
+//                fieldConfigs = fieldConfigService.getFieldConfigList(content.getModelID());
+//                // The content existed, should get the extend field data.
+//                if (fieldConfigs != null && fieldConfigs.size() > 0) {
+//                    fieldDatas = fieldDataService.getFieldDataList(fieldConfigs, content.getContentID());
+//                }
+//            } else {
+//                // The create mode
+//                if (content != null && content.getModelID() != null && content.getModelID() > 0) {
+//                    fieldConfigs = fieldConfigService.getFieldConfigList(content.getModelID());
+//                }
+//            }
 
             return SUCCESS;
         } catch (Exception e) {

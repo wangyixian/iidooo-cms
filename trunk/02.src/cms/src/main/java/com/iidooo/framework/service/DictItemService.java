@@ -21,13 +21,15 @@ public interface DictItemService {
 	 */
     DictItemDto getDictItemByItemCode(String dictItemCode);
 
+    List<DictItemDto> getByClassCode(String dictClassCode);
+    
 	/**
-	 * 根据字典类的code获取字典项列表
+	 * Get the DictItemDto list by the array of DictClassCode
 	 * 
-	 * @param dictClassCode 字典类的Code
-	 * @return SysDictItem的List
+	 * @param dictClassCodes The array of DictClassCode
+	 * @return The list of DictItemDto
 	 */
-	List<DictItemDto> getDictItemsByClassCode(String dictClassCode);
+	List<DictItemDto> getByClassCode(List<String> dictClassCodes);
 
 	/**
 	 * 得到字典项总数

@@ -35,7 +35,7 @@
 	&nbsp;页
 	<input type="button" value="跳转" onclick="jump()"/>
 
-	<input id="hidCurrentPage" type="hidden" name="pagingDto.currentPage">
+	<input id="hidCurrentPage" type="hidden" name="pagingDto.currentPage" value="${pagingDto.currentPage}">
 	<input id="hidActionName" type="hidden" value="${actionName }">
 	<input id="hidPageSum" type="hidden" value="${pagingDto.pageSum}">
 </div>

@@ -7,7 +7,5 @@ import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.framework.dto.base.PagingDto;
 
 public interface ContentListService {
-    int getChannelContentsCount(List<CmsChannelDto> channels);
     
-    List<CmsContentDto> getChannelContents(List<CmsChannelDto> channels, PagingDto pagingDto);
 }

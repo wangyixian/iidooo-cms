@@ -6,7 +6,10 @@ import com.iidooo.cms.client.directive.AttachListDirective;
 import com.iidooo.cms.client.directive.ChannelListDirective;
 import com.iidooo.cms.client.directive.ContentListDirective;
 import com.iidooo.cms.client.directive.StatisticsDirective;
+import com.iidooo.cms.dto.generate.CmsChannel;
+import com.iidooo.cms.service.ChannelService;
 import com.iidooo.framework.action.BaseAction;
+import com.iidooo.framework.action.PagingActionSupport;
 
 public abstract class CmsBaseAction extends BaseAction {
 
@@ -63,4 +66,6 @@ public abstract class CmsBaseAction extends BaseAction {
 
     // End Regist
 
+    
+    
 }

@@ -56,27 +56,16 @@
 		inner join IDO_CMS_TEMPLATE T on C.TemplateID = T.TemplateID and C.IsDelete = 0 and T.IsDelete = 0
 	</select>
 
-	<select id="selectChannelsByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from IDO_CMS_CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = 0 order by C.Sequence
 	</select>
 
-	<select id="selectTopChannels" resultMap="BaseResultMap" parameterType="java.util.Map">
-		select
-		<include refid="Base_Column_List" />
-		, T.TemplatePath
+	<select id="exclusiveCheck" resultMap="BaseResultMap" >
+		select <include refid="Base_Column_List" />
 		from IDO_CMS_CHANNEL C
-		inner join IDO_CMS_TEMPLATE T
-		on C.TemplateID = T.TemplateID and C.ParentID = 0 and C.IsDelete = 0 and
-		T.IsDelete = 0
-		order by C.${sortBy} ${sortType}
-	</select>
-
-	<select id="exclusiveCheck" resultType="java.lang.Integer">
-		select count(*)
-		from IDO_CMS_CHANNEL
-		where IsDelete = 0 and ChannelID = #{0} and Version = #{1}
+		where C.IsDelete = 0 and C.ChannelID = #{0} and C.Version = #{1}
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
@@ -120,7 +109,7 @@
 		where ChannelID = #{channelID,jdbcType=INTEGER}
 	</update>
 
-	<update id="delete" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
+	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
 		update IDO_CMS_CHANNEL
 		set IsDelete = 1,
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},

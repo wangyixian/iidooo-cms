@@ -23,7 +23,7 @@ public class ChannelListServiceImpl implements ChannelListService {
     public List<CmsChannelDto> getChannelList(int parentID) {
         try {
             List<CmsChannelDto> channelList = null;
-            channelList = cmsChannelDao.selectChannelsByParentID(parentID);
+            channelList = cmsChannelDao.selectByParentID(parentID);
             return channelList;
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,20 +33,4 @@ public class ChannelListServiceImpl implements ChannelListService {
     }
 
 
-    @Override
-    public boolean deleteChannel(CmsChannelDto channel) throws Exception {
-        try {
-            int count = cmsChannelDao.exclusiveCheck(channel.getChannelID(), channel.getVersion());
-            if (count <= 0) {
-                ExclusiveException exclusiveException = new ExclusiveException();
-                throw (exclusiveException);
-            }
-            cmsChannelDao.delete(channel.getChannelID());
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
 }

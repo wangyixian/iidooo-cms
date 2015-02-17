@@ -5,11 +5,11 @@
 
 <struts>
 	<package name="client" extends="basic">
-		<action name="index" class="com.iidooo.cms.client.action.IndexAction" method="init">
-			<result name="success" type="freemarker">${SITE_RES_ROOT}/index/index.html</result>
+		<action name="index" class="com.iidooo.cms.client.action.IndexAction">
+			<result name="success">/templates/inaba/index/Index.jsp</result>
 		</action>
-		<action name="channel" class="com.iidooo.cms.client.action.ChannelAction">
-			<result name="success" type="freemarker">${currentChannel.templatePath}</result>
+		<action name="productList" class="com.iidooo.cms.client.action.product.ProductListAction" method="init">
+			<result name="success">/templates/inaba/product/ProductList.jsp</result>
 		</action>
 		<action name="content" class="com.iidooo.cms.client.action.ContentAction">
 			<result name="success" type="freemarker">${currentContent.templatePath}</result>

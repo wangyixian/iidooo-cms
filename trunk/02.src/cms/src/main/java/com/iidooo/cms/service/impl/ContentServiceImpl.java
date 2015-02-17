@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.dao.extend.CmsContentDao;
 import com.iidooo.cms.dao.extend.CmsContentTagDao;
+import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.dto.extend.CmsContentTagDto;
 import com.iidooo.cms.service.ContentService;
+import com.iidooo.framework.dto.base.PagingDto;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -51,4 +53,27 @@ public class ContentServiceImpl implements ContentService {
         return 0;
     }
 
+    @Override
+    public int getChannelContentsCount(List<CmsChannelDto> channels) {
+        try {
+            int recordSum = cmsContentDao.selectChannelContentsCount(channels);            
+            return recordSum;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<CmsContentDto> getChannelContents(List<CmsChannelDto> channels, PagingDto pagingDto) {
+        try {
+            List<CmsContentDto> contentList = cmsContentDao.selectChannelContents(channels, pagingDto);
+            return contentList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
 }

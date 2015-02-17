@@ -34,7 +34,7 @@ public class ChannelDetailAction extends BaseAction {
 
     @Autowired
     private ChannelService channelService;
-    
+
     @Autowired
     private TemplateService templateService;
 
@@ -90,9 +90,10 @@ public class ChannelDetailAction extends BaseAction {
             rootTreeNode = channelService.getRootTree(rootName, URLConstant.CHANNEL_LIST_INIT, URLConstant.CHANNEL_DETAIL_INIT);
 
             this.allTemplates = templateService.getAllTemplates();
-
+            this.allChannels = channelService.getAllChannels();
+            
             // The modify mode will trace the channel ID.
-            if (channel != null) {
+            if (channel != null && channel.getChannelID() != null && channel.getChannelID() > 0) {
                 channel = channelDetailService.getCurrentChannel(channel.getChannelID());
             }
 
@@ -121,14 +122,14 @@ public class ChannelDetailAction extends BaseAction {
 
     public void validateCreate() {
         try {
-            commonValidate();
+            //commonValidate();
 
             // Check the same channel path is existed or not.
-            CmsChannelDto cmsChannelDto = channelDetailService.getChannelByPath(channel.getChannelPath());
-            if (cmsChannelDto != null) {
-                String msg = this.getText("MSG_CHANNEL_EXISTED", new String[] { getText("LABEL_CHANNEL_PATH") });
-                addFieldError("channel.channelPath", msg);
-            }
+//            CmsChannelDto cmsChannelDto = channelDetailService.getChannelByPath(channel.getChannelPath());
+//            if (cmsChannelDto != null) {
+//                String msg = this.getText("MSG_CHANNEL_EXISTED", new String[] { getText("LABEL_CHANNEL_PATH") });
+//                addFieldError("channel.channelPath", msg);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

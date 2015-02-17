@@ -10,6 +10,7 @@ import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.service.ChannelService;
+import com.iidooo.cms.service.ContentService;
 import com.iidooo.framework.action.BaseListAction;
 import com.iidooo.framework.dto.extend.FieldModelDto;
 import com.iidooo.framework.enumeration.TableName;
@@ -27,6 +28,9 @@ public class ContentListAction extends BaseListAction {
 
     @Autowired
     private ChannelService channelService;
+    
+    @Autowired
+    private ContentService contentService;
 
     @Autowired
     private ContentListService contentListService;
@@ -86,9 +90,9 @@ public class ContentListAction extends BaseListAction {
 
             // Get all of the clicked channel's offspring channels.
             List<CmsChannelDto> offspringChannels = channelService.getOffspringChannels(channelID, true);
-            int recordSum = contentListService.getChannelContentsCount(offspringChannels);
+            int recordSum = contentService.getChannelContentsCount(offspringChannels);
             this.executePaging(recordSum);
-            this.contentList = contentListService.getChannelContents(offspringChannels, this.getPagingDto());
+            this.contentList = contentService.getChannelContents(offspringChannels, this.getPagingDto());
 
             return SUCCESS;
         } catch (Exception e) {

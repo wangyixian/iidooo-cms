@@ -9,7 +9,8 @@ body {
 	width: 100%;
 	height: 100%;
 	position: relative;
-	font-family: "Microsoft YaHei", "宋体", "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif";
+	font-family: "Microsoft YaHei", "宋体", "Trebuchet MS", "Arial",
+		"Helvetica", "Verdana", "sans-serif";
 	font-size: 12px;
 	margin: 0 0 0 0;
 	color: #333333;
@@ -91,11 +92,12 @@ h3 {
 a {
 	text-decoration: none;
 	cursor: pointer;
+	color: black;
 }
 
 a:hover {
 	cursor: pointer;
-	color: #C1272D;
+	color: #BF1C21;
 }
 
 /* 清除浮动 */
@@ -263,15 +265,19 @@ a:hover {
 
 /* 网页内容部分的包裹 */
 .body_wrap {
-	width: 980px;
+	width: 90%;
 	margin: 0 auto;
 	overflow: hidden;
 }
 
 /* 页面的横幅部分 */
 #banner {
-	width: 980px;
+	width: 100%;
 	margin-top: 10px;
+}
+
+#banner img {
+	width: 100%;
 }
 
 /* 顶部 */
@@ -302,12 +308,11 @@ a:hover {
 
 .logo img {
 	height: 90px;
-	width: 200px;
 }
 
 /* 主菜单 */
 #mainmenu {
-	background-color: RGB(158, 8, 33);
+	background-color: RGB(82, 38, 59);
 	height: 40px;
 	margin: 10px 0px 0px 0px;
 	overflow: hidden;
@@ -332,13 +337,14 @@ a:hover {
 }
 
 #mainmenu>li>a:hover {
-	background-color: RGB(143, 1, 0);
+	background-color: #BF1C21;
 	font-weight: bold;
 }
 
-.main_menu_focus {
-	background-color: RGB(143, 1, 0);
+.focus {
+	background-color: #BF1C21;
 	font-weight: bold;
+	color: white;
 }
 
 /* 页脚 */

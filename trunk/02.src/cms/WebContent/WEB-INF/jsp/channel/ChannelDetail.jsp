@@ -33,9 +33,13 @@
 		window.form.action = "channelDelete.action";
 		window.form.submit();
 	}
+	
+	function createSubChannel(parentID){
+		window.location.href = "channelDetail.action?channel.parentID=" + parentID;
+	}
 
-	function returnBack() {
-		window.location.href = "channelList.action";
+	function returnBack(parentID) {
+		window.location.href = "channelList.action?parentChannel.channelID=" + parentID;
 	}
 </script>
 </head>
@@ -86,21 +90,21 @@
 						<tr>
 							<th class="required">栏目名称</th>
 							<td>
-								<input type="text" name="channel.channelName" value="${channel.channelName}">
+								<input type="text" class="width_400px" name="channel.channelName" value="${channel.channelName}">
 							</td>
 							<th class="required">访问路径</th>
 							<td>
-								<input type="text" name="channel.channelPath" value="${channel.channelPath}">
+								<input type="text" class="width_400px" name="channel.channelPath" value="${channel.channelPath}">
 							</td>
 						</tr>
 						<tr>
 							<th>meta标题</th>
 							<td>
-								<input type="text" name="channel.metaTitle"	value="${channel.metaTitle}">
+								<input type="text" class="width_400px" name="channel.metaTitle"	value="${channel.metaTitle}">
 							</td>
 							<th>meta关键字</th>
 							<td>
-								<input type="text" name="channel.metaKeywords" value="${channel.metaKeywords}">
+								<input type="text" class="width_400px" name="channel.metaKeywords" value="${channel.metaKeywords}">
 							</td>
 						</tr>
 						<tr>
@@ -110,7 +114,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="required">是否隐藏</th>
+							<th class="required">菜单显示</th>
 							<td colspan="3">
 								<s:if test="channel.isHidden == 1">
 									<input type="radio" name="channel.isHidden" value="0">显示
@@ -130,14 +134,15 @@
 						</tr>
 					</table>
 					<div class="button_bar">
-						<s:if test="channel == null">
+						<s:if test="channel == null || channel.channelID == null || channel.channelID <= 0">
 							<input type="button" value="创建" onclick="return createChannel();">
 						</s:if>
 						<s:else>
 							<input type="button" value="更新" onclick="return updateChannel();">
 							<input type="button" value="删除" onclick="return deleteChannel();">
 						</s:else>
-						<input type="button" value="返回" onclick="return returnBack();">
+						<input type="button" value="返回" onclick="return returnBack(${channel.parentID});">
+						<input type="button" value="添加子栏目" onclick="createSubChannel(${channel.channelID});">
 					</div>					
 				</div>
 			</div>

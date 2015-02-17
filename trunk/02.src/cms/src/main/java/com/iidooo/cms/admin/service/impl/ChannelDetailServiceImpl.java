@@ -63,11 +63,6 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     @Override
     public boolean updateChannel(CmsChannelDto channel) throws Exception {
         try {
-            int count = cmsChannelDao.exclusiveCheck(channel.getChannelID(), channel.getVersion());
-            if (count <= 0) {
-                ExclusiveException exclusiveException = new ExclusiveException();
-                throw (exclusiveException);
-            }
             setChannelLevel(channel);
             setChannelSequence(channel);
             cmsChannelDao.update(channel);
@@ -82,12 +77,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     @Override
     public boolean deleteChannel(CmsChannelDto channel) throws Exception {
         try {
-            int count = cmsChannelDao.exclusiveCheck(channel.getChannelID(), channel.getVersion());
-            if (count <= 0) {
-                ExclusiveException exclusiveException = new ExclusiveException();
-                throw (exclusiveException);
-            }
-            cmsChannelDao.delete(channel.getChannelID());
+            cmsChannelDao.deleteByPrimaryKey(channel);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,7 +104,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     private void setChannelSequence(CmsChannelDto channel) {
         try {
             int sequence = 1;
-            List<CmsChannelDto> channelDtos = cmsChannelDao.selectChannelsByParentID(channel.getParentID());
+            List<CmsChannelDto> channelDtos = cmsChannelDao.selectByParentID(channel.getParentID());
             if (channelDtos != null) {
                 for (CmsChannelDto cmsChannelDto : channelDtos) {
                     if (cmsChannelDto.getSequence() > sequence) {

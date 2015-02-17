@@ -39,7 +39,11 @@ public class AuthInterceptor extends AbstractInterceptor {
             HttpServletRequest request = (HttpServletRequest) invocation.getInvocationContext().get(ServletActionContext.HTTP_REQUEST);
             String url = request.getRequestURI();
             String parameters = request.getQueryString();
-            session.put(SessionConstant.REDIRECT_URL, url + "?" +parameters);
+            if (parameters == null) {
+                session.put(SessionConstant.REDIRECT_URL, url);
+            } else {
+                session.put(SessionConstant.REDIRECT_URL, url + "?" +parameters);
+            }
             ActionContext.getContext().setSession(session);
             return BaseAction.LOGIN;
         }

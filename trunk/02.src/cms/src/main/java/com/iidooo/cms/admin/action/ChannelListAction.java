@@ -13,8 +13,14 @@ import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.service.ChannelService;
 import com.iidooo.framework.action.PagingActionSupport;
+import com.iidooo.framework.constant.DateConstant;
+import com.iidooo.framework.constant.SessionConstant;
+import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.utility.DateTimeUtil;
 import com.iidooo.framework.utility.StringUtil;
+
+import freemarker.template.utility.DateUtil;
 
 public class ChannelListAction extends PagingActionSupport {
 
@@ -34,7 +40,9 @@ public class ChannelListAction extends PagingActionSupport {
     private List<CmsChannelDto> channelList;
 
     // The channel ID that selected on tree
-    private int channelID = 0;
+    private int parentChannelID;
+    
+    private CmsChannelDto channel;
 
     // The channel tree's root node
     private TreeNode rootTreeNode;
@@ -55,12 +63,22 @@ public class ChannelListAction extends PagingActionSupport {
         this.rootTreeNode = rootTreeNode;
     }
 
-    public int getChannelID() {
-        return channelID;
+    
+
+    public int getParentChannelID() {
+        return parentChannelID;
     }
 
-    public void setChannelID(int channelID) {
-        this.channelID = channelID;
+    public void setParentChannelID(int parentChannelID) {
+        this.parentChannelID = parentChannelID;
+    }
+
+    public CmsChannelDto getChannel() {
+        return channel;
+    }
+
+    public void setChannel(CmsChannelDto channel) {
+        this.channel = channel;
     }
 
     public String init() {
@@ -74,7 +92,7 @@ public class ChannelListAction extends PagingActionSupport {
             List<CmsChannelDto> allChannels = channelService.getAllChannels();
             for (CmsChannelDto channel : allChannels) {
 
-                if (channel.getParentID() == this.channelID) {
+                if (channel.getParentID() == this.parentChannelID) {
                     channelList.add(channel);
                 }
             }
@@ -83,6 +101,35 @@ public class ChannelListAction extends PagingActionSupport {
             e.printStackTrace();
             logger.fatal(e);
             return ERROR;
+        }
+    }
+
+    public String delete() {
+        try {
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            this.channel.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
+            boolean result = channelService.deleteChannel(this.channel);
+            if (!result) {
+                addActionError(getText("MST_DELETE_FAILED"));
+                return INPUT;
+            }
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public void valideDelete() {
+        CmsChannelDto channel = channelService.exclusiveCheck(this.channel.getChannelID(), this.channel.getVersion());
+        if (channel == null) {
+            addActionError(getText("MSG_EXCLUSIVE"));
+        }
+
+        List<CmsChannelDto> children = channelService.getChildrenChannels(this.channel.getChannelID());
+        if (children != null && children.size() > 0) {
+            addActionError(getText("MSG_CHANNEL_DELETE_FAILED_CHILDREN"));
         }
     }
 }

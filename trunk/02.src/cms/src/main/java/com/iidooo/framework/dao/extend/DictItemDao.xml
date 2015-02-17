@@ -29,7 +29,15 @@
 		select
 		<include refid="Base_Column_List" />
 		from IDO_DICT_ITEM I
-		where I.DictClassCode = #{classCode,jdbcType=VARCHAR}
+		where I.DictClassCode = #{dictClassCode,jdbcType=VARCHAR}
+		and I.IsDelete = 0 order by I.Sequence asc
+	</select>
+	<select id="selectByClassCodes" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from IDO_DICT_ITEM I
+		where I.DictClassCode in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 		and I.IsDelete = 0 order by I.Sequence asc
 	</select>
 	<select id="selectByItemCode" resultMap="BaseResultMap" parameterType="java.lang.String">

@@ -115,7 +115,7 @@
 						<tr>
 							<th class="required">内容标题</th>
 							<td>
-								<input class="width_400PX" type="text" name="content.contentTitle" value="${content.contentTitle}">
+								<input class="width_400px" type="text" name="content.contentTitle" value="${content.contentTitle}">
 							</td>
 							<th class="required" width="10%">内容模版</th>
 							<td>
@@ -134,7 +134,7 @@
 						<tr>							
 							<th class="required">内容副标题</th>
 							<td>
-								<input class="width_400PX" type="text" name="content.contentSubTitle" value="${content.contentSubTitle}">
+								<input class="width_400px" type="text" name="content.contentSubTitle" value="${content.contentSubTitle}">
 							</td>
 							<th class="required">是否允许评论</th>
 							<td>
@@ -154,35 +154,35 @@
 						<tr>
 							<th>meta标题</th>
 							<td>
-								<input class="width_400PX" type="text" name="content.metaTitle"	value="${content.metaTitle}">
+								<input class="width_400px" type="text" name="content.metaTitle"	value="${content.metaTitle}">
 							</td>
 							<th>meta关键字</th>
 							<td>
-								<input class="width_400PX" type="text" name="content.metaKeywords" value="${content.metaKeywords}">
+								<input class="width_400px" type="text" name="content.metaKeywords" value="${content.metaKeywords}">
 							</td>
 						</tr>
 						<tr>
 							<th>meta描述</th>
 							<td colspan="3">
-								<textarea class="width_90PER" rows="5" name="content.metaDescription">${content.metaDescription }</textarea>
+								<textarea class="width_90per" rows="5" name="content.metaDescription">${content.metaDescription }</textarea>
 							</td>
 						</tr>
 						<tr>
 							<th class="required">内容摘要</th>
 							<td colspan="3">
-								<textarea class="width_90PER" rows="5" name="content.contentSummary">${content.contentSummary }</textarea>
+								<textarea class="width_90per" rows="5" name="content.contentSummary">${content.contentSummary }</textarea>
 							</td>
 						</tr>
 						<tr>
 							<th class="required">内容详细</th>
 							<td colspan="3">
-							<textarea class="width_90PER" id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
+							<textarea class="width_90per" id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
 							</td>
 						</tr>
 						<tr>
 							<th>备注</th>
 							<td colspan="3">
-								<textarea class="width_90PER" rows="5" name="content.remarks">${content.remarks }</textarea>
+								<textarea class="width_90per" rows="5" name="content.remarks">${content.remarks }</textarea>
 							</td>
 						</tr>
 						<f:fields name="fieldDatas.fieldValue" fieldConfigs="${fieldConfigs}" fieldDatas="${fieldDatas}" colspan="3"/>						

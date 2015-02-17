@@ -2,44 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iidooo.cms.dao.extend.CmsContentDao">
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsContentDto">
-		<id column="ContentID" property="contentID" jdbcType="INTEGER" />
-    	<result column="ModelID" property="modelID" jdbcType="INTEGER" />
-		<result column="ChannelID" property="channelID" jdbcType="INTEGER" />
-		<result column="TemplateID" property="templateID" jdbcType="INTEGER" />
-		<result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
-		<result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
-		<result column="ContentImageTitle" property="contentImageTitle" jdbcType="VARCHAR" />
-		<result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
-		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
-		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
-		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
-		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
-		<result column="IsAllowComment" property="isAllowComment" jdbcType="INTEGER" />
-		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
-		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
-		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
-		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
-		<result column="Version" property="version" jdbcType="INTEGER" />
+		<id column="ContentID" jdbcType="INTEGER" property="contentID" />
+		<result column="ChannelID" jdbcType="INTEGER" property="channelID" />
+		<result column="ContentType" jdbcType="INTEGER" property="contentType" />
+		<result column="ContentTitle" jdbcType="VARCHAR" property="contentTitle" />
+		<result column="ContentSubTitle" jdbcType="VARCHAR" property="contentSubTitle" />
+		<result column="ContentImageTitle" jdbcType="VARCHAR" property="contentImageTitle" />
+		<result column="MetaTitle" jdbcType="VARCHAR" property="metaTitle" />
+		<result column="MetaKeywords" jdbcType="VARCHAR" property="metaKeywords" />
+		<result column="MetaDescription" jdbcType="VARCHAR" property="metaDescription" />
+		<result column="ContentSummary" jdbcType="VARCHAR" property="contentSummary" />
+		<result column="Sequence" jdbcType="INTEGER" property="sequence" />
+		<result column="IsAllowComment" jdbcType="INTEGER" property="isAllowComment" />
+		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+		<result column="CreateUser" jdbcType="INTEGER" property="createUser" />
+		<result column="UpdateTime" jdbcType="VARCHAR" property="updateTime" />
+		<result column="UpdateUser" jdbcType="INTEGER" property="updateUser" />
+		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
+		<result column="Version" jdbcType="INTEGER" property="version" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.CmsContentDto" extends="BaseResultMap">
 		<result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		C.ContentID, C.ModelID, C.ChannelID, C.TemplateID, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
-		C.MetaTitle,
-		C.MetaKeywords,
-		C.MetaDescription, C.ContentSummary,
-		C.Sequence, C.IsAllowComment, C.Remarks, C.CreateTime,
-		C.CreateUser, C.UpdateTime,
-		C.UpdateUser, C.IsDelete,
-		C.Version
+		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
+		C.MetaTitle, C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.Sequence, C.IsAllowComment,
+		C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
-
+<!-- 
 	<select id="selectChannelContentsCount" resultType="java.lang.Integer">
 		select count(C.ContentID) from IDO_CMS_CONTENT C
 		join IDO_CMS_CHANNEL L on C.IsDelete = 0 and C.ChannelID = L.ChannelID and C.ChannelID in
@@ -165,28 +159,32 @@
 		AND C.IsDelete = 0
 		AND T.IsDelete = 0
 	</select>
-	
+
 	<select id="selectMaxSequence" resultType="java.lang.Integer">
-		select	Max(Sequence) from IDO_CMS_CONTENT C WHERE C.IsDelete = 0
+		select Max(Sequence) from IDO_CMS_CONTENT C WHERE C.IsDelete = 0
 	</select>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID"  parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID" parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
 		insert into IDO_CMS_CONTENT (ModelID, ChannelID, TemplateID,
 		ContentTitle, ContentSubTitle,
 		ContentImageTitle,
 		MetaTitle, MetaKeywords, MetaDescription,
 		ContentSummary, Sequence, IsAllowComment,
-		Remarks, CreateTime, CreateUser,
+		Remarks,
+		CreateTime, CreateUser,
 		UpdateTime,
 		UpdateUser, IsDelete,
 		Version, ContentBody)
-		values(#{modelID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER},
+		values(#{modelID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER},
+		#{templateID,jdbcType=INTEGER},
 		#{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR},
 		#{metaTitle,jdbcType=VARCHAR},
 		#{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR},
-		#{contentSummary,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER},
+		#{contentSummary,jdbcType=VARCHAR},
+		#{sequence,jdbcType=INTEGER},
 		#{isAllowComment,jdbcType=INTEGER},
-		#{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER},
+		#{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
+		#{createUser,jdbcType=INTEGER},
 		#{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 0, 1,
 		#{contentBody,jdbcType=LONGVARCHAR})
 	</insert>
@@ -194,7 +192,8 @@
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
 		update IDO_CMS_CONTENT
 		set ChannelID = #{channelID,jdbcType=INTEGER},
-		TemplateID = #{templateID,jdbcType=INTEGER},
+		TemplateID =
+		#{templateID,jdbcType=INTEGER},
 		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
 		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
@@ -202,22 +201,26 @@
 		MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
 		MetaDescription = #{metaDescription,jdbcType=VARCHAR},
 		ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-		ContentBody = #{contentBody,jdbcType=LONGVARCHAR},
+		ContentBody =
+		#{contentBody,jdbcType=LONGVARCHAR},
 		Sequence = #{sequence,jdbcType=INTEGER},
 		IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
-		Remarks = #{remarks,jdbcType=VARCHAR},
+		Remarks =
+		#{remarks,jdbcType=VARCHAR},
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
 		UpdateUser = #{updateUser,jdbcType=INTEGER},
 		Version = Version + 1
-		where ContentID = #{contentID,jdbcType=INTEGER}
+		where
+		ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
-	
+
 	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
 		update IDO_CMS_CONTENT
 		set IsDelete = 1
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
-		UpdateUser = #{updateUser,jdbcType=INTEGER},
+		UpdateUser =
+		#{updateUser,jdbcType=INTEGER},
 		Version = Version + 1
 		where ContentID = #{contentID,jdbcType=INTEGER}
-	</update>
+	</update> -->
 </mapper>

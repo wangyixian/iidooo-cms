@@ -1,18 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="cms" uri="/cms-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="${channel.metaKeywords}" >
+<meta name="description" content="${channel.metaDescription}">
 <#include "../include/head.html"/>
-<link type="text/css" rel="stylesheet" href="${SITE_RES_ROOT}/css/channel/info.css">
+<link type="text/css" rel="stylesheet" href="${SITE_TEMPLATE_URL}/res/css/channel/info.css">
 </head>
 <body>
 	<#include "../include/top.html"/>
-	<#include "../include/logo.html"/>
-    <#include "../include/mainmenu.html"/>
     <div id="news" class="body_wrap">
     	<div class="left_block_wrap">
     		<div class="block">
-    			<div class="block_title_21">热门文章</div>
+    			<div class="block_title_21">ç­é¨æç« </div>
     			<div class="block_content">
 	    			<ul> 
 					<@directiveContentList count='5' channelPath='info' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='1' --> sortBy='Sequence' sortType="asc">
@@ -29,7 +32,7 @@
     			</div>
     		</div>
     		<div class="block">
-    			<div class="block_title_21">热点新闻</div>
+    			<div class="block_title_21">ç­ç¹æ°é»</div>
     			<div class="block_content">
 	    			<ul> 
 					<@directiveContentList count='5' channelPath='info' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='2'  -->sortBy='Sequence' sortType="asc">
@@ -46,7 +49,7 @@
     			</div>
     		</div>
     		<div class="block">
-    			<div class="block_title_21">葡萄酒知识</div>
+    			<div class="block_title_21">è¡èéç¥è¯</div>
     			<div class="block_content">
 	    			<ul> 
 					<@directiveContentList count='5' channelPath='info' <!-- tagClass='TAG_INFO_CLASSIFY' tagItem='3'  -->sortBy='Sequence' sortType="asc">

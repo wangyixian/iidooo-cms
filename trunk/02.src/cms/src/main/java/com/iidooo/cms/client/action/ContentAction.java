@@ -80,16 +80,16 @@ public class ContentAction extends CmsBaseAction {
             currentChannel = channelService.getChannelByID(currentContent.getChannelID());
             
             ServletContext sc = this.getServletContext();
-            for (CmsContentTagDto cmsTagDto : currentContent.getTags()) {
-                String classCode = cmsTagDto.getClassCode();
-                String itemCode = cmsTagDto.getItemCode();
-                String tagValue = (String)sc.getAttribute(classCode + "_" + itemCode);
-                if (tagMap.containsKey(classCode)) {                    
-                    tagMap.put(classCode,tagMap.get(classCode).concat("," + tagValue));
-                } else {
-                    tagMap.put(classCode, tagValue);
-                }
-            }
+//            for (CmsContentTagDto cmsTagDto : currentContent.getTags()) {
+//                String classCode = cmsTagDto.getClassCode();
+//                String itemCode = cmsTagDto.getItemCode();
+//                String tagValue = (String)sc.getAttribute(classCode + "_" + itemCode);
+//                if (tagMap.containsKey(classCode)) {                    
+//                    tagMap.put(classCode,tagMap.get(classCode).concat("," + tagValue));
+//                } else {
+//                    tagMap.put(classCode, tagValue);
+//                }
+//            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

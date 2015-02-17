@@ -32,10 +32,21 @@ public interface ChannelService {
      */
     CmsChannelDto getChannelByID(int channelID);
     
+    List<CmsChannelDto> getChildrenChannels(int parentID);
+    
     /**
      * Get channel by the path
      * @param channelPath This channel path's channel will be gotten.
      * @return The gotten channel.
      */
     CmsChannelDto getChannelByPath(String channelPath);
+    
+    /**
+     * Delete the channel
+     * @param channel This channel should be delete.
+     * @return Delete success or not.
+     */
+    boolean deleteChannel(CmsChannelDto channel);
+    
+    CmsChannelDto exclusiveCheck(int channelID, int version);
 }

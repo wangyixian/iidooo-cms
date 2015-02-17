@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.admin.service.impl.ChannelListServiceImpl;
-import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dao.extend.CmsChannelDao;
-import com.iidooo.cms.dao.extend.CmsContentDao;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
-import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.service.ChannelService;
+import com.iidooo.framework.exception.ExclusiveException;
 import com.iidooo.framework.tag.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 
@@ -177,6 +175,20 @@ public class ChannelServiceImpl implements ChannelService {
             throw e;
         }
     }
+    
+    
+
+    @Override
+    public List<CmsChannelDto> getChildrenChannels(int parentID) {
+        try {
+            List<CmsChannelDto> channels = cmsChannelDao.selectByParentID(parentID);
+            return channels;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
 
     @Override
     public CmsChannelDto getChannelByPath(String channelPath) {
@@ -202,4 +214,35 @@ public class ChannelServiceImpl implements ChannelService {
             throw e;
         }
     }
+    
+
+    @Override
+    public boolean deleteChannel(CmsChannelDto channel){
+        try {
+            int count = cmsChannelDao.deleteByPrimaryKey(channel);
+            if (count <= 0) {
+                logger.warn("There is nothing deleted.");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
+    public CmsChannelDto exclusiveCheck(int channelID, int version) {
+        try {
+            CmsChannelDto channel = cmsChannelDao.exclusiveCheck(channelID, version);
+            return channel;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+    
+    
 }

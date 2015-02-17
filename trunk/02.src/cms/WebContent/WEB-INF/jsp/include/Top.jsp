@@ -10,7 +10,7 @@
 		<div id="menu">
 			<ul>
 				<li><a href="index.action" <s:if test='actionName=="index"'>class="focus"</s:if>>首页</a></li>
-				<li><a href="channelList.action?channelID=0"
+				<li><a href="channelList.action?parentChannelID=0"
 					<s:if test='actionName=="channelList" || actionName=="channelDetail"'>class="focus"</s:if>>栏目</a></li>
 				<li><a href="contentList.action?channelID=0" 
 					<s:if test='actionName=="contentList" || actionName=="contentDetail"'>class="focus"</s:if>>内容</a>

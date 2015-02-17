@@ -26,7 +26,6 @@
 }
 
 #classify a {
-	color: black;
 	padding: 1px 7px;
 	display: inline-block;
 	line-height: 19px;
@@ -36,12 +35,6 @@
 }
 
 #classify a:hover {
-	color: white;
-	background-color: #BF1C21;
-	border-left: 1px solid transparent;
-}
-
-#classify .selected {
 	color: white;
 	background-color: #BF1C21;
 	border-left: 1px solid transparent;

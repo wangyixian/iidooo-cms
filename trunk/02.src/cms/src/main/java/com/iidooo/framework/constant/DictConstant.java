@@ -11,10 +11,15 @@ public class DictConstant {
     public static final String DICT_TYPE_CMS_COMMON = "CMS_COMMON";
 
     public static final String DICT_CLASS_PROPERTIES_SITE = "PROPERTIES_SITE";
+    public static final String DICT_CLASS_CONTENT_TYPE = "CONTENT_TYPE";
     public static final String DICT_CLASS_TAG_COMIC_STATUS = "TAG_COMIC_STATUS";
     public static final String DICT_CLASS_TAG_COMIC_TYPE = "TAG_COMIC_TYPE";
     public static final String DICT_CLASS_TAG_LETTER = "TAG_LETTER";
     public static final String DICT_CLASS_TAG_COUNTRY = "TAG_COUNTRY";
+    
+    public static final String FIELD_PRODUCT_TYPE = "FIELD_PRODUCT_TYPE";
+    public static final String FIELD_PRODUCT_COUNTRY = "FIELD_PRODUCT_COUNTRY";
+    public static final String FIELD_PRODUCT_ORIGIN = "FIELD_PRODUCT_ORIGIN";
     
     public static final String DICT_CLASS_ATTACH_ALBUM_CLASSIFY = "ATTACH_ALBUM_CLASSIFY";
     
@@ -51,7 +56,7 @@ public class DictConstant {
     /**
      * 站点网址的资源根目录
      */
-    public static final String DICT_ITEM_SITE_RES_ROOT = "SITE_RES_ROOT";
+    public static final String DICT_ITEM_SITE_TEMPLATE_URL = "SITE_TEMPLATE_URL";
     /**
      * The root of the content resource path
      */

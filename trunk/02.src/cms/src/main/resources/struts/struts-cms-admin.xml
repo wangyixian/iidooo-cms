@@ -32,6 +32,11 @@
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
+		<action name="channelListDelete" class="com.iidooo.cms.admin.action.ChannelListAction" method="delete">
+			<result name="success" type="redirect">channelList.action?parentChannelID=${parentChannelID}</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
+			<interceptor-ref name="adminStackWrap"></interceptor-ref>
+		</action>
 
 		<action name="channelDetail" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
@@ -39,17 +44,17 @@
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelCreate" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="create">
-			<result name="success" type="redirect">channelList.action?channelID=${channel.parentID}</result>
+			<result name="success" type="redirect">channelList.action?parentChannel.channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelUpdate" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="update">
-			<result name="success" type="redirect">channelList.action?channelID=${channel.parentID}</result>
+			<result name="success" type="redirect">channelList.action?parentChannel.channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelDelete" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="delete">
-			<result name="success" type="redirect">channelList.action?channelID=${channel.parentID}</result>
+			<result name="success" type="redirect">channelList.action?parentChannel.channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>

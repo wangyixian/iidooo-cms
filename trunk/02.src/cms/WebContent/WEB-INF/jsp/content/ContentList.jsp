@@ -40,10 +40,9 @@
 					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
 				</div>
 				<div>
-					<select id="selModel">
-						<option value="0">默认</option>
-						<s:iterator value="fieldModelList" id="item" status="st">
-						<option value="${item.modelID }">${item.modelName }</option>
+					<select id="selContentType">
+						<s:iterator value="#application.CONTENT_TYPE_MAP.values" id="item" status="st">
+						<option value="${item.dictItemCode }">${item.dictItemName }</option>
 						</s:iterator>
 					</select>
 					<input type="button" onclick="btnCreate()" value="发布">

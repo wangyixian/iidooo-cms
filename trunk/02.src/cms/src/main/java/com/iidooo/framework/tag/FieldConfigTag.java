@@ -12,11 +12,11 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.log4j.Logger;
 
+import com.iidooo.framework.constant.SpringConstant;
 import com.iidooo.framework.dao.extend.DictItemDao;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.dto.extend.FieldConfigDto;
 import com.iidooo.framework.dto.extend.FieldDataDto;
-import com.iidooo.framework.enumeration.BeanName;
 import com.iidooo.framework.enumeration.FieldType;
 import com.iidooo.framework.utility.SpringUtil;
 
@@ -91,7 +91,7 @@ public class FieldConfigTag extends SimpleTagSupport {
                 }
             }
 
-            DictItemDao dictItemDao = (DictItemDao) SpringUtil.getBean(pageContext.getServletContext(), BeanName.dictItemDao);
+            DictItemDao dictItemDao = (DictItemDao) SpringUtil.getBean(pageContext.getServletContext(), SpringConstant.DICT_ITEM_DAO);
 
             int index = name.lastIndexOf(".");
             String namePrefix = name.substring(0, index);

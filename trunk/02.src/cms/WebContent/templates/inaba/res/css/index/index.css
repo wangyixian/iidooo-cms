@@ -2,12 +2,12 @@
 
 .left_block_wrap {
 	float: left;
-	width: 700px;
+	width: 70%;
 }
 
 .right_block_wrap {
 	float: right;
-	width: 270px;
+	width: 30%;
 }
 
 .product_list li {

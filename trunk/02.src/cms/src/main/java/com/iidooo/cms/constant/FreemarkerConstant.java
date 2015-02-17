@@ -12,7 +12,7 @@ public class FreemarkerConstant {
     public static final String PARAM_SORT_TYPE = "sortType";
 
     public static final String PARAM_CHANNEL_PATH = "channelPath";
-    public static final String PARAM_CHANNEL_LEVEL = "level";
+    public static final String PARAM_CHANNEL_PARENT_ID = "parentID";
     
     public static final String PARAM_CONTENT_ID = "contentID";
     public static final String PARAM_STATISTICS_BY = "statisticsBy";

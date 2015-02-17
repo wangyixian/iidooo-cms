@@ -5,12 +5,12 @@
 	<jsp-version>1.0</jsp-version>
 	<short-name>cms-tags</short-name>
 	<tag>
-		<name>channelTree</name>
-		<tag-class>com.iidooo.cms.admin.tag.ChannelTreeTag</tag-class>
+		<name>mainmenu</name>
+		<tag-class>com.iidooo.cms.client.tag.MainMenuTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
-			<name>channelList</name>
-			<required>true</required>
+			<name>channelPath</name>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>

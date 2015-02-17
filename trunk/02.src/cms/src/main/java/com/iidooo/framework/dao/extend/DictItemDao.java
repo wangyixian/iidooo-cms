@@ -7,13 +7,15 @@ import com.iidooo.framework.dto.extend.DictItemDto;
 
 public interface DictItemDao {
 
+    List<DictItemDto> selectByClassCode(String dictClassCode);
+    
     /**
-     * 根据字典类查询字典项的List
+     * Get the list of DictItemDto by Class codes
      * 
-     * @param classCode 字典类Code
-     * @return List<SysDictItem> 字典项一览
+     * @param classCodes The array of ClassCode
+     * @return List<SysDictItem> The list of DictItemDto
      */
-    List<DictItemDto> selectByClassCode(String classCode);
+    List<DictItemDto> selectByClassCodes(List<String> dictClassCodes);
     
     /**
      * Select the DictItemDto by the item code

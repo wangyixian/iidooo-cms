@@ -1,12 +1,12 @@
 package com.iidooo.framework.dto.base;
 
 /**
- * 分页用Dto，需要分页的Dto，需要继承这个类
+ * 
  * 
  * @author wangyixian
  * 
  */
-public class PagingDto extends BaseDto {
+public class PagingDto {
 
 	 /**
      * 默认构造函数

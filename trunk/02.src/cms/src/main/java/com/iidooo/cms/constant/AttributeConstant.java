@@ -13,4 +13,8 @@ public class AttributeConstant {
     public static final String ATTACH_ALBUM_ID = "albumID";
     
     public static final String ATTACH_ID = "attachID";
+    
+    // Key: Content Type Dictionary Item Code
+    // Value: Content Type Dictionary Item
+    // public static final String CONTENT_TYPE_MAP = "CONTENT_TYPE_MAP";
 }
