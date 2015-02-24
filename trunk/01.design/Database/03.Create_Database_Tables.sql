@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `IDO_DICT_TYPE` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DictTypeID`))
 ENGINE = InnoDB
 COMMENT = '字典类型表';
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `IDO_DICT_CLASS` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DictClassID`))
 ENGINE = InnoDB
 COMMENT = '字典类';
@@ -54,16 +54,16 @@ CREATE TABLE IF NOT EXISTS `IDO_DICT_ITEM` (
   `DictItemName` VARCHAR(256) NOT NULL COMMENT '字典编码的名字',
   `DictItemValue` VARCHAR(256) NOT NULL COMMENT '字典项目的值',
   `Sequence` INT NOT NULL COMMENT '字典项目的序列',
-  `IsDefault` INT NOT NULL COMMENT '非0即默认选项',
-  `IsDisable` INT NOT NULL,
-  `IsReadonly` INT NOT NULL,
+  `IsDefault` INT NOT NULL DEFAULT 0 COMMENT '非0即默认选项',
+  `IsDisable` INT NOT NULL DEFAULT 0,
+  `IsReadonly` INT NOT NULL DEFAULT 0,
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '备注信息',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DictItemID`))
 ENGINE = InnoDB
 COMMENT = '字典项目';
@@ -309,9 +309,8 @@ DROP TABLE IF EXISTS `IDO_CMS_CONTENT` ;
 
 CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT` (
   `ContentID` INT NOT NULL AUTO_INCREMENT COMMENT '内容主键ID',
-  `ModelID` INT NOT NULL COMMENT '所属字段模型ID',
   `ChannelID` INT NOT NULL COMMENT '所属栏目',
-  `TemplateID` INT NOT NULL COMMENT '所属模板',
+  `ContentType` INT NOT NULL COMMENT '模型类型，关联字典类CONTENT_TYPE',
   `ContentTitle` VARCHAR(256) NOT NULL COMMENT '内容标题',
   `ContentSubTitle` VARCHAR(256) NOT NULL COMMENT '副标题',
   `ContentImageTitle` VARCHAR(1024) NOT NULL COMMENT '图片标题的URL',
@@ -321,18 +320,47 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT` (
   `ContentSummary` VARCHAR(512) NOT NULL,
   `ContentBody` TEXT NOT NULL COMMENT '文本内容',
   `Sequence` INT NOT NULL,
-  `IsAllowComment` INT NOT NULL COMMENT '是否允许评论',
+  `IsAllowComment` INT NOT NULL COMMENT '是否允许评论: 0：不允许 1：允许',
   `Remarks` VARCHAR(1024) NOT NULL COMMENT '描述备注',
   `CreateTime` VARCHAR(32) NOT NULL COMMENT '字段创建时间',
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`ContentID`))
 ENGINE = InnoDB
 COMMENT = '内容表';
 
+
+
+
+-- -----------------------------------------------------
+-- Table `IDO_CMS_CONTENT_PRODUCT`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDO_CMS_CONTENT_PRODUCT` ;
+
+CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT_PRODUCT` (
+  `ContentID` INT NOT NULL COMMENT '内容ID，和CONTENT表一一对应',
+  `ProductType` INT NOT NULL COMMENT '产品类型，在字典表定义',
+  `ProductCountry` INT NOT NULL COMMENT '产品国家',
+  `ProductOrigin` INT NOT NULL COMMENT '产品产地',
+  PRIMARY KEY (`ContentID`))
+ENGINE = InnoDB
+COMMENT = '产品内容表，IDO_CMS_CONTENT的扩展表';
+
+
+-- -----------------------------------------------------
+-- Table `IDO_CMS_CONTENT_ARTICLE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `IDO_CMS_CONTENT_ARTICLE` ;
+
+CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT_ARTICLE` (
+  `ContentID` INT NOT NULL COMMENT '内容ID，和CONTENT表一一对应',
+  `ArticleType` INT NOT NULL COMMENT '文章类型，在字典表定义',
+  PRIMARY KEY (`ContentID`))
+ENGINE = InnoDB
+COMMENT = '文章内容表，IDO_CMS_CONTENT的扩展表';
 
 -- -----------------------------------------------------
 -- Table `IDO_CMS_TEMPLATE`

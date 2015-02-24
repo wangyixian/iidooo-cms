@@ -60,6 +60,24 @@ public class PagingActionSupport extends BaseAction {
 			throw e;
 		}
 	}
+	
+	public void executePaging(int recordSum, int pageSize) throws Exception {
+        try {
+            if (pagingDto == null) {
+                pagingDto = new PagingDto();
+            }
+            // Set paging dto fields.
+            pagingDto.setPageSize(pageSize);
+            pagingDto.setRecordSum(recordSum);
+            pagingDto.setPageSum(this.getPageSum());
+            pagingDto.setStart((pagingDto.getCurrentPage() - 1) * pageSize);
+            pagingDto.setEnd(pagingDto.getStart() + pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e.toString());
+            throw e;
+        }
+    }
 
 	/**
 	 * Calculate the page sum

@@ -25,6 +25,13 @@ iframe {
 	border: none;
 }
 
+hr {
+	margin: 18px 0;
+	border: 0;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #fff;
+}
+
 img {
 	/* 图片无边框 */
 	border: 0px;
@@ -126,21 +133,22 @@ a:hover {
 	float: right;
 }
 
+/* 区块的样式 */
 .block {
 	margin-top: 10px;
 }
 
-.block_content {
-	padding: 5px 0 5px 0;
-	overflow: hidden;
-}
-
-.block_title_21 {
+.block_title {
 	border-bottom: 2px solid #CCC;
 	background: white;
 	line-height: 37px;
 	/* color: #C1272D; */
 	font-size: 21px;
+}
+
+.block_content {
+	padding: 5px 0 5px 0;
+	overflow: hidden;
 }
 
 .block_title_21_red {
@@ -155,6 +163,19 @@ a:hover {
 	border-bottom: 1px dashed #CCC;
 	overflow: hidden;
 	padding: 5px 0;
+}
+
+.block_content_item_title {
+	overflow: hidden;
+	display: block;
+	float: left;
+	width: 200px;
+}
+
+.block_content_item_date {
+	overflow: hidden;
+	display: block;
+	float: right;
 }
 
 .frame {
@@ -265,7 +286,7 @@ a:hover {
 
 /* 网页内容部分的包裹 */
 .body_wrap {
-	width: 90%;
+	width: 980px;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -393,4 +414,8 @@ a:hover {
 strong {
 	color: #F60;
 	font-weight: normal;
+}
+
+.shadow{
+	box-shadow: -1px 1px 5px 2px #999;
 }

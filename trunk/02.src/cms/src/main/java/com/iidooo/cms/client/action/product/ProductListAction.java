@@ -6,20 +6,17 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.client.action.CmsBaseAction;
-import com.iidooo.cms.client.service.ProductListService;
+import com.iidooo.cms.client.service.product.ProductListService;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
-import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.dto.extend.CmsContentProductDto;
 import com.iidooo.cms.service.ChannelService;
 import com.iidooo.cms.service.ContentService;
-import com.iidooo.framework.action.BaseListAction;
 import com.iidooo.framework.action.PagingActionSupport;
 import com.iidooo.framework.constant.DictConstant;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.service.DictItemService;
 
-public class ProductListAction extends BaseListAction {
+public class ProductListAction extends PagingActionSupport {
     /**
      * 
      */
@@ -59,7 +56,13 @@ public class ProductListAction extends BaseListAction {
 
     private CmsChannelDto channel;
 
+    public CmsChannelDto getChannel() {
+        return channel;
+    }
 
+    public void setChannel(CmsChannelDto channel) {
+        this.channel = channel;
+    }
 
     public List<DictItemDto> getProductTypes() {
         return productTypes;
@@ -93,15 +96,6 @@ public class ProductListAction extends BaseListAction {
         this.products = products;
     }
 
-    public CmsChannelDto getChannel() {
-        return channel;
-    }
-
-    public void setChannel(CmsChannelDto channel) {
-        this.channel = channel;
-    }
-
-    @Override
     public String init() {
         try {
 

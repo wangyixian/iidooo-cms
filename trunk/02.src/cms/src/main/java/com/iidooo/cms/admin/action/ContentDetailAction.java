@@ -9,6 +9,7 @@ import com.iidooo.cms.admin.service.ContentDetailService;
 import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
+import com.iidooo.cms.dto.extend.CmsContentProductDto;
 import com.iidooo.cms.dto.extend.CmsTemplateDto;
 import com.iidooo.cms.service.ChannelService;
 import com.iidooo.cms.service.ContentService;
@@ -43,32 +44,8 @@ public class ContentDetailAction extends BaseDetailAction {
     @Autowired
     private ContentDetailService contentDetailService;
 
-    @Autowired
-    private TemplateService templateService;
-    
-    @Autowired
-    private FieldModelService fieldModelService;
-
-    @Autowired
-    private FieldConfigService fieldConfigService;
-
-    @Autowired
-    private FieldDataService fieldDataService;
-
     // The channel tree's root node
     private TreeNode rootTreeNode;
-
-    private CmsContentDto content;
-
-    private List<CmsChannelDto> allChannels;
-
-    private List<CmsTemplateDto> allTemplates;
-    
-    private List<FieldModelDto> fieldModels;
-
-    private List<FieldConfigDto> fieldConfigs;
-
-    private List<FieldDataDto> fieldDatas;
 
     public TreeNode getRootTreeNode() {
         return rootTreeNode;
@@ -78,6 +55,8 @@ public class ContentDetailAction extends BaseDetailAction {
         this.rootTreeNode = rootTreeNode;
     }
 
+    private CmsContentDto content;
+
     public CmsContentDto getContent() {
         return content;
     }
@@ -85,6 +64,8 @@ public class ContentDetailAction extends BaseDetailAction {
     public void setContent(CmsContentDto content) {
         this.content = content;
     }
+
+    private List<CmsChannelDto> allChannels;
 
     public List<CmsChannelDto> getAllChannels() {
         return allChannels;
@@ -94,61 +75,17 @@ public class ContentDetailAction extends BaseDetailAction {
         this.allChannels = allChannels;
     }
 
-    public List<CmsTemplateDto> getAllTemplates() {
-        return allTemplates;
-    }
-
-    public void setAllTemplates(List<CmsTemplateDto> allTemplates) {
-        this.allTemplates = allTemplates;
-    }
-
-    public List<FieldModelDto> getFieldModels() {
-        return fieldModels;
-    }
-
-    public void setFieldModels(List<FieldModelDto> fieldModels) {
-        this.fieldModels = fieldModels;
-    }
-
-    public List<FieldConfigDto> getFieldConfigs() {
-        return fieldConfigs;
-    }
-
-    public void setFieldConfigs(List<FieldConfigDto> fieldConfigs) {
-        this.fieldConfigs = fieldConfigs;
-    }
-
-    public List<FieldDataDto> getFieldDatas() {
-        return fieldDatas;
-    }
-
-    public void setFieldDatas(List<FieldDataDto> fieldDatas) {
-        this.fieldDatas = fieldDatas;
-    }
-
     @Override
     public String init() {
         try {
             rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
             allChannels = channelService.getAllChannels();
-            allTemplates = templateService.getAllTemplates();
 
-            fieldModels = fieldModelService.getFieldModelList(TableName.IDO_CMS_CONTENT);
-            
-//            // The modify mode
-//            if (content != null && content.getContentID() != null && content.getContentID() > 0) {
-//                content = contentService.getContentByID(content.getContentID());
-//                fieldConfigs = fieldConfigService.getFieldConfigList(content.getModelID());
-//                // The content existed, should get the extend field data.
-//                if (fieldConfigs != null && fieldConfigs.size() > 0) {
-//                    fieldDatas = fieldDataService.getFieldDataList(fieldConfigs, content.getContentID());
-//                }
-//            } else {
-//                // The create mode
-//                if (content != null && content.getModelID() != null && content.getModelID() > 0) {
-//                    fieldConfigs = fieldConfigService.getFieldConfigList(content.getModelID());
-//                }
-//            }
+            // The modify mode
+            if (content != null && content.getContentID() != null && content.getContentID() > 0) {
+                content = contentService.getContentByID(content.getContentID());
+
+            }
 
             return SUCCESS;
         } catch (Exception e) {
@@ -162,7 +99,7 @@ public class ContentDetailAction extends BaseDetailAction {
     public String create() {
         try {
             SecurityUserDto securityUserDto = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            contentDetailService.createContent(securityUserDto.getUserID(), content, fieldDatas);
+            // contentDetailService.createContent(securityUserDto.getUserID(), content, fieldDatas);
 
             return SUCCESS;
         } catch (Exception e) {

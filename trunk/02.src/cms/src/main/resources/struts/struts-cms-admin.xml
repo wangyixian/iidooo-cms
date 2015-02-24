@@ -44,17 +44,17 @@
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelCreate" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="create">
-			<result name="success" type="redirect">channelList.action?parentChannel.channelID=${channel.parentID}</result>
+			<result name="success" type="redirect">channelList.action?parentChannelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelUpdate" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="update">
-			<result name="success" type="redirect">channelList.action?parentChannel.channelID=${channel.parentID}</result>
+			<result name="success" type="redirect">channelList.action?parentChannelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="channelDelete" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="delete">
-			<result name="success" type="redirect">channelList.action?parentChannel.channelID=${channel.parentID}</result>
+			<result name="success" type="redirect">channelList.action?parentChannelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
@@ -67,7 +67,7 @@
 			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
+		</action>		
 		<action name="contentCreate" class="com.iidooo.cms.admin.action.ContentDetailAction" method="create">
 			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
@@ -82,7 +82,8 @@
 			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
+		</action>		
+		
 		<!-- The ajax action did not need the result, the result will output as json -->
 		<action name="fileUpload" class="com.iidooo.framework.action.FileUploadAction" method="upload">
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>

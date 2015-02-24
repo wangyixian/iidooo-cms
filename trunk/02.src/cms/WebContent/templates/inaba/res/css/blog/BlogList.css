@@ -10,19 +10,6 @@
 	width: 660px;
 }
 
-.block_content_item_title {
-	overflow: hidden;
-	display: block;
-	float: left;
-	width: 200px;
-}
-
-.block_content_item_date {
-	overflow: hidden;
-	display: block;
-	float: right;
-}
-
 .top_blog, .blog {
 	border-bottom: 1px solid #CCC;
 	margin-bottom: 10px;

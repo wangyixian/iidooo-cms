@@ -20,4 +20,22 @@ public class DateTimeUtil {
             return "";
         }
     }
+
+    public static String format(String inputStr, String inputFormat, String outputFormat) {
+        try {
+            if (StringUtil.isEmpty(inputStr)) {
+                return "";
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat(inputFormat);
+            Date inputDate = sdf.parse(inputStr);
+
+            sdf = new SimpleDateFormat(outputFormat);
+            String outputStr = sdf.format(inputDate);
+            return outputStr;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return "";
+        }
+    }
 }

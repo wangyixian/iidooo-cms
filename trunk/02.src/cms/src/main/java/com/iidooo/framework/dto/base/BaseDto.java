@@ -1,5 +1,7 @@
 package com.iidooo.framework.dto.base;
 
+import com.iidooo.framework.constant.DateConstant;
+import com.iidooo.framework.utility.DateTimeUtil;
 
 public class BaseDto {
     private String remarks;
@@ -7,11 +9,15 @@ public class BaseDto {
     private String createTime;
 
     private Integer createUser;
+    
+    private String createUserName;
 
     private String updateTime;
 
     private Integer updateUser;
     
+    private String updateUserName;
+
     private Integer isDelete;
 
     private Integer version;
@@ -40,6 +46,14 @@ public class BaseDto {
         this.createUser = createUser;
     }
 
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
+
     public String getUpdateTime() {
         return updateTime;
     }
@@ -48,12 +62,25 @@ public class BaseDto {
         this.updateTime = updateTime == null ? null : updateTime.trim();
     }
 
+    public String getUpdateDate() {
+        String updateDate = DateTimeUtil.format(updateTime, DateConstant.FORMAT_DATETIME, DateConstant.FORMAT_DATE);
+        return updateDate;
+    }
+
     public Integer getUpdateUser() {
         return updateUser;
     }
 
     public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
+
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
     }
 
     public Integer getIsDelete() {
@@ -71,8 +98,8 @@ public class BaseDto {
     public void setVersion(Integer version) {
         this.version = version;
     }
-    
-    public void setCommonData(int userID, String dataTime, boolean isCreate){
+
+    public void setCommonData(int userID, String dataTime, boolean isCreate) {
         if (isCreate) {
             this.createUser = userID;
             this.createTime = dataTime;

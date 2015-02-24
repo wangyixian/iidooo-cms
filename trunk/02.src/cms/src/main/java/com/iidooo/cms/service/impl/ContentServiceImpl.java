@@ -30,14 +30,26 @@ public class ContentServiceImpl implements ContentService {
         try {
             CmsContentDto cmsContentDto = cmsContentDao.selectContentByID(contentID);
 
-//            List<CmsContentTagDto> cmsTagDtos = cmsTagDao.selectTagsByContentID(contentID);
-//            cmsContentDto.setTags(cmsTagDtos);
+            // List<CmsContentTagDto> cmsTagDtos = cmsTagDao.selectTagsByContentID(contentID);
+            // cmsContentDto.setTags(cmsTagDtos);
 
             return cmsContentDto;
         } catch (Exception e) {
             e.printStackTrace();
-            logger.fatal(e.getMessage());
+            logger.fatal(e);
             throw e;
+        }
+    }
+
+    @Override
+    public CmsContentDto getContentByChannel(int channelID) {
+        try {
+            CmsContentDto content = cmsContentDao.selectByChannel(channelID);
+            return content;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
         }
     }
 
@@ -56,7 +68,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public int getChannelContentsCount(List<CmsChannelDto> channels) {
         try {
-            int recordSum = cmsContentDao.selectChannelContentsCount(channels);            
+            int recordSum = cmsContentDao.selectChannelContentsCount(channels);
             return recordSum;
         } catch (Exception e) {
             e.printStackTrace();

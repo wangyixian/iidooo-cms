@@ -33,6 +33,8 @@ public interface CmsContentDao {
     
     CmsContentDto selectContentByID(int contentID);
     
+    CmsContentDto selectByChannel(int channelID);
+    
     int selectMaxSequence();
     
     int insert(CmsContentDto content);

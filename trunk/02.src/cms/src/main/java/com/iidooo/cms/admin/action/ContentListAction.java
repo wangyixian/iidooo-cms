@@ -34,9 +34,6 @@ public class ContentListAction extends BaseListAction {
 
     @Autowired
     private ContentListService contentListService;
-    
-    @Autowired
-    private FieldModelService fieldModelService;
 
     // The channel tree's root node
     private TreeNode rootTreeNode;
@@ -44,8 +41,6 @@ public class ContentListAction extends BaseListAction {
     private int channelID;
 
     private List<CmsContentDto> contentList;
-
-    private List<FieldModelDto> fieldModelList;
 
     public TreeNode getRootTreeNode() {
         return rootTreeNode;
@@ -71,21 +66,9 @@ public class ContentListAction extends BaseListAction {
         this.contentList = contentList;
     }
 
-    public List<FieldModelDto> getFieldModelList() {
-        return fieldModelList;
-    }
-
-    public void setFieldModelList(List<FieldModelDto> fieldModelList) {
-        this.fieldModelList = fieldModelList;
-    }
-
     @Override
     public String init() {
-        try {
-
-            // Get all field models of content
-            fieldModelList = fieldModelService.getFieldModelList(TableName.IDO_CMS_CONTENT);
-            
+        try {            
             rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
 
             // Get all of the clicked channel's offspring channels.

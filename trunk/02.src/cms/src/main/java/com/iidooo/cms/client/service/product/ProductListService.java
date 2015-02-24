@@ -1,4 +1,4 @@
-package com.iidooo.cms.client.service;
+package com.iidooo.cms.client.service.product;
 
 import java.util.List;
 

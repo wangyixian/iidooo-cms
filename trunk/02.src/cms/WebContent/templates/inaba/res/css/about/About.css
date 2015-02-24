@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.about {
+	margin: 10px 5px;
+	padding: 10px;
+}
+
+.about_content {
+	width: 90%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.about_content .logo_square{
+	width: 200px;
+}
+
+.hr {
+	width: 195px;
+	height: 9px;
+	border: 0;
+	outline: 0;
+	margin: 5px auto;
+	background: url('../../img/hwc-sprite-bg.png') no-repeat -325px -289px;
+}

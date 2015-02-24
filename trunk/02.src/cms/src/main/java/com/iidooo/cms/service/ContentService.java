@@ -15,6 +15,13 @@ public interface ContentService {
      * @return The gotten content.
      */
     CmsContentDto getContentByID(int contentID);
+    
+    /**
+     * Get the top one content of the channel, order by sequence.
+     * @param channelID The channel's content will be gotten. 
+     * @return The top one content.
+     */
+    CmsContentDto getContentByChannel(int channelID);
 
     int getChannelContentsCount(List<CmsChannelDto> channels);
 

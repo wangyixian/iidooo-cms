@@ -1,4 +1,4 @@
-package com.iidooo.cms.client.service.impl;
+package com.iidooo.cms.client.service.product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.client.service.ProductListService;
 import com.iidooo.cms.dao.extend.CmsContentProductDao;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentProductDto;

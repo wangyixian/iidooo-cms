@@ -44,7 +44,7 @@
 </script>
 </head>
 <body>
-	<form id="form" method="post">
+	<s:form id="form">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div class="body_wrap">
 			<div class="left_side_wrap">
@@ -140,13 +140,13 @@
 						<s:else>
 							<input type="button" value="更新" onclick="return updateChannel();">
 							<input type="button" value="删除" onclick="return deleteChannel();">
+							<input type="button" value="添加子栏目" onclick="createSubChannel(${channel.channelID});">
 						</s:else>
 						<input type="button" value="返回" onclick="return returnBack(${channel.parentID});">
-						<input type="button" value="添加子栏目" onclick="createSubChannel(${channel.channelID});">
 					</div>					
 				</div>
 			</div>
 		</div>
-	</form>
+	</s:form>
 </body>
 </html>

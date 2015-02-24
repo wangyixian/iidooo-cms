@@ -185,7 +185,10 @@
 								<textarea class="width_90per" rows="5" name="content.remarks">${content.remarks }</textarea>
 							</td>
 						</tr>
-						<f:fields name="fieldDatas.fieldValue" fieldConfigs="${fieldConfigs}" fieldDatas="${fieldDatas}" colspan="3"/>						
+						<s:if test="content.contentType == 2">
+							<th>产品类型</th>
+							<td></td>
+						</s:if>					
 					</table>
 					<div class="button_bar">
 						<s:if test="content == null || content.contentID == null">

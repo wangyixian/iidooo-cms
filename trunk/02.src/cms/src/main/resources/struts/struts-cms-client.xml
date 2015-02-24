@@ -11,9 +11,11 @@
 		<action name="productList" class="com.iidooo.cms.client.action.product.ProductListAction" method="init">
 			<result name="success">/templates/inaba/product/ProductList.jsp</result>
 		</action>
-		<action name="content" class="com.iidooo.cms.client.action.ContentAction">
-			<result name="success" type="freemarker">${currentContent.templatePath}</result>
-			<result name="none" type="freemarker">TO DO</result>
+		<action name="blogList" class="com.iidooo.cms.client.action.blog.BlogListAction" method="init">
+			<result name="success">/templates/inaba/blog/BlogList.jsp</result>
+		</action>
+		<action name="aboutUs" class="com.iidooo.cms.client.action.about.AboutAction" method="init">
+			<result name="success">/templates/inaba/about/About.jsp</result>
 		</action>
 		<action name="album" class="com.iidooo.cms.client.action.AttachAlbumAction">
 			<result name="success" type="freemarker">${currentAlbum.templatePath}</result>

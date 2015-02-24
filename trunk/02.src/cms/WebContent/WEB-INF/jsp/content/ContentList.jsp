@@ -20,15 +20,15 @@
 	})
 	
 	function btnCreate(){
-		var modelID = $("#selModel").val();
+		var contentType = $("#selContentType").val();
 		var channelID = $("#hidChannelID").val();
-		window.location.href = "contentDetail.action?content.modelID="+modelID+"&content.channelID=" + channelID;
+		window.location.href = "contentDetail.action?content.contentType="+contentType+"&content.channelID=" + channelID;
 	}
 	
 </script>
 </head>
 <body>
-	<form id="form" action="" method="post">
+	<form id="form" method="post">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div class="body_wrap">
 			<input id="hidChannelID" type="hidden" name="channelID" value="${channelID }">
@@ -41,7 +41,7 @@
 				</div>
 				<div>
 					<select id="selContentType">
-						<s:iterator value="#application.CONTENT_TYPE_MAP.values" id="item" status="st">
+						<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
 						<option value="${item.dictItemCode }">${item.dictItemName }</option>
 						</s:iterator>
 					</select>

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.iidooo.framework.action.BaseAction;
+import com.iidooo.framework.utility.StringUtil;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
@@ -31,11 +32,14 @@ public class ActionInterceptor extends AbstractInterceptor {
                 baseAction.setActionName(invocation.getProxy().getActionName());
 
                 HttpServletRequest request = (HttpServletRequest) invocation.getInvocationContext().get(ServletActionContext.HTTP_REQUEST);
-                String path = request.getServletPath();
-                // 设置action的URL，该URL会在页面上使用，比如分页显示时
-                if (path != null && !"".equals(path) && path.startsWith("/")) {
-                    baseAction.setActionUrl(path.substring(1));
-                }
+                String uri = request.getRequestURI();
+                String params = request.getQueryString();
+                // Set the action's URL, the URL will be used when do page
+                if (StringUtil.isEmpty(params)) {
+                    baseAction.setActionUrl(uri);
+                } else {
+                    baseAction.setActionUrl(uri + "?" + params);
+                }                
             }
 
             return invocation.invoke();

@@ -46,14 +46,14 @@ public class PropertiesListener extends HttpServlet implements ServletContextLis
                 sc.setAttribute(dictItemCode, dictItemValue);
             }
             
-//            // Set the ContentTypeMap into the ServletContext
-//            List<DictItemDto> contentTypeList = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_CONTENT_TYPE);
+            // Set the ContentTypeMap into the ServletContext
+            List<DictItemDto> contentTypeList = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_CONTENT_TYPE);
 //            // Set the contentTypeItems
 //            Map<String, DictItemDto> contentTypeMap = new HashMap<String, DictItemDto>();
 //            for (DictItemDto item : contentTypeList) {
 //                contentTypeMap.put(item.getDictItemCode(), item);
 //            }
-//            sc.setAttribute(AttributeConstant.CONTENT_TYPE_MAP, contentTypeMap);
+            sc.setAttribute(AttributeConstant.CONTENT_TYPE_LIST, contentTypeList);
 //
 //            dictItems = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_TAG_COMIC_STATUS);
 //            for (DictItemDto dictItemDto : dictItems) {
