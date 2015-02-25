@@ -4,13 +4,13 @@ import com.iidooo.cms.dto.extend.CmsContentDto;
 
 public class CmsContentArticle extends CmsContentDto{
 
-    private Integer articleType;
+    private String articleType;
 
-    public Integer getArticleType() {
+    public String getArticleType() {
         return articleType;
     }
 
-    public void setArticleType(Integer articleType) {
-        this.articleType = articleType;
+    public void setArticleType(String articleType) {
+        this.articleType = articleType == null ? null : articleType.trim();
     }
 }

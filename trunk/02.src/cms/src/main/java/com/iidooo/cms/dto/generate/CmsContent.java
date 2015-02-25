@@ -7,7 +7,7 @@ public class CmsContent extends BaseDto{
 
     private Integer channelID;
 
-    private Integer contentType;
+    private String contentType;
 
     private String contentTitle;
 
@@ -45,12 +45,12 @@ public class CmsContent extends BaseDto{
         this.channelID = channelID;
     }
 
-    public Integer getContentType() {
+    public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(Integer contentType) {
-        this.contentType = contentType;
+    public void setContentType(String contentType) {
+        this.contentType = contentType == null ? null : contentType.trim();
     }
 
     public String getContentTitle() {

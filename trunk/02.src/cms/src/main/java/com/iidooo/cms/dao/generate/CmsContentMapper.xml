@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsContent" >
     <id column="ContentID" property="contentID" jdbcType="INTEGER" />
     <result column="ChannelID" property="channelID" jdbcType="INTEGER" />
-    <result column="ContentType" property="contentType" jdbcType="INTEGER" />
+    <result column="ContentType" property="contentType" jdbcType="CHAR" />
     <result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
     <result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
     <result column="ContentImageTitle" property="contentImageTitle" jdbcType="VARCHAR" />
@@ -53,7 +53,7 @@
       Remarks, CreateTime, CreateUser, 
       UpdateTime, UpdateUser, IsDelete, 
       Version, ContentBody)
-    values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{contentType,jdbcType=INTEGER}, 
+    values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{contentType,jdbcType=CHAR}, 
       #{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR}, 
       #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, 
       #{contentSummary,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{isAllowComment,jdbcType=INTEGER}, 
@@ -133,7 +133,7 @@
         #{channelID,jdbcType=INTEGER},
       </if>
       <if test="contentType != null" >
-        #{contentType,jdbcType=INTEGER},
+        #{contentType,jdbcType=CHAR},
       </if>
       <if test="contentTitle != null" >
         #{contentTitle,jdbcType=VARCHAR},
@@ -195,7 +195,7 @@
         ChannelID = #{channelID,jdbcType=INTEGER},
       </if>
       <if test="contentType != null" >
-        ContentType = #{contentType,jdbcType=INTEGER},
+        ContentType = #{contentType,jdbcType=CHAR},
       </if>
       <if test="contentTitle != null" >
         ContentTitle = #{contentTitle,jdbcType=VARCHAR},
@@ -254,7 +254,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
     update IDO_CMS_CONTENT
     set ChannelID = #{channelID,jdbcType=INTEGER},
-      ContentType = #{contentType,jdbcType=INTEGER},
+      ContentType = #{contentType,jdbcType=CHAR},
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
       ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
@@ -277,7 +277,7 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsContent" >
     update IDO_CMS_CONTENT
     set ChannelID = #{channelID,jdbcType=INTEGER},
-      ContentType = #{contentType,jdbcType=INTEGER},
+      ContentType = #{contentType,jdbcType=CHAR},
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
       ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},

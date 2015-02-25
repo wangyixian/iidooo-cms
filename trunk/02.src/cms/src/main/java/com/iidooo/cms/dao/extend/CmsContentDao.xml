@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsContentDto">
 		<id column="ContentID" jdbcType="INTEGER" property="contentID" />
 		<result column="ChannelID" jdbcType="INTEGER" property="channelID" />
-		<result column="ContentType" jdbcType="INTEGER" property="contentType" />
+		<result column="ContentType" jdbcType="CHAR" property="contentType" />
 		<result column="ContentTitle" jdbcType="VARCHAR" property="contentTitle" />
 		<result column="ContentSubTitle" jdbcType="VARCHAR" property="contentSubTitle" />
 		<result column="ContentImageTitle" jdbcType="VARCHAR" property="contentImageTitle" />

@@ -50,9 +50,9 @@ public class PropertiesListener extends HttpServlet implements ServletContextLis
             List<DictItemDto> contentTypeList = dictItemDao.selectByClassCode(DictConstant.DICT_CLASS_CONTENT_TYPE);
             sc.setAttribute(AttributeConstant.CONTENT_TYPE_LIST, contentTypeList);
             // Set the contentTypeItems
-            Map<Integer, String> contentTypeMap = new HashMap<Integer, String>();
+            Map<String, String> contentTypeMap = new HashMap<String, String>();
             for (DictItemDto item : contentTypeList) {
-                contentTypeMap.put(Integer.parseInt(item.getDictItemCode()), item.getDictItemValue());
+                contentTypeMap.put(item.getDictItemCode(), item.getDictItemValue());
             }
             sc.setAttribute(AttributeConstant.CONTENT_TYPE_MAP, contentTypeMap);
 //

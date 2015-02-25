@@ -3,20 +3,12 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsContentProductMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsContentProduct" >
     <id column="ContentID" property="contentID" jdbcType="INTEGER" />
-    <result column="ProductType" property="productType" jdbcType="INTEGER" />
-    <result column="ProductCountry" property="productCountry" jdbcType="INTEGER" />
-    <result column="ProductOrigin" property="productOrigin" jdbcType="INTEGER" />
-    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
-    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
-    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
-    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
-    <result column="Version" property="version" jdbcType="INTEGER" />
+    <result column="ProductType" property="productType" jdbcType="CHAR" />
+    <result column="ProductCountry" property="productCountry" jdbcType="CHAR" />
+    <result column="ProductOrigin" property="productOrigin" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ContentID, ProductType, ProductCountry, ProductOrigin, Remarks, CreateTime, CreateUser, 
-    UpdateTime, UpdateUser, IsDelete, Version
+    ContentID, ProductType, ProductCountry, ProductOrigin
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -30,13 +22,9 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsContentProduct" >
     insert into IDO_CMS_CONTENT_PRODUCT (ContentID, ProductType, ProductCountry, 
-      ProductOrigin, Remarks, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      IsDelete, Version)
-    values (#{contentID,jdbcType=INTEGER}, #{productType,jdbcType=INTEGER}, #{productCountry,jdbcType=INTEGER}, 
-      #{productOrigin,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+      ProductOrigin)
+    values (#{contentID,jdbcType=INTEGER}, #{productType,jdbcType=CHAR}, #{productCountry,jdbcType=CHAR}, 
+      #{productOrigin,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsContentProduct" >
     insert into IDO_CMS_CONTENT_PRODUCT
@@ -53,61 +41,19 @@
       <if test="productOrigin != null" >
         ProductOrigin,
       </if>
-      <if test="remarks != null" >
-        Remarks,
-      </if>
-      <if test="createTime != null" >
-        CreateTime,
-      </if>
-      <if test="createUser != null" >
-        CreateUser,
-      </if>
-      <if test="updateTime != null" >
-        UpdateTime,
-      </if>
-      <if test="updateUser != null" >
-        UpdateUser,
-      </if>
-      <if test="isDelete != null" >
-        IsDelete,
-      </if>
-      <if test="version != null" >
-        Version,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="contentID != null" >
         #{contentID,jdbcType=INTEGER},
       </if>
       <if test="productType != null" >
-        #{productType,jdbcType=INTEGER},
+        #{productType,jdbcType=CHAR},
       </if>
       <if test="productCountry != null" >
-        #{productCountry,jdbcType=INTEGER},
+        #{productCountry,jdbcType=CHAR},
       </if>
       <if test="productOrigin != null" >
-        #{productOrigin,jdbcType=INTEGER},
-      </if>
-      <if test="remarks != null" >
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="updateUser != null" >
-        #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null" >
-        #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="version != null" >
-        #{version,jdbcType=INTEGER},
+        #{productOrigin,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -115,50 +61,22 @@
     update IDO_CMS_CONTENT_PRODUCT
     <set >
       <if test="productType != null" >
-        ProductType = #{productType,jdbcType=INTEGER},
+        ProductType = #{productType,jdbcType=CHAR},
       </if>
       <if test="productCountry != null" >
-        ProductCountry = #{productCountry,jdbcType=INTEGER},
+        ProductCountry = #{productCountry,jdbcType=CHAR},
       </if>
       <if test="productOrigin != null" >
-        ProductOrigin = #{productOrigin,jdbcType=INTEGER},
-      </if>
-      <if test="remarks != null" >
-        Remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        CreateTime = #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        CreateUser = #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null" >
-        UpdateTime = #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="updateUser != null" >
-        UpdateUser = #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null" >
-        IsDelete = #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="version != null" >
-        Version = #{version,jdbcType=INTEGER},
+        ProductOrigin = #{productOrigin,jdbcType=CHAR},
       </if>
     </set>
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsContentProduct" >
     update IDO_CMS_CONTENT_PRODUCT
-    set ProductType = #{productType,jdbcType=INTEGER},
-      ProductCountry = #{productCountry,jdbcType=INTEGER},
-      ProductOrigin = #{productOrigin,jdbcType=INTEGER},
-      Remarks = #{remarks,jdbcType=VARCHAR},
-      CreateTime = #{createTime,jdbcType=VARCHAR},
-      CreateUser = #{createUser,jdbcType=INTEGER},
-      UpdateTime = #{updateTime,jdbcType=VARCHAR},
-      UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=INTEGER},
-      Version = #{version,jdbcType=INTEGER}
+    set ProductType = #{productType,jdbcType=CHAR},
+      ProductCountry = #{productCountry,jdbcType=CHAR},
+      ProductOrigin = #{productOrigin,jdbcType=CHAR}
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
 </mapper>

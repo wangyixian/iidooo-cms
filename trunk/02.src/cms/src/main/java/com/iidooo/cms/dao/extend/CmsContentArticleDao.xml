@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.CmsContentArticleDto" >
     <id column="ContentID" property="contentID" jdbcType="INTEGER" />
 	<result column="ChannelID" jdbcType="INTEGER" property="channelID" />
-	<result column="ContentType" jdbcType="INTEGER" property="contentType" />
+	<result column="ContentType" jdbcType="CHAR" property="contentType" />
 	<result column="ContentTitle" jdbcType="VARCHAR" property="contentTitle" />
 	<result column="ContentSubTitle" jdbcType="VARCHAR" property="contentSubTitle" />
 	<result column="ContentImageTitle" jdbcType="VARCHAR" property="contentImageTitle" />
@@ -14,7 +14,7 @@
 	<result column="ContentSummary" jdbcType="VARCHAR" property="contentSummary" />
 	<result column="Sequence" jdbcType="INTEGER" property="sequence" />
 	<result column="IsAllowComment" jdbcType="INTEGER" property="isAllowComment" />
-    <result column="ArticleType" property="articleType" jdbcType="INTEGER" />
+    <result column="ArticleType" property="articleType" jdbcType="CHAR" />
 	<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 	<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 	<result column="CreateUser" property="createUser" jdbcType="INTEGER" />

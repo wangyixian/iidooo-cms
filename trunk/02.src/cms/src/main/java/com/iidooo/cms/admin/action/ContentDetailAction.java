@@ -150,17 +150,17 @@ public class ContentDetailAction extends BaseDetailAction {
             if (content != null && content.getContentID() != null && content.getContentID() > 0) {
                 content = contentService.getContentByID(content.getContentID());
                 switch (content.getContentType()) {
-                case 2:                 
+                case "2":                 
                     product = contentProductService.getContentByID(content.getContentID());
                     break;
-                case 3:
-                    article = contentArticleService.getContentByID(content.getChannelID());
+                case "3":
+                    article = contentArticleService.getContentByID(content.getContentID());
                     break;
                 }
             }
 
             switch (content.getContentType()) {
-            case 2:
+            case "2":
                 // The product content
                 List<String> dictClassCodes = new ArrayList<String>();
                 dictClassCodes.add(DictConstant.FIELD_PRODUCT_TYPE);
@@ -186,7 +186,7 @@ public class ContentDetailAction extends BaseDetailAction {
                     }
                 }
                 break;
-            case 3:
+            case "3":
                 articleTypes = dictItemService.getByClassCode(DictConstant.DICT_CLASS_ARTICLE_TYPE);
                 break;
             default:

@@ -104,9 +104,9 @@ public class ProductListAction extends PagingActionSupport {
             // The first time execute, product is null and set the default value.
             if (product == null) {
                 product = new CmsContentProductDto();
-                product.setProductCountry(0);
-                product.setProductOrigin(0);
-                product.setProductType(0);
+                product.setProductCountry("0");
+                product.setProductOrigin("0");
+                product.setProductType("0");
             }
             
             // Get the Product Extend Field Info

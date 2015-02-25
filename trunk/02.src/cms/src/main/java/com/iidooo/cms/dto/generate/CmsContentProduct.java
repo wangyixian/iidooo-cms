@@ -4,33 +4,33 @@ import com.iidooo.cms.dto.extend.CmsContentDto;
 
 public class CmsContentProduct extends CmsContentDto{
 
-    private Integer productType;
+    private String productType;
 
-    private Integer productCountry;
+    private String productCountry;
 
-    private Integer productOrigin;
+    private String productOrigin;
 
-    public Integer getProductType() {
+    public String getProductType() {
         return productType;
     }
 
-    public void setProductType(Integer productType) {
-        this.productType = productType;
+    public void setProductType(String productType) {
+        this.productType = productType == null ? null : productType.trim();
     }
 
-    public Integer getProductCountry() {
+    public String getProductCountry() {
         return productCountry;
     }
 
-    public void setProductCountry(Integer productCountry) {
-        this.productCountry = productCountry;
+    public void setProductCountry(String productCountry) {
+        this.productCountry = productCountry == null ? null : productCountry.trim();
     }
 
-    public Integer getProductOrigin() {
+    public String getProductOrigin() {
         return productOrigin;
     }
 
-    public void setProductOrigin(Integer productOrigin) {
-        this.productOrigin = productOrigin;
+    public void setProductOrigin(String productOrigin) {
+        this.productOrigin = productOrigin == null ? null : productOrigin.trim();
     }
 }

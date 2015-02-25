@@ -3,7 +3,7 @@
 <mapper namespace="com.iidooo.cms.dao.generate.CmsContentArticleMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsContentArticle" >
     <id column="ContentID" property="contentID" jdbcType="INTEGER" />
-    <result column="ArticleType" property="articleType" jdbcType="INTEGER" />
+    <result column="ArticleType" property="articleType" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ContentID, ArticleType
@@ -20,7 +20,7 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsContentArticle" >
     insert into IDO_CMS_CONTENT_ARTICLE (ContentID, ArticleType)
-    values (#{contentID,jdbcType=INTEGER}, #{articleType,jdbcType=INTEGER})
+    values (#{contentID,jdbcType=INTEGER}, #{articleType,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsContentArticle" >
     insert into IDO_CMS_CONTENT_ARTICLE
@@ -37,7 +37,7 @@
         #{contentID,jdbcType=INTEGER},
       </if>
       <if test="articleType != null" >
-        #{articleType,jdbcType=INTEGER},
+        #{articleType,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -45,14 +45,14 @@
     update IDO_CMS_CONTENT_ARTICLE
     <set >
       <if test="articleType != null" >
-        ArticleType = #{articleType,jdbcType=INTEGER},
+        ArticleType = #{articleType,jdbcType=CHAR},
       </if>
     </set>
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsContentArticle" >
     update IDO_CMS_CONTENT_ARTICLE
-    set ArticleType = #{articleType,jdbcType=INTEGER}
+    set ArticleType = #{articleType,jdbcType=CHAR}
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
 </mapper>
