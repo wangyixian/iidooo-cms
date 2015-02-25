@@ -314,7 +314,11 @@ a:hover {
 	text-align: center;
 	background-color: RGB(54, 54, 54);
 	color: RGB(204, 204, 204);
-	padding: 5px;
+	padding: 5px;	
+	width:100%;
+	/* Make the foot stay on the bottom */
+	bottom:0;
+	position:fixed;
 }
 
 #foot dt {
@@ -330,6 +334,11 @@ a:hover {
 
 #foot a:hover {
 	color: white;
+}
+
+/* The jsp body's first div */
+#page{
+	margin-bottom: 60px;
 }
 
 /* The style of bread crumbs */

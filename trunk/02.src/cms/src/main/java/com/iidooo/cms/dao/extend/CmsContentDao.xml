@@ -220,7 +220,7 @@
 
 	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
 		update IDO_CMS_CONTENT
-		set IsDelete = 1
+		set IsDelete = 1,
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
 		UpdateUser =
 		#{updateUser,jdbcType=INTEGER},

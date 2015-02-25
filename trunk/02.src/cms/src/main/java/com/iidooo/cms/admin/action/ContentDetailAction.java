@@ -49,6 +49,20 @@ public class ContentDetailAction extends BaseDetailAction {
     @Autowired
     private ContentDetailService contentDetailService;
 
+    // 1: Create
+    // 2: Update
+    // 3: Copy
+    // 4: Delete
+    private int mode = 1;
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
     // The channel tree's root node
     private TreeNode rootTreeNode;
 
@@ -144,11 +158,8 @@ public class ContentDetailAction extends BaseDetailAction {
 
     public String init() {
         try {
-            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
-            allChannels = channelService.getAllChannels();
-
-            // The modify mode
-            if (content != null && content.getContentID() != null && content.getContentID() > 0) {
+            // The modify or copy mode
+            if (mode == 2 || mode == 3) {
                 content = contentService.getContentByID(content.getContentID());
                 switch (content.getContentType()) {
                 case "2":
@@ -163,6 +174,91 @@ public class ContentDetailAction extends BaseDetailAction {
                 }
             }
 
+            getCommonData();
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String create() {
+        try {
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), true);
+            switch (content.getContentType()) {
+            case "2":
+                contentDetailService.createContent(content, product);
+                break;
+            case "3":
+                contentDetailService.createContent(content, article);
+                break;
+            default:
+                contentDetailService.createContent(content);
+                break;
+            }
+            // After create, the mode should be set as modify
+            this.mode = 2;
+            getCommonData();
+            this.addActionMessage(getText("MSG_CREATE_SUCCESS"));
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String update() {
+        try {
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+
+            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
+            switch (content.getContentType()) {
+            case "2":
+                contentDetailService.updateContent(content, product);
+                break;
+            case "3":
+                contentDetailService.updateContent(content, article);
+                break;
+            default:
+                contentDetailService.updateContent(content);
+                break;
+            }
+            this.mode = 2;
+            getCommonData();
+            this.addActionMessage(getText("MSG_UPDATE_SUCCESS"));
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String delete() {
+        try {
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
+            contentDetailService.deleteContent(content);
+            
+            this.mode = 4;
+            getCommonData();
+            this.addActionMessage(getText("MSG_DELETE_SUCCESS"));
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+    
+    private void getCommonData(){
+        try {
+            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
+            allChannels = channelService.getAllChannels();
+            
             switch (content.getContentType()) {
             case "2":
                 // The product content
@@ -197,73 +293,9 @@ public class ContentDetailAction extends BaseDetailAction {
             default:
                 break;
             }
-
-            return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public String create() {
-        try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), true);
-            switch (content.getContentType()) {
-            case "2":
-                contentDetailService.createContent(content, product);
-                break;
-            case "3":
-                contentDetailService.createContent(content, article);
-                break;
-            default:
-                contentDetailService.createContent(content);
-                break;
-            }
-
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public String update() {
-        try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-
-            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
-            switch (content.getContentType()) {
-            case "2":
-                contentDetailService.updateContent(content, product);
-                break;
-            case "3":
-                contentDetailService.updateContent(content, article);
-                break;
-            default:
-                contentDetailService.updateContent(content);
-                break;
-            }
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public String delete() {
-        try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
-            contentDetailService.deleteContent(content);
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
         }
     }
 }

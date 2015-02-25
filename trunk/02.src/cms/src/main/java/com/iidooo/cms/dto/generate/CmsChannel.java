@@ -7,8 +7,6 @@ public class CmsChannel extends BaseDto{
 
     private Integer parentID;
 
-    private Integer templateID;
-
     private String channelName;
 
     private String channelPath;
@@ -23,7 +21,7 @@ public class CmsChannel extends BaseDto{
 
     private Integer sequence;
 
-    private Integer isHidden;
+    private String isHidden;
 
     public Integer getChannelID() {
         return channelID;
@@ -39,14 +37,6 @@ public class CmsChannel extends BaseDto{
 
     public void setParentID(Integer parentID) {
         this.parentID = parentID;
-    }
-
-    public Integer getTemplateID() {
-        return templateID;
-    }
-
-    public void setTemplateID(Integer templateID) {
-        this.templateID = templateID;
     }
 
     public String getChannelName() {
@@ -105,11 +95,11 @@ public class CmsChannel extends BaseDto{
         this.sequence = sequence;
     }
 
-    public Integer getIsHidden() {
+    public String getIsHidden() {
         return isHidden;
     }
 
-    public void setIsHidden(Integer isHidden) {
-        this.isHidden = isHidden;
+    public void setIsHidden(String isHidden) {
+        this.isHidden = isHidden == null ? null : isHidden.trim();
     }
 }

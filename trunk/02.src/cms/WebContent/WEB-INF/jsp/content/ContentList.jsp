@@ -22,16 +22,16 @@
 	function btnCreate(){
 		var contentType = $("#selContentType").val();
 		var channelID = $("#hidChannelID").val();
-		window.location.href = "contentDetail.action?content.contentType="+contentType+"&content.channelID=" + channelID;
+		window.location.href = 
+			"contentDetail.action?content.contentType="+contentType+"&content.channelID=" + channelID+"&mode=1";
 	}
-	
 </script>
 </head>
 <body>
 	<form id="form" method="post">
+		<input id="hidChannelID" type="hidden" name="channelID" value="${channelID }">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div class="body_wrap">
-			<input id="hidChannelID" type="hidden" name="channelID" value="${channelID }">
 			<div class="left_side_wrap">
 				<f:tree root="${rootTreeNode}" recursion="true" />
 			</div>
@@ -40,7 +40,7 @@
 					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
 				</div>
 				<div>
-					<select id="selContentType">
+					<select id="selContentType" name="content.contentType">
 						<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
 						<option value="${item.dictItemCode }">${item.dictItemName }</option>
 						</s:iterator>
@@ -62,10 +62,14 @@
 						</tr>
 						<s:iterator id="content" value="contentList" status="st">
 							<tr>
-								<td class="align_center">${content.contentID}</td>
+								<td class="align_center">
+									<a href="contentDetail.action?content.contentID=${content.contentID }&mode=2">
+									${content.contentID}
+									</a>
+								</td>
 								<td>${content.channelName}</td>
 								<td>
-									<a href="contentDetail.action?content.contentID=${content.contentID }">
+									<a href="contentDetail.action?content.contentID=${content.contentID }&mode=2">
 										${content.contentTitle}
 									</a>
 								</td>
@@ -83,5 +87,6 @@
 			</div>
 		</div>
 	</form>
+	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

@@ -73,18 +73,16 @@
 									</s:iterator>
 								</select>
 							</td>
-							<th class="required" width="10%">栏目模板</th>
+							<th class="required" width="10%">菜单显示</th>
 							<td>
-								<select name="channel.templateID">
-									<s:iterator value="allTemplates" status="st" id="item">
-										<s:if test="channel.templateID == #item.templateID">
-											<option value="${item.templateID }" selected="selected">${item.templatePath }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.templateID }">${item.templatePath }</option>
-										</s:else>
-									</s:iterator>
-							</select>
+								<s:if test="channel.isHidden == '1'">
+									<input type="radio" name="channel.isHidden" value="0">显示
+									<input type="radio" name="channel.isHidden" value="1" checked>隐藏		
+								</s:if>
+								<s:else>
+									<input type="radio" name="channel.isHidden" value="0" checked>显示
+									<input type="radio" name="channel.isHidden" value="1">隐藏
+								</s:else>
 							</td>
 						</tr>
 						<tr>
@@ -114,19 +112,6 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="required">菜单显示</th>
-							<td colspan="3">
-								<s:if test="channel.isHidden == 1">
-									<input type="radio" name="channel.isHidden" value="0">显示
-									<input type="radio" name="channel.isHidden" value="1" checked>隐藏		
-								</s:if>
-								<s:else>
-									<input type="radio" name="channel.isHidden" value="0" checked>显示
-									<input type="radio" name="channel.isHidden" value="1">隐藏
-								</s:else>
-							</td>
-						</tr>
-						<tr>
 							<th>备注</th>
 							<td colspan="3">
 								<textarea rows="5" cols="100" name="channel.remarks">${channel.remarks }</textarea>
@@ -146,7 +131,8 @@
 					</div>					
 				</div>
 			</div>
-		</div>
+		</div>		
 	</s:form>
+	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

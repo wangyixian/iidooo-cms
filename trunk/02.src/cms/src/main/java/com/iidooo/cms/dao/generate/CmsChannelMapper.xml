@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsChannel" >
     <id column="ChannelID" property="channelID" jdbcType="INTEGER" />
     <result column="ParentID" property="parentID" jdbcType="INTEGER" />
-    <result column="TemplateID" property="templateID" jdbcType="INTEGER" />
     <result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
     <result column="ChannelPath" property="channelPath" jdbcType="VARCHAR" />
     <result column="ChannelLevel" property="channelLevel" jdbcType="INTEGER" />
@@ -12,7 +11,7 @@
     <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="IsHidden" property="isHidden" jdbcType="INTEGER" />
+    <result column="IsHidden" property="isHidden" jdbcType="CHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -22,47 +21,42 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ChannelID, ParentID, TemplateID, ChannelName, ChannelPath, ChannelLevel, MetaTitle, 
-    MetaKeywords, MetaDescription, Sequence, IsHidden, Remarks, CreateTime, CreateUser, 
-    UpdateTime, UpdateUser, IsDelete, Version
+    ChannelID, ParentID, ChannelName, ChannelPath, ChannelLevel, MetaTitle, MetaKeywords, 
+    MetaDescription, Sequence, IsHidden, Remarks, CreateTime, CreateUser, UpdateTime, 
+    UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from ido_cms_channel
+    from IDO_CMS_CHANNEL
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ido_cms_channel
+    delete from IDO_CMS_CHANNEL
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
-    insert into ido_cms_channel (ChannelID, ParentID, TemplateID, 
-      ChannelName, ChannelPath, ChannelLevel, 
-      MetaTitle, MetaKeywords, MetaDescription, 
-      Sequence, IsHidden, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
-    values (#{channelID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{templateID,jdbcType=INTEGER}, 
-      #{channelName,jdbcType=VARCHAR}, #{channelPath,jdbcType=VARCHAR}, #{channelLevel,jdbcType=INTEGER}, 
-      #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, 
-      #{sequence,jdbcType=INTEGER}, #{isHidden,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+    insert into IDO_CMS_CHANNEL (ChannelID, ParentID, ChannelName, 
+      ChannelPath, ChannelLevel, MetaTitle, 
+      MetaKeywords, MetaDescription, Sequence, 
+      IsHidden, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version)
+    values (#{channelID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{channelName,jdbcType=VARCHAR}, 
+      #{channelPath,jdbcType=VARCHAR}, #{channelLevel,jdbcType=INTEGER}, #{metaTitle,jdbcType=VARCHAR}, 
+      #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, 
+      #{isHidden,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
-    insert into ido_cms_channel
+    insert into IDO_CMS_CHANNEL
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="channelID != null" >
         ChannelID,
       </if>
       <if test="parentID != null" >
         ParentID,
-      </if>
-      <if test="templateID != null" >
-        TemplateID,
       </if>
       <if test="channelName != null" >
         ChannelName,
@@ -117,9 +111,6 @@
       <if test="parentID != null" >
         #{parentID,jdbcType=INTEGER},
       </if>
-      <if test="templateID != null" >
-        #{templateID,jdbcType=INTEGER},
-      </if>
       <if test="channelName != null" >
         #{channelName,jdbcType=VARCHAR},
       </if>
@@ -142,7 +133,7 @@
         #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isHidden != null" >
-        #{isHidden,jdbcType=INTEGER},
+        #{isHidden,jdbcType=CHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -168,13 +159,10 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
-    update ido_cms_channel
+    update IDO_CMS_CHANNEL
     <set >
       <if test="parentID != null" >
         ParentID = #{parentID,jdbcType=INTEGER},
-      </if>
-      <if test="templateID != null" >
-        TemplateID = #{templateID,jdbcType=INTEGER},
       </if>
       <if test="channelName != null" >
         ChannelName = #{channelName,jdbcType=VARCHAR},
@@ -198,7 +186,7 @@
         Sequence = #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isHidden != null" >
-        IsHidden = #{isHidden,jdbcType=INTEGER},
+        IsHidden = #{isHidden,jdbcType=CHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -225,9 +213,8 @@
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
-    update ido_cms_channel
+    update IDO_CMS_CHANNEL
     set ParentID = #{parentID,jdbcType=INTEGER},
-      TemplateID = #{templateID,jdbcType=INTEGER},
       ChannelName = #{channelName,jdbcType=VARCHAR},
       ChannelPath = #{channelPath,jdbcType=VARCHAR},
       ChannelLevel = #{channelLevel,jdbcType=INTEGER},
@@ -235,7 +222,7 @@
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
-      IsHidden = #{isHidden,jdbcType=INTEGER},
+      IsHidden = #{isHidden,jdbcType=CHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

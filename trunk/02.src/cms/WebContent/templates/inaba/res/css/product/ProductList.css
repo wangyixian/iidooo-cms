@@ -42,7 +42,13 @@
 
 #products li {
 	width: 245px;
+	height: 300px;
 	text-align: center;
 	margin-bottom: 10px;
 	border-bottom: 1px dotted #C1C1C1;
+}
+
+.image_title{
+	width: 240px;
+	height: 280px;
 }

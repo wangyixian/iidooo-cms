@@ -106,7 +106,9 @@
 					<s:iterator value="products" status="st" id="item">	
 					<li class="left">
 						<div>
-							<a href="productDetail.action?content.contentID=${item.contentID }" target="_blank"><img alt="${item.contentTitle}" src="${item.contentImageTitle}"></a>
+							<a href="productDetail.action?content.contentID=${item.contentID }" target="_blank">
+							<img class="image_title" alt="${item.contentTitle}" src="${item.contentImageTitle}">
+							</a>
 						</div>
 						<div class="align_center">
 							<a href="productDetail.action?content.contentID=${item.contentID }" target="_blank">${item.contentTitle}</a>

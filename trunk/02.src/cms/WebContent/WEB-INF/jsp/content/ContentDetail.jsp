@@ -52,6 +52,13 @@
 		window.form.action = "contentUpdate.action";
 		window.form.submit();
 	}
+	
+	function btnCopy(){
+		editor.sync();
+		$("#hidMode").val(3);
+		window.form.action = "contentDetail.action";
+		window.form.submit();
+	}
 
 	function deleteContent() {
 		editor.sync();
@@ -68,20 +75,34 @@
 </head>
 <body>
 	<form id="form" method="post">
+		<input id="hidChannelID" type="hidden" value="${content.channelID }">
+		<input type="hidden" name="content.contentID" value="${content.contentID}">
+		<input type="hidden" name="content.contentType" value="${content.contentType }">
+		<input type="hidden" name="content.version"	value="${content.version }">
+		<input id="hidMode" type="hidden" name="mode" value="${mode }">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
-		<div>
+		<div id="page">
 			<div class="left_side_wrap">
 				<f:tree root="${rootTreeNode}" recursion="true" />	
 			</div>
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
-					<span>当前的位置：</span><span>内容管理 - 内容详细</span>
+					<span>当前的位置：</span>
+					<s:if test="mode == 1">
+						<span>内容管理 - 内容新建</span>
+					</s:if>
+					<s:elseif test="mode == 2">
+						<span>内容管理 - 内容更新</span>
+					</s:elseif>					
+					<s:elseif test="mode == 3">
+						<span>内容管理 - 内容复制</span>
+					</s:elseif>		
+					<s:elseif test="mode == 4">
+						<span>内容管理 - 内容删除</span>
+					</s:elseif>
 				</div>
+				<s:actionmessage/>
 				<div>
-					<input id="hidChannelID" type="hidden" value="${content.channelID }">
-					<input type="hidden" name="content.contentID" value="${content.contentID}">
-					<input type="hidden" name="content.contentType" value="${content.contentType }">
-					<input type="hidden" name="content.version"	value="${content.version }">
 					<table class="grid">
 						<tr>							
 							<th width="10%">内容类型</th>		
@@ -230,18 +251,20 @@
 						</s:if>		
 					</table>
 					<div class="button_bar">
-						<s:if test="content == null || content.contentID == null">
+						<s:if test="mode == 1 || mode == 3">
 							<input type="button" value="创建" onclick="return createContent();">
 						</s:if>
-						<s:else>
+						<s:elseif test="mode == 2">
 							<input type="button" value="更新" onclick="return updateContent();">
+							<input type="button" value="复制" onclick="btnCopy();">
 							<input type="button" value="删除" onclick="return deleteContent();">
-						</s:else>
+						</s:elseif>
 						<input type="button" value="返回" onclick="return returnBack();">
 					</div>			
 				</div>
 			</div>
 		</div>
 	</form>
+	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>
