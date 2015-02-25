@@ -17,13 +17,13 @@
 	</div>
 	<div class="body_wrap block shadow">
 	    <div class="content_wrap">
-			<div class="content">
+			<div class="content align_center">
 				<h1>${content.contentTitle }</h1>
 				<hr class="hr"></hr>
 				<hr size="2" width="100%">
-				<div>					
-					${content.contentBody }
-				</div>
+			</div>
+			<div class="content">					
+				${content.contentBody }
 			</div>
 		</div>
 	</div>

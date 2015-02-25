@@ -1,14 +1,21 @@
 package com.iidooo.cms.admin.service;
 
-import java.util.List;
-
+import com.iidooo.cms.dto.extend.CmsContentArticleDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
-import com.iidooo.framework.dto.extend.FieldDataDto;
+import com.iidooo.cms.dto.extend.CmsContentProductDto;
 
 public interface ContentDetailService {
-    boolean createContent(int userID, CmsContentDto content, List<FieldDataDto> fieldDataDtos);
-    
-    boolean updateContent(int userID, CmsContentDto content, List<FieldDataDto> fieldDataDtos);
-    
-    boolean deleteContent(int userID, CmsContentDto content, List<FieldDataDto> fieldDataDtos);
+    boolean createContent(CmsContentDto content);
+
+    boolean createContent(CmsContentDto content, CmsContentProductDto product);
+
+    boolean createContent(CmsContentDto content, CmsContentArticleDto article);
+
+    boolean updateContent(CmsContentDto content);
+
+    boolean updateContent(CmsContentDto content, CmsContentProductDto product);
+
+    boolean updateContent(CmsContentDto content, CmsContentArticleDto article);
+
+    boolean deleteContent(CmsContentDto content);
 }

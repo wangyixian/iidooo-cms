@@ -170,7 +170,7 @@
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID" parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
-		insert into IDO_CMS_CONTENT (ModelID, ChannelID, TemplateID,
+		insert into IDO_CMS_CONTENT (ChannelID, ContentType,
 		ContentTitle, ContentSubTitle,
 		ContentImageTitle,
 		MetaTitle, MetaKeywords, MetaDescription,
@@ -180,8 +180,8 @@
 		UpdateTime,
 		UpdateUser, IsDelete,
 		Version, ContentBody)
-		values(#{modelID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER},
-		#{templateID,jdbcType=INTEGER},
+		values(#{channelID,jdbcType=INTEGER},
+		#{contentType,jdbcType=CHAR},
 		#{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR},
 		#{metaTitle,jdbcType=VARCHAR},
 		#{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR},
@@ -197,8 +197,7 @@
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsContentDto">
 		update IDO_CMS_CONTENT
 		set ChannelID = #{channelID,jdbcType=INTEGER},
-		TemplateID =
-		#{templateID,jdbcType=INTEGER},
+		ContentType = #{contentType,jdbcType=CHAR},
 		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
 		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},

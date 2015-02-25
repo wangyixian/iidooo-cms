@@ -14,4 +14,8 @@ public interface CmsContentProductDao {
     List<CmsContentProductDto> selectProducts(@Param("channels")List<CmsChannelDto> channels, @Param("product")CmsContentProductDto product, @Param("page")PagingDto page);
 
     CmsContentProductDto selectByContentID(int contentID);
+    
+    int insert(CmsContentProductDto product);
+    
+    int updateByPrimaryKey(CmsContentProductDto product);
 }

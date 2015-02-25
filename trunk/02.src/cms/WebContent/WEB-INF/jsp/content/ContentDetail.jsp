@@ -86,7 +86,7 @@
 						<tr>							
 							<th width="10%">内容类型</th>		
 							<td>
-								<input type="text" class="width_400px" readonly="readonly" name="content.contentType" value="${CONTENT_TYPE_MAP[content.contentType]}">
+								<input type="text" class="width_400px" readonly="readonly" value="${CONTENT_TYPE_MAP[content.contentType]}">
 							</td>		
 							<th class="required" width="10%">所属栏目</th>
 							<td>
@@ -104,8 +104,12 @@
 						</tr>
 						<tr>
 							<th class="required">内容标题</th>
-							<td colspan="3">
+							<td>
 								<input class="width_400px" type="text" name="content.contentTitle" value="${content.contentTitle}">
+							</td>
+							<th class="required">序列</th>
+							<td>
+								<input type="text" name="content.sequence" value="${content.sequence}">
 							</td>
 						</tr>
 						<tr>							

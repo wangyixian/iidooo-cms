@@ -73,4 +73,16 @@
 	join IDO_CMS_CONTENT_ARTICLE A on C.IsDelete = 0 and C.ContentID = A.ContentID 
 	and C.ContentID = #{contentID, jdbcType=INTEGER}
   </select>
+  
+  <insert id="insert" parameterType="com.iidooo.cms.dto.extend.CmsContentArticleDto">
+  	insert into IDO_CMS_CONTENT_ARTICLE (ContentID, ArticleType)
+    values (#{contentID,jdbcType=INTEGER}, #{articleType,jdbcType=CHAR})
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsContentArticleDto" >
+    update IDO_CMS_CONTENT_ARTICLE
+    set ArticleType = #{articleType,jdbcType=CHAR}
+    where ContentID = #{contentID,jdbcType=INTEGER}
+  </update>
+
 </mapper>

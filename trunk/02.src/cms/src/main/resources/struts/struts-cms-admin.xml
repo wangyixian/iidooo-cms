@@ -69,17 +69,17 @@
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>		
 		<action name="contentCreate" class="com.iidooo.cms.admin.action.ContentDetailAction" method="create">
-			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
+			<result name="success" type="redirect">contentDetail.action?content.contentID=${content.contentID }</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="contentUpdate" class="com.iidooo.cms.admin.action.ContentDetailAction" method="update">
-			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
+			<result name="success" type="redirect">contentDetail.action?content.contentID=${content.contentID }</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="contentDelete" class="com.iidooo.cms.admin.action.ContentDetailAction" method="delete">
-			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
+			<result name="success" type="redirect">contentDetail.action?content.contentID=${content.contentID }</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>		

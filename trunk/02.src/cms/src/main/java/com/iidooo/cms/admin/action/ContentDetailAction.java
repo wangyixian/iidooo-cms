@@ -17,11 +17,13 @@ import com.iidooo.cms.service.ContentArticleService;
 import com.iidooo.cms.service.ContentProductService;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.framework.action.BaseDetailAction;
+import com.iidooo.framework.constant.DateConstant;
 import com.iidooo.framework.constant.DictConstant;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.utility.DateTimeUtil;
 
 public class ContentDetailAction extends BaseDetailAction {
 
@@ -37,13 +39,13 @@ public class ContentDetailAction extends BaseDetailAction {
 
     @Autowired
     private ContentService contentService;
-    
-    @Autowired
-    private ContentProductService contentProductService;
 
     @Autowired
     private ContentArticleService contentArticleService;
-    
+
+    @Autowired
+    private ContentProductService contentProductService;
+
     @Autowired
     private ContentDetailService contentDetailService;
 
@@ -78,7 +80,28 @@ public class ContentDetailAction extends BaseDetailAction {
         this.allChannels = allChannels;
     }
 
-    // Product Content
+    // Article Content
+    private CmsContentArticleDto article;
+
+    private List<DictItemDto> articleTypes;
+
+    public CmsContentArticleDto getArticle() {
+        return article;
+    }
+
+    public void setArticle(CmsContentArticleDto article) {
+        this.article = article;
+    }
+
+    public List<DictItemDto> getArticleTypes() {
+        return articleTypes;
+    }
+
+    public void setArticleTypes(List<DictItemDto> articleTypes) {
+        this.articleTypes = articleTypes;
+    }
+
+    // Product
     private List<DictItemDto> productTypes;
 
     public List<DictItemDto> getProductTypes() {
@@ -119,28 +142,6 @@ public class ContentDetailAction extends BaseDetailAction {
         this.product = product;
     }
 
-    // Article Content
-    private CmsContentArticleDto article;
-
-    private List<DictItemDto> articleTypes;
-
-    public CmsContentArticleDto getArticle() {
-        return article;
-    }
-
-    public void setArticle(CmsContentArticleDto article) {
-        this.article = article;
-    }
-
-    public List<DictItemDto> getArticleTypes() {
-        return articleTypes;
-    }
-
-    public void setArticleTypes(List<DictItemDto> articleTypes) {
-        this.articleTypes = articleTypes;
-    }
-
-    @Override
     public String init() {
         try {
             rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
@@ -150,11 +151,14 @@ public class ContentDetailAction extends BaseDetailAction {
             if (content != null && content.getContentID() != null && content.getContentID() > 0) {
                 content = contentService.getContentByID(content.getContentID());
                 switch (content.getContentType()) {
-                case "2":                 
+                case "2":
                     product = contentProductService.getContentByID(content.getContentID());
                     break;
                 case "3":
                     article = contentArticleService.getContentByID(content.getContentID());
+                    break;
+
+                default:
                     break;
                 }
             }
@@ -189,9 +193,9 @@ public class ContentDetailAction extends BaseDetailAction {
             case "3":
                 articleTypes = dictItemService.getByClassCode(DictConstant.DICT_CLASS_ARTICLE_TYPE);
                 break;
+
             default:
                 break;
-
             }
 
             return SUCCESS;
@@ -202,11 +206,21 @@ public class ContentDetailAction extends BaseDetailAction {
         }
     }
 
-    @Override
     public String create() {
         try {
-            SecurityUserDto securityUserDto = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            // contentDetailService.createContent(securityUserDto.getUserID(), content, fieldDatas);
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), true);
+            switch (content.getContentType()) {
+            case "2":
+                contentDetailService.createContent(content, product);
+                break;
+            case "3":
+                contentDetailService.createContent(content, article);
+                break;
+            default:
+                contentDetailService.createContent(content);
+                break;
+            }
 
             return SUCCESS;
         } catch (Exception e) {
@@ -216,10 +230,22 @@ public class ContentDetailAction extends BaseDetailAction {
         }
     }
 
-    @Override
     public String update() {
         try {
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
 
+            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
+            switch (content.getContentType()) {
+            case "2":
+                contentDetailService.updateContent(content, product);
+                break;
+            case "3":
+                contentDetailService.updateContent(content, article);
+                break;
+            default:
+                contentDetailService.updateContent(content);
+                break;
+            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,24 +254,16 @@ public class ContentDetailAction extends BaseDetailAction {
         }
     }
 
-    @Override
     public String delete() {
         try {
-
+            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
+            contentDetailService.deleteContent(content);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
             return ERROR;
-        }
-    }
-
-    public void uploadImageTitle() {
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
         }
     }
 }

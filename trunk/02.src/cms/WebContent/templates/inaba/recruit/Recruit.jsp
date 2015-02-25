@@ -18,14 +18,16 @@
 	</div>
 	<div class="body_wrap block shadow">
 		<div class="content_wrap">
-			<div class="content">
+			<div class="content align_center">
 				<h1>${content.contentTitle }</h1>
 				<hr class="hr"></hr>
 				<hr size="2" width="100%">
 				<div>
 					<img class="logo_square" alt="${SITE_NAME}" src="${SITE_TEMPLATE_URL}/res/img/logo_square.jpg"><br>
-					${content.contentBody }
 				</div>
+			</div>
+			<div class="content">
+				${content.contentBody }
 			</div>
 		</div>
 	</div>

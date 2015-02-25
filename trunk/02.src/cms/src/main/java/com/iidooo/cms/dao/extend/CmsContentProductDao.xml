@@ -76,14 +76,29 @@
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item.channelID}</foreach>
 		order by C.ChannelID asc, C.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.end}
 	</select>
+
+	<select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from IDO_CMS_CONTENT C
+		join IDO_CMS_CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID
+		and C.ContentID = #{contentID}
+	</select>
+
+	<insert id="insert" parameterType="com.iidooo.cms.dto.extend.CmsContentProductDto">
+		insert into IDO_CMS_CONTENT_PRODUCT (ContentID, ProductType, ProductCountry,
+		ProductOrigin)
+		values (#{contentID,jdbcType=INTEGER}, #{productType,jdbcType=CHAR}, #{productCountry,jdbcType=CHAR},
+		#{productOrigin,jdbcType=CHAR})
+	</insert>
 	
-	
-  <select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-  	select 
-	<include refid="Base_Column_List" />,
-	<include refid="Blob_Column_List" />
-	from IDO_CMS_CONTENT C
-	join IDO_CMS_CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
-	and C.ContentID = #{contentID}
-  </select>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsContentProductDto" >
+    update IDO_CMS_CONTENT_PRODUCT
+    set ProductType = #{productType,jdbcType=CHAR},
+      ProductCountry = #{productCountry,jdbcType=CHAR},
+      ProductOrigin = #{productOrigin,jdbcType=CHAR}
+    where ContentID = #{contentID,jdbcType=INTEGER}
+  </update>
 </mapper>
