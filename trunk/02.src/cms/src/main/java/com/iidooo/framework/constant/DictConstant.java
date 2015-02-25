@@ -63,4 +63,6 @@ public class DictConstant {
      * The root of the content resource path
      */
     public static final String DICT_ITEM_CONTENT_RES_ROOT = "CONTENT_RES_ROOT";
+    
+    public static final String DICT_ITEM_UPLOAD_MAX_SIZE = "UPLOAD_MAX_SIZE";
 }

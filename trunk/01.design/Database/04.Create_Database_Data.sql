@@ -52,7 +52,7 @@ INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `D
 VALUES ('PROPERTIES_SITE', 'CONTENT_RES_ROOT', '内容资源根目录', 'http://localhost:8080/cms/res', 4, 0, 0, 0,'', now(), 1, now(), 1);
 
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('PROPERTIES_SITE', 'UPLOAD_MAX_SIZE', '上传最大文件大小单位B', '1000000', 5, 0, 0, 0,'', now(), 1, now(), 1);
+VALUES ('PROPERTIES_SITE', 'UPLOAD_MAX_SIZE', '上传最大文件大小', '5000000', 5, 0, 0, 0,'上传文件的最大尺寸单位B，目前为5M', now(), 1, now(), 1);
 
 -- FIELD_MODEL_TYPE
 -- INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
@@ -137,6 +137,12 @@ VALUES ('ARTICLE_TYPE', '3', '葡萄酒知识', '葡萄酒知识', 3, 0, 0, 0,''
 INSERT INTO `IDO_SECURITY_USER` 
 (`UserName`, `LoginID`, `Password`, `LoginTime`, `IsDisable`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES ('超级管理员', 'admin', md5(111111), now(), 0, '', now(), 1, now(), 1);
+INSERT INTO `IDO_SECURITY_USER` 
+(`UserName`, `LoginID`, `Password`, `LoginTime`, `IsDisable`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('蒋小凡', 'jiangxiaofan', md5(111111), now(), 0, '', now(), 1, now(), 1);
+INSERT INTO `IDO_SECURITY_USER` 
+(`UserName`, `LoginID`, `Password`, `LoginTime`, `IsDisable`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('施艳', 'shiyan', md5(111111), now(), 0, '', now(), 1, now(), 1);
 
 -- IDO_CMS_USER
 INSERT INTO `IDO_CMS_USER` (`UserID`,`Sex`, `Birthday`, `Email`, `WeChat`, `Telphone`, `Description`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
@@ -144,36 +150,36 @@ VALUES (1, '1', '1984-07-24', 'wangyixian@iidooo.com', 'ouitiken', '13816867453'
 
 -- IDO_CMS_CHANNEL
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (1, 0, '首页', 'index', 1, '首页标题', '首页关键字', '首页描述', 1, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (2, 0, '产品介绍', 'productList', 1, '产品介绍标题', '产品介绍关键字', '产品介绍描述', 2, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (3, 0, '红酒资讯', 'blogList', 1, '红酒资讯标题', '红酒资讯关键字', '红酒资讯描述', 3, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (4, 0, '关于我们', 'aboutUs', 1, '关于我们标题', '关于我们关键字', '关于我们描述', 4, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (5, 0, '联系我们', 'contact', 1, '联系我们标题', '联系我们关键字', '联系我们描述', 5, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (6, 0, '合作加盟', 'join', 1, '合作加盟标题', '合作加盟关键字', '合作加盟描述', 6, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (7, 0, '人才招聘', 'recruit', 1, '人才招聘标题', '人才招聘关键字', '人才招聘描述', 7, 0, '', now(), 1, now(), 1);
 
 -- 红酒咨询子栏目
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (8, 3, '文章', 'article', 2, '文章标题', '文章关键字', '文章描述', 8, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (8, 3, '新闻', 'news', 2, '文章标题', '文章关键字', '文章描述', 8, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
+(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (8, 3, '葡萄酒知识', 'konwledge', 2, '文章标题', '文章关键字', '文章描述', 8, 0, '', now(), 1, now(), 1);
 
 -- IDO_CMS_TEMPLATE

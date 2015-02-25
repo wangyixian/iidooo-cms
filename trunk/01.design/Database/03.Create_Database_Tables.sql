@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS `IDO_SECURITY_USER` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`UserID`))
 ENGINE = InnoDB
 COMMENT = '安全权限的用户表';
@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `IDO_SECURITY_ROLE` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`RoleID`))
 ENGINE = InnoDB
 COMMENT = '安全权限的角色表';
@@ -127,8 +127,8 @@ CREATE TABLE IF NOT EXISTS `IDO_SECURITY_USER_ROLE` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`UserRoleID`))
 ENGINE = InnoDB
 COMMENT = '安全权限的用户角色关系表';
@@ -149,8 +149,8 @@ CREATE TABLE IF NOT EXISTS `IDO_SECURITY_RESOURCE` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`ResourceID`))
 ENGINE = InnoDB
 COMMENT = '安全权限的资源表';
@@ -170,8 +170,8 @@ CREATE TABLE IF NOT EXISTS `IDO_SECURITY_ROLE_RESOURCE` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`RoleResourceID`))
 ENGINE = InnoDB
 COMMENT = '安全权限的角色资源表';
@@ -192,8 +192,8 @@ CREATE TABLE IF NOT EXISTS `IDO_FIELD_MODEL` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`ModelID`))
 ENGINE = InnoDB
 COMMENT = '扩展字段模型';
@@ -218,8 +218,8 @@ CREATE TABLE IF NOT EXISTS `IDO_FIELD_CONFIG` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`FieldID`))
 ENGINE = InnoDB
 COMMENT = '字段配置';
@@ -241,8 +241,8 @@ CREATE TABLE IF NOT EXISTS `IDO_FIELD_DATA` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`DataID`))
 ENGINE = InnoDB
 COMMENT = '字段数据';
@@ -266,8 +266,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_USER` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`UserID`))
 ENGINE = InnoDB
 COMMENT = '用户信息表';
@@ -375,8 +375,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_TEMPLATE` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`TemplateID`))
 ENGINE = InnoDB
 COMMENT = '内容表';
@@ -400,8 +400,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_ATTACH` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`AttachID`))
 ENGINE = InnoDB
 COMMENT = '附件表';
@@ -421,8 +421,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT_TAG` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`ContentTagID`))
 ENGINE = InnoDB
 COMMENT = '内容标签关联表';
@@ -445,8 +445,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_STATISTICS` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`StatisticsID`))
 ENGINE = InnoDB
 COMMENT = '统计表';
@@ -468,8 +468,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_COMMENT` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`CommentID`))
 ENGINE = InnoDB
 COMMENT = '评论表';
@@ -488,8 +488,8 @@ CREATE TABLE IF NOT EXISTS `IDO_CMS_TAG` (
   `CreateUser` INT NOT NULL COMMENT '字段创建者ID',
   `UpdateTime` VARCHAR(32) NOT NULL COMMENT '字段更新时间',
   `UpdateUser` INT NOT NULL COMMENT '字段更新者ID',
-  `IsDelete` INT NOT NULL COMMENT '逻辑删除的Flag，非0即删除',
-  `Version` INT NOT NULL COMMENT '排他用该字段的版本',
+  `IsDelete` INT NOT NULL DEFAULT 0 COMMENT '逻辑删除的Flag，非0即删除',
+  `Version` INT NOT NULL DEFAULT 1 COMMENT '排他用该字段的版本',
   PRIMARY KEY (`TagID`))
 ENGINE = InnoDB
 COMMENT = '内容标签关联表';

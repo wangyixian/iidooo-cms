@@ -18,6 +18,8 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 import org.json.simple.JSONObject;
 
+import com.iidooo.framework.constant.DictConstant;
+
 /**
  * This action is for upload files
  * 
@@ -102,7 +104,11 @@ public class FileUploadAction extends BaseAction {
             extMap.put("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
 
             // 最大文件大小
+            Object maxSizeObj = this.getApplicationValue(DictConstant.DICT_ITEM_UPLOAD_MAX_SIZE);
             long maxSize = 1000000;
+            if (maxSizeObj != null && maxSizeObj instanceof String) {
+                maxSize = Long.parseLong((String)maxSizeObj);
+            }
 
             response.setContentType("text/html; charset=UTF-8");
 

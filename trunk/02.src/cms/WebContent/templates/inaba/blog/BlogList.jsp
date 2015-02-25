@@ -51,7 +51,7 @@
 								</div>
 								<div class="right">							
 									<div>
-										<a href="articleDetail.action?content.contentID=${item.contentID }" target='_blank'>
+										<a href="articleDetail.action?content.contentID=${item.contentID }">
 										<img alt="${item.contentTitle}" src="${CONTENT_RES_ROOT}${item.contentImageTitle}">
 										</a>
 									</div>
