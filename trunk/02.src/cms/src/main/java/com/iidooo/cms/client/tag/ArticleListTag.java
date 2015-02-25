@@ -94,13 +94,17 @@ public class ArticleListTag extends SimpleTagSupport {
                 out.println("<div class='block_content_item'>");
                 
                 if (isShowImage) {
-                    out.println("<span>");               
+                    out.println("<span>");       
+                    out.println("<a target='_blank' href='articleDetail.action?content.contentID=" + item.getContentID() + "'>");
                     out.println("<img alt='" + item.getContentTitle() + "' src='" + item.getContentImageTitle() + "'>"); 
+                    out.println("</a>");
                     out.println("</span>");
                 }
                 
                 out.println("<span class='block_content_item_title'>"); 
+                out.println("<a target='_blank' href='articleDetail.action?content.contentID=" + item.getContentID() + "'>");
                 out.println(item.getContentTitle());
+                out.println("</a>");
                 out.println("</span>");
                 
                 out.println("<span class='block_content_item_date'>");

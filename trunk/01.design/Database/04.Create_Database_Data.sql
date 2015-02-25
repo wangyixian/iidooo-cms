@@ -157,7 +157,7 @@ INSERT INTO `IDO_CMS_CHANNEL`
 VALUES (4, 0, '关于我们', 'aboutUs', 1, '关于我们标题', '关于我们关键字', '关于我们描述', 4, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
 (`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
-VALUES (5, 0, '联系我们', 'cantact', 1, '联系我们标题', '联系我们关键字', '联系我们描述', 5, 0, '', now(), 1, now(), 1);
+VALUES (5, 0, '联系我们', 'contact', 1, '联系我们标题', '联系我们关键字', '联系我们描述', 5, 0, '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
 (`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`,`IsDelete`,`Version`) 
 VALUES (6, 0, '合作加盟', 'join', 1, '合作加盟标题', '合作加盟关键字', '合作加盟描述', 6, 0, '', now(), 1, now(), 1);
@@ -339,3 +339,12 @@ INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('43',
 
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES ('4', '1', '关于我们', '关于我们', ' ', '关于我们', '关于我们', '关于我们', '关于我们描述', '关于我们内容体', '1', '0', ' ', now(), '1', now(), '1');
+
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('5', '1', '联系我们', '联系我们', ' ', '联系我们', '联系我们', '联系我们', '联系我们描述', '联系我们内容体', '1', '0', ' ', now(), '1', now(), '1');
+
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('6', '1', '合作加盟', '合作加盟', ' ', '合作加盟', '合作加盟', '合作加盟', '合作加盟描述', '合作加盟内容体', '1', '0', ' ', now(), '1', now(), '1');
+
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('7', '1', '诚聘英才', '诚聘英才', ' ', '诚聘英才', '诚聘英才', '诚聘英才', '诚聘英才描述', '诚聘英才内容体', '1', '0', ' ', now(), '1', now(), '1');

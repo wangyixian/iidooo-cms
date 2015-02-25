@@ -28,21 +28,33 @@
 						<li>
 							<s:if test="#st.first">
 							<div class="top_blog">
-								<div class="blog_title">${item.contentTitle}</div>
+								<div class="blog_title">
+									<a href="articleDetail.action?content.contentID=${item.contentID }" target='_blank'>${item.contentTitle}</a>
+								</div>
 								<div class="blog_date">${item.updateDate}|${item.createUserName}</div>
-								<div class="blog_image"><img alt="${item.contentTitle}" src="${CONTENT_RES_ROOT}${item.contentImageTitle}"></div>
+								<div class="blog_image">
+									<a href="articleDetail.action?content.contentID=${item.contentID }" target='_blank'>
+									<img alt="${item.contentTitle}" src="${CONTENT_RES_ROOT}${item.contentImageTitle}">
+									</a>
+								</div>
 								<div class="blog_summary">${item.contentSummary}</div>
 							</div>
 							</s:if>
 							<s:else>
 							<div class="blog">
 								<div class="left">
-									<div class="blog_title">${item.contentTitle}</div>
+									<div class="blog_title">
+										<a href="articleDetail.action?content.contentID=${item.contentID }" target='_blank'>${item.contentTitle}</a>
+									</div>
 									<div class="blog_date">${item.updateDate}|${item.createUserName}</div>
 									<div class="blog_summary">${item.contentSummary}</div>
 								</div>
 								<div class="right">							
-									<div><img alt="${item.contentTitle}" src="${CONTENT_RES_ROOT}${item.contentImageTitle}"></div>
+									<div>
+										<a href="articleDetail.action?content.contentID=${item.contentID }" target='_blank'>
+										<img alt="${item.contentTitle}" src="${CONTENT_RES_ROOT}${item.contentImageTitle}">
+										</a>
+									</div>
 								</div>
 							</div>
 							</s:else>

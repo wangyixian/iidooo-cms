@@ -8,16 +8,16 @@
 <meta name="keywords" content="${channel.metaKeywords}" >
 <meta name="description" content="${channel.metaDescription}">
 <jsp:include page="../include/Head.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="${SITE_TEMPLATE_URL}/res/css/about/About.css">
+<link type="text/css" rel="stylesheet" href="${SITE_TEMPLATE_URL}/res/css/recruit/Recruit.css">
 </head>
 <body>
 	<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }">
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="body_wrap">		
-    	<cms:mainmenu channelPath="aboutUs" />
+    	<cms:mainmenu channelPath="recruit" />
 	</div>
 	<div class="body_wrap block shadow">
-	    <div class="content_wrap">
+		<div class="content_wrap">
 			<div class="content">
 				<h1>${content.contentTitle }</h1>
 				<hr class="hr"></hr>

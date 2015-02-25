@@ -11,19 +11,26 @@
 		<action name="productList" class="com.iidooo.cms.client.action.product.ProductListAction" method="init">
 			<result name="success">/templates/inaba/product/ProductList.jsp</result>
 		</action>
+		<action name="productDetail" class="com.iidooo.cms.client.action.product.ProductDetailAction" method="init">
+			<result name="success">/templates/inaba/product/ProductDetail.jsp</result>
+		</action>
 		<action name="blogList" class="com.iidooo.cms.client.action.blog.BlogListAction" method="init">
 			<result name="success">/templates/inaba/blog/BlogList.jsp</result>
+		</action>
+		<action name="articleDetail" class="com.iidooo.cms.client.action.blog.BlogDetailAction" method="init">
+			<result name="success">/templates/inaba/blog/BlogDetail.jsp</result>
 		</action>
 		<action name="aboutUs" class="com.iidooo.cms.client.action.about.AboutAction" method="init">
 			<result name="success">/templates/inaba/about/About.jsp</result>
 		</action>
-		<action name="album" class="com.iidooo.cms.client.action.AttachAlbumAction">
-			<result name="success" type="freemarker">${currentAlbum.templatePath}</result>
-			<result name="none" type="freemarker">TO DO</result>
+		<action name="contact" class="com.iidooo.cms.client.action.contact.ContactAction" method="init">
+			<result name="success">/templates/inaba/contact/Contact.jsp</result>
 		</action>
-		<action name="attach" class="com.iidooo.cms.client.action.AttachAction">
-			<result name="success" type="freemarker">${currentAttach.templatePath}</result>
-			<result name="none" type="freemarker">TO DO</result>
+		<action name="join" class="com.iidooo.cms.client.action.join.JoinAction" method="init">
+			<result name="success">/templates/inaba/join/Join.jsp</result>
+		</action>
+		<action name="recruit" class="com.iidooo.cms.client.action.recruit.RecruitAction" method="init">
+			<result name="success">/templates/inaba/recruit/Recruit.jsp</result>
 		</action>
 	</package>
 </struts>

@@ -13,4 +13,6 @@ public interface CmsContentArticleDao {
     int selectArticlesCountByChannelID(int channelID);
     
     List<CmsContentArticleDto> selectArticlesByChannelID(@Param("channelID")int channelID, @Param("page")PagingDto page);
+
+    CmsContentArticleDto selectByContentID(int contentID);
 }

@@ -78,25 +78,15 @@
 					<span>当前的位置：</span><span>内容管理 - 内容详细</span>
 				</div>
 				<div>
-					<input type="hidden" name="content.modelID" value="${content.modelID }">
 					<input id="hidChannelID" type="hidden" value="${content.channelID }">
 					<input type="hidden" name="content.contentID" value="${content.contentID}">
+					<input type="hidden" name="content.contentType" value="${content.contentType }">
 					<input type="hidden" name="content.version"	value="${content.version }">
 					<table class="grid">
 						<tr>							
-							<th width="10%">内容模型</th>		
+							<th width="10%">内容类型</th>		
 							<td>
-								<select name="content.modelID" disabled="disabled">									
-									<option value="0">默认</option>	
-									<s:iterator value="fieldModels" id="item" status="st">
-										<s:if test="content.modelID == #item.modelID">
-											<option value="${item.modelID }" selected="selected">${item.modelName }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.modelID }">${item.modelName }</option>
-										</s:else>
-									</s:iterator>
-								</select>
+								<input type="text" class="width_400px" readonly="readonly" name="content.contentType" value="${CONTENT_TYPE_MAP[content.contentType]}">
 							</td>		
 							<th class="required" width="10%">所属栏目</th>
 							<td>
@@ -114,21 +104,8 @@
 						</tr>
 						<tr>
 							<th class="required">内容标题</th>
-							<td>
+							<td colspan="3">
 								<input class="width_400px" type="text" name="content.contentTitle" value="${content.contentTitle}">
-							</td>
-							<th class="required" width="10%">内容模版</th>
-							<td>
-								<select name="content.templateID">
-									<s:iterator value="allTemplates" id="item" status="st">
-										<s:if test="content.templateID == #item.templateID">
-											<option value="${item.templateID }" selected="selected">${item.templatePath }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.templateID }">${item.templatePath }</option>
-										</s:else>
-									</s:iterator>
-								</select>
 							</td>
 						</tr>
 						<tr>							
@@ -149,7 +126,7 @@
 								<input type="button" id="btnImgTitle" value="选择图片" />
 							</td>
 							<th>图片预览</th>
-							<td><img id="imgTitle" class="img-preview" alt="${content.contentTitle}" src="${content.contentImageTitle }"></td>
+							<td><img id="imgTitle" class="img-preview" src="${content.contentImageTitle }"></td>
 						</tr>
 						<tr>
 							<th>meta标题</th>
@@ -186,9 +163,67 @@
 							</td>
 						</tr>
 						<s:if test="content.contentType == 2">
-							<th>产品类型</th>
-							<td></td>
-						</s:if>					
+						<tr>
+							<th>产品分类</th>
+							<td>
+								<select name="product.productType">
+									<s:iterator value="productTypes" id="item" status="st">
+										<s:if test="product.productType == #item.dictItemCode">
+											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
+										</s:if>
+										<s:else>
+											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
+										</s:else>
+									</s:iterator>
+								</select>
+							</td>
+							<th>产品国家</th>
+							<td>
+								<select name="product.productCountry">
+									<s:iterator value="productCountries" id="item" status="st">
+										<s:if test="product.productCountry == #item.dictItemCode">
+											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
+										</s:if>
+										<s:else>
+											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
+										</s:else>
+									</s:iterator>
+								</select>
+							</td>
+						</tr>
+						<tr>						
+							<th>产品产地</th>
+							<td colspan="3">
+								<select name="product.productOrigin">
+									<s:iterator value="productOrigins" id="item" status="st">
+										<s:if test="product.productOrigin == #item.dictItemCode">
+											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
+										</s:if>
+										<s:else>
+											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
+										</s:else>
+									</s:iterator>
+								</select>
+							</td>
+						</tr>
+						</s:if>			
+						<s:if test="content.contentType == 3">
+						<tr>
+							<th>文章类型</th>
+							<td colspan="3">
+								<select name="article.articleType">
+									<s:iterator value="articleTypes" id="item" status="st">
+										<s:if test="article.articleType == #item.dictItemCode">
+											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
+										</s:if>
+										<s:else>
+											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
+										</s:else>
+									</s:iterator>
+								</select>
+							</td>
+						</tr>
+						</s:if>		
 					</table>
 					<div class="button_bar">
 						<s:if test="content == null || content.contentID == null">

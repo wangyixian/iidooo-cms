@@ -5,16 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="${channel.metaKeywords}" >
-<meta name="description" content="${channel.metaDescription}">
+<meta name="keywords" content="${content.metaKeywords}" >
+<meta name="description" content="${content.metaDescription}">
 <jsp:include page="../include/Head.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="${SITE_TEMPLATE_URL}/res/css/about/About.css">
+<link type="text/css" rel="stylesheet" href="${SITE_TEMPLATE_URL}/res/css/product/ProductDetail.css">
 </head>
 <body>
-	<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }">
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="body_wrap">		
-    	<cms:mainmenu channelPath="aboutUs" />
+    	<cms:mainmenu channelPath="productList" />
 	</div>
 	<div class="body_wrap block shadow">
 	    <div class="content_wrap">
@@ -22,8 +21,7 @@
 				<h1>${content.contentTitle }</h1>
 				<hr class="hr"></hr>
 				<hr size="2" width="100%">
-				<div>
-					<img class="logo_square" alt="${SITE_NAME}" src="${SITE_TEMPLATE_URL}/res/img/logo_square.jpg"><br>
+				<div>					
 					${content.contentBody }
 				</div>
 			</div>

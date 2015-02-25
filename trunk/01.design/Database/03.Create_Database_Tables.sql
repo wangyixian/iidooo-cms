@@ -310,7 +310,7 @@ DROP TABLE IF EXISTS `IDO_CMS_CONTENT` ;
 CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT` (
   `ContentID` INT NOT NULL AUTO_INCREMENT COMMENT '内容主键ID',
   `ChannelID` INT NOT NULL COMMENT '所属栏目',
-  `ContentType` INT NOT NULL COMMENT '模型类型，关联字典类CONTENT_TYPE',
+  `ContentType` CHAR(1) NOT NULL COMMENT '模型类型，关联字典类CONTENT_TYPE',
   `ContentTitle` VARCHAR(256) NOT NULL COMMENT '内容标题',
   `ContentSubTitle` VARCHAR(256) NOT NULL COMMENT '副标题',
   `ContentImageTitle` VARCHAR(1024) NOT NULL COMMENT '图片标题的URL',
@@ -333,8 +333,6 @@ ENGINE = InnoDB
 COMMENT = '内容表';
 
 
-
-
 -- -----------------------------------------------------
 -- Table `IDO_CMS_CONTENT_PRODUCT`
 -- -----------------------------------------------------
@@ -342,9 +340,9 @@ DROP TABLE IF EXISTS `IDO_CMS_CONTENT_PRODUCT` ;
 
 CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT_PRODUCT` (
   `ContentID` INT NOT NULL COMMENT '内容ID，和CONTENT表一一对应',
-  `ProductType` INT NOT NULL COMMENT '产品类型，在字典表定义',
-  `ProductCountry` INT NOT NULL COMMENT '产品国家',
-  `ProductOrigin` INT NOT NULL COMMENT '产品产地',
+  `ProductType` CHAR(1) NOT NULL COMMENT '产品类型，在字典表定义',
+  `ProductCountry` CHAR(1) NOT NULL COMMENT '产品国家',
+  `ProductOrigin` CHAR(1) NOT NULL COMMENT '产品产地',
   PRIMARY KEY (`ContentID`))
 ENGINE = InnoDB
 COMMENT = '产品内容表，IDO_CMS_CONTENT的扩展表';
@@ -357,10 +355,11 @@ DROP TABLE IF EXISTS `IDO_CMS_CONTENT_ARTICLE` ;
 
 CREATE TABLE IF NOT EXISTS `IDO_CMS_CONTENT_ARTICLE` (
   `ContentID` INT NOT NULL COMMENT '内容ID，和CONTENT表一一对应',
-  `ArticleType` INT NOT NULL COMMENT '文章类型，在字典表定义',
+  `ArticleType` CHAR(1) NOT NULL COMMENT '文章类型，在字典表定义',
   PRIMARY KEY (`ContentID`))
 ENGINE = InnoDB
 COMMENT = '文章内容表，IDO_CMS_CONTENT的扩展表';
+
 
 -- -----------------------------------------------------
 -- Table `IDO_CMS_TEMPLATE`

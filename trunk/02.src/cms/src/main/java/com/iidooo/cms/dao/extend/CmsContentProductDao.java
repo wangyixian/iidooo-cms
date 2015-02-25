@@ -12,4 +12,6 @@ public interface CmsContentProductDao {
     int selectProductsCount(@Param("channels")List<CmsChannelDto> channels, @Param("product")CmsContentProductDto product);
 
     List<CmsContentProductDto> selectProducts(@Param("channels")List<CmsChannelDto> channels, @Param("product")CmsContentProductDto product, @Param("page")PagingDto page);
+
+    CmsContentProductDto selectByContentID(int contentID);
 }

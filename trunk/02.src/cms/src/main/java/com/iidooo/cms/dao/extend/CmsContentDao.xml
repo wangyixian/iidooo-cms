@@ -33,7 +33,7 @@
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
-<!-- 
+
 	<select id="selectChannelContentsCount" resultType="java.lang.Integer">
 		select count(C.ContentID) from IDO_CMS_CONTENT C
 		join IDO_CMS_CHANNEL L on C.IsDelete = 0 and C.ChannelID = L.ChannelID and C.ChannelID in
@@ -149,17 +149,22 @@
 
 	<select id="selectContentByID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
 		SELECT
-		<include refid="Base_Column_List" />
-		, T.TemplatePath
-		,
+		<include refid="Base_Column_List" />,
 		<include refid="Blob_Column_List" />
 		FROM IDO_CMS_CONTENT C
-		INNER JOIN IDO_CMS_TEMPLATE T
-		ON C.TemplateID = T.TemplateID AND C.ContentID = #{contentID,jdbcType=INTEGER}
+		where C.ContentID = #{contentID,jdbcType=INTEGER}
 		AND C.IsDelete = 0
-		AND T.IsDelete = 0
 	</select>
 
+	<select id="selectByChannel" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+		select 
+		<include refid="Base_Column_List" />,
+		<include refid="Blob_Column_List" />
+		from IDO_CMS_CONTENT C
+		where C.IsDelete = 0 and C.ChannelID = #{channelID}
+		order by C.Sequence limit 0, 1
+	</select>
+	
 	<select id="selectMaxSequence" resultType="java.lang.Integer">
 		select Max(Sequence) from IDO_CMS_CONTENT C WHERE C.IsDelete = 0
 	</select>
@@ -222,5 +227,5 @@
 		#{updateUser,jdbcType=INTEGER},
 		Version = Version + 1
 		where ContentID = #{contentID,jdbcType=INTEGER}
-	</update> -->
+	</update>
 </mapper>

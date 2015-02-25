@@ -287,7 +287,8 @@ a:hover {
 /* 网页内容部分的包裹 */
 .body_wrap {
 	width: 980px;
-	margin: 0 auto;
+	margin-right: auto;
+	margin-left: auto;
 	overflow: hidden;
 }
 
@@ -416,6 +417,6 @@ strong {
 	font-weight: normal;
 }
 
-.shadow{
+.shadow {
 	box-shadow: -1px 1px 5px 2px #999;
 }

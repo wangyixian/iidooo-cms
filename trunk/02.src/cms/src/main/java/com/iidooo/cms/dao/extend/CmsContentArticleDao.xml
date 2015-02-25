@@ -23,7 +23,7 @@
 	<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 	<result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.CmsContentProductDto" extends="BaseResultMap">
+  <resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.CmsContentArticleDto" extends="BaseResultMap">
 	<result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -34,6 +34,9 @@
 	C.Sequence,
 	C.IsAllowComment, A.ArticleType, C.Remarks, C.CreateTime, C.CreateUser,
 	C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
+  </sql>
+  <sql id="Blob_Column_List" >
+    C.ContentBody
   </sql>
   <select id="selectContentArticles" resultMap="BaseResultMap">
   	select
@@ -60,5 +63,14 @@
 	and C.ChannelID = #{channelID,jdbcType=INTEGER}
 	join IDO_SECURITY_USER U on C.CreateUser = U.UserID and U.IsDelete = 0
 	order by C.UpdateTime desc limit #{page.start}, #{page.pageSize}
+  </select>
+  
+  <select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+  	select 
+	<include refid="Base_Column_List" />,
+	<include refid="Blob_Column_List" />
+	from IDO_CMS_CONTENT C
+	join IDO_CMS_CONTENT_ARTICLE A on C.IsDelete = 0 and C.ContentID = A.ContentID 
+	and C.ContentID = #{contentID, jdbcType=INTEGER}
   </select>
 </mapper>

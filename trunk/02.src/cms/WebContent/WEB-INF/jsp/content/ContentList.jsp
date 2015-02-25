@@ -53,10 +53,11 @@
 							<th width="5%">ID</th>
 							<th width="10%">栏目</th>
 							<th width="25%">标题</th>
+							<th width="6%">类型</th>
 							<th width="10%">发布者</th>
-							<th width="15%">发布时间</th>
+							<th width="12%">发布时间</th>
 							<th width="10%">更新者</th>
-							<th width="15%">更新时间</th>
+							<th width="12%">更新时间</th>
 							<th width="10%">操作</th>
 						</tr>
 						<s:iterator id="content" value="contentList" status="st">
@@ -68,6 +69,7 @@
 										${content.contentTitle}
 									</a>
 								</td>
+								<td class="align_center">${CONTENT_TYPE_MAP[content.contentType]}</td>
 								<td class="align_center">${SECURITY_USERS_MAP[content.createUser]}</td>
 								<td class="align_center">${content.createTime}</td>
 								<td class="align_center">${SECURITY_USERS_MAP[content.updateUser]}</td>

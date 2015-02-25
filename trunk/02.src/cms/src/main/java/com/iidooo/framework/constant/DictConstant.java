@@ -21,6 +21,8 @@ public class DictConstant {
     public static final String FIELD_PRODUCT_COUNTRY = "FIELD_PRODUCT_COUNTRY";
     public static final String FIELD_PRODUCT_ORIGIN = "FIELD_PRODUCT_ORIGIN";
     
+    public static final String DICT_CLASS_ARTICLE_TYPE = "ARTICLE_TYPE";
+    
     public static final String DICT_CLASS_ATTACH_ALBUM_CLASSIFY = "ATTACH_ALBUM_CLASSIFY";
     
     /**
