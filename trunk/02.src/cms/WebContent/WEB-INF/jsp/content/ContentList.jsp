@@ -31,7 +31,7 @@
 	<form id="form" method="post">
 		<input id="hidChannelID" type="hidden" name="channelID" value="${channelID }">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
-		<div class="body_wrap">
+		<div id='page' class="body_wrap">
 			<div class="left_side_wrap">
 				<f:tree root="${rootTreeNode}" recursion="true" />
 			</div>

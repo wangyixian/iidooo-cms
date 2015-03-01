@@ -8,20 +8,7 @@ package com.iidooo.framework.constant;
  */
 public class Constants {
 
-	/**
-	 * 数据库查询升序
-	 */
-	public static final String DB_SORT_ASC = "asc";
-
-	/**
-	 * 数据库查询降序
-	 */
-	public static final String DB_SORT_DESC = "desc";
-
-	/**
-	 * 数据库字段UpdateTime
-	 */
-	public static final String DB_FIELD_UPDATETIME = "UpdateTime";
+	
 
 	public static final String FILE_TYPE_GIF = "gif";
 	public static final String FILE_TYPE_JPG = "jpg";

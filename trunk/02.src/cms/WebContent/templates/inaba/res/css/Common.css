@@ -159,25 +159,6 @@ a:hover {
 	font-size: 21px;
 }
 
-.block_content_item {
-	border-bottom: 1px dashed #CCC;
-	overflow: hidden;
-	padding: 5px 0;
-}
-
-.block_content_item_title {
-	overflow: hidden;
-	display: block;
-	float: left;
-	width: 200px;
-}
-
-.block_content_item_date {
-	overflow: hidden;
-	display: block;
-	float: right;
-}
-
 .frame {
 	overflow: hidden;
 	border: 1px solid RGB(204, 204, 204);
@@ -324,12 +305,12 @@ a:hover {
 
 #logo {
 	margin: 10px 0 0 0;
-	height: 90px;
-	line-height: 90px;
+	height: 80px;
+	line-height: 80px;
 }
 
 .logo img {
-	height: 90px;
+	height: 80px;
 }
 
 /* 主菜单 */
@@ -359,12 +340,12 @@ a:hover {
 }
 
 #mainmenu>li>a:hover {
-	background-color: #BF1C21;
+	background-color: RGB(150, 38, 59);
 	font-weight: bold;
 }
 
 .focus {
-	background-color: #BF1C21;
+	background-color: RGB(150, 38, 59);
 	font-weight: bold;
 	color: white;
 }
@@ -375,11 +356,15 @@ a:hover {
 	text-align: center;
 	background-color: RGB(54, 54, 54);
 	color: RGB(204, 204, 204);
-	padding: 5px;		/* 
+	padding: 10px; /* 
 	width:100%;
 	Make the foot stay on the bottom
 	bottom:0;
 	position:fixed; */
+}
+
+#foot dl{
+	margin:0;
 }
 
 #foot dt {
@@ -395,6 +380,22 @@ a:hover {
 
 #foot a:hover {
 	color: white;
+}
+
+#foot .wechart img{
+	width: 100px;
+	height: 100px;
+}
+
+#foot .wechart_title{
+	font-weight: bold;
+	font-size: 16px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+#foot .wechart_content{
+	margin-left: 5px;
 }
 
 /* The style of bread crumbs */

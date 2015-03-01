@@ -5,7 +5,7 @@
 
 <struts>
 	<package name="client" extends="basic">
-		<action name="index" class="com.iidooo.cms.client.action.IndexAction">
+		<action name="index" class="com.iidooo.cms.client.action.index.IndexAction" method="init">
 			<result name="success">/templates/inaba/index/Index.jsp</result>
 		</action>
 		<action name="productList" class="com.iidooo.cms.client.action.product.ProductListAction" method="init">

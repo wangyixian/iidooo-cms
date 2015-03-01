@@ -8,7 +8,7 @@ package com.iidooo.framework.dto.base;
  */
 public class PagingDto {
 
-	 /**
+    /**
      * 默认构造函数
      */
     public PagingDto() {
@@ -45,6 +45,10 @@ public class PagingDto {
      * 总页数
      */
     private int pageSum;
+
+    private String sortField = "Sequence";
+
+    private String sortType = "acs";
 
     /**
      * 得到检索开始行号
@@ -153,4 +157,22 @@ public class PagingDto {
     public void setPageSum(int pageSum) {
         this.pageSum = pageSum;
     }
+
+    public String getSortField() {
+        return sortField;
+    }
+
+    public void setSortField(String sortField) {
+        this.sortField = sortField;
+    }
+
+    public String getSortType() {
+        return sortType;
+    }
+
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
+    
+    
 }

@@ -35,6 +35,8 @@ public interface CmsContentDao {
     
     CmsContentDto selectByChannel(int channelID);
     
+    List<CmsContentDto> selectByChannelPath(@Param("channelPath")String channelPath, @Param("page")PagingDto page);
+    
     int selectMaxSequence();
     
     int insert(CmsContentDto content);

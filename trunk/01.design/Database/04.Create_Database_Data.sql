@@ -174,10 +174,10 @@ VALUES (0, '人才招聘', 'recruit', 1, '人才招聘标题', '人才招聘关�
 -- 首页子栏目
 INSERT INTO `IDO_CMS_CHANNEL`
 (`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
-VALUES (1, '精品红酒', 'choice', 2, '精品红酒标题', '精品红酒关键字', '精品红酒描述', 1, '1', '', now(), 1, now(), 1);
+VALUES (2, '精品红酒', 'nominate', 2, '精品红酒标题', '精品红酒关键字', '精品红酒描述', 1, '1', '', now(), 1, now(), 1);
 INSERT INTO `IDO_CMS_CHANNEL`
 (`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
-VALUES (1, '热销红酒', 'sales', 2, '热销红酒标题', '热销红酒关键字', '热销红酒描述', 1, '1', '', now(), 1, now(), 1);
+VALUES (2, '热销红酒', 'sales', 2, '热销红酒标题', '热销红酒关键字', '热销红酒描述', 1, '1', '', now(), 1, now(), 1);
 
 -- 红酒咨询子栏目
 INSERT INTO `IDO_CMS_CHANNEL`
@@ -214,31 +214,31 @@ VALUES ('人才招聘', '/templates/inaba/channel/recruit.html', '', now(), 1, n
 
 -- 产品介绍内容
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '德国冰山雷司令', '德国冰山雷司令', ' ', '德国冰山雷司令', '德国冰山雷司令', '德国冰山雷司令', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('8', '2', '德国冰山雷司令', '德国冰山雷司令', ' ', '德国冰山雷司令', '德国冰山雷司令', '德国冰山雷司令', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '德国HXM甜白', '德国HXM甜白', ' ', '德国HXM甜白', '德国HXM甜白', '德国HXM甜白', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('8', '2', '德国HXM甜白', '德国HXM甜白', ' ', '德国HXM甜白', '德国HXM甜白', '德国HXM甜白', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '地中海', '地中海', ' ', '地中海', '地中海', '地中海', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('8', '2', '地中海', '地中海', ' ', '地中海', '地中海', '地中海', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '高大骑士', '高大骑士', ' ', '高大骑士', '高大骑士', '高大骑士', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('8', '2', '高大骑士', '高大骑士', ' ', '高大骑士', '高大骑士', '高大骑士', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '教皇新堡', '教皇新堡', ' ', '教皇新堡', '教皇新堡', '教皇新堡', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('8', '2', '教皇新堡', '教皇新堡', ' ', '教皇新堡', '教皇新堡', '教皇新堡', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '克罗兹埃米塔日', '克罗兹埃米塔日', ' ', '克罗兹埃米塔日', '克罗兹埃米塔日', '克罗兹埃米塔日', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '克罗兹埃米塔日', '克罗兹埃米塔日', ' ', '克罗兹埃米塔日', '克罗兹埃米塔日', '克罗兹埃米塔日', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '隆河丘', '隆河丘', ' ', '隆河丘', '隆河丘', '隆河丘', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '隆河丘', '隆河丘', ' ', '隆河丘', '隆河丘', '隆河丘', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '梅洛', '梅洛', ' ', '梅洛', '梅洛', '梅洛', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '梅洛', '梅洛', ' ', '梅洛', '梅洛', '梅洛', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '神之恩赐', '神之恩赐', ' ', '神之恩赐', '神之恩赐', '神之恩赐', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '神之恩赐', '神之恩赐', ' ', '神之恩赐', '神之恩赐', '神之恩赐', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '托索比诺霞多丽起泡酒', '托索比诺霞多丽起泡酒', ' ', '托索比诺霞多丽起泡酒', '托索比诺霞多丽起泡酒', '托索比诺霞多丽起泡酒', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '托索比诺霞多丽起泡酒', '托索比诺霞多丽起泡酒', ' ', '托索比诺霞多丽起泡酒', '托索比诺霞多丽起泡酒', '托索比诺霞多丽起泡酒', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '托索ASTI起泡酒', '托索ASTI起泡酒', ' ', '托索ASTI起泡酒', '托索ASTI起泡酒', '托索ASTI起泡酒', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '托索ASTI起泡酒', '托索ASTI起泡酒', ' ', '托索ASTI起泡酒', '托索ASTI起泡酒', '托索ASTI起泡酒', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '瓦给拉斯', '瓦给拉斯', ' ', '瓦给拉斯', '瓦给拉斯', '瓦给拉斯', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '瓦给拉斯', '瓦给拉斯', ' ', '瓦给拉斯', '瓦给拉斯', '瓦给拉斯', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('2', '2', '霞多丽', '霞多丽', ' ', '霞多丽', '霞多丽', '霞多丽', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('9', '2', '霞多丽', '霞多丽', ' ', '霞多丽', '霞多丽', '霞多丽', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 
 INSERT INTO `IDO_CMS_CONTENT_PRODUCT` (`ContentID`, `ProductType`, `ProductCountry`, `ProductOrigin`) VALUES ('1', '2', '3', '1');
 INSERT INTO `IDO_CMS_CONTENT_PRODUCT` (`ContentID`, `ProductType`, `ProductCountry`, `ProductOrigin`) VALUES ('2', '1', '1', '1');
