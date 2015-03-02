@@ -83,7 +83,7 @@
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div id="page">
 			<div class="left_side_wrap">
-				<f:tree root="${rootTreeNode}" recursion="true" />	
+				<f:tree root="${rootTreeNode}" recursion="true" title="栏目树"/>	
 			</div>
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
@@ -101,8 +101,7 @@
 						<span>内容管理 - 内容删除</span>
 					</s:elseif>
 				</div>
-				<s:actionmessage/>
-				<div>
+				<div class="content_wrap">
 					<table class="grid">
 						<tr>							
 							<th width="10%">内容类型</th>		
@@ -152,23 +151,7 @@
 							</td>
 							<th>图片预览</th>
 							<td><img id="imgTitle" class="img-preview" src="${content.contentImageTitle }"></td>
-						</tr>
-						<tr>
-							<th>meta标题</th>
-							<td>
-								<input class="width_400px" type="text" name="content.metaTitle"	value="${content.metaTitle}">
-							</td>
-							<th>meta关键字</th>
-							<td>
-								<input class="width_400px" type="text" name="content.metaKeywords" value="${content.metaKeywords}">
-							</td>
-						</tr>
-						<tr>
-							<th>meta描述</th>
-							<td colspan="3">
-								<textarea class="width_90per" rows="5" name="content.metaDescription">${content.metaDescription }</textarea>
-							</td>
-						</tr>
+						</tr>						
 						<tr>
 							<th class="required">内容摘要</th>
 							<td colspan="3">
@@ -179,12 +162,6 @@
 							<th class="required">内容详细</th>
 							<td colspan="3">
 							<textarea class="width_90per" id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
-							</td>
-						</tr>
-						<tr>
-							<th>备注</th>
-							<td colspan="3">
-								<textarea class="width_90per" rows="5" name="content.remarks">${content.remarks }</textarea>
 							</td>
 						</tr>
 						<s:if test="content.contentType == 2">
@@ -248,23 +225,46 @@
 								</select>
 							</td>
 						</tr>
-						</s:if>		
+						</s:if>	
+						<tr>
+							<th>meta标题</th>
+							<td>
+								<input class="width_400px" type="text" name="content.metaTitle"	value="${content.metaTitle}">
+							</td>
+							<th>meta关键字</th>
+							<td>
+								<input class="width_400px" type="text" name="content.metaKeywords" value="${content.metaKeywords}">
+							</td>
+						</tr>
+						<tr>
+							<th>meta描述</th>
+							<td colspan="3">
+								<textarea class="width_90per" rows="5" name="content.metaDescription">${content.metaDescription }</textarea>
+							</td>
+						</tr>
+						<tr>
+							<th>备注</th>
+							<td colspan="3">
+								<textarea class="width_90per" rows="5" name="content.remarks">${content.remarks }</textarea>
+							</td>
+						</tr>							
 					</table>
 					<div class="button_bar">
 						<s:if test="mode == 1 || mode == 3">
-							<input type="button" value="创建" onclick="return createContent();">
+							<button type="button" onclick="return createContent();">创建</button>
 						</s:if>
 						<s:elseif test="mode == 2">
-							<input type="button" value="更新" onclick="return updateContent();">
-							<input type="button" value="复制" onclick="btnCopy();">
-							<input type="button" value="删除" onclick="return deleteContent();">
+							<button type="button" onclick="return updateContent();">更新</button>
+							<button type="button" onclick="btnCopy();">复制</button>
+							<button type="button" onclick="return deleteContent();">删除</button>
 						</s:elseif>
-						<input type="button" value="返回" onclick="return returnBack();">
+						<button type="button" onclick="return returnBack();">返回</button>
 					</div>			
 				</div>
 			</div>
 		</div>
-	</form>
+		
 	<jsp:include page="../include/Footer.jsp"></jsp:include>
+	</form>
 </body>
 </html>

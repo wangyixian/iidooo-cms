@@ -33,19 +33,17 @@
 <body>
 	<s:form id="form">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
-		<div class="body_wrap">
-			<div class="left_side_wrap">
-				<f:tree root="${rootTreeNode}" recursion="true" />
+		<div id="page">
+			<div class="left_side_wrap">			
+				<f:tree root="${rootTreeNode}" recursion="true" title="栏目树"/>
 			</div>
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
 					<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
+					<span><s:actionerror/></span>
+					<span><s:actionmessage /></span>
 				</div>
-				<div>
-					<span class="info_message center">
-						<s:actionerror/>
-						<s:actionmessage />
-					</span>
+				<div class="content_wrap">
 					<table class="grid">
 						<tr>
 							<th width="5%">ID</th>
@@ -60,7 +58,11 @@
 						</tr>
 						<s:iterator id="channel" value="channelList" status="st">
 							<tr>
-								<td>${channel.channelID }</td>
+								<td>
+									<a href="channelDetail.action?channel.channelID=${channel.channelID }">
+										${channel.channelID }
+									</a>
+								</td>
 								<td>
 									<a href="channelDetail.action?channel.channelID=${channel.channelID }">
 										${channel.channelName }
@@ -84,7 +86,7 @@
 						</s:iterator>
 					</table>
 					<div class="button_bar">
-						<input type="button" class="button" onclick="btnCreate(${parentChannelID})" value="添加">
+						<button type="button" onclick="btnCreate(${parentChannelID})">添加</button>
 					</div>
 				</div>
 			</div>

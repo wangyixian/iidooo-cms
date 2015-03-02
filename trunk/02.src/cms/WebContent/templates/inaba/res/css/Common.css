@@ -356,7 +356,9 @@ a:hover {
 	text-align: center;
 	background-color: RGB(54, 54, 54);
 	color: RGB(204, 204, 204);
-	padding: 10px; /* 
+	padding: 10px; 
+	margin-bottom: 0px;
+	/* 
 	width:100%;
 	Make the foot stay on the bottom
 	bottom:0;

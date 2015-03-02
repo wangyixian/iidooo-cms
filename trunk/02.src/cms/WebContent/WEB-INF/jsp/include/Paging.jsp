@@ -24,16 +24,16 @@
 	}
 </script>
 <div class="paging block align_center">
-	<input type="button" value="首页" onclick="paging(1)"/> 
-	<input type="button" value="前一页" onclick="paging(${pagingDto.currentPage - 1})"/> 
+	<button type="button" value="首页" onclick="paging(1)">首页</button>
+	<button type="button" value="前一页" onclick="paging(${pagingDto.currentPage - 1})">前一页</button>
 	<span> ${pagingDto.currentPage }/${pagingDto.pageSum }页&nbsp;${pagingDto.recordSum }件
 	</span>
-	<input type="button" value="后一页" onclick="paging(${pagingDto.currentPage + 1})"/>
-	<input type="button" value="末页" onclick="paging(${pagingDto.pageSum})"/>	
+	<button type="button" value="后一页" onclick="paging(${pagingDto.currentPage + 1})">后一页</button>
+	<button type="button" value="末页" onclick="paging(${pagingDto.pageSum})">末页</button>
 	&nbsp;&nbsp;第&nbsp;
-	<input id="txtJumpPage" type="text" class="width_20"/>
+	<input id="txtJumpPage" type="text" class="width_20"/></input>
 	&nbsp;页
-	<input type="button" value="跳转" onclick="jump()"/>
+	<button type="button" value="跳转" onclick="jump()"/>跳转</button>
 
 	<input id="hidCurrentPage" type="hidden" name="pagingDto.currentPage" value="${pagingDto.currentPage}">
 	<input id="hidActionName" type="hidden" value="${actionName }">

@@ -39,24 +39,24 @@
 	}
 
 	function returnBack(parentID) {
-		window.location.href = "channelList.action?parentChannel.channelID=" + parentID;
+		window.location.href = "channelList.action?parentChannelID=" + parentID;
 	}
 </script>
 </head>
 <body>
-	<s:form id="form">
+	<form id="form" method="post">
+		<input type="hidden" name="channel.channelID" value="${channel.channelID }">
+		<input type="hidden" name="channel.version"	value="${channel.version }">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
-		<div class="body_wrap">
+		<div id="page">
 			<div class="left_side_wrap">
-				<f:tree root="${rootTreeNode}" recursion="true" />
+				<f:tree root="${rootTreeNode}" recursion="true"  title="栏目树"/>
 			</div>
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
-					<span>当前的位置：</span><span>栏目管理 - 栏目详细</span>
+					<span>当前的位置：</span><span>栏目管理 - 栏目更新</span>
 				</div>
-				<div>
-					<input type="hidden" name="channel.channelID" value="${channel.channelID }">
-					<input type="hidden" name="channel.version"	value="${channel.version }">
+				<div class="content_wrap">					
 					<table class="grid">
 						<tr>
 							<th class="required" width="10%">上级栏目</th>
@@ -120,19 +120,19 @@
 					</table>
 					<div class="button_bar">
 						<s:if test="channel == null || channel.channelID == null || channel.channelID <= 0">
-							<input type="button" value="创建" onclick="return createChannel();">
+							<button type="button" onclick="return createChannel();">创建</button>
 						</s:if>
 						<s:else>
-							<input type="button" value="更新" onclick="return updateChannel();">
-							<input type="button" value="删除" onclick="return deleteChannel();">
-							<input type="button" value="添加子栏目" onclick="createSubChannel(${channel.channelID});">
+							<button type="button" onclick="return updateChannel();">更新</button>
+							<button type="button" onclick="return deleteChannel();">删除</button>
+							<button type="button" onclick="createSubChannel(${channel.channelID});">添加子栏目</button>
 						</s:else>
-						<input type="button" value="返回" onclick="return returnBack(${channel.parentID});">
+						<button type="button" onclick="return returnBack(${channel.parentID});">返回</button>
 					</div>					
 				</div>
 			</div>
 		</div>		
-	</s:form>
-	<jsp:include page="../include/Footer.jsp"></jsp:include>
+		<jsp:include page="../include/Footer.jsp"></jsp:include>
+	</form>
 </body>
 </html>

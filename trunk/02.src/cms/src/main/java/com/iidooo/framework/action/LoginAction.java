@@ -48,15 +48,27 @@ public class LoginAction extends BaseAction {
     public String login() {
         try {
             this.setSession(SessionConstant.SECURITY_USER, securityUser);
-            
+
             Map<Integer, String> usersMap = loginService.getUsersMap();
             this.setSession(SessionConstant.SECURITY_USERS_MAP, usersMap);
-            
+
             Object redirectURL = this.getSessionValue(SessionConstant.REDIRECT_URL);
             if (redirectURL != null && redirectURL instanceof String) {
                 HttpServletResponse response = this.getResponse();
                 response.sendRedirect(redirectURL.toString());
             }
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String logout() {
+        try {
+            Map<String, Object> session = this.getSession();
+            session.remove(SessionConstant.SECURITY_USER);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,6 +23,10 @@
 			<result name="success" type="redirect">index.action</result>
 			<result name="input">/WEB-INF/jsp/Login.jsp</result>
 		</action>
+		<action name="logout" class="com.iidooo.framework.action.LoginAction" method="logout">
+			<result name="success">/WEB-INF/jsp/Login.jsp</result>
+		</action>
+		
 		<action name="index" class="com.iidooo.cms.admin.action.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>

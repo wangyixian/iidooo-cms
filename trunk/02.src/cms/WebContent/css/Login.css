@@ -46,30 +46,3 @@ label {
 	height: 30px;
 }
 
-button {
-	position: relative;
-	display: inline-block;
-	padding: 7px 12px;
-	font-size: 13px;
-	font-weight: bold;
-	color: #333;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-	white-space: nowrap;
-	vertical-align: middle;
-	cursor: pointer;
-	background-color: #EEE;
-	background-image: -webkit-linear-gradient(#FCFCFC, #EEE);
-	background-image: linear-gradient(#FCFCFC, #EEE);
-	background-repeat: repeat-x;
-	border: 1px solid #D5D5D5;
-	border-radius: 3px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	-webkit-appearance: none
-}
-
-button:hover {
-	background-color: #CCC;
-}

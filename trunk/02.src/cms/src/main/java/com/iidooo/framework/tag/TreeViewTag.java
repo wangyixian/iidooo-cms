@@ -21,7 +21,10 @@ public class TreeViewTag extends SimpleTagSupport {
     private final String FOLD_TREE_NODE = "<span class='folder'><a href={0}>{1}</a></span>";
 
     private TreeNode root;
+
     private boolean recursion = true;
+
+    private String title;
 
     public TreeNode getRoot() {
         return root;
@@ -39,6 +42,14 @@ public class TreeViewTag extends SimpleTagSupport {
         this.recursion = recursion;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public void doTag() throws JspException, IOException {
         logger.debug("TreeViewTag doTag method execute start.");
@@ -48,6 +59,12 @@ public class TreeViewTag extends SimpleTagSupport {
             jspCtx = getJspContext();
             out = jspCtx.getOut();
 
+            out.println("<div class='tree_wrap'>");
+            if (!StringUtil.isEmpty(this.title)) {
+                out.println("<div class='title'>");
+                out.println(this.title);
+                out.println("</div>");
+            }
             out.println("<ul class='filetree' id='tree'>");
             String folder = StringUtil.replace(FOLD_TREE_NODE, root.getUrl(), root.getName());
             out.println("<li>" + folder);
@@ -64,12 +81,13 @@ public class TreeViewTag extends SimpleTagSupport {
             }
             out.println("</li>");
             out.println("</ul>");
+            out.println("</div>");
             logger.debug("TreeViewTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
             logger.warn("TreeViewTag doTag method execute end with exception.");
-        }        
+        }
     }
 
     private void printHTML(JspWriter out, TreeNode treeNode) throws JspException, IOException {

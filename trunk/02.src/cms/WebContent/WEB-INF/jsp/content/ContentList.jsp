@@ -33,32 +33,32 @@
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div id='page' class="body_wrap">
 			<div class="left_side_wrap">
-				<f:tree root="${rootTreeNode}" recursion="true" />
+				<f:tree root="${rootTreeNode}" recursion="true" title="栏目树"/>
 			</div>
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
 					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
+					<span class="right">
+						<select id="selContentType" name="content.contentType">
+							<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
+							<option value="${item.dictItemCode }">${item.dictItemName }</option>
+							</s:iterator>
+						</select>
+						<button type="button" onclick="btnCreate()">发布</button>
+					</span>
 				</div>
-				<div>
-					<select id="selContentType" name="content.contentType">
-						<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
-						<option value="${item.dictItemCode }">${item.dictItemName }</option>
-						</s:iterator>
-					</select>
-					<input type="button" onclick="btnCreate()" value="发布">
-				</div>
-				<div class="block">
+				<div class="content_wrap">				
 					<table class="grid">
 						<tr>
 							<th width="5%">ID</th>
 							<th width="10%">栏目</th>
-							<th width="25%">标题</th>
+							<th width="23%">标题</th>
 							<th width="6%">类型</th>
 							<th width="10%">发布者</th>
 							<th width="12%">发布时间</th>
 							<th width="10%">更新者</th>
 							<th width="12%">更新时间</th>
-							<th width="10%">操作</th>
+							<th width="12%">操作</th>
 						</tr>
 						<s:iterator id="content" value="contentList" status="st">
 							<tr>
@@ -78,7 +78,7 @@
 								<td class="align_center">${content.createTime}</td>
 								<td class="align_center">${SECURITY_USERS_MAP[content.updateUser]}</td>
 								<td class="align_center">${content.updateTime}</td>
-								<td class="align_center"><a>浏览</a>|<a>上移</a>|<a>下移</a></td>
+								<td class="align_center"><a>浏览</a>|<a>上移</a>|<a>下移</a>|<a>删除</a></td>
 							</tr>
 						</s:iterator>
 					</table>
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 		</div>
-	</form>
 	<jsp:include page="../include/Footer.jsp"></jsp:include>
+	</form>
 </body>
 </html>
