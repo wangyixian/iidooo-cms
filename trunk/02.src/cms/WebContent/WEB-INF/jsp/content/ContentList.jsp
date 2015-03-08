@@ -25,11 +25,20 @@
 		window.location.href = 
 			"contentDetail.action?content.contentType="+contentType+"&content.channelID=" + channelID+"&mode=1";
 	}
+	
+	function deleteContent(contentID){
+		if (confirm("确定要删除该内容吗？")) {
+			$("#hidContentID").val(contentID);
+			window.form.action = "contentListDelete.action";
+			window.form.submit();
+	    }
+	}
 </script>
 </head>
 <body>
 	<form id="form" method="post">
 		<input id="hidChannelID" type="hidden" name="channelID" value="${channelID }">
+		<input id="hidContentID" type="hidden" name="contentID">
 		<jsp:include page="../include/Top.jsp"></jsp:include>
 		<div id='page' class="body_wrap">
 			<div class="left_side_wrap">
@@ -38,6 +47,7 @@
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
 					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
+					<span><s:actionmessage/></span>
 					<span class="right">
 						<select id="selContentType" name="content.contentType">
 							<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
@@ -60,25 +70,28 @@
 							<th width="12%">更新时间</th>
 							<th width="12%">操作</th>
 						</tr>
-						<s:iterator id="content" value="contentList" status="st">
+						<s:iterator value="contentList" id="item" status="st">
 							<tr>
 								<td class="align_center">
-									<a href="contentDetail.action?content.contentID=${content.contentID }&mode=2">
-									${content.contentID}
+									<a href="contentDetail.action?content.contentID=${item.contentID }&mode=2">
+									${item.contentID}
 									</a>
 								</td>
-								<td>${content.channelName}</td>
+								<td>${item.channelName}</td>
 								<td>
-									<a href="contentDetail.action?content.contentID=${content.contentID }&mode=2">
-										${content.contentTitle}
+									<a href="contentDetail.action?content.contentID=${item.contentID }&mode=2">
+										${item.contentTitle}
 									</a>
 								</td>
-								<td class="align_center">${CONTENT_TYPE_MAP[content.contentType]}</td>
-								<td class="align_center">${SECURITY_USERS_MAP[content.createUser]}</td>
-								<td class="align_center">${content.createTime}</td>
-								<td class="align_center">${SECURITY_USERS_MAP[content.updateUser]}</td>
-								<td class="align_center">${content.updateTime}</td>
-								<td class="align_center"><a>浏览</a>|<a>上移</a>|<a>下移</a>|<a>删除</a></td>
+								<td class="align_center">${CONTENT_TYPE_MAP[item.contentType]}</td>
+								<td class="align_center">${SECURITY_USERS_MAP[item.createUser]}</td>
+								<td class="align_center">${item.createTime}</td>
+								<td class="align_center">${SECURITY_USERS_MAP[item.updateUser]}</td>
+								<td class="align_center">${item.updateTime}</td>
+								<td class="align_center"><a>浏览</a>|<a>上移</a>|<a>下移</a>|
+								<a href="#" onclick="return deleteContent(${item.contentID})">删除</a>
+								
+								</td>
 							</tr>
 						</s:iterator>
 					</table>

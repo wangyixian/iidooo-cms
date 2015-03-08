@@ -17,5 +17,5 @@ public interface ContentDetailService {
 
     boolean updateContent(CmsContentDto content, CmsContentArticleDto article);
 
-    boolean deleteContent(CmsContentDto content);
+    
 }

@@ -11,13 +11,13 @@ import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.service.ChannelService;
 import com.iidooo.cms.service.ContentService;
-import com.iidooo.framework.action.BaseListAction;
-import com.iidooo.framework.dto.extend.FieldModelDto;
-import com.iidooo.framework.enumeration.TableName;
-import com.iidooo.framework.service.FieldModelService;
+import com.iidooo.framework.action.PagingActionSupport;
+import com.iidooo.framework.constant.SessionConstant;
+import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.utility.StringUtil;
 
-public class ContentListAction extends BaseListAction {
+public class ContentListAction extends PagingActionSupport {
 
     /**
      * 
@@ -41,6 +41,8 @@ public class ContentListAction extends BaseListAction {
     private int channelID;
 
     private List<CmsContentDto> contentList;
+    
+    private int contentID;
 
     public TreeNode getRootTreeNode() {
         return rootTreeNode;
@@ -66,7 +68,16 @@ public class ContentListAction extends BaseListAction {
         this.contentList = contentList;
     }
 
-    @Override
+
+
+    public int getContentID() {
+        return contentID;
+    }
+
+    public void setContentID(int contentID) {
+        this.contentID = contentID;
+    }
+
     public String init() {
         try {            
             rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
@@ -77,6 +88,25 @@ public class ContentListAction extends BaseListAction {
             this.executePaging(recordSum);
             this.contentList = contentService.getChannelContents(offspringChannels, this.getPagingDto());
 
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+    
+    public String delete() {
+        try {            
+            CmsContentDto content = new CmsContentDto();
+            content.setContentID(this.getContentID());
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
+            boolean result = contentService.deleteContent(content);
+            if (result) {
+                this.addActionMessage(getText("MSG_DELETE_SUCCESS"));
+            } else {
+                this.addActionMessage(getText("MST_DELETE_FAILED"));
+            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.iidooo.framework.dto.base;
 
 import com.iidooo.framework.constant.DateConstant;
+import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.utility.DateTimeUtil;
 
 public class BaseDto {
@@ -9,18 +10,20 @@ public class BaseDto {
     private String createTime;
 
     private Integer createUser;
-    
+
     private String createUserName;
 
     private String updateTime;
 
     private Integer updateUser;
-    
+
     private String updateUserName;
 
     private Integer isDelete;
 
     private Integer version;
+
+    private SecurityUserDto sessionUser;
 
     public String getRemarks() {
         return remarks;
@@ -99,13 +102,24 @@ public class BaseDto {
         this.version = version;
     }
 
-    public void setCommonData(int userID, String dataTime, boolean isCreate) {
+    public SecurityUserDto getSessionUser() {
+        return sessionUser;
+    }
+
+    public void setSessionUser(SecurityUserDto sessionUser) {
+        this.sessionUser = sessionUser;
+    }
+
+    public void setCommonData(boolean isCreate) {
+        String now = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
+
         if (isCreate) {
-            this.createUser = userID;
-            this.createTime = dataTime;
+            this.createUser = sessionUser.getUserID();
+            this.createTime = now;
         }
-        this.updateUser = userID;
-        this.updateTime = dataTime;
+        
+        this.updateUser = sessionUser.getUserID();
+        this.updateTime = now;
         if (remarks == null) {
             remarks = "";
         }

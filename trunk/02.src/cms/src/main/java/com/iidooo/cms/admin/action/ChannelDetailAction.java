@@ -106,10 +106,8 @@ public class ChannelDetailAction extends BaseAction {
     }
 
     public String create() {
-        try {
-            SecurityUserDto securityUserDto = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            String now = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
-            channel.setCommonData(securityUserDto.getUserID(), now, true);
+        try {            
+            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
             channelDetailService.createChannel(channel);
             addActionMessage(getText("MSG_CREATE_SUCCESS"));
             return SUCCESS;
@@ -138,9 +136,7 @@ public class ChannelDetailAction extends BaseAction {
 
     public String update() {
         try {
-            SecurityUserDto securityUserDto = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            String now = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
-            channel.setCommonData(securityUserDto.getUserID(), now, false);
+            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
             channelDetailService.updateChannel(channel);
             addActionMessage(getText("MSG_UPDATE_SUCCESS"));
             return SUCCESS;
@@ -181,9 +177,7 @@ public class ChannelDetailAction extends BaseAction {
 
     public String delete() {
         try {
-            SecurityUserDto securityUserDto = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            String now = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
-            channel.setCommonData(securityUserDto.getUserID(), now, false);
+            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
             channelDetailService.deleteChannel(channel);
             addActionMessage(getText("MSG_DELETE_SUCCESS"));
             return SUCCESS;

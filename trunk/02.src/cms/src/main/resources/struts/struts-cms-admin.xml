@@ -67,24 +67,35 @@
 			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
+		<action name="contentListDelete" class="com.iidooo.cms.admin.action.ContentListAction" method="delete">
+			<result name="success" type="redirect">contentList.action?channelID=${channelID}</result>
+			<interceptor-ref name="adminStackWrap"></interceptor-ref>
+		</action>
 		<action name="contentDetail" class="com.iidooo.cms.admin.action.ContentDetailAction" method="init">
 			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>		
 		<action name="contentCreate" class="com.iidooo.cms.admin.action.ContentDetailAction" method="create">
-			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="contentUpdate" class="com.iidooo.cms.admin.action.ContentDetailAction" method="update">
-			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="contentDelete" class="com.iidooo.cms.admin.action.ContentDetailAction" method="delete">
-			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<interceptor-ref name="adminStackWrap"></interceptor-ref>
+		</action>		
+		
+		
+		<action name="userList" class="com.iidooo.cms.admin.action.UserListAction" method="init">
+			<result name="success">/WEB-INF/jsp/user/UserList.jsp</result>
+			<result name="input">/WEB-INF/jsp/user/UserList.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>		
 		

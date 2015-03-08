@@ -21,7 +21,7 @@
 					<s:if test='actionName=="contentList" || actionName=="contentDetail"'>class="focus"</s:if>>内容</a>
 				</li>
 				<li><a href="userList.action" 
-					<s:if test='actionName=="userList" || actionName=="contentDetail"'>class="focus"</s:if>>用户</a>
+					<s:if test='actionName=="userList" || actionName=="userDetail"'>class="focus"</s:if>>用户</a>
 				</li>
 			</ul>
 		</div>

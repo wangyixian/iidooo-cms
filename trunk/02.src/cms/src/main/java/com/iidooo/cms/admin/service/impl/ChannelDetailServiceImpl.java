@@ -23,6 +23,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     @Override
     public boolean createChannel(CmsChannelDto channel) {
         try {
+            channel.setCommonData(true);
             setChannelLevel(channel);
             setChannelSequence(channel);
             cmsChannelDao.insert(channel);
@@ -63,6 +64,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     @Override
     public boolean updateChannel(CmsChannelDto channel) throws Exception {
         try {
+            channel.setCommonData(false);
             setChannelLevel(channel);
             setChannelSequence(channel);
             cmsChannelDao.update(channel);
@@ -77,6 +79,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     @Override
     public boolean deleteChannel(CmsChannelDto channel) throws Exception {
         try {
+            channel.setCommonData(false);
             cmsChannelDao.deleteByPrimaryKey(channel);
             return true;
         } catch (Exception e) {

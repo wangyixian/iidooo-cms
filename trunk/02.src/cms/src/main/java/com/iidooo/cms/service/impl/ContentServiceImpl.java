@@ -1,6 +1,7 @@
 package com.iidooo.cms.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,22 @@ public class ContentServiceImpl implements ContentService {
             e.printStackTrace();
             logger.fatal(e);
             throw e;
+        }
+    }
+    
+    @Override
+    public boolean deleteContent(CmsContentDto content) {
+        try {
+            content.setCommonData(false);
+            int sum =  cmsContentDao.deleteByPrimaryKey(content);
+            if (sum <= 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
         }
     }
 }

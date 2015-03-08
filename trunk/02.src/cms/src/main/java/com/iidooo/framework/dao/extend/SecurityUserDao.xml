@@ -17,18 +17,32 @@
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		UserID, UserName, LoginID, Password, LoginTime, IsDisable, Remarks, CreateTime, CreateUser,
-		UpdateTime, UpdateUser, IsDelete, Version
+		U.UserID, U.UserName, U.LoginID, U.Password, U.LoginTime, U.IsDisable, U.Remarks, U.CreateTime, U.CreateUser,
+		U.UpdateTime, U.UpdateUser, U.IsDelete, U.Version
 	</sql>
+	<select id="selectAllWithDelete" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IDO_SECURITY_USER U
+	</select>	
 	<select id="selectByLoginID" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_SECURITY_USER
-		where LoginID = #{loginID,jdbcType=INTEGER} and IsDelete = 0 and IsDisable = 0
+		from IDO_SECURITY_USER U
+		where U.LoginID = #{loginID,jdbcType=INTEGER} and U.IsDelete = 0 and U.IsDisable = 0
 	</select>	
-	<select id="selectAll" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from IDO_SECURITY_USER
-	</select>	
+	
+	<select id="selectAllCount" resultType="java.lang.Integer">
+		select count(*) from IDO_SECURITY_USER U
+		join IDO_SECURITY_USER_ROLE UR on U.UserID = UR.UserID and U.IsDelete = 0 and UR.IsDelete = 0
+		join IDO_SECURITY_ROLE R on R.RoleID = UR.RoleID and R.IsDelete = 0		
+	</select>
+	
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.base.PagingDto">
+		select <include refid="Base_Column_List" />, R.RoleID as roleID, R.RoleName as roleName
+		from IDO_SECURITY_USER U
+		join IDO_SECURITY_USER_ROLE UR on U.UserID = UR.UserID and U.IsDelete = 0 and UR.IsDelete = 0
+		join IDO_SECURITY_ROLE R on R.RoleID = UR.RoleID and R.IsDelete = 0	
+		limit #{start}, #{pageSize}	
+	</select>
 </mapper>

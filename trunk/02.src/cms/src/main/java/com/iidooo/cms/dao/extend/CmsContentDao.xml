@@ -55,7 +55,7 @@
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.framework.dto.base.PagingDto">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_CMS_CONTENT C where C.IsDelete = 0 order by C.UpdateTime desc limit #{start}, #{end}
+		from IDO_CMS_CONTENT C where C.IsDelete = 0 order by C.UpdateTime desc limit #{start}, #{pageSize}
 	</select>
 
 	<select id="selectContentsByPV" resultMap="BaseResultMap" parameterType="java.util.Map">

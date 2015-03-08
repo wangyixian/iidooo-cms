@@ -106,8 +106,7 @@ public class ChannelListAction extends PagingActionSupport {
 
     public String delete() {
         try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            this.channel.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
+            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
             boolean result = channelService.deleteChannel(this.channel);
             if (!result) {
                 addActionError(getText("MST_DELETE_FAILED"));

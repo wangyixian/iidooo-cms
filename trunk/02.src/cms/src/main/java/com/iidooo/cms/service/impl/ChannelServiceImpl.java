@@ -219,6 +219,8 @@ public class ChannelServiceImpl implements ChannelService {
     @Override
     public boolean deleteChannel(CmsChannelDto channel){
         try {
+
+            channel.setCommonData(false);
             int count = cmsChannelDao.deleteByPrimaryKey(channel);
             if (count <= 0) {
                 logger.warn("There is nothing deleted.");

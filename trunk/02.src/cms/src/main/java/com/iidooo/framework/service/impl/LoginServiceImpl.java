@@ -47,20 +47,19 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Map<Integer, String> getUsersMap() {
+        Map<Integer, String> usersMap = new HashMap<Integer, String>();
         try {
-            Map<Integer, String> usersMap = new HashMap<Integer, String>();
-            List<SecurityUserDto> users = securityUserDao.selectAll();
+            List<SecurityUserDto> users = securityUserDao.selectAllWithDelete();
 
             for (SecurityUserDto securityUserDto : users) {
                 usersMap.put(securityUserDto.getUserID(), securityUserDto.getUserName());
             }
 
-            return usersMap;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-            throw e;
         }
+        return usersMap;
     }
 
 }

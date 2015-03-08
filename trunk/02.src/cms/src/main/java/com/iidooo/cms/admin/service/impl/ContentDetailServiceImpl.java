@@ -35,6 +35,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     @Override
     public boolean createContent(CmsContentDto content) {
         try {
+            content.setCommonData(true);
             // Set the default sequence
             int sequence = cmsContentDao.selectMaxSequence() + 1;
             content.setSequence(sequence);
@@ -57,6 +58,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     @Override
     public boolean createContent(CmsContentDto content, CmsContentProductDto product) {
         try {
+            content.setCommonData(true);
             if (this.createContent(content)) {
                 product.setContentID(content.getContentID());
                 cmsContentProductDao.insert(product);
@@ -73,6 +75,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     @Override
     public boolean createContent(CmsContentDto content, CmsContentArticleDto article) {
         try {
+            content.setCommonData(true);
             if (this.createContent(content)) {
                 article.setContentID(content.getContentID());
                 cmsContentArticleDao.insert(article);
@@ -89,6 +92,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     @Override
     public boolean updateContent(CmsContentDto content) {
         try {
+            content.setCommonData(false);
             int result = cmsContentDao.updateByPrimaryKey(content);
 
             if (result > 0 && content.getContentID() != null && content.getContentID() > 0) {
@@ -107,6 +111,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     @Override
     public boolean updateContent(CmsContentDto content, CmsContentProductDto product) {
         try {
+            content.setCommonData(false);
             if (this.updateContent(content)) {
                 product.setContentID(content.getContentID());
                 cmsContentProductDao.updateByPrimaryKey(product);
@@ -123,6 +128,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     @Override
     public boolean updateContent(CmsContentDto content, CmsContentArticleDto article) {
         try {
+            content.setCommonData(false);
             if (this.updateContent(content)) {
                 article.setContentID(content.getContentID());
                 cmsContentArticleDao.updateByPrimaryKey(article);
@@ -136,16 +142,5 @@ public class ContentDetailServiceImpl implements ContentDetailService {
         }
     }
 
-    @Override
-    public boolean deleteContent(CmsContentDto content) {
-        try {
-            cmsContentDao.deleteByPrimaryKey(content);
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return false;
-        }
-    }
+    
 }

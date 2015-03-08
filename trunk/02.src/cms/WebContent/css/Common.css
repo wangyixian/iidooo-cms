@@ -396,13 +396,27 @@ a:hover {
 }
 
 .tree_wrap .title {
-	background-color: RGB(200, 200, 200);
+	background-color: #134780;
 	color: white;
 	font-size: 14px;
 	font-weight: normal;
 	height: 30px;
 	line-height: 30px;
 	padding-left: 10px;
+}
+
+.tree_wrap .content{
+	padding: 10px;
+	font-size: 14px;
+}
+
+.tree_wrap .content_item{
+	margin-bottom: 5px;
+}
+
+.tree_wrap .focus{
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 /* The style of bread crumbs */
@@ -415,7 +429,7 @@ a:hover {
 	padding: 0 10px;
 }
 
-.button_bar {
+.button_bar {	
 	margin-top: 10px;
 }
 

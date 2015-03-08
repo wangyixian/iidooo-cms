@@ -28,4 +28,6 @@ public interface ContentService {
     List<CmsContentDto> getChannelContents(List<CmsChannelDto> channels, PagingDto pagingDto);
 
     int getMaxSequence();
+    
+    boolean deleteContent(CmsContentDto content);
 }

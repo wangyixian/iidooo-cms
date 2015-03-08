@@ -134,6 +134,9 @@ VALUES ('ARTICLE_TYPE', '3', '葡萄酒知识', '葡萄酒知识', 3, 0, 0, 0,''
 -- VALUES (1, 'ProductOrigin', '产品产地', 6, 3, 'FIELD_PRODUCT_ORIGIN', '', '', now(), 1, now(), 1);
 
 -- IDO_SECURITY_USER
+INSERT INTO `IDO_SECURITY_ROLE` (`RoleName`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) VALUES ('管理员', '', now(), '1', now(), '1');
+
+-- IDO_SECURITY_USER
 INSERT INTO `IDO_SECURITY_USER` 
 (`UserName`, `LoginID`, `Password`, `LoginTime`, `IsDisable`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES ('超级管理员', 'admin', md5(111111), now(), 0, '', now(), 1, now(), 1);
@@ -147,6 +150,11 @@ VALUES ('施艳', 'shiyan', md5(111111), now(), 0, '', now(), 1, now(), 1);
 -- IDO_CMS_USER
 INSERT INTO `IDO_CMS_USER` (`UserID`,`Sex`, `Birthday`, `Email`, `WeChat`, `Telphone`, `Description`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES (1, '1', '1984-07-24', 'wangyixian@iidooo.com', 'ouitiken', '13816867453', '网站超级管理员', '', now(), 1, now(), 1);
+
+-- IDO_SECURITY_USER_ROLE
+INSERT INTO `IDO_SECURITY_USER_ROLE` (`UserID`, `RoleID`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) VALUES ('1', '1', '', now(), '1', now(), '1');
+INSERT INTO `IDO_SECURITY_USER_ROLE` (`UserID`, `RoleID`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) VALUES ('2', '1', '', now(), '1', now(), '1');
+INSERT INTO `IDO_SECURITY_USER_ROLE` (`UserID`, `RoleID`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) VALUES ('3', '1', '', now(), '1', now(), '1');
 
 -- IDO_CMS_CHANNEL
 INSERT INTO `IDO_CMS_CHANNEL`
@@ -178,17 +186,6 @@ VALUES (2, '精品红酒', 'nominate', 2, '精品红酒标题', '精品红酒关
 INSERT INTO `IDO_CMS_CHANNEL`
 (`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (2, '热销红酒', 'sales', 2, '热销红酒标题', '热销红酒关键字', '热销红酒描述', 1, '1', '', now(), 1, now(), 1);
-
--- 红酒咨询子栏目
-INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
-VALUES (8, 3, '文章', 'article', 2, '文章标题', '文章关键字', '文章描述', 8, 0, '', now(), 1, now(), 1);
-INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
-VALUES (8, 3, '新闻', 'news', 2, '文章标题', '文章关键字', '文章描述', 8, 0, '', now(), 1, now(), 1);
-INSERT INTO `IDO_CMS_CHANNEL`
-(`TemplateID`,`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
-VALUES (8, 3, '葡萄酒知识', 'konwledge', 2, '文章标题', '文章关键字', '文章描述', 8, 0, '', now(), 1, now(), 1);
 
 -- IDO_CMS_TEMPLATE
 INSERT INTO `IDO_CMS_TEMPLATE` (`TemplateName`, `TemplatePath`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 

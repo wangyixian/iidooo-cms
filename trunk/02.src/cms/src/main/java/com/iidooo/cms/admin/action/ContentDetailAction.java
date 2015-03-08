@@ -16,7 +16,7 @@ import com.iidooo.cms.service.ChannelService;
 import com.iidooo.cms.service.ContentArticleService;
 import com.iidooo.cms.service.ContentProductService;
 import com.iidooo.cms.service.ContentService;
-import com.iidooo.framework.action.BaseDetailAction;
+import com.iidooo.framework.action.BaseAction;
 import com.iidooo.framework.constant.DateConstant;
 import com.iidooo.framework.constant.DictConstant;
 import com.iidooo.framework.constant.SessionConstant;
@@ -25,7 +25,7 @@ import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.tag.TreeNode;
 import com.iidooo.framework.utility.DateTimeUtil;
 
-public class ContentDetailAction extends BaseDetailAction {
+public class ContentDetailAction extends BaseAction {
 
     /**
      * 
@@ -185,8 +185,7 @@ public class ContentDetailAction extends BaseDetailAction {
 
     public String create() {
         try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), true);
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
             switch (content.getContentType()) {
             case "2":
                 contentDetailService.createContent(content, product);
@@ -212,9 +211,8 @@ public class ContentDetailAction extends BaseDetailAction {
 
     public String update() {
         try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
 
-            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
             switch (content.getContentType()) {
             case "2":
                 contentDetailService.updateContent(content, product);
@@ -239,9 +237,8 @@ public class ContentDetailAction extends BaseDetailAction {
 
     public String delete() {
         try {
-            SecurityUserDto user = (SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER);
-            content.setCommonData(user.getUserID(), DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME), false);
-            contentDetailService.deleteContent(content);
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
+            contentService.deleteContent(content);
             
             this.mode = 4;
             getCommonData();
