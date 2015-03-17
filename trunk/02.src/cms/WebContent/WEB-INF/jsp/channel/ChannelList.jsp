@@ -40,8 +40,7 @@
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
 					<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
-					<span><s:actionerror/></span>
-					<span><s:actionmessage /></span>
+					<span class="message">${message }</span>
 				</div>
 				<div class="content_wrap">
 					<table class="grid">

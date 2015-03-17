@@ -69,7 +69,6 @@ public class FieldConfigTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        logger.debug("FieldConfigTag doTag method execute start.");
         PageContext pageContext = null;
         JspWriter out = null;
         try {
@@ -148,11 +147,9 @@ public class FieldConfigTag extends SimpleTagSupport {
                 out.println("</tr>");
             }
 
-            logger.debug("FieldConfigTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-            logger.warn("FieldConfigTag doTag method execute end with exception.");
         }
     }
 }

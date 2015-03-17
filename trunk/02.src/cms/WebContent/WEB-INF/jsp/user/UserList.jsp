@@ -16,7 +16,7 @@
 					<div class="title">用户管理</div>
 					<ul class="content">
 						<li class="content_item focus"><a href="userList.action">用户一览</a></li>
-						<li class="content_item"><a href="userList.action">个人信息</a></li>
+						<li class="content_item"><a href="userDetail.action">个人信息</a></li>
 						<li class="content_item"><a href="userList.action">密码修改</a></li>
 					</ul>
 				</div>
@@ -24,10 +24,7 @@
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
 					<span>当前的位置：</span>
-					<span>用户管理 - 用户一览</span>							
-					<span class="right">
-						<button type="button" onclick="btnCreate(${parentChannelID})">添加</button>
-					</span>
+					<span>用户管理 - 用户一览</span>			
 				</div>
 				<div class="content_wrap">				
 					<table class="grid">
@@ -42,14 +39,14 @@
 						<s:iterator value="users" id="item" status="st">
 							<tr>
 								<td>
-									<a href="userDetail.action?user.userID=${item.userID }">
+									<%-- <a href="userDetail.action?user.userID=${item.userID }"> --%>
 										${item.userID }
-									</a>
+									<!-- </a> -->
 								</td>
 								<td>
-									<a href="userDetail.action?user.userID=${item.userID }">
+									<%-- <a href="userDetail.action?user.userID=${item.userID }"> --%>
 										${item.userName }
-									</a>
+									<!-- </a> -->
 								</td>
 								<td>${item.roleName }</td>
 								<td class="align_center">
@@ -66,6 +63,15 @@
 							</tr>
 						</s:iterator>
 					</table>
+									
+					<div class="button_bar">
+						<button type="button" onclick="btnCreate(${parentChannelID})">添加</button>
+					</div>
+					
+					<div class="block">
+						<hr>
+					</div>
+										
 					<jsp:include page="../include/Paging.jsp"></jsp:include>
 					
 				</div>

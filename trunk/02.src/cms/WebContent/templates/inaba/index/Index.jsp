@@ -39,7 +39,7 @@
 					</div>
 					<div class="block_content">					
     					<ul>
-    						<cms:contentList channelPath='blogList' action='articleDetail' isShowDate='true' sortField='UpdateTime' sortType='desc' pageStart='0' pageSize='10'/>
+    						<cms:contentList channelPath='news' action='articleDetail' isShowDate='true' sortField='UpdateTime' sortType='desc' pageStart='0' pageSize='10'/>
     					</ul>
 					</div>
 				</div>				

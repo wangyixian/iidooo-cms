@@ -68,7 +68,7 @@
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="contentListDelete" class="com.iidooo.cms.admin.action.ContentListAction" method="delete">
-			<result name="success" type="redirect">contentList.action?channelID=${channelID}</result>
+			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="contentDetail" class="com.iidooo.cms.admin.action.ContentDetailAction" method="init">

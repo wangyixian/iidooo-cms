@@ -47,15 +47,6 @@
 			<div class="right_side_wrap">
 				<div class="bread_crumb">
 					<span>当前的位置：</span><span>内容管理 - 内容列表</span>
-					<span><s:actionmessage/></span>
-					<span class="right">
-						<select id="selContentType" name="content.contentType">
-							<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
-							<option value="${item.dictItemCode }">${item.dictItemName }</option>
-							</s:iterator>
-						</select>
-						<button type="button" onclick="btnCreate()">发布</button>
-					</span>
 				</div>
 				<div class="content_wrap">				
 					<table class="grid">
@@ -88,13 +79,26 @@
 								<td class="align_center">${item.createTime}</td>
 								<td class="align_center">${SECURITY_USERS_MAP[item.updateUser]}</td>
 								<td class="align_center">${item.updateTime}</td>
-								<td class="align_center"><a>浏览</a>|<a>上移</a>|<a>下移</a>|
-								<a href="#" onclick="return deleteContent(${item.contentID})">删除</a>
-								
+								<td class="align_center">
+									<a>上移</a>|
+									<a>下移</a>|
+									<a href="#" onclick="return deleteContent(${item.contentID})">删除</a>								
 								</td>
 							</tr>
 						</s:iterator>
 					</table>
+					
+					<div class="button_bar">
+						<select id="selContentType" name="content.contentType">
+							<s:iterator value="#application.CONTENT_TYPE_LIST" id="item" status="st">
+							<option value="${item.dictItemCode }">${item.dictItemName }</option>
+							</s:iterator>
+						</select>
+						<button type="button" onclick="btnCreate()">发布</button>
+					</div>
+					<div class="block">
+						<hr>
+					</div>
 					<jsp:include page="../include/Paging.jsp"></jsp:include>
 				</div>
 			</div>

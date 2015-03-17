@@ -17,9 +17,9 @@
 	    <div id="news" class="body_wrap">
 	    	<cms:mainmenu channelPath="blogList" />
 	    	<div class="left_block_wrap">
-	    		<cms:articles blockTitle="热门文章" articleType="1" channelID="${channel.channelID }"/>
-	    		<cms:articles blockTitle="热点新闻" articleType="2" channelID="${channel.channelID }"/>
-	    		<cms:articles blockTitle="葡萄酒知识" articleType="3" channelID="${channel.channelID }"/>
+	    		<cms:contentListBlock id="articles" title="热门文章" channelPath="blog" action="articleDetail.action" isShowDate='true' />
+	    		<cms:contentListBlock id="news" title="热点新闻" channelPath="news" action="articleDetail.action" isShowDate='true' />
+	    		<cms:contentListBlock id="konwledge" title="葡萄酒知识" channelPath="konwledge" action="articleDetail.action" isShowDate='true' />
 	    	</div>
 	    	<div class="right_block_wrap">
 	    		<div class="block">

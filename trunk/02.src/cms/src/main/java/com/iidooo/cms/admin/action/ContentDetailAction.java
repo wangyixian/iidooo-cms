@@ -17,13 +17,11 @@ import com.iidooo.cms.service.ContentArticleService;
 import com.iidooo.cms.service.ContentProductService;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.framework.action.BaseAction;
-import com.iidooo.framework.constant.DateConstant;
 import com.iidooo.framework.constant.DictConstant;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
-import com.iidooo.framework.tag.TreeNode;
-import com.iidooo.framework.utility.DateTimeUtil;
+import com.iidooo.framework.tag.component.TreeNode;
 
 public class ContentDetailAction extends BaseAction {
 
@@ -158,6 +156,10 @@ public class ContentDetailAction extends BaseAction {
 
     public String init() {
         try {
+           
+            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
+            allChannels = channelService.getAllChannels();
+            
             // The modify or copy mode
             if (mode == 2 || mode == 3) {
                 content = contentService.getContentByID(content.getContentID());
@@ -173,88 +175,6 @@ public class ContentDetailAction extends BaseAction {
                     break;
                 }
             }
-
-            getCommonData();
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public String create() {
-        try {
-            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-            switch (content.getContentType()) {
-            case "2":
-                contentDetailService.createContent(content, product);
-                break;
-            case "3":
-                contentDetailService.createContent(content, article);
-                break;
-            default:
-                contentDetailService.createContent(content);
-                break;
-            }
-            // After create, the mode should be set as modify
-            this.mode = 2;
-            getCommonData();
-            this.addActionMessage(getText("MSG_CREATE_SUCCESS"));
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public String update() {
-        try {
-            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-
-            switch (content.getContentType()) {
-            case "2":
-                contentDetailService.updateContent(content, product);
-                break;
-            case "3":
-                contentDetailService.updateContent(content, article);
-                break;
-            default:
-                contentDetailService.updateContent(content);
-                break;
-            }
-            this.mode = 2;
-            getCommonData();
-            this.addActionMessage(getText("MSG_UPDATE_SUCCESS"));
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public String delete() {
-        try {
-            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-            contentService.deleteContent(content);
-            
-            this.mode = 4;
-            getCommonData();
-            this.addActionMessage(getText("MSG_DELETE_SUCCESS"));
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-    
-    private void getCommonData(){
-        try {
-            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
-            allChannels = channelService.getAllChannels();
             
             switch (content.getContentType()) {
             case "2":
@@ -290,9 +210,73 @@ public class ContentDetailAction extends BaseAction {
             default:
                 break;
             }
+            return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String create() {
+        try {
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
+            switch (content.getContentType()) {
+            case "2":
+                contentDetailService.createContent(content, product);
+                break;
+            case "3":
+                contentDetailService.createContent(content, article);
+                break;
+            default:
+                contentDetailService.createContent(content);
+                break;
+            }
+            // After create, the mode should be set as modify
+            this.mode = 2;
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String update() {
+        try {
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
+
+            switch (content.getContentType()) {
+            case "2":
+                contentDetailService.updateContent(content, product);
+                break;
+            case "3":
+                contentDetailService.updateContent(content, article);
+                break;
+            default:
+                contentDetailService.updateContent(content);
+                break;
+            }
+            this.mode = 2;
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public String delete() {
+        try {
+            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
+            contentService.deleteContent(content);
+            
+            this.mode = 4;
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
         }
     }
 }

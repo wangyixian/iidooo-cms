@@ -10,70 +10,24 @@
 <script type="text/javascript" src="${SITE_URL}/js/lib/KindEditor/lang/zh_CN.js"></script>
 <script type="text/javascript" src="${SITE_URL}/js/lib/jquery.treeview/jquery.treeview.js"></script>
 <script type="text/javascript" src="${SITE_URL}/js/lib/jquery.treeview/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="${SITE_URL}/js/content/ContentDetail.js"></script>
 <link type="text/css" rel="stylesheet" href="${SITE_URL}/js/lib/jquery.treeview/jquery.treeview.css">
 <link type="text/css" rel="stylesheet" href="${SITE_URL}/css/content/ContentDetail.css">
-<script type="text/javascript">
-	$(function() {
-		$("#tree").treeview({
-			animated : "fast",
-			persist : "location"
-		});
-	})
-	
-	var editor;
-	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="content.contentBody"]', {
-			allowFileManager : true,
-			uploadJson : 'fileUpload.action',
-			fileManagerJson : 'kindEditorFileManager.action',
-		});
-		K('#btnImgTitle').click(function() {
-			editor.loadPlugin('image', function() {
-				editor.plugin.imageDialog({
-					imageUrl : K('#txtImgTitle').val(),
-					clickFn : function(url, title, width, height, border, align) {
-						K('#txtImgTitle').val(url);
-						K('#imgTitle').attr("src",url);
-						editor.hideDialog();
-					}
-				});
-			});
-		});
-	});
-	
-	function createContent() {
-		editor.sync();
-		window.form.action = "contentCreate.action";
-		window.form.submit();
-	}
 
-	function updateContent() {
-		editor.sync();
-		window.form.action = "contentUpdate.action";
-		window.form.submit();
-	}
-	
-	function btnCopy(){
-		editor.sync();
-		$("#hidMode").val(3);
-		window.form.action = "contentDetail.action";
-		window.form.submit();
-	}
-
-	function deleteContent() {
-		editor.sync();
-		window.form.action = "contentDelete.action";
-		window.form.submit();
-	}
-
-	function returnBack() {
-		var channelID = $("#hidChannelID").val();
-		window.location.href = "contentList.action?channelID=" + channelID;
-	}
-	
-</script>
 </head>
 <body>
+
+	<div id="message_box_wrap" class="hidden">
+		<div id="message_box_overlay"></div>
+		<div id="message_box_dialog">		
+			<div id="message_box_title">标题</div>
+			<div id="message_box_content">内容</div>
+			<div id="message_box_botton_bar">
+				<button class="button" type="button">OK</button>
+			</div>
+		</div>
+	</div>
+	
 	<form id="form" method="post">
 		<input id="hidChannelID" type="hidden" value="${content.channelID }">
 		<input type="hidden" name="content.contentID" value="${content.contentID}">
@@ -97,19 +51,16 @@
 					<s:elseif test="mode == 3">
 						<span>内容管理 - 内容复制</span>
 					</s:elseif>		
-					<s:elseif test="mode == 4">
-						<span>内容管理 - 内容删除</span>
-					</s:elseif>
 				</div>
 				<div class="content_wrap">
 					<table class="grid">
 						<tr>							
 							<th width="10%">内容类型</th>		
-							<td>
-								<input type="text" class="width_400px" readonly="readonly" value="${CONTENT_TYPE_MAP[content.contentType]}">
+							<td class="required">
+								<input id="txtContentType" type="text" class="width_400px" readonly="readonly" value="${CONTENT_TYPE_MAP[content.contentType]}">
 							</td>		
-							<th class="required" width="10%">所属栏目</th>
-							<td>
+							<th width="10%">所属栏目</th>
+							<td class="required">
 								<select name="content.channelID">
 									<s:iterator value="allChannels" id="item" status="st">
 										<s:if test="content.channelID == #item.channelID">
@@ -123,43 +74,43 @@
 							</td>			
 						</tr>
 						<tr>
-							<th class="required">内容标题</th>
-							<td>
-								<input class="width_400px" type="text" name="content.contentTitle" value="${content.contentTitle}">
+							<th>内容标题</th>
+							<td class="required">
+								<input id="txtContentTitle" class="width_400px" type="text" name="content.contentTitle" value="${content.contentTitle}">
 							</td>
-							<th class="required">序列</th>
-							<td>
-								<input type="text" name="content.sequence" value="${content.sequence}">
+							<th>是否允许评论</th>
+							<td class="required">
+								<input type="radio" name="content.isAllowComment" value="0" checked="checked">不允许
+								<input type="radio" name="content.isAllowComment" value="0">允许
 							</td>
 						</tr>
 						<tr>							
-							<th class="required">内容副标题</th>
+							<th>内容副标题</th>
 							<td>
 								<input class="width_400px" type="text" name="content.contentSubTitle" value="${content.contentSubTitle}">
 							</td>
-							<th class="required">是否允许评论</th>
+							<th>序列</th>
 							<td>
-								<input type="radio" name="content.isAllowComment" value="0" checked="checked">不允许
-								<input type="radio" name="content.isAllowComment" value="0">允许
+								<input type="text" name="content.sequence" value="${content.sequence}">
 							</td>
 						</tr>
 						<tr>						
 							<th>图片标题</th>
 							<td>
-								<input type="text" id="txtImgTitle" name="content.contentImageTitle" value="${content.contentImageTitle }" />
+								<input class="width_400px" type="text" id="txtImgTitle" name="content.contentImageTitle" value="${content.contentImageTitle }" />
 								<input type="button" id="btnImgTitle" value="选择图片" />
 							</td>
 							<th>图片预览</th>
 							<td><img id="imgTitle" class="img-preview" src="${content.contentImageTitle }"></td>
 						</tr>						
 						<tr>
-							<th class="required">内容摘要</th>
+							<th>内容摘要</th>
 							<td colspan="3">
 								<textarea class="width_90per" rows="5" name="content.contentSummary">${content.contentSummary }</textarea>
 							</td>
 						</tr>
 						<tr>
-							<th class="required">内容详细</th>
+							<th>内容详细</th>
 							<td colspan="3">
 							<textarea class="width_90per" id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
 							</td>
@@ -167,7 +118,7 @@
 						<s:if test="content.contentType == 2">
 						<tr>
 							<th>产品分类</th>
-							<td>
+							<td class="required">
 								<select name="product.productType">
 									<s:iterator value="productTypes" id="item" status="st">
 										<s:if test="product.productType == #item.dictItemCode">
@@ -180,7 +131,7 @@
 								</select>
 							</td>
 							<th>产品国家</th>
-							<td>
+							<td class="required">
 								<select name="product.productCountry">
 									<s:iterator value="productCountries" id="item" status="st">
 										<s:if test="product.productCountry == #item.dictItemCode">
@@ -195,7 +146,7 @@
 						</tr>
 						<tr>						
 							<th>产品产地</th>
-							<td colspan="3">
+							<td class="required" colspan="3">
 								<select name="product.productOrigin">
 									<s:iterator value="productOrigins" id="item" status="st">
 										<s:if test="product.productOrigin == #item.dictItemCode">
@@ -212,7 +163,7 @@
 						<s:if test="content.contentType == 3">
 						<tr>
 							<th>文章类型</th>
-							<td colspan="3">
+							<td class="required" colspan="3">
 								<select name="article.articleType">
 									<s:iterator value="articleTypes" id="item" status="st">
 										<s:if test="article.articleType == #item.dictItemCode">

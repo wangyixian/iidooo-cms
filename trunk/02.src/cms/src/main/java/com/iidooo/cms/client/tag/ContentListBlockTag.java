@@ -19,8 +19,16 @@ import com.iidooo.framework.dto.base.PagingDto;
 import com.iidooo.framework.utility.SpringUtil;
 import com.iidooo.framework.utility.StringUtil;
 
-public class ContentListTag extends SimpleTagSupport {
-    private static final Logger logger = Logger.getLogger(ContentListTag.class);
+public class ContentListBlockTag extends SimpleTagSupport {
+    private static final Logger logger = Logger.getLogger(ContentListBlockTag.class);
+
+    private final String DIV_BLOCK = "<div id={0} class='block'>";
+    
+    private final String DIV_BLOCK_TITLE = "<div class='block_title'>{0}</div>";
+    
+    private String id;
+
+    private String title;
 
     private String channelPath;
 
@@ -37,6 +45,22 @@ public class ContentListTag extends SimpleTagSupport {
     private String sortField = DBConstant.FIELD_SEQUENCE;
 
     private String sortType = DBConstant.SORT_TYPE_ASC;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getChannelPath() {
         return channelPath;
@@ -122,6 +146,10 @@ public class ContentListTag extends SimpleTagSupport {
 
             List<CmsContentDto> contents = cmsContentDao.selectByChannelPath(channelPath, page);
 
+            out.println(StringUtil.replace(DIV_BLOCK, this.id));
+            out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.title));
+            out.println("<div class='block_content'>");
+            out.println("<ul>");
             for (CmsContentDto item : contents) {
                 out.println("<li>");
                 out.println("<div class='block_content_item'>");
@@ -149,6 +177,9 @@ public class ContentListTag extends SimpleTagSupport {
                 out.println("</div>");
                 out.println("</li>");
             }
+            out.println("</ul>");
+            out.println("</div>");
+            out.println("</div>");
             logger.debug("ContentListTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();

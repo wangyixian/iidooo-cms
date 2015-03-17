@@ -16,7 +16,7 @@ import com.iidooo.framework.action.PagingActionSupport;
 import com.iidooo.framework.constant.DateConstant;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
-import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.tag.component.TreeNode;
 import com.iidooo.framework.utility.DateTimeUtil;
 import com.iidooo.framework.utility.StringUtil;
 
@@ -40,7 +40,7 @@ public class ChannelListAction extends PagingActionSupport {
     private List<CmsChannelDto> channelList;
 
     // The channel ID that selected on tree
-    private int parentChannelID;
+    private int parentChannelID = 0;
     
     private CmsChannelDto channel;
 

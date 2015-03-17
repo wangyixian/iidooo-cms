@@ -109,16 +109,16 @@ INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `D
 VALUES ('CONTENT_TYPE', '1', '默认', '默认', 1, 0, 0, 0,'', now(), 1, now(), 1);
 INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES ('CONTENT_TYPE', '2', '产品', '产品', 2, 0, 0, 0,'', now(), 1, now(), 1);
-INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('CONTENT_TYPE', '3', '文章', '文章', 3, 0, 0, 0,'', now(), 1, now(), 1);
+-- INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+-- VALUES ('CONTENT_TYPE', '3', '文章', '文章', 3, 0, 0, 0,'', now(), 1, now(), 1);
 
 -- 文章分类
-INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('ARTICLE_TYPE', '1', '博客', '博客', 1, 0, 0, 0,'', now(), 1, now(), 1);
-INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('ARTICLE_TYPE', '2', '新闻', '新闻', 2, 0, 0, 0,'', now(), 1, now(), 1);
-INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('ARTICLE_TYPE', '3', '葡萄酒知识', '葡萄酒知识', 3, 0, 0, 0,'', now(), 1, now(), 1);
+-- INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+-- VALUES ('ARTICLE_TYPE', '1', '博客', '博客', 1, 0, 0, 0,'', now(), 1, now(), 1);
+-- INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+-- VALUES ('ARTICLE_TYPE', '2', '新闻', '新闻', 2, 0, 0, 0,'', now(), 1, now(), 1);
+-- INSERT INTO `IDO_DICT_ITEM` (`DictClassCode`, `DictItemCode`, `DictItemName`, `DictItemValue`, `Sequence`, `IsDefault`, `IsDisable`, `IsReadonly`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+-- VALUES ('ARTICLE_TYPE', '3', '葡萄酒知识', '葡萄酒知识', 3, 0, 0, 0,'', now(), 1, now(), 1);
 
 -- INSERT INTO `IDO_FIELD_MODEL` (`ModelName`, `TableName`, `Sequence`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 -- VALUES ('默认', 'IDO_CMS_CONTENT', 1, '', now(), 1, now(), 1);
@@ -187,6 +187,18 @@ INSERT INTO `IDO_CMS_CHANNEL`
 (`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
 VALUES (2, '热销红酒', 'sales', 2, '热销红酒标题', '热销红酒关键字', '热销红酒描述', 1, '1', '', now(), 1, now(), 1);
 
+-- 咨询子栏目
+INSERT INTO `IDO_CMS_CHANNEL`
+(`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
+VALUES (3, '博客', 'blog', 2, '博客标题', '博客关键字', '博客描述', 1, '1', '', now(), 1, now(), 1);
+INSERT INTO `IDO_CMS_CHANNEL`
+(`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
+VALUES (3, '新闻', 'news', 2, '新闻标题', '新闻关键字', '新闻描述', 2, '1', '', now(), 1, now(), 1);
+INSERT INTO `IDO_CMS_CHANNEL`
+(`ParentID`,`ChannelName`,`ChannelPath`,`ChannelLevel`,`MetaTitle`,`MetaKeywords`,`MetaDescription`,`Sequence`,`IsHidden`,`Remarks`,`CreateTime`,`CreateUser`,`UpdateTime`,`UpdateUser`) 
+VALUES (3, '葡萄酒知识', 'konwledge', 2, '葡萄酒知识标题', '葡萄酒知识关键字', '葡萄酒知识描述', 3, '1', '', now(), 1, now(), 1);
+
+
 -- IDO_CMS_TEMPLATE
 INSERT INTO `IDO_CMS_TEMPLATE` (`TemplateName`, `TemplatePath`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES ('首页', '/templates/inaba/index/index.html', '', now(), 1, now(), 1);
@@ -253,100 +265,100 @@ INSERT INTO `IDO_CMS_CONTENT_PRODUCT` (`ContentID`, `ProductType`, `ProductCount
 
 -- 红酒资讯
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章1', '热门文章1', ' ', '热门文章1', '热门文章1', '热门文章1', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章1', '热门文章1', ' ', '热门文章1', '热门文章1', '热门文章1', ' ', ' ', '1', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章2', '热门文章2', ' ', '热门文章2', '热门文章2', '热门文章2', ' ', ' ', '2', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章2', '热门文章2', ' ', '热门文章2', '热门文章2', '热门文章2', ' ', ' ', '2', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章3', '热门文章3', ' ', '热门文章3', '热门文章3', '热门文章3', ' ', ' ', '3', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章3', '热门文章3', ' ', '热门文章3', '热门文章3', '热门文章3', ' ', ' ', '3', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章4', '热门文章4', ' ', '热门文章4', '热门文章4', '热门文章4', ' ', ' ', '4', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章4', '热门文章4', ' ', '热门文章4', '热门文章4', '热门文章4', ' ', ' ', '4', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章5', '热门文章5', ' ', '热门文章5', '热门文章5', '热门文章5', ' ', ' ', '5', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章5', '热门文章5', ' ', '热门文章5', '热门文章5', '热门文章5', ' ', ' ', '5', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章6', '热门文章6', ' ', '热门文章6', '热门文章6', '热门文章6', ' ', ' ', '6', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章6', '热门文章6', ' ', '热门文章6', '热门文章6', '热门文章6', ' ', ' ', '6', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章7', '热门文章7', ' ', '热门文章7', '热门文章7', '热门文章7', ' ', ' ', '7', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章7', '热门文章7', ' ', '热门文章7', '热门文章7', '热门文章7', ' ', ' ', '7', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章8', '热门文章8', ' ', '热门文章8', '热门文章8', '热门文章8', ' ', ' ', '8', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章8', '热门文章8', ' ', '热门文章8', '热门文章8', '热门文章8', ' ', ' ', '8', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章9', '热门文章9', ' ', '热门文章9', '热门文章9', '热门文章9', ' ', ' ', '9', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章9', '热门文章9', ' ', '热门文章9', '热门文章9', '热门文章9', ' ', ' ', '9', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热门文章10', '热门文章10', ' ', '热门文章10', '热门文章10', '热门文章10', ' ', ' ', '10', '0', ' ', now(), '1', now(), '1');
+VALUES ('10', '1', '热门文章10', '热门文章10', ' ', '热门文章10', '热门文章10', '热门文章10', ' ', ' ', '10', '0', ' ', now(), '1', now(), '1');
 
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('14', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('15', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('16', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('17', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('18', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('19', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('20', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('21', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('22', '1');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('23', '1');
-
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻1', '热点新闻1', ' ', '热点新闻1', '热点新闻1', '热点新闻1', ' ', ' ', '11', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻2', '热点新闻2', ' ', '热点新闻2', '热点新闻2', '热点新闻2', ' ', ' ', '12', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻3', '热点新闻3', ' ', '热点新闻3', '热点新闻3', '热点新闻3', ' ', ' ', '13', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻4', '热点新闻4', ' ', '热点新闻4', '热点新闻4', '热点新闻4', ' ', ' ', '14', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻5', '热点新闻5', ' ', '热点新闻5', '热点新闻5', '热点新闻5', ' ', ' ', '15', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻6', '热点新闻6', ' ', '热点新闻6', '热点新闻6', '热点新闻6', ' ', ' ', '16', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻7', '热点新闻7', ' ', '热点新闻7', '热点新闻7', '热点新闻7', ' ', ' ', '17', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻8', '热点新闻8', ' ', '热点新闻8', '热点新闻8', '热点新闻8', ' ', ' ', '18', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻9', '热点新闻9', ' ', '热点新闻9', '热点新闻9', '热点新闻9', ' ', ' ', '19', '0', ' ', now(), '1', now(), '1');
-INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '热点新闻10', '热点新闻10', ' ', '热点新闻10', '热点新闻10', '热点新闻10', ' ', ' ', '20', '0', ' ', now(), '1', now(), '1');
-
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('24', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('25', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('26', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('27', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('28', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('29', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('30', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('31', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('32', '2');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('33', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('14', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('15', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('16', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('17', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('18', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('19', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('20', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('21', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('22', '1');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('23', '1');
 
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识1', '葡萄酒知识1', ' ', '葡萄酒知识1', '葡萄酒知识1', '葡萄酒知识1', ' ', ' ', '21', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻1', '热点新闻1', ' ', '热点新闻1', '热点新闻1', '热点新闻1', ' ', ' ', '11', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识2', '葡萄酒知识2', ' ', '葡萄酒知识2', '葡萄酒知识2', '葡萄酒知识2', ' ', ' ', '22', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻2', '热点新闻2', ' ', '热点新闻2', '热点新闻2', '热点新闻2', ' ', ' ', '12', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识3', '葡萄酒知识3', ' ', '葡萄酒知识3', '葡萄酒知识3', '葡萄酒知识3', ' ', ' ', '23', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻3', '热点新闻3', ' ', '热点新闻3', '热点新闻3', '热点新闻3', ' ', ' ', '13', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识4', '葡萄酒知识4', ' ', '葡萄酒知识4', '葡萄酒知识4', '葡萄酒知识4', ' ', ' ', '24', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻4', '热点新闻4', ' ', '热点新闻4', '热点新闻4', '热点新闻4', ' ', ' ', '14', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识5', '葡萄酒知识5', ' ', '葡萄酒知识5', '葡萄酒知识5', '葡萄酒知识5', ' ', ' ', '25', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻5', '热点新闻5', ' ', '热点新闻5', '热点新闻5', '热点新闻5', ' ', ' ', '15', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识6', '葡萄酒知识6', ' ', '葡萄酒知识6', '葡萄酒知识6', '葡萄酒知识6', ' ', ' ', '26', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻6', '热点新闻6', ' ', '热点新闻6', '热点新闻6', '热点新闻6', ' ', ' ', '16', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识7', '葡萄酒知识7', ' ', '葡萄酒知识7', '葡萄酒知识7', '葡萄酒知识7', ' ', ' ', '27', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻7', '热点新闻7', ' ', '热点新闻7', '热点新闻7', '热点新闻7', ' ', ' ', '17', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识8', '葡萄酒知识8', ' ', '葡萄酒知识8', '葡萄酒知识8', '葡萄酒知识8', ' ', ' ', '28', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻8', '热点新闻8', ' ', '热点新闻8', '热点新闻8', '热点新闻8', ' ', ' ', '18', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识9', '葡萄酒知识9', ' ', '葡萄酒知识9', '葡萄酒知识9', '葡萄酒知识9', ' ', ' ', '29', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻9', '热点新闻9', ' ', '热点新闻9', '热点新闻9', '热点新闻9', ' ', ' ', '19', '0', ' ', now(), '1', now(), '1');
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
-VALUES ('3', '3', '葡萄酒知识10', '葡萄酒知识10', ' ', '葡萄酒知识10', '葡萄酒知识10', '葡萄酒知识10', ' ', ' ', '30', '0', ' ', now(), '1', now(), '1');
+VALUES ('11', '1', '热点新闻10', '热点新闻10', ' ', '热点新闻10', '热点新闻10', '热点新闻10', ' ', ' ', '20', '0', ' ', now(), '1', now(), '1');
 
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('34', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('35', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('36', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('37', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('38', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('39', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('40', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('41', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('42', '3');
-INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('43', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('24', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('25', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('26', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('27', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('28', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('29', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('30', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('31', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('32', '2');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('33', '2');
+
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识1', '葡萄酒知识1', ' ', '葡萄酒知识1', '葡萄酒知识1', '葡萄酒知识1', ' ', ' ', '21', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识2', '葡萄酒知识2', ' ', '葡萄酒知识2', '葡萄酒知识2', '葡萄酒知识2', ' ', ' ', '22', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识3', '葡萄酒知识3', ' ', '葡萄酒知识3', '葡萄酒知识3', '葡萄酒知识3', ' ', ' ', '23', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识4', '葡萄酒知识4', ' ', '葡萄酒知识4', '葡萄酒知识4', '葡萄酒知识4', ' ', ' ', '24', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识5', '葡萄酒知识5', ' ', '葡萄酒知识5', '葡萄酒知识5', '葡萄酒知识5', ' ', ' ', '25', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识6', '葡萄酒知识6', ' ', '葡萄酒知识6', '葡萄酒知识6', '葡萄酒知识6', ' ', ' ', '26', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识7', '葡萄酒知识7', ' ', '葡萄酒知识7', '葡萄酒知识7', '葡萄酒知识7', ' ', ' ', '27', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识8', '葡萄酒知识8', ' ', '葡萄酒知识8', '葡萄酒知识8', '葡萄酒知识8', ' ', ' ', '28', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识9', '葡萄酒知识9', ' ', '葡萄酒知识9', '葡萄酒知识9', '葡萄酒知识9', ' ', ' ', '29', '0', ' ', now(), '1', now(), '1');
+INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
+VALUES ('12', '1', '葡萄酒知识10', '葡萄酒知识10', ' ', '葡萄酒知识10', '葡萄酒知识10', '葡萄酒知识10', ' ', ' ', '30', '0', ' ', now(), '1', now(), '1');
+
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('34', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('35', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('36', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('37', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('38', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('39', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('40', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('41', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('42', '3');
+-- INSERT INTO `IDO_CMS_CONTENT_ARTICLE` (`ContentID`, `ArticleType`) VALUES ('43', '3');
 
 INSERT INTO `IDO_CMS_CONTENT` (`ChannelID`, `ContentType`, `ContentTitle`, `ContentSubTitle`, `ContentImageTitle`, `MetaTitle`, `MetaKeywords`, `MetaDescription`, `ContentSummary`, `ContentBody`, `Sequence`, `IsAllowComment`, `Remarks`, `CreateTime`, `CreateUser`, `UpdateTime`, `UpdateUser`) 
 VALUES ('4', '1', '关于我们', '关于我们', ' ', '关于我们', '关于我们', '关于我们', '关于我们描述', '关于我们内容体', '1', '0', ' ', now(), '1', now(), '1');

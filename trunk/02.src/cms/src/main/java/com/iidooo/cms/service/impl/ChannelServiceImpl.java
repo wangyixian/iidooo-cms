@@ -14,7 +14,7 @@ import com.iidooo.cms.dao.extend.CmsChannelDao;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.service.ChannelService;
 import com.iidooo.framework.exception.ExclusiveException;
-import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.tag.component.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 
 @Service

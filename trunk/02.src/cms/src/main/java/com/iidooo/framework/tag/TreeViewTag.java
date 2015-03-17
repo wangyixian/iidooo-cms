@@ -10,6 +10,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.log4j.Logger;
 
+import com.iidooo.framework.tag.component.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 
 public class TreeViewTag extends SimpleTagSupport {
@@ -52,7 +53,6 @@ public class TreeViewTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        logger.debug("TreeViewTag doTag method execute start.");
         JspContext jspCtx = null;
         JspWriter out = null;
         try {
@@ -82,11 +82,9 @@ public class TreeViewTag extends SimpleTagSupport {
             out.println("</li>");
             out.println("</ul>");
             out.println("</div>");
-            logger.debug("TreeViewTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-            logger.warn("TreeViewTag doTag method execute end with exception.");
         }
     }
 

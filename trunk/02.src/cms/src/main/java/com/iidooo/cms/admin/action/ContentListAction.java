@@ -14,7 +14,7 @@ import com.iidooo.cms.service.ContentService;
 import com.iidooo.framework.action.PagingActionSupport;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
-import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.tag.component.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 
 public class ContentListAction extends PagingActionSupport {
@@ -38,7 +38,7 @@ public class ContentListAction extends PagingActionSupport {
     // The channel tree's root node
     private TreeNode rootTreeNode;
 
-    private int channelID;
+    private int channelID = 0;
 
     private List<CmsContentDto> contentList;
     
@@ -103,10 +103,11 @@ public class ContentListAction extends PagingActionSupport {
             content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
             boolean result = contentService.deleteContent(content);
             if (result) {
-                this.addActionMessage(getText("MSG_DELETE_SUCCESS"));
+                this.setMessage(getText("MSG_DELETE_SUCCESS"));
             } else {
-                this.addActionMessage(getText("MST_DELETE_FAILED"));
+                this.setMessage(getText("MST_DELETE_FAILED"));
             }
+            this.init();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

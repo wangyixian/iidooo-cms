@@ -177,7 +177,12 @@ a:hover {
 
 /* 必填项 */
 .required {
-	color: red;
+	background-color: #FFFFE0;
+	font-weight: bold;
+}
+
+.required_highlight {
+	background-color: red;
 	font-weight: bold;
 }
 
@@ -405,16 +410,16 @@ a:hover {
 	padding-left: 10px;
 }
 
-.tree_wrap .content{
+.tree_wrap .content {
 	padding: 10px;
 	font-size: 14px;
 }
 
-.tree_wrap .content_item{
+.tree_wrap .content_item {
 	margin-bottom: 5px;
 }
 
-.tree_wrap .focus{
+.tree_wrap .focus {
 	font-weight: bold;
 	text-decoration: underline;
 }
@@ -429,7 +434,7 @@ a:hover {
 	padding: 0 10px;
 }
 
-.button_bar {	
+.button_bar {
 	margin-top: 10px;
 }
 
@@ -448,4 +453,53 @@ a:hover {
 .img-preview {
 	width: 200px;
 	height: 150px;
+}
+
+/*The message box css*/
+#message_box_overlay {
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(104,104,104);
+	z-index: 1010;
+	-moz-opacity: 0.8;
+	opacity: .80;
+	filter: alpha(opacity = 80);
+}
+
+#message_box_dialog {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 480px;
+	margin-left: -240px;
+	height: 300px;
+	margin-top: -150px;
+	padding: 0;
+	_position: absolute;
+	z-index: 1011;
+	overflow: hidden;
+}
+
+#message_box_title{
+	position: relative;
+	padding-left: 5px;
+	margin: 0;
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	background-color: #829AA8;
+	border: 1px solid #768995;
+	border-radius: 3px 3px 0 0;
+	height: 40px;
+	line-height: 40px;
+}
+
+#message_box_content{	
+	background-color: #F0F5F8;
+}
+
+#message_box_botton_bar{	
+	background-color: #F0F5F8;
 }

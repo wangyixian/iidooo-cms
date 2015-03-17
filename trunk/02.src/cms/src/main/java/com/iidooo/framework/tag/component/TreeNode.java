@@ -1,4 +1,4 @@
-package com.iidooo.framework.tag;
+package com.iidooo.framework.tag.component;
 
 import java.util.ArrayList;
 

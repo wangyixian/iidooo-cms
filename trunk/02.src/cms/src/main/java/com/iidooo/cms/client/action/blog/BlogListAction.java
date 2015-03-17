@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.client.service.blog.BlogListService;
 import com.iidooo.cms.dto.extend.CmsChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentArticleDto;
+import com.iidooo.cms.dto.extend.CmsContentDto;
 import com.iidooo.cms.service.ChannelService;
+import com.iidooo.cms.service.ContentService;
 import com.iidooo.framework.action.PagingActionSupport;
 
 public class BlogListAction extends PagingActionSupport {
@@ -23,7 +25,7 @@ public class BlogListAction extends PagingActionSupport {
     private ChannelService channelService;
 
     @Autowired
-    private BlogListService blogListService;
+    private ContentService contentService;
 
     private CmsChannelDto channel;
 
@@ -35,22 +37,23 @@ public class BlogListAction extends PagingActionSupport {
         this.channel = channel;
     }
 
-    private List<CmsContentArticleDto> articles;
+    private List<CmsContentDto> articles;
 
-    public List<CmsContentArticleDto> getArticles() {
+    public List<CmsContentDto> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<CmsContentArticleDto> articles) {
+    public void setArticles(List<CmsContentDto> articles) {
         this.articles = articles;
     }
 
     public String init() {
         try {
             channel = channelService.getChannelByID(channel.getChannelID());
-            int recordSum = blogListService.getArticlesCount(channel.getChannelID());
+            List<CmsChannelDto> channels = channelService.getOffspringChannels(channel.getChannelID(), true);
+            int recordSum = contentService.getChannelContentsCount(channels);
             this.executePaging(recordSum, 10);
-            articles = blogListService.getArticles(channel.getChannelID(), this.getPagingDto());
+            articles = contentService.getChannelContents(channels, this.getPagingDto());
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

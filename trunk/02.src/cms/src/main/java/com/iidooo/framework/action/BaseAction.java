@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.framework.service.DictItemService;
+import com.iidooo.framework.tag.component.Message;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -33,22 +34,24 @@ public abstract class BaseAction extends ActionSupport {
 	 */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 字典项处理的Service
-     */
     @Autowired
     protected DictItemService dictItemService;
 
     /**
-     * 该Action的名字，与actionUrl的区别是，actionUrl可能会包含Namespace和参数信息
+     * The action name
      */
     private String actionName;
 
     /**
-     * 访问Action的URL，子类中需要给赋值
+     * The action URL, contain the parameters
      */
     private String actionUrl;
-
+    
+    /**
+     * The message 
+     */
+    private String message;
+    
     public String getActionName() {
         return actionName;
     }
@@ -73,6 +76,14 @@ public abstract class BaseAction extends ActionSupport {
      */
     public void setActionUrl(String actionUrl) {
         this.actionUrl = actionUrl;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**

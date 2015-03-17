@@ -3,7 +3,7 @@ package com.iidooo.cms.service;
 import java.util.List;
 
 import com.iidooo.cms.dto.extend.CmsChannelDto;
-import com.iidooo.framework.tag.TreeNode;
+import com.iidooo.framework.tag.component.TreeNode;
 
 public interface ChannelService {
 
