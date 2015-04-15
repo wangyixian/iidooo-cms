@@ -17,7 +17,7 @@ public class ChannelListService implements IChannelListService {
     private ChannelDao channelDao;
 
     @Override
-    public List<ChannelDto> searchChannelList(ChannelDto channel) {
+    public List<ChannelDto> searchChannelList(int parentID) {
         try {
             List<ChannelDto> channelList = null;
             channelList = channelDao.selectByParentID(parentID);

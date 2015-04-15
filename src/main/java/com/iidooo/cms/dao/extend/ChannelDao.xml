@@ -34,19 +34,6 @@
 		where C.IsDelete = 0
 	</select>
 
-	<select id="selectForSearch" resultMap="BaseResultMap" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
-		select
-		<include refid="Base_Column_List" />
-		from IDO_CMS_CHANNEL C
-		where C.IsDelete = 0
-		<if test="parentID != null">
-			and ParentID = #{parentID}
-		</if>
-		<if test="channelName != null">
-			and ChannelName = #{channelName}
-		</if>
-	</select>
-
 	<select id="selectChannelByPath" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />

@@ -12,8 +12,6 @@ public interface ChannelDao {
      * @return The list of channels
      */
     List<ChannelDto> selectAll();
-    
-    List<ChannelDto> selectForSearch(ChannelDto channel);
 
     /**
      * Get the channel list by the parent ID
