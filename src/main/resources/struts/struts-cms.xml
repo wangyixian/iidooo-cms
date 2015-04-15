@@ -4,45 +4,20 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="admin" namespace="/admin" extends="basic">
-
-		<interceptors>
-			<interceptor name="authInterceptor" class="com.iidooo.framework.interceptor.AuthInterceptor"></interceptor>
-			<interceptor name="actionInterceptor" class="com.iidooo.framework.interceptor.ActionInterceptor"></interceptor>
-			<interceptor-stack name="adminStackWrap">
-				<interceptor-ref name="defaultStack" />
-				<interceptor-ref name="authInterceptor" />
-				<interceptor-ref name="actionInterceptor" />
-			</interceptor-stack>
-		</interceptors>
-
-		<action name="loginInit" class="com.iidooo.framework.action.LoginAction" method="init">
-			<result name="success">/WEB-INF/jsp/Login.jsp</result>
-		</action>
-		<action name="login" class="com.iidooo.framework.action.LoginAction" method="login">
-			<result name="success" type="redirect">index.action</result>
-			<result name="input">/WEB-INF/jsp/Login.jsp</result>
-		</action>
-		<action name="logout" class="com.iidooo.framework.action.LoginAction" method="logout">
-			<result name="success">/WEB-INF/jsp/Login.jsp</result>
-		</action>
-		
+	<package name="cms" extends="basic">
+	
 		<action name="index" class="com.iidooo.cms.admin.action.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 
-		<action name="channelList" class="com.iidooo.cms.admin.action.ChannelListAction" method="init">
+		<action name="channelList" class="com.iidooo.cms.action.channel.ChannelListAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-		<action name="channelListDelete" class="com.iidooo.cms.admin.action.ChannelListAction" method="delete">
+		<action name="channelListDelete" class="com.iidooo.cms.action.channel.ChannelListAction" method="delete">
 			<result name="success" type="redirect">channelList.action?parentChannelID=${parentChannelID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
-
-		<action name="channelDetail" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="init">
+		<action name="channelInfo" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
