@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
+import com.iidooo.core.util.StringUtil;
 import com.iidooo.framework.action.BaseAction;
-import com.iidooo.framework.utility.StringUtil;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 

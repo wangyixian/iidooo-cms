@@ -1,21 +1,21 @@
 package com.iidooo.cms.admin.service;
 
 import com.iidooo.cms.dto.extend.CmsContentArticleDto;
-import com.iidooo.cms.dto.extend.CmsContentDto;
-import com.iidooo.cms.dto.extend.CmsContentProductDto;
+import com.iidooo.cms.dto.extend.ContentDto;
+import com.iidooo.cms.dto.extend.ContentProductDto;
 
 public interface ContentDetailService {
-    boolean createContent(CmsContentDto content);
+    boolean createContent(ContentDto content);
 
-    boolean createContent(CmsContentDto content, CmsContentProductDto product);
+    boolean createContent(ContentDto content, ContentProductDto product);
 
-    boolean createContent(CmsContentDto content, CmsContentArticleDto article);
+    boolean createContent(ContentDto content, CmsContentArticleDto article);
 
-    boolean updateContent(CmsContentDto content);
+    boolean updateContent(ContentDto content);
 
-    boolean updateContent(CmsContentDto content, CmsContentProductDto product);
+    boolean updateContent(ContentDto content, ContentProductDto product);
 
-    boolean updateContent(CmsContentDto content, CmsContentArticleDto article);
+    boolean updateContent(ContentDto content, CmsContentArticleDto article);
 
     
 }

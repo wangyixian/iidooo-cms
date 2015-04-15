@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.dao.extend.CmsContentProductDao;
-import com.iidooo.cms.dto.extend.CmsContentProductDto;
+import com.iidooo.cms.dao.extend.ContentProductDao;
+import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.ContentProductService;
 
 @Service
@@ -14,12 +14,12 @@ public class ContentProductServiceImpl implements ContentProductService {
     private static final Logger logger = Logger.getLogger(ContentProductServiceImpl.class);
 
     @Autowired
-    private CmsContentProductDao cmsContentProductDao;
+    private ContentProductDao cmsContentProductDao;
 
     @Override
-    public CmsContentProductDto getContentByID(int contentID) {
+    public ContentProductDto getContentByID(int contentID) {
         try {
-            CmsContentProductDto result = cmsContentProductDao.selectByContentID(contentID);
+            ContentProductDto result = cmsContentProductDao.selectByContentID(contentID);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

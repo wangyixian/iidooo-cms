@@ -1,7 +1,7 @@
 package com.iidooo.cms.service;
 
-import com.iidooo.cms.dto.extend.CmsContentProductDto;
+import com.iidooo.cms.dto.extend.ContentProductDto;
 
 public interface ContentProductService {
-    CmsContentProductDto getContentByID(int contentID);
+    ContentProductDto getContentByID(int contentID);
 }

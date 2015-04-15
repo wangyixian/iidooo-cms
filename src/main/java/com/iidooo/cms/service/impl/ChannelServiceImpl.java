@@ -9,21 +9,20 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.admin.service.impl.ChannelListServiceImpl;
-import com.iidooo.cms.dao.extend.CmsChannelDao;
-import com.iidooo.cms.dto.extend.CmsChannelDto;
-import com.iidooo.cms.service.ChannelService;
+import com.iidooo.cms.dao.extend.ChannelDao;
+import com.iidooo.cms.dto.extend.ChannelDto;
+import com.iidooo.cms.service.IChannelService;
 import com.iidooo.framework.exception.ExclusiveException;
 import com.iidooo.framework.tag.component.TreeNode;
 import com.iidooo.framework.utility.StringUtil;
 
 @Service
-public class ChannelServiceImpl implements ChannelService {
+public class ChannelServiceImpl implements IChannelService {
 
     private static final Logger logger = Logger.getLogger(ChannelListServiceImpl.class);
 
     @Autowired
-    private CmsChannelDao cmsChannelDao;
+    private ChannelDao cmsChannelDao;
 
     @Override
     public TreeNode getRootTree(String rootName, String baseURL) {
@@ -32,10 +31,10 @@ public class ChannelServiceImpl implements ChannelService {
             rootTreeNode.setUrl(StringUtil.replace(baseURL, "0"));
             rootTreeNode.setName(rootName);
 
-            List<CmsChannelDto> allChannels = this.getAllChannels();
+            List<ChannelDto> allChannels = this.getAllChannels();
 
             Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
-            for (CmsChannelDto channel : allChannels) {
+            for (ChannelDto channel : allChannels) {
                 // Build the tree node of the CmsChannelDto
                 TreeNode treeNode = new TreeNode();
                 treeNode.setUrl(StringUtil.replace(baseURL, channel.getChannelID().toString()));
@@ -51,7 +50,7 @@ public class ChannelServiceImpl implements ChannelService {
             }
 
             // Set the tree node's parent
-            for (CmsChannelDto channel : allChannels) {
+            for (ChannelDto channel : allChannels) {
                 if (channel.getParentID() != 0) {
                     TreeNode treeNode = channelMap.get(channel.getChannelID());
                     TreeNode parent = channelMap.get(channel.getParentID());
@@ -73,10 +72,10 @@ public class ChannelServiceImpl implements ChannelService {
             rootTreeNode.setUrl(StringUtil.replace(baseURLList, "0"));
             rootTreeNode.setName(rootName);
 
-            List<CmsChannelDto> allChannels = this.getAllChannels();
+            List<ChannelDto> allChannels = this.getAllChannels();
 
             Map<Integer, TreeNode> channelMap = new HashMap<Integer, TreeNode>();
-            for (CmsChannelDto channel : allChannels) {
+            for (ChannelDto channel : allChannels) {
                 // Build the tree node of the CmsChannelDto
                 TreeNode treeNode = new TreeNode();
                 treeNode.setUrl(StringUtil.replace(baseURLDetail, channel.getChannelID().toString()));
@@ -92,7 +91,7 @@ public class ChannelServiceImpl implements ChannelService {
             }
 
             // Set the tree node's parent
-            for (CmsChannelDto channel : allChannels) {
+            for (ChannelDto channel : allChannels) {
                 if (channel.getParentID() != 0) {
                     TreeNode treeNode = channelMap.get(channel.getChannelID());
                     TreeNode parent = channelMap.get(channel.getParentID());
@@ -109,9 +108,9 @@ public class ChannelServiceImpl implements ChannelService {
     }
     
     @Override
-    public List<CmsChannelDto> getAllChannels() {
+    public List<ChannelDto> getAllChannels() {
         try {
-            List<CmsChannelDto> channelList = null;
+            List<ChannelDto> channelList = null;
             channelList = cmsChannelDao.selectAll();
             return channelList;
         } catch (Exception e) {
@@ -122,27 +121,27 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public List<CmsChannelDto> getOffspringChannels(int parentID, boolean containSelf) {
+    public List<ChannelDto> getOffspringChannels(int parentID, boolean containSelf) {
         try {
-            List<CmsChannelDto> offspringChannels = new ArrayList<CmsChannelDto>();
+            List<ChannelDto> offspringChannels = new ArrayList<ChannelDto>();
 
-            List<CmsChannelDto> allChannels = cmsChannelDao.selectAll();
+            List<ChannelDto> allChannels = cmsChannelDao.selectAll();
 
             if (parentID <= 0) {
                 offspringChannels = allChannels;
             } else {
-                CmsChannelDto rootChannelDto = null;
-                Map<Integer, CmsChannelDto> channelMap = new HashMap<Integer, CmsChannelDto>();
-                for (CmsChannelDto channel : allChannels) {
+                ChannelDto rootChannelDto = null;
+                Map<Integer, ChannelDto> channelMap = new HashMap<Integer, ChannelDto>();
+                for (ChannelDto channel : allChannels) {
                     channelMap.put(channel.getChannelID(), channel);
                     if (channel.getChannelID() == parentID) {
                         rootChannelDto = channel;
                     }
                 }
 
-                for (CmsChannelDto channel : allChannels) {
+                for (ChannelDto channel : allChannels) {
                     if (channel.getParentID() > 0) {
-                        CmsChannelDto parent = channelMap.get(channel.getParentID());
+                        ChannelDto parent = channelMap.get(channel.getParentID());
                         parent.getChildren().add(channel);
                     }
                 }
@@ -152,7 +151,7 @@ public class ChannelServiceImpl implements ChannelService {
                     offspringChannels.add(rootChannelDto);
                 }
 
-                List<CmsChannelDto> children = rootChannelDto.getChildren();
+                List<ChannelDto> children = rootChannelDto.getChildren();
                 this.getChildrenChannelIDs(children, offspringChannels);
             }
 
@@ -165,9 +164,9 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public CmsChannelDto getChannelByID(int channelID) {
+    public ChannelDto getChannelByID(int channelID) {
         try {
-            CmsChannelDto result = cmsChannelDao.selectChannelByID(channelID);
+            ChannelDto result = cmsChannelDao.selectChannelByID(channelID);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,9 +178,9 @@ public class ChannelServiceImpl implements ChannelService {
     
 
     @Override
-    public List<CmsChannelDto> getChildrenChannels(int parentID) {
+    public List<ChannelDto> getChildrenChannels(int parentID) {
         try {
-            List<CmsChannelDto> channels = cmsChannelDao.selectByParentID(parentID);
+            List<ChannelDto> channels = cmsChannelDao.selectByParentID(parentID);
             return channels;
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,9 +190,9 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public CmsChannelDto getChannelByPath(String channelPath) {
+    public ChannelDto getChannelByPath(String channelPath) {
         try {
-            CmsChannelDto result = cmsChannelDao.selectChannelByPath(channelPath);
+            ChannelDto result = cmsChannelDao.selectChannelByPath(channelPath);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -202,9 +201,9 @@ public class ChannelServiceImpl implements ChannelService {
         }
     }
 
-    private void getChildrenChannelIDs(List<CmsChannelDto> children, List<CmsChannelDto> offspringChannels) {
+    private void getChildrenChannelIDs(List<ChannelDto> children, List<ChannelDto> offspringChannels) {
         try {
-            for (CmsChannelDto channel : children) {
+            for (ChannelDto channel : children) {
                 offspringChannels.add(channel);
                 this.getChildrenChannelIDs(channel.getChildren(), offspringChannels);
             }
@@ -217,7 +216,7 @@ public class ChannelServiceImpl implements ChannelService {
     
 
     @Override
-    public boolean deleteChannel(CmsChannelDto channel){
+    public boolean deleteChannel(ChannelDto channel){
         try {
 
             channel.setCommonData(false);
@@ -235,9 +234,9 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public CmsChannelDto exclusiveCheck(int channelID, int version) {
+    public ChannelDto exclusiveCheck(int channelID, int version) {
         try {
-            CmsChannelDto channel = cmsChannelDao.exclusiveCheck(channelID, version);
+            ChannelDto channel = cmsChannelDao.exclusiveCheck(channelID, version);
             return channel;
         } catch (Exception e) {
             e.printStackTrace();

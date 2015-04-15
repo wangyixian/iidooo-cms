@@ -2,7 +2,7 @@ package com.iidooo.cms.admin.service;
 
 import java.util.List;
 
-import com.iidooo.cms.dto.extend.CmsChannelDto;
+import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.CmsTemplateDto;
 
 public interface ChannelDetailService {
@@ -12,14 +12,14 @@ public interface ChannelDetailService {
      * @param channelID 通过该ID获取
      * @return CmsChannelDto对象
      */
-    CmsChannelDto getCurrentChannel(int channelID);
+    ChannelDto getCurrentChannel(int channelID);
     
     /**
      * 通过Channel path 获取Channel
      * @param channelPath Channel path
      * @return CmsChannelDto对象
      */
-    CmsChannelDto getChannelByPath(String channelPath);
+    ChannelDto getChannelByPath(String channelPath);
        
     
     
@@ -28,7 +28,7 @@ public interface ChannelDetailService {
      * @param channel 该栏目信息会被创建
      * @return 创建成功或失败
      */
-    boolean createChannel(CmsChannelDto channel);
+    boolean createChannel(ChannelDto channel);
     
     /**
      * 更新栏目
@@ -36,7 +36,7 @@ public interface ChannelDetailService {
      * @return 更新成功或失败
      * @throws Exception 返回的异常信息
      */
-    boolean updateChannel(CmsChannelDto channel) throws Exception;
+    boolean updateChannel(ChannelDto channel) throws Exception;
     
     /**
      * 删除栏目
@@ -44,5 +44,5 @@ public interface ChannelDetailService {
      * @return 删除成功或失败
      * @throws Exception 返回的异常信息
      */
-    boolean deleteChannel(CmsChannelDto channel) throws Exception;
+    boolean deleteChannel(ChannelDto channel) throws Exception;
 }

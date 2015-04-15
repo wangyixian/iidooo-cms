@@ -7,10 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.dao.extend.CmsContentDao;
+import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dao.extend.CmsContentTagDao;
-import com.iidooo.cms.dto.extend.CmsChannelDto;
-import com.iidooo.cms.dto.extend.CmsContentDto;
+import com.iidooo.cms.dto.extend.ChannelDto;
+import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.CmsContentTagDto;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.framework.dto.base.PagingDto;
@@ -21,15 +21,15 @@ public class ContentServiceImpl implements ContentService {
     private static final Logger logger = Logger.getLogger(ContentServiceImpl.class);
 
     @Autowired
-    private CmsContentDao cmsContentDao;
+    private ContentDao cmsContentDao;
 
     @Autowired
     private CmsContentTagDao cmsTagDao;
 
     @Override
-    public CmsContentDto getContentByID(int contentID) {
+    public ContentDto getContentByID(int contentID) {
         try {
-            CmsContentDto cmsContentDto = cmsContentDao.selectContentByID(contentID);
+            ContentDto cmsContentDto = cmsContentDao.selectContentByID(contentID);
 
             // List<CmsContentTagDto> cmsTagDtos = cmsTagDao.selectTagsByContentID(contentID);
             // cmsContentDto.setTags(cmsTagDtos);
@@ -43,9 +43,9 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public CmsContentDto getContentByChannel(int channelID) {
+    public ContentDto getContentByChannel(int channelID) {
         try {
-            CmsContentDto content = cmsContentDao.selectByChannel(channelID);
+            ContentDto content = cmsContentDao.selectByChannel(channelID);
             return content;
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public int getChannelContentsCount(List<CmsChannelDto> channels) {
+    public int getChannelContentsCount(List<ChannelDto> channels) {
         try {
             int recordSum = cmsContentDao.selectChannelContentsCount(channels);
             return recordSum;
@@ -79,9 +79,9 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public List<CmsContentDto> getChannelContents(List<CmsChannelDto> channels, PagingDto pagingDto) {
+    public List<ContentDto> getChannelContents(List<ChannelDto> channels, PagingDto pagingDto) {
         try {
-            List<CmsContentDto> contentList = cmsContentDao.selectChannelContents(channels, pagingDto);
+            List<ContentDto> contentList = cmsContentDao.selectChannelContents(channels, pagingDto);
             return contentList;
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class ContentServiceImpl implements ContentService {
     }
     
     @Override
-    public boolean deleteContent(CmsContentDto content) {
+    public boolean deleteContent(ContentDto content) {
         try {
             content.setCommonData(false);
             int sum =  cmsContentDao.deleteByPrimaryKey(content);

@@ -10,8 +10,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.log4j.Logger;
 
+import com.iidooo.core.util.StringUtil;
 import com.iidooo.framework.tag.component.TreeNode;
-import com.iidooo.framework.utility.StringUtil;
 
 public class TreeViewTag extends SimpleTagSupport {
 

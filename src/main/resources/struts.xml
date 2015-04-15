@@ -7,7 +7,7 @@
 	<constant name="struts.devMode" value="true" />
 	<!-- <constant name="struts.objectFactory" value="spring"/> -->
 	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.custom.i18n.resources" value="languages.framework_label, languages.framework_msg, languages.cms_label, languages.cms_msg" />
+	<constant name="struts.custom.i18n.resources" value="languages.label, languages.message" />
 	<constant name="struts.multipart.maxSize" value="102400000" />
 	<!-- <constant name="struts.xwork.chaining.copyErrors" value="true"/> -->
 	<!-- <constant name="struts.xwork.chaining.copyFieldErrors" value="true"/> -->
@@ -33,7 +33,6 @@
 		</global-exception-mappings>
 	</package>
 
-	<include file="struts/struts-cms-client.xml"></include>
-	<include file="struts/struts-cms-admin.xml"></include>
+	<include file="struts/struts-cms.xml"></include>
 	
 </struts>

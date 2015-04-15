@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.admin.service.ContentDetailService;
 import com.iidooo.cms.dao.extend.CmsContentArticleDao;
-import com.iidooo.cms.dao.extend.CmsContentDao;
-import com.iidooo.cms.dao.extend.CmsContentProductDao;
+import com.iidooo.cms.dao.extend.ContentDao;
+import com.iidooo.cms.dao.extend.ContentProductDao;
 import com.iidooo.cms.dto.extend.CmsContentArticleDto;
-import com.iidooo.cms.dto.extend.CmsContentDto;
-import com.iidooo.cms.dto.extend.CmsContentProductDto;
+import com.iidooo.cms.dto.extend.ContentDto;
+import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.framework.constant.DateConstant;
 import com.iidooo.framework.dao.extend.FieldDataDao;
 import com.iidooo.framework.dto.extend.FieldDataDto;
@@ -24,16 +24,16 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     private static final Logger logger = Logger.getLogger(ContentDetailServiceImpl.class);
 
     @Autowired
-    private CmsContentDao cmsContentDao;
+    private ContentDao cmsContentDao;
 
     @Autowired
     private CmsContentArticleDao cmsContentArticleDao;
 
     @Autowired
-    private CmsContentProductDao cmsContentProductDao;
+    private ContentProductDao cmsContentProductDao;
 
     @Override
-    public boolean createContent(CmsContentDto content) {
+    public boolean createContent(ContentDto content) {
         try {
             content.setCommonData(true);
             // Set the default sequence
@@ -56,7 +56,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     }
 
     @Override
-    public boolean createContent(CmsContentDto content, CmsContentProductDto product) {
+    public boolean createContent(ContentDto content, ContentProductDto product) {
         try {
             content.setCommonData(true);
             if (this.createContent(content)) {
@@ -73,7 +73,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     }
 
     @Override
-    public boolean createContent(CmsContentDto content, CmsContentArticleDto article) {
+    public boolean createContent(ContentDto content, CmsContentArticleDto article) {
         try {
             content.setCommonData(true);
             if (this.createContent(content)) {
@@ -90,7 +90,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     }
 
     @Override
-    public boolean updateContent(CmsContentDto content) {
+    public boolean updateContent(ContentDto content) {
         try {
             content.setCommonData(false);
             int result = cmsContentDao.updateByPrimaryKey(content);
@@ -109,7 +109,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     }
 
     @Override
-    public boolean updateContent(CmsContentDto content, CmsContentProductDto product) {
+    public boolean updateContent(ContentDto content, ContentProductDto product) {
         try {
             content.setCommonData(false);
             if (this.updateContent(content)) {
@@ -126,7 +126,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     }
 
     @Override
-    public boolean updateContent(CmsContentDto content, CmsContentArticleDto article) {
+    public boolean updateContent(ContentDto content, CmsContentArticleDto article) {
         try {
             content.setCommonData(false);
             if (this.updateContent(content)) {

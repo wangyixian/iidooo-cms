@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.admin.service.ChannelDetailService;
-import com.iidooo.cms.dao.extend.CmsChannelDao;
+import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dao.extend.CmsTemplateDao;
-import com.iidooo.cms.dto.extend.CmsChannelDto;
+import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.CmsTemplateDto;
 import com.iidooo.framework.exception.ExclusiveException;
 
@@ -18,10 +18,10 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     private static final Logger logger = Logger.getLogger(ChannelDetailServiceImpl.class);
 
     @Autowired
-    private CmsChannelDao cmsChannelDao;
+    private ChannelDao cmsChannelDao;
 
     @Override
-    public boolean createChannel(CmsChannelDto channel) {
+    public boolean createChannel(ChannelDto channel) {
         try {
             channel.setCommonData(true);
             setChannelLevel(channel);
@@ -37,9 +37,9 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     }
 
     @Override
-    public CmsChannelDto getCurrentChannel(int channelID) {
+    public ChannelDto getCurrentChannel(int channelID) {
         try {
-            CmsChannelDto cmsChannelDto = cmsChannelDao.selectChannelByID(channelID);
+            ChannelDto cmsChannelDto = cmsChannelDao.selectChannelByID(channelID);
             return cmsChannelDto;
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,9 +50,9 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
 
 
     @Override
-    public CmsChannelDto getChannelByPath(String channelPath) {
+    public ChannelDto getChannelByPath(String channelPath) {
         try {
-            CmsChannelDto cmsChannelDto = cmsChannelDao.selectChannelByPath(channelPath);
+            ChannelDto cmsChannelDto = cmsChannelDao.selectChannelByPath(channelPath);
             return cmsChannelDto;
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     }
 
     @Override
-    public boolean updateChannel(CmsChannelDto channel) throws Exception {
+    public boolean updateChannel(ChannelDto channel) throws Exception {
         try {
             channel.setCommonData(false);
             setChannelLevel(channel);
@@ -77,7 +77,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     }
 
     @Override
-    public boolean deleteChannel(CmsChannelDto channel) throws Exception {
+    public boolean deleteChannel(ChannelDto channel) throws Exception {
         try {
             channel.setCommonData(false);
             cmsChannelDao.deleteByPrimaryKey(channel);
@@ -89,9 +89,9 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
         }
     }
 
-    private void setChannelLevel(CmsChannelDto channel) {
+    private void setChannelLevel(ChannelDto channel) {
         try {
-            CmsChannelDto parentChannel = cmsChannelDao.selectChannelByID(channel.getParentID());
+            ChannelDto parentChannel = cmsChannelDao.selectChannelByID(channel.getParentID());
             if (parentChannel == null) {
                 channel.setChannelLevel(1);
             } else {
@@ -104,12 +104,12 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
         }
     }
 
-    private void setChannelSequence(CmsChannelDto channel) {
+    private void setChannelSequence(ChannelDto channel) {
         try {
             int sequence = 1;
-            List<CmsChannelDto> channelDtos = cmsChannelDao.selectByParentID(channel.getParentID());
+            List<ChannelDto> channelDtos = cmsChannelDao.selectByParentID(channel.getParentID());
             if (channelDtos != null) {
-                for (CmsChannelDto cmsChannelDto : channelDtos) {
+                for (ChannelDto cmsChannelDto : channelDtos) {
                     if (cmsChannelDto.getSequence() > sequence) {
                         sequence = cmsChannelDto.getSequence() + 1;
                     }

@@ -1,8 +1,8 @@
 package com.iidooo.framework.dto.base;
 
+import com.iidooo.core.util.DateUtil;
 import com.iidooo.framework.constant.DateConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
-import com.iidooo.framework.utility.DateTimeUtil;
 
 public class BaseDto {
     private String remarks;
@@ -66,7 +66,7 @@ public class BaseDto {
     }
 
     public String getUpdateDate() {
-        String updateDate = DateTimeUtil.format(updateTime, DateConstant.FORMAT_DATETIME, DateConstant.FORMAT_DATE);
+        String updateDate = DateUtil.format(updateTime, DateConstant.FORMAT_DATETIME, DateConstant.FORMAT_DATE);
         return updateDate;
     }
 
@@ -111,7 +111,7 @@ public class BaseDto {
     }
 
     public void setCommonData(boolean isCreate) {
-        String now = DateTimeUtil.getNow(DateConstant.FORMAT_DATETIME);
+        String now = DateUtil.getNow(DateConstant.FORMAT_DATETIME);
 
         if (isCreate) {
             this.createUser = sessionUser.getUserID();

@@ -1,3 +1,2 @@
-<script type="text/javascript" src="${SITE_URL}/js/jquery-1.9.1.js"></script>
-<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/Common.css">
-<title>IDOOO CMS</title>
+<link href="${coreURL }/css/common.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${coreURL }/js/lib/jquery-ui-1.10.3/js/jquery-1.9.1.min.js"></script>

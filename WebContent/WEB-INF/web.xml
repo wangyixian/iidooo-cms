@@ -27,12 +27,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- 配置spiring security -->
-	<!-- <filter> <filter-name>springSecurityFilterChain</filter-name> <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
-		</filter> <filter-mapping> <filter-name>springSecurityFilterChain</filter-name> 
-		<url-pattern>/admin/*</url-pattern> </filter-mapping> -->
-	<!-- 配置spiring security结束 -->
-
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
@@ -45,7 +39,7 @@
 	<!-- 资源URL编码过滤器 -->
 	<filter>
 		<filter-name>urlEncode</filter-name>
-		<filter-class>com.iidooo.framework.filter.UrlEncodeFilter</filter-class>
+		<filter-class>com.iidooo.core.filter.UrlEncodeFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>urlEncode</filter-name>
@@ -69,13 +63,14 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
-	<listener>
-		<listener-class>com.iidooo.framework.listener.ApplicationListener</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>com.iidooo.cms.listener.PropertiesListener</listener-class>
-	</listener>
+    <!-- The listener of this application. Append the configuration of application need. -->
+    <listener>
+        <listener-class>iidooo.passport.listener.ApplicationListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>coreURL</param-name>
+        <param-value>http://localhost:8080/core</param-value>
+    </context-param>
 
 	<session-config>
 		<session-timeout>30</session-timeout>
