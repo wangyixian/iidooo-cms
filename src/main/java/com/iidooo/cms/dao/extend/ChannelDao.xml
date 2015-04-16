@@ -116,7 +116,7 @@
 		ChannelID = #{channelID,jdbcType=INTEGER}
 	</update>
 
-	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
+	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		update IDO_CMS_CHANNEL
 		set IsDelete = 1,
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},

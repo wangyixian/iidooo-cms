@@ -19,7 +19,7 @@ import com.iidooo.framework.utility.StringUtil;
 @Service
 public class ChannelServiceImpl implements IChannelService {
 
-    private static final Logger logger = Logger.getLogger(ChannelListServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(ChannelServiceImpl.class);
 
     @Autowired
     private ChannelDao cmsChannelDao;
@@ -108,19 +108,6 @@ public class ChannelServiceImpl implements IChannelService {
     }
     
     @Override
-    public List<ChannelDto> getAllChannels() {
-        try {
-            List<ChannelDto> channelList = null;
-            channelList = cmsChannelDao.selectAll();
-            return channelList;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
-
-    @Override
     public List<ChannelDto> getOffspringChannels(int parentID, boolean containSelf) {
         try {
             List<ChannelDto> offspringChannels = new ArrayList<ChannelDto>();
@@ -163,17 +150,7 @@ public class ChannelServiceImpl implements IChannelService {
         }
     }
 
-    @Override
-    public ChannelDto getChannelByID(int channelID) {
-        try {
-            ChannelDto result = cmsChannelDao.selectChannelByID(channelID);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
+
     
     
 
@@ -215,23 +192,6 @@ public class ChannelServiceImpl implements IChannelService {
     }
     
 
-    @Override
-    public boolean deleteChannel(ChannelDto channel){
-        try {
-
-            channel.setCommonData(false);
-            int count = cmsChannelDao.deleteByPrimaryKey(channel);
-            if (count <= 0) {
-                logger.warn("There is nothing deleted.");
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
 
     @Override
     public ChannelDto exclusiveCheck(int channelID, int version) {

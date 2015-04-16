@@ -6,17 +6,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.action.channel.ChannelListAction;
-import com.iidooo.cms.admin.service.ContentListService;
-import com.iidooo.cms.constant.URLConstant;
+import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
-import com.iidooo.cms.service.IChannelService;
 import com.iidooo.cms.service.ContentService;
-import com.iidooo.framework.action.PagingActionSupport;
+import com.iidooo.cms.service.IChannelService;
+import com.iidooo.cms.service.content.impl.ContentListService;
+import com.iidooo.core.action.PagingActionSupport;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.tag.component.TreeNode;
-import com.iidooo.framework.utility.StringUtil;
 
 public class ContentListAction extends PagingActionSupport {
 
@@ -81,7 +80,7 @@ public class ContentListAction extends PagingActionSupport {
 
     public String init() {
         try {            
-            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
+            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), CmsConstant.CONTENT_LIST_INIT);
 
             // Get all of the clicked channel's offspring channels.
             List<ChannelDto> offspringChannels = channelService.getOffspringChannels(channelID, true);

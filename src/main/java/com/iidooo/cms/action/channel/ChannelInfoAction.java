@@ -1,27 +1,18 @@
 package com.iidooo.cms.action.channel;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.admin.service.ChannelDetailService;
-import com.iidooo.cms.constant.URLConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.CmsTemplateDto;
-import com.iidooo.cms.service.IChannelService;
-import com.iidooo.cms.service.TemplateService;
-import com.iidooo.framework.action.BaseAction;
-import com.iidooo.framework.constant.DateConstant;
+import com.iidooo.cms.service.channel.IChannelInfoService;
+import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.util.ValidateUtil;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.exception.ExclusiveException;
-import com.iidooo.framework.tag.component.TreeNode;
-import com.iidooo.framework.utility.DateTimeUtil;
-import com.iidooo.framework.utility.StringUtil;
-import com.iidooo.framework.utility.ValidateUtil;
 
 public class ChannelInfoAction extends BaseAction {
 
@@ -30,33 +21,14 @@ public class ChannelInfoAction extends BaseAction {
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ChannelListAction.class);
+    private static final Logger logger = Logger.getLogger(ChannelInfoAction.class);
 
     @Autowired
-    private IChannelService channelService;
-
-    @Autowired
-    private TemplateService templateService;
-
-    @Autowired
-    private ChannelDetailService channelDetailService;
-
-    // The channel tree's root node
-    private TreeNode rootTreeNode;
+    private IChannelInfoService channelInfoService;
 
     private ChannelDto channel;
 
     private List<ChannelDto> allChannels;
-
-    private List<CmsTemplateDto> allTemplates;
-
-    public TreeNode getRootTreeNode() {
-        return rootTreeNode;
-    }
-
-    public void setRootTreeNode(TreeNode rootTreeNode) {
-        this.rootTreeNode = rootTreeNode;
-    }
 
     public ChannelDto getChannel() {
         return channel;
@@ -74,27 +46,11 @@ public class ChannelInfoAction extends BaseAction {
         this.allChannels = allChannels;
     }
 
-    public List<CmsTemplateDto> getAllTemplates() {
-        return allTemplates;
-    }
-
-    public void setAllTemplates(List<CmsTemplateDto> allTemplates) {
-        this.allTemplates = allTemplates;
-    }
-
     public String init() {
-        try {
-
-            // Build the channel tree' root node.
-            String rootName = this.getText("LABEL_TREE_ROOT");
-            rootTreeNode = channelService.getRootTree(rootName, URLConstant.CHANNEL_LIST_INIT, URLConstant.CHANNEL_DETAIL_INIT);
-
-            this.allTemplates = templateService.getAllTemplates();
-            this.allChannels = channelService.getAllChannels();
-            
+        try {            
             // The modify mode will trace the channel ID.
             if (channel != null && channel.getChannelID() != null && channel.getChannelID() > 0) {
-                channel = channelDetailService.getCurrentChannel(channel.getChannelID());
+                channel = channelInfoService.getCurrentChannel(channel.getChannelID());
             }
 
             return SUCCESS;

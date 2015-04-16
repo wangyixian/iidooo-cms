@@ -6,14 +6,14 @@
 <struts>
 	<package name="cms" extends="basic">
 	
-		<action name="index" class="com.iidooo.cms.admin.action.IndexAction" method="init">
+		<action name="index" class="com.iidooo.cms.action.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
 		</action>
 
 		<action name="channelList" class="com.iidooo.cms.action.channel.ChannelListAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
-		<action name="channelListDelete" class="com.iidooo.cms.action.channel.ChannelListAction" method="delete">
+		<!-- <action name="channelListDelete" class="com.iidooo.cms.action.channel.ChannelListAction" method="delete">
 			<result name="success" type="redirect">channelList.action?parentChannelID=${parentChannelID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
@@ -65,21 +65,14 @@
 			<result name="success" type="redirect">contentList.action?channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>		
-		
-		
-		<action name="userList" class="com.iidooo.cms.admin.action.UserListAction" method="init">
-			<result name="success">/WEB-INF/jsp/user/UserList.jsp</result>
-			<result name="input">/WEB-INF/jsp/user/UserList.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>		
+		</action>	 -->	
 		
 		<!-- The ajax action did not need the result, the result will output as json -->
-		<action name="fileUpload" class="com.iidooo.framework.action.FileUploadAction" method="upload">
+<!-- 		<action name="fileUpload" class="com.iidooo.framework.action.FileUploadAction" method="upload">
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
 		</action>
 		<action name="kindEditorFileManager" class="com.iidooo.framework.action.KindEditorFileManagerAction" method="manage">
 			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
+		</action> -->
 	</package>
 </struts>

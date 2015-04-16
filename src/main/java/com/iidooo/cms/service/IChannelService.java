@@ -11,11 +11,7 @@ public interface IChannelService {
     
     TreeNode getRootTree(String rootName, String baseURLList, String baseURLDetail);
     
-    /**
-     * Get all of the channels
-     * @return The list of all of channels
-     */
-    List<ChannelDto> getAllChannels();
+
     
     /**
      * Get all of the offspring channels.
@@ -25,12 +21,7 @@ public interface IChannelService {
      */
     List<ChannelDto> getOffspringChannels(int parentID, boolean containSelf);
     
-    /**
-     * Get channel by primary id
-     * @param channelID The channel id to get the channel.
-     * @return The gotten channel.
-     */
-    ChannelDto getChannelByID(int channelID);
+
     
     List<ChannelDto> getChildrenChannels(int parentID);
     
@@ -41,12 +32,7 @@ public interface IChannelService {
      */
     ChannelDto getChannelByPath(String channelPath);
     
-    /**
-     * Delete the channel
-     * @param channel This channel should be delete.
-     * @return Delete success or not.
-     */
-    boolean deleteChannel(ChannelDto channel);
+
     
     ChannelDto exclusiveCheck(int channelID, int version);
 }

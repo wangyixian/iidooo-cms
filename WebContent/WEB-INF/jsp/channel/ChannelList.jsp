@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="f" uri="/framework-tags"%>
+<%@ taglib prefix="c" uri="/cms-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="${SITE_URL}/js/lib/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="${SITE_URL}/js/lib/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="${SITE_URL}/js/lib/jquery.treeview/jquery.treeview.css">
+<script type="text/javascript" src="${coreURL }/js/jquery.treeview/jquery.treeview.js"></script>
+<script type="text/javascript" src="${coreURL }/js/jquery.treeview/lib/jquery.cookie.js"></script>
+<link type="text/css" rel="stylesheet" href="${coreURL }/js/jquery.treeview/jquery.treeview.css">
 <link type="text/css" rel="stylesheet" href="${SITE_URL}/css/channel/ChannelList.css">
 <script type="text/javascript">
 	$(function() {
@@ -31,66 +31,64 @@
 </script>
 </head>
 <body>
-	<s:form id="form">
-		<jsp:include page="../include/Top.jsp"></jsp:include>
-		<div id="page">
-			<div class="left_side_wrap">			
-				<f:tree root="${rootTreeNode}" recursion="true" title="栏目树"/>
+	<jsp:include page="../include/Top.jsp"></jsp:include>
+	<div id="page_content_wrap">
+		<div class="content_left_wrap">			
+			<c:channelTree baseURL="channelList?channel.channelID="  title="栏目树"/>
+		</div>
+		<div class="content_right_wrap">
+			<div class="bread_crumb">
+				<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
+				<span class="message">${message }</span>
 			</div>
-			<div class="right_side_wrap">
-				<div class="bread_crumb">
-					<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
-					<span class="message">${message }</span>
-				</div>
-				<div class="content_wrap">
-					<table class="grid">
+			<div class="content_wrap">
+				<table class="grid">
+					<tr>
+						<th width="5%">ID</th>
+						<th width="10%">栏目名称</th>
+						<th width="10%">访问路径</th>
+						<th width="5%">隐藏</th>
+						<th width="10%">创建者</th>
+						<th width="20%">创建时间</th>
+						<th width="10%">更新者</th>
+						<th width="20%">更新时间</th>
+						<th width="10%">操作</th>
+					</tr>
+					<s:iterator id="channel" value="channelList" status="st">
 						<tr>
-							<th width="5%">ID</th>
-							<th width="10%">栏目名称</th>
-							<th width="10%">访问路径</th>
-							<th width="5%">隐藏</th>
-							<th width="10%">创建者</th>
-							<th width="20%">创建时间</th>
-							<th width="10%">更新者</th>
-							<th width="20%">更新时间</th>
-							<th width="10%">操作</th>
+							<td>
+								<a href="channelDetail.action?channel.channelID=${channel.channelID }">
+									${channel.channelID }
+								</a>
+							</td>
+							<td>
+								<a href="channelDetail.action?channel.channelID=${channel.channelID }">
+									${channel.channelName }
+								</a>
+							</td>
+							<td>${channel.channelPath }</td>
+							<td class="align_center">
+								<s:if test="#channel.isHidden == 0">否</s:if>
+								<s:else>是</s:else>
+							</td>							
+							<td class="align_center">${SECURITY_USERS_MAP[channel.createUser]}</td>
+							<td class="align_center">${channel.createTime}</td>
+							<td class="align_center">${SECURITY_USERS_MAP[channel.updateUser]}</td>
+							<td class="align_center">${channel.updateTime}</td>
+							<td class="align_center">
+								<a href="channelListMove.action?direct=1&channelID=${channel.channelID }">上移</a>|
+								<a href="channelListMove.action?direct=2&channelID=${channel.channelID }">下移</a>|
+								<a href="#" onclick="return deleteChannel(${parentChannelID}, ${channel.channelID }, ${channel.version })">删除</a>
+							</td>
 						</tr>
-						<s:iterator id="channel" value="channelList" status="st">
-							<tr>
-								<td>
-									<a href="channelDetail.action?channel.channelID=${channel.channelID }">
-										${channel.channelID }
-									</a>
-								</td>
-								<td>
-									<a href="channelDetail.action?channel.channelID=${channel.channelID }">
-										${channel.channelName }
-									</a>
-								</td>
-								<td>${channel.channelPath }</td>
-								<td class="align_center">
-									<s:if test="#channel.isHidden == 0">否</s:if>
-									<s:else>是</s:else>
-								</td>							
-								<td class="align_center">${SECURITY_USERS_MAP[channel.createUser]}</td>
-								<td class="align_center">${channel.createTime}</td>
-								<td class="align_center">${SECURITY_USERS_MAP[channel.updateUser]}</td>
-								<td class="align_center">${channel.updateTime}</td>
-								<td class="align_center">
-									<a href="channelListMove.action?direct=1&channelID=${channel.channelID }">上移</a>|
-									<a href="channelListMove.action?direct=2&channelID=${channel.channelID }">下移</a>|
-									<a href="#" onclick="return deleteChannel(${parentChannelID}, ${channel.channelID }, ${channel.version })">删除</a>
-								</td>
-							</tr>
-						</s:iterator>
-					</table>
-					<div class="button_bar">
-						<button type="button" onclick="btnCreate(${parentChannelID})">添加</button>
-					</div>
+					</s:iterator>
+				</table>
+				<div class="button_bar">
+					<button type="button" onclick="btnCreate(${parentChannelID})">添加</button>
 				</div>
 			</div>
 		</div>
-		<jsp:include page="../include/Footer.jsp"></jsp:include>
-	</s:form>
+	</div>
+	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

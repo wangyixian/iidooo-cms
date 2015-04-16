@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.action.channel.ChannelListAction;
 import com.iidooo.cms.admin.service.ContentDetailService;
-import com.iidooo.cms.constant.URLConstant;
+import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.CmsContentArticleDto;
 import com.iidooo.cms.dto.extend.ContentDto;
@@ -158,7 +158,7 @@ public class ContentInfoAction extends BaseAction {
     public String init() {
         try {
            
-            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), URLConstant.CONTENT_LIST_INIT);
+            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), CmsConstant.CONTENT_LIST_INIT);
             allChannels = channelService.getAllChannels();
             
             // The modify or copy mode
