@@ -1,7 +1,6 @@
 package com.iidooo.cms.dao.extend;
 
 import java.util.List;
-import java.util.Map;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
 
@@ -26,16 +25,16 @@ public interface ChannelDao {
     ChannelDto selectChannelByID(int channelID);
 
     /**
-     * 插入一个新的栏目
-     * @param channel 该栏目的信息会被插入
-     * @return 返回执行结果，即影响到的行数
+     * Insert a new ChannelDto into the database
+     * @param channel This ChannelDto should be inserted.
+     * @return The affected record number.
      */
     int insert(ChannelDto channel);
     
     /**
-     * 更新一个栏目
-     * @param channel 该栏目的信息会被更新
-     * @return 返回执行结果，即影响到的行数
+     * Update a channel by the ChannelDto
+     * @param channel This ChannelDto will updated.
+     * @return The affected record number.
      */
     int update(ChannelDto channel);
     

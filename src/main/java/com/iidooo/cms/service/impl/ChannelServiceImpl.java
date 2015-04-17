@@ -166,17 +166,6 @@ public class ChannelServiceImpl implements IChannelService {
         }
     }
 
-    @Override
-    public ChannelDto getChannelByPath(String channelPath) {
-        try {
-            ChannelDto result = cmsChannelDao.selectChannelByPath(channelPath);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
 
     private void getChildrenChannelIDs(List<ChannelDto> children, List<ChannelDto> offspringChannels) {
         try {
@@ -192,18 +181,6 @@ public class ChannelServiceImpl implements IChannelService {
     }
     
 
-
-    @Override
-    public ChannelDto exclusiveCheck(int channelID, int version) {
-        try {
-            ChannelDto channel = cmsChannelDao.exclusiveCheck(channelID, version);
-            return channel;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return null;
-        }
-    }
     
     
 }

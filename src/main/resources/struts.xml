@@ -15,7 +15,7 @@
 
 	<package name="basic" extends="struts-default" abstract="true">
 		<interceptors>
-			<interceptor name="actionInterceptor" class="com.iidooo.framework.interceptor.ActionInterceptor"></interceptor>
+			<interceptor name="actionInterceptor" class="com.iidooo.core.interceptor.ActionInterceptor"></interceptor>
 			<interceptor-stack name="defaultStackWrap">
 				<interceptor-ref name="defaultStack" />
 				<interceptor-ref name="actionInterceptor" />

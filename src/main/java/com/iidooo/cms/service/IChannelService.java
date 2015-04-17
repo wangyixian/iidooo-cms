@@ -25,14 +25,4 @@ public interface IChannelService {
     
     List<ChannelDto> getChildrenChannels(int parentID);
     
-    /**
-     * Get channel by the path
-     * @param channelPath This channel path's channel will be gotten.
-     * @return The gotten channel.
-     */
-    ChannelDto getChannelByPath(String channelPath);
-    
-
-    
-    ChannelDto exclusiveCheck(int channelID, int version);
 }

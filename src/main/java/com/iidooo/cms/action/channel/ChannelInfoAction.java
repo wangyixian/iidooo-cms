@@ -28,8 +28,6 @@ public class ChannelInfoAction extends BaseAction {
 
     private ChannelDto channel;
 
-    private List<ChannelDto> allChannels;
-
     public ChannelDto getChannel() {
         return channel;
     }
@@ -38,19 +36,11 @@ public class ChannelInfoAction extends BaseAction {
         this.channel = channel;
     }
 
-    public List<ChannelDto> getAllChannels() {
-        return allChannels;
-    }
-
-    public void setAllChannels(List<ChannelDto> allChannels) {
-        this.allChannels = allChannels;
-    }
-
     public String init() {
         try {            
             // The modify mode will trace the channel ID.
             if (channel != null && channel.getChannelID() != null && channel.getChannelID() > 0) {
-                channel = channelInfoService.getCurrentChannel(channel.getChannelID());
+                channel = channelInfoService.getChannelByID(channel.getChannelID());
             }
 
             return SUCCESS;
@@ -63,9 +53,17 @@ public class ChannelInfoAction extends BaseAction {
 
     public String create() {
         try {            
-            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-            channelDetailService.createChannel(channel);
-            addActionMessage(getText("MSG_CREATE_SUCCESS"));
+            
+            if (channelInfoService.getChannelByPath(channel.getChannelPath()) != null) {
+                addActionError(getText("MSG_CREATE_CHANNEL_FAILED_DUPLICATE"));
+                return INPUT;
+            }
+            
+            if (!channelInfoService.createChannel(channel)) {
+                addActionError(getText("MSG_CREATE_CHANNEL_FAILED"));
+                return INPUT;
+            }
+            addActionMessage(getText("MSG_CREATE_CHANNEL_SUCCESS"));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

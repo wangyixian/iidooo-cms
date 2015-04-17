@@ -2,7 +2,7 @@ package com.iidooo.cms.action;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.framework.action.BaseAction;
+import com.iidooo.core.action.BaseAction;
 
 public class IndexAction extends BaseAction {
 
