@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelListService;
-import com.iidooo.core.action.PagingActionSupport;
+import com.iidooo.core.dto.PageDto;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class ChannelListAction extends PagingActionSupport {
+public class ChannelListAction extends ActionSupport {
 
     /**
      * 
@@ -24,6 +25,8 @@ public class ChannelListAction extends PagingActionSupport {
     private List<ChannelDto> channelList;
 
     private ChannelDto channel;
+    
+    private PageDto page;
 
     public List<ChannelDto> getChannelList() {
         return channelList;
@@ -39,6 +42,14 @@ public class ChannelListAction extends PagingActionSupport {
 
     public void setChannel(ChannelDto channel) {
         this.channel = channel;
+    }
+
+    public PageDto getPage() {
+        return page;
+    }
+
+    public void setPage(PageDto page) {
+        this.page = page;
     }
 
     public String init() {
@@ -62,14 +73,14 @@ public class ChannelListAction extends PagingActionSupport {
         try {
             List<ChannelDto> children = channelListService.getChildrenChannelList(this.channel.getChannelID());
             if (children != null && children.size() > 0) {
-                addActionError(getText("MSG_DELETE_CHANNEL_FAILED_CHILDREN"));
+                addActionError(getText("MSG_CHANNEL_DELETE_FAILED_CHILDREN", this.channel.getChannelName()));
                 return INPUT;
             } else if (!channelListService.deleteChannel(this.channel)) {
-                addActionError(getText("MSG_DELETE_CHANNEL_FAILED"));
+                addActionError(getText("MSG_CHANNEL_DELETE_FAILED", this.channel.getChannelName()));
                 return INPUT;
             }
 
-            addActionMessage(getText("MSG_DELETE_CHANNEL_SUCCESS"));
+            addActionMessage(getText("MSG_CHANNEL_DELETE_SUCCESS", this.channel.getChannelName()));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

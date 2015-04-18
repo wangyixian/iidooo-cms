@@ -6,47 +6,29 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.action.channel.ChannelListAction;
-import com.iidooo.cms.admin.service.ContentDetailService;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.CmsContentArticleDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
-import com.iidooo.cms.service.IChannelService;
-import com.iidooo.cms.service.ContentArticleService;
-import com.iidooo.cms.service.ContentProductService;
-import com.iidooo.cms.service.ContentService;
-import com.iidooo.framework.action.BaseAction;
+import com.iidooo.cms.service.content.IContentInfoService;
 import com.iidooo.framework.constant.DictConstant;
 import com.iidooo.framework.constant.SessionConstant;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.dto.extend.SecurityUserDto;
 import com.iidooo.framework.tag.component.TreeNode;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class ContentInfoAction extends BaseAction {
+public class ContentInfoAction extends ActionSupport {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ChannelListAction.class);
+    private static final Logger logger = Logger.getLogger(ContentInfoAction.class);
 
     @Autowired
-    private IChannelService channelService;
-
-    @Autowired
-    private ContentService contentService;
-
-    @Autowired
-    private ContentArticleService contentArticleService;
-
-    @Autowired
-    private ContentProductService contentProductService;
-
-    @Autowired
-    private ContentDetailService contentDetailService;
+    private IContentInfoService contentInfoService;
 
     // 1: Create
     // 2: Update
@@ -60,17 +42,6 @@ public class ContentInfoAction extends BaseAction {
 
     public void setMode(int mode) {
         this.mode = mode;
-    }
-
-    // The channel tree's root node
-    private TreeNode rootTreeNode;
-
-    public TreeNode getRootTreeNode() {
-        return rootTreeNode;
-    }
-
-    public void setRootTreeNode(TreeNode rootTreeNode) {
-        this.rootTreeNode = rootTreeNode;
     }
 
     private ContentDto content;
@@ -91,38 +62,6 @@ public class ContentInfoAction extends BaseAction {
 
     public void setAllChannels(List<ChannelDto> allChannels) {
         this.allChannels = allChannels;
-    }
-
-    // Article Content
-    private CmsContentArticleDto article;
-
-    private List<DictItemDto> articleTypes;
-
-    public CmsContentArticleDto getArticle() {
-        return article;
-    }
-
-    public void setArticle(CmsContentArticleDto article) {
-        this.article = article;
-    }
-
-    public List<DictItemDto> getArticleTypes() {
-        return articleTypes;
-    }
-
-    public void setArticleTypes(List<DictItemDto> articleTypes) {
-        this.articleTypes = articleTypes;
-    }
-
-    // Product
-    private List<DictItemDto> productTypes;
-
-    public List<DictItemDto> getProductTypes() {
-        return productTypes;
-    }
-
-    public void setProductTypes(List<DictItemDto> productTypes) {
-        this.productTypes = productTypes;
     }
 
     private List<DictItemDto> productCountries;
@@ -157,9 +96,6 @@ public class ContentInfoAction extends BaseAction {
 
     public String init() {
         try {
-           
-            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), CmsConstant.CONTENT_LIST_INIT);
-            allChannels = channelService.getAllChannels();
             
             // The modify or copy mode
             if (mode == 2 || mode == 3) {

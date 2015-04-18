@@ -1,5 +1,6 @@
 package com.iidooo.cms.service.channel.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -49,11 +50,32 @@ public class ChannelInfoService implements IChannelInfoService {
     public boolean createChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID =  (int)sessionMap.get(SSOFilter.USER_ID);
+            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
             channel.setCreateUser(userID);
             channel.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             channel.setUpdateUser(userID);
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+
+            // Set the channel level
+            ChannelDto parentChannel = channelDao.selectChannelByID(channel.getParentID());
+            if (parentChannel == null) {
+                channel.setChannelLevel(1);
+            } else {
+                channel.setChannelLevel(parentChannel.getChannelLevel() + 1);
+            }
+
+            // Set the channel sequence
+            int sequence = 1;
+            List<ChannelDto> channelDtos = channelDao.selectByParentID(channel.getParentID());
+            if (channelDtos != null) {
+                for (ChannelDto cmsChannelDto : channelDtos) {
+                    if (cmsChannelDto.getSequence() > sequence) {
+                        sequence = cmsChannelDto.getSequence() + 1;
+                    }
+                }
+            }
+            channel.setSequence(sequence);
+            
             int result = channelDao.insert(channel);
             if (result <= 0) {
                 return false;
@@ -69,6 +91,23 @@ public class ChannelInfoService implements IChannelInfoService {
     @Override
     public boolean updateChannel(ChannelDto channel) {
         try {
+            Map<String, Object> sessionMap = ActionContext.getContext().getSession();
+            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            channel.setUpdateUser(userID);
+            channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+
+            // Set the channel level
+            ChannelDto parentChannel = channelDao.selectChannelByID(channel.getParentID());
+            if (parentChannel == null) {
+                channel.setChannelLevel(1);
+            } else {
+                channel.setChannelLevel(parentChannel.getChannelLevel() + 1);
+            }
+
+            int result = channelDao.update(channel);
+            if (result <= 0) {
+                return false;
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();

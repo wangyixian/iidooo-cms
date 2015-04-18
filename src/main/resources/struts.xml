@@ -14,14 +14,6 @@
 	<!-- <constant name="struts.xwork.chaining.copyMessages" value="true"/> -->
 
 	<package name="basic" extends="struts-default" abstract="true">
-		<interceptors>
-			<interceptor name="actionInterceptor" class="com.iidooo.core.interceptor.ActionInterceptor"></interceptor>
-			<interceptor-stack name="defaultStackWrap">
-				<interceptor-ref name="defaultStack" />
-				<interceptor-ref name="actionInterceptor" />
-			</interceptor-stack>
-		</interceptors>
-		<default-interceptor-ref name="defaultStackWrap" />
 
 		<global-results>
 			<result name="error">/WEB-INF/jsp/Error.jsp</result>

@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Param;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
-import com.iidooo.framework.dto.base.PagingDto;
+import com.iidooo.core.dto.PageDto;
 
 public interface ContentProductDao {
     int selectProductsCount(@Param("channels")List<ChannelDto> channels, @Param("product")ContentProductDto product);
 
-    List<ContentProductDto> selectProducts(@Param("channels")List<ChannelDto> channels, @Param("product")ContentProductDto product, @Param("page")PagingDto page);
+    List<ContentProductDto> selectProducts(@Param("channels")List<ChannelDto> channels, @Param("product")ContentProductDto product, @Param("page")PageDto page);
 
     ContentProductDto selectByContentID(int contentID);
     

@@ -2,9 +2,9 @@ package com.iidooo.cms.action;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.core.action.BaseAction;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class IndexAction extends BaseAction {
+public class IndexAction extends ActionSupport {
 
     /**
      * 

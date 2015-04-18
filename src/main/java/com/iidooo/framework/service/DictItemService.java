@@ -2,7 +2,7 @@ package com.iidooo.framework.service;
 
 import java.util.List;
 
-import com.iidooo.framework.dto.base.PagingDto;
+import com.iidooo.framework.dto.base.PageDto;
 import com.iidooo.framework.dto.extend.DictItemDto;
 
 /**
@@ -44,5 +44,5 @@ public interface DictItemService {
 	 * @param pagingDto 分页对象
 	 * @return List<SysDictItem>字典项一览
 	 */
-	List<DictItemDto> getDictItems(PagingDto pagingDto);
+	List<DictItemDto> getDictItems(PageDto pagingDto);
 }

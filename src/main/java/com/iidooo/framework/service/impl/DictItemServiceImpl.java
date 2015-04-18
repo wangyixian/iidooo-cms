@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.framework.dao.extend.DictItemDao;
-import com.iidooo.framework.dto.base.PagingDto;
+import com.iidooo.framework.dto.base.PageDto;
 import com.iidooo.framework.dto.extend.DictItemDto;
 import com.iidooo.framework.dto.generate.DictItem;
 import com.iidooo.framework.service.DictItemService;
@@ -83,7 +83,7 @@ public class DictItemServiceImpl implements DictItemService {
 		return sum;
 	}
 
-	public List<DictItemDto> getDictItems(PagingDto pagingDto) {
+	public List<DictItemDto> getDictItems(PageDto pagingDto) {
 		logger.debug("The begin of the method PropertyValueServiceImpl.getDictItems");
 
 		List<DictItemDto> dictItems = null;

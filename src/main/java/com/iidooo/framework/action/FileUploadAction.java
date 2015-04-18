@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 import org.json.simple.JSONObject;
 
+import com.iidooo.core.action.BaseAction;
 import com.iidooo.framework.constant.DictConstant;
 
 /**
@@ -86,12 +88,12 @@ public class FileUploadAction extends BaseAction {
 
     public void upload() {
         try {
-            HttpServletRequest request = this.getRequest();
-            HttpServletResponse response = this.getResponse();
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpServletResponse response = ServletActionContext.getResponse();
             PrintWriter out = response.getWriter();
             
             // 文件保存目录路径
-            String savePath = this.getServletContext().getRealPath("/") + "attached/";
+            String savePath = ServletActionContext.getServletContext().getRealPath("/") + "attached/";
 
             // 文件保存目录URL
             String saveUrl = request.getContextPath() + "/attached/";
@@ -152,7 +154,7 @@ public class FileUploadAction extends BaseAction {
                 dirFile.mkdirs();
             }
 
-            MultiPartRequestWrapper wrapper = (MultiPartRequestWrapper) this.getRequest();
+            MultiPartRequestWrapper wrapper = (MultiPartRequestWrapper) ServletActionContext.getRequest();
             String newFileName = wrapper.getFileNames("imgFile")[0];
             File file = wrapper.getFiles("imgFile")[0];
             

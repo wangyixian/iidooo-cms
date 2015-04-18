@@ -1,20 +1,13 @@
 package com.iidooo.cms.action.channel;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.admin.service.ChannelDetailService;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelInfoService;
-import com.iidooo.core.action.BaseAction;
-import com.iidooo.core.util.ValidateUtil;
-import com.iidooo.framework.constant.SessionConstant;
-import com.iidooo.framework.dto.extend.SecurityUserDto;
-import com.iidooo.framework.exception.ExclusiveException;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class ChannelInfoAction extends BaseAction {
+public class ChannelInfoAction extends ActionSupport {
 
     /**
      * 
@@ -37,7 +30,7 @@ public class ChannelInfoAction extends BaseAction {
     }
 
     public String init() {
-        try {            
+        try {
             // The modify mode will trace the channel ID.
             if (channel != null && channel.getChannelID() != null && channel.getChannelID() > 0) {
                 channel = channelInfoService.getChannelByID(channel.getChannelID());
@@ -52,18 +45,18 @@ public class ChannelInfoAction extends BaseAction {
     }
 
     public String create() {
-        try {            
-            
+        try {
+
             if (channelInfoService.getChannelByPath(channel.getChannelPath()) != null) {
-                addActionError(getText("MSG_CREATE_CHANNEL_FAILED_DUPLICATE"));
+                addActionError(getText("MSG_CHANNEL_CREATE_FAILED_DUPLICATE"));
                 return INPUT;
             }
-            
+
             if (!channelInfoService.createChannel(channel)) {
-                addActionError(getText("MSG_CREATE_CHANNEL_FAILED"));
+                addActionError(getText("MSG_CHANNEL_CREATE_FAILED"));
                 return INPUT;
             }
-            addActionMessage(getText("MSG_CREATE_CHANNEL_SUCCESS"));
+            addActionMessage(getText("MSG_CHANNEL_CREATE_SUCCESS"));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,14 +67,12 @@ public class ChannelInfoAction extends BaseAction {
 
     public void validateCreate() {
         try {
-            //commonValidate();
-
-            // Check the same channel path is existed or not.
-//            CmsChannelDto cmsChannelDto = channelDetailService.getChannelByPath(channel.getChannelPath());
-//            if (cmsChannelDto != null) {
-//                String msg = this.getText("MSG_CHANNEL_EXISTED", new String[] { getText("LABEL_CHANNEL_PATH") });
-//                addFieldError("channel.channelPath", msg);
-//            }
+            if (channel.getChannelName().isEmpty()) {
+                addActionError(getText("MSG_CHANNEL_NAME_REQUIRE"));
+            }
+            if (channel.getChannelPath().isEmpty()) {
+                addActionError(getText("MSG_CHANNEL_PATH_REQUIRE"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -90,13 +81,12 @@ public class ChannelInfoAction extends BaseAction {
 
     public String update() {
         try {
-            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-            channelDetailService.updateChannel(channel);
-            addActionMessage(getText("MSG_UPDATE_SUCCESS"));
+            if (!channelInfoService.updateChannel(channel)) {
+                addActionError(getText("MSG_CHANNEL_UPDATE_FAILED", channel.getChannelName()));
+                return INPUT;
+            }
+            addActionMessage(getText("MSG_CHANNEL_UPDATE_SUCCESS", channel.getChannelName()));
             return SUCCESS;
-        } catch (ExclusiveException exclusive) {
-            addActionMessage(getText("MSG_EXCLUSIVE"));
-            return INPUT;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -106,42 +96,15 @@ public class ChannelInfoAction extends BaseAction {
 
     public void validateUpdate() {
         try {
-            commonValidate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-        }
-    }
-
-    public void commonValidate() {
-        try {
-            if (ValidateUtil.isEmpty(channel.getChannelName())) {
-                String msg = this.getText("MSG_COMMON_REQUIRED", new String[] { getText("LABEL_CHANNEL_NAME") });
-                addFieldError("channel.channelName", msg);
+            if (channel.getChannelName().isEmpty()) {
+                addActionError(getText("MSG_CHANNEL_NAME_REQUIRE"));
             }
-            if (ValidateUtil.isEmpty(channel.getChannelPath())) {
-                String msg = this.getText("MSG_COMMON_REQUIRED", new String[] { getText("LABEL_CHANNEL_PATH") });
-                addFieldError("channel.channelPath", msg);
+            if (channel.getChannelPath().isEmpty()) {
+                addActionError(getText("MSG_CHANNEL_PATH_REQUIRE"));
             }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-        }
-    }
-
-    public String delete() {
-        try {
-            channel.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-            channelDetailService.deleteChannel(channel);
-            addActionMessage(getText("MSG_DELETE_SUCCESS"));
-            return SUCCESS;
-        } catch (ExclusiveException exclusive) {
-            addActionMessage(getText("MSG_EXCLUSIVE"));
-            return INPUT;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
         }
     }
 }

@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -14,7 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONObject;
+
+import com.iidooo.core.action.BaseAction;
+import com.opensymphony.xwork2.ActionContext;
 
 public class KindEditorFileManagerAction extends BaseAction {
 
@@ -27,11 +29,11 @@ public class KindEditorFileManagerAction extends BaseAction {
 
     public void manage() {
         try {
-            HttpServletRequest request = this.getRequest();
-            HttpServletResponse response = this.getResponse();
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpServletResponse response = ServletActionContext.getResponse();
             PrintWriter out = response.getWriter();
             // 根目录路径，可以指定绝对路径，比如 /var/www/attached/
-            String rootPath = this.getServletContext().getRealPath("/") + "attached/";
+            String rootPath = ServletActionContext.getServletContext().getRealPath("/") + "attached/";
             // 根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
             String rootUrl = request.getContextPath() + "/attached/";
             // 图片扩展名

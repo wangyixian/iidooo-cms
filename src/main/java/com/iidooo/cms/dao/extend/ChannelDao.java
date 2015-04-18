@@ -44,12 +44,4 @@ public interface ChannelDao {
      * @return The deleted channel count
      */
     int deleteByPrimaryKey(ChannelDto channel);
-
-    /**
-     * Exclusive check
-     * @param channelID channelID
-     * @param version The channel version
-     * @return The channel dto
-     */
-    ChannelDto exclusiveCheck(int channelID, int version);
 }

@@ -2,7 +2,7 @@ package com.iidooo.framework.dao.extend;
 
 import java.util.List;
 
-import com.iidooo.framework.dto.base.PagingDto;
+import com.iidooo.framework.dto.base.PageDto;
 import com.iidooo.framework.dto.extend.DictItemDto;
 
 public interface DictItemDao {
@@ -37,5 +37,5 @@ public interface DictItemDao {
      * @param dto 分页对象
      * @return List<SysDictItem> 字典项一览
      */
-    List<DictItemDto> selectAll(PagingDto dto);
+    List<DictItemDto> selectAll(PageDto dto);
 }

@@ -26,8 +26,8 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
     public void contextInitialized(ServletContextEvent arg0) {
         try {
             ServletContext sc = arg0.getServletContext();
-            String coreURL = sc.getInitParameter(CoreConstants.CORE_URL);
-            sc.setAttribute(CoreConstants.CORE_URL, coreURL);
+            //String coreURL = sc.getInitParameter(CoreConstants.CORE_URL);
+            //sc.setAttribute(CoreConstants.CORE_URL, coreURL);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

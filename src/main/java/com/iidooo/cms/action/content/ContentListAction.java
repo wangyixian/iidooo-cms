@@ -5,58 +5,36 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.action.channel.ChannelListAction;
-import com.iidooo.cms.constant.CmsConstant;
-import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
-import com.iidooo.cms.service.ContentService;
-import com.iidooo.cms.service.IChannelService;
-import com.iidooo.cms.service.content.impl.ContentListService;
-import com.iidooo.core.action.PagingActionSupport;
-import com.iidooo.framework.constant.SessionConstant;
-import com.iidooo.framework.dto.extend.SecurityUserDto;
-import com.iidooo.framework.tag.component.TreeNode;
+import com.iidooo.cms.service.content.IContentListService;
+import com.iidooo.core.dto.PageDto;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class ContentListAction extends PagingActionSupport {
+public class ContentListAction extends ActionSupport {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ChannelListAction.class);
+    private static final Logger logger = Logger.getLogger(ContentListAction.class);
 
     @Autowired
-    private IChannelService channelService;
-    
-    @Autowired
-    private ContentService contentService;
+    private IContentListService contentListService;
 
-    @Autowired
-    private ContentListService contentListService;
+    private PageDto page;
 
-    // The channel tree's root node
-    private TreeNode rootTreeNode;
-
-    private int channelID = 0;
+    private Integer channelID = 0;
 
     private List<ContentDto> contentList;
-    
-    private int contentID;
 
-    public TreeNode getRootTreeNode() {
-        return rootTreeNode;
-    }
+    private ContentDto content;
 
-    public void setRootTreeNode(TreeNode rootTreeNode) {
-        this.rootTreeNode = rootTreeNode;
-    }
-
-    public int getChannelID() {
+    public Integer getChannelID() {
         return channelID;
     }
 
-    public void setChannelID(int channelID) {
+    public void setChannelID(Integer channelID) {
         this.channelID = channelID;
     }
 
@@ -68,25 +46,17 @@ public class ContentListAction extends PagingActionSupport {
         this.contentList = contentList;
     }
 
-
-
-    public int getContentID() {
-        return contentID;
+    public ContentDto getContent() {
+        return content;
     }
 
-    public void setContentID(int contentID) {
-        this.contentID = contentID;
+    public void setContent(ContentDto content) {
+        this.content = content;
     }
 
     public String init() {
-        try {            
-            rootTreeNode = channelService.getRootTree(getText("LABEL_TREE_ROOT"), CmsConstant.CONTENT_LIST_INIT);
-
-            // Get all of the clicked channel's offspring channels.
-            List<ChannelDto> offspringChannels = channelService.getOffspringChannels(channelID, true);
-            int recordSum = contentService.getChannelContentsCount(offspringChannels);
-            this.executePaging(recordSum);
-            this.contentList = contentService.getChannelContents(offspringChannels, this.getPagingDto());
+        try {
+            this.contentList = contentListService.getContentListByChannel(channelID, page);
 
             return SUCCESS;
         } catch (Exception e) {
@@ -95,19 +65,16 @@ public class ContentListAction extends PagingActionSupport {
             return ERROR;
         }
     }
-    
+
     public String delete() {
-        try {            
-            ContentDto content = new ContentDto();
-            content.setContentID(this.getContentID());
-            content.setSessionUser((SecurityUserDto) this.getSessionValue(SessionConstant.SECURITY_USER));
-            boolean result = contentService.deleteContent(content);
-            if (result) {
-                this.setMessage(getText("MSG_DELETE_SUCCESS"));
-            } else {
-                this.setMessage(getText("MST_DELETE_FAILED"));
+        try {
+            if (!contentListService.deleteContent(content)) {
+                addActionError(getText("MSG_CONTENT_DELETE_FAILED", content.getContentTitle()));
+                return INPUT;
             }
-            this.init();
+
+            addActionError(getText("MSG_CONTENT_DELETE_SUCCESS", content.getContentTitle()));
+            this.contentList = contentListService.getContentListByChannel(content.getChannelID(), page);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

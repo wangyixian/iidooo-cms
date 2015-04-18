@@ -7,41 +7,58 @@ import org.apache.ibatis.annotations.Param;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
-import com.iidooo.framework.dto.base.PagingDto;
+import com.iidooo.core.dto.PageDto;
 
 public interface ContentDao {
-    List<ContentDto> selectContentsByPV(Map<String, Object> params);
+
+    /**
+     * Select all of the contents with page
+     * @param pageDto Do the page
+     * @return The list of contents
+     */
+    List<ContentDto> selectAll(PageDto page);
     
-    List<ContentDto> selectContentsByTag(Map<String, Object> params);
+    /**
+     * Select all of the contents and get the record count
+     * @return The record count.
+     */
+    int selectAllCount();
     
-    List<ContentDto> selectContents(Map<String, Object> params);    
-       
     /**
      * Get all of the channel contents's count
+     * 
      * @param channels This list of channels' content will be gotten.
      * @return The count of result
      */
-    int selectChannelContentsCount(List<ChannelDto> channels);
-    
+    int selectContentListCountByChannels(List<Integer> channels);
+
     /**
      * Get all of the channel contents
+     * 
      * @param channels This list of channels' content will be gotten.
      * @param page Do page
      * @return The list of contents
      */
-    List<ContentDto> selectChannelContents(@Param("channels")List<ChannelDto> channels, @Param("page")PagingDto page);
+    List<ContentDto> selectContentListByChannels(@Param("channels") List<Integer> channels, @Param("page") PageDto page);
     
+    
+    
+    
+    List<ContentDto> selectContents(Map<String, Object> params);
+
+    
+
     ContentDto selectContentByID(int contentID);
-    
+
     ContentDto selectByChannel(int channelID);
-    
-    List<ContentDto> selectByChannelPath(@Param("channelPath")String channelPath, @Param("page")PagingDto page);
-    
+
+    List<ContentDto> selectByChannelPath(@Param("channelPath") String channelPath, @Param("page") PageDto page);
+
     int selectMaxSequence();
-    
+
     int insert(ContentDto content);
-    
+
     int updateByPrimaryKey(ContentDto content);
-    
+
     int deleteByPrimaryKey(ContentDto content);
 }

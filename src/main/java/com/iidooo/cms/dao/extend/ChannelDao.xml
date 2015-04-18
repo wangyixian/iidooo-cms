@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iidooo.cms.dao.extend.ChannelDao">
-	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.Channel">
+	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ChannelDto">
 		<id column="ChannelID" property="channelID" jdbcType="INTEGER" />
 		<result column="ParentID" property="parentID" jdbcType="INTEGER" />
 		<result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
@@ -30,40 +30,33 @@
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_CMS_CHANNEL C
-		where C.IsDelete = 0
+		from CHANNEL C
+		where C.IsDelete = '0'
 	</select>
 
 	<select id="selectChannelByPath" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_CMS_CHANNEL C
-		where C.IsDelete = 0 and
+		from CHANNEL C
+		where C.IsDelete = '0' and
 		C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 	</select>
 	<select id="selectChannelByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_CMS_CHANNEL C
-		where C.IsDelete = 0 and
+		from CHANNEL C
+		where C.IsDelete = '0' and
 		C.ChannelID = #{channelID,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from IDO_CMS_CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = 0 order by C.Sequence
+		from CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = '0' order by C.Sequence
 	</select>
 
-	<select id="exclusiveCheck" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from IDO_CMS_CHANNEL C
-		where C.IsDelete = 0 and C.ChannelID = #{0} and C.Version = #{1}
-	</select>
-
-	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
-		insert into IDO_CMS_CHANNEL (
+	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
+		insert into CHANNEL (
 		ParentID,
 		ChannelName,
 		ChannelPath, ChannelLevel,
@@ -88,11 +81,11 @@
 		#{createTime,jdbcType=VARCHAR},
 		#{createUser,jdbcType=INTEGER},
 		#{updateTime,jdbcType=VARCHAR},
-		#{updateUser,jdbcType=INTEGER}, 0, 1)
+		#{updateUser,jdbcType=INTEGER}, '0', 1)
 	</insert>
 
-	<update id="update" parameterType="com.iidooo.cms.dto.extend.CmsChannelDto">
-		update IDO_CMS_CHANNEL
+	<update id="update" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
+		update CHANNEL
 		set ParentID = #{parentID,jdbcType=INTEGER},
 		ChannelName =
 		#{channelName,jdbcType=VARCHAR},
@@ -117,8 +110,8 @@
 	</update>
 
 	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
-		update IDO_CMS_CHANNEL
-		set IsDelete = 1,
+		update CHANNEL
+		set IsDelete = '1',
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
 		UpdateUser =
 		#{updateUser,jdbcType=INTEGER},
