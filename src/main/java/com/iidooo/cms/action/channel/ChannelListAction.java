@@ -79,7 +79,7 @@ public class ChannelListAction extends ActionSupport {
                 addActionError(getText("MSG_CHANNEL_DELETE_FAILED", this.channel.getChannelName()));
                 return INPUT;
             }
-
+            channelList = channelListService.getChildrenChannelList(channel.getParentID());
             addActionMessage(getText("MSG_CHANNEL_DELETE_SUCCESS", this.channel.getChannelName()));
             return SUCCESS;
         } catch (Exception e) {

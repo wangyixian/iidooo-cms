@@ -62,7 +62,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
             out.println("<ul class='filetree' id='tree'>");
-            String url = StringUtil.replace(baseURL, "0");
+            String url = baseURL + "0";
             String folder = StringUtil.replace(FOLD_TREE_NODE, url, this.title);
             out.println("<li>" + folder);
 
@@ -72,7 +72,9 @@ public class ChannelTreeTag extends SimpleTagSupport {
             if (channelList.size() > 0) {
                 out.println("<ul>");
                 for (ChannelDto item : channelList) {
-                    printHTML(out, item);
+                    if (item.getParentID() <= 0) {
+                        printHTML(out, item);
+                    }
                 }
                 out.println("</ul>");
             } else {
@@ -90,10 +92,10 @@ public class ChannelTreeTag extends SimpleTagSupport {
     private void printHTML(JspWriter out, ChannelDto channelDto) throws JspException, IOException {
         try {
             // If has children, the node class should be set
-            String url = StringUtil.replace(baseURL, channelDto.getChannelID().toString());
+            String url = baseURL + channelDto.getChannelID().toString();
             if (channelDto.getChildren().size() > 0) {
                 String folder = StringUtil.replace(FOLD_TREE_NODE, url, channelDto.getChannelName());
-                out.println("<li class='closed'>" + folder);
+                out.println("<li>" + folder);
 
                 List<ChannelDto> children = channelDto.getChildren();
                 out.println("<ul>");
@@ -101,7 +103,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
                     this.printHTML(out, child);
                 }
                 out.println("</ul>");
-                
+
                 out.println(" </li>");
             } else {
                 String file = StringUtil.replace(FILE_TREE_NODE, url, channelDto.getChannelName());

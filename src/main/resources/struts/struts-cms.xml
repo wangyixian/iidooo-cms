@@ -17,26 +17,22 @@
 			<result name="success" type="redirect">channelList.action?parentChannelID=${parentChannelID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
+		-->	
+		
 		<action name="channelInfo" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="init">
-			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
+			<result name="success">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
 		</action>
-		<action name="channelCreate" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="create">
-			<result name="success" type="redirect">channelList.action?parentChannelID=${channel.parentID}</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
+		<action name="channelCreate" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="create">
+			<result name="success">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
 		</action>
-		<action name="channelUpdate" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="update">
-			<result name="success" type="redirect">channelList.action?parentChannelID=${channel.parentID}</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
+		<action name="channelUpdate" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="update">
+			<result name="success">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
 		</action>
-		<action name="channelDelete" class="com.iidooo.cms.admin.action.ChannelDetailAction" method="delete">
-			<result name="success" type="redirect">channelList.action?parentChannelID=${channel.parentID}</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
-			<interceptor-ref name="adminStackWrap"></interceptor-ref>
-		</action>
+		
+		<!--
 
 		<action name="contentList" class="com.iidooo.cms.admin.action.ContentListAction" method="init">
 			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>

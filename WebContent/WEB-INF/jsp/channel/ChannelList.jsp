@@ -32,16 +32,17 @@
 </head>
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>
-	<div id="page_content_wrap">
+	<div class="page_content_wrap">
 		<div class="content_left_wrap">			
-			<c:channelTree baseURL="channelList?channel.channelID="  title="栏目树"/>
+			<c:channelTree baseURL="channelList.action?channel.channelID="  title="栏目树"/>
 		</div>
 		<div class="content_right_wrap">
 			<div class="bread_crumb">
 				<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
-				<span class="message">${message }</span>
 			</div>
 			<div class="content_wrap">
+				<s:actionerror/>
+				<s:actionmessage/>
 				<table class="grid">
 					<tr>
 						<th width="5%">ID</th>
@@ -54,31 +55,31 @@
 						<th width="20%">更新时间</th>
 						<th width="10%">操作</th>
 					</tr>
-					<s:iterator id="channel" value="channelList" status="st">
+					<s:iterator id="item" value="channelList" status="st">
 						<tr>
-							<td>
-								<a href="channelDetail.action?channel.channelID=${channel.channelID }">
-									${channel.channelID }
-								</a>
-							</td>
-							<td>
-								<a href="channelDetail.action?channel.channelID=${channel.channelID }">
-									${channel.channelName }
-								</a>
-							</td>
-							<td>${channel.channelPath }</td>
 							<td class="align_center">
-								<s:if test="#channel.isHidden == 0">否</s:if>
+								<a href="channelInfo.action?channel.channelID=${item.channelID }" target="_blank">
+									${item.channelID }
+								</a>
+							</td>
+							<td class="align_center">
+								<a href="channelInfo.action?channel.channelID=${item.channelID }" target="_blank">
+									${item.channelName }
+								</a>
+							</td>
+							<td class="align_center">${item.channelPath }</td>
+							<td class="align_center">
+								<s:if test="#item.isHidden == 0">否</s:if>
 								<s:else>是</s:else>
 							</td>							
-							<td class="align_center">${SECURITY_USERS_MAP[channel.createUser]}</td>
-							<td class="align_center">${channel.createTime}</td>
-							<td class="align_center">${SECURITY_USERS_MAP[channel.updateUser]}</td>
-							<td class="align_center">${channel.updateTime}</td>
+							<td class="align_center">${SECURITY_USERS_MAP[item.createUser]}</td>
+							<td class="align_center">${item.createTime}</td>
+							<td class="align_center">${SECURITY_USERS_MAP[item.updateUser]}</td>
+							<td class="align_center">${item.updateTime}</td>
 							<td class="align_center">
-								<a href="channelListMove.action?direct=1&channelID=${channel.channelID }">上移</a>|
-								<a href="channelListMove.action?direct=2&channelID=${channel.channelID }">下移</a>|
-								<a href="#" onclick="return deleteChannel(${parentChannelID}, ${channel.channelID }, ${channel.version })">删除</a>
+								<a href="channelListMove.action?direct=1&channelID=${item.channelID }">上移</a>|
+								<a href="channelListMove.action?direct=2&channelID=${item.channelID }">下移</a>|
+								<a href="#" onclick="return deleteChannel(${parentChannelID}, ${item.channelID }, ${item.version })">删除</a>
 							</td>
 						</tr>
 					</s:iterator>
