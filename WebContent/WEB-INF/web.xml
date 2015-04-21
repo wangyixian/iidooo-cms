@@ -80,8 +80,8 @@
 		<listener-class>com.iidooo.core.listener.ApplicationListener</listener-class>
 	</listener>
 	<context-param>
-		<param-name>coreURL</param-name>
-		<param-value>http://localhost:8080/core</param-value>
+		<param-name>passportURL</param-name>
+		<param-value>http://localhost:8080/passport</param-value>
 	</context-param>
 
 	<session-config>
