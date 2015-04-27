@@ -6,9 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="${coreURL }/js/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="${coreURL }/js/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="${coreURL }/js/jquery.treeview/jquery.treeview.css">
+<script type="text/javascript" src="${CORE_URL }/js/jquery.treeview/jquery.treeview.js"></script>
+<script type="text/javascript" src="${CORE_URL }/js/jquery.treeview/lib/jquery.cookie.js"></script>
+<link type="text/css" rel="stylesheet" href="${CORE_URL }/js/jquery.treeview/jquery.treeview.css">
 <link type="text/css" rel="stylesheet" href="${SITE_URL}/css/channel/ChannelList.css">
 <script type="text/javascript">
 	$(function() {
@@ -49,10 +49,8 @@
 						<th width="10%">栏目名称</th>
 						<th width="10%">访问路径</th>
 						<th width="5%">隐藏</th>
-						<th width="10%">创建者</th>
-						<th width="20%">创建时间</th>
-						<th width="10%">更新者</th>
-						<th width="20%">更新时间</th>
+						<th width="30%">Meta标题</th>
+						<th width="30%">Meta关键字</th>
 						<th width="10%">操作</th>
 					</tr>
 					<s:iterator id="item" value="channelList" status="st">
@@ -72,10 +70,8 @@
 								<s:if test="#item.isHidden == 0">否</s:if>
 								<s:else>是</s:else>
 							</td>							
-							<td class="align_center">${SECURITY_USERS_MAP[item.createUser]}</td>
-							<td class="align_center">${item.createTime}</td>
-							<td class="align_center">${SECURITY_USERS_MAP[item.updateUser]}</td>
-							<td class="align_center">${item.updateTime}</td>
+							<td class="align_center">${item.metaTitle}</td>
+							<td class="align_center">${item.metaKeywords}</td>
 							<td class="align_center">
 								<a href="channelListMove.action?direct=1&channelID=${item.channelID }">上移</a>|
 								<a href="channelListMove.action?direct=2&channelID=${item.channelID }">下移</a>|

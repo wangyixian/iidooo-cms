@@ -3,18 +3,16 @@
 <mapper namespace="com.iidooo.cms.dao.extend.ContentProductDao">
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ContentProductDto">
 		<id column="ContentID" property="contentID" jdbcType="INTEGER" />
-		<result column="ChannelID" jdbcType="INTEGER" property="channelID" />
-		<result column="ContentType" jdbcType="CHAR" property="contentType" />
-		<result column="ContentTitle" jdbcType="VARCHAR" property="contentTitle" />
-		<result column="ContentSubTitle" jdbcType="VARCHAR" property="contentSubTitle" />
-		<result column="ContentImageTitle" jdbcType="VARCHAR" property="contentImageTitle" />
-		<result column="MetaTitle" jdbcType="VARCHAR" property="metaTitle" />
-		<result column="MetaKeywords" jdbcType="VARCHAR" property="metaKeywords" />
-		<result column="MetaDescription" jdbcType="VARCHAR" property="metaDescription" />
-		<result column="ContentSummary" jdbcType="VARCHAR" property="contentSummary" />
-		<result column="Sequence" jdbcType="INTEGER" property="sequence" />
-		<result column="IsAllowComment" jdbcType="INTEGER" property="isAllowComment" />
-		<result column="ProductType" property="productType" jdbcType="CHAR" />
+		<result column="ContentType" property="contentType" jdbcType="CHAR" />
+		<result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
+		<result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
+		<result column="ContentImageTitle" property="contentImageTitle" jdbcType="VARCHAR" />
+		<result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
+		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
+		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
+		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
+		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
+		<result column="IsSilent" property="isSilent" jdbcType="CHAR" />
 		<result column="ProductCountry" property="productCountry" jdbcType="CHAR" />
 		<result column="ProductOrigin" property="productOrigin" jdbcType="CHAR" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -22,24 +20,34 @@
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
 		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+		<result column="IsDelete" property="isDelete" jdbcType="CHAR" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.ContentProductDto" extends="BaseResultMap">
 		<result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		C.ContentID, C.ContentType, C.ChannelID, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
+		C.ContentID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle,
 		C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary,
 		C.Sequence,
-		C.IsAllowComment, P.ProductType, P.ProductCountry, P.ProductOrigin, C.Remarks, C.CreateTime, C.CreateUser,
+		C.IsSilent, P.ProductCountry, P.ProductOrigin, C.Remarks, C.CreateTime, C.CreateUser,
 		C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
+	
+	<select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from IDO_CMS_CONTENT C
+		join CONTENT_PRODUCT P on C.IsDelete = '0' and C.ContentID = P.ContentID
+		and C.ContentID = #{contentID}
+	</select>
 	
 	<select id="selectProductsCount" resultType="java.lang.Integer">
 		select count(C.ContentID)		
@@ -77,15 +85,6 @@
 		order by C.ChannelID asc, C.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
 	</select>
 
-	<select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		,
-		<include refid="Blob_Column_List" />
-		from IDO_CMS_CONTENT C
-		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID
-		and C.ContentID = #{contentID}
-	</select>
 
 	<insert id="insert" parameterType="com.iidooo.cms.dto.extend.ContentProductDto">
 		insert into CONTENT_PRODUCT (ContentID, ProductType, ProductCountry,

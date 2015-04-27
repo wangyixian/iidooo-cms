@@ -7,18 +7,27 @@ import com.iidooo.cms.dto.generate.Channel;
 
 public class ChannelDto extends Channel {
 
-    private String userName;
-    
+    private String createUserName;
+
+    private String updateUserName;
+
     // The children channels of this channel
     private List<ChannelDto> children;
 
-    
-    public String getUserName() {
-        return userName;
+    public String getCreateUserName() {
+        return createUserName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
+
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
+
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
     }
 
     public List<ChannelDto> getChildren() {

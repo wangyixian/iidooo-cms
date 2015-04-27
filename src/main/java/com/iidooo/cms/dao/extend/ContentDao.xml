@@ -24,11 +24,12 @@
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.ContentDto" extends="BaseResultMap">
 		<result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
 	</resultMap>
-	
+
 	<sql id="Base_Column_List">
-		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
+		C.ContentID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
-		C.MetaDescription, C.ContentSummary, C.Sequence, C.IsAllowComment,
+		C.MetaDescription,
+		C.ContentSummary, C.Sequence, C.IsSilent,
 		C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete,
 		C.Version
 	</sql>
@@ -36,20 +37,39 @@
 		C.ContentBody
 	</sql>
 
+	<select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		FROM CONTENT C
+		where C.ContentID = #{contentID,jdbcType=INTEGER}
+		AND C.IsDelete = '0'
+	</select>
+	
 	<select id="selectAllCount" resultType="java.lang.Integer">
 		select count(*) from CONTENT C where C.IsDelete = '0'
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.core.dto.PageDto">
 		select
 		<include refid="Base_Column_List" />
-		from CONTENT C where C.IsDelete = '0' order by C.UpdateTime desc limit #{start}, #{pageSize}
+		, L.ChannelName as channelName, L.ChannelID as channelID
+		from CONTENT C
+		left join
+		(select
+		L.ChannelID, L.ChannelName, R.ContentID
+		from CHANNEL_CONTENT R
+		inner join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
+		on L.ContentID = C.ContentID and C.IsDelete = '0'
+		order by L.ChannelID asc, C.UpdateTime desc limit #{start}, #{pageSize}
 	</select>
 
 	<select id="selectContentListCountByChannels" resultType="java.lang.Integer">
 		select count(C.ContentID)
 		from CONTENT C
 		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
-		join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0' and R.ChannelID in
+		join CHANNEL L on R.ChannelID =
+		L.ChannelID and L.IsDelete = '0' and R.ChannelID in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 	</select>
 	<select id="selectContentListByChannels" resultMap="BaseResultMap">
@@ -58,7 +78,8 @@
 		, L.ChannelName as channelName, L.ChannelID as channelID
 		from CONTENT C
 		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
-		join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0' and R.ChannelID in
+		join
+		CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0' and R.ChannelID in
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 		order by R.ChannelID asc, R.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
 	</select>
@@ -108,15 +129,6 @@
 		order by UpdateTime desc
 	</select>
 
-	<select id="selectContentByID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-		SELECT
-		<include refid="Base_Column_List" />
-		,
-		<include refid="Blob_Column_List" />
-		FROM CONTENT C
-		where C.ContentID = #{contentID,jdbcType=INTEGER}
-		AND C.IsDelete = 0
-	</select>
 
 	<select id="selectByChannel" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
 		select

@@ -39,7 +39,7 @@
 			value="${channel.version }">
 		<div id="page_content_wrap">
 			<div class="page_content_980px">
-				<div class="page_content_title">${channel.channelName }栏目更新</div>
+				<div class="page_content_title">${channel.channelName }－栏目更新</div>
 				<table class="nogrid">
 					<tr>
 						<th width="90px">上级栏目</th>
@@ -57,7 +57,7 @@
 					</tr>
 					<tr>
 
-						<th class="required" width="10%">菜单显示</th>
+						<th width="10%">菜单显示</th>
 						<td>
 						
 							<s:if test="channel.isHidden == '1'">
@@ -74,12 +74,12 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="required">栏目名称</th>
+						<th>栏目名称</th>
 						<td><input type="text" class="input_text" style="width:250px" name="channel.channelName" value="${channel.channelName}"></td>
 
 					</tr>
 					<tr>
-						<th class="required">访问路径</th>
+						<th>访问路径</th>
 						<td><input type="text" class="input_text" style="width:250px" name="channel.channelPath" value="${channel.channelPath}"></td>
 					</tr>
 					<tr>

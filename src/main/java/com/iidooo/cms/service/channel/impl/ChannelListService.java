@@ -16,6 +16,7 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelListService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.HttpUtil;
+import com.iidooo.core.util.StringUtil;
 import com.iidooo.passport.filter.SSOFilter;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -33,17 +34,20 @@ public class ChannelListService implements IChannelListService {
         try {
             result = channelDao.selectByParentID(parentID);
 
-            String url = (String) ActionContext.getContext().getApplication().get(CmsConstant.PASSPORT_URL);
-
-            for (ChannelDto item : result) {
-                JSONObject jsonCreateUser = new JSONObject();
-                jsonCreateUser.put(url, item.getCreateUser());
-                jsonCreateUser = HttpUtil.doPost(url, jsonCreateUser);
-
-                JSONObject jsonUpdateUser = new JSONObject();
-                jsonUpdateUser.put(url, item.getCreateUser());
-                jsonUpdateUser = HttpUtil.doPost(url, jsonUpdateUser);
-            }
+//            String url = (String) ActionContext.getContext().getApplication().get(CmsConstant.PASSPORT_URL);
+//            url = url + "/getUser";
+//            for (ChannelDto item : result) {
+//                JSONObject jsonCreateUser = new JSONObject();
+//                jsonCreateUser.put("userID", item.getCreateUser());
+//                String createUserJson = HttpUtil.doPost(url, jsonCreateUser.toString());
+//                String test = StringUtil.substring("abc", 1, 2);
+//                item.setCreateUserName(jsonCreateUser.getString("userName"));
+//                
+//                JSONObject jsonUpdateUser = new JSONObject();
+//                jsonUpdateUser.put("userID", item.getCreateUser());
+//                String updateUserJson = HttpUtil.doPost(url, jsonUpdateUser.toString());
+//                item.setUpdateUserName(jsonUpdateUser.getString("userName"));
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

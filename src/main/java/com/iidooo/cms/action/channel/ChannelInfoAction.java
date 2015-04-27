@@ -76,6 +76,7 @@ public class ChannelInfoAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
+            addActionError(getText("MSG_VALIDATION_EXCEPTION"));
         }
     }
 
@@ -105,6 +106,7 @@ public class ChannelInfoAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
+            addActionError(getText("MSG_VALIDATION_EXCEPTION"));
         }
     }
 }

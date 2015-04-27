@@ -5,12 +5,18 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.core.dto.PageDto;
 
 public interface ContentDao {
 
+    /**
+     * Select content by content ID
+     * @param contentID This content' ID will be selected
+     * @return The selected ContentDto
+     */
+    ContentDto selectByContentID(int contentID);
+    
     /**
      * Select all of the contents with page
      * @param pageDto Do the page
@@ -48,7 +54,6 @@ public interface ContentDao {
 
     
 
-    ContentDto selectContentByID(int contentID);
 
     ContentDto selectByChannel(int channelID);
 

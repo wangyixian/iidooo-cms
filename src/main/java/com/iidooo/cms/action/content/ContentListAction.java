@@ -24,19 +24,9 @@ public class ContentListAction extends ActionSupport {
 
     private PageDto page;
 
-    private Integer channelID = 0;
-
     private List<ContentDto> contentList;
 
     private ContentDto content;
-
-    public Integer getChannelID() {
-        return channelID;
-    }
-
-    public void setChannelID(Integer channelID) {
-        this.channelID = channelID;
-    }
 
     public List<ContentDto> getContentList() {
         return contentList;
@@ -56,8 +46,11 @@ public class ContentListAction extends ActionSupport {
 
     public String init() {
         try {
-            this.contentList = contentListService.getContentListByChannel(channelID, page);
-
+            if (content == null) {
+                this.contentList = contentListService.getContentListByChannel(0, page);
+            } else {
+                this.contentList = contentListService.getContentListByChannel(content.getChannelID(), page);
+            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
