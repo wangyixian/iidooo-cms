@@ -6,10 +6,10 @@
 		</a>
 	</div>
 	<div class="menu_wrap">
-		<div id="login_info">
+		<div class="login_info">
 			<ul>
-				<li class="">欢迎：${SECURITY_USER.userName }</li>
-				<li><a href='logout.action'>退出</a></li>
+				<li><a href='${PASSPORT_URL }/logout.action'>退出</a></li>
+				<li class="">欢迎：${USER_NAME }</li>
 			</ul>
 		</div>
 		<div class="menu">

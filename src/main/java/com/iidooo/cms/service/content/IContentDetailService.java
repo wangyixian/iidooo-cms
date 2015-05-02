@@ -3,7 +3,7 @@ package com.iidooo.cms.service.content;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 
-public interface IContentInfoService {
+public interface IContentDetailService {
     ContentDto getContentByID(ContentDto content);
     
     boolean createContent(ContentDto content);

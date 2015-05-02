@@ -18,17 +18,17 @@
 			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
 
-		<action name="channelInfo" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="init">
-			<result name="success">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
+		<action name="channelDetail" class="com.iidooo.cms.action.channel.ChannelDetailAction" method="init">
+			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 		</action>
-		<action name="channelCreate" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="create">
-			<result name="success">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
+		<action name="channelCreate" class="com.iidooo.cms.action.channel.ChannelDetailAction" method="create">
+			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 		</action>
-		<action name="channelUpdate" class="com.iidooo.cms.action.channel.ChannelInfoAction" method="update">
-			<result name="success">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelInfo.jsp</result>
+		<action name="channelUpdate" class="com.iidooo.cms.action.channel.ChannelDetailAction" method="update">
+			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 		</action>
 
 		<action name="contentList" class="com.iidooo.cms.action.content.ContentListAction" method="init">
@@ -39,17 +39,17 @@
 			<result name="input">/WEB-INF/jsp/content/ContentList.jsp</result>
 		</action>
 
-		<action name="contentInfo" class="com.iidooo.cms.action.content.ContentInfoAction" method="init">
-			<result name="success">/WEB-INF/jsp/content/ContentInfo.jsp</result>
-			<result name="input">/WEB-INF/jsp/content/ContentInfo.jsp</result>
+		<action name="contentDetail" class="com.iidooo.cms.action.content.ContentDetailAction" method="init">
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
-		<action name="contentCreate" class="com.iidooo.cms.action.content.ContentInfoAction" method="create">
-			<result name="success">/WEB-INF/jsp/content/ContentInfo.jsp</result>
-			<result name="input">/WEB-INF/jsp/content/ContentInfo.jsp</result>
+		<action name="contentCreate" class="com.iidooo.cms.action.content.ContentDetailAction" method="create">
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
-		<action name="contentUpdate" class="com.iidooo.cms.action.content.ContentInfoAction" method="update">
-			<result name="success">/WEB-INF/jsp/content/ContentInfo.jsp</result>
-			<result name="input">/WEB-INF/jsp/content/ContentInfo.jsp</result>
+		<action name="contentUpdate" class="com.iidooo.cms.action.content.ContentDetailAction" method="update">
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
 
 		<!-- The ajax action did not need the result, the result will output as json -->

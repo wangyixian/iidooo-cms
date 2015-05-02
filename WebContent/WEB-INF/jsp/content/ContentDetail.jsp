@@ -1,66 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="f" uri="/framework-tags"%>
+<%@ taglib prefix="core" uri="/core-tags"%>
+<%@ taglib prefix="cms" uri="/cms-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="${SITE_URL}/js/lib/KindEditor/kindeditor-min.js"></script>
-<script type="text/javascript" src="${SITE_URL}/js/lib/KindEditor/lang/zh_CN.js"></script>
-<script type="text/javascript" src="${SITE_URL}/js/lib/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="${SITE_URL}/js/lib/jquery.treeview/lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="${SITE_URL}/js/content/ContentDetail.js"></script>
-<link type="text/css" rel="stylesheet" href="${SITE_URL}/js/lib/jquery.treeview/jquery.treeview.css">
-<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/content/ContentDetail.css">
+<script type="text/javascript" src="${CORE_URL}/js/KindEditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="${CORE_URL}/js/KindEditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="${CORE_URL}/js/jquery.treeview/jquery.treeview.js"></script>
+<script type="text/javascript" src="${CORE_URL}/js/jquery.treeview/lib/jquery.cookie.js"></script>
+<link type="text/css" rel="stylesheet" href="${CORE_URL}/js/jquery.treeview/jquery.treeview.css">
+
+<script type="text/javascript" src="js/content/ContentDetail.js"></script>
+<link type="text/css" rel="stylesheet" href="css/content/ContentDetail.css">
 
 </head>
-<body>
-
-	<div id="message_box_wrap" class="hidden">
-		<div id="message_box_overlay"></div>
-		<div id="message_box_dialog">		
-			<div id="message_box_title">标题</div>
-			<div id="message_box_content">内容</div>
-			<div id="message_box_botton_bar">
-				<button class="button" type="button">OK</button>
-			</div>
+<body>	
+	<jsp:include page="../include/Top.jsp"></jsp:include>		
+	<div id="page_content_wrap">	
+		<div class="page_content_left_wrap">
+			<cms:channelTree baseURL="contentList.action?content.channelID=" title="栏目树" />
 		</div>
-	</div>
-	
-	<form id="form" method="post">
-		<input id="hidChannelID" type="hidden" value="${content.channelID }">
-		<input type="hidden" name="content.contentID" value="${content.contentID}">
-		<input type="hidden" name="content.contentType" value="${content.contentType }">
-		<input type="hidden" name="content.version"	value="${content.version }">
-		<input id="hidMode" type="hidden" name="mode" value="${mode }">
-		<jsp:include page="../include/Top.jsp"></jsp:include>
-		<div id="page">
-			<div class="left_side_wrap">
-				<f:tree root="${rootTreeNode}" recursion="true" title="栏目树"/>	
+		<div class="page_content_right_wrap">		
+			<div class="bread_crumb">
+				<span>当前的位置：</span>
+				<span>内容管理 - 内容详细</span>
 			</div>
-			<div class="right_side_wrap">
-				<div class="bread_crumb">
-					<span>当前的位置：</span>
-					<s:if test="mode == 1">
-						<span>内容管理 - 内容新建</span>
-					</s:if>
-					<s:elseif test="mode == 2">
-						<span>内容管理 - 内容更新</span>
-					</s:elseif>					
-					<s:elseif test="mode == 3">
-						<span>内容管理 - 内容复制</span>
-					</s:elseif>		
-				</div>
-				<div class="content_wrap">
-					<table class="grid">
+			<div class="page_content">
+				<form id="form" method="post">					
+					<input id="hidChannelID" type="hidden" value="${content.channelID }">
+					<input type="hidden" name="content.contentID" value="${content.contentID}">
+					<input type="hidden" name="content.contentType" value="${content.contentType }">
+					<input type="hidden" name="content.version"	value="${content.version }">		
+					<table class="detail">
 						<tr>							
 							<th width="10%">内容类型</th>		
-							<td class="required">
-								<input id="txtContentType" type="text" class="width_400px" readonly="readonly" value="${CONTENT_TYPE_MAP[content.contentType]}">
+							<td>
+								<core:dictItem id="selContentType" name="content.contentType" dictClassCode="CONTENT_TYPE" value="${content.contentType }" isDiabled="true"/>	
 							</td>		
 							<th width="10%">所属栏目</th>
-							<td class="required">
+							<td>
 								<select name="content.channelID">
 									<s:iterator value="allChannels" id="item" status="st">
 										<s:if test="content.channelID == #item.channelID">
@@ -199,23 +180,22 @@
 								<textarea class="width_90per" rows="5" name="content.remarks">${content.remarks }</textarea>
 							</td>
 						</tr>							
-					</table>
-					<div class="button_bar">
-						<s:if test="mode == 1 || mode == 3">
-							<button type="button" onclick="return createContent();">创建</button>
-						</s:if>
-						<s:elseif test="mode == 2">
-							<button type="button" onclick="return updateContent();">更新</button>
-							<button type="button" onclick="btnCopy();">复制</button>
-							<button type="button" onclick="return deleteContent();">删除</button>
-						</s:elseif>
-						<button type="button" onclick="return returnBack();">返回</button>
-					</div>			
-				</div>
+					</table>					
+				</form>
+				<div class="button_bar">
+					<s:if test="content.contentID == null">
+						<button type="button" onclick="return createContent();">创建</button>
+					</s:if>
+					<s:else>
+						<button type="button" onclick="return updateContent();">更新</button>
+						<button type="button" onclick="btnCopy();">复制</button>
+					</s:else>
+					<button type="button" onclick="return returnBack();">返回</button>
+				</div>			
 			</div>
 		</div>
+	</div>
 		
 	<jsp:include page="../include/Footer.jsp"></jsp:include>
-	</form>
 </body>
 </html>

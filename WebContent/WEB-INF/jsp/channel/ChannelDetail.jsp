@@ -29,18 +29,19 @@
 
 	function returnBack(parentID) {
 		window.location.href = "channelList.action?parentChannelID=" + parentID;
+		
 	}
 </script>
 </head>
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<form id="form" method="post">
-		<input type="hidden" name="channel.channelID" value="${channel.channelID }"> <input type="hidden" name="channel.version"
-			value="${channel.version }">
+		<input type="hidden" name="channel.channelID" value="${channel.channelID }">
+		<input type="hidden" name="channel.version"	value="${channel.version }">
 		<div id="page_content_wrap">
 			<div class="page_content_980px">
 				<div class="page_content_title">${channel.channelName }－栏目更新</div>
-				<table class="nogrid">
+				<table class="detail">
 					<tr>
 						<th width="90px">上级栏目</th>
 						<td><select name="channel.parentID">

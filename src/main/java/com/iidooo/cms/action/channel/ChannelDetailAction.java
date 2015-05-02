@@ -4,20 +4,20 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.service.channel.IChannelInfoService;
+import com.iidooo.cms.service.channel.IChannelDetailService;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ChannelInfoAction extends ActionSupport {
+public class ChannelDetailAction extends ActionSupport {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ChannelInfoAction.class);
+    private static final Logger logger = Logger.getLogger(ChannelDetailAction.class);
 
     @Autowired
-    private IChannelInfoService channelInfoService;
+    private IChannelDetailService channelInfoService;
 
     private ChannelDto channel;
 

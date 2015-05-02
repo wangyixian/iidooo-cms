@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.service.channel.IChannelInfoService;
+import com.iidooo.cms.service.channel.IChannelDetailService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.filter.SSOFilter;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
-public class ChannelInfoService implements IChannelInfoService {
+public class ChannelDetailService implements IChannelDetailService {
 
-    private static final Logger logger = Logger.getLogger(ChannelInfoService.class);
+    private static final Logger logger = Logger.getLogger(ChannelDetailService.class);
 
     @Autowired
     private ChannelDao channelDao;

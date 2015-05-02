@@ -11,15 +11,15 @@ import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dao.extend.ContentProductDao;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
-import com.iidooo.cms.service.content.IContentInfoService;
+import com.iidooo.cms.service.content.IContentDetailService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.filter.SSOFilter;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
-public class ContentInfoService implements IContentInfoService {
+public class ContentDetailService implements IContentDetailService {
 
-    private static final Logger logger = Logger.getLogger(ContentInfoService.class);
+    private static final Logger logger = Logger.getLogger(ContentDetailService.class);
 
     @Autowired
     private ContentDao contentDao;

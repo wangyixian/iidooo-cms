@@ -6,20 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
-import com.iidooo.cms.service.content.IContentInfoService;
+import com.iidooo.cms.service.content.IContentDetailService;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ContentInfoAction extends ActionSupport {
+public class ContentDetailAction extends ActionSupport {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ContentInfoAction.class);
+    private static final Logger logger = Logger.getLogger(ContentDetailAction.class);
 
     @Autowired
-    private IContentInfoService contentInfoService;
+    private IContentDetailService contentInfoService;
 
     private ContentDto content;
 

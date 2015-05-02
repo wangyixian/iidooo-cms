@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="c" uri="/cms-tags"%>
+<%@ taglib prefix="cms" uri="/cms-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,17 +33,17 @@
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
-		<div class="content_left_wrap">			
-			<c:channelTree baseURL="channelList.action?channel.channelID="  title="栏目树"/>
+		<div class="page_content_left_wrap">			
+			<cms:channelTree baseURL="channelList.action?channel.channelID="  title="栏目树"/>
 		</div>
-		<div class="content_right_wrap">
+		<div class="page_content_right_wrap">
 			<div class="bread_crumb">
 				<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
 			</div>
-			<div class="content_wrap">
+			<div class="page_content">
 				<s:actionerror/>
 				<s:actionmessage/>
-				<table class="grid">
+				<table class="list">
 					<tr>
 						<th width="5%">ID</th>
 						<th width="10%">栏目名称</th>
@@ -56,12 +56,12 @@
 					<s:iterator id="item" value="channelList" status="st">
 						<tr>
 							<td class="align_center">
-								<a href="channelInfo.action?channel.channelID=${item.channelID }" target="_blank">
+								<a href="channelDetail.action?channel.channelID=${item.channelID }" target="_blank">
 									${item.channelID }
 								</a>
 							</td>
 							<td class="align_center">
-								<a href="channelInfo.action?channel.channelID=${item.channelID }" target="_blank">
+								<a href="channelDetail.action?channel.channelID=${item.channelID }" target="_blank">
 									${item.channelName }
 								</a>
 							</td>
