@@ -1,6 +1,22 @@
 @CHARSET "UTF-8";
 
+#txtContentTitle, #txtContentSubTitle, #txtMetaTitle, #txtImgTitle,
+	#txtMetaKeywords {
+	width: 400px;
+}
+
+#txtContentSummary, #txtRemarks {
+	width: 90%;
+	height: 100px;
+}
+
 #txtContentBody {
+	width: 90%;
 	height: 400px;
-	visibility:hidden;
+	visibility: hidden;
+}
+
+#txtMetaDescription {
+	width: 90%;
+	height: 200px;
 }

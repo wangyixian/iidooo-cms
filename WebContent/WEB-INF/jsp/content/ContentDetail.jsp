@@ -26,7 +26,12 @@
 		<div class="page_content_right_wrap">		
 			<div class="bread_crumb">
 				<span>当前的位置：</span>
-				<span>内容管理 - 内容详细</span>
+				<s:if test="content.contentID == null">
+					<span>内容管理 - 内容创建</span>
+				</s:if>
+				<s:else>
+					<span>内容管理 - 内容详细</span>
+				</s:else>
 			</div>
 			<div class="page_content">
 				<form id="form" method="post">					
@@ -42,44 +47,37 @@
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
-								<select name="content.channelID">
-									<s:iterator value="allChannels" id="item" status="st">
-										<s:if test="content.channelID == #item.channelID">
-											<option value="${item.channelID }" selected="selected">${item.channelName }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.channelID }">${item.channelName }</option>
-										</s:else>
-									</s:iterator>
-								</select>
+								<cms:channelList id="selChannelID" name="content.channelID" value="${content.channelID }"/>	
 							</td>			
 						</tr>
 						<tr>
 							<th>内容标题</th>
-							<td class="required">
-								<input id="txtContentTitle" class="width_400px" type="text" name="content.contentTitle" value="${content.contentTitle}">
+							<td>
+								<input id="txtContentTitle" type="text" name="content.contentTitle" value="${content.contentTitle}">
 							</td>
 							<th>是否允许评论</th>
-							<td class="required">
-								<input type="radio" name="content.isAllowComment" value="0" checked="checked">不允许
-								<input type="radio" name="content.isAllowComment" value="0">允许
+							<td>
+								<input type="radio" name="content.isAllowComment" value="0" checked="checked">
+								<label class="radio_label">不允许</label>
+								<input type="radio" name="content.isAllowComment" value="0">
+								<label class="radio_label">允许</label>
 							</td>
 						</tr>
 						<tr>							
 							<th>内容副标题</th>
 							<td>
-								<input class="width_400px" type="text" name="content.contentSubTitle" value="${content.contentSubTitle}">
+								<input id="txtContentSubTitle" type="text" name="content.contentSubTitle" value="${content.contentSubTitle}">
 							</td>
-							<th>序列</th>
+							<th>meta标题</th>
 							<td>
-								<input type="text" name="content.sequence" value="${content.sequence}">
+								<input id="txtMetaTitle" type="text" name="content.metaTitle" value="${content.metaTitle}">
 							</td>
 						</tr>
 						<tr>						
 							<th>图片标题</th>
 							<td>
-								<input class="width_400px" type="text" id="txtImgTitle" name="content.contentImageTitle" value="${content.contentImageTitle }" />
-								<input type="button" id="btnImgTitle" value="选择图片" />
+								<input id="txtImgTitle" type="text" name="content.contentImageTitle" value="${content.contentImageTitle }" />
+								<input id="btnImgTitle" type="button" value="选择图片" />
 							</td>
 							<th>图片预览</th>
 							<td><img id="imgTitle" class="img-preview" src="${content.contentImageTitle }"></td>
@@ -87,97 +85,43 @@
 						<tr>
 							<th>内容摘要</th>
 							<td colspan="3">
-								<textarea class="width_90per" rows="5" name="content.contentSummary">${content.contentSummary }</textarea>
+								<textarea id="txtContentSummary" name="content.contentSummary">${content.contentSummary }</textarea>
 							</td>
 						</tr>
 						<tr>
 							<th>内容详细</th>
 							<td colspan="3">
-							<textarea class="width_90per" id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
+							<textarea id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
 							</td>
 						</tr>
 						<s:if test="content.contentType == 2">
 						<tr>
-							<th>产品分类</th>
-							<td class="required">
-								<select name="product.productType">
-									<s:iterator value="productTypes" id="item" status="st">
-										<s:if test="product.productType == #item.dictItemCode">
-											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
-										</s:else>
-									</s:iterator>
-								</select>
-							</td>
 							<th>产品国家</th>
-							<td class="required">
-								<select name="product.productCountry">
-									<s:iterator value="productCountries" id="item" status="st">
-										<s:if test="product.productCountry == #item.dictItemCode">
-											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
-										</s:else>
-									</s:iterator>
-								</select>
+							<td>
+								<core:dictItem name="product.productCountry" id="selProductCountry" dictClassCode="PRODUCT_COUNTRY"/>
 							</td>
-						</tr>
-						<tr>						
 							<th>产品产地</th>
-							<td class="required" colspan="3">
-								<select name="product.productOrigin">
-									<s:iterator value="productOrigins" id="item" status="st">
-										<s:if test="product.productOrigin == #item.dictItemCode">
-											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
-										</s:else>
-									</s:iterator>
-								</select>
-							</td>
-						</tr>
-						</s:if>			
-						<s:if test="content.contentType == 3">
-						<tr>
-							<th>文章类型</th>
-							<td class="required" colspan="3">
-								<select name="article.articleType">
-									<s:iterator value="articleTypes" id="item" status="st">
-										<s:if test="article.articleType == #item.dictItemCode">
-											<option value="${item.dictItemCode }" selected="selected">${item.dictItemValue }</option>
-										</s:if>
-										<s:else>
-											<option value="${item.dictItemCode }">${item.dictItemValue }</option>
-										</s:else>
-									</s:iterator>
-								</select>
-							</td>
-						</tr>
-						</s:if>	
-						<tr>
-							<th>meta标题</th>
 							<td>
-								<input class="width_400px" type="text" name="content.metaTitle"	value="${content.metaTitle}">
+								<core:dictItem name="product.productOrigin" id="selProductOrigin" dictClassCode="PRODUCT_ORIGIN"/>
 							</td>
+						</tr>
+						</s:if>		
+						<tr>							
 							<th>meta关键字</th>
-							<td>
-								<input class="width_400px" type="text" name="content.metaKeywords" value="${content.metaKeywords}">
+							<td colspan="3">
+								<input id="txtMetaKeywords" type="text" name="content.metaKeywords" value="${content.metaKeywords}">
 							</td>
 						</tr>
 						<tr>
 							<th>meta描述</th>
 							<td colspan="3">
-								<textarea class="width_90per" rows="5" name="content.metaDescription">${content.metaDescription }</textarea>
+								<textarea id="txtMetaDescription" name="content.metaDescription">${content.metaDescription }</textarea>
 							</td>
 						</tr>
 						<tr>
 							<th>备注</th>
 							<td colspan="3">
-								<textarea class="width_90per" rows="5" name="content.remarks">${content.remarks }</textarea>
+								<textarea id="txtRemarks" name="content.remarks">${content.remarks }</textarea>
 							</td>
 						</tr>							
 					</table>					

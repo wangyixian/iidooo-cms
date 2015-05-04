@@ -5,26 +5,46 @@
 	<jsp-version>1.0</jsp-version>
 	<short-name>cms-tags</short-name>
 	<tag>
-        <name>channelTree</name>
-        <tag-class>com.iidooo.cms.tag.ChannelTreeTag</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>title</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>baseURL</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-	<tag>
-		<name>mainmenu</name>
-		<tag-class>com.iidooo.cms.client.tag.MainMenuTag</tag-class>
+		<name>channelTree</name>
+		<tag-class>com.iidooo.cms.tag.ChannelTreeTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
-			<name>channelPath</name>
+			<name>title</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>baseURL</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>channelList</name>
+		<tag-class>com.iidooo.cms.tag.ChannelListTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>isDiabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>isContainBlank</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -85,7 +105,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<name>contentList</name>
 		<tag-class>com.iidooo.cms.client.tag.ContentListTag</tag-class>
@@ -131,5 +151,5 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 </taglib>
