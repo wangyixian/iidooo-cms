@@ -21,7 +21,7 @@ public class Content {
 
     private Integer sequence;
 
-    private String isSilent;
+    private Integer isSilent;
 
     private String remarks;
 
@@ -33,7 +33,7 @@ public class Content {
 
     private Integer updateUser;
 
-    private String isDelete;
+    private Integer isDelete;
 
     private Integer version;
 
@@ -119,12 +119,12 @@ public class Content {
         this.sequence = sequence;
     }
 
-    public String getIsSilent() {
+    public Integer getIsSilent() {
         return isSilent;
     }
 
-    public void setIsSilent(String isSilent) {
-        this.isSilent = isSilent == null ? null : isSilent.trim();
+    public void setIsSilent(Integer isSilent) {
+        this.isSilent = isSilent;
     }
 
     public String getRemarks() {
@@ -167,12 +167,12 @@ public class Content {
         this.updateUser = updateUser;
     }
 
-    public String getIsDelete() {
+    public Integer getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(String isDelete) {
-        this.isDelete = isDelete == null ? null : isDelete.trim();
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getVersion() {

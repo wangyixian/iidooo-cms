@@ -7,7 +7,7 @@
 	<constant name="struts.devMode" value="true" />
 	<!-- <constant name="struts.objectFactory" value="spring"/> -->
 	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.custom.i18n.resources" value="languages.label, languages.message" />
+	<constant name="struts.custom.i18n.resources" value="languages.cms_label, languages.cms_msg" />
 	<constant name="struts.multipart.maxSize" value="102400000" />
 	<!-- <constant name="struts.xwork.chaining.copyErrors" value="true"/> -->
 	<!-- <constant name="struts.xwork.chaining.copyFieldErrors" value="true"/> -->

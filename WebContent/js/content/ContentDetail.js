@@ -61,22 +61,14 @@ $(function() {
 	}
 	
 	function validate(){
-		var txtContentType = $("#txtContentType").val();
-		var txtContentTitle = $("#txtContentTitle").val();
-		
-		var result = true;
-		if(txtContentType == ""){
-			$("#txtContentType").parent().attr("class","required_highlight");
-			result = false;
-		}
+		var message = "";
+		var txtContentTitle = $("#txtContentTitle").val();		
 		if(txtContentTitle == ""){
-			$("#txtContentTitle").parent().attr("class","required_highlight");			
-			result = false;
+			message += "内容标题不能为空。";
 		}
-		
-		if(result == false){
-			alert("必填项不能为空！");
+		if(message != ""){
+			alert(message);
+			return false;
 		}
-		
-		return result;
+		return true;
 	}

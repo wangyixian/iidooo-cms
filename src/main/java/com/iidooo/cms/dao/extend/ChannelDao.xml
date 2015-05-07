@@ -11,13 +11,13 @@
 		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
 		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
-		<result column="IsHidden" property="isHidden" jdbcType="CHAR" />
+		<result column="IsHidden" property="isHidden" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
 		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="IsDelete" property="isDelete" jdbcType="CHAR" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
@@ -31,35 +31,36 @@
 		select
 		<include refid="Base_Column_List" />
 		from CHANNEL C
-		where C.IsDelete = '0'
+		where C.IsDelete = 0
 	</select>
 
 	<select id="selectChannelByPath" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from CHANNEL C
-		where C.IsDelete = '0' and
+		where C.IsDelete = 0 and
 		C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 	</select>
 	<select id="selectChannelByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from CHANNEL C
-		where C.IsDelete = '0' and
+		where C.IsDelete = 0 and
 		C.ChannelID = #{channelID,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = '0' order by C.Sequence
+		from CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = 0 order by C.Sequence
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		insert into CHANNEL (
 		ParentID,
 		ChannelName,
-		ChannelPath, ChannelLevel,
+		ChannelPath,
+		ChannelLevel,
 		MetaTitle,
 		MetaKeywords,
 		MetaDescription,
@@ -76,12 +77,12 @@
 		#{channelLevel,jdbcType=INTEGER},#{metaTitle,jdbcType=VARCHAR},
 		#{metaKeywords,jdbcType=VARCHAR},
 		#{metaDescription,jdbcType=VARCHAR},
-		#{sequence,jdbcType=INTEGER}, #{isHidden,jdbcType=CHAR},
+		#{sequence,jdbcType=INTEGER}, #{isHidden,jdbcType=INTEGER},
 		#{remarks,jdbcType=VARCHAR},
 		#{createTime,jdbcType=VARCHAR},
 		#{createUser,jdbcType=INTEGER},
 		#{updateTime,jdbcType=VARCHAR},
-		#{updateUser,jdbcType=INTEGER}, '0', 1)
+		#{updateUser,jdbcType=INTEGER}, 0, 1)
 	</insert>
 
 	<update id="update" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
@@ -94,16 +95,19 @@
 		#{channelLevel,jdbcType=INTEGER},
 		MetaTitle =
 		#{metaTitle,jdbcType=VARCHAR},
-		MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
+		MetaKeywords =
+		#{metaKeywords,jdbcType=VARCHAR},
 		MetaDescription =
 		#{metaDescription,jdbcType=VARCHAR},
 		Sequence =
 		#{sequence,jdbcType=INTEGER},
-		IsHidden = #{isHidden,jdbcType=CHAR},
+		IsHidden =
+		#{isHidden,jdbcType=INTEGER},
 		Remarks =
 		#{remarks,jdbcType=VARCHAR},
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
-		UpdateUser = #{updateUser,jdbcType=INTEGER},
+		UpdateUser =
+		#{updateUser,jdbcType=INTEGER},
 		Version = Version + 1
 		where
 		ChannelID = #{channelID,jdbcType=INTEGER}

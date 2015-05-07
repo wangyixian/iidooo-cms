@@ -34,6 +34,8 @@
 				</s:else>
 			</div>
 			<div class="page_content">
+				<s:actionerror/>
+				<s:actionmessage/>
 				<form id="form" method="post">					
 					<input id="hidChannelID" type="hidden" value="${content.channelID }">
 					<input type="hidden" name="content.contentID" value="${content.contentID}">
@@ -57,9 +59,9 @@
 							</td>
 							<th>是否允许评论</th>
 							<td>
-								<input type="radio" name="content.isAllowComment" value="0" checked="checked">
+								<input type="radio" name="content.isSilent" value="0" checked="checked">
 								<label class="radio_label">不允许</label>
-								<input type="radio" name="content.isAllowComment" value="0">
+								<input type="radio" name="content.isSilent" value="1">
 								<label class="radio_label">允许</label>
 							</td>
 						</tr>
@@ -91,7 +93,7 @@
 						<tr>
 							<th>内容详细</th>
 							<td colspan="3">
-							<textarea id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
+								<textarea id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
 							</td>
 						</tr>
 						<s:if test="content.contentType == 2">

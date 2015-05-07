@@ -1,8 +1,11 @@
 @CHARSET "UTF-8";
 
-#txtContentTitle, #txtContentSubTitle, #txtMetaTitle, #txtImgTitle,
-	#txtMetaKeywords {
+#txtContentTitle, #txtContentSubTitle, #txtImgTitle, #txtMetaTitle {
 	width: 400px;
+}
+
+#txtMetaKeywords {
+	width: 90%;
 }
 
 #txtContentSummary, #txtRemarks {

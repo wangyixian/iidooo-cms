@@ -12,7 +12,7 @@
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
 		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
 		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
-		<result column="IsSilent" property="isSilent" jdbcType="CHAR" />
+		<result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
 		<result column="ProductCountry" property="productCountry" jdbcType="CHAR" />
 		<result column="ProductOrigin" property="productOrigin" jdbcType="CHAR" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
 		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="IsDelete" property="isDelete" jdbcType="CHAR" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.ContentProductDto" extends="BaseResultMap">
@@ -45,7 +45,7 @@
 		,
 		<include refid="Blob_Column_List" />
 		from IDO_CMS_CONTENT C
-		join CONTENT_PRODUCT P on C.IsDelete = '0' and C.ContentID = P.ContentID
+		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID
 		and C.ContentID = #{contentID}
 	</select>
 	
@@ -87,9 +87,9 @@
 
 
 	<insert id="insert" parameterType="com.iidooo.cms.dto.extend.ContentProductDto">
-		insert into CONTENT_PRODUCT (ContentID, ProductType, ProductCountry,
+		insert into CONTENT_PRODUCT (ContentID, ProductCountry,
 		ProductOrigin)
-		values (#{contentID,jdbcType=INTEGER}, #{productType,jdbcType=CHAR}, #{productCountry,jdbcType=CHAR},
+		values (#{contentID,jdbcType=INTEGER}, #{productCountry,jdbcType=CHAR},
 		#{productOrigin,jdbcType=CHAR})
 	</insert>
 	

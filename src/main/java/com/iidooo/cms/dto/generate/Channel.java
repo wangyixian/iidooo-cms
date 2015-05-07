@@ -19,7 +19,7 @@ public class Channel {
 
     private Integer sequence;
 
-    private String isHidden;
+    private Integer isHidden;
 
     private String remarks;
 
@@ -31,7 +31,7 @@ public class Channel {
 
     private Integer updateUser;
 
-    private String isDelete;
+    private Integer isDelete;
 
     private Integer version;
 
@@ -107,12 +107,12 @@ public class Channel {
         this.sequence = sequence;
     }
 
-    public String getIsHidden() {
+    public Integer getIsHidden() {
         return isHidden;
     }
 
-    public void setIsHidden(String isHidden) {
-        this.isHidden = isHidden == null ? null : isHidden.trim();
+    public void setIsHidden(Integer isHidden) {
+        this.isHidden = isHidden;
     }
 
     public String getRemarks() {
@@ -155,12 +155,12 @@ public class Channel {
         this.updateUser = updateUser;
     }
 
-    public String getIsDelete() {
+    public Integer getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(String isDelete) {
-        this.isDelete = isDelete == null ? null : isDelete.trim();
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getVersion() {

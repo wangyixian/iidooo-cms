@@ -11,13 +11,13 @@
     <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="IsHidden" property="isHidden" jdbcType="CHAR" />
+    <result column="IsHidden" property="isHidden" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-    <result column="IsDelete" property="isDelete" jdbcType="CHAR" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -28,15 +28,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from channel
+    from CHANNEL
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from channel
+    delete from CHANNEL
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    insert into channel (ChannelID, ParentID, ChannelName, 
+    insert into CHANNEL (ChannelID, ParentID, ChannelName, 
       ChannelPath, ChannelLevel, MetaTitle, 
       MetaKeywords, MetaDescription, Sequence, 
       IsHidden, Remarks, CreateTime, 
@@ -45,12 +45,12 @@
     values (#{channelID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{channelName,jdbcType=VARCHAR}, 
       #{channelPath,jdbcType=VARCHAR}, #{channelLevel,jdbcType=INTEGER}, #{metaTitle,jdbcType=VARCHAR}, 
       #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, 
-      #{isHidden,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{isHidden,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=CHAR}, #{version,jdbcType=INTEGER})
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    insert into channel
+    insert into CHANNEL
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="channelID != null" >
         ChannelID,
@@ -133,7 +133,7 @@
         #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isHidden != null" >
-        #{isHidden,jdbcType=CHAR},
+        #{isHidden,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -151,7 +151,7 @@
         #{updateUser,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null" >
-        #{isDelete,jdbcType=CHAR},
+        #{isDelete,jdbcType=INTEGER},
       </if>
       <if test="version != null" >
         #{version,jdbcType=INTEGER},
@@ -159,7 +159,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    update channel
+    update CHANNEL
     <set >
       <if test="parentID != null" >
         ParentID = #{parentID,jdbcType=INTEGER},
@@ -186,7 +186,7 @@
         Sequence = #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isHidden != null" >
-        IsHidden = #{isHidden,jdbcType=CHAR},
+        IsHidden = #{isHidden,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
         UpdateUser = #{updateUser,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null" >
-        IsDelete = #{isDelete,jdbcType=CHAR},
+        IsDelete = #{isDelete,jdbcType=INTEGER},
       </if>
       <if test="version != null" >
         Version = #{version,jdbcType=INTEGER},
@@ -213,7 +213,7 @@
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    update channel
+    update CHANNEL
     set ParentID = #{parentID,jdbcType=INTEGER},
       ChannelName = #{channelName,jdbcType=VARCHAR},
       ChannelPath = #{channelPath,jdbcType=VARCHAR},
@@ -222,13 +222,13 @@
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
-      IsHidden = #{isHidden,jdbcType=CHAR},
+      IsHidden = #{isHidden,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=CHAR},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </update>

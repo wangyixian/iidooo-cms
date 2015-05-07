@@ -12,13 +12,13 @@
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="IsSilent" property="isSilent" jdbcType="CHAR" />
+    <result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-    <result column="IsDelete" property="isDelete" jdbcType="CHAR" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.generate.Content" extends="BaseResultMap" >
@@ -37,15 +37,15 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from content
+    from CONTENT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from content
+    delete from CONTENT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Content" >
-    insert into content (ContentID, ContentType, ContentTitle, 
+    insert into CONTENT (ContentID, ContentType, ContentTitle, 
       ContentSubTitle, ContentImageTitle, MetaTitle, 
       MetaKeywords, MetaDescription, ContentSummary, 
       Sequence, IsSilent, Remarks, 
@@ -55,13 +55,13 @@
     values (#{contentID,jdbcType=INTEGER}, #{contentType,jdbcType=CHAR}, #{contentTitle,jdbcType=VARCHAR}, 
       #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, 
       #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, #{contentSummary,jdbcType=VARCHAR}, 
-      #{sequence,jdbcType=INTEGER}, #{isSilent,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{sequence,jdbcType=INTEGER}, #{isSilent,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, 
+      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
       #{contentBody,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Content" >
-    insert into content
+    insert into CONTENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="contentID != null" >
         ContentID,
@@ -153,7 +153,7 @@
         #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isSilent != null" >
-        #{isSilent,jdbcType=CHAR},
+        #{isSilent,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -171,7 +171,7 @@
         #{updateUser,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null" >
-        #{isDelete,jdbcType=CHAR},
+        #{isDelete,jdbcType=INTEGER},
       </if>
       <if test="version != null" >
         #{version,jdbcType=INTEGER},
@@ -182,7 +182,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.Content" >
-    update content
+    update CONTENT
     <set >
       <if test="contentType != null" >
         ContentType = #{contentType,jdbcType=CHAR},
@@ -212,7 +212,7 @@
         Sequence = #{sequence,jdbcType=INTEGER},
       </if>
       <if test="isSilent != null" >
-        IsSilent = #{isSilent,jdbcType=CHAR},
+        IsSilent = #{isSilent,jdbcType=INTEGER},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -230,7 +230,7 @@
         UpdateUser = #{updateUser,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null" >
-        IsDelete = #{isDelete,jdbcType=CHAR},
+        IsDelete = #{isDelete,jdbcType=INTEGER},
       </if>
       <if test="version != null" >
         Version = #{version,jdbcType=INTEGER},
@@ -242,7 +242,7 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.dto.generate.Content" >
-    update content
+    update CONTENT
     set ContentType = #{contentType,jdbcType=CHAR},
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
@@ -252,19 +252,19 @@
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
-      IsSilent = #{isSilent,jdbcType=CHAR},
+      IsSilent = #{isSilent,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=CHAR},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER},
       ContentBody = #{contentBody,jdbcType=LONGVARCHAR}
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.Content" >
-    update content
+    update CONTENT
     set ContentType = #{contentType,jdbcType=CHAR},
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
@@ -274,13 +274,13 @@
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
-      IsSilent = #{isSilent,jdbcType=CHAR},
+      IsSilent = #{isSilent,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=CHAR},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>

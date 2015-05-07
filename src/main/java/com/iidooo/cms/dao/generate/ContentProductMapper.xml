@@ -12,21 +12,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from content_product
+    from CONTENT_PRODUCT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from content_product
+    delete from CONTENT_PRODUCT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.ContentProduct" >
-    insert into content_product (ContentID, ProductCountry, ProductOrigin
+    insert into CONTENT_PRODUCT (ContentID, ProductCountry, ProductOrigin
       )
     values (#{contentID,jdbcType=INTEGER}, #{productCountry,jdbcType=CHAR}, #{productOrigin,jdbcType=CHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.ContentProduct" >
-    insert into content_product
+    insert into CONTENT_PRODUCT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="contentID != null" >
         ContentID,
@@ -51,7 +51,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.ContentProduct" >
-    update content_product
+    update CONTENT_PRODUCT
     <set >
       <if test="productCountry != null" >
         ProductCountry = #{productCountry,jdbcType=CHAR},
@@ -63,7 +63,7 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.ContentProduct" >
-    update content_product
+    update CONTENT_PRODUCT
     set ProductCountry = #{productCountry,jdbcType=CHAR},
       ProductOrigin = #{productOrigin,jdbcType=CHAR}
     where ContentID = #{contentID,jdbcType=INTEGER}

@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.constant.CmsConstant;
+import com.iidooo.cms.dao.extend.ChannelContentDao;
 import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dao.extend.ContentProductDao;
+import com.iidooo.cms.dto.extend.ChannelContentDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.content.IContentDetailService;
@@ -23,6 +25,9 @@ public class ContentDetailService implements IContentDetailService {
 
     @Autowired
     private ContentDao contentDao;
+    
+    @Autowired
+    private ChannelContentDao channelContentDao;
 
     @Autowired
     private ContentProductDao contentProductDao;
@@ -58,6 +63,16 @@ public class ContentDetailService implements IContentDetailService {
             if (result <= 0) {
                 return false;
             }
+            
+            // Insert the channel and content relationship
+            ChannelContentDto channelContent = new ChannelContentDto();
+            channelContent.setChannelID(content.getChannelID());
+            channelContent.setContentID(content.getContentID());
+            result = channelContentDao.insert(channelContent);
+            if (result <= 0) {
+                return false;
+            }
+            
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,6 +84,15 @@ public class ContentDetailService implements IContentDetailService {
     @Override
     public boolean createContent(ContentDto content, ContentProductDto product) {
         try {
+            if(!this.createContent(content)){
+                return false;
+            }
+            
+            product.setContentID(content.getContentID());
+            int result = contentProductDao.insert(product);
+            if (result <= 0) {
+                return false;
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();

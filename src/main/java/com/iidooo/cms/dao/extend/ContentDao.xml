@@ -12,13 +12,13 @@
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
 		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
 		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
-		<result column="IsSilent" property="isSilent" jdbcType="CHAR" />
+		<result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
 		<result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
 		<result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
-		<result column="IsDelete" property="isDelete" jdbcType="CHAR" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.dto.extend.ContentDto" extends="BaseResultMap">
@@ -44,9 +44,9 @@
 		<include refid="Blob_Column_List" />
 		FROM CONTENT C
 		where C.ContentID = #{contentID,jdbcType=INTEGER}
-		AND C.IsDelete = '0'
+		AND C.IsDelete = 0
 	</select>
-	
+
 	<select id="selectAllCount" resultType="java.lang.Integer">
 		select count(*) from CONTENT C where C.IsDelete = '0'
 	</select>
@@ -60,8 +60,9 @@
 		L.ChannelID, L.ChannelName, R.ContentID
 		from CHANNEL_CONTENT R
 		inner join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
-		on L.ContentID = C.ContentID and C.IsDelete = '0'
-		order by L.ChannelID asc, C.UpdateTime desc limit #{start}, #{pageSize}
+		on L.ContentID = C.ContentID and C.IsDelete = 0
+		order by L.ChannelID asc,
+		C.UpdateTime desc limit #{start}, #{pageSize}
 	</select>
 
 	<select id="selectContentListCountByChannels" resultType="java.lang.Integer">
@@ -69,7 +70,7 @@
 		from CONTENT C
 		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
 		join CHANNEL L on R.ChannelID =
-		L.ChannelID and L.IsDelete = '0' and R.ChannelID in
+		L.ChannelID and L.IsDelete = 0 and R.ChannelID in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 	</select>
 	<select id="selectContentListByChannels" resultMap="BaseResultMap">
@@ -77,9 +78,9 @@
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
 		from CONTENT C
-		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
+		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = 0
 		join
-		CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0' and R.ChannelID in
+		CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = 0 and R.ChannelID in
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 		order by R.ChannelID asc, R.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
 	</select>
@@ -156,25 +157,24 @@
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID" parameterType="com.iidooo.cms.dto.extend.ContentDto">
-		insert into CONTENT (ChannelID, ContentType,
+		insert into CONTENT (ContentType,
 		ContentTitle,
 		ContentSubTitle,
 		ContentImageTitle,
 		MetaTitle, MetaKeywords, MetaDescription,
-		ContentSummary, Sequence, IsAllowComment,
+		ContentSummary, Sequence, IsSilent,
 		Remarks,
 		CreateTime, CreateUser,
 		UpdateTime,
 		UpdateUser, IsDelete,
 		Version, ContentBody)
-		values(#{channelID,jdbcType=INTEGER},
-		#{contentType,jdbcType=CHAR},
+		values(#{contentType,jdbcType=CHAR},
 		#{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR},
 		#{metaTitle,jdbcType=VARCHAR},
 		#{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR},
 		#{contentSummary,jdbcType=VARCHAR},
 		#{sequence,jdbcType=INTEGER},
-		#{isAllowComment,jdbcType=INTEGER},
+		#{isSilent,jdbcType=INTEGER},
 		#{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
 		#{createUser,jdbcType=INTEGER},
 		#{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 0, 1,

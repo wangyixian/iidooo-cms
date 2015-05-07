@@ -53,8 +53,10 @@
 		</action>
 
 		<!-- The ajax action did not need the result, the result will output as json -->
-		<!-- <action name="fileUpload" class="com.iidooo.framework.action.FileUploadAction" method="upload"> <interceptor-ref name="adminStackWrap"></interceptor-ref> 
-			</action> <action name="kindEditorFileManager" class="com.iidooo.framework.action.KindEditorFileManagerAction" method="manage"> <interceptor-ref name="adminStackWrap"></interceptor-ref> 
-			</action> -->
+		<action name="fileUpload" class="com.iidooo.core.action.FileUploadAction" method="upload">
+		</action>
+		<action name="kindEditorFileManager" class="com.iidooo.core.action.KindEditorFileManagerAction" method="manage">
+			
+		</action>
 	</package>
 </struts>

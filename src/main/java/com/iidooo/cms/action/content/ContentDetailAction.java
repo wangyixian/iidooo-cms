@@ -67,12 +67,19 @@ public class ContentDetailAction extends ActionSupport {
         try {
             switch (content.getContentType()) {
             case CmsConstant.CONTENT_TYPE_DEFAULT:
-                contentInfoService.createContent(content);
+                if(!contentInfoService.createContent(content)){
+                    addActionError(getText("MSG_CONTENT_CREATE_FAILED"));
+                    return INPUT;
+                }
                 break;
             case CmsConstant.CONTENT_TYPE_PRODUCT:
-                contentInfoService.createContent(content, product);
+                if(!contentInfoService.createContent(content, product)){
+                    addActionError(getText("MSG_CONTENT_CREATE_FAILED"));
+                    return INPUT;
+                }
                 break;
             }
+            addActionMessage(getText("MSG_CONTENT_CREATE_SUCCESS", content.getContentTitle()));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,6 +90,23 @@ public class ContentDetailAction extends ActionSupport {
 
     public void validateCreate() {
         try {
+            if (content.getContentType().isEmpty()) {
+                addActionError(getText("MSG_CONTENT_TYPE_REQUIRE"));
+            }
+            if (content.getChannelID() == null || content.getChannelID() <= 0) {
+                addActionError(getText("MSG_CONTENT_CHANNEL_REQUIRE"));
+            }
+            if (content.getContentTitle().isEmpty()) {
+                addActionError(getText("MSG_CONTENT_TITLE_REQUIRE"));
+            }
+            if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_PRODUCT)) {
+                if (product.getProductCountry().isEmpty()) {
+                    addActionError(getText("MSG_CONTENT_PRODUCT_COUNTRY_REQUIRE"));
+                }
+                if (product.getProductOrigin().isEmpty()) {
+                    addActionError(getText("MSG_CONTENT_PRODUCT_ORIGINAL_REQUIRE"));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

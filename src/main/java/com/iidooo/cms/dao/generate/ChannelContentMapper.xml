@@ -12,21 +12,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from channel_content
+    from CHANNEL_CONTENT
     where ChannelContentID = #{channelContentID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from channel_content
+    delete from CHANNEL_CONTENT
     where ChannelContentID = #{channelContentID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.ChannelContent" >
-    insert into channel_content (ChannelContentID, ChannelID, ContentID
+    insert into CHANNEL_CONTENT (ChannelContentID, ChannelID, ContentID
       )
     values (#{channelContentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.ChannelContent" >
-    insert into channel_content
+    insert into CHANNEL_CONTENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="channelContentID != null" >
         ChannelContentID,
@@ -51,7 +51,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.ChannelContent" >
-    update channel_content
+    update CHANNEL_CONTENT
     <set >
       <if test="channelID != null" >
         ChannelID = #{channelID,jdbcType=INTEGER},
@@ -63,7 +63,7 @@
     where ChannelContentID = #{channelContentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.ChannelContent" >
-    update channel_content
+    update CHANNEL_CONTENT
     set ChannelID = #{channelID,jdbcType=INTEGER},
       ContentID = #{contentID,jdbcType=INTEGER}
     where ChannelContentID = #{channelContentID,jdbcType=INTEGER}
