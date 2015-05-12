@@ -52,6 +52,10 @@ public class ContentDetailService implements IContentDetailService {
     @Override
     public boolean createContent(ContentDto content) {
         try {
+            
+            int maxSequence = contentDao.selectMaxSequence();
+            content.setSequence(maxSequence + 1);
+            
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             int userID = (int) sessionMap.get(SSOFilter.USER_ID);
             content.setCreateUser(userID);

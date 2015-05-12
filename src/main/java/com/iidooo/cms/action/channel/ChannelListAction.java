@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelListService;
+import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.dto.PageDto;
-import com.opensymphony.xwork2.ActionSupport;
 
-public class ChannelListAction extends ActionSupport {
+public class ChannelListAction extends BaseAction {
 
     /**
      * 

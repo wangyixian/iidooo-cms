@@ -7,9 +7,9 @@ import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.content.IContentDetailService;
-import com.opensymphony.xwork2.ActionSupport;
+import com.iidooo.core.action.BaseAction;
 
-public class ContentDetailAction extends ActionSupport {
+public class ContentDetailAction extends BaseAction {
 
     /**
      * 

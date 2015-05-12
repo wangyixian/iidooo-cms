@@ -2,15 +2,19 @@ package com.iidooo.cms.action.content;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.service.content.IContentListService;
+import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.dto.PageDto;
-import com.opensymphony.xwork2.ActionSupport;
+import com.iidooo.core.util.PageUtil;
 
-public class ContentListAction extends ActionSupport {
+public class ContentListAction extends BaseAction {
 
     /**
      * 
@@ -27,6 +31,14 @@ public class ContentListAction extends ActionSupport {
     private List<ContentDto> contentList;
 
     private ContentDto content;
+
+    public PageDto getPage() {
+        return page;
+    }
+
+    public void setPage(PageDto page) {
+        this.page = page;
+    }
 
     public List<ContentDto> getContentList() {
         return contentList;
@@ -46,10 +58,14 @@ public class ContentListAction extends ActionSupport {
 
     public String init() {
         try {
-            if (content == null) {
-                this.contentList = contentListService.getContentListByChannel(0, page);
+            if (content == null || content.getChannelID() == null) {
+                int count = contentListService.getContentListCount(0);
+                page = PageUtil.executePage(count, page);
+                this.contentList = contentListService.getContentList(0, page);
             } else {
-                this.contentList = contentListService.getContentListByChannel(content.getChannelID(), page);
+                int count = contentListService.getContentListCount(content.getChannelID());
+                page = PageUtil.executePage(count, page);
+                this.contentList = contentListService.getContentList(content.getChannelID(), page);
             }
             return SUCCESS;
         } catch (Exception e) {
@@ -67,7 +83,7 @@ public class ContentListAction extends ActionSupport {
             }
 
             addActionError(getText("MSG_CONTENT_DELETE_SUCCESS", content.getContentTitle()));
-            this.contentList = contentListService.getContentListByChannel(content.getChannelID(), page);
+            this.contentList = contentListService.getContentList(content.getChannelID(), page);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

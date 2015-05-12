@@ -16,7 +16,6 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.service.content.IContentListService;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.core.util.PageUtil;
 import com.iidooo.passport.filter.SSOFilter;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -29,20 +28,33 @@ public class ContentListService implements IContentListService {
     private ChannelDao channelDao;
 
     @Autowired
-    private ContentDao contentDao;
+    private ContentDao contentDao;   
 
     @Override
-    public List<ContentDto> getContentListByChannel(Integer channelID, PageDto page) {
+    public int getContentListCount(Integer channelID) {
+        int result = 0;
+        try {
+            if (channelID == null || channelID <= 0) {
+                result = contentDao.selectAllCount();
+            } else {
+                List<Integer> channels = getOffspringChannelList(channelID);
+                result = contentDao.selectContentListCountByChannels(channels);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return result;
+    }
+
+    @Override
+    public List<ContentDto> getContentList(Integer channelID, PageDto page) {
         List<ContentDto> result = new ArrayList<ContentDto>();
         try {
             if (channelID == null || channelID <= 0) {
-                int count = contentDao.selectAllCount();
-                page = PageUtil.executePage(count, page);
                 result = contentDao.selectAll(page);
             } else {
                 List<Integer> channels = getOffspringChannelList(channelID);
-                int count = contentDao.selectContentListCountByChannels(channels);
-                page = PageUtil.executePage(count, page);
                 result = contentDao.selectContentListByChannels(channels, page);
             }
         } catch (Exception e) {

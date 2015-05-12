@@ -48,7 +48,14 @@
 	</select>
 
 	<select id="selectAllCount" resultType="java.lang.Integer">
-		select count(*) from CONTENT C where C.IsDelete = '0'
+		select count(*)
+		from CONTENT C
+		left join
+		(select
+		L.ChannelID, L.ChannelName, R.ContentID
+		from CHANNEL_CONTENT R
+		inner join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
+		on L.ContentID = C.ContentID and C.IsDelete = 0
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.core.dto.PageDto">
 		select

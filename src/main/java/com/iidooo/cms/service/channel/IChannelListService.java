@@ -6,7 +6,7 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.core.dto.PageDto;
 
 public interface IChannelListService {
-
+    
     List<ChannelDto> getChildrenChannelList(int parentID);
 
     /**

@@ -44,7 +44,7 @@
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
 		<action name="contentCreate" class="com.iidooo.cms.action.content.ContentDetailAction" method="create">
-			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
+			<result name="success" type="redirect">contentList.action?content.channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
 		<action name="contentUpdate" class="com.iidooo.cms.action.content.ContentDetailAction" method="update">

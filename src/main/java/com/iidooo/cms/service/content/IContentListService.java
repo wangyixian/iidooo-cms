@@ -6,7 +6,10 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.core.dto.PageDto;
 
 public interface IContentListService {
-    List<ContentDto> getContentListByChannel(Integer channelID, PageDto page);
+    
+    int getContentListCount(Integer channelID);
+    
+    List<ContentDto> getContentList(Integer channelID, PageDto page);
     
     boolean deleteContent(ContentDto content);
 }

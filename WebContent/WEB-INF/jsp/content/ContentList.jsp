@@ -42,11 +42,11 @@
 		<div class="page_content_right_wrap">
 			<div class="bread_crumb">
 				<span>当前的位置：</span><span>内容管理 - 内容列表</span>
-			</div>
+			</div>			
 			<div class="page_content">
-				<s:actionerror />
-				<s:actionmessage />
 				<form id="form" action="" method="post">
+					<s:actionerror />
+					<s:actionmessage />
 					<input id="hidChannelID" type="hidden" name="content.channelID" value="${content.channelID }">
 					<input id="hidContentID" type="hidden" name="content.contentID" value="${content.contentID }">
 					<table class="list">
@@ -77,15 +77,15 @@
 							</tr>
 						</s:iterator>
 					</table>
+					<div class="button_bar">
+						<core:dictItem id="selContentType" name="content.contentType" dictClassCode="CONTENT_TYPE"/>					
+						<button type="button" onclick="btnCreate()">发布</button>
+					</div>
+					<div class="block">
+						<hr>
+					</div>
+					<jsp:include page="../include/Paging.jsp"></jsp:include>
 				</form>
-				<div class="button_bar">
-					<core:dictItem id="selContentType" name="content.contentType" dictClassCode="CONTENT_TYPE"/>					
-					<button type="button" onclick="btnCreate()">发布</button>
-				</div>
-				<div class="block">
-					<hr>
-				</div>
-				<jsp:include page="../include/Paging.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
