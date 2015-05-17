@@ -4,7 +4,7 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 
 public interface IContentDetailService {
-    ContentDto getContentByID(ContentDto content);
+    ContentDto getContentByID(Integer contentID);
     
     boolean createContent(ContentDto content);
     

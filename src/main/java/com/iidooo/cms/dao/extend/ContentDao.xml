@@ -190,9 +190,7 @@
 
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ContentDto">
 		update CONTENT
-		set ChannelID = #{channelID,jdbcType=INTEGER},
-		ContentType =
-		#{contentType,jdbcType=CHAR},
+		set ContentType = #{contentType,jdbcType=CHAR},
 		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
 		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
@@ -203,7 +201,7 @@
 		ContentBody =
 		#{contentBody,jdbcType=LONGVARCHAR},
 		Sequence = #{sequence,jdbcType=INTEGER},
-		IsAllowComment = #{isAllowComment,jdbcType=INTEGER},
+		IsSilent = #{isSilent,jdbcType=INTEGER},
 		Remarks =
 		#{remarks,jdbcType=VARCHAR},
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},

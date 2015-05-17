@@ -129,7 +129,7 @@ public class ChannelListTag extends SimpleTagSupport {
             for (int i = 0; i < index; i++) {
                 name = "&nbsp;&nbsp;" + name;
             }
-            if (value != null && !value.isEmpty() && value.equals(channelDto.getChannelID())) {
+            if (value != null && !value.isEmpty() && value.equals(channelDto.getChannelID().toString())) {
                 out.println(StringUtil.replace(HTML_OPTION_SELECT, channelDto.getChannelID().toString(), name));
             } else {
                 out.println(StringUtil.replace(HTML_OPTION, channelDto.getChannelID().toString(), name));

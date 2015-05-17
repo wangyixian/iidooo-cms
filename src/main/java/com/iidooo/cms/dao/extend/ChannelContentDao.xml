@@ -10,9 +10,29 @@
 		ChannelContentID, ChannelID, ContentID
 	</sql>
 
+	<select id="selectContentCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		select count(*) from CHANNEL_CONTENT
+		where ContentID = #{contentID,jdbcType=INTEGER}
+	</select>
+
 	<insert id="insert" parameterType="com.iidooo.cms.dto.extend.ChannelContentDto">
 		insert into CHANNEL_CONTENT (ChannelID, ContentID)
 		values(#{channelID,jdbcType=INTEGER},
 		#{contentID,jdbcType=INTEGER})
 	</insert>
+	
+	<update id="updateByChannelID">
+		update CHANNEL_CONTENT
+		set ChannelID = #{channelContent.channelID,jdbcType=INTEGER},
+		ContentID = #{channelContent.contentID,jdbcType=INTEGER}
+		where 
+		ContentID = #{channelContent.contentID,jdbcType=INTEGER} and
+		ChannelID = #{oldChannelID,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteContent">
+		delete from CHANNEL_CONTENT
+		where ContentID = #{contentID,jdbcType=INTEGER} and
+		ChannelID = #{channelID,jdbcType=INTEGER}
+	</delete>
 </mapper>

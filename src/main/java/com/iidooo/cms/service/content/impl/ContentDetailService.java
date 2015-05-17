@@ -25,21 +25,27 @@ public class ContentDetailService implements IContentDetailService {
 
     @Autowired
     private ContentDao contentDao;
-    
+
     @Autowired
     private ChannelContentDao channelContentDao;
 
     @Autowired
     private ContentProductDao contentProductDao;
-    
+
     @Override
-    public ContentDto getContentByID(ContentDto content) {
+    public ContentDto getContentByID(Integer contentID) {
         try {
-            ContentDto result = null;
-            if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_DEFAULT)) {
-                result = contentDao.selectByContentID(content.getContentID());
-            } else if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_PRODUCT)) {
-                result = contentProductDao.selectByContentID(content.getContentID());
+            ContentDto result = contentDao.selectByContentID(contentID);
+            if (result == null) {
+                return null;
+            }
+            switch (result.getContentType()) {
+            case CmsConstant.CONTENT_TYPE_PRODUCT:
+                result = contentProductDao.selectByContentID(contentID);
+                break;
+
+            default:
+                break;
             }
             return result;
         } catch (Exception e) {
@@ -52,22 +58,22 @@ public class ContentDetailService implements IContentDetailService {
     @Override
     public boolean createContent(ContentDto content) {
         try {
-            
+
             int maxSequence = contentDao.selectMaxSequence();
             content.setSequence(maxSequence + 1);
-            
+
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             int userID = (int) sessionMap.get(SSOFilter.USER_ID);
             content.setCreateUser(userID);
             content.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             content.setUpdateUser(userID);
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-            
+
             int result = contentDao.insert(content);
             if (result <= 0) {
                 return false;
             }
-            
+
             // Insert the channel and content relationship
             ChannelContentDto channelContent = new ChannelContentDto();
             channelContent.setChannelID(content.getChannelID());
@@ -76,7 +82,7 @@ public class ContentDetailService implements IContentDetailService {
             if (result <= 0) {
                 return false;
             }
-            
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,10 +94,10 @@ public class ContentDetailService implements IContentDetailService {
     @Override
     public boolean createContent(ContentDto content, ContentProductDto product) {
         try {
-            if(!this.createContent(content)){
+            if (!this.createContent(content)) {
                 return false;
             }
-            
+
             product.setContentID(content.getContentID());
             int result = contentProductDao.insert(product);
             if (result <= 0) {
@@ -108,6 +114,27 @@ public class ContentDetailService implements IContentDetailService {
     @Override
     public boolean updateContent(ContentDto content) {
         try {
+            Map<String, Object> sessionMap = ActionContext.getContext().getSession();
+            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            content.setUpdateUser(userID);
+            content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+
+            int result = contentDao.updateByPrimaryKey(content);
+            if (result <= 0) {
+                return false;
+            }
+
+            if (content.getChannelID() != content.getNewChannelID()) {
+                // Update the channel and content relationship
+                ChannelContentDto channelContent = new ChannelContentDto();
+                channelContent.setChannelID(content.getNewChannelID());
+                channelContent.setContentID(content.getContentID());
+                result = channelContentDao.updateByChannelID(channelContent, content.getChannelID());
+                if (result <= 0) {
+                    return false;
+                }
+            }
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,6 +146,15 @@ public class ContentDetailService implements IContentDetailService {
     @Override
     public boolean updateContent(ContentDto content, ContentProductDto product) {
         try {
+            if (!this.updateContent(content)) {
+                return false;
+            }
+
+            product.setContentID(content.getContentID());
+            int result = contentProductDao.updateByPrimaryKey(product);
+            if (result <= 0) {
+                return false;
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();

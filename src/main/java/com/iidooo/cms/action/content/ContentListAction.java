@@ -2,10 +2,7 @@ package com.iidooo.cms.action.content;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.dto.extend.ContentDto;
@@ -26,19 +23,9 @@ public class ContentListAction extends BaseAction {
     @Autowired
     private IContentListService contentListService;
 
-    private PageDto page;
-
     private List<ContentDto> contentList;
 
     private ContentDto content;
-
-    public PageDto getPage() {
-        return page;
-    }
-
-    public void setPage(PageDto page) {
-        this.page = page;
-    }
 
     public List<ContentDto> getContentList() {
         return contentList;
@@ -60,12 +47,14 @@ public class ContentListAction extends BaseAction {
         try {
             if (content == null || content.getChannelID() == null) {
                 int count = contentListService.getContentListCount(0);
-                page = PageUtil.executePage(count, page);
-                this.contentList = contentListService.getContentList(0, page);
+                PageDto page = PageUtil.executePage(count, this.getPage());
+                this.setPage(page);
+                this.contentList = contentListService.getContentList(0, this.getPage());
             } else {
                 int count = contentListService.getContentListCount(content.getChannelID());
-                page = PageUtil.executePage(count, page);
-                this.contentList = contentListService.getContentList(content.getChannelID(), page);
+                PageDto page = PageUtil.executePage(count, this.getPage());
+                this.setPage(page);
+                this.contentList = contentListService.getContentList(content.getChannelID(), this.getPage());
             }
             return SUCCESS;
         } catch (Exception e) {
@@ -78,12 +67,14 @@ public class ContentListAction extends BaseAction {
     public String delete() {
         try {
             if (!contentListService.deleteContent(content)) {
-                addActionError(getText("MSG_CONTENT_DELETE_FAILED", content.getContentTitle()));
+                addActionError(getText("MSG_CONTENT_DELETE_FAILED", new String[] { content.getContentTitle() }));
                 return INPUT;
-            }
-
-            addActionError(getText("MSG_CONTENT_DELETE_SUCCESS", content.getContentTitle()));
-            this.contentList = contentListService.getContentList(content.getChannelID(), page);
+            }            
+            
+            // After successfully delete the content, initialize the page content list.
+            this.init();
+            
+            addActionMessage(getText("MSG_CONTENT_DELETE_SUCCESS", new String[] { content.getContentTitle() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

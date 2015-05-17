@@ -44,9 +44,11 @@ public class ContentDetailAction extends BaseAction {
     public String init() {
         try {
             if (content.getContentID() != null) {
-                content = contentInfoService.getContentByID(content);
+                Integer channelID = content.getChannelID();
+                content = contentInfoService.getContentByID(content.getContentID());
+                content.setChannelID(channelID);
                 if (content == null) {
-                    addActionMessage(getText("MSG_CONTENT_NOT_EXIST", content.getContentID().toString()));
+                    addActionMessage(getText("MSG_CONTENT_NOT_EXIST", new String[]{content.getContentID().toString()}));
                     return INPUT;
                 }
 
@@ -116,7 +118,25 @@ public class ContentDetailAction extends BaseAction {
 
     public String update() {
         try {
-
+            switch (content.getContentType()) {
+            case CmsConstant.CONTENT_TYPE_DEFAULT:
+                if(!contentInfoService.updateContent(content)){
+                    addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[]{content.getContentTitle()}));
+                    return INPUT;
+                }
+                break;
+            case CmsConstant.CONTENT_TYPE_PRODUCT:
+                if(!contentInfoService.updateContent(content, product)){
+                    addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[]{content.getContentTitle()}));
+                    return INPUT;
+                }
+                break;
+            }
+            // Because of the jsp page is used the channel ID, so set the new channel id into 
+            if (content.getChannelID() != content.getNewChannelID()) {
+                content.setChannelID(content.getNewChannelID());
+            }
+            addActionMessage(getText("MSG_CONTENT_UPDATE_SUCCESS", new String[]{content.getContentTitle()}));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,6 +147,24 @@ public class ContentDetailAction extends BaseAction {
 
     public void validateUpdate() {
         try {
+            if (content.getContentType().isEmpty()) {
+                addActionError(getText("MSG_CONTENT_TYPE_REQUIRE"));
+            }
+            if (content.getChannelID() == null || content.getChannelID() <= 0 ||
+                    content.getNewChannelID() == null || content.getNewChannelID() <= 0) {
+                addActionError(getText("MSG_CONTENT_CHANNEL_REQUIRE"));
+            }
+            if (content.getContentTitle().isEmpty()) {
+                addActionError(getText("MSG_CONTENT_TITLE_REQUIRE"));
+            }
+            if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_PRODUCT)) {
+                if (product.getProductCountry().isEmpty()) {
+                    addActionError(getText("MSG_CONTENT_PRODUCT_COUNTRY_REQUIRE"));
+                }
+                if (product.getProductOrigin().isEmpty()) {
+                    addActionError(getText("MSG_CONTENT_PRODUCT_ORIGINAL_REQUIRE"));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

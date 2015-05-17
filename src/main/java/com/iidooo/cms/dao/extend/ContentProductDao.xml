@@ -44,18 +44,15 @@
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
-		from IDO_CMS_CONTENT C
+		from CONTENT C
 		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID
 		and C.ContentID = #{contentID}
 	</select>
 	
 	<select id="selectProductsCount" resultType="java.lang.Integer">
 		select count(C.ContentID)		
-		from IDO_CMS_CONTENT C
+		from CONTENT C
 		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
-		<if test="product.productType != null and product.productType > 0" >
-        and P.ProductType = #{product.productType,jdbcType=INTEGER}
-      	</if>
       	<if test="product.productCountry != null and product.productCountry > 0" >
         and P.ProductCountry = #{product.productCountry,jdbcType=INTEGER}
       	</if>
@@ -69,11 +66,8 @@
 	<select id="selectProducts" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />		
-		from IDO_CMS_CONTENT C
+		from CONTENT C
 		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
-		<if test="product.productType != null and product.productType > 0" >
-        and P.ProductType = #{product.productType,jdbcType=INTEGER}
-      	</if>
       	<if test="product.productCountry != null and product.productCountry > 0" >
         and P.ProductCountry = #{product.productCountry,jdbcType=INTEGER}
       	</if>
@@ -95,8 +89,7 @@
 	
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ContentProductDto" >
     update CONTENT_PRODUCT
-    set ProductType = #{productType,jdbcType=CHAR},
-      ProductCountry = #{productCountry,jdbcType=CHAR},
+    set ProductCountry = #{productCountry,jdbcType=CHAR},
       ProductOrigin = #{productOrigin,jdbcType=CHAR}
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>

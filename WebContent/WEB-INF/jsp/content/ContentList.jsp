@@ -24,9 +24,11 @@
 		window.location.href="contentDetail.action?content.contentType=" + contentType;
 	}
 	
-	function deleteContent(contentID){
+	function deleteContent(contentID,channelID,contentTitle){
 		if (confirm("确定要删除该内容吗？")) {
 			$("#hidContentID").val(contentID);
+			$("#hidChannelID").val(channelID);
+			$("#hidContentTitle").val(contentTitle);
 			window.form.action = "contentListDelete.action";
 			window.form.submit();
 	    }
@@ -47,8 +49,9 @@
 				<form id="form" action="" method="post">
 					<s:actionerror />
 					<s:actionmessage />
-					<input id="hidChannelID" type="hidden" name="content.channelID" value="${content.channelID }">
-					<input id="hidContentID" type="hidden" name="content.contentID" value="${content.contentID }">
+					<input id="hidChannelID" type="hidden" name="content.channelID">
+					<input id="hidContentID" type="hidden" name="content.contentID">
+					<input id="hidContentTitle" type="hidden" name="content.contentTitle">
 					<table class="list">
 						<tr>
 							<th width="5%">ID</th>
@@ -61,9 +64,11 @@
 						</tr>
 						<s:iterator id="item" value="contentList" status="st">
 							<tr>
-								<td class="align_center"><a href="contentInfo.action?content.contentID=${item.contentID }&mode=2"> ${item.contentID} </a></td>
+								<td class="align_center">
+									<a href="contentDetail.action?content.contentID=${item.contentID }&content.channelID=${item.channelID}"> ${item.contentID} </a>
+								</td>
 								<td class="align_center">${item.channelName}</td>
-								<td><a href="contentInfo.action?content.contentID=${item.contentID }&mode=2"> ${item.contentTitle} </a></td>
+								<td><a href="contentDetail.action?content.contentID=${item.contentID }&content.channelID=${item.channelID}"> ${item.contentTitle} </a></td>
 								<td>${item.contentSubTitle}</td>
 								<td class="align_center">
 									<s:if test="#item.contentType == 1">默认</s:if>
@@ -73,7 +78,7 @@
 									<s:if test="#item.isSilent == 0">可</s:if>
 									<s:if test="#item.isSilent == 1">否</s:if>
 								</td>
-								<td class="align_center"><a>上移</a>| <a>下移</a>| <a href="#" onclick="return deleteContent(${item.contentID})">删除</a></td>
+								<td class="align_center"><a>上移</a>| <a>下移</a>| <a href="#" onclick="return deleteContent(${item.contentID},${item.channelID },'${item.contentTitle }')">删除</a></td>
 							</tr>
 						</s:iterator>
 					</table>

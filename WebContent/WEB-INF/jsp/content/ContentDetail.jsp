@@ -37,10 +37,11 @@
 				<s:actionerror/>
 				<s:actionmessage/>
 				<form id="form" method="post">					
-					<input id="hidChannelID" type="hidden" value="${content.channelID }">
+					<input id="hidChannelID" type="hidden" name="content.channelID" value="${content.channelID }">
 					<input type="hidden" name="content.contentID" value="${content.contentID}">
 					<input type="hidden" name="content.contentType" value="${content.contentType }">
 					<input type="hidden" name="content.version"	value="${content.version }">		
+					<input type="hidden" name="content.sequence" value="${content.sequence }">		
 					<table class="detail">
 						<tr>							
 							<th width="10%">内容类型</th>		
@@ -49,7 +50,7 @@
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
-								<cms:channelList id="selChannelID" name="content.channelID" value="${content.channelID }"/>	
+								<cms:channelList id="selChannelID" name="content.newChannelID" value="${content.channelID }"/>	
 							</td>			
 						</tr>
 						<tr>

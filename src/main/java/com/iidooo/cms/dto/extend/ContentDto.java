@@ -5,6 +5,9 @@ import com.iidooo.cms.dto.generate.Content;
 public class ContentDto extends Content {
 
     private Integer channelID;
+    
+    // This field for change the content's channel on the ContentDetail Page
+    private Integer newChannelID;
 
     private String channelName;
 
@@ -14,6 +17,14 @@ public class ContentDto extends Content {
 
     public void setChannelID(Integer channelID) {
         this.channelID = channelID;
+    }
+
+    public Integer getNewChannelID() {
+        return newChannelID;
+    }
+
+    public void setNewChannelID(Integer newChannelID) {
+        this.newChannelID = newChannelID;
     }
 
     public String getChannelName() {
