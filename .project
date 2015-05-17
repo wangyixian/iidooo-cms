@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>core</project>
+		<project>passport</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

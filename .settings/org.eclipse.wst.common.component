@@ -6,6 +6,9 @@
         <dependent-module archiveName="core.war" deploy-path="/WEB-INF/lib" handle="module:/resource/core/core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="passport.war" deploy-path="/WEB-INF/lib" handle="module:/resource/passport/passport">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="cms"/>
         <property name="java-output-path" value="/cms/build/classes"/>
     </wb-module>

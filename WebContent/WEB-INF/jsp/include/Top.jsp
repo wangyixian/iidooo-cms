@@ -8,7 +8,7 @@
 	<div class="menu_wrap">
 		<div class="login_info">
 			<ul>
-				<li><a href='${PASSPORT_URL }/logout.action'>退出</a></li>
+				<li><a href='${PASSPORT_URL }/signout.action'>退出</a></li>
 				<li class="">欢迎：${USER_NAME }</li>
 			</ul>
 		</div>
