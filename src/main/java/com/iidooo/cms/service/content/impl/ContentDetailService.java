@@ -15,7 +15,7 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.content.IContentDetailService;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.filter.SSOFilter;
+import com.iidooo.passport.constant.PassportConstant;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -63,7 +63,7 @@ public class ContentDetailService implements IContentDetailService {
             content.setSequence(maxSequence + 1);
 
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
             content.setCreateUser(userID);
             content.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             content.setUpdateUser(userID);
@@ -115,7 +115,7 @@ public class ContentDetailService implements IContentDetailService {
     public boolean updateContent(ContentDto content) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
             content.setUpdateUser(userID);
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 

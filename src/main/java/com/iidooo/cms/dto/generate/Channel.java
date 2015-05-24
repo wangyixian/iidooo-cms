@@ -5,6 +5,8 @@ public class Channel {
 
     private Integer parentID;
 
+    private Integer siteID;
+
     private String channelName;
 
     private String channelPath;
@@ -49,6 +51,14 @@ public class Channel {
 
     public void setParentID(Integer parentID) {
         this.parentID = parentID;
+    }
+
+    public Integer getSiteID() {
+        return siteID;
+    }
+
+    public void setSiteID(Integer siteID) {
+        this.siteID = siteID;
     }
 
     public String getChannelName() {

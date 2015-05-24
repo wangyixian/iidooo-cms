@@ -17,6 +17,7 @@ import com.iidooo.cms.service.channel.IChannelListService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
+import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.filter.SSOFilter;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -60,7 +61,7 @@ public class ChannelListService implements IChannelListService {
     public boolean deleteChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
             channel.setUpdateUser(userID);
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             int count = channelDao.deleteByPrimaryKey(channel);

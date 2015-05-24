@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import com.iidooo.cms.constant.CmsConstant;
+import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.passport.constant.PassportConstant;
 
 public class ApplicationListener extends HttpServlet implements ServletContextListener {
 
@@ -27,11 +29,6 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
         try {
             ServletContext sc = arg0.getServletContext();
             
-            String coreURL = sc.getInitParameter(CmsConstant.CORE_URL);
-            sc.setAttribute(CmsConstant.CORE_URL, coreURL);
-            
-            String passportURL = sc.getInitParameter(CmsConstant.PASSPORT_URL);
-            sc.setAttribute(CmsConstant.PASSPORT_URL, passportURL);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

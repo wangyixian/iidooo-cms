@@ -10,7 +10,7 @@ public interface ChannelDao {
      * Select all of the channels
      * @return The list of channels
      */
-    List<ChannelDto> selectAll();
+    List<ChannelDto> selectChannelsBySite(String siteCode);
 
     /**
      * Get the channel list by the parent ID

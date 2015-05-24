@@ -24,6 +24,8 @@ public class ContentListAction extends BaseAction {
     private IContentListService contentListService;
 
     private List<ContentDto> contentList;
+    
+    private String siteCode;
 
     private ContentDto content;
 
@@ -33,6 +35,14 @@ public class ContentListAction extends BaseAction {
 
     public void setContentList(List<ContentDto> contentList) {
         this.contentList = contentList;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 
     public ContentDto getContent() {
@@ -46,15 +56,15 @@ public class ContentListAction extends BaseAction {
     public String init() {
         try {
             if (content == null || content.getChannelID() == null) {
-                int count = contentListService.getContentListCount(0);
+                int count = contentListService.getContentListCount(0, siteCode);
                 PageDto page = PageUtil.executePage(count, this.getPage());
                 this.setPage(page);
-                this.contentList = contentListService.getContentList(0, this.getPage());
+                this.contentList = contentListService.getContentList(0, this.getPage(), siteCode);
             } else {
-                int count = contentListService.getContentListCount(content.getChannelID());
+                int count = contentListService.getContentListCount(content.getChannelID(), siteCode);
                 PageDto page = PageUtil.executePage(count, this.getPage());
                 this.setPage(page);
-                this.contentList = contentListService.getContentList(content.getChannelID(), this.getPage());
+                this.contentList = contentListService.getContentList(content.getChannelID(), this.getPage(), siteCode);
             }
             return SUCCESS;
         } catch (Exception e) {

@@ -29,6 +29,8 @@ public class ChannelTreeTag extends SimpleTagSupport {
     private String title;
 
     private String baseURL;
+    
+    private String siteCode;
 
     public String getTitle() {
         return title;
@@ -44,6 +46,14 @@ public class ChannelTreeTag extends SimpleTagSupport {
 
     public void setBaseURL(String baseURL) {
         this.baseURL = baseURL;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 
     @Override
@@ -66,7 +76,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
             String folder = StringUtil.replace(FOLD_TREE_NODE, url, this.title);
             out.println("<li>" + folder);
 
-            List<ChannelDto> channelList = channelDao.selectAll();
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

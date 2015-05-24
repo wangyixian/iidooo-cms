@@ -39,6 +39,8 @@ public class ChannelListTag extends SimpleTagSupport {
     private boolean isDiabled = false;
 
     private boolean isContainBlank = false;
+    
+    private String siteCode;
 
     private int index = 0;
 
@@ -82,6 +84,14 @@ public class ChannelListTag extends SimpleTagSupport {
         this.isContainBlank = isContainBlank;
     }
 
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
+
     @Override
     public void doTag() throws JspException, IOException {
         PageContext pageContext = null;
@@ -102,7 +112,7 @@ public class ChannelListTag extends SimpleTagSupport {
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
-            List<ChannelDto> channelList = channelDao.selectAll();
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

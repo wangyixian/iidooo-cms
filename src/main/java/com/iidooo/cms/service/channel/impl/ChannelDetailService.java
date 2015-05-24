@@ -11,7 +11,7 @@ import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelDetailService;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.filter.SSOFilter;
+import com.iidooo.passport.constant.PassportConstant;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -50,7 +50,7 @@ public class ChannelDetailService implements IChannelDetailService {
     public boolean createChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
             channel.setCreateUser(userID);
             channel.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             channel.setUpdateUser(userID);
@@ -92,7 +92,7 @@ public class ChannelDetailService implements IChannelDetailService {
     public boolean updateChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
             channel.setUpdateUser(userID);
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 

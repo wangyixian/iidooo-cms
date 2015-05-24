@@ -49,7 +49,21 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-
+	<tag>
+		<name>channelMenu</name>
+		<tag-class>com.iidooo.cms.tag.ChannelMenuTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>siteCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>channelPath</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 	<tag>
 		<name>contentListBlock</name>
 		<tag-class>com.iidooo.cms.client.tag.ContentListBlockTag</tag-class>

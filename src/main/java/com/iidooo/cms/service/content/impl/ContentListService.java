@@ -17,7 +17,7 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.service.content.IContentListService;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.filter.SSOFilter;
+import com.iidooo.passport.constant.PassportConstant;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -35,13 +35,13 @@ public class ContentListService implements IContentListService {
     private ChannelContentDao channelContentDao;
 
     @Override
-    public int getContentListCount(Integer channelID) {
+    public int getContentListCount(Integer channelID, String siteCode) {
         int result = 0;
         try {
             if (channelID == null || channelID <= 0) {
                 result = contentDao.selectAllCount();
             } else {
-                List<Integer> channels = getOffspringChannelList(channelID);
+                List<Integer> channels = getOffspringChannelList(channelID, siteCode);
                 result = contentDao.selectContentListCountByChannels(channels);
             }
         } catch (Exception e) {
@@ -52,13 +52,13 @@ public class ContentListService implements IContentListService {
     }
 
     @Override
-    public List<ContentDto> getContentList(Integer channelID, PageDto page) {
+    public List<ContentDto> getContentList(Integer channelID, PageDto page, String siteCode) {
         List<ContentDto> result = new ArrayList<ContentDto>();
         try {
             if (channelID == null || channelID <= 0) {
                 result = contentDao.selectAll(page);
             } else {
-                List<Integer> channels = getOffspringChannelList(channelID);
+                List<Integer> channels = getOffspringChannelList(channelID, siteCode);
                 result = contentDao.selectContentListByChannels(channels, page);
             }
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ContentListService implements IContentListService {
             // If there is no relationship of this content and any channel, delete the content from Content Table.
             if (channelContentDao.selectContentCount(content.getContentID()) <= 0) {
                 Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-                int userID = (int) sessionMap.get(SSOFilter.USER_ID);
+                int userID = (int) sessionMap.get(PassportConstant.USER_ID);
                 content.setUpdateUser(userID);
                 content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
                 int count = contentDao.deleteByPrimaryKey(content);
@@ -98,12 +98,12 @@ public class ContentListService implements IContentListService {
         }
     }
 
-    private List<Integer> getOffspringChannelList(Integer channelID) {
+    private List<Integer> getOffspringChannelList(Integer channelID, String siteCode) {
         List<Integer> result = new ArrayList<Integer>();
         try {
             result.add(channelID);
 
-            List<ChannelDto> channelList = channelDao.selectAll();
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode);
             this.counstructChildren(channelList);
 
             for (ChannelDto item : channelList) {

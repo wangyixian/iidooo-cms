@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ChannelDto">
 		<id column="ChannelID" property="channelID" jdbcType="INTEGER" />
 		<result column="ParentID" property="parentID" jdbcType="INTEGER" />
+		<result column="SiteID" property="siteID" jdbcType="INTEGER" />
 		<result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
 		<result column="ChannelPath" property="channelPath" jdbcType="VARCHAR" />
 		<result column="ChannelLevel" property="channelLevel" jdbcType="INTEGER" />
@@ -21,17 +22,18 @@
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		C.ChannelID, C.ParentID, C.ChannelName, C.ChannelPath, C.ChannelLevel, C.MetaTitle,
+		C.ChannelID, C.ParentID, C.SiteID, C.ChannelName, C.ChannelPath, C.ChannelLevel, C.MetaTitle,
 		C.MetaKeywords,
 		C.MetaDescription,C.Sequence,C.IsHidden, C.Remarks, C.CreateTime,
 		C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 
-	<select id="selectAll" resultMap="BaseResultMap">
+	<select id="selectChannelsBySite" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="Base_Column_List" />, S.SiteURL as siteURL
 		from CHANNEL C
-		where C.IsDelete = 0
+		join SITE S
+		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
 	</select>
 
 	<select id="selectChannelByPath" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -58,6 +60,7 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		insert into CHANNEL (
 		ParentID,
+		SiteID,
 		ChannelName,
 		ChannelPath,
 		ChannelLevel,
@@ -72,6 +75,7 @@
 		)
 		values
 		(#{parentID,jdbcType=INTEGER},
+		#{siteID,jdbcType=INTEGER},
 		#{channelName,jdbcType=VARCHAR},
 		#{channelPath,jdbcType=VARCHAR},
 		#{channelLevel,jdbcType=INTEGER},#{metaTitle,jdbcType=VARCHAR},
