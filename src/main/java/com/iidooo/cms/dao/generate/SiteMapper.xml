@@ -3,8 +3,8 @@
 <mapper namespace="com.iidooo.cms.dao.generate.SiteMapper" >
   <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.Site" >
     <id column="SiteID" property="siteID" jdbcType="INTEGER" />
-    <result column="SitelCode" property="sitelCode" jdbcType="VARCHAR" />
-    <result column="SitelName" property="sitelName" jdbcType="VARCHAR" />
+    <result column="SiteCode" property="siteCode" jdbcType="VARCHAR" />
+    <result column="SiteName" property="siteName" jdbcType="VARCHAR" />
     <result column="SiteURL" property="siteURL" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    SiteID, SitelCode, SitelName, SiteURL, Remarks, CreateTime, CreateUser, UpdateTime, 
+    SiteID, SiteCode, SiteName, SiteURL, Remarks, CreateTime, CreateUser, UpdateTime, 
     UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,11 +29,11 @@
     where SiteID = #{siteID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Site" >
-    insert into SITE (SiteID, SitelCode, SitelName, 
+    insert into SITE (SiteID, SiteCode, SiteName, 
       SiteURL, Remarks, CreateTime, 
       CreateUser, UpdateTime, UpdateUser, 
       IsDelete, Version)
-    values (#{siteID,jdbcType=INTEGER}, #{sitelCode,jdbcType=VARCHAR}, #{sitelName,jdbcType=VARCHAR}, 
+    values (#{siteID,jdbcType=INTEGER}, #{siteCode,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, 
       #{siteURL,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
       #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
@@ -44,11 +44,11 @@
       <if test="siteID != null" >
         SiteID,
       </if>
-      <if test="sitelCode != null" >
-        SitelCode,
+      <if test="siteCode != null" >
+        SiteCode,
       </if>
-      <if test="sitelName != null" >
-        SitelName,
+      <if test="siteName != null" >
+        SiteName,
       </if>
       <if test="siteURL != null" >
         SiteURL,
@@ -79,11 +79,11 @@
       <if test="siteID != null" >
         #{siteID,jdbcType=INTEGER},
       </if>
-      <if test="sitelCode != null" >
-        #{sitelCode,jdbcType=VARCHAR},
+      <if test="siteCode != null" >
+        #{siteCode,jdbcType=VARCHAR},
       </if>
-      <if test="sitelName != null" >
-        #{sitelName,jdbcType=VARCHAR},
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
       </if>
       <if test="siteURL != null" >
         #{siteURL,jdbcType=VARCHAR},
@@ -114,11 +114,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.Site" >
     update SITE
     <set >
-      <if test="sitelCode != null" >
-        SitelCode = #{sitelCode,jdbcType=VARCHAR},
+      <if test="siteCode != null" >
+        SiteCode = #{siteCode,jdbcType=VARCHAR},
       </if>
-      <if test="sitelName != null" >
-        SitelName = #{sitelName,jdbcType=VARCHAR},
+      <if test="siteName != null" >
+        SiteName = #{siteName,jdbcType=VARCHAR},
       </if>
       <if test="siteURL != null" >
         SiteURL = #{siteURL,jdbcType=VARCHAR},
@@ -149,8 +149,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.Site" >
     update SITE
-    set SitelCode = #{sitelCode,jdbcType=VARCHAR},
-      SitelName = #{sitelName,jdbcType=VARCHAR},
+    set SiteCode = #{siteCode,jdbcType=VARCHAR},
+      SiteName = #{siteName,jdbcType=VARCHAR},
       SiteURL = #{siteURL,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

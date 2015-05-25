@@ -64,6 +64,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
 	<tag>
 		<name>contentListBlock</name>
 		<tag-class>com.iidooo.cms.client.tag.ContentListBlockTag</tag-class>
@@ -122,8 +123,13 @@
 
 	<tag>
 		<name>contentList</name>
-		<tag-class>com.iidooo.cms.client.tag.ContentListTag</tag-class>
+		<tag-class>com.iidooo.cms.tag.ContentListTag</tag-class>
 		<body-content>empty</body-content>
+		<attribute>
+			<name>siteCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 		<attribute>
 			<name>channelPath</name>
 			<required>true</required>

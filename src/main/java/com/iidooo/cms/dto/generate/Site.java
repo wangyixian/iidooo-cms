@@ -3,9 +3,9 @@ package com.iidooo.cms.dto.generate;
 public class Site {
     private Integer siteID;
 
-    private String sitelCode;
+    private String siteCode;
 
-    private String sitelName;
+    private String siteName;
 
     private String siteURL;
 
@@ -31,20 +31,20 @@ public class Site {
         this.siteID = siteID;
     }
 
-    public String getSitelCode() {
-        return sitelCode;
+    public String getSiteCode() {
+        return siteCode;
     }
 
-    public void setSitelCode(String sitelCode) {
-        this.sitelCode = sitelCode == null ? null : sitelCode.trim();
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode == null ? null : siteCode.trim();
     }
 
-    public String getSitelName() {
-        return sitelName;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public void setSitelName(String sitelName) {
-        this.sitelName = sitelName == null ? null : sitelName.trim();
+    public void setSiteName(String siteName) {
+        this.siteName = siteName == null ? null : siteName.trim();
     }
 
     public String getSiteURL() {

@@ -98,7 +98,7 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM CONTENT C
-		INNER JOIN IDO_CMS_CHANNEL L
+		INNER JOIN CHANNEL L
 		ON C.ChannelID = L.ChannelID AND L.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 		AND L.IsDelete = 0
 		AND
@@ -152,10 +152,11 @@
 		select
 		<include refid="Base_Column_List" />
 		from CONTENT C
-		join IDO_CMS_CHANNEL L
+		join CHANNEL L
 		on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
-		and L.ChannelPath =
-		#{channelPath,jdbcType=VARCHAR}
+		and L.ChannelPath =	#{channelPath,jdbcType=VARCHAR}
+		join SITE S
+		on S.SiteID = L.SiteID and S.IsDelete = 0 and S.SiteCode = #{siteCode,jdbcType=VARCHAR}
 		order by C.${page.sortField} ${page.sortType} limit #{page.start}, #{page.pageSize}
 	</select>
 

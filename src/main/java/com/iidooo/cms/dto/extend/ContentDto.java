@@ -1,6 +1,7 @@
 package com.iidooo.cms.dto.extend;
 
 import com.iidooo.cms.dto.generate.Content;
+import com.iidooo.core.util.DateUtil;
 
 public class ContentDto extends Content {
 
@@ -33,5 +34,10 @@ public class ContentDto extends Content {
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
+    }
+    
+    public String getUpdateDate(){
+        String date =  DateUtil.format(this.getUpdateTime(), DateUtil.FORMAT_DATETIME, DateUtil.FORMAT_DATE);
+        return date;
     }
 }

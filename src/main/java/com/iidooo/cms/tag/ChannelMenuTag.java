@@ -53,7 +53,6 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        logger.debug("MainMenuTag doTag method execute start.");
         PageContext pageContext = null;
         JspWriter out = null;
         try {
@@ -67,7 +66,7 @@ public class ChannelMenuTag extends SimpleTagSupport {
             
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CHANNELS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CmsConstant.CHANNEL_LIST);
+            JSONArray jsonArray = jsonObject.getJSONArray(CmsConstant.REST_API_RESULT_CHANNEL_LIST);
 
             out.println("<ul class='channel_menu'>");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -89,7 +88,6 @@ public class ChannelMenuTag extends SimpleTagSupport {
             }
 
             out.println("</ul>");
-            logger.debug("MainMenuTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

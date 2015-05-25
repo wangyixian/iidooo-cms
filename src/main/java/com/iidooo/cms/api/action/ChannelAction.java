@@ -47,7 +47,7 @@ public class ChannelAction extends BaseAPIAction{
 
                 JSONObject jsonObject = new JSONObject();
                 JSONArray jsonArray = JSONArray.fromObject(channelList);
-                jsonObject.put(CmsConstant.CHANNEL_LIST, jsonArray);
+                jsonObject.put(CmsConstant.REST_API_RESULT_CHANNEL_LIST, jsonArray);
                 HttpServletResponse response = ServletActionContext.getResponse();
                 response.setContentType(CoreConstants.APPLICATION_JSON);
                 response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
