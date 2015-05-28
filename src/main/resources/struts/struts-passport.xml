@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="passport" extends="basic">
+		<action name="signin" class="com.iidooo.passport.action.LoginAction" method="signin">
+			<result name="success" type="redirect">index.action</result>
+			<result name="input">/WEB-INF/jsp/Login.jsp</result>
+			
+		</action>
+		<action name="signout" class="com.iidooo.passport.action.LoginAction" method="signout">
+			<result name="success">/WEB-INF/jsp/Login.jsp</result>
+		</action>
+
+		<action name="index" class="com.iidooo.passport.action.IndexAction" method="init">
+			<result name="success">/WEB-INF/jsp/Index.jsp</result>
+		</action>
+
+		<action name="userinfo" class="com.iidooo.passport.action.UserinfoAction" method="init">
+			<result name="success">/WEB-INF/jsp/Userinfo.jsp</result>
+		</action>
+		<action name="saveUserinfo" class="com.iidooo.passport.action.UserinfoAction" method="save">
+			<result name="success">/WEB-INF/jsp/Userinfo.jsp</result>
+			<result name="input">/WEB-INF/jsp/Userinfo.jsp</result>
+		</action>
+
+		<action name="password" class="com.iidooo.passport.action.PasswordAction" method="init">
+			<result name="success">/WEB-INF/jsp/Password.jsp</result>
+		</action>
+		<action name="savePassword" class="com.iidooo.passport.action.PasswordAction" method="save">
+			<result name="success">/WEB-INF/jsp/Password.jsp</result>
+			<result name="input">/WEB-INF/jsp/Password.jsp</result>
+		</action>
+	</package>
+</struts>

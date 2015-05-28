@@ -1,8 +1,6 @@
 package com.iidooo.cms.dto.generate;
 
-import com.iidooo.cms.dto.extend.ContentDto;
-
-public class ContentProduct extends ContentDto{
+public class ContentProduct {
     private Integer contentID;
 
     private String productCountry;

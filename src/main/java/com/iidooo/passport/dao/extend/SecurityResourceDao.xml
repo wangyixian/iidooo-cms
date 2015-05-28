@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.passport.dao.extend.SecurityResourceDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.extend.SecurityResourceDto" >
+    <id column="ResourceID" property="resourceID" jdbcType="INTEGER" />
+    <result column="ParentID" property="parentID" jdbcType="INTEGER" />
+    <result column="ResourceCode" property="resourceCode" jdbcType="VARCHAR" />
+    <result column="ResourceName" property="resourceName" jdbcType="VARCHAR" />
+    <result column="ResourceURL" property="resourceURL" jdbcType="VARCHAR" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ResourceID, ParentID, ResourceCode, ResourceName, ResourceURL, Remarks, CreateTime, 
+    CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_resource
+    where IsDelete = 0
+  </select>
+</mapper>

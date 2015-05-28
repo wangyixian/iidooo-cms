@@ -33,6 +33,10 @@
 		</global-exception-mappings>
 	</package>
 
+	<include file="struts/struts-core.xml"></include>
+	<include file="struts/struts-core-api.xml"></include>
+	<include file="struts/struts-passport.xml"></include>
+	<include file="struts/struts-passport-api.xml"></include>
 	<include file="struts/struts-cms.xml"></include>
 	<include file="struts/struts-cms-api.xml"></include>
 	

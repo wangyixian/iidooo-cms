@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="core" extends="basic">
+
+		<action name="index" class="com.iidooo.core.action.IndexAction" method="init">
+			<result name="success">/WEB-INF/jsp/Index.jsp</result>
+		</action>
+
+
+		<!-- The ajax action did not need the result, the result will output as json -->
+		<!-- <action name="fileUpload" class="com.iidooo.framework.action.FileUploadAction" method="upload"> <interceptor-ref name="adminStackWrap"></interceptor-ref> 
+			</action> <action name="kindEditorFileManager" class="com.iidooo.framework.action.KindEditorFileManagerAction" method="manage"> <interceptor-ref name="adminStackWrap"></interceptor-ref> 
+			</action> -->
+	</package>
+</struts>

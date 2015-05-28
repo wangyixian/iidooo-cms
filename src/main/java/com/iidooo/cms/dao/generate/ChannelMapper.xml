@@ -29,15 +29,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from CHANNEL
+    from CMS_CHANNEL
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from CHANNEL
+    delete from CMS_CHANNEL
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    insert into CHANNEL (ChannelID, ParentID, SiteID, 
+    insert into CMS_CHANNEL (ChannelID, ParentID, SiteID, 
       ChannelName, ChannelPath, ChannelLevel, 
       MetaTitle, MetaKeywords, MetaDescription, 
       Sequence, IsHidden, Remarks, 
@@ -53,7 +53,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    insert into CHANNEL
+    insert into CMS_CHANNEL
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="channelID != null" >
         ChannelID,
@@ -168,7 +168,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    update CHANNEL
+    update CMS_CHANNEL
     <set >
       <if test="parentID != null" >
         ParentID = #{parentID,jdbcType=INTEGER},
@@ -225,7 +225,7 @@
     where ChannelID = #{channelID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.Channel" >
-    update CHANNEL
+    update CMS_CHANNEL
     set ParentID = #{parentID,jdbcType=INTEGER},
       SiteID = #{siteID,jdbcType=INTEGER},
       ChannelName = #{channelName,jdbcType=VARCHAR},

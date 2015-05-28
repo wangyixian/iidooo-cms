@@ -7,7 +7,7 @@
 	</welcome-file-list>
 	
 	<!-- Config the SSO passport filter -->
-	<filter>
+	<!-- <filter>
 		<filter-name>sso</filter-name>
 		<filter-class>com.iidooo.passport.filter.SSOFilter</filter-class>
 		<init-param>
@@ -18,7 +18,7 @@
 	<filter-mapping>
 		<filter-name>sso</filter-name>
 		<url-pattern>*.action</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 
 	<!-- 编码统一最好放最上面，最先加载，防止乱码 -->
 	<filter>
@@ -76,7 +76,7 @@
 	</context-param>
 
 	<!-- The listener of this application. Append the configuration of application need. -->
-	<listener>
+	<!-- <listener>
 		<listener-class>com.iidooo.core.listener.ApplicationListener</listener-class>
 	</listener>
 	<context-param>
@@ -90,7 +90,7 @@
 	<context-param>
 		<param-name>PASSPORT_URL</param-name>
 		<param-value>http://localhost:8080/passport</param-value>
-	</context-param>
+	</context-param> -->
 
 	<session-config>
 		<session-timeout>30</session-timeout>

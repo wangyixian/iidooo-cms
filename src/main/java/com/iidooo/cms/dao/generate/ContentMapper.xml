@@ -37,15 +37,15 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from CONTENT
+    from CMS_CONTENT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from CONTENT
+    delete from CMS_CONTENT
     where ContentID = #{contentID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Content" >
-    insert into CONTENT (ContentID, ContentType, ContentTitle, 
+    insert into CMS_CONTENT (ContentID, ContentType, ContentTitle, 
       ContentSubTitle, ContentImageTitle, MetaTitle, 
       MetaKeywords, MetaDescription, ContentSummary, 
       Sequence, IsSilent, Remarks, 
@@ -61,7 +61,7 @@
       #{contentBody,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Content" >
-    insert into CONTENT
+    insert into CMS_CONTENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="contentID != null" >
         ContentID,
@@ -182,7 +182,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.Content" >
-    update CONTENT
+    update CMS_CONTENT
     <set >
       <if test="contentType != null" >
         ContentType = #{contentType,jdbcType=CHAR},
@@ -242,7 +242,7 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.dto.generate.Content" >
-    update CONTENT
+    update CMS_CONTENT
     set ContentType = #{contentType,jdbcType=CHAR},
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
@@ -264,7 +264,7 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.Content" >
-    update CONTENT
+    update CMS_CONTENT
     set ContentType = #{contentType,jdbcType=CHAR},
       ContentTitle = #{contentTitle,jdbcType=VARCHAR},
       ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},

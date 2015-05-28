@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.passport.dao.extend.SecurityUserDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.extend.SecurityUserDto" >
+    <id column="UserID" property="userID" jdbcType="INTEGER" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR" />
+    <result column="LoginID" property="loginID" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Birthday" property="birthday" jdbcType="CHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="Telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UserID, UserName, LoginID, Password, IsDisable, Sex, Birthday, Email, Wechat, Telephone, 
+    Description, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from SECURITY_USER
+    where UserID = #{userID,jdbcType=INTEGER} and IsDelete = 0
+  </select>
+  
+  <select id="selectForLogin" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from SECURITY_USER
+    where LoginID = #{loginID} and Password = #{password} and IsDelete = 0
+  </select>
+  
+  <select id="selectByLoginID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SECURITY_USER
+    where LoginID = #{loginID,jdbcType=INTEGER} and IsDelete = 0
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.extend.SecurityUserDto" >
+    update SECURITY_USER
+    set UserName = #{userName,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=CHAR},
+      Birthday = #{birthday,jdbcType=CHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      Wechat = #{wechat,jdbcType=VARCHAR},
+      Telephone = #{telephone,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      Version = Version + 1
+    where UserID = #{userID,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updatePassword" parameterType="com.iidooo.passport.dto.extend.SecurityUserDto" >
+    update SECURITY_USER
+    set Password = #{password,jdbcType=VARCHAR},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      Version = Version + 1
+    where UserID = #{userID,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
