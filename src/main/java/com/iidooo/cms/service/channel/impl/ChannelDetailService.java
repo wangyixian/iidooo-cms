@@ -35,9 +35,9 @@ public class ChannelDetailService implements IChannelDetailService {
     }
 
     @Override
-    public ChannelDto getChannelByPath(String channelPath) {
+    public ChannelDto getChannelByPath(String siteCode, String channelPath) {
         try {
-            ChannelDto result = channelDao.selectChannelByPath(channelPath);
+            ChannelDto result = channelDao.selectChannelByPath(siteCode, channelPath);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

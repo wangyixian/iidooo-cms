@@ -3,7 +3,6 @@ package com.iidooo.cms.api.action;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
@@ -20,14 +19,14 @@ import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dto.PageDto;
 
-public class ContentAction extends BaseAPIAction {
+public class ContentProductAction extends BaseAPIAction {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ContentAction.class);
+    private static final Logger logger = Logger.getLogger(ContentProductAction.class);
 
     @Autowired
     private IContentService contentService;

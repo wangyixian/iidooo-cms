@@ -21,6 +21,19 @@ public class ContentService implements IContentService {
     private ContentDao contentDao;
 
     @Override
+    public ContentDto getContent(int contentID) {
+        try {
+            ContentDto result  = null;
+            result = contentDao.selectByContentID(contentID);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+
+    @Override
     public List<ContentDto> getContentList(String siteCode, String channelPath, PageDto page) {
         List<ContentDto> result = new ArrayList<ContentDto>();
         try {

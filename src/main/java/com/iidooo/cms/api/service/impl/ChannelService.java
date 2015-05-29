@@ -29,4 +29,19 @@ public class ChannelService implements IChannelService{
         }
         return result;
     }
+
+    @Override
+    public ChannelDto getChannel(String siteCode, String channelPath) {
+        try {
+            ChannelDto result = null; 
+            result = channelDao.selectChannelByPath(siteCode, channelPath);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+    
+    
 }

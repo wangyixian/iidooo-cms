@@ -124,10 +124,22 @@ public abstract class BaseAction extends ActionSupport {
      * @param key Request作用域的存储方式是Map，通过该Key获取值
      * @return 获得的值是个String对象
      */
-    public String getRequestValue(String key) {
+    public String getRequestParameter(String key) {
         try {
             HttpServletRequest request = this.getRequest();
             String value = request.getParameter(key);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+    
+    public String getRequestMethod(){
+        try {
+            HttpServletRequest request = this.getRequest();
+            String value = request.getMethod();
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,11 +190,7 @@ public abstract class BaseAction extends ActionSupport {
      * @return HttpServletRequest
      */
     public HttpServletRequest getRequest() {
-        logger.debug("The begin of the method getRequest");
-
         HttpServletRequest request = ServletActionContext.getRequest();
-
-        logger.debug("The end of the method getRequest");
         return request;
     }
 
@@ -192,11 +200,7 @@ public abstract class BaseAction extends ActionSupport {
      * @return HttpServletResponse
      */
     public HttpServletResponse getResponse() {
-        logger.debug("The begin of the method getResponse");
-
         HttpServletResponse response = ServletActionContext.getResponse();
-
-        logger.debug("The end of the method getResponse");
         return response;
     }
 

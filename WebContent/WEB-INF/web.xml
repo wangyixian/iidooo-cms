@@ -76,14 +76,14 @@
 	</context-param>
 
 	<!-- The listener of this application. Append the configuration of application need. -->
-	<!-- <listener>
-		<listener-class>com.iidooo.core.listener.ApplicationListener</listener-class>
+	<listener>
+		<listener-class>com.iidooo.cms.listener.ApplicationListener</listener-class>
 	</listener>
 	<context-param>
-		<param-name>CORE_URL</param-name>
-		<param-value>http://localhost:8080/core</param-value>
+		<param-name>CMS_URL</param-name>
+		<param-value>http://localhost:8080/cms</param-value>
 	</context-param>
-	
+	<!-- 
 	<listener>
 		<listener-class>com.iidooo.passport.listener.ApplicationListener</listener-class>
 	</listener>

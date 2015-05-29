@@ -48,7 +48,7 @@ public class ChannelDetailAction extends BaseAction {
     public String create() {
         try {
 
-            if (channelInfoService.getChannelByPath(channel.getChannelPath()) != null) {
+            if (channelInfoService.getChannelByPath(channel.getSiteCode(), channel.getChannelPath()) != null) {
                 addActionError(getText("MSG_CHANNEL_CREATE_FAILED_DUPLICATE"));
                 return INPUT;
             }

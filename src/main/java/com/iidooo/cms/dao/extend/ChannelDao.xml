@@ -31,22 +31,25 @@
 	<select id="selectChannelsBySite" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />, S.SiteURL as siteURL
-		from CHANNEL C
-		join SITE S
+		from CMS_CHANNEL C
+		join CMS_SITE S
 		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
 	</select>
 
-	<select id="selectChannelByPath" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="selectChannelByPath" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from CHANNEL C
-		where C.IsDelete = 0 and
+		from CMS_CHANNEL C
+		join CMS_SITE S
+		on C.IsDelete = 0 and S.IsDelete = 0 and 
+		S.SiteCode = #{siteCode,jdbcType=VARCHAR} and
 		C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 	</select>
+	
 	<select id="selectChannelByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from CHANNEL C
+		from CMS_CHANNEL C
 		where C.IsDelete = 0 and
 		C.ChannelID = #{channelID,jdbcType=INTEGER}
 	</select>
@@ -54,11 +57,11 @@
 	<select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = 0 order by C.Sequence
+		from CMS_CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = 0 order by C.Sequence
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
-		insert into CHANNEL (
+		insert into CMS_CHANNEL (
 		ParentID,
 		SiteID,
 		ChannelName,
@@ -90,7 +93,7 @@
 	</insert>
 
 	<update id="update" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
-		update CHANNEL
+		update CMS_CHANNEL
 		set ParentID = #{parentID,jdbcType=INTEGER},
 		ChannelName =
 		#{channelName,jdbcType=VARCHAR},
@@ -118,7 +121,7 @@
 	</update>
 
 	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
-		update CHANNEL
+		update CMS_CHANNEL
 		set IsDelete = '1',
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
 		UpdateUser =

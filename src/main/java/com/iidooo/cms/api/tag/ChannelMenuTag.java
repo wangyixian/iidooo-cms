@@ -1,4 +1,4 @@
-package com.iidooo.cms.tag;
+package com.iidooo.cms.api.tag;
 
 import java.io.IOException;
 import java.util.List;

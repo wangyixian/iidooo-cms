@@ -6,4 +6,6 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 
 public interface IChannelService {
     List<ChannelDto> getChannelList(String siteCode);
+    
+    ChannelDto getChannel(String siteCode, String channelPath);
 }

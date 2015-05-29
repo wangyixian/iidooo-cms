@@ -18,7 +18,7 @@ public interface IChannelDetailService {
      * @param channelPath This channel path's channel will be gotten.
      * @return The gotten channel.
      */
-    ChannelDto getChannelByPath(String channelPath);
+    ChannelDto getChannelByPath(String siteCode, String channelPath);
 
     boolean createChannel(ChannelDto channel);
 

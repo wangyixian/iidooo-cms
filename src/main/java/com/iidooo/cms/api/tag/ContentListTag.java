@@ -1,4 +1,4 @@
-package com.iidooo.cms.tag;
+package com.iidooo.cms.api.tag;
 
 import java.io.IOException;
 
@@ -135,10 +135,10 @@ public class ContentListTag extends SimpleTagSupport {
 
                 JSONObject item = (JSONObject) jsonArray.get(i);
                 String siteURL = item.getString(CmsConstant.FIELD_SITE_URL);
-                String contentID = item.getString(CmsConstant.CONTENT_FIELD_ID);
-                String contentTitle = item.getString(CmsConstant.CONTENT_FIELD_TITLE);
-                String contentImageTitle = item.getString(CmsConstant.CONTENT_FIELD_IMAGE_TITLE);
-                String contentDate = item.getString(CmsConstant.CONTENT_FIELD_UPDATE_DATE);
+                String contentID = item.getString(CmsConstant.FIELD_CONTENT_ID);
+                String contentTitle = item.getString(CmsConstant.FIELD_CONTENT_TITLE);
+                String contentImageTitle = item.getString(CmsConstant.FIELD_CONTENT_IMAGE_TITLE);
+                String contentDate = item.getString(CmsConstant.FIELD_CONTENT_UPDATE_DATE);
                 
                 out.println("<li>");
                 out.println("<div class='block_content_item'>");

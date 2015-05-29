@@ -3,7 +3,6 @@ package com.iidooo.cms.api.action;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
@@ -20,6 +19,7 @@ import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
 
 public class ChannelAction extends BaseAPIAction{
+    
     /**
      * 
      */
@@ -30,14 +30,47 @@ public class ChannelAction extends BaseAPIAction{
     @Autowired
     private IChannelService channelService;
 
-    public void channels() {
-        try {
-            HttpServletRequest request = ServletActionContext.getRequest();
-            String method = request.getMethod();
+    public void channel(){
+        try {    
+            String method = this.getRequestMethod();
             switch (method) {
             case CoreConstants.HTTP_METHOD_GET:
                 
-                String siteCode = request.getParameter(CmsConstant.FIELD_SITE_CODE);
+                // The restful API of get channel by site code and channel path
+                String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
+                String channelPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PATH);
+                if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty()) {
+                    return;
+                }
+                
+                ChannelDto channel = channelService.getChannel(siteCode, channelPath);
+
+                JSONObject jsonObject = JSONObject.fromObject(channel);
+                HttpServletResponse response = ServletActionContext.getResponse();
+                response.setContentType(CoreConstants.APPLICATION_JSON);
+                response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
+                PrintWriter writer = response.getWriter();
+                writer.write(jsonObject.toString());
+                writer.close();
+                break;
+
+            default:
+                break;
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
+    
+    public void channels() {
+        try {
+            String method = this.getRequestMethod();
+            switch (method) {
+            case CoreConstants.HTTP_METHOD_GET:
+                
+                String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
 
                 if (siteCode == null || siteCode.isEmpty()) {
                     return;

@@ -2,6 +2,8 @@ package com.iidooo.cms.dao.extend;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.iidooo.cms.dto.extend.ChannelDto;
 
 public interface ChannelDao {
@@ -20,7 +22,14 @@ public interface ChannelDao {
      */
     List<ChannelDto> selectByParentID(int parentID);
 
-    ChannelDto selectChannelByPath(String channelPath);
+    
+    /**
+     * Get the channel by channel path
+     * @param siteCode This site's channel will be gotten
+     * @param channelPath The channel path
+     * @return The ChannelDto gotten from DB.
+     */
+    ChannelDto selectChannelByPath(@Param("siteCode")String siteCode, @Param("channelPath")String channelPath);
 
     ChannelDto selectChannelByID(int channelID);
 
