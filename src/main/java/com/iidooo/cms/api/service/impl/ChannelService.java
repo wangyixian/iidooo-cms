@@ -13,6 +13,7 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 
 @Service
 public class ChannelService implements IChannelService{
+    
     private static final Logger logger = Logger.getLogger(ChannelService.class);
 
     @Autowired

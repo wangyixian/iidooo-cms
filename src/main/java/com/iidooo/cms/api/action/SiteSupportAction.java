@@ -23,7 +23,7 @@ public class SiteSupportAction extends BaseAction {
     private ChannelDto channel;
 
     private ContentDto content;
-    
+
     private ContentProductDto product;
 
     public ChannelDto getChannel() {
@@ -70,21 +70,29 @@ public class SiteSupportAction extends BaseAction {
     public void sendGetContentAPI(int contentID) {
         try {
             String cmsURL = (String) this.getApplicationValue(CmsConstant.CMS_URL);
-            
+
+            // Get the content by the API content
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_CONTENT_ID, contentID);
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            this.content = (ContentDto)JSONObject.toBean(jsonObject);
+            this.content = (ContentDto) JSONObject.toBean(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
         }
     }
 
-    public void sendGetProductContentAPI(int contentID){
+    public void sendGetContentProductAPI(int contentID) {
         try {
-            
+            String cmsURL = (String) this.getApplicationValue(CmsConstant.CMS_URL);
+
+            // Get the content by the API content
+            JSONObject data = new JSONObject();
+            data.put(CmsConstant.FIELD_CONTENT_ID, contentID);
+            String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT_PRODUCT, data.toString());
+            JSONObject jsonObject = JSONObject.fromObject(response);
+            this.product = (ContentProductDto) JSONObject.toBean(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

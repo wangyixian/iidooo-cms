@@ -8,14 +8,16 @@ public class CmsConstant {
     
     public static final String CMS_URL = "CMS_URL";
     
-    public static final String CONTENT_TYPE_DEFAULT = "1";
+    // The content type of default
+    public static final String DICT_ITEM_CONTENT_TYPE_DEFAULT = "01";
+    // The content type of product
+    public static final String DICT_ITEM_CONTENT_TYPE_PRODUCT = "02";
     
-    public static final String CONTENT_TYPE_PRODUCT = "2";
-    
-    
+    // The CMS System's Restful API define
     public static final String REST_API_CHANNEL = "channel";
     public static final String REST_API_CHANNELS = "channels";
     public static final String REST_API_CONTENT = "content";
+    public static final String REST_API_CONTENT_PRODUCT="product";
     public static final String REST_API_CONTENTS = "contents";
     
     // The result of rest api channels

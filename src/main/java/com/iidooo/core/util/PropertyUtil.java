@@ -1,4 +1,4 @@
-package com.iidooo.framework.utility;
+package com.iidooo.core.util;
 
 import java.io.File;
 import java.io.FileInputStream;

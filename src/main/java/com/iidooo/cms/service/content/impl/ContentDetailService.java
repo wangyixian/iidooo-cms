@@ -40,7 +40,7 @@ public class ContentDetailService implements IContentDetailService {
                 return null;
             }
             switch (result.getContentType()) {
-            case CmsConstant.CONTENT_TYPE_PRODUCT:
+            case CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT:
                 result = contentProductDao.selectByContentID(contentID);
                 break;
 

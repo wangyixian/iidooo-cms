@@ -52,7 +52,7 @@ public class ContentDetailAction extends BaseAction {
                     return INPUT;
                 }
 
-                if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_PRODUCT)) {
+                if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
                     product = (ContentProductDto) content;
                 }
             }
@@ -68,13 +68,13 @@ public class ContentDetailAction extends BaseAction {
     public String create() {
         try {
             switch (content.getContentType()) {
-            case CmsConstant.CONTENT_TYPE_DEFAULT:
+            case CmsConstant.DICT_ITEM_CONTENT_TYPE_DEFAULT:
                 if(!contentInfoService.createContent(content)){
                     addActionError(getText("MSG_CONTENT_CREATE_FAILED"));
                     return INPUT;
                 }
                 break;
-            case CmsConstant.CONTENT_TYPE_PRODUCT:
+            case CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT:
                 if(!contentInfoService.createContent(content, product)){
                     addActionError(getText("MSG_CONTENT_CREATE_FAILED"));
                     return INPUT;
@@ -101,7 +101,7 @@ public class ContentDetailAction extends BaseAction {
             if (content.getContentTitle().isEmpty()) {
                 addActionError(getText("MSG_CONTENT_TITLE_REQUIRE"));
             }
-            if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_PRODUCT)) {
+            if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
                 if (product.getProductCountry().isEmpty()) {
                     addActionError(getText("MSG_CONTENT_PRODUCT_COUNTRY_REQUIRE"));
                 }
@@ -119,13 +119,13 @@ public class ContentDetailAction extends BaseAction {
     public String update() {
         try {
             switch (content.getContentType()) {
-            case CmsConstant.CONTENT_TYPE_DEFAULT:
+            case CmsConstant.DICT_ITEM_CONTENT_TYPE_DEFAULT:
                 if(!contentInfoService.updateContent(content)){
                     addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[]{content.getContentTitle()}));
                     return INPUT;
                 }
                 break;
-            case CmsConstant.CONTENT_TYPE_PRODUCT:
+            case CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT:
                 if(!contentInfoService.updateContent(content, product)){
                     addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[]{content.getContentTitle()}));
                     return INPUT;
@@ -157,7 +157,7 @@ public class ContentDetailAction extends BaseAction {
             if (content.getContentTitle().isEmpty()) {
                 addActionError(getText("MSG_CONTENT_TITLE_REQUIRE"));
             }
-            if (content.getContentType().equals(CmsConstant.CONTENT_TYPE_PRODUCT)) {
+            if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
                 if (product.getProductCountry().isEmpty()) {
                     addActionError(getText("MSG_CONTENT_PRODUCT_COUNTRY_REQUIRE"));
                 }

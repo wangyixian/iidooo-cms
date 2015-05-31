@@ -1,9 +1,7 @@
 package com.iidooo.cms.api.tag;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -15,13 +13,8 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.iidooo.cms.constant.CmsConstant;
-import com.iidooo.cms.dao.extend.ChannelDao;
-import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.HttpUtil;
-import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
-import com.iidooo.framework.constant.SpringConstant;
 
 public class ChannelMenuTag extends SimpleTagSupport {
 
