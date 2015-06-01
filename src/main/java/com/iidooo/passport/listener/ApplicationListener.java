@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dao.extend.SecurityResourceDao;
@@ -37,17 +36,15 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
     public void contextInitialized(ServletContextEvent arg0) {
         try {
             ServletContext sc = arg0.getServletContext();
-            
-            String passportURL = sc.getInitParameter(PassportConstant.PASSPORT_URL);
-            sc.setAttribute(PassportConstant.PASSPORT_URL, passportURL);
-            
-            SecurityResourceDao securityResDao = (SecurityResourceDao) SpringUtil.getBean(sc, PassportConstant.BEAN_SECURITY_RESOURCE_DAO);
-            List<SecurityResourceDto> securityResList = securityResDao.selectAll();
-            sc.setAttribute(PassportConstant.SECURITY_RESOURCE_LIST, securityResList);
+            SecurityResourceDao securityResourceDao = (SecurityResourceDao) SpringUtil.getBean(sc, PassportConstant.BEAN_SECURITY_RESOURCE_DAO);
+            List<SecurityResourceDto> securityResList = securityResourceDao.selectAll();
+            // Save the resource list and will be used in MenuInterceptor
+            sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_LIST, securityResList);
 
             // Set the security resource map into the servlet context.
-//            Map<String, SecurityResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList);
-//            sc.setAttribute(PassportConstant.SECURITY_RESOURCE_MAP, rootSecurityResMap);
+            Map<String, SecurityResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList);
+            // Save the resource map and will be used in MenuInterceptor
+            sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_MAP, rootSecurityResMap);
 
             // Set the security resource tree into the servlet context.
 //            List<SecurityResourceDto> rootList = new ArrayList<SecurityResourceDto>();
@@ -56,7 +53,7 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
 //                    rootList.add(item);
 //                }
 //            }
-            //sc.setAttribute(AttributeConstants.MODULE_LIST, rootList);
+//            sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_ROOT_LIST, rootList);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,6 +78,12 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
                 if (item.getParentID() > 0) {
                     // Set the child into the parent module.
                     SecurityResourceDto parent = securityResIDMap.get(item.getParentID());
+                    if (parent == null) {
+                        continue;
+                    }
+                    if (parent.getChildren() == null) {
+                        parent.setChildren(new ArrayList<SecurityResourceDto>());
+                    }
                     parent.getChildren().add(item);
                 }
             }

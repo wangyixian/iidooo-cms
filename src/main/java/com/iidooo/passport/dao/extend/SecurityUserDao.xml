@@ -29,26 +29,26 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from SECURITY_USER
+    from PASSPORT_SECURITY_USER
     where UserID = #{userID,jdbcType=INTEGER} and IsDelete = 0
   </select>
   
   <select id="selectForLogin" resultMap="BaseResultMap">
   	select 
   	<include refid="Base_Column_List" />
-    from SECURITY_USER
+    from PASSPORT_SECURITY_USER
     where LoginID = #{loginID} and Password = #{password} and IsDelete = 0
   </select>
   
   <select id="selectByLoginID" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from SECURITY_USER
+    from PASSPORT_SECURITY_USER
     where LoginID = #{loginID,jdbcType=INTEGER} and IsDelete = 0
   </select>
   
   <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.extend.SecurityUserDto" >
-    update SECURITY_USER
+    update PASSPORT_SECURITY_USER
     set UserName = #{userName,jdbcType=VARCHAR},
       Sex = #{sex,jdbcType=CHAR},
       Birthday = #{birthday,jdbcType=CHAR},
@@ -64,7 +64,7 @@
   </update>
   
   <update id="updatePassword" parameterType="com.iidooo.passport.dto.extend.SecurityUserDto" >
-    update SECURITY_USER
+    update PASSPORT_SECURITY_USER
     set Password = #{password,jdbcType=VARCHAR},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},

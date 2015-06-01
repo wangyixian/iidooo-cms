@@ -6,13 +6,12 @@
 package com.iidooo.passport.constant;
 
 /**
- * The Passport Constant class is defined as the constant string class.
- * All of the constant of this project should be defined in this class.
+ * The Passport Constant class is defined as the constant string class. All of the constant of this project should be defined in this class.
  * 
  * @author Ethan
  *
  */
-public class PassportConstant {    
+public class PassportConstant {
 
     // The login id of session and cookies key.
     public static final String LOGIN_ID = "LOGIN_ID";
@@ -29,26 +28,26 @@ public class PassportConstant {
 
     // The access URL of login success should be redirected.
     public static final String ACCESS_URL = "ACCESS_URL";
-    
+
     public static final String REST_API_USER = "user";
-    
+
     public static final String RESOURCE_CODE = "RESOURCE_CODE";
-    
+
     // The SecurityUser of the login user, save it in the session using this key.
     public static final String SECURITY_USER = "SECURITY_USER";
-    
+
     public static final String SECURITY_USER_ID = "userID";
-    
+
     public static final String SECURITY_USER_NAME = "userName";
-    
-    public static final String CURRENT_MODULE = "CURRENT_MODULE";
-    
-    public static final String SECURITY_RESOURCE_LIST = "SECURITY_RESOURCE_LIST";
-    
-    public static final String SECURITY_RESOURCE_MAP = "SECURITY_RESOURCE_MAP";
-    
+
+    // The current selected item of security resource session key
+    public static final String SESSION_SECURITY_RESOURCE_SELECTED_ITEM = "SESSION_SECURITY_RESOURCE_SELECTED_ITEM";
+    // The list of security resource list session key
+    public static final String SESSION_SECURITY_RESOURCE_LIST = "SESSION_SECURITY_RESOURCE_LIST";
+    // The map of security resource list session key
+    public static final String SESSION_SECURITY_RESOURCE_MAP = "SESSION_SECURITY_RESOURCE_MAP";
 
     // The bean of SecurityResourceDao
     public static final String BEAN_SECURITY_RESOURCE_DAO = "securityResourceDao";
-    
+
 }

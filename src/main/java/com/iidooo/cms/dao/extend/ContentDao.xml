@@ -42,31 +42,31 @@
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
-		FROM CONTENT C
+		FROM CMS_CONTENT C
 		where C.ContentID = #{contentID,jdbcType=INTEGER}
 		AND C.IsDelete = 0
 	</select>
 
 	<select id="selectAllCount" resultType="java.lang.Integer">
 		select count(*)
-		from CONTENT C
+		from CMS_CONTENT C
 		left join
 		(select
 		L.ChannelID, L.ChannelName, R.ContentID
-		from CHANNEL_CONTENT R
-		inner join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
+		from CMS_CHANNEL_CONTENT R
+		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
 		on L.ContentID = C.ContentID and C.IsDelete = 0
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.core.dto.PageDto">
 		select
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
-		from CONTENT C
+		from CMS_CONTENT C
 		left join
 		(select
 		L.ChannelID, L.ChannelName, R.ContentID
-		from CHANNEL_CONTENT R
-		inner join CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
+		from CMS_CHANNEL_CONTENT R
+		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
 		on L.ContentID = C.ContentID and C.IsDelete = 0
 		order by L.ChannelID asc,
 		C.UpdateTime desc limit #{start}, #{pageSize}
@@ -74,9 +74,9 @@
 
 	<select id="selectContentListCountByChannels" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CONTENT C
-		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
-		join CHANNEL L on R.ChannelID =
+		from CMS_CONTENT C
+		join CMS_CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
+		join CMS_CHANNEL L on R.ChannelID =
 		L.ChannelID and L.IsDelete = 0 and R.ChannelID in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 	</select>
@@ -84,10 +84,10 @@
 		select
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
-		from CONTENT C
-		join CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = 0
+		from CMS_CONTENT C
+		join CMS_CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = 0
 		join
-		CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = 0 and R.ChannelID in
+		CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = 0 and R.ChannelID in
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 		order by R.ChannelID asc, R.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
 	</select>
@@ -97,8 +97,8 @@
 	<select id="selectContents" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM CONTENT C
-		INNER JOIN CHANNEL L
+		FROM CMS_CONTENT C
+		INNER JOIN CMS_CHANNEL L
 		ON C.ChannelID = L.ChannelID AND L.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 		AND L.IsDelete = 0
 		AND
@@ -125,7 +125,7 @@
 	<select id="selectByContentDto" resultMap="ResultMapWithBLOBs" parameterType="com.iidooo.cms.dto.extend.ContentDto">
 		select
 		<include refid="Base_Column_List" />
-		from CONTENT C
+		from CMS_CONTENT C
 		where
 		<if test="contentTitle != null and contentTitle != ''">
 			C.ContentTitle like concat('%',${contentTitle,jdbcType=VARCHAR},'%') and
@@ -143,7 +143,7 @@
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
-		from CONTENT C
+		from CMS_CONTENT C
 		where C.IsDelete = 0 and C.ChannelID = #{channelID}
 		order by C.Sequence limit 0, 1
 	</select>
@@ -151,8 +151,8 @@
 	<select id="selectByChannelPath" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from CONTENT C
-		join CHANNEL L
+		from CMS_CONTENT C
+		join CMS_CHANNEL L
 		on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
 		and L.ChannelPath =	#{channelPath,jdbcType=VARCHAR}
 		join SITE S
@@ -165,7 +165,7 @@
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID" parameterType="com.iidooo.cms.dto.extend.ContentDto">
-		insert into CONTENT (ContentType,
+		insert into CMS_CONTENT (ContentType,
 		ContentTitle,
 		ContentSubTitle,
 		ContentImageTitle,
@@ -190,7 +190,7 @@
 	</insert>
 
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ContentDto">
-		update CONTENT
+		update CMS_CONTENT
 		set ContentType = #{contentType,jdbcType=CHAR},
 		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
@@ -213,7 +213,7 @@
 	</update>
 
 	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ContentDto">
-		update CONTENT
+		update CMS_CONTENT
 		set IsDelete = 1,
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
 		UpdateUser =

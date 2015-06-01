@@ -39,6 +39,9 @@ public class SecurityResourceDto extends SecurityResource {
     }
 
     public List<SecurityResourceDto> getOffspring() {
+        if (offspring == null) {
+            offspring = new ArrayList<SecurityResourceDto>();
+        }
         return offspring;
     }
 

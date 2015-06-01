@@ -31,7 +31,7 @@ public class MenuInterceptor extends AbstractInterceptor {
 
             ActionContext actionContext = invocation.getInvocationContext().getContext();
             Map<String, Object> application = actionContext.getApplication();
-            Map<String, SecurityResourceDto> securityResMap = (Map<String, SecurityResourceDto>) application.get(PassportConstant.SECURITY_RESOURCE_MAP);
+            Map<String, SecurityResourceDto> securityResMap = (Map<String, SecurityResourceDto>) application.get(PassportConstant.SESSION_SECURITY_RESOURCE_MAP);
 
             if (path.startsWith("/")) {
                 path = path.substring(1);
@@ -43,7 +43,7 @@ public class MenuInterceptor extends AbstractInterceptor {
                 return invocation.invoke();
             }
 
-            List<SecurityResourceDto> securityResList = (List<SecurityResourceDto>) application.get(PassportConstant.SECURITY_RESOURCE_LIST);
+            List<SecurityResourceDto> securityResList = (List<SecurityResourceDto>) application.get(PassportConstant.SESSION_SECURITY_RESOURCE_LIST);
             // Set the parent resource selected
             for (SecurityResourceDto item : securityResList) {
                 item.setIsSelected(false);
@@ -52,7 +52,7 @@ public class MenuInterceptor extends AbstractInterceptor {
                     item.setIsSelected(true);
 
                     if (item.getParentID() <= 0) {
-                        request.setAttribute(PassportConstant.CURRENT_MODULE, item);
+                        request.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_SELECTED_ITEM, item);
                     }
                 }
             }

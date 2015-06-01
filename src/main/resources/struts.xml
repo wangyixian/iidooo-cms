@@ -17,15 +17,21 @@
 	
 		<interceptors>
 			<interceptor name="actionInterceptor" class="com.iidooo.core.interceptor.ActionInterceptor"></interceptor>
+			<interceptor name="authInterceptor" class="com.iidooo.passport.interceptor.AuthInterceptor"></interceptor>
+			<interceptor name="menuInterceptor" class="com.iidooo.passport.interceptor.MenuInterceptor"></interceptor>
+			
 			<interceptor-stack name="defaultStackWrap">
 				<interceptor-ref name="defaultStack" />
 				<interceptor-ref name="actionInterceptor" />
+				<interceptor-ref name="authInterceptor" />
+				<interceptor-ref name="menuInterceptor" />
 			</interceptor-stack>
 		</interceptors>
 		
 		<default-interceptor-ref name="defaultStackWrap" />
 		<global-results>
 			<result name="error">/WEB-INF/jsp/Error.jsp</result>
+			<result name="login">/WEB-INF/jsp/Login.jsp</result>
 		</global-results>
 
 		<global-exception-mappings>

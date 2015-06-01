@@ -5,20 +5,11 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<!-- Config the SSO passport filter -->
-	<!-- <filter>
-		<filter-name>sso</filter-name>
-		<filter-class>com.iidooo.passport.filter.SSOFilter</filter-class>
-		<init-param>
-			<param-name>PASSPORT_URL</param-name>
-			<param-value>http://localhost:8080/passport</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>sso</filter-name>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping> -->
+	<!-- <filter> <filter-name>sso</filter-name> <filter-class>com.iidooo.passport.filter.SSOFilter</filter-class> <init-param> <param-name>PASSPORT_URL</param-name> 
+		<param-value>http://localhost:8080/passport</param-value> </init-param> </filter> <filter-mapping> <filter-name>sso</filter-name> <url-pattern>*.action</url-pattern> 
+		</filter-mapping> -->
 
 	<!-- 编码统一最好放最上面，最先加载，防止乱码 -->
 	<filter>
@@ -77,20 +68,16 @@
 
 	<!-- The listener of this application. Append the configuration of application need. -->
 	<listener>
+		<listener-class>com.iidooo.passport.listener.ApplicationListener</listener-class>
+	</listener>
+
+	<listener>
 		<listener-class>com.iidooo.cms.listener.ApplicationListener</listener-class>
 	</listener>
 	<context-param>
 		<param-name>CMS_URL</param-name>
 		<param-value>http://localhost:8080/cms</param-value>
 	</context-param>
-	<!-- 
-	<listener>
-		<listener-class>com.iidooo.passport.listener.ApplicationListener</listener-class>
-	</listener>
-	<context-param>
-		<param-name>PASSPORT_URL</param-name>
-		<param-value>http://localhost:8080/passport</param-value>
-	</context-param> -->
 
 	<session-config>
 		<session-timeout>30</session-timeout>
@@ -98,12 +85,16 @@
 
 	<jsp-config>
 		<taglib>
-			<taglib-uri>/cms-tags</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/cms-tags.tld</taglib-location>
-		</taglib>
-		<taglib>
 			<taglib-uri>/core-tags</taglib-uri>
 			<taglib-location>/WEB-INF/tlds/core-tags.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/passport-tags</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/passport-tags.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/cms-tags</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/cms-tags.tld</taglib-location>
 		</taglib>
 	</jsp-config>
 </web-app>

@@ -331,7 +331,7 @@ a:hover {
 	padding-right: 10px;
 }
 
-.top_wrap .menu_wrap .menu {
+.top_wrap .menu_wrap .main_menu {
 	float: left;
 	margin: 0px;
 	padding: 0px;
@@ -339,7 +339,7 @@ a:hover {
 	height: 40px;
 }
 
-.top_wrap .menu_wrap .menu li {
+.top_wrap .menu_wrap .main_menu li {
 	width: 100px;
 	height: 40px;
 	line-height: 40px;

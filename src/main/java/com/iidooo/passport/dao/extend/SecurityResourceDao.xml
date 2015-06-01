@@ -22,7 +22,7 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from security_resource
+    from PASSPORT_SECURITY_RESOURCE
     where IsDelete = 0
   </select>
 </mapper>
