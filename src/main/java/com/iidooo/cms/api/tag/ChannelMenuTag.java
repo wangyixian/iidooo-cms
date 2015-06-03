@@ -28,6 +28,8 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
     private String channelPath;
 
+    private String level = "1";
+
     public String getSiteCode() {
         return siteCode;
     }
@@ -38,6 +40,14 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
     public String getChannelPath() {
         return channelPath;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public void setChannelPath(String channelPath) {
@@ -56,22 +66,38 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
-            
+            data.put(CmsConstant.FIELD_CHANNEL_IS_HIDDEN, "0");
+            data.put(CmsConstant.FIELD_CHANNEL_LEVEL, this.level);
+
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CHANNELS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray(CmsConstant.REST_API_RESULT_CHANNEL_LIST);
 
+            if (jsonArray.size() <= 0) {
+                return;
+            }
+            
+            String siteURL = ((JSONObject) jsonArray.get(0)).getString(CmsConstant.FIELD_SITE_URL);
+
             out.println("<ul class='channel_menu'>");
+            out.println("<li>");
+            if (this.channelPath.equals(CmsConstant.CHANNEL_PATH_INDEX)) {
+                out.println(StringUtil.replace(HTML_A_FOCUS, siteURL, "首页"));
+            } else {
+                out.println(StringUtil.replace(HTML_A, siteURL, "首页"));
+            }
+            out.println("</li>");
             for (int i = 0; i < jsonArray.size(); i++) {
-                out.println(" <li>");
 
                 JSONObject item = (JSONObject) jsonArray.get(i);
-                String siteURL = item.getString(CmsConstant.FIELD_SITE_URL).toString();
-                String channelName = item.get(CmsConstant.FIELD_CHANNEL_NAME).toString();
-                String channelPath = item.getString(CmsConstant.FIELD_CHANNEL_PATH).toString();
+
+                out.println("<li>");
+
+                String channelName = item.getString(CmsConstant.FIELD_CHANNEL_NAME);
+                String channelPath = item.getString(CmsConstant.FIELD_CHANNEL_PATH);
 
                 String url = siteURL + "/" + channelPath;
-                if (channelPath != null && channelPath.equals(channelPath)) {
+                if (this.getChannelPath() != null && this.getChannelPath().equals(channelPath)) {
                     out.println(StringUtil.replace(HTML_A_FOCUS, url, channelName));
                 } else {
                     out.println(StringUtil.replace(HTML_A, url, channelName));

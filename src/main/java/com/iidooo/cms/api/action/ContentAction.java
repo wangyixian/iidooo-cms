@@ -18,6 +18,7 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dto.PageDto;
+import com.iidooo.core.util.JsonUtil;
 
 public class ContentAction extends BaseAPIAction {
 
@@ -44,13 +45,7 @@ public class ContentAction extends BaseAPIAction {
 
                 ContentDto content = contentService.getContent(Integer.parseInt(contentID));
 
-                JSONObject jsonObject = JSONObject.fromObject(content);
-                HttpServletResponse response = ServletActionContext.getResponse();
-                response.setContentType(CoreConstants.APPLICATION_JSON);
-                response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
-                PrintWriter writer = response.getWriter();
-                writer.write(jsonObject.toString());
-                writer.close();
+                JsonUtil.responseObject(content, this.getResponse());
                 break;
 
             default:

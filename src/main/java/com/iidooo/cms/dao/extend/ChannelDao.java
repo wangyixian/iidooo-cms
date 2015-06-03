@@ -7,13 +7,24 @@ import org.apache.ibatis.annotations.Param;
 import com.iidooo.cms.dto.extend.ChannelDto;
 
 public interface ChannelDao {
-    
+
     /**
-     * Select all of the channels
+     * Select all of the channels with the site code and channel level
+     * @param siteCode The site code should be defined.
+     * @param channelLevel The channel level for searching. If want to get all level, defined as max of integer.
      * @return The list of channels
      */
-    List<ChannelDto> selectChannelsBySite(String siteCode);
+    List<ChannelDto> selectChannelsBySite(@Param("siteCode")String siteCode, @Param("channelLevel")int channelLevel);
 
+    
+    /**
+     * Select all of the displayed channels with the site code and channel level
+     * @param siteCode The site code should be defined.
+     * @param channelLevel The channel level for searching. If want to get all level, defined as max of integer.
+     * @return The list of channels
+     */
+    List<ChannelDto> selectDisplayChannelsBySite(@Param("siteCode")String siteCode, @Param("channelLevel")int channelLevel);
+    
     /**
      * Get the channel list by the parent ID
      * 

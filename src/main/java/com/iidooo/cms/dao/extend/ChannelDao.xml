@@ -28,24 +28,42 @@
 		C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 
-	<select id="selectChannelsBySite" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="selectChannelsBySite" resultMap="BaseResultMap">
 		select
-		<include refid="Base_Column_List" />, S.SiteURL as siteURL
+		<include refid="Base_Column_List" />
+		, S.SiteURL as siteURL
 		from CMS_CHANNEL C
 		join CMS_SITE S
 		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
+		and S.SiteCode =
+		#{siteCode,jdbcType=VARCHAR}
+		and C.ChannelLevel &lt;= #{channelLevel,jdbcType=INTEGER}
 	</select>
+
+	<select id="selectDisplayChannelsBySite" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		, S.SiteURL as siteURL
+		from CMS_CHANNEL C
+		join CMS_SITE S
+		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
+		and S.SiteCode =
+		#{siteCode,jdbcType=VARCHAR} and C.IsHidden = 0
+		and C.ChannelLevel &lt;= #{channelLevel,jdbcType=INTEGER}
+	</select>
+
 
 	<select id="selectChannelByPath" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from CMS_CHANNEL C
 		join CMS_SITE S
-		on C.IsDelete = 0 and S.IsDelete = 0 and 
+		on C.IsDelete = 0 and S.IsDelete = 0 and
 		S.SiteCode = #{siteCode,jdbcType=VARCHAR} and
-		C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
+		C.ChannelPath =
+		#{channelPath,jdbcType=VARCHAR}
 	</select>
-	
+
 	<select id="selectChannelByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />

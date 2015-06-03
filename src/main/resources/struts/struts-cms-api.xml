@@ -5,6 +5,7 @@
 
 <struts>
 	<package name="cmsAPI" extends="basic">
+		<action name="site" class="com.iidooo.cms.api.action.SiteAction" method="site"></action>
 		<action name="channel" class="com.iidooo.cms.api.action.ChannelAction" method="channel"></action>
 		<action name="channels" class="com.iidooo.cms.api.action.ChannelAction" method="channels"></action>
 		<action name="content" class="com.iidooo.cms.api.action.ContentAction" method="content"></action>

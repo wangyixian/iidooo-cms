@@ -4,6 +4,23 @@
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.0</jsp-version>
 	<short-name>cms-api-tags</short-name>
+
+	<tag>
+		<name>metaInfo</name>
+		<tag-class>com.iidooo.cms.api.tag.MetaInfoTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>siteCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>channelPath</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
 	<tag>
 		<name>channelMenu</name>
 		<tag-class>com.iidooo.cms.api.tag.ChannelMenuTag</tag-class>
@@ -19,7 +36,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<name>contentListBlock</name>
 		<tag-class>com.iidooo.cms.api.tag.ContentListBlockTag</tag-class>

@@ -9,6 +9,12 @@ public class Site {
 
     private String siteURL;
 
+    private String metaTitle;
+
+    private String metaKeywords;
+
+    private String metaDescription;
+
     private String remarks;
 
     private String createTime;
@@ -53,6 +59,30 @@ public class Site {
 
     public void setSiteURL(String siteURL) {
         this.siteURL = siteURL == null ? null : siteURL.trim();
+    }
+
+    public String getMetaTitle() {
+        return metaTitle;
+    }
+
+    public void setMetaTitle(String metaTitle) {
+        this.metaTitle = metaTitle == null ? null : metaTitle.trim();
+    }
+
+    public String getMetaKeywords() {
+        return metaKeywords;
+    }
+
+    public void setMetaKeywords(String metaKeywords) {
+        this.metaKeywords = metaKeywords == null ? null : metaKeywords.trim();
+    }
+
+    public String getMetaDescription() {
+        return metaDescription;
+    }
+
+    public void setMetaDescription(String metaDescription) {
+        this.metaDescription = metaDescription == null ? null : metaDescription.trim();
     }
 
     public String getRemarks() {

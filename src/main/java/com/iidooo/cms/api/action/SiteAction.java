@@ -3,39 +3,38 @@ package com.iidooo.cms.api.action;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.api.service.IContentProductService;
+import com.iidooo.cms.api.service.ISiteService;
 import com.iidooo.cms.constant.CmsConstant;
-import com.iidooo.cms.dto.extend.ContentProductDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.JsonUtil;
 
-public class ContentProductAction extends BaseAPIAction {
-
+public class SiteAction extends BaseAPIAction{
+    
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(ContentProductAction.class);
-
+    private static final Logger logger = Logger.getLogger(SiteAction.class);
+    
     @Autowired
-    private IContentProductService contentProductService;
+    private ISiteService siteService;
 
-    public void product() {
+    public void site() {
         try {
             String method = this.getRequestMethod();
             switch (method) {
             case CoreConstants.HTTP_METHOD_GET:
-                String contentID = this.getRequestParameter(CmsConstant.FIELD_CONTENT_ID);
+                String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
 
-                if (contentID == null || contentID.isEmpty()) {
+                if (siteCode == null || siteCode.isEmpty()) {
                     return;
                 }
 
-                ContentProductDto contentProduct = contentProductService.getContentProduct(Integer.parseInt(contentID));
-
-                JsonUtil.responseObject(contentProduct, this.getResponse());
+                SiteDto site = siteService.getSite(siteCode);
+                JsonUtil.responseObject(site, this.getResponse());
                 break;
 
             default:

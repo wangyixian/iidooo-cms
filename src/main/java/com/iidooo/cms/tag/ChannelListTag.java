@@ -112,7 +112,7 @@ public class ChannelListTag extends SimpleTagSupport {
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode);
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode, Integer.MAX_VALUE);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

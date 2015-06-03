@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.dao.extend.ChannelContentDao;
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
@@ -30,9 +29,6 @@ public class ContentListService implements IContentListService {
 
     @Autowired
     private ContentDao contentDao;   
-    
-    @Autowired
-    private ChannelContentDao channelContentDao;
 
     @Override
     public int getContentListCount(Integer channelID, String siteCode) {
@@ -72,23 +68,14 @@ public class ContentListService implements IContentListService {
     public boolean deleteContent(ContentDto content) {
         try {
             
-            // Delete the channel content relationship.
-            int result = channelContentDao.deleteContent(content.getChannelID(), content.getContentID());
-            if (result <= 0) {
+            Map<String, Object> sessionMap = ActionContext.getContext().getSession();
+            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
+            content.setUpdateUser(userID);
+            content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+            int count = contentDao.deleteByPrimaryKey(content);
+            if (count <= 0) {
                 return false;
-            }
-            
-            // If there is no relationship of this content and any channel, delete the content from Content Table.
-            if (channelContentDao.selectContentCount(content.getContentID()) <= 0) {
-                Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-                int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-                content.setUpdateUser(userID);
-                content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-                int count = contentDao.deleteByPrimaryKey(content);
-                if (count <= 0) {
-                    return false;
-                }
-            }           
+            }        
             
             return true;
         } catch (Exception e) {
@@ -103,7 +90,7 @@ public class ContentListService implements IContentListService {
         try {
             result.add(channelID);
 
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode);
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode, Integer.MAX_VALUE);
             this.counstructChildren(channelList);
 
             for (ChannelDto item : channelList) {

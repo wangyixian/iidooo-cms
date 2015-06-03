@@ -20,10 +20,22 @@ public class ChannelService implements IChannelService{
     private ChannelDao channelDao;
     
     @Override
-    public List<ChannelDto> getChannelList(String siteCode) {
+    public List<ChannelDto> getChannelList(String siteCode, int channelLevel) {
         List<ChannelDto> result = new ArrayList<ChannelDto>();
         try {
-            result = channelDao.selectChannelsBySite(siteCode);
+            result = channelDao.selectChannelsBySite(siteCode, channelLevel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return result;
+    }
+    
+    @Override
+    public List<ChannelDto> getDisplayChannelList(String siteCode, int channelLevel){
+        List<ChannelDto> result = new ArrayList<ChannelDto>();
+        try {
+            result = channelDao.selectChannelsBySite(siteCode, channelLevel);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

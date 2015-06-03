@@ -42,6 +42,11 @@ public class MainMenuTag extends SimpleTagSupport {
             out.println("<div id='mainMenu' class='main_menu'>");
             out.println("<ul>");
             for (SecurityResourceDto item : resourceList) {
+                
+                // If the menu level  set as 1, the resource's children should not be displayed.
+                if (this.level == 1 && item.getParentID() > 0) {
+                    continue;
+                }
                 out.println(" <li>");
                 if (item.getIsSelected()) {
                     out.println("<a href='" + item.getResourceURL() + "'" + " class='focus'>");

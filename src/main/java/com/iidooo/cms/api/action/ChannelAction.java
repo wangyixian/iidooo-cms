@@ -1,6 +1,7 @@
 package com.iidooo.cms.api.action;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +18,10 @@ import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.util.JsonUtil;
 
-public class ChannelAction extends BaseAPIAction{
-    
+public class ChannelAction extends BaseAPIAction {
+
     /**
      * 
      */
@@ -30,53 +32,62 @@ public class ChannelAction extends BaseAPIAction{
     @Autowired
     private IChannelService channelService;
 
-    public void channel(){
-        try {    
+    public void channel() {
+        try {
             String method = this.getRequestMethod();
             switch (method) {
             case CoreConstants.HTTP_METHOD_GET:
-                
+
                 // The restful API of get channel by site code and channel path
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
                 String channelPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PATH);
                 if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty()) {
                     return;
                 }
-                
+
                 ChannelDto channel = channelService.getChannel(siteCode, channelPath);
 
-                JSONObject jsonObject = JSONObject.fromObject(channel);
-                HttpServletResponse response = ServletActionContext.getResponse();
-                response.setContentType(CoreConstants.APPLICATION_JSON);
-                response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
-                PrintWriter writer = response.getWriter();
-                writer.write(jsonObject.toString());
-                writer.close();
+                JsonUtil.responseObject(channel, this.getResponse());
                 break;
 
             default:
                 break;
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
         }
     }
-    
+
     public void channels() {
         try {
             String method = this.getRequestMethod();
             switch (method) {
             case CoreConstants.HTTP_METHOD_GET:
-                
-                String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
 
+                String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
                 if (siteCode == null || siteCode.isEmpty()) {
                     return;
                 }
-                
-                List<ChannelDto> channelList = channelService.getChannelList(siteCode);
+
+                List<ChannelDto> channelList = new ArrayList<ChannelDto>();
+
+                String isHidden = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_IS_HIDDEN);
+                String channelLevel = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_LEVEL);
+                if (isHidden != null && !isHidden.isEmpty()) {
+                    if (channelLevel != null) {
+                        channelList = channelService.getDisplayChannelList(siteCode, Integer.parseInt(channelLevel));
+                    } else {
+                        channelList = channelService.getDisplayChannelList(siteCode, Integer.MAX_VALUE);
+                    }
+                } else {
+                    if (channelLevel != null) {
+                        channelList = channelService.getChannelList(siteCode, Integer.parseInt(channelLevel));
+                    } else {
+                        channelList = channelService.getChannelList(siteCode, Integer.MAX_VALUE);
+                    }
+                }
 
                 JSONObject jsonObject = new JSONObject();
                 JSONArray jsonArray = JSONArray.fromObject(channelList);

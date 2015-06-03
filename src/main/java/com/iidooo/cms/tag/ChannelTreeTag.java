@@ -76,7 +76,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
             String folder = StringUtil.replace(FOLD_TREE_NODE, url, this.title);
             out.println("<li>" + folder);
 
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode);
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode, Integer.MAX_VALUE);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

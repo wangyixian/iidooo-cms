@@ -3,6 +3,7 @@
 <mapper namespace="com.iidooo.cms.dao.extend.ContentDao">
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ContentDto">
 		<id column="ContentID" property="contentID" jdbcType="INTEGER" />
+    	<result column="ChannelID" property="channelID" jdbcType="INTEGER" />
 		<result column="ContentType" property="contentType" jdbcType="CHAR" />
 		<result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
 		<result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
@@ -26,7 +27,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		C.ContentID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
+		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription,
 		C.ContentSummary, C.Sequence, C.IsSilent,
@@ -62,34 +63,27 @@
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
 		from CMS_CONTENT C
-		left join
-		(select
-		L.ChannelID, L.ChannelName, R.ContentID
-		from CMS_CHANNEL_CONTENT R
-		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
-		on L.ContentID = C.ContentID and C.IsDelete = 0
+		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0'
+		on L.ChannelID = C.ChannelID and C.IsDelete = 0
 		order by L.ChannelID asc,
 		C.UpdateTime desc limit #{start}, #{pageSize}
 	</select>
 
 	<select id="selectContentListCountByChannels" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CMS_CONTENT C
-		join CMS_CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = '0'
-		join CMS_CHANNEL L on R.ChannelID =
-		L.ChannelID and L.IsDelete = 0 and R.ChannelID in
+		from CMS_CONTENT C		
+		join CMS_CHANNEL L 
+		on C.ChannelID = L.ChannelID and L.IsDelete = 0 and L.ChannelID in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 	</select>
 	<select id="selectContentListByChannels" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
-		from CMS_CONTENT C
-		join CMS_CHANNEL_CONTENT R on C.ContentID = R.ContentID and C.IsDelete = 0
-		join
-		CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = 0 and R.ChannelID in
+		from CMS_CONTENT C		
+		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = 0 and L.ChannelID in
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
-		order by R.ChannelID asc, R.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
+		order by L.ChannelID asc, C.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
 	</select>
 
 
@@ -155,7 +149,7 @@
 		join CMS_CHANNEL L
 		on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
 		and L.ChannelPath =	#{channelPath,jdbcType=VARCHAR}
-		join SITE S
+		join CMS_SITE S
 		on S.SiteID = L.SiteID and S.IsDelete = 0 and S.SiteCode = #{siteCode,jdbcType=VARCHAR}
 		order by C.${page.sortField} ${page.sortType} limit #{page.start}, #{page.pageSize}
 	</select>

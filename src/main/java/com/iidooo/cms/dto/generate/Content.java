@@ -3,6 +3,8 @@ package com.iidooo.cms.dto.generate;
 public class Content {
     private Integer contentID;
 
+    private Integer channelID;
+
     private String contentType;
 
     private String contentTitle;
@@ -45,6 +47,14 @@ public class Content {
 
     public void setContentID(Integer contentID) {
         this.contentID = contentID;
+    }
+
+    public Integer getChannelID() {
+        return channelID;
+    }
+
+    public void setChannelID(Integer channelID) {
+        this.channelID = channelID;
     }
 
     public String getContentType() {
