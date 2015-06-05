@@ -1,7 +1,6 @@
 package com.iidooo.cms.service.content.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.service.content.IContentListService;
+import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
@@ -90,15 +90,12 @@ public class ContentListService implements IContentListService {
         try {
             result.add(channelID);
 
+            ChannelUtil channelUtil = new ChannelUtil();
+            
             List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode, Integer.MAX_VALUE);
-            this.counstructChildren(channelList);
+            channelUtil.counstructChildren(channelList);
 
-            for (ChannelDto item : channelList) {
-                if (item.getChannelID() == channelID) {
-                    appendOffspringChannels(item.getChildren(), result);
-                    continue;
-                }
-            }
+            result = channelUtil.getOffspring(channelList, channelID);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -106,41 +103,7 @@ public class ContentListService implements IContentListService {
         return result;
     }
 
-    private void counstructChildren(List<ChannelDto> channelList) {
-        try {
-            Map<Integer, ChannelDto> channelMap = new HashMap<Integer, ChannelDto>();
-            for (ChannelDto item : channelList) {
-                channelMap.put(item.getChannelID(), item);
-            }
+    
 
-            for (ChannelDto item : channelList) {
-                int parentID = item.getParentID();
-
-                // The root channel skip
-                if (parentID <= 0) {
-                    continue;
-                }
-
-                ChannelDto parentChannel = channelMap.get(parentID);
-                parentChannel.getChildren().add(item);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-        }
-    }
-
-    private void appendOffspringChannels(List<ChannelDto> children, List<Integer> offspringChannels) {
-        try {
-            for (ChannelDto child : children) {
-                offspringChannels.add(child.getChannelID());
-                this.appendOffspringChannels(child.getChildren(), offspringChannels);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            throw e;
-        }
-    }
+    
 }

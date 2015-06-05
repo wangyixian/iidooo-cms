@@ -25,6 +25,10 @@ public class Content {
 
     private Integer isSilent;
 
+    private Integer pageViewed;
+
+    private Integer uniqueVisitor;
+
     private String remarks;
 
     private String createTime;
@@ -135,6 +139,22 @@ public class Content {
 
     public void setIsSilent(Integer isSilent) {
         this.isSilent = isSilent;
+    }
+
+    public Integer getPageViewed() {
+        return pageViewed;
+    }
+
+    public void setPageViewed(Integer pageViewed) {
+        this.pageViewed = pageViewed;
+    }
+
+    public Integer getUniqueVisitor() {
+        return uniqueVisitor;
+    }
+
+    public void setUniqueVisitor(Integer uniqueVisitor) {
+        this.uniqueVisitor = uniqueVisitor;
     }
 
     public String getRemarks() {

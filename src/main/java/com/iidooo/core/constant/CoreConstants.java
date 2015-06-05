@@ -3,13 +3,11 @@ package com.iidooo.core.constant;
 public class CoreConstants {
 
     public static final String HTTP_METHOD_GET = "GET";
-
     public static final String HTTP_METHOD_POST = "POST";
-
     public static final String HTTP_METHOD_PUT = "PUT";
-
     public static final String HTTP_METHOD_DELETE = "DELETE";
 
+    public static final String REST_API_RESULT = "REST_API_RESULT";
     public static final String REST_API_DICT_ITEMS = "dictItems";
 
     // The core web application URL, saved in the session use this key.
@@ -37,15 +35,15 @@ public class CoreConstants {
     public static final String FIELD_DICT_ITEM_LIST = "dictItemList";
     
     // The field of page dto's start
-    public static final String PAGE_FIELD_START = "start";
+    public static final String FIELD_PAGE_START = "start";
     // The field of page dto's end
-    public static final String PAGE_FIELD_END = "end";
+    public static final String FIELD_PAGE_END = "end";
     // The field of page dto's size
-    public static final String PAGE_FIELD_SIZE = "size";
+    public static final String FIELD_PAGE_SIZE = "size";
     // The field of page dto's sort field
-    public static final String PAGE_FIELD_SORT_FIELD = "sortField";
+    public static final String FIELD_PAGE_SORT_FIELD = "sortField";
     // The field of page dto's sort type
-    public static final String PAGE_FIELD_SORT_TYPE = "sortType";
+    public static final String FIELD_PAGE_SORT_TYPE = "sortType";
 
     public static final String DICT_ITEM_MAX_SIZE = "DICT_ITEM_MAX_SIZE";
 
@@ -58,5 +56,6 @@ public class CoreConstants {
     public static final String SORT_FIELD_SEQUENCE = "Sequence";
     // The sort field as update time
     public static final String SORT_FIELD_UPDATETIME = "UpdateTime";
-
+    public static final String SORT_FIELD_PAGE_VIEWED = "PageViewed";
+    public static final String SORT_FIELD_UNIQUE_VISITOR = "UniqueVisitor";
 }

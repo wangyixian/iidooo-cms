@@ -3,7 +3,7 @@
 <mapper namespace="com.iidooo.cms.dao.extend.ContentDao">
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ContentDto">
 		<id column="ContentID" property="contentID" jdbcType="INTEGER" />
-    	<result column="ChannelID" property="channelID" jdbcType="INTEGER" />
+		<result column="ChannelID" property="channelID" jdbcType="INTEGER" />
 		<result column="ContentType" property="contentType" jdbcType="CHAR" />
 		<result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
 		<result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
@@ -14,6 +14,8 @@
 		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
 		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
 		<result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
+		<result column="PageViewed" property="pageViewed" jdbcType="INTEGER" />
+		<result column="UniqueVisitor" property="uniqueVisitor" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -30,8 +32,9 @@
 		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription,
-		C.ContentSummary, C.Sequence, C.IsSilent,
-		C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete,
+		C.ContentSummary, C.Sequence, C.IsSilent, PageViewed, UniqueVisitor,
+		C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime,
+		C.UpdateUser, C.IsDelete,
 		C.Version
 	</sql>
 	<sql id="Blob_Column_List">
@@ -54,7 +57,8 @@
 		left join
 		(select
 		L.ChannelID, L.ChannelName, R.ContentID
-		from CMS_CHANNEL_CONTENT R
+		from
+		CMS_CHANNEL_CONTENT R
 		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
 		on L.ContentID = C.ContentID and C.IsDelete = 0
 	</select>
@@ -71,8 +75,8 @@
 
 	<select id="selectContentListCountByChannels" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CMS_CONTENT C		
-		join CMS_CHANNEL L 
+		from CMS_CONTENT C
+		join CMS_CHANNEL L
 		on C.ChannelID = L.ChannelID and L.IsDelete = 0 and L.ChannelID in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 	</select>
@@ -80,10 +84,11 @@
 		select
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
-		from CMS_CONTENT C		
-		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = 0 and L.ChannelID in
-		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
-		order by L.ChannelID asc, C.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
+		from CMS_CONTENT C
+		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = 0 and
+		L.ChannelID in
+		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>		
+		order by C.${page.sortField} ${page.sortType} limit #{page.start}, #{page.pageSize}
 	</select>
 
 
@@ -148,10 +153,12 @@
 		from CMS_CONTENT C
 		join CMS_CHANNEL L
 		on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
-		and L.ChannelPath =	#{channelPath,jdbcType=VARCHAR}
+		and L.ChannelPath =
+		#{channelPath,jdbcType=VARCHAR}
 		join CMS_SITE S
 		on S.SiteID = L.SiteID and S.IsDelete = 0 and S.SiteCode = #{siteCode,jdbcType=VARCHAR}
-		order by C.${page.sortField} ${page.sortType} limit #{page.start}, #{page.pageSize}
+		order by
+		C.${page.sortField} ${page.sortType} limit #{page.start}, #{page.pageSize}
 	</select>
 
 	<select id="selectMaxSequence" resultType="java.lang.Integer">
@@ -171,22 +178,26 @@
 		UpdateUser, IsDelete,
 		Version, ContentBody)
 		values(#{contentType,jdbcType=CHAR},
-		#{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR},
+		#{contentTitle,jdbcType=VARCHAR},
+		#{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR},
 		#{metaTitle,jdbcType=VARCHAR},
-		#{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR},
+		#{metaKeywords,jdbcType=VARCHAR},
+		#{metaDescription,jdbcType=VARCHAR},
 		#{contentSummary,jdbcType=VARCHAR},
 		#{sequence,jdbcType=INTEGER},
 		#{isSilent,jdbcType=INTEGER},
 		#{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
 		#{createUser,jdbcType=INTEGER},
-		#{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 0, 1,
+		#{updateTime,jdbcType=VARCHAR},
+		#{updateUser,jdbcType=INTEGER}, 0, 1,
 		#{contentBody,jdbcType=LONGVARCHAR})
 	</insert>
 
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ContentDto">
 		update CMS_CONTENT
 		set ContentType = #{contentType,jdbcType=CHAR},
-		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
+		ContentTitle =
+		#{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
 		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
 		MetaTitle = #{metaTitle,jdbcType=VARCHAR},
@@ -200,7 +211,8 @@
 		Remarks =
 		#{remarks,jdbcType=VARCHAR},
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
-		UpdateUser = #{updateUser,jdbcType=INTEGER},
+		UpdateUser =
+		#{updateUser,jdbcType=INTEGER},
 		Version = Version + 1
 		where
 		ContentID = #{contentID,jdbcType=INTEGER}

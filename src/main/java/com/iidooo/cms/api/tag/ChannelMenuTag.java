@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.iidooo.cms.constant.CmsConstant;
+import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
 
@@ -71,7 +72,7 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CHANNELS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CmsConstant.REST_API_RESULT_CHANNEL_LIST);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT);
 
             if (jsonArray.size() <= 0) {
                 return;

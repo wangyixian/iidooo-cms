@@ -1,16 +1,9 @@
 package com.iidooo.cms.api.action;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.api.service.IChannelService;
@@ -89,15 +82,7 @@ public class ChannelAction extends BaseAPIAction {
                     }
                 }
 
-                JSONObject jsonObject = new JSONObject();
-                JSONArray jsonArray = JSONArray.fromObject(channelList);
-                jsonObject.put(CmsConstant.REST_API_RESULT_CHANNEL_LIST, jsonArray);
-                HttpServletResponse response = ServletActionContext.getResponse();
-                response.setContentType(CoreConstants.APPLICATION_JSON);
-                response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
-                PrintWriter writer = response.getWriter();
-                writer.write(jsonObject.toString());
-                writer.close();
+                JsonUtil.responseObjectArray(channelList, this.getResponse());
                 break;
 
             default:

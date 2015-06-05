@@ -1,15 +1,8 @@
 package com.iidooo.cms.api.action;
 
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.api.service.IContentService;
@@ -65,10 +58,10 @@ public class ContentAction extends BaseAPIAction {
             case CoreConstants.HTTP_METHOD_GET:
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
                 String channelPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PATH);
-                String pageStart = this.getRequestParameter(CoreConstants.PAGE_FIELD_START);
-                String pageSize = this.getRequestParameter(CoreConstants.PAGE_FIELD_SIZE);
-                String sortField = this.getRequestParameter(CoreConstants.PAGE_FIELD_SORT_FIELD);
-                String sortType = this.getRequestParameter(CoreConstants.PAGE_FIELD_SORT_TYPE);
+                String pageStart = this.getRequestParameter(CoreConstants.FIELD_PAGE_START);
+                String pageSize = this.getRequestParameter(CoreConstants.FIELD_PAGE_SIZE);
+                String sortField = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_FIELD);
+                String sortType = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_TYPE);
 
                 if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty() || pageStart == null
                         || pageStart.isEmpty() || pageSize == null || pageSize.isEmpty() || sortField == null || sortField.isEmpty()
@@ -83,16 +76,7 @@ public class ContentAction extends BaseAPIAction {
                 page.setSortType(sortType);
 
                 List<ContentDto> contentList = contentService.getContentList(siteCode, channelPath, page);
-
-                JSONObject jsonObject = new JSONObject();
-                JSONArray jsonArray = JSONArray.fromObject(contentList);
-                jsonObject.put(CmsConstant.REST_API_RESULT_CONTENT_LIST, jsonArray);
-                HttpServletResponse response = ServletActionContext.getResponse();
-                response.setContentType(CoreConstants.APPLICATION_JSON);
-                response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
-                PrintWriter writer = response.getWriter();
-                writer.write(jsonObject.toString());
-                writer.close();
+                JsonUtil.responseObjectArray(contentList, this.getResponse());
                 break;
 
             default:

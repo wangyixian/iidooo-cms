@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<constant name="struts.devMode" value="true" />
+	<constant name="struts.devMode" value="false" />
 	<!-- <constant name="struts.objectFactory" value="spring"/> -->
 	<constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.custom.i18n.resources" value="languages.cms_label, languages.cms_msg" />

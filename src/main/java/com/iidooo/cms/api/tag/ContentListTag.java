@@ -119,27 +119,29 @@ public class ContentListTag extends SimpleTagSupport {
 
             String cmsURL = (String) pageContext.getServletContext().getAttribute(CmsConstant.CMS_URL);
 
+            // Get the site URL for content's <a>;
+            String siteURL = this.getSiteURL(siteCode, cmsURL);
+            
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
             data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
-            data.put(CoreConstants.PAGE_FIELD_START, pageStart);
-            data.put(CoreConstants.PAGE_FIELD_SIZE, pageSize);
-            data.put(CoreConstants.PAGE_FIELD_SORT_FIELD, sortField);
-            data.put(CoreConstants.PAGE_FIELD_SORT_TYPE, sortType);
+            data.put(CoreConstants.FIELD_PAGE_START, pageStart);
+            data.put(CoreConstants.FIELD_PAGE_SIZE, pageSize);
+            data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, sortField);
+            data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, sortType);
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CmsConstant.REST_API_RESULT_CONTENT_LIST);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT);
 
             for (int i = 0; i < jsonArray.size(); i++) {
 
                 JSONObject item = (JSONObject) jsonArray.get(i);
-                String siteURL = item.getString(CmsConstant.FIELD_SITE_URL);
                 String contentID = item.getString(CmsConstant.FIELD_CONTENT_ID);
                 String contentTitle = item.getString(CmsConstant.FIELD_CONTENT_TITLE);
                 String contentImageTitle = item.getString(CmsConstant.FIELD_CONTENT_IMAGE_TITLE);
                 String contentDate = item.getString(CmsConstant.FIELD_CONTENT_UPDATE_DATE);
-                
+
                 out.println("<li>");
                 out.println("<div class='block_content_item'>");
 
@@ -169,6 +171,22 @@ public class ContentListTag extends SimpleTagSupport {
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
+        }
+    }
+
+    private String getSiteURL(String siteCode, String cmsURL) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
+
+            String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_SITE, data.toString());
+            JSONObject jsonObject = JSONObject.fromObject(response);
+            String siteURL = jsonObject.getString(CmsConstant.FIELD_SITE_URL);
+            return siteURL;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
         }
     }
 }

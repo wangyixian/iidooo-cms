@@ -23,11 +23,6 @@ public class CmsConstant {
     public static final String REST_API_CONTENT = "content";
     public static final String REST_API_CONTENT_PRODUCT="product";
     public static final String REST_API_CONTENTS = "contents";
-    
-    // The result of rest api channels
-    public static final String REST_API_RESULT_CHANNEL_LIST = "CHANNEL_LIST";
-    // The result of rest api contents
-    public static final String REST_API_RESULT_CONTENT_LIST = "CONTENT_LIST";
 
     public static final String FIELD_META_TITLE = "metaTitle";
     public static final String FIELD_META_KEYWORDS = "metaKeywords";
