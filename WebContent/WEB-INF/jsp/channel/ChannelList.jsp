@@ -6,10 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="${CORE_URL }/js/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="${CORE_URL }/js/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="${CORE_URL }/js/jquery.treeview/jquery.treeview.css">
-<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/channel/ChannelList.css">
+<script type="text/javascript" src="/cms/js/jquery.treeview/jquery.treeview.js"></script>
+<script type="text/javascript" src="/cms/js/jquery.treeview/lib/jquery.cookie.js"></script>
+<link type="text/css" rel="stylesheet" href="/cms/js/jquery.treeview/jquery.treeview.css">
+<link type="text/css" rel="stylesheet" href="/cms/css/channel/ChannelList.css">
 <script type="text/javascript">
 	$(function() {
 		$("#tree").treeview({
@@ -34,7 +34,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">			
-			<cms:channelTree baseURL="channelList.action?channel.channelID="  title="栏目树"/>
+			<cms:channelTree baseURL="channelList.action?channel.channelID={0}&channel.siteCode={1}" />
 		</div>
 		<div class="page_content_right_wrap">
 			<div class="bread_crumb">
@@ -73,8 +73,8 @@
 							<td class="align_center">${item.metaTitle}</td>
 							<td class="align_center">${item.metaKeywords}</td>
 							<td class="align_center">
-								<a href="channelListMove.action?direct=1&channelID=${item.channelID }">上移</a>|
-								<a href="channelListMove.action?direct=2&channelID=${item.channelID }">下移</a>|
+								<a href="#">上移</a>|
+								<a href="#">下移</a>|
 								<a href="#" onclick="return deleteChannel(${parentChannelID}, ${item.channelID }, ${item.version })">删除</a>
 							</td>
 						</tr>

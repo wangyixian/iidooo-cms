@@ -2,6 +2,8 @@ package com.iidooo.core.constant;
 
 public class CoreConstants {
 
+    public static final String BEAN_DICT_ITEM_DAO = "dictItemDao";
+    
     public static final String HTTP_METHOD_GET = "GET";
     public static final String HTTP_METHOD_POST = "POST";
     public static final String HTTP_METHOD_PUT = "PUT";

@@ -3,7 +3,7 @@
 <%@ taglib prefix="passport" uri="/passport-tags"%>
 <div class="top_wrap">
 	<div class="logo_wrap">
-		<a href="http://www.iidooo.com" target="_blank"> <img alt="IDO CMS" src="img/Logo_white_8.png">
+		<a href="http://www.iidooo.com" target="_blank"> <img alt="IIDOOO CMS" src="img/Logo_white_8.png">
 		</a>
 	</div>
 	<div class="menu_wrap">

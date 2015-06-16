@@ -21,7 +21,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>		
 	<div id="page_content_wrap">	
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.channelID=" title="栏目树" />
+			<cms:channelTree baseURL="contentList.action?content.channelID={0}&siteCode={1}" />
 		</div>
 		<div class="page_content_right_wrap">		
 			<div class="bread_crumb">
@@ -46,7 +46,7 @@
 						<tr>							
 							<th width="10%">内容类型</th>		
 							<td>
-								<core:dictItem id="selContentType" name="content.contentType" dictClassCode="CONTENT_TYPE" value="${content.contentType }" isDiabled="true"/>	
+								<core:dictItem id="selContentType" name="content.contentType" dictClassCode="DICT_CLASS_CONTENT_TYPE" value="${content.contentType }" isDiabled="true"/>	
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
@@ -101,11 +101,11 @@
 						<tr>
 							<th>产品国家</th>
 							<td>
-								<core:dictItem name="product.productCountry" id="selProductCountry" dictClassCode="PRODUCT_COUNTRY"/>
+								<core:dictItem name="product.productCountry" id="selProductCountry" dictClassCode="DICT_CLASS_INABA_COUNTRY"/>
 							</td>
 							<th>产品产地</th>
 							<td>
-								<core:dictItem name="product.productOrigin" id="selProductOrigin" dictClassCode="PRODUCT_ORIGIN"/>
+								<core:dictItem name="product.productOrigin" id="selProductOrigin" dictClassCode="DICT_CLASS_INABA_ORIGIN"/>
 							</td>
 						</tr>
 						</s:if>		

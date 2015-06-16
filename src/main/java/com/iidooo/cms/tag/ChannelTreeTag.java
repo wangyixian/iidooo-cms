@@ -14,7 +14,9 @@ import org.apache.log4j.Logger;
 
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dao.extend.ChannelDao;
+import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
@@ -26,19 +28,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
 
     private final String FOLD_TREE_NODE = "<span class='folder'><a href={0}>{1}</a></span>";
 
-    private String title;
-
     private String baseURL;
-    
-    private String siteCode;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getBaseURL() {
         return baseURL;
@@ -46,14 +36,6 @@ public class ChannelTreeTag extends SimpleTagSupport {
 
     public void setBaseURL(String baseURL) {
         this.baseURL = baseURL;
-    }
-
-    public String getSiteCode() {
-        return siteCode;
-    }
-
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
     }
 
     @Override
@@ -64,33 +46,37 @@ public class ChannelTreeTag extends SimpleTagSupport {
             pageContext = (PageContext) getJspContext();
             out = pageContext.getOut();
 
-            out.println("<div class='tree_wrap'>");
-            out.println("<div class='title'>");
-            out.println(this.title);
-            out.println("</div>");
+            SiteDao siteDao = (SiteDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_SITE_DAO);
+            List<SiteDto> siteList = siteDao.selectAll();
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
+            out.println("<div class='tree_wrap'>");
+
             out.println("<ul class='filetree' id='tree'>");
-            String url = baseURL + "0";
-            String folder = StringUtil.replace(FOLD_TREE_NODE, url, this.title);
-            out.println("<li>" + folder);
 
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode, Integer.MAX_VALUE);
-            counstructChildren(channelList);
+            for (SiteDto siteDto : siteList) {
+                String url = StringUtil.replace(baseURL, "0", siteDto.getSiteCode());
+                String folder = StringUtil.replace(FOLD_TREE_NODE, url, siteDto.getSiteName());
+                out.println("<li>" + folder);
 
-            if (channelList.size() > 0) {
-                out.println("<ul>");
-                for (ChannelDto item : channelList) {
-                    if (item.getParentID() <= 0) {
-                        printHTML(out, item);
+                List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteDto.getSiteCode(), Integer.MAX_VALUE);
+                counstructChildren(channelList);
+
+                if (channelList.size() > 0) {
+                    out.println("<ul>");
+                    for (ChannelDto item : channelList) {
+                        if (item.getParentID() <= 0) {
+                            printHTML(out, item, siteDto.getSiteCode());
+                        }
                     }
+                    out.println("</ul>");
+                } else {
+                    logger.warn("The root tree node has not any child.");
                 }
-                out.println("</ul>");
-            } else {
-                logger.warn("The root tree node has not any child.");
+                out.println("</li>");
             }
-            out.println("</li>");
+
             out.println("</ul>");
             out.println("</div>");
         } catch (Exception e) {
@@ -99,10 +85,10 @@ public class ChannelTreeTag extends SimpleTagSupport {
         }
     }
 
-    private void printHTML(JspWriter out, ChannelDto channelDto) throws JspException, IOException {
+    private void printHTML(JspWriter out, ChannelDto channelDto, String siteCode) throws JspException, IOException {
         try {
             // If has children, the node class should be set
-            String url = baseURL + channelDto.getChannelID().toString();
+            String url = StringUtil.replace(baseURL, channelDto.getChannelID().toString(), siteCode);
             if (channelDto.getChildren().size() > 0) {
                 String folder = StringUtil.replace(FOLD_TREE_NODE, url, channelDto.getChannelName());
                 out.println("<li>" + folder);
@@ -110,7 +96,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
                 List<ChannelDto> children = channelDto.getChildren();
                 out.println("<ul>");
                 for (ChannelDto child : children) {
-                    this.printHTML(out, child);
+                    this.printHTML(out, child, siteCode);
                 }
                 out.println("</ul>");
 

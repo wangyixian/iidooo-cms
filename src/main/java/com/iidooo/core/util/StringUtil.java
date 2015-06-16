@@ -23,6 +23,9 @@ public class StringUtil {
         try {
             String result = old;
             for (int i = 0; i < news.length; i++) {
+                if (news[i] == null) {
+                    continue;
+                }
                 result = result.replace("{" + i + "}", news[i]);
             }
             return result;

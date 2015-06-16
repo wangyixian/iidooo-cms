@@ -3,7 +3,7 @@ package com.iidooo.cms.constant;
 public class CmsConstant {
 
 
-    
+    public static final String BEAN_SITE_DAO = "siteDao";
     public static final String BEAN_CHANNEL_DAO = "channelDao";
     
     public static final String CMS_URL = "CMS_URL";

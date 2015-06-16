@@ -7,9 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="${CORE_URL}/js/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="${CORE_URL}/js/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="${CORE_URL}/js/jquery.treeview/jquery.treeview.css">
+<script type="text/javascript" src="/cms/js/jquery.treeview/jquery.treeview.js"></script>
+<script type="text/javascript" src="/cms/js/jquery.treeview/lib/jquery.cookie.js"></script>
+<link type="text/css" rel="stylesheet" href="/cms/js/jquery.treeview/jquery.treeview.css">
 
 <script type="text/javascript">
 	$(function() {
@@ -39,7 +39,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.channelID=" title="栏目树" />
+			<cms:channelTree baseURL="contentList.action?content.channelID={0}&siteCode={1}" />
 		</div>
 		<div class="page_content_right_wrap">
 			<div class="bread_crumb">
@@ -83,7 +83,7 @@
 						</s:iterator>
 					</table>
 					<div class="button_bar">
-						<core:dictItem id="selContentType" name="content.contentType" dictClassCode="CONTENT_TYPE"/>					
+						<core:dictItem id="selContentType" name="content.contentType" dictClassCode="DICT_CLASS_CONTENT_TYPE"/>					
 						<button type="button" onclick="btnCreate()">发布</button>
 					</div>
 					<div class="block">

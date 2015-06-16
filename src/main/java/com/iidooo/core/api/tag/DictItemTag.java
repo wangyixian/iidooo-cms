@@ -1,7 +1,6 @@
-package com.iidooo.core.tag;
+package com.iidooo.core.api.tag;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -14,13 +13,10 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.iidooo.core.constant.CoreConstants;
-import com.iidooo.core.dao.extend.DictItemDao;
-import com.iidooo.core.dto.extend.DictItemDto;
 import com.iidooo.core.util.HttpUtil;
-import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
-public class DictItemTag extends SimpleTagSupport{
+public class DictItemTag extends SimpleTagSupport {
     private static final Logger logger = Logger.getLogger(DictItemTag.class);
 
     private final String HTML_SELECT = "<select id='{0}' name='{1}'>";
@@ -108,13 +104,17 @@ public class DictItemTag extends SimpleTagSupport{
             if (isContainBlank) {
                 out.println(StringUtil.replace(HTML_OPTION, "0", ""));
             }
-            
-            DictItemDao dictItemDao = (DictItemDao)SpringUtil.getBean(pageContext.getServletContext(), CoreConstants.BEAN_DICT_ITEM_DAO);
-            List<DictItemDto> dictItemList = dictItemDao.selectByClassCode(dictClassCode);
-            
-            for (DictItemDto item : dictItemList) {
-                String dictItemCode = item.getDictItemCode();
-                String dictItemName = item.getDictItemName();
+            String coreURL = (String) pageContext.getServletContext().getAttribute(CoreConstants.CORE_URL);
+
+            JSONObject data = new JSONObject();
+            data.put(CoreConstants.FIELD_DICT_CLASS_CODE, dictClassCode);
+            String response = HttpUtil.doGet(coreURL, CoreConstants.REST_API_DICT_ITEMS, data.toString());
+            JSONObject jsonObject = JSONObject.fromObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.FIELD_DICT_ITEM_LIST);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JSONObject item = (JSONObject) jsonArray.get(i);
+                String dictItemCode = item.get(CoreConstants.FIELD_DICT_ITEM_CODE).toString();
+                String dictItemName = item.get(CoreConstants.FIELD_DICT_ITEM_NAME).toString();
                 if (value != null && !value.isEmpty() && value.equals(dictItemCode)) {
                     out.println(StringUtil.replace(HTML_OPTION_SELECT, dictItemCode, dictItemName));
                 } else {

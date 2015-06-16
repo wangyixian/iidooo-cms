@@ -27,7 +27,7 @@
   <select id="selectByClassCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from DICT_ITEM
+    from CORE_DICT_ITEM
     where DictClassCode = #{dictClassCode,jdbcType=VARCHAR} and IsDelete = 0
   </select>
 </mapper>

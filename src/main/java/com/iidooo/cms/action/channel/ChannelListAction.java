@@ -25,8 +25,6 @@ public class ChannelListAction extends BaseAction {
     private List<ChannelDto> channelList;
 
     private ChannelDto channel;
-    
-    private PageDto page;
 
     public List<ChannelDto> getChannelList() {
         return channelList;
@@ -42,14 +40,6 @@ public class ChannelListAction extends BaseAction {
 
     public void setChannel(ChannelDto channel) {
         this.channel = channel;
-    }
-
-    public PageDto getPage() {
-        return page;
-    }
-
-    public void setPage(PageDto page) {
-        this.page = page;
     }
 
     public String init() {

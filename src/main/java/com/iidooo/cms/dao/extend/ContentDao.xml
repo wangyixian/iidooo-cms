@@ -68,21 +68,15 @@
 	<select id="selectAllCount" resultType="java.lang.Integer">
 		select count(*)
 		from CMS_CONTENT C
-		left join
-		(select
-		L.ChannelID, L.ChannelName, R.ContentID
-		from
-		CMS_CHANNEL_CONTENT R
-		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0') L
-		on L.ContentID = C.ContentID and C.IsDelete = 0
+	    join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = '0' and C.IsDelete = 0
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.core.dto.PageDto">
 		select
 		<include refid="Base_Column_List" />
 		, L.ChannelName as channelName, L.ChannelID as channelID
 		from CMS_CONTENT C
-		inner join CMS_CHANNEL L on R.ChannelID = L.ChannelID and L.IsDelete = '0'
-		on L.ChannelID = C.ChannelID and C.IsDelete = 0
+	    join CMS_CHANNEL L
+		on L.ChannelID = C.ChannelID and C.IsDelete = 0 and L.IsDelete = '0'
 		order by L.ChannelID asc,
 		C.UpdateTime desc limit #{start}, #{pageSize}
 	</select>
