@@ -1,5 +1,9 @@
 package com.iidooo.cms.api.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
@@ -9,7 +13,10 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.HttpUtil;
+import com.iidooo.core.util.PageUtil;
 
 public class SiteSupportAction extends BaseAction {
 
@@ -25,6 +32,8 @@ public class SiteSupportAction extends BaseAction {
     private ContentDto content;
 
     private ContentProductDto product;
+
+    private List<ContentDto> contentList;
 
     public ChannelDto getChannel() {
         return channel;
@@ -48,6 +57,14 @@ public class SiteSupportAction extends BaseAction {
 
     public void setProduct(ContentProductDto product) {
         this.product = product;
+    }
+
+    public List<ContentDto> getContentList() {
+        return contentList;
+    }
+
+    public void setContentList(List<ContentDto> contentList) {
+        this.contentList = contentList;
     }
 
     public void sendGetChannelAPI(String siteCode, String channelPath) {
@@ -83,6 +100,29 @@ public class SiteSupportAction extends BaseAction {
         }
     }
 
+    /**
+     * Send the API request of get content, just return one content.
+     * 
+     * @param siteCode The site code of searching content.
+     * @param channelPath The channel path of searching content
+     */
+    public void sendGetContentAPI(String siteCode, String channelPath) {
+        try {
+            String cmsURL = (String) this.getApplicationValue(CmsConstant.CMS_URL);
+
+            // Get the content by the API content
+            JSONObject data = new JSONObject();
+            data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
+            data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
+            String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT, data.toString());
+            JSONObject jsonObject = JSONObject.fromObject(response);
+            this.content = (ContentDto) JSONObject.toBean(jsonObject, ContentDto.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
+
     public void sendGetContentProductAPI(int contentID) {
         try {
             String cmsURL = (String) this.getApplicationValue(CmsConstant.CMS_URL);
@@ -93,6 +133,67 @@ public class SiteSupportAction extends BaseAction {
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT_PRODUCT, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
             this.product = (ContentProductDto) JSONObject.toBean(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
+
+    public void sendGetContentListAPI(String siteCode, String channelPath, ContentDto content, PageDto page) {
+        try {
+            String cmsURL = (String) this.getApplicationValue(CmsConstant.CMS_URL);
+
+            // Get the content by the API content
+            JSONObject data = new JSONObject();
+            data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
+            data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
+            data.put(CoreConstants.FIELD_PAGE_START, page.getStart());
+            data.put(CoreConstants.FIELD_PAGE_SIZE, page.getPageSize());
+            data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, page.getSortField());
+            data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, page.getSortType());
+
+            if (content instanceof ContentProductDto) {
+                String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT_PRODUCTS, data.toString());
+                JSONObject jsonObject = JSONObject.fromObject(response);
+                this.product = (ContentProductDto) JSONObject.toBean(jsonObject);
+            } else {
+                String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
+                JSONObject jsonObject = JSONObject.fromObject(response);
+                this.product = (ContentProductDto) JSONObject.toBean(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
+
+    public void sendGetContentListAPI(String siteCode, String channelPath) {
+        try {
+            String cmsURL = (String) this.getApplicationValue(CmsConstant.CMS_URL);
+
+            PageDto page = this.getPage();
+            if (page == null) {
+                page = new PageDto();
+            }
+
+            // Get the content by the API content
+            JSONObject data = new JSONObject();
+            data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
+            data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
+            data.put(CoreConstants.FIELD_PAGE_START, page.getStart());
+            data.put(CoreConstants.FIELD_PAGE_SIZE, page.getPageSize());
+            data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, page.getSortField());
+            data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, page.getSortType());
+
+            String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
+            JSONObject jsonObject = JSONObject.fromObject(response);
+
+            JSONObject jsonPage = jsonObject.getJSONObject(CoreConstants.REST_API_RESULT_PAGE);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
+
+            this.setPage((PageDto) JSONObject.toBean(jsonPage, PageDto.class));
+            this.contentList = (List<ContentDto>) JSONArray.toCollection(jsonArray, ContentDto.class);
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

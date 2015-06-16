@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.iidooo.cms.api.service.IContentService;
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dao.extend.ContentDao;
-import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.dto.PageDto;
@@ -40,14 +39,38 @@ public class ContentService implements IContentService {
     }
 
     @Override
+    public ContentDto getContent(String siteCode, String channelPath) {
+        try {
+            ContentDto result = null;
+            result = contentDao.selectOneContentByChannelPath(siteCode, channelPath);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+
+    @Override
+    public int getContentListSize(String siteCode, String channelPath) {
+        try {
+            ChannelUtil channelUtil = new ChannelUtil(channelDao);
+            List<Integer> channels = channelUtil.getOffspringChannelIDList(siteCode, channelPath);
+            int result = contentDao.selectContentListCountByChannels(channels);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return 0;
+        }
+    }
+
+    @Override
     public List<ContentDto> getContentList(String siteCode, String channelPath, PageDto page) {
         List<ContentDto> result = new ArrayList<ContentDto>();
         try {
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode, Integer.MAX_VALUE);
-            
-            ChannelUtil channelUtil = new ChannelUtil();
-            channelUtil.counstructChildren(channelList);
-            List<Integer> channels = channelUtil.getOffspring(channelList, channelPath);
+            ChannelUtil channelUtil = new ChannelUtil(channelDao);
+            List<Integer> channels = channelUtil.getOffspringChannelIDList(siteCode, channelPath);
             result = contentDao.selectContentListByChannels(channels, page);
         } catch (Exception e) {
             e.printStackTrace();

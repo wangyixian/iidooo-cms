@@ -90,7 +90,7 @@ public class ContentListService implements IContentListService {
         try {
             result.add(channelID);
 
-            ChannelUtil channelUtil = new ChannelUtil();
+            ChannelUtil channelUtil = new ChannelUtil(channelDao);
             
             List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode, Integer.MAX_VALUE);
             channelUtil.counstructChildren(channelList);

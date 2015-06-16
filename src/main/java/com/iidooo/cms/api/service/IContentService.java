@@ -9,5 +9,9 @@ public interface IContentService {
     
     ContentDto getContent(int contentID);
     
+    ContentDto getContent(String siteCode, String channelPath);
+    
+    int getContentListSize(String siteCode, String channelPath);
+    
     List<ContentDto> getContentList(String siteCode, String channelPath, PageDto page);
 }

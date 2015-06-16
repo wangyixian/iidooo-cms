@@ -132,7 +132,7 @@ public class ContentListTag extends SimpleTagSupport {
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
 
             for (int i = 0; i < jsonArray.size(); i++) {
 

@@ -17,6 +17,8 @@ public interface ContentDao {
      */
     ContentDto selectByContentID(int contentID);
     
+    ContentDto selectOneContentByChannelPath(@Param("siteCode") String siteCode, @Param("channelPath") String channelPath);
+    
     /**
      * Select all of the contents with page
      * @param pageDto Do the page
@@ -51,11 +53,6 @@ public interface ContentDao {
     
     
     List<ContentDto> selectContents(Map<String, Object> params);
-
-    
-
-
-    ContentDto selectByChannel(int channelID);
 
     List<ContentDto> selectByChannelPath(@Param("siteCode") String siteCode, @Param("channelPath") String channelPath, @Param("page") PageDto page);
 

@@ -12,6 +12,7 @@ import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.JsonUtil;
+import com.iidooo.core.util.PageUtil;
 
 public class ContentAction extends BaseAPIAction {
 
@@ -32,13 +33,17 @@ public class ContentAction extends BaseAPIAction {
             case CoreConstants.HTTP_METHOD_GET:
                 String contentID = this.getRequestParameter(CmsConstant.FIELD_CONTENT_ID);
 
-                if (contentID == null || contentID.isEmpty()) {
-                    return;
+                String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
+                String channelPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PATH);
+
+                if (contentID != null && !contentID.isEmpty()) {
+                    ContentDto content = contentService.getContent(Integer.parseInt(contentID));
+                    JsonUtil.responseObject(content, this.getResponse());
+                } else if (siteCode != null && !siteCode.isEmpty() && channelPath != null && !channelPath.isEmpty()) {
+                    ContentDto content = contentService.getContent(siteCode, channelPath);
+                    JsonUtil.responseObject(content, this.getResponse());
                 }
 
-                ContentDto content = contentService.getContent(Integer.parseInt(contentID));
-
-                JsonUtil.responseObject(content, this.getResponse());
                 break;
 
             default:
@@ -75,8 +80,11 @@ public class ContentAction extends BaseAPIAction {
                 page.setSortField(sortField);
                 page.setSortType(sortType);
 
-                List<ContentDto> contentList = contentService.getContentList(siteCode, channelPath, page);
-                JsonUtil.responseObjectArray(contentList, this.getResponse());
+                int count = contentService.getContentListSize(siteCode, channelPath);
+                this.setPage(PageUtil.executePage(count, page));
+                List<ContentDto> contentList = contentService.getContentList(siteCode, channelPath, this.getPage());
+
+                JsonUtil.responseObjectArray(contentList, this.getPage(), this.getResponse());
                 break;
 
             default:

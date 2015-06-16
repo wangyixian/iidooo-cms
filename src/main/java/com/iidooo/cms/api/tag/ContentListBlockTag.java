@@ -155,7 +155,7 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
 
             out.println(StringUtil.replace(DIV_BLOCK, this.id));
             out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.title));

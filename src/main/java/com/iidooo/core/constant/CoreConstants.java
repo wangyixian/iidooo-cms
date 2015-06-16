@@ -7,7 +7,9 @@ public class CoreConstants {
     public static final String HTTP_METHOD_PUT = "PUT";
     public static final String HTTP_METHOD_DELETE = "DELETE";
 
-    public static final String REST_API_RESULT = "REST_API_RESULT";
+    public static final String REST_API_RESULT_LIST = "REST_API_RESULT_LIST";
+    public static final String REST_API_RESULT_PAGE = "REST_API_RESULT_PAGE";
+    
     public static final String REST_API_DICT_ITEMS = "dictItems";
 
     // The core web application URL, saved in the session use this key.

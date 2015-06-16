@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.dto.PageDto;
 
 public class JsonUtil {
     
@@ -33,7 +34,24 @@ public class JsonUtil {
         try {
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = JSONArray.fromObject(array);
-            jsonObject.put(CoreConstants.REST_API_RESULT, jsonArray);
+            jsonObject.put(CoreConstants.REST_API_RESULT_LIST, jsonArray);
+            response.setContentType(CoreConstants.APPLICATION_JSON);
+            response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
+            PrintWriter writer = response.getWriter();
+            writer.write(jsonObject.toString());
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
+    
+    public static void responseObjectArray(Object array, PageDto page, HttpServletResponse response ){
+        try {
+            JSONObject jsonObject = new JSONObject();
+            JSONArray jsonArray = JSONArray.fromObject(array);
+            jsonObject.put(CoreConstants.REST_API_RESULT_PAGE, page);
+            jsonObject.put(CoreConstants.REST_API_RESULT_LIST, jsonArray);
             response.setContentType(CoreConstants.APPLICATION_JSON);
             response.setCharacterEncoding(CoreConstants.ENCODING_UTF8);
             PrintWriter writer = response.getWriter();

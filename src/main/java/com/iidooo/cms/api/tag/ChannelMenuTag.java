@@ -72,7 +72,7 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CHANNELS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT);
+            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
 
             if (jsonArray.size() <= 0) {
                 return;

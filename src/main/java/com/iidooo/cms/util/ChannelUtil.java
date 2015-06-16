@@ -7,12 +7,32 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 
 public class ChannelUtil {
 
     private static final Logger logger = Logger.getLogger(ChannelUtil.class);
+    
+    private ChannelDao channelDao;
+    
+    public ChannelUtil(ChannelDao channelDao){
+        this.channelDao = channelDao;
+    }
 
+    public List<Integer> getOffspringChannelIDList(String siteCode, String channelPath){
+        List<Integer> result = new ArrayList<Integer>();
+        try {
+            List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode, Integer.MAX_VALUE);
+            this.counstructChildren(channelList);
+            result = this.getOffspring(channelList, channelPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return result;
+    }
+    
     public void counstructChildren(List<ChannelDto> channelList) {
         try {
             Map<Integer, ChannelDto> channelMap = new HashMap<Integer, ChannelDto>();

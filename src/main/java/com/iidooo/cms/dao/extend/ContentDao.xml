@@ -50,7 +50,21 @@
 		where C.ContentID = #{contentID,jdbcType=INTEGER}
 		AND C.IsDelete = 0
 	</select>
-
+	
+	<select id="selectOneContentByChannelPath" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />,
+		<include refid="Blob_Column_List" />
+		from CMS_CONTENT C
+		join CMS_CHANNEL L
+		on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
+		and L.ChannelPath =
+		#{channelPath,jdbcType=VARCHAR}
+		join CMS_SITE S
+		on S.SiteID = L.SiteID and S.IsDelete = 0 and S.SiteCode = #{siteCode,jdbcType=VARCHAR}
+		order by C.UpdateTime desc limit 0, 1
+	</select>
+	
 	<select id="selectAllCount" resultType="java.lang.Integer">
 		select count(*)
 		from CMS_CONTENT C
@@ -87,8 +101,9 @@
 		from CMS_CONTENT C
 		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = 0 and
 		L.ChannelID in
-		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>		
-		order by C.${page.sortField} ${page.sortType} limit #{page.start}, #{page.pageSize}
+		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>	
+		order by C.${page.sortField} ${page.sortType} 
+		limit #{page.start}, #{page.pageSize}
 	</select>
 
 

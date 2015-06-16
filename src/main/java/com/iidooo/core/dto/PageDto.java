@@ -1,5 +1,7 @@
 package com.iidooo.core.dto;
 
+import com.iidooo.core.constant.CoreConstants;
+
 public class PageDto {
 
     public PageDto() {
@@ -8,6 +10,10 @@ public class PageDto {
         
         // The default page size is 10
         pageSize = 10;
+        
+        sortField = CoreConstants.SORT_FIELD_UPDATETIME;
+        
+        sortType = CoreConstants.SORT_TYPE_DESC;
     }
 
     /**

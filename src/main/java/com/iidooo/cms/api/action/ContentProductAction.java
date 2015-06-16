@@ -47,4 +47,30 @@ public class ContentProductAction extends BaseAPIAction {
             logger.fatal(e);
         }
     }
+    
+    public void products() {
+        try {
+            String method = this.getRequestMethod();
+            switch (method) {
+            case CoreConstants.HTTP_METHOD_GET:
+                String contentID = this.getRequestParameter(CmsConstant.FIELD_CONTENT_ID);
+
+                if (contentID == null || contentID.isEmpty()) {
+                    return;
+                }
+
+                ContentProductDto contentProduct = contentProductService.getContentProduct(Integer.parseInt(contentID));
+
+                JsonUtil.responseObject(contentProduct, this.getResponse());
+                break;
+
+            default:
+                break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+    }
 }
