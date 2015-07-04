@@ -8,20 +8,16 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dao.extend.DictItemDao;
 import com.iidooo.core.dto.extend.DictItemDto;
-import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
-public class DictItemTag extends SimpleTagSupport{
-    private static final Logger logger = Logger.getLogger(DictItemTag.class);
+public class DictItemSelectTag extends SimpleTagSupport{
+    private static final Logger logger = Logger.getLogger(DictItemSelectTag.class);
 
     private final String HTML_SELECT = "<select id='{0}' name='{1}'>";
     

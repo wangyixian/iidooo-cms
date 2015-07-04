@@ -1,4 +1,4 @@
-package com.iidooo.core.api.tag;
+package com.iidooo.core.tag;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,14 +9,12 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 
-import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.core.constant.CoreConstants;
-import com.iidooo.core.util.HttpUtil;
+import com.iidooo.core.dao.extend.DictItemDao;
+import com.iidooo.core.dto.extend.DictItemDto;
+import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
 public class DictItemListTag extends SimpleTagSupport {
@@ -88,16 +86,8 @@ public class DictItemListTag extends SimpleTagSupport {
             pageContext = (PageContext) getJspContext();
             out = pageContext.getOut();
 
-            String cmsURL = (String) pageContext.getServletContext().getAttribute(CmsConstant.CMS_URL);
-
-            JSONObject data = new JSONObject();
-            data.put(CoreConstants.FIELD_DICT_CLASS_CODE, dictClassCode);
-            String response = HttpUtil.doGet(cmsURL, CoreConstants.REST_API_DICT_ITEMS, data.toString());
-            JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.FIELD_DICT_ITEM_LIST);
-            if (jsonArray.size() <= 0) {
-                return;
-            }
+            DictItemDao DictItemDao = (DictItemDao) SpringUtil.getBean(pageContext.getServletContext(), CoreConstants.BEAN_DICT_ITEM_DAO);
+            List<DictItemDto> dictItemList = DictItemDao.selectByClassCode(dictClassCode);
 
             out.println("<ul id='" + id + "' class='dict_item_list'>");
 
@@ -105,10 +95,10 @@ public class DictItemListTag extends SimpleTagSupport {
             List<String> liList = new ArrayList<String>();
 
             boolean isItemFocus = false;
-            for (int i = 0; i < jsonArray.size(); i++) {
-                JSONObject item = (JSONObject) jsonArray.get(i);
-                String dictItemCode = item.get(CoreConstants.FIELD_DICT_ITEM_CODE).toString();
-                String dictItemName = item.get(CoreConstants.FIELD_DICT_ITEM_NAME).toString();
+
+            for (DictItemDto item : dictItemList) {
+                String dictItemCode = item.getDictItemCode();
+                String dictItemName = item.getDictItemName();
                 if (value != null && !value.isEmpty() && value.equals(dictItemCode)) {
                     isItemFocus = true;
                     if (onClick != null && !onClick.isEmpty()) {
@@ -159,4 +149,5 @@ public class DictItemListTag extends SimpleTagSupport {
             logger.fatal(e);
         }
     }
+
 }
