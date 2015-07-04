@@ -83,7 +83,7 @@
 						</s:iterator>
 					</table>
 					<div class="button_bar">
-						<core:dictItem id="selContentType" name="content.contentType" dictClassCode="DICT_CLASS_CONTENT_TYPE"/>					
+						<core:dictItemSelect id="selContentType" name="content.contentType" dictClassCode="DICT_CLASS_CONTENT_TYPE"/>					
 						<button type="button" onclick="btnCreate()">发布</button>
 					</div>
 					<div class="block">

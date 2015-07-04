@@ -121,20 +121,22 @@ public class ChannelListTag extends SimpleTagSupport {
             boolean isItemFocus = false;
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject item = (JSONObject) jsonArray.get(i);
-                String channelID = item.get(CmsConstant.FIELD_CHANNEL_ID).toString();
-                String channelName = item.get(CmsConstant.FIELD_CHANNEL_NAME).toString();
-                if (value != null && !value.isEmpty() && value.equals(channelID)) {
+                String channelID = item.getString(CmsConstant.FIELD_CHANNEL_ID);
+                String channelPath = item.getString(CmsConstant.FIELD_CHANNEL_PATH);
+                String channelName = item.getString(CmsConstant.FIELD_CHANNEL_NAME);
+                if (value != null && !value.isEmpty() && (value.equals(channelID) || value.equals(channelPath))) {
                     isItemFocus = true;
 
                     if (onClick != null && !onClick.isEmpty()) {
-                        liList.add(StringUtil.replace(HTML_LI_FOCUS_ONCLICK.replace(CmsConstant.FIELD_CHANNEL_ID, channelID), id + "_" + channelID, channelName,
-                                onClick));
+                        String function = this.getFunction(item);
+                        liList.add(StringUtil.replace(HTML_LI_FOCUS_ONCLICK, id + "_" + channelID, channelName, function));
                     } else {
                         liList.add(StringUtil.replace(HTML_LI_FOCUS, id + "_" + channelID, channelName));
                     }
                 } else {
                     if (onClick != null && !onClick.isEmpty()) {
-                        liList.add(StringUtil.replace(HTML_LI_ONCLICK.replace(CmsConstant.FIELD_CHANNEL_ID, channelID), id + "_" + channelID, channelName, onClick));
+                        String function = this.getFunction(item);
+                        liList.add(StringUtil.replace(HTML_LI_ONCLICK, id + "_" + channelID, channelName, function));
                     } else {
                         liList.add(StringUtil.replace(HTML_LI, id + "_" + channelID, channelName));
                     }
@@ -146,13 +148,15 @@ public class ChannelListTag extends SimpleTagSupport {
             if (isContainBlank) {
                 if (isItemFocus) {
                     if (onClick != null && !onClick.isEmpty()) {
-                        liList.add(0, StringUtil.replace(HTML_LI_ONCLICK.replace(CmsConstant.FIELD_CHANNEL_ID, "0"), id + "_0", "全部", onClick));
+                        String function = this.getFunction(null);
+                        liList.add(0, StringUtil.replace(HTML_LI_ONCLICK, id + "_0", "全部", function));
                     } else {
                         liList.add(0, StringUtil.replace(HTML_LI, id + "_0", "全部"));
                     }
                 } else {
                     if (onClick != null && !onClick.isEmpty()) {
-                        liList.add(0, StringUtil.replace(HTML_LI_FOCUS_ONCLICK.replace(CmsConstant.FIELD_CHANNEL_ID, "0"), id + "_0", "全部", onClick));
+                        String function = this.getFunction(null);
+                        liList.add(0, StringUtil.replace(HTML_LI_FOCUS_ONCLICK, id + "_0", "全部", function));
                     } else {
                         liList.add(0, StringUtil.replace(HTML_LI_FOCUS, id + "_0", "全部"));
                     }
@@ -169,5 +173,33 @@ public class ChannelListTag extends SimpleTagSupport {
             e.printStackTrace();
             logger.fatal(e);
         }
+    }
+    
+    private String getFunction(JSONObject item){
+        String result = onClick;
+        
+        try {
+            if (result.contains(CmsConstant.FIELD_CHANNEL_ID)) {
+                if (item != null) {
+                    String channelID = item.get(CmsConstant.FIELD_CHANNEL_ID).toString();
+                    result = result.replace(CmsConstant.FIELD_CHANNEL_ID, channelID);
+                } else {
+                    result = result.replace(CmsConstant.FIELD_CHANNEL_ID, "");
+                }
+            } 
+            if (result.contains(CmsConstant.FIELD_CHANNEL_PATH)) {
+                if (item != null) {
+                    String channelPath = item.get(CmsConstant.FIELD_CHANNEL_PATH).toString();
+                    result = result.replace(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
+                } else {
+                    result = result.replace(CmsConstant.FIELD_CHANNEL_PATH, "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        
+        return result;
     }
 }

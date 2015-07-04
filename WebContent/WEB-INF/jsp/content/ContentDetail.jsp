@@ -101,11 +101,11 @@
 						<tr>
 							<th>产品国家</th>
 							<td>
-								<core:dictItem name="product.productCountry" id="selProductCountry" dictClassCode="DICT_CLASS_INABA_COUNTRY"/>
+								<core:dictItemSelect name="product.productCountry" id="selProductCountry" dictClassCode="DICT_CLASS_INABA_COUNTRY"/>
 							</td>
 							<th>产品产地</th>
 							<td>
-								<core:dictItem name="product.productOrigin" id="selProductOrigin" dictClassCode="DICT_CLASS_INABA_ORIGIN"/>
+								<core:dictItemSelect name="product.productOrigin" id="selProductOrigin" dictClassCode="DICT_CLASS_INABA_ORIGIN"/>
 							</td>
 						</tr>
 						</s:if>		

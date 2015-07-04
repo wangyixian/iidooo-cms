@@ -158,12 +158,16 @@ public class SiteSupportAction extends BaseAction {
             
             if (product == null) {
                 product = new ContentProductDto();
+                product.setChannelPath(channelPath);
             }
-
+            
+            // Set the product and will be used on the page
+            this.product = product;
+            
             // Get the content by the API content
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
-            data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
+            data.put(CmsConstant.FIELD_CHANNEL_PATH, product.getChannelPath());
             data.put(CmsConstant.FIELD_CONTENT_PRODUCT_COUNTRY, product.getProductCountry());
             data.put(CmsConstant.FIELD_CONTENT_PRODUCT_ORIGIN, product.getProductOrigin());
             data.put(CoreConstants.FIELD_PAGE_START, page.getStart());
