@@ -29,8 +29,6 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
     private String channelPath;
 
-    private String level = "1";
-
     public String getSiteCode() {
         return siteCode;
     }
@@ -41,14 +39,6 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
     public String getChannelPath() {
         return channelPath;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
     }
 
     public void setChannelPath(String channelPath) {
@@ -67,8 +57,6 @@ public class ChannelMenuTag extends SimpleTagSupport {
 
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
-            data.put(CmsConstant.FIELD_CHANNEL_IS_HIDDEN, "0");
-            data.put(CmsConstant.FIELD_CHANNEL_LEVEL, this.level);
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CHANNELS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);

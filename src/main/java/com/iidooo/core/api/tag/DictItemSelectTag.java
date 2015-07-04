@@ -16,11 +16,11 @@ import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
 
-public class DictItemTag extends SimpleTagSupport {
-    private static final Logger logger = Logger.getLogger(DictItemTag.class);
+public class DictItemSelectTag extends SimpleTagSupport {
+    private static final Logger logger = Logger.getLogger(DictItemSelectTag.class);
 
     private final String HTML_SELECT = "<select id='{0}' name='{1}'>";
-    
+
     private final String HTML_SELECT_DISABLED = "<select id='{0}' name='{1}' disabled='disabled'>";
 
     private final String HTML_OPTION = "<option value='{0}'>{1}</option>";
@@ -29,15 +29,14 @@ public class DictItemTag extends SimpleTagSupport {
 
     private String id;
 
-    private String dictClassCode;
-
-    private boolean isContainBlank = false;
-    
-    private boolean isDiabled = false;
-
     private String name;
 
     private String value;
+    private String dictClassCode;
+
+    private boolean isContainBlank = false;
+
+    private boolean isDiabled = false;
 
     public String getId() {
         return id;
@@ -45,6 +44,22 @@ public class DictItemTag extends SimpleTagSupport {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String getDictClassCode() {
@@ -71,22 +86,6 @@ public class DictItemTag extends SimpleTagSupport {
         this.isDiabled = isDabled;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     @Override
     public void doTag() throws JspException, IOException {
         PageContext pageContext = null;
@@ -96,11 +95,11 @@ public class DictItemTag extends SimpleTagSupport {
             out = pageContext.getOut();
 
             if (isDiabled) {
-                out.println(StringUtil.replace(HTML_SELECT_DISABLED, id, name));    
+                out.println(StringUtil.replace(HTML_SELECT_DISABLED, id, name));
             } else {
-                out.println(StringUtil.replace(HTML_SELECT, id, name));                
+                out.println(StringUtil.replace(HTML_SELECT, id, name));
             }
-            
+
             if (isContainBlank) {
                 out.println(StringUtil.replace(HTML_OPTION, "0", ""));
             }

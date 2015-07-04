@@ -15,8 +15,8 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>channelList</name>
-		<tag-class>com.iidooo.cms.tag.ChannelListTag</tag-class>
+		<name>channelSelect</name>
+		<tag-class>com.iidooo.cms.tag.ChannelSelectTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>id</name>

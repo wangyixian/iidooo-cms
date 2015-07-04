@@ -12,30 +12,30 @@ import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 
 @Service
-public class ChannelService implements IChannelService{
-    
+public class ChannelService implements IChannelService {
+
     private static final Logger logger = Logger.getLogger(ChannelService.class);
 
     @Autowired
     private ChannelDao channelDao;
-    
+
     @Override
-    public List<ChannelDto> getChannelList(String siteCode, int channelLevel) {
+    public List<ChannelDto> getChannelList(String siteCode) {
         List<ChannelDto> result = new ArrayList<ChannelDto>();
         try {
-            result = channelDao.selectChannelsBySite(siteCode, channelLevel);
+            result = channelDao.selectChannelList(siteCode);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
         }
         return result;
     }
-    
+
     @Override
-    public List<ChannelDto> getDisplayChannelList(String siteCode, int channelLevel){
+    public List<ChannelDto> getChannelChildre(String siteCode, String parentPath) {
         List<ChannelDto> result = new ArrayList<ChannelDto>();
         try {
-            result = channelDao.selectChannelsBySite(siteCode, channelLevel);
+            result = channelDao.selectChannelChildren(siteCode, parentPath);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -46,7 +46,7 @@ public class ChannelService implements IChannelService{
     @Override
     public ChannelDto getChannel(String siteCode, String channelPath) {
         try {
-            ChannelDto result = null; 
+            ChannelDto result = null;
             result = channelDao.selectChannelByPath(siteCode, channelPath);
             return result;
         } catch (Exception e) {
@@ -55,6 +55,5 @@ public class ChannelService implements IChannelService{
             return null;
         }
     }
-    
-    
+
 }

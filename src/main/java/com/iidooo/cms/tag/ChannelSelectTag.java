@@ -18,9 +18,9 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
-public class ChannelListTag extends SimpleTagSupport {
+public class ChannelSelectTag extends SimpleTagSupport {
 
-    private static final Logger logger = Logger.getLogger(ChannelListTag.class);
+    private static final Logger logger = Logger.getLogger(ChannelSelectTag.class);
 
     private final String HTML_SELECT = "<select id='{0}' name='{1}'>";
 
@@ -112,7 +112,7 @@ public class ChannelListTag extends SimpleTagSupport {
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(this.siteCode, Integer.MAX_VALUE);
+            List<ChannelDto> channelList = channelDao.selectChannelList(this.siteCode);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

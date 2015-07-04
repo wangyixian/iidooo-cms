@@ -60,27 +60,14 @@ public class ChannelAction extends BaseAPIAction {
             case CoreConstants.HTTP_METHOD_GET:
 
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
+                String parentPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PARENT_PATH);
                 if (siteCode == null || siteCode.isEmpty()) {
                     return;
                 }
 
                 List<ChannelDto> channelList = new ArrayList<ChannelDto>();
 
-                String isHidden = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_IS_HIDDEN);
-                String channelLevel = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_LEVEL);
-                if (isHidden != null && !isHidden.isEmpty()) {
-                    if (channelLevel != null) {
-                        channelList = channelService.getDisplayChannelList(siteCode, Integer.parseInt(channelLevel));
-                    } else {
-                        channelList = channelService.getDisplayChannelList(siteCode, Integer.MAX_VALUE);
-                    }
-                } else {
-                    if (channelLevel != null) {
-                        channelList = channelService.getChannelList(siteCode, Integer.parseInt(channelLevel));
-                    } else {
-                        channelList = channelService.getChannelList(siteCode, Integer.MAX_VALUE);
-                    }
-                }
+                channelList = channelService.getChannelChildre(siteCode, parentPath);
 
                 JsonUtil.responseObjectArray(channelList, this.getResponse());
                 break;

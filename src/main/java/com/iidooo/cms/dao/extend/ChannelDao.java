@@ -11,19 +11,11 @@ public interface ChannelDao {
     /**
      * Select all of the channels with the site code and channel level
      * @param siteCode The site code should be defined.
-     * @param channelLevel The channel level for searching. If want to get all level, defined as max of integer.
      * @return The list of channels
      */
-    List<ChannelDto> selectChannelsBySite(@Param("siteCode")String siteCode, @Param("channelLevel")int channelLevel);
+    List<ChannelDto> selectChannelList(@Param("siteCode")String siteCode);
 
-    
-    /**
-     * Select all of the displayed channels with the site code and channel level
-     * @param siteCode The site code should be defined.
-     * @param channelLevel The channel level for searching. If want to get all level, defined as max of integer.
-     * @return The list of channels
-     */
-    List<ChannelDto> selectDisplayChannelsBySite(@Param("siteCode")String siteCode, @Param("channelLevel")int channelLevel);
+    List<ChannelDto> selectChannelChildren(@Param("siteCode")String siteCode, @Param("parentPath")String parentPath);    
     
     /**
      * Get the channel list by the parent ID

@@ -136,7 +136,6 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        logger.debug("ContentListTag doTag method execute start.");
         PageContext pageContext = null;
         JspWriter out = null;
         try {
@@ -164,7 +163,6 @@ public class ContentListBlockTag extends SimpleTagSupport {
             for (int i = 0; i < jsonArray.size(); i++) {
 
                 JSONObject item = (JSONObject) jsonArray.get(i);
-                String siteURL = item.getString(CmsConstant.FIELD_SITE_URL);
                 String contentID = item.getString(CmsConstant.FIELD_CONTENT_ID);
                 String contentTitle = item.getString(CmsConstant.FIELD_CONTENT_TITLE);
                 String contentImageTitle = item.getString(CmsConstant.FIELD_CONTENT_IMAGE_TITLE);
@@ -175,14 +173,14 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
                 if (isShowImage) {
                     out.println("<div class='block_content_item_image'>");
-                    out.println("<a target='_blank' href='" + siteURL + '/' + action + "?content.contentID=" + contentID + "'>");
+                    out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
                     out.println("<img alt='" + contentTitle + "' src='" + contentImageTitle + "'>");
                     out.println("</a>");
                     out.println("</div>");
                 }
 
                 out.println("<div class='block_content_item_title'>");
-                out.println("<a target='_blank' href='" + siteURL + '/' + action + "?content.contentID=" + contentID + "'>");
+                out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
                 out.println(contentTitle);
                 out.println("</a>");
                 out.println("</div>");
@@ -199,7 +197,6 @@ public class ContentListBlockTag extends SimpleTagSupport {
             out.println("</ul>");
             out.println("</div>");
             out.println("</div>");
-            logger.debug("ContentListTag doTag method execute end.");
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

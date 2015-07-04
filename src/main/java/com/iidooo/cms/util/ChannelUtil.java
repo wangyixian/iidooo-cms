@@ -23,7 +23,7 @@ public class ChannelUtil {
     public List<Integer> getOffspringChannelIDList(String siteCode, String channelPath){
         List<Integer> result = new ArrayList<Integer>();
         try {
-            List<ChannelDto> channelList = channelDao.selectChannelsBySite(siteCode, Integer.MAX_VALUE);
+            List<ChannelDto> channelList = channelDao.selectChannelList(siteCode);
             this.counstructChildren(channelList);
             result = this.getOffspring(channelList, channelPath);
         } catch (Exception e) {

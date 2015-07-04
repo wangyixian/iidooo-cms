@@ -10,6 +10,8 @@ public class ContentDto extends Content {
 
     private String channelName;
 
+    private String channelPath;
+
     private String createUserName;
 
     public Integer getNewChannelID() {
@@ -26,6 +28,14 @@ public class ContentDto extends Content {
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
+    }
+
+    public String getChannelPath() {
+        return channelPath;
+    }
+
+    public void setChannelPath(String channelPath) {
+        this.channelPath = channelPath;
     }
 
     public String getCreateUserName() {

@@ -50,7 +50,7 @@
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
-								<cms:channelList id="selChannelID" name="content.newChannelID" value="${content.channelID }"/>	
+								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }"/>	
 							</td>			
 						</tr>
 						<tr>

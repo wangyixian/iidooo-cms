@@ -37,10 +37,14 @@ public class CmsConstant {
     public static final String FIELD_CHANNEL_NAME = "channelName";
     public static final String FIELD_CHANNEL_LEVEL = "channelLevel";
     public static final String FIELD_CHANNEL_PARENT_ID = "parentID";
+    public static final String FIELD_CHANNEL_PARENT_PATH = "parentPath";
     public static final String FIELD_CHANNEL_IS_HIDDEN = "isHidden";
     
     public static final String FIELD_CONTENT_ID = "contentID";    
     public static final String FIELD_CONTENT_TITLE = "contentTitle";
     public static final String FIELD_CONTENT_IMAGE_TITLE = "contentImageTitle";
     public static final String FIELD_CONTENT_UPDATE_DATE = "updateDate";
+    
+    public static final String FIELD_CONTENT_PRODUCT_COUNTRY = "productCountry";
+    public static final String FIELD_CONTENT_PRODUCT_ORIGIN = "productOrigin";
 }

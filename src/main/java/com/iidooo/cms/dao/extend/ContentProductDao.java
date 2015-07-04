@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.core.dto.PageDto;
 
@@ -17,9 +16,9 @@ public interface ContentProductDao {
      */
     ContentProductDto selectByContentID(int contentID);
     
-    int selectProductsCount(@Param("channels")List<ChannelDto> channels, @Param("product")ContentProductDto product);
+    int selectProductListSize(@Param("siteCode")String siteCode, @Param("channels")List<Integer> channels, @Param("product")ContentProductDto product);
 
-    List<ContentProductDto> selectProducts(@Param("channels")List<ChannelDto> channels, @Param("product")ContentProductDto product, @Param("page")PageDto page);
+    List<ContentProductDto> selectProductList(@Param("siteCode")String siteCode, @Param("channels")List<Integer> channels, @Param("product")ContentProductDto product, @Param("page")PageDto page);
 
     
     int insert(ContentProductDto product);

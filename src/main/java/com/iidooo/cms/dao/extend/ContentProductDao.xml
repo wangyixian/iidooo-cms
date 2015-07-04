@@ -3,6 +3,7 @@
 <mapper namespace="com.iidooo.cms.dao.extend.ContentProductDao">
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ContentProductDto">
 		<id column="ContentID" property="contentID" jdbcType="INTEGER" />
+		<result column="ChannelID" property="channelID" jdbcType="INTEGER" />
 		<result column="ContentType" property="contentType" jdbcType="CHAR" />
 		<result column="ContentTitle" property="contentTitle" jdbcType="VARCHAR" />
 		<result column="ContentSubTitle" property="contentSubTitle" jdbcType="VARCHAR" />
@@ -27,7 +28,7 @@
 		<result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		C.ContentID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
+		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle,
 		C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary,
@@ -44,15 +45,15 @@
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
-		from CONTENT C
-		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID
+		from CMS_CONTENT C
+		join CMS_CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID
 		and C.ContentID = #{contentID}
 	</select>
 	
-	<select id="selectProductsCount" resultType="java.lang.Integer">
+	<select id="selectProductListSize" resultType="java.lang.Integer">
 		select count(C.ContentID)		
-		from CONTENT C
-		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
+		from CMS_CONTENT C
+		join CMS_CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
       	<if test="product.productCountry != null and product.productCountry > 0" >
         and P.ProductCountry = #{product.productCountry,jdbcType=INTEGER}
       	</if>
@@ -60,14 +61,14 @@
         and P.ProductOrigin = #{product.productOrigin,jdbcType=INTEGER}
       	</if>
 		and C.ChannelID in
-		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item.channelID}</foreach>
+		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 	</select>
 	
-	<select id="selectProducts" resultMap="BaseResultMap">
+	<select id="selectProductList" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />		
-		from CONTENT C
-		join CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
+		from CMS_CONTENT C
+		join CMS_CONTENT_PRODUCT P on C.IsDelete = 0 and C.ContentID = P.ContentID 
       	<if test="product.productCountry != null and product.productCountry > 0" >
         and P.ProductCountry = #{product.productCountry,jdbcType=INTEGER}
       	</if>
@@ -75,20 +76,20 @@
         and P.ProductOrigin = #{product.productOrigin,jdbcType=INTEGER}
       	</if>
 		and C.ChannelID in
-		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item.channelID}</foreach>
+		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 		order by C.ChannelID asc, C.ContentID asc, C.UpdateTime desc limit #{page.start}, #{page.pageSize}
 	</select>
 
 
 	<insert id="insert" parameterType="com.iidooo.cms.dto.extend.ContentProductDto">
-		insert into CONTENT_PRODUCT (ContentID, ProductCountry,
+		insert into CMS_CONTENT_PRODUCT (ContentID, ProductCountry,
 		ProductOrigin)
 		values (#{contentID,jdbcType=INTEGER}, #{productCountry,jdbcType=CHAR},
 		#{productOrigin,jdbcType=CHAR})
 	</insert>
 	
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ContentProductDto" >
-    update CONTENT_PRODUCT
+    update CMS_CONTENT_PRODUCT
     set ProductCountry = #{productCountry,jdbcType=CHAR},
       ProductOrigin = #{productOrigin,jdbcType=CHAR}
     where ContentID = #{contentID,jdbcType=INTEGER}

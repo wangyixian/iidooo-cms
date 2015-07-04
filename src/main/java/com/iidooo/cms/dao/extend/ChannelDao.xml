@@ -28,7 +28,7 @@
 		C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 
-	<select id="selectChannelsBySite" resultMap="BaseResultMap">
+	<select id="selectChannelList" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		, S.SiteURL as siteURL
@@ -37,10 +37,9 @@
 		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
 		and S.SiteCode =
 		#{siteCode,jdbcType=VARCHAR}
-		and C.ChannelLevel &lt;= #{channelLevel,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectDisplayChannelsBySite" resultMap="BaseResultMap">
+	<select id="selectChannelChildren" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		, S.SiteURL as siteURL
@@ -48,10 +47,16 @@
 		join CMS_SITE S
 		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
 		and S.SiteCode =
-		#{siteCode,jdbcType=VARCHAR} and C.IsHidden = 0
-		and C.ChannelLevel &lt;= #{channelLevel,jdbcType=INTEGER}
+		#{siteCode,jdbcType=VARCHAR}
+		<if test="parentPath != null">
+			join CMS_CHANNEL P
+			on C.ParentID = P.ChannelID and
+			P.ChannelPath = #{parentPath,jdbcType=VARCHAR}
+		</if>
+		<if test="parentPath == null">
+			and C.ParentID = 0
+		</if>
 	</select>
-
 
 	<select id="selectChannelByPath" resultMap="BaseResultMap">
 		select
