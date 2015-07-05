@@ -505,8 +505,12 @@ a:hover {
 	color: #FFFFFF;
 }
 /* 页脚 End */
+
+/* The tree tag's outside wrap style */
 .tree_wrap {
 	border: 1px solid RGB(200, 200, 200);
+	overflow: hidden;
+	height: 100%;
 }
 
 .tree_wrap .title {
@@ -540,6 +544,40 @@ a:hover {
 	height: 30px;
 	line-height: 30px;
 }
+
+/* The button style of <a> */
+.button{
+	border: 1px solid #5c8ebf;
+	padding: 5px 10px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#75abda, endColorstr=#6698c9);
+	background: -webkit-linear-gradient(#75abda, #6698c9);
+	background: -moz-linear-gradient(#75abda, #6698c9);
+	font-size: 14px;
+	width: 68px;
+	height: 30px;
+	line-height: 30px;
+	color: #FFFFFF;
+	text-align: center;
+	cursor: pointer;
+}
+
+.button:hover{
+	border: 1px solid #4f85b9;
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#67a1d4, endColorstr=#5d91c3);
+	background: -webkit-linear-gradient(#67a1d4, #5d91c3);
+	background: -moz-linear-gradient(#67a1d4, #5d91c3);
+	box-shadow: 0 1px 3px #999;
+	-webkit-box-shadow: 0 1px 3px #999;
+	-moz-box-shadow: 0 1px 3px #999;
+	color: white;
+}
+
+/* The button style of <a> end*/
 
 .button_bar {
 	margin-top: 10px;

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelDetailService;
 import com.iidooo.core.action.BaseAction;
-import com.opensymphony.xwork2.ActionSupport;
 
 public class ChannelDetailAction extends BaseAction {
 

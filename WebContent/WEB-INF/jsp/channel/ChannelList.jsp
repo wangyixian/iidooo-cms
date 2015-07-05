@@ -6,23 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="/cms/js/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="/cms/js/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="/cms/js/jquery.treeview/jquery.treeview.css">
+<jsp:include page="../include/Tree.jsp"></jsp:include>
 <link type="text/css" rel="stylesheet" href="/cms/css/channel/ChannelList.css">
-<script type="text/javascript">
-	$(function() {
-		$("#tree").treeview({
-			animated : "fast",
-			persist : "location"
-		});
-	})
-
-	function btnCreate(parentID) {
-		window.form.action = "channelDetail.action?channel.parentID=" + parentID;
-		window.form.submit();
-	}
-	
+<script type="text/javascript">	
 	function deleteChannel(parentChannelID, channelID, version){
 		if (confirm("确定要删除该栏目吗？")) {
 			window.location.href = "channelListDelete.action?parentChannelID="+parentChannelID+"&channel.channelID=" + channelID + "&version=" + version;
@@ -81,7 +67,7 @@
 					</s:iterator>
 				</table>
 				<div class="button_bar">
-					<button type="button" onclick="btnCreate(${parentChannelID})">添加</button>
+					<a class="button" href="channelDetail.action?channel.parentID=${parentChannelID}" target="_blank">添加</a>
 				</div>
 			</div>
 		</div>

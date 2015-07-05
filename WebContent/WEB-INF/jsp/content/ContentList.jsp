@@ -7,18 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="/cms/js/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="/cms/js/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="/cms/js/jquery.treeview/jquery.treeview.css">
+<jsp:include page="../include/Tree.jsp"></jsp:include>
 
 <script type="text/javascript">
-	$(function() {
-		$("#tree").treeview({
-			animated : "fast",
-			persist : "location"
-		});
-	})
-	
 	function btnCreate(){
 		var contentType = $("#selContentType").val();
 		window.location.href="contentDetail.action?content.contentType=" + contentType;
