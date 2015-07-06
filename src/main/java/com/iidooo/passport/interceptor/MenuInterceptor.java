@@ -42,7 +42,8 @@ public class MenuInterceptor extends AbstractInterceptor {
                 logger.warn(request.getServletPath() + " is not contained in the system!");
                 return invocation.invoke();
             }
-
+            application.put(PassportConstant.SESSION_SECURITY_RESOURCE_CURRENT, currentSecurityResDto);
+            
             List<SecurityResourceDto> securityResList = (List<SecurityResourceDto>) application.get(PassportConstant.SESSION_SECURITY_RESOURCE_LIST);
             // Set the parent resource selected
             for (SecurityResourceDto item : securityResList) {

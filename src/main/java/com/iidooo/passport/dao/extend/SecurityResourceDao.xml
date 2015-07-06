@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.extend.SecurityResourceDto" >
     <id column="ResourceID" property="resourceID" jdbcType="INTEGER" />
     <result column="ParentID" property="parentID" jdbcType="INTEGER" />
-    <result column="ResourceCode" property="resourceCode" jdbcType="VARCHAR" />
     <result column="ResourceName" property="resourceName" jdbcType="VARCHAR" />
     <result column="ResourceURL" property="resourceURL" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -16,7 +15,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ResourceID, ParentID, ResourceCode, ResourceName, ResourceURL, Remarks, CreateTime, 
+    ResourceID, ParentID, ResourceName, ResourceURL, Remarks, CreateTime, 
     CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">

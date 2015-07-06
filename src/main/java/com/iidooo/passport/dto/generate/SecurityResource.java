@@ -5,8 +5,6 @@ public class SecurityResource {
 
     private Integer parentID;
 
-    private String resourceCode;
-
     private String resourceName;
 
     private String resourceURL;
@@ -39,14 +37,6 @@ public class SecurityResource {
 
     public void setParentID(Integer parentID) {
         this.parentID = parentID;
-    }
-
-    public String getResourceCode() {
-        return resourceCode;
-    }
-
-    public void setResourceCode(String resourceCode) {
-        this.resourceCode = resourceCode == null ? null : resourceCode.trim();
     }
 
     public String getResourceName() {
