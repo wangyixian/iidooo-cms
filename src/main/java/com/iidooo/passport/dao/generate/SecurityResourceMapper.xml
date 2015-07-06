@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.generate.SecurityResource" >
     <id column="ResourceID" property="resourceID" jdbcType="INTEGER" />
     <result column="ParentID" property="parentID" jdbcType="INTEGER" />
-    <result column="ResourceCode" property="resourceCode" jdbcType="VARCHAR" />
     <result column="ResourceName" property="resourceName" jdbcType="VARCHAR" />
     <result column="ResourceURL" property="resourceURL" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -16,8 +15,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ResourceID, ParentID, ResourceCode, ResourceName, ResourceURL, Remarks, CreateTime, 
-    CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    ResourceID, ParentID, ResourceName, ResourceURL, Remarks, CreateTime, CreateUser, 
+    UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -30,16 +29,14 @@
     where ResourceID = #{resourceID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.passport.dto.generate.SecurityResource" >
-    insert into PASSPORT_SECURITY_RESOURCE (ResourceID, ParentID, ResourceCode, 
-      ResourceName, ResourceURL, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
-    values (#{resourceID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{resourceCode,jdbcType=VARCHAR}, 
-      #{resourceName,jdbcType=VARCHAR}, #{resourceURL,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+    insert into PASSPORT_SECURITY_RESOURCE (ResourceID, ParentID, ResourceName, 
+      ResourceURL, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version)
+    values (#{resourceID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{resourceName,jdbcType=VARCHAR}, 
+      #{resourceURL,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.SecurityResource" >
     insert into PASSPORT_SECURITY_RESOURCE
@@ -49,9 +46,6 @@
       </if>
       <if test="parentID != null" >
         ParentID,
-      </if>
-      <if test="resourceCode != null" >
-        ResourceCode,
       </if>
       <if test="resourceName != null" >
         ResourceName,
@@ -88,9 +82,6 @@
       <if test="parentID != null" >
         #{parentID,jdbcType=INTEGER},
       </if>
-      <if test="resourceCode != null" >
-        #{resourceCode,jdbcType=VARCHAR},
-      </if>
       <if test="resourceName != null" >
         #{resourceName,jdbcType=VARCHAR},
       </if>
@@ -126,9 +117,6 @@
       <if test="parentID != null" >
         ParentID = #{parentID,jdbcType=INTEGER},
       </if>
-      <if test="resourceCode != null" >
-        ResourceCode = #{resourceCode,jdbcType=VARCHAR},
-      </if>
       <if test="resourceName != null" >
         ResourceName = #{resourceName,jdbcType=VARCHAR},
       </if>
@@ -162,7 +150,6 @@
   <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.SecurityResource" >
     update PASSPORT_SECURITY_RESOURCE
     set ParentID = #{parentID,jdbcType=INTEGER},
-      ResourceCode = #{resourceCode,jdbcType=VARCHAR},
       ResourceName = #{resourceName,jdbcType=VARCHAR},
       ResourceURL = #{resourceURL,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},

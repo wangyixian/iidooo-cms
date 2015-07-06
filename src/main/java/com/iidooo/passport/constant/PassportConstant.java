@@ -40,6 +40,8 @@ public class PassportConstant {
 
     public static final String SECURITY_USER_NAME = "userName";
 
+    // The current active resource
+    public static final String SESSION_SECURITY_RESOURCE_CURRENT = "SESSION_SECURITY_RESOURCE_CURRENT";
     // The current selected item of security resource session key
     public static final String SESSION_SECURITY_RESOURCE_SELECTED_ITEM = "SESSION_SECURITY_RESOURCE_SELECTED_ITEM";
     // The list of security resource list session key

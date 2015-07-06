@@ -9,4 +9,9 @@
 		<tag-class>com.iidooo.passport.tag.MainMenuTag</tag-class>
 		<body-content>empty</body-content>
 	</tag>
+	<tag>
+		<name>breadCrumb</name>
+		<tag-class>com.iidooo.passport.tag.BreadCrumbTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
 </taglib>

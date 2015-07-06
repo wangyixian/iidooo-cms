@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="cms" uri="/cms-tags"%>
+<%@ taglib prefix="passport" uri="/passport-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,9 +24,7 @@
 			<cms:channelTree baseURL="channelList.action?channel.channelID={0}&channel.siteCode={1}" />
 		</div>
 		<div class="page_content_right_wrap">
-			<div class="bread_crumb">
-				<span>当前的位置：</span><span>栏目管理 - 栏目列表</span>
-			</div>
+			<passport:breadCrumb/>
 			<div class="page_content">
 				<s:actionerror/>
 				<s:actionmessage/>
