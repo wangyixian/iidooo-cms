@@ -46,7 +46,7 @@
 						<tr>							
 							<th width="10%">内容类型</th>		
 							<td>
-								<core:dictItem id="selContentType" name="content.contentType" dictClassCode="DICT_CLASS_CONTENT_TYPE" value="${content.contentType }" isDiabled="true"/>	
+								<core:dictItemSelect id="selContentType" name="content.contentType" dictClassCode="DICT_CLASS_CONTENT_TYPE" value="${content.contentType }" isDiabled="true"/>	
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
