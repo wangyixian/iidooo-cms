@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dao.extend.SecurityResourceDao;
-import com.iidooo.passport.dto.extend.SecurityResourceDto;
+import com.iidooo.passport.dao.extend.ResourceDao;
+import com.iidooo.passport.dto.extend.ResourceDto;
 
 public class ApplicationListener extends HttpServlet implements ServletContextListener {
 
@@ -36,15 +36,15 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
     public void contextInitialized(ServletContextEvent arg0) {
         try {
             ServletContext sc = arg0.getServletContext();
-            SecurityResourceDao securityResourceDao = (SecurityResourceDao) SpringUtil.getBean(sc, PassportConstant.BEAN_SECURITY_RESOURCE_DAO);
-            List<SecurityResourceDto> securityResList = securityResourceDao.selectAll();
+            ResourceDao securityResourceDao = (ResourceDao) SpringUtil.getBean(sc, PassportConstant.BEAN_RESOURCE_DAO);
+            List<ResourceDto> securityResList = securityResourceDao.selectAll();
             // Save the resource list and will be used in MenuInterceptor
-            sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_LIST, securityResList);
+            sc.setAttribute(PassportConstant.SESSION_RESOURCE_LIST, securityResList);
 
             // Set the security resource map into the servlet context.
-            Map<String, SecurityResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList);
+            Map<String, ResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList);
             // Save the resource map and will be used in MenuInterceptor
-            sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_MAP, rootSecurityResMap);
+            sc.setAttribute(PassportConstant.SESSION_RESOURCE_MAP, rootSecurityResMap);
 
             // Set the security resource tree into the servlet context.
 //            List<SecurityResourceDto> rootList = new ArrayList<SecurityResourceDto>();
@@ -61,36 +61,36 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
         }
     }
 
-    private Map<String, SecurityResourceDto> constructSecurityResRelation(List<SecurityResourceDto> securityResList) {
+    private Map<String, ResourceDto> constructSecurityResRelation(List<ResourceDto> securityResList) {
         try {
-            Map<String, SecurityResourceDto> resultMap = new HashMap<String, SecurityResourceDto>();
+            Map<String, ResourceDto> resultMap = new HashMap<String, ResourceDto>();
 
-            Map<Integer, SecurityResourceDto> securityResIDMap = new HashMap<Integer, SecurityResourceDto>();
+            Map<Integer, ResourceDto> securityResIDMap = new HashMap<Integer, ResourceDto>();
 
             // Construct the result map first.
-            for (SecurityResourceDto item : securityResList) {
+            for (ResourceDto item : securityResList) {
                 resultMap.put(item.getResourceURL(), item);
                 securityResIDMap.put(item.getResourceID(), item);
             }
 
             // Set the security res's children list
-            for (SecurityResourceDto item : securityResList) {
+            for (ResourceDto item : securityResList) {
                 if (item.getParentID() > 0) {
                     // Set the child into the parent module.
-                    SecurityResourceDto parent = securityResIDMap.get(item.getParentID());
+                    ResourceDto parent = securityResIDMap.get(item.getParentID());
                     if (parent == null) {
                         continue;
                     }
                     if (parent.getChildren() == null) {
-                        parent.setChildren(new ArrayList<SecurityResourceDto>());
+                        parent.setChildren(new ArrayList<ResourceDto>());
                     }
                     parent.getChildren().add(item);
                 }
             }
 
             // Set the security res's off spring list.
-            for (SecurityResourceDto item : securityResList) {
-                SecurityResourceDto parent = securityResIDMap.get(item.getParentID());
+            for (ResourceDto item : securityResList) {
+                ResourceDto parent = securityResIDMap.get(item.getParentID());
                 while (parent != null) {
                     parent.getOffspring().add(item);
                     parent = securityResIDMap.get(parent.getParentID());

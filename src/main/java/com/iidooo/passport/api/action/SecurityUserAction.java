@@ -15,7 +15,7 @@ import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.passport.api.service.ISecurityUserService;
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityUserDto;
+import com.iidooo.passport.dto.extend.UserDto;
 
 public class SecurityUserAction extends BaseAPIAction {
 
@@ -41,7 +41,7 @@ public class SecurityUserAction extends BaseAPIAction {
                     return;
                 }  
 
-                SecurityUserDto securityUser = securityUserService.getSecurityUser(Integer.parseInt(userID));
+                UserDto securityUser = securityUserService.getSecurityUser(Integer.parseInt(userID));
                 JSONObject jsonObject = JSONObject.fromObject(securityUser);
                 HttpServletResponse response = ServletActionContext.getResponse();
                 response.setContentType(CoreConstants.APPLICATION_JSON);

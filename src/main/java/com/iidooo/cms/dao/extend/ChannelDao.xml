@@ -28,7 +28,7 @@
 		C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
 
-	<select id="selectChannelList" resultMap="BaseResultMap">
+	<select id="selectBySiteCode" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		, S.SiteURL as siteURL
@@ -77,10 +77,17 @@
 		C.ChannelID = #{channelID,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectChannelList" resultMap="BaseResultMap" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		select
 		<include refid="Base_Column_List" />
-		from CMS_CHANNEL C where C.ParentID = #{parentID,jdbcType=INTEGER} and C.IsDelete = 0 order by C.Sequence
+		from CMS_CHANNEL C where C.IsDelete = 0
+		<if test="parentID != null">
+			and C.ParentID = #{parentID,jdbcType=INTEGER}
+		</if>
+		<if test="siteID != null">
+			and C.SiteID = #{siteID,jdbcType=INTEGER}
+		</if>
+		order by C.Sequence
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">

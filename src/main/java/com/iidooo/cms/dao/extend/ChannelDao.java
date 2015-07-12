@@ -13,17 +13,17 @@ public interface ChannelDao {
      * @param siteCode The site code should be defined.
      * @return The list of channels
      */
-    List<ChannelDto> selectChannelList(@Param("siteCode")String siteCode);
+    List<ChannelDto> selectBySiteCode(@Param("siteCode")String siteCode);
 
     List<ChannelDto> selectChannelChildren(@Param("siteCode")String siteCode, @Param("parentPath")String parentPath);    
     
     /**
-     * Get the channel list by the parent ID
+     * Get the channel list by the record of ChannelDto
      * 
-     * @param parentID The parent ID for get the channel list
+     * @param channel The channel record
      * @return The list of CmsChannelDto
      */
-    List<ChannelDto> selectByParentID(int parentID);
+    List<ChannelDto> selectChannelList(ChannelDto channel);
 
     
     /**

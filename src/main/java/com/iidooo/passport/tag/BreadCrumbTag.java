@@ -14,7 +14,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.log4j.Logger;
 
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityResourceDto;
+import com.iidooo.passport.dto.extend.ResourceDto;
 
 public class BreadCrumbTag extends SimpleTagSupport {
 
@@ -30,12 +30,12 @@ public class BreadCrumbTag extends SimpleTagSupport {
 
             ServletContext sc = pageContext.getServletContext();
 
-            List<SecurityResourceDto> breadCrumbList = this.getBreadCrumbList(sc);
+            List<ResourceDto> breadCrumbList = this.getBreadCrumbList(sc);
 
             out.println("<div class='bread_crumb'>");
             out.println("<span class='bread_crumb_title'>当前的位置：</span>");
             for (int i = 0; i < breadCrumbList.size(); i++) {
-                SecurityResourceDto resource = breadCrumbList.get(i);
+                ResourceDto resource = breadCrumbList.get(i);
                 out.println("<span class='bread_crumb_item'>");
                 out.println("<a href='" + resource.getResourceURL() + "'>");
                 out.println(resource.getResourceName());
@@ -55,14 +55,14 @@ public class BreadCrumbTag extends SimpleTagSupport {
         }
     }
 
-    private List<SecurityResourceDto> getBreadCrumbList(ServletContext sc) {
-        List<SecurityResourceDto> result = new ArrayList<SecurityResourceDto>();
+    private List<ResourceDto> getBreadCrumbList(ServletContext sc) {
+        List<ResourceDto> result = new ArrayList<ResourceDto>();
         try {
-            Map<String, SecurityResourceDto> resourceMap = (Map<String, SecurityResourceDto>) sc
-                    .getAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_MAP);
+            Map<String, ResourceDto> resourceMap = (Map<String, ResourceDto>) sc
+                    .getAttribute(PassportConstant.SESSION_RESOURCE_MAP);
 
-            SecurityResourceDto currentResource = (SecurityResourceDto) sc.getAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_CURRENT);
-            SecurityResourceDto parentResource = resourceMap.get(currentResource.getParentID());
+            ResourceDto currentResource = (ResourceDto) sc.getAttribute(PassportConstant.SESSION_RESOURCE_CURRENT);
+            ResourceDto parentResource = resourceMap.get(currentResource.getParentID());
 
             result.add(0, currentResource);
             while (parentResource != null) {

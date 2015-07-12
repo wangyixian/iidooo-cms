@@ -12,7 +12,7 @@
 <script type="text/javascript">	
 	function deleteChannel(parentChannelID, channelID, version){
 		if (confirm("确定要删除该栏目吗？")) {
-			window.location.href = "channelListDelete.action?parentChannelID="+parentChannelID+"&channel.channelID=" + channelID + "&version=" + version;
+			window.location.href = "channelListDelete.action?channel.parentID="+parentChannelID+"&channel.channelID=" + channelID + "&version=" + version;
 	    }
 	}
 </script>
@@ -21,14 +21,14 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">			
-			<cms:channelTree baseURL="channelList.action?channel.channelID={0}&channel.siteCode={1}" />
+			<cms:channelTree baseURL="channelList.action?channel.channelID={0}&channel.siteID={1}" roleList="${sessionScope.LOGIN_ROLE_LIST}"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb/>
 			<div class="page_content">
 				<s:actionerror/>
 				<s:actionmessage/>
-				<table class="list">
+				<table class="datagrid">
 					<tr>
 						<th width="5%">ID</th>
 						<th width="10%">栏目名称</th>
@@ -60,13 +60,13 @@
 							<td class="align_center">
 								<a href="#">上移</a>|
 								<a href="#">下移</a>|
-								<a href="#" onclick="return deleteChannel(${parentChannelID}, ${item.channelID }, ${item.version })">删除</a>
+								<a href="#" onclick="return deleteChannel(${item.parentID}, ${item.channelID }, ${item.version })">删除</a>
 							</td>
 						</tr>
 					</s:iterator>
 				</table>
 				<div class="button_bar">
-					<a class="button" href="channelDetail.action?channel.parentID=${parentChannelID}" target="_blank">添加</a>
+					<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}&channel.siteCode=${channel.siteCode}" target="_blank">添加</a>
 				</div>
 			</div>
 		</div>

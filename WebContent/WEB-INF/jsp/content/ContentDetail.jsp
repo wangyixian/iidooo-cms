@@ -21,7 +21,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>		
 	<div id="page_content_wrap">	
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.channelID={0}&siteCode={1}" />
+			<cms:channelTree baseURL="contentList.action?content.channelID={0}&siteID={1}" roleList="${sessionScope.LOGIN_ROLE_LIST}" />
 		</div>
 		<div class="page_content_right_wrap">		
 			<div class="bread_crumb">
@@ -50,7 +50,7 @@
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
-								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }"/>	
+								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }" siteCode="${content.siteCode }"/>	
 							</td>			
 						</tr>
 						<tr>

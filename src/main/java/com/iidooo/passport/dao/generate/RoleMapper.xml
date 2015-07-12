@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.passport.dao.generate.SecurityRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.generate.SecurityRole" >
+<mapper namespace="com.iidooo.passport.dao.generate.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.generate.Role" >
     <id column="RoleID" property="roleID" jdbcType="INTEGER" />
     <result column="RoleName" property="roleName" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
@@ -19,15 +19,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from PASSPORT_SECURITY_ROLE
+    from PASSPORT_ROLE
     where RoleID = #{roleID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from PASSPORT_SECURITY_ROLE
+    delete from PASSPORT_ROLE
     where RoleID = #{roleID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.iidooo.passport.dto.generate.SecurityRole" >
-    insert into PASSPORT_SECURITY_ROLE (RoleID, RoleName, Remarks, 
+  <insert id="insert" parameterType="com.iidooo.passport.dto.generate.Role" >
+    insert into PASSPORT_ROLE (RoleID, RoleName, Remarks, 
       CreateTime, CreateUser, UpdateTime, 
       UpdateUser, IsDelete, Version
       )
@@ -36,8 +36,8 @@
       #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.SecurityRole" >
-    insert into PASSPORT_SECURITY_ROLE
+  <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.Role" >
+    insert into PASSPORT_ROLE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="roleID != null" >
         RoleID,
@@ -97,8 +97,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.passport.dto.generate.SecurityRole" >
-    update PASSPORT_SECURITY_ROLE
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.passport.dto.generate.Role" >
+    update PASSPORT_ROLE
     <set >
       <if test="roleName != null" >
         RoleName = #{roleName,jdbcType=VARCHAR},
@@ -127,8 +127,8 @@
     </set>
     where RoleID = #{roleID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.SecurityRole" >
-    update PASSPORT_SECURITY_ROLE
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.Role" >
+    update PASSPORT_ROLE
     set RoleName = #{roleName,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},

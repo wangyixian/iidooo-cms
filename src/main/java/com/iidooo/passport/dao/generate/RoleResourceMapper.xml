@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.passport.dao.generate.RoleResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.generate.RoleResource" >
+    <id column="RoleResourceID" property="roleResourceID" jdbcType="INTEGER" />
+    <result column="RoleID" property="roleID" jdbcType="INTEGER" />
+    <result column="ResourceID" property="resourceID" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RoleResourceID, RoleID, ResourceID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from PASSPORT_ROLE_RESOURCE
+    where RoleResourceID = #{roleResourceID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PASSPORT_ROLE_RESOURCE
+    where RoleResourceID = #{roleResourceID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.passport.dto.generate.RoleResource" >
+    insert into PASSPORT_ROLE_RESOURCE (RoleResourceID, RoleID, ResourceID
+      )
+    values (#{roleResourceID,jdbcType=INTEGER}, #{roleID,jdbcType=INTEGER}, #{resourceID,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.RoleResource" >
+    insert into PASSPORT_ROLE_RESOURCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleResourceID != null" >
+        RoleResourceID,
+      </if>
+      <if test="roleID != null" >
+        RoleID,
+      </if>
+      <if test="resourceID != null" >
+        ResourceID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleResourceID != null" >
+        #{roleResourceID,jdbcType=INTEGER},
+      </if>
+      <if test="roleID != null" >
+        #{roleID,jdbcType=INTEGER},
+      </if>
+      <if test="resourceID != null" >
+        #{resourceID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.passport.dto.generate.RoleResource" >
+    update PASSPORT_ROLE_RESOURCE
+    <set >
+      <if test="roleID != null" >
+        RoleID = #{roleID,jdbcType=INTEGER},
+      </if>
+      <if test="resourceID != null" >
+        ResourceID = #{resourceID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RoleResourceID = #{roleResourceID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.RoleResource" >
+    update PASSPORT_ROLE_RESOURCE
+    set RoleID = #{roleID,jdbcType=INTEGER},
+      ResourceID = #{resourceID,jdbcType=VARCHAR}
+    where RoleResourceID = #{roleResourceID,jdbcType=INTEGER}
+  </update>
+</mapper>

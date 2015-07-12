@@ -4,21 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dao.extend.ChannelDao;
+import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.channel.IChannelListService;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.core.util.HttpUtil;
-import com.iidooo.core.util.StringUtil;
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.filter.SSOFilter;
+import com.iidooo.passport.dto.extend.RoleDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -28,28 +25,30 @@ public class ChannelListService implements IChannelListService {
 
     @Autowired
     private ChannelDao channelDao;
+    
+    @Autowired
+    private SiteDao siteDao;
 
     @Override
-    public List<ChannelDto> getChildrenChannelList(int parentID) {
+    public List<ChannelDto> getChildrenChannelList(int parentID, int siteID) {
         List<ChannelDto> result = new ArrayList<ChannelDto>();
         try {
-            result = channelDao.selectByParentID(parentID);
+            ChannelDto channel = new ChannelDto();
+            channel.setParentID(parentID);
+            channel.setSiteID(siteID);
+            result = channelDao.selectChannelList(channel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return result;
+    }
 
-//            String url = (String) ActionContext.getContext().getApplication().get(CmsConstant.PASSPORT_URL);
-//            url = url + "/getUser";
-//            for (ChannelDto item : result) {
-//                JSONObject jsonCreateUser = new JSONObject();
-//                jsonCreateUser.put("userID", item.getCreateUser());
-//                String createUserJson = HttpUtil.doPost(url, jsonCreateUser.toString());
-//                String test = StringUtil.substring("abc", 1, 2);
-//                item.setCreateUserName(jsonCreateUser.getString("userName"));
-//                
-//                JSONObject jsonUpdateUser = new JSONObject();
-//                jsonUpdateUser.put("userID", item.getCreateUser());
-//                String updateUserJson = HttpUtil.doPost(url, jsonUpdateUser.toString());
-//                item.setUpdateUserName(jsonUpdateUser.getString("userName"));
-//            }
-
+    @Override
+    public List<SiteDto> getSiteList(List<RoleDto> roleList) {
+        List<SiteDto> result = new ArrayList<SiteDto>();
+        try {
+            result = siteDao.selectSiteList(roleList);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

@@ -1,7 +1,12 @@
 package com.iidooo.passport.service;
 
-import com.iidooo.passport.dto.extend.SecurityUserDto;
+import java.util.List;
+
+import com.iidooo.passport.dto.extend.RoleDto;
+import com.iidooo.passport.dto.extend.UserDto;
 
 public interface ILoginService {
-    SecurityUserDto login(String loginID, String password);
+    UserDto login(String loginID, String password);
+    
+    List<RoleDto> getUserRoleList(int userID);
 }

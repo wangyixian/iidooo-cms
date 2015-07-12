@@ -6,6 +6,7 @@
 package com.iidooo.passport.action;
 
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -19,8 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityUserDto;
-import com.iidooo.passport.filter.SSOFilter;
+import com.iidooo.passport.dto.extend.RoleDto;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.iidooo.passport.service.ILoginService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -63,17 +64,15 @@ public class LoginAction extends BaseAction {
     }
 
     public String login() {
-        return SUCCESS;
-    }
-
-    public String signin() {
         try {
 
-            SecurityUserDto user = loginService.login(loginID, password);
+            UserDto user = loginService.login(loginID, password);
             if (user == null) {
                 addActionError(getText("MSG_LOGIN_FAILED"));
                 return INPUT;
             }
+            
+            
 
             HttpServletResponse response = ServletActionContext.getResponse();
             HttpServletRequest request = ServletActionContext.getRequest();
@@ -104,6 +103,10 @@ public class LoginAction extends BaseAction {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             sessionMap.put(PassportConstant.SECURITY_USER, user);
 
+            // Put the login user's role list into the session.
+            List<RoleDto> roleList = loginService.getUserRoleList(user.getUserID());
+            sessionMap.put(PassportConstant.LOGIN_ROLE_LIST, roleList);
+            
             // Redirect to the URL of saved form Filter
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -123,7 +126,7 @@ public class LoginAction extends BaseAction {
         }
     }
 
-    public void validateSignin() {
+    public void validateLogin() {
         try {
             // The login id and password is required.
             if (loginID == null || loginID.isEmpty()) {
@@ -139,7 +142,7 @@ public class LoginAction extends BaseAction {
         }
     }
 
-    public String signout() {
+    public String logout() {
         try {
             // When logout the system, should delete the session.
             ActionContext actionContext = ActionContext.getContext();

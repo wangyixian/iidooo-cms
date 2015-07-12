@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.log4j.Logger;
 
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityResourceDto;
+import com.iidooo.passport.dto.extend.ResourceDto;
 
 public class MainMenuTag extends SimpleTagSupport {
 
@@ -38,10 +38,10 @@ public class MainMenuTag extends SimpleTagSupport {
 
             ServletContext sc = pageContext.getServletContext();
 
-            List<SecurityResourceDto> resourceList = (List<SecurityResourceDto>) sc.getAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_LIST);
+            List<ResourceDto> resourceList = (List<ResourceDto>) sc.getAttribute(PassportConstant.SESSION_RESOURCE_LIST);
             out.println("<div id='mainMenu' class='main_menu'>");
             out.println("<ul>");
-            for (SecurityResourceDto item : resourceList) {
+            for (ResourceDto item : resourceList) {
                 
                 // If the menu level  set as 1, the resource's children should not be displayed.
                 if (this.level == 1 && item.getParentID() > 0) {

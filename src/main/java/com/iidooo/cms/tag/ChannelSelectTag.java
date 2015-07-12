@@ -38,7 +38,7 @@ public class ChannelSelectTag extends SimpleTagSupport {
 
     private boolean isDiabled = false;
 
-    private boolean isContainBlank = false;
+    private boolean isContainBlank = true;
     
     private String siteCode;
 
@@ -112,7 +112,7 @@ public class ChannelSelectTag extends SimpleTagSupport {
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
-            List<ChannelDto> channelList = channelDao.selectChannelList(this.siteCode);
+            List<ChannelDto> channelList = channelDao.selectBySiteCode(this.siteCode);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

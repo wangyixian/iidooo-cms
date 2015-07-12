@@ -3,12 +3,15 @@ package com.iidooo.cms.service.channel;
 import java.util.List;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.core.dto.PageDto;
+import com.iidooo.cms.dto.extend.SiteDto;
+import com.iidooo.passport.dto.extend.RoleDto;
 
 public interface IChannelListService {
     
-    List<ChannelDto> getChildrenChannelList(int parentID);
+    List<ChannelDto> getChildrenChannelList(int parentID, int siteID);
 
+    List<SiteDto> getSiteList(List<RoleDto> roleList);
+    
     /**
      * Delete the channel
      * 

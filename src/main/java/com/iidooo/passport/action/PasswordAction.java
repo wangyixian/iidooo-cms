@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityUserDto;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.iidooo.passport.service.IPasswordService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -66,7 +66,7 @@ public class PasswordAction extends BaseAction {
     public String save() {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            SecurityUserDto sessionUser = (SecurityUserDto) sessionMap.get(PassportConstant.SECURITY_USER);
+            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.SECURITY_USER);
             if (!passwordService.checkOldPassword(sessionUser.getLoginID(), oldPassword)) {
                 addActionError(this.getText("MSG_PASSWORD_FAILED"));  
                 return INPUT;

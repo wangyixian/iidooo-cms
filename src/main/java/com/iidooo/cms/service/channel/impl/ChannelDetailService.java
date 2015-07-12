@@ -66,7 +66,9 @@ public class ChannelDetailService implements IChannelDetailService {
 
             // Set the channel sequence
             int sequence = 1;
-            List<ChannelDto> channelDtos = channelDao.selectByParentID(channel.getParentID());
+            ChannelDto record = new ChannelDto();
+            record.setParentID(channel.getParentID());
+            List<ChannelDto> channelDtos = channelDao.selectChannelList(record);
             if (channelDtos != null) {
                 for (ChannelDto cmsChannelDto : channelDtos) {
                     if (cmsChannelDto.getSequence() > sequence) {

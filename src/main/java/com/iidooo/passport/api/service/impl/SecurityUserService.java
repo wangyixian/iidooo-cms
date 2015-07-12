@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iidooo.passport.api.service.ISecurityUserService;
-import com.iidooo.passport.dao.extend.SecurityUserDao;
-import com.iidooo.passport.dto.extend.SecurityUserDto;
+import com.iidooo.passport.dao.extend.UserDao;
+import com.iidooo.passport.dto.extend.UserDto;
 
 @Service
 public class SecurityUserService implements ISecurityUserService {
@@ -14,10 +14,10 @@ public class SecurityUserService implements ISecurityUserService {
     private static final Logger logger = Logger.getLogger(SecurityUserService.class);
     
     @Autowired
-    private SecurityUserDao securityUserDao;
+    private UserDao securityUserDao;
     
     @Override
-    public SecurityUserDto getSecurityUser(Integer userID) {
+    public UserDto getSecurityUser(Integer userID) {
         try {
             return securityUserDao.selectByPrimaryKey(userID);
         } catch (Exception e) {

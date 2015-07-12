@@ -1,13 +1,9 @@
 package com.iidooo.passport.dto.generate;
 
-public class SecurityResource {
-    private Integer resourceID;
+public class Role {
+    private Integer roleID;
 
-    private Integer parentID;
-
-    private String resourceName;
-
-    private String resourceURL;
+    private String roleName;
 
     private String remarks;
 
@@ -23,36 +19,20 @@ public class SecurityResource {
 
     private Integer version;
 
-    public Integer getResourceID() {
-        return resourceID;
+    public Integer getRoleID() {
+        return roleID;
     }
 
-    public void setResourceID(Integer resourceID) {
-        this.resourceID = resourceID;
+    public void setRoleID(Integer roleID) {
+        this.roleID = roleID;
     }
 
-    public Integer getParentID() {
-        return parentID;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setParentID(Integer parentID) {
-        this.parentID = parentID;
-    }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName == null ? null : resourceName.trim();
-    }
-
-    public String getResourceURL() {
-        return resourceURL;
-    }
-
-    public void setResourceURL(String resourceURL) {
-        this.resourceURL = resourceURL == null ? null : resourceURL.trim();
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
     }
 
     public String getRemarks() {

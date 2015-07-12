@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityResourceDto;
+import com.iidooo.passport.dto.extend.ResourceDto;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -31,29 +31,29 @@ public class MenuInterceptor extends AbstractInterceptor {
 
             ActionContext actionContext = invocation.getInvocationContext().getContext();
             Map<String, Object> application = actionContext.getApplication();
-            Map<String, SecurityResourceDto> securityResMap = (Map<String, SecurityResourceDto>) application.get(PassportConstant.SESSION_SECURITY_RESOURCE_MAP);
+            Map<String, ResourceDto> securityResMap = (Map<String, ResourceDto>) application.get(PassportConstant.SESSION_RESOURCE_MAP);
 
             if (path.startsWith("/")) {
                 path = path.substring(1);
             }
             
-            SecurityResourceDto currentSecurityResDto = securityResMap.get(path);
+            ResourceDto currentSecurityResDto = securityResMap.get(path);
             if (currentSecurityResDto == null) {
                 logger.warn(request.getServletPath() + " is not contained in the system!");
                 return invocation.invoke();
             }
-            application.put(PassportConstant.SESSION_SECURITY_RESOURCE_CURRENT, currentSecurityResDto);
+            application.put(PassportConstant.SESSION_RESOURCE_CURRENT, currentSecurityResDto);
             
-            List<SecurityResourceDto> securityResList = (List<SecurityResourceDto>) application.get(PassportConstant.SESSION_SECURITY_RESOURCE_LIST);
+            List<ResourceDto> securityResList = (List<ResourceDto>) application.get(PassportConstant.SESSION_RESOURCE_LIST);
             // Set the parent resource selected
-            for (SecurityResourceDto item : securityResList) {
+            for (ResourceDto item : securityResList) {
                 item.setIsSelected(false);
                 if (item.getResourceURL().equals(currentSecurityResDto.getResourceURL()) || 
                         item.equals(currentSecurityResDto) || item.getOffspring().contains(currentSecurityResDto)) {
                     item.setIsSelected(true);
 
                     if (item.getParentID() <= 0) {
-                        request.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_SELECTED_ITEM, item);
+                        request.setAttribute(PassportConstant.SESSION_RESOURCE_SELECTED_ITEM, item);
                     }
                 }
             }

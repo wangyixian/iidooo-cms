@@ -10,7 +10,7 @@
 </head>
 <body>
 	<s:actionerror />
-	<form action="signin.action" method="post">
+	<form action="login.action" method="post">
 		<div class="auth_form">
 			<div class="auth_form_header">
 				<h1>用户登录</h1>

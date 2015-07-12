@@ -9,8 +9,8 @@ import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.ValidateUtil;
 import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.SecurityResourceDto;
-import com.iidooo.passport.dto.extend.SecurityUserDto;
+import com.iidooo.passport.dto.extend.ResourceDto;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.iidooo.passport.service.IUserinfoService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -25,30 +25,30 @@ public class UserinfoAction extends BaseAction {
     @Autowired
     private IUserinfoService userInfoService;
 
-    private SecurityUserDto user;
+    private UserDto user;
 
-    private SecurityResourceDto resource;
+    private ResourceDto resource;
 
-    public SecurityUserDto getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(SecurityUserDto user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
-    public SecurityResourceDto getResource() {
+    public ResourceDto getResource() {
         return resource;
     }
 
-    public void setResource(SecurityResourceDto resource) {
+    public void setResource(ResourceDto resource) {
         this.resource = resource;
     }
 
     public String init() {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            SecurityUserDto sessionUser = (SecurityUserDto) sessionMap.get(PassportConstant.SECURITY_USER);
+            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.SECURITY_USER);
             user = userInfoService.getUser(sessionUser.getLoginID());
             return SUCCESS;
         } catch (Exception e) {

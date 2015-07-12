@@ -23,7 +23,7 @@ public class ChannelService implements IChannelService {
     public List<ChannelDto> getChannelList(String siteCode) {
         List<ChannelDto> result = new ArrayList<ChannelDto>();
         try {
-            result = channelDao.selectChannelList(siteCode);
+            result = channelDao.selectBySiteCode(siteCode);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

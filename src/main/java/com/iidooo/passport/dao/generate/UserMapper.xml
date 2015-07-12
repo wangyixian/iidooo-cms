@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.passport.dao.generate.SecurityUserMapper" >
-  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.generate.SecurityUser" >
+<mapper namespace="com.iidooo.passport.dao.generate.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.generate.User" >
     <id column="UserID" property="userID" jdbcType="INTEGER" />
     <result column="UserName" property="userName" jdbcType="VARCHAR" />
     <result column="LoginID" property="loginID" jdbcType="VARCHAR" />
@@ -28,15 +28,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from PASSPORT_SECURITY_USER
+    from PASSPORT_USER
     where UserID = #{userID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from PASSPORT_SECURITY_USER
+    delete from PASSPORT_USER
     where UserID = #{userID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.iidooo.passport.dto.generate.SecurityUser" >
-    insert into PASSPORT_SECURITY_USER (UserID, UserName, LoginID, 
+  <insert id="insert" parameterType="com.iidooo.passport.dto.generate.User" >
+    insert into PASSPORT_USER (UserID, UserName, LoginID, 
       Password, IsDisable, Sex, 
       Birthday, Email, Wechat, 
       Telephone, Description, Remarks, 
@@ -51,8 +51,8 @@
       #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.SecurityUser" >
-    insert into PASSPORT_SECURITY_USER
+  <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.User" >
+    insert into PASSPORT_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userID != null" >
         UserID,
@@ -166,8 +166,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.passport.dto.generate.SecurityUser" >
-    update PASSPORT_SECURITY_USER
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.passport.dto.generate.User" >
+    update PASSPORT_USER
     <set >
       <if test="userName != null" >
         UserName = #{userName,jdbcType=VARCHAR},
@@ -223,8 +223,8 @@
     </set>
     where UserID = #{userID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.SecurityUser" >
-    update PASSPORT_SECURITY_USER
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.User" >
+    update PASSPORT_USER
     set UserName = #{userName,jdbcType=VARCHAR},
       LoginID = #{loginID,jdbcType=VARCHAR},
       Password = #{password,jdbcType=VARCHAR},

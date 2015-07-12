@@ -1,6 +1,6 @@
 package com.iidooo.passport.dto.generate;
 
-public class SecurityUser {
+public class User {
     private Integer userID;
 
     private String userName;

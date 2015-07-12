@@ -197,47 +197,24 @@ a:hover {
 }
 
 /* 数据一览表 Start */
-.list {
+.datagrid {
 	cellspacing: 0px;
 	cellpadding: 0px;
 	border-collapse: collapse;
 }
 
-.list>tbody>tr>th {
+.datagrid>tbody>tr>th {
 	background-color: #134780;
 	color: white;
 	border: solid 1px #333333;
 	padding: 5px;
 }
 
-.list>tbody>tr>td {
+.datagrid>tbody>tr>td {
 	border: solid 1px #333333;
 	padding: 5px;
 }
 /* 数据一览表 End */
-
-/* 数据详细表 Start */
-.detail {
-	cellspacing: 0px;
-	cellpadding: 0px;
-	border-collapse: collapse;
-}
-
-.detail>tbody>tr>th {
-	background-color: #134780;
-	color: white;
-	border: solid 1px #333333;
-	padding: 5px;
-	text-align: right;
-}
-
-.detail>tbody>tr>td {
-	border: solid 1px #333333;
-	padding: 5px;
-}
-
-/* 数据详细表 End */
-
 
 .block {
 	margin-top: 10px;

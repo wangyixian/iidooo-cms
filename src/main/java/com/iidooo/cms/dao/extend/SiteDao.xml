@@ -18,22 +18,33 @@
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		SiteID, SiteCode, SiteName, SiteURL, MetaTitle, MetaKeywords, MetaDescription, Remarks,
-		CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+		S.SiteID, S.SiteCode, S.SiteName, S.SiteURL, S.MetaTitle, S.MetaKeywords, S.MetaDescription, S.Remarks,
+		S.CreateTime, S.CreateUser,
+		S.UpdateTime, S.UpdateUser, S.IsDelete, S.Version
 	</sql>
-	
+
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from CMS_SITE
-		where IsDelete = 0
+		from CMS_SITE S
+		where S.IsDelete = 0
 	</select>
-	
+
+	<select id="selectSiteList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_SITE S
+		join CMS_SITE_ROLE SR
+		on S.SiteID = SR.SiteID and SR.RoleID in
+		<foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">#{item.roleID}</foreach>
+		and S.IsDelete = 0
+	</select>
+
 	<select id="selectBySiteCode" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from CMS_SITE
-		where SiteCode = #{siteCode,jdbcType=VARCHAR} and IsDelete = 0
+		from CMS_SITE S
+		where S.SiteCode = #{siteCode,jdbcType=VARCHAR} and S.IsDelete = 0
 	</select>
 
 </mapper>

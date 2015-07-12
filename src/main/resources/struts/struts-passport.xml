@@ -5,12 +5,13 @@
 
 <struts>
 	<package name="passport" extends="basic">
-		<action name="signin" class="com.iidooo.passport.action.LoginAction" method="signin">
+	
+		<action name="login" class="com.iidooo.passport.action.LoginAction" method="login">
 			<result name="success" type="redirect">index.action</result>
-			<result name="input">/WEB-INF/jsp/Login.jsp</result>
-			
+			<result name="input">/WEB-INF/jsp/Login.jsp</result>			
 		</action>
-		<action name="signout" class="com.iidooo.passport.action.LoginAction" method="signout">
+		
+		<action name="logout" class="com.iidooo.passport.action.LoginAction" method="logout">
 			<result name="success">/WEB-INF/jsp/Login.jsp</result>
 		</action>
 

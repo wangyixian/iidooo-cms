@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.passport.dao.extend.SecurityUserDao" >
-  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.extend.SecurityUserDto" >
+<mapper namespace="com.iidooo.passport.dao.extend.UserDao" >
+  <resultMap id="BaseResultMap" type="com.iidooo.passport.dto.extend.UserDto" >
     <id column="UserID" property="userID" jdbcType="INTEGER" />
     <result column="UserName" property="userName" jdbcType="VARCHAR" />
     <result column="LoginID" property="loginID" jdbcType="VARCHAR" />
@@ -29,26 +29,26 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from PASSPORT_SECURITY_USER
+    from PASSPORT_USER
     where UserID = #{userID,jdbcType=INTEGER} and IsDelete = 0
   </select>
   
   <select id="selectForLogin" resultMap="BaseResultMap">
   	select 
   	<include refid="Base_Column_List" />
-    from PASSPORT_SECURITY_USER
+    from PASSPORT_USER
     where LoginID = #{loginID} and Password = #{password} and IsDelete = 0
   </select>
   
   <select id="selectByLoginID" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from PASSPORT_SECURITY_USER
+    from PASSPORT_USER
     where LoginID = #{loginID,jdbcType=INTEGER} and IsDelete = 0
   </select>
   
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.extend.SecurityUserDto" >
-    update PASSPORT_SECURITY_USER
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.extend.UserDto" >
+    update PASSPORT_USER
     set UserName = #{userName,jdbcType=VARCHAR},
       Sex = #{sex,jdbcType=CHAR},
       Birthday = #{birthday,jdbcType=CHAR},
@@ -63,8 +63,8 @@
     where UserID = #{userID,jdbcType=INTEGER}
   </update>
   
-  <update id="updatePassword" parameterType="com.iidooo.passport.dto.extend.SecurityUserDto" >
-    update PASSPORT_SECURITY_USER
+  <update id="updatePassword" parameterType="com.iidooo.passport.dto.extend.UserDto" >
+    update PASSPORT_USER
     set Password = #{password,jdbcType=VARCHAR},
       UpdateTime = #{updateTime,jdbcType=VARCHAR},
       UpdateUser = #{updateUser,jdbcType=INTEGER},

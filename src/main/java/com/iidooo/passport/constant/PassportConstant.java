@@ -21,6 +21,8 @@ public class PassportConstant {
 
     // The user name of session and cookie key.
     public static final String USER_NAME = "USER_NAME";
+    
+    public static final String LOGIN_ROLE_LIST = "LOGIN_ROLE_LIST";
 
     // The SSO URL of session key.
     // If the APP should login, should redirect to this SSO URL
@@ -41,15 +43,15 @@ public class PassportConstant {
     public static final String SECURITY_USER_NAME = "userName";
 
     // The current active resource
-    public static final String SESSION_SECURITY_RESOURCE_CURRENT = "SESSION_SECURITY_RESOURCE_CURRENT";
+    public static final String SESSION_RESOURCE_CURRENT = "SESSION_RESOURCE_CURRENT";
     // The current selected item of security resource session key
-    public static final String SESSION_SECURITY_RESOURCE_SELECTED_ITEM = "SESSION_SECURITY_RESOURCE_SELECTED_ITEM";
+    public static final String SESSION_RESOURCE_SELECTED_ITEM = "SESSION_RESOURCE_SELECTED_ITEM";
     // The list of security resource list session key
-    public static final String SESSION_SECURITY_RESOURCE_LIST = "SESSION_SECURITY_RESOURCE_LIST";
+    public static final String SESSION_RESOURCE_LIST = "SESSION_RESOURCE_LIST";
     // The map of security resource list session key
-    public static final String SESSION_SECURITY_RESOURCE_MAP = "SESSION_SECURITY_RESOURCE_MAP";
+    public static final String SESSION_RESOURCE_MAP = "SESSION_RESOURCE_MAP";
 
     // The bean of SecurityResourceDao
-    public static final String BEAN_SECURITY_RESOURCE_DAO = "securityResourceDao";
+    public static final String BEAN_RESOURCE_DAO = "resourceDao";
 
 }

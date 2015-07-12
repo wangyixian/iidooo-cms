@@ -1,7 +1,7 @@
 package com.iidooo.passport.api.service;
 
-import com.iidooo.passport.dto.extend.SecurityUserDto;
+import com.iidooo.passport.dto.extend.UserDto;
 
 public interface ISecurityUserService {
-    SecurityUserDto getSecurityUser(Integer userID);
+    UserDto getSecurityUser(Integer userID);
 }

@@ -12,40 +12,40 @@ package com.iidooo.passport.dto.extend;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.iidooo.passport.dto.generate.SecurityResource;
+import com.iidooo.passport.dto.generate.Resource;
 
 /**
  * @author Ethan
  * 
  */
-public class SecurityResourceDto extends SecurityResource {
+public class ResourceDto extends Resource {
 
     // The children resource of this SecurityResourceDto
-    private List<SecurityResourceDto> children;
+    private List<ResourceDto> children;
 
-    private List<SecurityResourceDto> offspring;
+    private List<ResourceDto> offspring;
     
     private boolean isSelected;
 
-    public List<SecurityResourceDto> getChildren() {
+    public List<ResourceDto> getChildren() {
         if (children == null) {
-            children = new ArrayList<SecurityResourceDto>();
+            children = new ArrayList<ResourceDto>();
         }
         return children;
     }
 
-    public void setChildren(List<SecurityResourceDto> children) {
+    public void setChildren(List<ResourceDto> children) {
         this.children = children;
     }
 
-    public List<SecurityResourceDto> getOffspring() {
+    public List<ResourceDto> getOffspring() {
         if (offspring == null) {
-            offspring = new ArrayList<SecurityResourceDto>();
+            offspring = new ArrayList<ResourceDto>();
         }
         return offspring;
     }
 
-    public void setOffspring(List<SecurityResourceDto> offspring) {
+    public void setOffspring(List<ResourceDto> offspring) {
         this.offspring = offspring;
     }
 
