@@ -23,6 +23,13 @@
 		S.UpdateTime, S.UpdateUser, S.IsDelete, S.Version
 	</sql>
 
+	<select id="selectBySiteID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select
+		<include refid="Base_Column_List" />
+		from CMS_SITE S
+		where S.IsDelete = 0 and S.SiteID = #{siteID,jdbcType=INTEGER}
+	</select>
+
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
@@ -45,6 +52,13 @@
 		<include refid="Base_Column_List" />
 		from CMS_SITE S
 		where S.SiteCode = #{siteCode,jdbcType=VARCHAR} and S.IsDelete = 0
+	</select>
+
+	<select id="selectTopSite" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_SITE S
+		where S.IsDelete = 0 order by S.SiteID limit 0,1
 	</select>
 
 </mapper>

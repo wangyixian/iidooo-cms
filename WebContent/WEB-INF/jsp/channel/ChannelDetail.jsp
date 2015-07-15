@@ -38,9 +38,9 @@
 </head>
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>
-	<div id="page_content_wrap">
+	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="channelList.action?channel.channelID={0}&channel.siteID={1}" roleList="${sessionScope.LOGIN_ROLE_LIST}"/>
+			<cms:channelTree baseURL="channelList.action?channel.siteID={0}&channel.channelID={1}"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb />
@@ -54,7 +54,7 @@
 						<tr>
 							<th width="90px">上级栏目</th>
 							<td>
-								<cms:channelSelect name="channel.parentID" id="selChannel" siteCode="${channel.siteCode }"/>
+								<cms:channelSelect name="channel.parentID" id="selChannel" siteID="${channel.siteID }" value="${channel.parentID}"/>
 							</td>
 						</tr>
 						<tr>

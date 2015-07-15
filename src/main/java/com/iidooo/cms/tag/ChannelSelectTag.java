@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -14,7 +15,9 @@ import org.apache.log4j.Logger;
 
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dao.extend.ChannelDao;
+import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
@@ -39,8 +42,8 @@ public class ChannelSelectTag extends SimpleTagSupport {
     private boolean isDiabled = false;
 
     private boolean isContainBlank = true;
-    
-    private String siteCode;
+
+    private int siteID;
 
     private int index = 0;
 
@@ -84,12 +87,12 @@ public class ChannelSelectTag extends SimpleTagSupport {
         this.isContainBlank = isContainBlank;
     }
 
-    public String getSiteCode() {
-        return siteCode;
+    public int getSiteID() {
+        return siteID;
     }
 
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
+    public void setSiteID(int siteID) {
+        this.siteID = siteID;
     }
 
     @Override
@@ -99,7 +102,8 @@ public class ChannelSelectTag extends SimpleTagSupport {
         try {
             pageContext = (PageContext) getJspContext();
             out = pageContext.getOut();
-
+            ServletContext sc = pageContext.getServletContext();
+            
             if (isDiabled) {
                 out.println(StringUtil.replace(HTML_SELECT_DISABLED, id, name));
             } else {
@@ -107,12 +111,16 @@ public class ChannelSelectTag extends SimpleTagSupport {
             }
 
             if (isContainBlank) {
-                out.println(StringUtil.replace(HTML_OPTION, "0", ""));
+                SiteDao siteDao = (SiteDao)SpringUtil.getBean(sc, CmsConstant.BEAN_SITE_DAO);
+                SiteDto site = siteDao.selectBySiteID(siteID);
+                out.println(StringUtil.replace(HTML_OPTION, "0", site.getSiteName()));
             }
 
-            ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
+            ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(sc, CmsConstant.BEAN_CHANNEL_DAO);
 
-            List<ChannelDto> channelList = channelDao.selectBySiteCode(this.siteCode);
+            ChannelDto channel = new ChannelDto();
+            channel.setSiteID(siteID);
+            List<ChannelDto> channelList = channelDao.selectChannelList(channel);
             counstructChildren(channelList);
 
             if (channelList.size() > 0) {

@@ -25,12 +25,26 @@ public class ChannelListService implements IChannelListService {
 
     @Autowired
     private ChannelDao channelDao;
-    
+
     @Autowired
     private SiteDao siteDao;
 
     @Override
-    public List<ChannelDto> getChildrenChannelList(int parentID, int siteID) {
+    public List<ChannelDto> getChildrenChannelList(int parentID) {
+        List<ChannelDto> result = new ArrayList<ChannelDto>();
+        try {
+            ChannelDto channel = new ChannelDto();
+            channel.setParentID(parentID);
+            result = channelDao.selectChannelList(channel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return result;
+    }
+
+    @Override
+    public List<ChannelDto> getChildrenChannelList(int siteID, int parentID) {
         List<ChannelDto> result = new ArrayList<ChannelDto>();
         try {
             ChannelDto channel = new ChannelDto();
@@ -54,6 +68,16 @@ public class ChannelListService implements IChannelListService {
             logger.fatal(e);
         }
         return result;
+    }
+
+    @Override
+    public SiteDto getTopSite() {
+        try {
+            SiteDto result = siteDao.selectTopSite();
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

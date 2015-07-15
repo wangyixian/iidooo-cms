@@ -84,7 +84,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
                     out.println("<ul>");
                     for (ChannelDto item : channelList) {
                         if (item.getParentID() <= 0) {
-                            printHTML(out, item, siteDto.getSiteID().toString());
+                            printHTML(out, siteDto, item);
                         }
                     }
                     out.println("</ul>");
@@ -102,10 +102,10 @@ public class ChannelTreeTag extends SimpleTagSupport {
         }
     }
 
-    private void printHTML(JspWriter out, ChannelDto channelDto, String siteID) throws JspException, IOException {
+    private void printHTML(JspWriter out, SiteDto site, ChannelDto channelDto) throws JspException, IOException {
         try {
             // If has children, the node class should be set
-            String url = StringUtil.replace(baseURL, channelDto.getChannelID().toString(), siteID);
+            String url = StringUtil.replace(baseURL, site.getSiteID().toString(), channelDto.getChannelID().toString());
             if (channelDto.getChildren().size() > 0) {
                 String folder = StringUtil.replace(FOLD_TREE_NODE, url, channelDto.getChannelName());
                 out.println("<li>" + folder);
@@ -113,7 +113,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
                 List<ChannelDto> children = channelDto.getChildren();
                 out.println("<ul>");
                 for (ChannelDto child : children) {
-                    this.printHTML(out, child, siteID);
+                    this.printHTML(out, site, child);
                 }
                 out.println("</ul>");
 

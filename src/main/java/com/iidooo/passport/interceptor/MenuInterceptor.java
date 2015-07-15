@@ -31,7 +31,7 @@ public class MenuInterceptor extends AbstractInterceptor {
 
             ActionContext actionContext = invocation.getInvocationContext().getContext();
             Map<String, Object> application = actionContext.getApplication();
-            Map<String, ResourceDto> securityResMap = (Map<String, ResourceDto>) application.get(PassportConstant.SESSION_RESOURCE_MAP);
+            Map<String, ResourceDto> securityResMap = (Map<String, ResourceDto>) application.get(PassportConstant.RESOURCE_URL_MAP);
 
             if (path.startsWith("/")) {
                 path = path.substring(1);

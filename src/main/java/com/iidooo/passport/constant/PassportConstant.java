@@ -48,9 +48,15 @@ public class PassportConstant {
     public static final String SESSION_RESOURCE_SELECTED_ITEM = "SESSION_RESOURCE_SELECTED_ITEM";
     // The list of security resource list session key
     public static final String SESSION_RESOURCE_LIST = "SESSION_RESOURCE_LIST";
-    // The map of security resource list session key
-    public static final String SESSION_RESOURCE_MAP = "SESSION_RESOURCE_MAP";
+    
+    // Key: ResourceURL
+    // Value: ResourceDto
+    public static final String RESOURCE_URL_MAP = "RESOURCE_URL_MAP";
 
+    // Key: ResourceID
+    // Value: ResourceDto
+    public static final String RESOURCE_ID_MAP = "RESOURCE_ID_MAP";
+    
     // The bean of SecurityResourceDao
     public static final String BEAN_RESOURCE_DAO = "resourceDao";
 

@@ -41,19 +41,28 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
             // Save the resource list and will be used in MenuInterceptor
             sc.setAttribute(PassportConstant.SESSION_RESOURCE_LIST, securityResList);
 
+            // Key: ResourceID
+            // Value: ResourceDto
+            Map<Integer, ResourceDto> resourceIDMap = new HashMap<Integer, ResourceDto>();
+            // Construct the result map first.
+            for (ResourceDto item : securityResList) {
+                resourceIDMap.put(item.getResourceID(), item);
+            }
+            sc.setAttribute(PassportConstant.RESOURCE_ID_MAP, resourceIDMap);
+
             // Set the security resource map into the servlet context.
-            Map<String, ResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList);
+            Map<String, ResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList, resourceIDMap);
             // Save the resource map and will be used in MenuInterceptor
-            sc.setAttribute(PassportConstant.SESSION_RESOURCE_MAP, rootSecurityResMap);
+            sc.setAttribute(PassportConstant.RESOURCE_URL_MAP, rootSecurityResMap);
 
             // Set the security resource tree into the servlet context.
-//            List<SecurityResourceDto> rootList = new ArrayList<SecurityResourceDto>();
-//            for (SecurityResourceDto item : securityResList) {
-//                if (item.getParentID() <= 0) {
-//                    rootList.add(item);
-//                }
-//            }
-//            sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_ROOT_LIST, rootList);
+            // List<SecurityResourceDto> rootList = new ArrayList<SecurityResourceDto>();
+            // for (SecurityResourceDto item : securityResList) {
+            // if (item.getParentID() <= 0) {
+            // rootList.add(item);
+            // }
+            // }
+            // sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_ROOT_LIST, rootList);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,20 +70,13 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
         }
     }
 
-    private Map<String, ResourceDto> constructSecurityResRelation(List<ResourceDto> securityResList) {
+    private Map<String, ResourceDto> constructSecurityResRelation(List<ResourceDto> securityResList, Map<Integer, ResourceDto> securityResIDMap) {
         try {
             Map<String, ResourceDto> resultMap = new HashMap<String, ResourceDto>();
 
-            Map<Integer, ResourceDto> securityResIDMap = new HashMap<Integer, ResourceDto>();
-
-            // Construct the result map first.
-            for (ResourceDto item : securityResList) {
-                resultMap.put(item.getResourceURL(), item);
-                securityResIDMap.put(item.getResourceID(), item);
-            }
-
             // Set the security res's children list
             for (ResourceDto item : securityResList) {
+                resultMap.put(item.getResourceURL(), item);
                 if (item.getParentID() > 0) {
                     // Set the child into the parent module.
                     ResourceDto parent = securityResIDMap.get(item.getParentID());

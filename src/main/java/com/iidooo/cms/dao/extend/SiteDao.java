@@ -9,10 +9,13 @@ import com.iidooo.passport.dto.extend.RoleDto;
 
 public interface SiteDao {
     
+    SiteDto selectBySiteID(int siteID); 
+    
     List<SiteDto> selectAll();
     
     List<SiteDto> selectSiteList(@Param("roleList")List<RoleDto> roleList);
     
     SiteDto selectBySiteCode(String siteCode);
     
+    SiteDto selectTopSite();
 }

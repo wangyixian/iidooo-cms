@@ -8,9 +8,13 @@ import com.iidooo.passport.dto.extend.RoleDto;
 
 public interface IChannelListService {
     
-    List<ChannelDto> getChildrenChannelList(int parentID, int siteID);
+    List<ChannelDto> getChildrenChannelList(int parentID);
+    
+    List<ChannelDto> getChildrenChannelList(int siteID, int parentID);
 
     List<SiteDto> getSiteList(List<RoleDto> roleList);
+
+    SiteDto getTopSite();
     
     /**
      * Delete the channel

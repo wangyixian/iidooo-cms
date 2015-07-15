@@ -21,7 +21,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">			
-			<cms:channelTree baseURL="channelList.action?channel.channelID={0}&channel.siteID={1}" roleList="${sessionScope.LOGIN_ROLE_LIST}"/>
+			<cms:channelTree baseURL="channelList.action?channel.siteID={0}&channel.channelID={1}"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb/>
@@ -66,7 +66,7 @@
 					</s:iterator>
 				</table>
 				<div class="button_bar">
-					<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}&channel.siteCode=${channel.siteCode}" target="_blank">添加</a>
+					<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}&channel.siteID=${channel.siteID}">添加</a>
 				</div>
 			</div>
 		</div>

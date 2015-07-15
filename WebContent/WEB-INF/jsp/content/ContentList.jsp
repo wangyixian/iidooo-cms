@@ -31,7 +31,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.channelID={0}&siteID={1}" roleList="${sessionScope.LOGIN_ROLE_LIST}"/>
+			<cms:channelTree baseURL="contentList.action?channel.siteID={0}&channel.channelID={1}"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb/>		

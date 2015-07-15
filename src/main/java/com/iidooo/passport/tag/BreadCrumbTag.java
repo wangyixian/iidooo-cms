@@ -58,8 +58,7 @@ public class BreadCrumbTag extends SimpleTagSupport {
     private List<ResourceDto> getBreadCrumbList(ServletContext sc) {
         List<ResourceDto> result = new ArrayList<ResourceDto>();
         try {
-            Map<String, ResourceDto> resourceMap = (Map<String, ResourceDto>) sc
-                    .getAttribute(PassportConstant.SESSION_RESOURCE_MAP);
+            Map<Integer, ResourceDto> resourceMap = (Map<Integer, ResourceDto>) sc.getAttribute(PassportConstant.RESOURCE_ID_MAP);
 
             ResourceDto currentResource = (ResourceDto) sc.getAttribute(PassportConstant.SESSION_RESOURCE_CURRENT);
             ResourceDto parentResource = resourceMap.get(currentResource.getParentID());
