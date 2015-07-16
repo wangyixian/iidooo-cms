@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelDetailService;
 import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ChannelDetailAction extends BaseAction {
 
@@ -47,8 +48,9 @@ public class ChannelDetailAction extends BaseAction {
     public String create() {
         try {
 
-            if (channelInfoService.getChannelByPath(channel.getSiteCode(), channel.getChannelPath()) != null) {
-                addActionError(getText("MSG_CHANNEL_CREATE_FAILED_DUPLICATE"));
+            // The validate of channel path should not be duplicated.
+            if (channelInfoService.isChannelPathDuplicate(channel.getSiteID(), channel.getChannelPath())) {
+                addActionError(getText("MSG_CHANNEL_CREATE_FAILED_DUPLICATE", new String[] { channel.getChannelPath() }));
                 return INPUT;
             }
 
@@ -56,7 +58,7 @@ public class ChannelDetailAction extends BaseAction {
                 addActionError(getText("MSG_CHANNEL_CREATE_FAILED"));
                 return INPUT;
             }
-            addActionMessage(getText("MSG_CHANNEL_CREATE_SUCCESS"));
+            addActionMessage(getText("MSG_CHANNEL_CREATE_SUCCESS", new String[] { channel.getChannelName() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,11 +69,19 @@ public class ChannelDetailAction extends BaseAction {
 
     public void validateCreate() {
         try {
-            if (channel.getChannelName().isEmpty()) {
+            // The validate of channel name should not be empty.
+            if (ValidateUtil.isEmpty(channel.getChannelName())) {
                 addActionError(getText("MSG_CHANNEL_NAME_REQUIRE"));
             }
-            if (channel.getChannelPath().isEmpty()) {
+
+            // The validate of channel path should not be empty.
+            if (ValidateUtil.isEmpty(channel.getChannelPath())) {
                 addActionError(getText("MSG_CHANNEL_PATH_REQUIRE"));
+            }
+
+            // The channel path must be English
+            if (!ValidateUtil.isEnglish(channel.getChannelPath())) {
+                addActionError(getText("MSG_CHANNEL_PATH_ENGLISH"));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -40,7 +40,7 @@ public class UserinfoService implements IUserinfoService {
             // Set SecurityUser key of loginID and userID from the session SecurityUser.
             // Because this way is safety.
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.SECURITY_USER);
+            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
             user.setLoginID(sessionUser.getLoginID());
             user.setUserID(sessionUser.getUserID());
 

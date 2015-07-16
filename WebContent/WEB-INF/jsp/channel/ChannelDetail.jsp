@@ -50,11 +50,12 @@
 				<form id="form" method="post">
 					<input type="hidden" name="channel.channelID" value="${channel.channelID }">
 					<input type="hidden" name="channel.version"	value="${channel.version }">
+					<input type="hidden" name="channel.siteID"	value="${channel.siteID }">
 					<table class="datagrid">
 						<tr>
 							<th width="90px">上级栏目</th>
 							<td>
-								<cms:channelSelect name="channel.parentID" id="selChannel" siteID="${channel.siteID }" value="${channel.parentID}"/>
+								<cms:channelSelect name="channel.parentID" id="selChannel" siteID="${channel.siteID }"   value="${channel.parentID}"/>
 							</td>
 						</tr>
 						<tr>

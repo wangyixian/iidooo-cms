@@ -48,7 +48,7 @@ public class UserinfoAction extends BaseAction {
     public String init() {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.SECURITY_USER);
+            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
             user = userInfoService.getUser(sessionUser.getLoginID());
             return SUCCESS;
         } catch (Exception e) {

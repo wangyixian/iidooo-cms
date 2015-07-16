@@ -51,6 +51,7 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
             sc.setAttribute(PassportConstant.RESOURCE_ID_MAP, resourceIDMap);
 
             // Set the security resource map into the servlet context.
+            
             Map<String, ResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList, resourceIDMap);
             // Save the resource map and will be used in MenuInterceptor
             sc.setAttribute(PassportConstant.RESOURCE_URL_MAP, rootSecurityResMap);

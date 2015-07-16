@@ -21,7 +21,8 @@ public class PassportConstant {
 
     // The user name of session and cookie key.
     public static final String USER_NAME = "USER_NAME";
-    
+
+    public static final String LOGIN_USER = "LOGIN_USER";
     public static final String LOGIN_ROLE_LIST = "LOGIN_ROLE_LIST";
 
     // The SSO URL of session key.
@@ -34,9 +35,6 @@ public class PassportConstant {
     public static final String REST_API_USER = "user";
 
     public static final String RESOURCE_CODE = "RESOURCE_CODE";
-
-    // The SecurityUser of the login user, save it in the session using this key.
-    public static final String SECURITY_USER = "SECURITY_USER";
 
     public static final String SECURITY_USER_ID = "userID";
 

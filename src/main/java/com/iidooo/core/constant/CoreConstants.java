@@ -1,5 +1,7 @@
 package com.iidooo.core.constant;
 
+
+
 public class CoreConstants {
 
     public static final String BEAN_DICT_ITEM_DAO = "dictItemDao";
@@ -19,7 +21,11 @@ public class CoreConstants {
 
     // The regular expression of email
     public static final String REGEX_EMAIL = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-
+    // The regular expression of half English
+    public static final String REGEX_ENGLISH = "^[a-zA-Z]*";
+    // The regular expression of half English and number
+    public static final String REGEX_ENGLISH_NUMBER = "^[A-Za-z0-9]+$";
+    
     public static final String ENCODING_UTF8 = "UTF-8";
 
     public static final String CHARSET_UTF8 = "charset=UTF-8";

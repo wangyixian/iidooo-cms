@@ -69,7 +69,7 @@
 		#{channelPath,jdbcType=VARCHAR}
 	</select>
 
-	<select id="selectChannelByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectByChannelID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from CMS_CHANNEL C
@@ -87,7 +87,17 @@
 		<if test="siteID != null">
 			and C.SiteID = #{siteID,jdbcType=INTEGER}
 		</if>
+		<if test="channelPath != null">
+			and C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
+		</if>
 		order by C.Sequence
+	</select>
+
+	<select id="selectMaxSequence" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		select max(C.Sequence)
+		from CMS_CHANNEL C
+		where C.IsDelete = 0
+		and C.ParentID = #{parentID,jdbcType=INTEGER}
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">

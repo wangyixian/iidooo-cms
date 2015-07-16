@@ -49,7 +49,7 @@ public class AuthInterceptor extends AbstractInterceptor {
             }
             
             Map<String, Object> session = ActionContext.getContext().getSession();
-            if (session == null || !session.containsKey(PassportConstant.SECURITY_USER)) {
+            if (session == null || !session.containsKey(PassportConstant.LOGIN_USER)) {
                 return ActionSupport.LOGIN;
             }
             return invocation.invoke();

@@ -13,40 +13,20 @@ public final class ValidateUtil {
 
     private static Logger logger = Logger.getLogger(ValidateUtil.class);
 
-    /*
-    *//**
-     * 字符串为空验证(null或trim后"").
-     *
-     * @param str 验证文字列
-     * @return true:(null或trim后为"") false:非空
-     */
-    /*
-     * public static boolean isEmptyIgnoreSpace(final String str) {
-     * 
-     * logger.debug("The begin of the method ValidatorUtil.isEmptyIgnoreSpace"); boolean flg = false; if (str == null || str.trim().length()
-     * == 0) { flg = true; } logger.debug("The end of the method ValidatorUtil.isEmptyIgnoreSpace"); return flg; }
-     *//**
-     * 字符串非空验证（非null且非""）.
-     *
-     * @param str 验证文字列
-     * @return true:(null或"") false:非空
-     */
-    /*
-     * public static boolean isNotEmpty(final String str) {
-     * 
-     * logger.debug("The begin of the method ValidatorUtil.isNotEmpty"); boolean flg = false; if (str != null && str.length() > 0) { flg =
-     * true; } logger.debug("The end of the method ValidatorUtil.isNotEmpty"); return flg; }
-     *//**
-     * 字符串非空验证(非null且trim后非"").
-     *
-     * @param str 验证文字列
-     * @return true:(null或trim后为"") false:非空
-     */
-    /*
-     * public static boolean isNotEmptyIgnoreSpace(final String str) {
-     * logger.debug("The begin of the method ValidatorUtil.isNotEmptyIgnoreSpace"); boolean flg = false; if (str != null &&
-     * str.trim().length() >= 0) { flg = true; } logger.debug("The end of the method ValidatorUtil.isNotEmptyIgnoreSpace"); return flg; }
-     *//**
+    public static boolean isEmpty(final String str) {
+        try {
+            if (str == null || str.trim().length() <= 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
+    }
+
+    /**
      * 是否是纯数字组合的字符串验证.
      *
      * @param str 对象文字列
@@ -70,31 +50,38 @@ public final class ValidateUtil {
      * logger.debug("The begin of the method ValidatorUtil.isNumeric"); if (isEmptyIgnoreSpace(str)) { return false; } Pattern pattern =
      * Pattern.compile(Constants.REGEX_NUMERIC_STR); boolean flg = pattern.matcher(str).matches();
      * logger.debug("The end of the method ValidatorUtil.isNumeric"); return flg; }
-     *//**
-     * 是否是英文字母验证.
-     *
-     * @param str 对象文字列
-     * @return true:是英文字母字符串 false:非英文字母字符串
      */
-    /*
-     * public static boolean isEnglish(final String str) {
-     * 
-     * logger.debug("The begin of the method ValidatorUtil.isEnglish"); if (isEmptyIgnoreSpace(str)) { return false; } Pattern pattern =
-     * Pattern.compile(Constants.REGEX_ENGLISH_STR); boolean flg = pattern.matcher(str).matches();
-     * logger.debug("The end of the method ValidatorUtil.isEnglish"); return flg; }
-     *//**
-     * 验证匹配由数字和26个英文字母组成的字符串.
-     *
-     * @param str 验证文字列
-     * @return boolean
-     */
-    /*
-     * public static boolean strNumberEnglish(final String str) {
-     * 
-     * logger.debug("The begin of the method ValidatorUtil.strNumberEnglish"); if (isEmptyIgnoreSpace(str)) { return false; } Pattern
-     * pattern = Pattern.compile(Constants.REGEX_ENGLISH_NUMBER_STR); boolean flg = pattern.matcher(str).matches();
-     * logger.debug("The end of the method ValidatorUtil.strNumberEnglish"); return flg; }
-     *//**
+
+    public static boolean isEnglish(final String str) {
+        try {
+            if (isEmpty(str)) {
+                return false;
+            }
+            Pattern pattern = Pattern.compile(CoreConstants.REGEX_ENGLISH);
+            return pattern.matcher(str).matches();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
+    }
+
+    public static boolean isEnglishNumber(final String str) {
+
+        try {
+            if (isEmpty(str)) {
+                return false;
+            }
+            Pattern pattern = Pattern.compile(CoreConstants.REGEX_ENGLISH_NUMBER);
+            return pattern.matcher(str).matches();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
+    }
+
+    /**
      * 字符特定长度验证.
      *
      * @param str 对象文字列
@@ -197,7 +184,7 @@ public final class ValidateUtil {
             if (date == null || date.isEmpty()) {
                 return false;
             }
-            
+
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             Date parsedDate = sdf.parse(date);
             String parsedDateStr = sdf.format(parsedDate);

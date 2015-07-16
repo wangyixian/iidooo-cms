@@ -66,7 +66,7 @@ public class PasswordAction extends BaseAction {
     public String save() {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.SECURITY_USER);
+            UserDto sessionUser = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
             if (!passwordService.checkOldPassword(sessionUser.getLoginID(), oldPassword)) {
                 addActionError(this.getText("MSG_PASSWORD_FAILED"));  
                 return INPUT;

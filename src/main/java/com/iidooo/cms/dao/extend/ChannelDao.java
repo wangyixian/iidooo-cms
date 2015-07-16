@@ -25,6 +25,7 @@ public interface ChannelDao {
      */
     List<ChannelDto> selectChannelList(ChannelDto channel);
 
+    int selectMaxSequence(int parentID);
     
     /**
      * Get the channel by channel path
@@ -34,7 +35,7 @@ public interface ChannelDao {
      */
     ChannelDto selectChannelByPath(@Param("siteCode")String siteCode, @Param("channelPath")String channelPath);
 
-    ChannelDto selectChannelByID(int channelID);
+    ChannelDto selectByChannelID(int channelID);
 
     /**
      * Insert a new ChannelDto into the database

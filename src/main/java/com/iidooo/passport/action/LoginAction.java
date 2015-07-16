@@ -101,7 +101,7 @@ public class LoginAction extends BaseAction {
 
             // Set the login user id into the session.
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            sessionMap.put(PassportConstant.SECURITY_USER, user);
+            sessionMap.put(PassportConstant.LOGIN_USER, user);
 
             // Put the login user's role list into the session.
 //            List<RoleDto> roleList = loginService.getUserRoleList(user.getUserID());

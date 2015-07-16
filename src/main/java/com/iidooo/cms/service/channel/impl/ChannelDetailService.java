@@ -12,6 +12,7 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.IChannelDetailService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -25,7 +26,7 @@ public class ChannelDetailService implements IChannelDetailService {
     @Override
     public ChannelDto getChannelByID(int channelID) {
         try {
-            ChannelDto result = channelDao.selectChannelByID(channelID);
+            ChannelDto result = channelDao.selectByChannelID(channelID);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,14 +36,20 @@ public class ChannelDetailService implements IChannelDetailService {
     }
 
     @Override
-    public ChannelDto getChannelByPath(String siteCode, String channelPath) {
+    public boolean isChannelPathDuplicate(int siteID, String channelPath) {
         try {
-            ChannelDto result = channelDao.selectChannelByPath(siteCode, channelPath);
-            return result;
+            ChannelDto channel = new ChannelDto();
+            channel.setSiteID(siteID);
+            channel.setChannelPath(channelPath);
+            List<ChannelDto> channelList = channelDao.selectChannelList(channel);
+            if (channelList.size() > 0) {
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-            return null;
+            return false;
         }
     }
 
@@ -50,14 +57,14 @@ public class ChannelDetailService implements IChannelDetailService {
     public boolean createChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-            channel.setCreateUser(userID);
+            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            channel.setCreateUser(user.getUserID());
             channel.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-            channel.setUpdateUser(userID);
+            channel.setUpdateUser(user.getUserID());
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 
             // Set the channel level
-            ChannelDto parentChannel = channelDao.selectChannelByID(channel.getParentID());
+            ChannelDto parentChannel = channelDao.selectByChannelID(channel.getParentID());
             if (parentChannel == null) {
                 channel.setChannelLevel(1);
             } else {
@@ -65,19 +72,9 @@ public class ChannelDetailService implements IChannelDetailService {
             }
 
             // Set the channel sequence
-            int sequence = 1;
-            ChannelDto record = new ChannelDto();
-            record.setParentID(channel.getParentID());
-            List<ChannelDto> channelDtos = channelDao.selectChannelList(record);
-            if (channelDtos != null) {
-                for (ChannelDto cmsChannelDto : channelDtos) {
-                    if (cmsChannelDto.getSequence() > sequence) {
-                        sequence = cmsChannelDto.getSequence() + 1;
-                    }
-                }
-            }
-            channel.setSequence(sequence);
-            
+            int maxSequence = channelDao.selectMaxSequence(channel.getParentID());
+            channel.setSequence(maxSequence + 1);
+
             int result = channelDao.insert(channel);
             if (result <= 0) {
                 return false;
@@ -99,7 +96,7 @@ public class ChannelDetailService implements IChannelDetailService {
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 
             // Set the channel level
-            ChannelDto parentChannel = channelDao.selectChannelByID(channel.getParentID());
+            ChannelDto parentChannel = channelDao.selectByChannelID(channel.getParentID());
             if (parentChannel == null) {
                 channel.setChannelLevel(1);
             } else {
