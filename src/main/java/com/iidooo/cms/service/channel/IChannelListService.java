@@ -8,6 +8,10 @@ import com.iidooo.passport.dto.extend.RoleDto;
 
 public interface IChannelListService {
     
+    ChannelDto getChannel(int channelID);
+    
+    boolean hasChildren(int parentID);
+    
     List<ChannelDto> getChildrenChannelList(int parentID);
     
     List<ChannelDto> getChildrenChannelList(int siteID, int parentID);

@@ -91,8 +91,8 @@ public class ChannelDetailService implements IChannelDetailService {
     public boolean updateChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-            channel.setUpdateUser(userID);
+            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            channel.setUpdateUser(user.getUserID());
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 
             // Set the channel level

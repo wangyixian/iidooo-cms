@@ -26,12 +26,12 @@
 		window.form.submit();
 	}
 	
-	function createSubChannel(parentID){
+/* 	function createSubChannel(parentID){
 		window.location.href = "channelDetail.action?channel.parentID=" + parentID;
-	}
+	} */
 
 	function returnBack(parentID) {
-		window.location.href = "channelList.action?parentChannelID=" + parentID;
+		window.location.href = "channelList.action?channel.channelID=" + parentID;
 		
 	}
 </script>
@@ -51,6 +51,7 @@
 					<input type="hidden" name="channel.channelID" value="${channel.channelID }">
 					<input type="hidden" name="channel.version"	value="${channel.version }">
 					<input type="hidden" name="channel.siteID"	value="${channel.siteID }">
+					<input type="hidden" name="channel.sequence" value="${channel.sequence }">
 					<table class="datagrid">
 						<tr>
 							<th width="90px">上级栏目</th>
@@ -78,7 +79,7 @@
 
 						</tr>
 						<tr>
-							<th>访问路径</th>
+							<th>栏目路径</th>
 							<td><input type="text" class="input_text" style="width: 250px" name="channel.channelPath" value="${channel.channelPath}"></td>
 						</tr>
 						<tr>
@@ -105,7 +106,7 @@
 						</s:if>
 						<s:else>
 							<button type="button" onclick="return updateChannel();">更新</button>
-							<button type="button" onclick="createSubChannel(${channel.channelID});">添加子栏目</button>
+							<%-- <button type="button" onclick="createSubChannel(${channel.channelID});">添加子栏目</button> --%>
 						</s:else>
 						<button type="button" onclick="return returnBack(${channel.parentID});">返回</button>
 					</div>

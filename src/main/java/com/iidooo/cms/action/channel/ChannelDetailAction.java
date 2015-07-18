@@ -93,10 +93,10 @@ public class ChannelDetailAction extends BaseAction {
     public String update() {
         try {
             if (!channelInfoService.updateChannel(channel)) {
-                addActionError(getText("MSG_CHANNEL_UPDATE_FAILED", channel.getChannelName()));
+                addActionError(getText("MSG_CHANNEL_UPDATE_FAILED", new String[] { channel.getChannelName() }));
                 return INPUT;
             }
-            addActionMessage(getText("MSG_CHANNEL_UPDATE_SUCCESS", channel.getChannelName()));
+            addActionMessage(getText("MSG_CHANNEL_UPDATE_SUCCESS", new String[] { channel.getChannelName() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,11 +107,21 @@ public class ChannelDetailAction extends BaseAction {
 
     public void validateUpdate() {
         try {
-            if (channel.getChannelName().isEmpty()) {
+            if (channel == null || ValidateUtil.isEmpty(channel.getChannelID())) {
+                addActionError(getText("MSG_CHANNEL_ID_REQUIRE"));
+            }
+
+            if (ValidateUtil.isEmpty(channel.getChannelName())) {
                 addActionError(getText("MSG_CHANNEL_NAME_REQUIRE"));
             }
-            if (channel.getChannelPath().isEmpty()) {
+
+            if (ValidateUtil.isEmpty(channel.getChannelPath())) {
                 addActionError(getText("MSG_CHANNEL_PATH_REQUIRE"));
+            }
+            
+            // The channel path must be English
+            if (!ValidateUtil.isEnglish(channel.getChannelPath())) {
+                addActionError(getText("MSG_CHANNEL_PATH_ENGLISH"));
             }
         } catch (Exception e) {
             e.printStackTrace();

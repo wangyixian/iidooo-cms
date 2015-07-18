@@ -10,9 +10,9 @@
 <jsp:include page="../include/Tree.jsp"></jsp:include>
 <link type="text/css" rel="stylesheet" href="/cms/css/channel/ChannelList.css">
 <script type="text/javascript">	
-	function deleteChannel(parentChannelID, channelID, version){
+	function deleteChannel(channelID){
 		if (confirm("确定要删除该栏目吗？")) {
-			window.location.href = "channelListDelete.action?channel.parentID="+parentChannelID+"&channel.channelID=" + channelID + "&version=" + version;
+			window.location.href = "channelListDelete.action?channel.channelID=" + channelID;
 	    }
 	}
 </script>
@@ -60,7 +60,7 @@
 							<td class="align_center">
 								<a href="#">上移</a>|
 								<a href="#">下移</a>|
-								<a href="#" onclick="return deleteChannel(${item.parentID}, ${item.channelID }, ${item.version })">删除</a>
+								<a href="#" onclick="return deleteChannel(${item.channelID })">删除</a>
 							</td>
 						</tr>
 					</s:iterator>

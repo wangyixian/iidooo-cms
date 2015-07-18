@@ -13,7 +13,7 @@
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
 		<action name="channelListDelete" class="com.iidooo.cms.action.channel.ChannelListAction" method="delete">
-			<result name="success" type="redirect">channelList.action?parentChannelID=${parentChannelID}</result>
+			<result name="success" type="redirect">channelList.action?channel.channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
 

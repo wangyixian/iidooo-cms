@@ -77,6 +77,20 @@
 		C.ChannelID = #{channelID,jdbcType=INTEGER}
 	</select>
 
+	<select id="selectChannelListCount" resultType="java.lang.Integer" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
+		select count(*)
+		from CMS_CHANNEL C where C.IsDelete = 0
+		<if test="parentID != null">
+			and C.ParentID = #{parentID,jdbcType=INTEGER}
+		</if>
+		<if test="siteID != null">
+			and C.SiteID = #{siteID,jdbcType=INTEGER}
+		</if>
+		<if test="channelPath != null">
+			and C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
+		</if>
+	</select>
+
 	<select id="selectChannelList" resultMap="BaseResultMap" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		select
 		<include refid="Base_Column_List" />
@@ -97,7 +111,8 @@
 		select max(C.Sequence)
 		from CMS_CHANNEL C
 		where C.IsDelete = 0
-		and C.ParentID = #{parentID,jdbcType=INTEGER}
+		and
+		C.ParentID = #{parentID,jdbcType=INTEGER}
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
@@ -160,9 +175,9 @@
 		ChannelID = #{channelID,jdbcType=INTEGER}
 	</update>
 
-	<update id="deleteByPrimaryKey" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
+	<update id="deleteByChannelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		update CMS_CHANNEL
-		set IsDelete = '1',
+		set IsDelete = 1,
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},
 		UpdateUser =
 		#{updateUser,jdbcType=INTEGER},

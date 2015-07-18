@@ -9,6 +9,7 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.channel.IChannelListService;
 import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ChannelListAction extends BaseAction {
 
@@ -45,8 +46,8 @@ public class ChannelListAction extends BaseAction {
     public String init() {
         try {
             if (channel == null) {
-                //List<RoleDto> roleList = (List<RoleDto>) this.getSessionValue(PassportConstant.LOGIN_ROLE_LIST);
-                //List<SiteDto> siteList = channelListService.getSiteList(roleList);
+                // List<RoleDto> roleList = (List<RoleDto>) this.getSessionValue(PassportConstant.LOGIN_ROLE_LIST);
+                // List<SiteDto> siteList = channelListService.getSiteList(roleList);
                 // Default is get the root channel list.
                 SiteDto site = channelListService.getTopSite();
                 channelList = channelListService.getChildrenChannelList(site.getSiteID(), 0);
@@ -71,22 +72,38 @@ public class ChannelListAction extends BaseAction {
 
     public String delete() {
         try {
-            List<ChannelDto> children = channelListService.getChildrenChannelList(this.channel.getChannelID());
-            if (children != null && children.size() > 0) {
-                addActionError(getText("MSG_CHANNEL_DELETE_FAILED_CHILDREN", this.channel.getChannelName()));
-                return INPUT;
-            } else if (!channelListService.deleteChannel(this.channel)) {
-                addActionError(getText("MSG_CHANNEL_DELETE_FAILED", this.channel.getChannelName()));
+            if (!channelListService.deleteChannel(this.channel)) {
+                addActionError(getText("MSG_CHANNEL_DELETE_FAILED", new String[] { channel.getChannelName() }));
                 return INPUT;
             }
             channelList = channelListService.getChildrenChannelList(channel.getParentID());
 
-            addActionMessage(getText("MSG_CHANNEL_DELETE_SUCCESS", this.channel.getChannelName()));
+            addActionMessage(getText("MSG_CHANNEL_DELETE_SUCCESS", new String[] { channel.getChannelName() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
             return ERROR;
+        }
+    }
+
+    public void validateDelete() {
+        try {
+            if (channel == null || ValidateUtil.isEmpty(channel.getChannelID())) {
+                addActionError(getText("MSG_CHANNEL_ID_REQUIRE"));
+            }
+
+            channel = channelListService.getChannel(channel.getChannelID());
+            if (channel == null) {
+                addActionError(getText("MSG_CHANNEL_NOT_EXIST"));
+            }
+
+            if (channelListService.hasChildren(channel.getChannelID())) {
+                addActionError(getText("MSG_CHANNEL_DELETE_FAILED_CHILDREN", new String[] { channel.getChannelName() }));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
         }
     }
 }

@@ -25,6 +25,19 @@ public final class ValidateUtil {
             return false;
         }
     }
+    
+    public static boolean isEmpty(Integer value){
+        try {
+            if (value == null || value.toString().trim().length() <= 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
+    }
 
     /**
      * 是否是纯数字组合的字符串验证.

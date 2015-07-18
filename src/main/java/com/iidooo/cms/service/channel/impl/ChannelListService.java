@@ -16,6 +16,7 @@ import com.iidooo.cms.service.channel.IChannelListService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.RoleDto;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -28,6 +29,35 @@ public class ChannelListService implements IChannelListService {
 
     @Autowired
     private SiteDao siteDao;
+
+    @Override
+    public ChannelDto getChannel(int channelID) {
+        try {
+            ChannelDto result = channelDao.selectByChannelID(channelID);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean hasChildren(int parentID) {
+        try {
+            ChannelDto channel = new ChannelDto();
+            channel.setParentID(parentID);
+            int count = channelDao.selectChannelListCount(channel);
+            if (count > 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
+    }
 
     @Override
     public List<ChannelDto> getChildrenChannelList(int parentID) {
@@ -84,10 +114,10 @@ public class ChannelListService implements IChannelListService {
     public boolean deleteChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-            channel.setUpdateUser(userID);
+            UserDto use = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            channel.setUpdateUser(use.getUserID());
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-            int count = channelDao.deleteByPrimaryKey(channel);
+            int count = channelDao.deleteByChannelID(channel);
             if (count <= 0) {
                 return false;
             }

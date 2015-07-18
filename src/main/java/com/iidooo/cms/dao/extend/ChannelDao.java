@@ -17,6 +17,8 @@ public interface ChannelDao {
 
     List<ChannelDto> selectChannelChildren(@Param("siteCode")String siteCode, @Param("parentPath")String parentPath);    
     
+    int selectChannelListCount(ChannelDto channel);
+    
     /**
      * Get the channel list by the record of ChannelDto
      * 
@@ -56,5 +58,5 @@ public interface ChannelDao {
      * @param channel This channel will be delete
      * @return The deleted channel count
      */
-    int deleteByPrimaryKey(ChannelDto channel);
+    int deleteByChannelID(ChannelDto channel);
 }

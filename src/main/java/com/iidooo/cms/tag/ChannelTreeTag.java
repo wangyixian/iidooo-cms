@@ -59,12 +59,12 @@ public class ChannelTreeTag extends SimpleTagSupport {
 
             SiteDao siteDao = (SiteDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_SITE_DAO);
             List<SiteDto> siteList = null;
-            
+
             if (roleList == null || roleList.size() <= 0) {
                 siteList = siteDao.selectAll();
             } else {
                 siteList = siteDao.selectSiteList(roleList);
-            }            
+            }
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 
@@ -73,7 +73,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
             out.println("<ul class='filetree' id='tree'>");
 
             for (SiteDto siteDto : siteList) {
-                String url = StringUtil.replace(baseURL, "0", siteDto.getSiteCode());
+                String url = StringUtil.replace(baseURL, siteDto.getSiteID().toString(), "0");
                 String folder = StringUtil.replace(FOLD_TREE_NODE, url, siteDto.getSiteName());
                 out.println("<li>" + folder);
 
