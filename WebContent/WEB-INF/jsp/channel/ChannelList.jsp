@@ -12,7 +12,9 @@
 <script type="text/javascript">	
 	function deleteChannel(channelID){
 		if (confirm("确定要删除该栏目吗？")) {
-			window.location.href = "channelListDelete.action?channel.channelID=" + channelID;
+			$("#hidChannelID").val(channelID);
+			window.form.action = "channelListDelete.action";
+			window.form.submit();
 	    }
 	}
 </script>
@@ -26,48 +28,53 @@
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb/>
 			<div class="page_content">
-				<s:actionerror/>
-				<s:actionmessage/>
-				<table class="datagrid">
-					<tr>
-						<th width="5%">ID</th>
-						<th width="10%">栏目名称</th>
-						<th width="10%">访问路径</th>
-						<th width="5%">隐藏</th>
-						<th width="30%">Meta标题</th>
-						<th width="30%">Meta关键字</th>
-						<th width="10%">操作</th>
-					</tr>
-					<s:iterator id="item" value="channelList" status="st">
+				<form id="form" action="" method="post">
+					<s:actionerror/>
+					<s:actionmessage/>
+					<input id="hidSiteID" type="hidden" name="channel.siteID" value="${channel.siteID }">
+					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }">
+					<input id="hidParentID" type="hidden" name="channel.parentID" value="${channel.parentID }">
+					<table class="datagrid">
 						<tr>
-							<td class="align_center">
-								<a href="channelDetail.action?channel.channelID=${item.channelID }" target="_blank">
-									${item.channelID }
-								</a>
-							</td>
-							<td class="align_center">
-								<a href="channelDetail.action?channel.channelID=${item.channelID }" target="_blank">
-									${item.channelName }
-								</a>
-							</td>
-							<td class="align_center">${item.channelPath }</td>
-							<td class="align_center">
-								<s:if test="#item.isHidden == 0">否</s:if>
-								<s:else>是</s:else>
-							</td>							
-							<td class="align_center">${item.metaTitle}</td>
-							<td class="align_center">${item.metaKeywords}</td>
-							<td class="align_center">
-								<a href="#">上移</a>|
-								<a href="#">下移</a>|
-								<a href="#" onclick="return deleteChannel(${item.channelID })">删除</a>
-							</td>
+							<th width="5%">ID</th>
+							<th width="10%">栏目名称</th>
+							<th width="10%">访问路径</th>
+							<th width="5%">隐藏</th>
+							<th width="30%">Meta标题</th>
+							<th width="30%">Meta关键字</th>
+							<th width="10%">操作</th>
 						</tr>
-					</s:iterator>
-				</table>
-				<div class="button_bar">
-					<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}&channel.siteID=${channel.siteID}">添加</a>
-				</div>
+						<s:iterator id="item" value="channelList" status="st">
+							<tr>
+								<td class="align_center">
+									<a href="channelDetail.action?channel.channelID=${item.channelID }">
+										${item.channelID }
+									</a>
+								</td>
+								<td class="align_center">
+									<a href="channelDetail.action?channel.channelID=${item.channelID }">
+										${item.channelName }
+									</a>
+								</td>
+								<td class="align_center">${item.channelPath }</td>
+								<td class="align_center">
+									<s:if test="#item.isHidden == 0">否</s:if>
+									<s:else>是</s:else>
+								</td>							
+								<td class="align_center">${item.metaTitle}</td>
+								<td class="align_center">${item.metaKeywords}</td>
+								<td class="align_center">
+									<a href="#">上移</a>|
+									<a href="#">下移</a>|
+									<a href="#" onclick="return deleteChannel(${item.channelID })">删除</a>
+								</td>
+							</tr>
+						</s:iterator>
+					</table>
+					<div class="button_bar">
+						<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}&channel.siteID=${channel.siteID}">添加</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

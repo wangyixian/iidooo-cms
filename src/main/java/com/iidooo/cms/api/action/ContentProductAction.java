@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.api.service.IContentProductService;
 import com.iidooo.cms.constant.CmsConstant;
-import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.constant.CoreConstants;
@@ -86,7 +85,10 @@ public class ContentProductAction extends BaseAPIAction {
                 product.setChannelPath(channelPath);
                 
                 int count = contentProductService.searchContentProductListSize(siteCode, product);
-                this.setPage(PageUtil.executePage(count, page));
+                
+                PageUtil pageUtil = new PageUtil(this.getServletContext());
+                this.setPage(pageUtil.executePage(count, page));
+                
                 List<ContentProductDto> productList = contentProductService.searchContentProductList(siteCode, product, this.getPage());
 
                 JsonUtil.responseObjectArray(productList, this.getPage(), this.getResponse());

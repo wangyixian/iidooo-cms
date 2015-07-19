@@ -76,7 +76,6 @@ public class ChannelListAction extends BaseAction {
                 addActionError(getText("MSG_CHANNEL_DELETE_FAILED", new String[] { channel.getChannelName() }));
                 return INPUT;
             }
-            channelList = channelListService.getChildrenChannelList(channel.getParentID());
 
             addActionMessage(getText("MSG_CHANNEL_DELETE_SUCCESS", new String[] { channel.getChannelName() }));
             return SUCCESS;
@@ -91,11 +90,6 @@ public class ChannelListAction extends BaseAction {
         try {
             if (channel == null || ValidateUtil.isEmpty(channel.getChannelID())) {
                 addActionError(getText("MSG_CHANNEL_ID_REQUIRE"));
-            }
-
-            channel = channelListService.getChannel(channel.getChannelID());
-            if (channel == null) {
-                addActionError(getText("MSG_CHANNEL_NOT_EXIST"));
             }
 
             if (channelListService.hasChildren(channel.getChannelID())) {

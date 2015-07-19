@@ -13,7 +13,7 @@
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
 		<action name="channelListDelete" class="com.iidooo.cms.action.channel.ChannelListAction" method="delete">
-			<result name="success" type="redirect">channelList.action?channel.channelID=${channel.parentID}</result>
+			<result name="success" type="redirectAction">channelList.action?channel.siteID=${channel.siteID}&amp;channel.channelID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
 
@@ -34,7 +34,7 @@
 			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>
 		</action>
 		<action name="contentListDelete" class="com.iidooo.cms.action.content.ContentListAction" method="delete">
-			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>
+			<result name="success" type="redirectAction">contentList.action?content.siteID=${content.siteID}&amp;content.channelID=${content.channelID}</result>
 			<result name="input">/WEB-INF/jsp/content/ContentList.jsp</result>
 		</action>
 
@@ -43,19 +43,12 @@
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
 		<action name="contentCreate" class="com.iidooo.cms.action.content.ContentDetailAction" method="create">
-			<result name="success" type="redirect">contentList.action?content.channelID=${content.channelID}</result>
+			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 		</action>
 		<action name="contentUpdate" class="com.iidooo.cms.action.content.ContentDetailAction" method="update">
 			<result name="success">/WEB-INF/jsp/content/ContentDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/content/ContentDetail.jsp</result>
-		</action>
-
-		<!-- The ajax action did not need the result, the result will output as json -->
-		<action name="fileUpload" class="com.iidooo.core.action.FileUploadAction" method="upload">
-		</action>
-		<action name="kindEditorFileManager" class="com.iidooo.core.action.KindEditorFileManagerAction" method="manage">
-			
 		</action>
 	</package>
 </struts>

@@ -8,6 +8,7 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.content.IContentDetailService;
 import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ContentDetailAction extends BaseAction {
 
@@ -43,14 +44,14 @@ public class ContentDetailAction extends BaseAction {
 
     public String init() {
         try {
-            if (content.getContentID() != null) {
-                Integer channelID = content.getChannelID();
+            if (content != null && content.getContentID() != null) {
+                int siteID = content.getSiteID();
                 content = contentInfoService.getContentByID(content.getContentID());
-                content.setChannelID(channelID);
                 if (content == null) {
-                    addActionMessage(getText("MSG_CONTENT_NOT_EXIST", new String[]{content.getContentID().toString()}));
+                    addActionMessage(getText("MSG_CONTENT_NOT_EXIST", new String[] { content.getContentID().toString() }));
                     return INPUT;
                 }
+                content.setSiteID(siteID);
 
                 if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
                     product = (ContentProductDto) content;
@@ -67,21 +68,22 @@ public class ContentDetailAction extends BaseAction {
 
     public String create() {
         try {
+            content.setChannelID(content.getNewChannelID());
             switch (content.getContentType()) {
             case CmsConstant.DICT_ITEM_CONTENT_TYPE_DEFAULT:
-                if(!contentInfoService.createContent(content)){
+                if (!contentInfoService.createContent(content)) {
                     addActionError(getText("MSG_CONTENT_CREATE_FAILED"));
                     return INPUT;
                 }
                 break;
             case CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT:
-                if(!contentInfoService.createContent(content, product)){
+                if (!contentInfoService.createContent(content, product)) {
                     addActionError(getText("MSG_CONTENT_CREATE_FAILED"));
                     return INPUT;
                 }
                 break;
             }
-            addActionMessage(getText("MSG_CONTENT_CREATE_SUCCESS", content.getContentTitle()));
+            addActionMessage(getText("MSG_CONTENT_CREATE_SUCCESS", new String[] { content.getContentTitle() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,20 +94,21 @@ public class ContentDetailAction extends BaseAction {
 
     public void validateCreate() {
         try {
-            if (content.getContentType().isEmpty()) {
+            if (ValidateUtil.isEmpty(content.getContentType())) {
                 addActionError(getText("MSG_CONTENT_TYPE_REQUIRE"));
             }
-            if (content.getChannelID() == null || content.getChannelID() <= 0) {
+            if (ValidateUtil.isEmpty(content.getNewChannelID()) || content.getNewChannelID() <= 0) {
                 addActionError(getText("MSG_CONTENT_CHANNEL_REQUIRE"));
             }
-            if (content.getContentTitle().isEmpty()) {
+            if (ValidateUtil.isEmpty(content.getContentTitle())) {
                 addActionError(getText("MSG_CONTENT_TITLE_REQUIRE"));
             }
+
             if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
-                if (product.getProductCountry().isEmpty()) {
+                if (ValidateUtil.isEmpty(product.getProductCountry())) {
                     addActionError(getText("MSG_CONTENT_PRODUCT_COUNTRY_REQUIRE"));
                 }
-                if (product.getProductOrigin().isEmpty()) {
+                if (ValidateUtil.isEmpty(product.getProductOrigin())) {
                     addActionError(getText("MSG_CONTENT_PRODUCT_ORIGINAL_REQUIRE"));
                 }
             }
@@ -117,26 +120,28 @@ public class ContentDetailAction extends BaseAction {
     }
 
     public String update() {
-        try {
+        try { 
+            // When change the content's channel, the new channel ID will accept the value.
+            // Set it to the content.channelID for update.
+            if (content.getChannelID() != content.getNewChannelID()) {
+                content.setChannelID(content.getNewChannelID());
+            }
             switch (content.getContentType()) {
             case CmsConstant.DICT_ITEM_CONTENT_TYPE_DEFAULT:
-                if(!contentInfoService.updateContent(content)){
-                    addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[]{content.getContentTitle()}));
+                if (!contentInfoService.updateContent(content)) {
+                    addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[] { content.getContentTitle() }));
                     return INPUT;
                 }
                 break;
             case CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT:
-                if(!contentInfoService.updateContent(content, product)){
-                    addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[]{content.getContentTitle()}));
+                if (!contentInfoService.updateContent(content, product)) {
+                    addActionError(getText("MSG_CONTENT_UPDATE_FAILED", new String[] { content.getContentTitle() }));
                     return INPUT;
                 }
                 break;
             }
-            // Because of the jsp page is used the channel ID, so set the new channel id into 
-            if (content.getChannelID() != content.getNewChannelID()) {
-                content.setChannelID(content.getNewChannelID());
-            }
-            addActionMessage(getText("MSG_CONTENT_UPDATE_SUCCESS", new String[]{content.getContentTitle()}));
+
+            addActionMessage(getText("MSG_CONTENT_UPDATE_SUCCESS", new String[] { content.getContentTitle() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,21 +152,20 @@ public class ContentDetailAction extends BaseAction {
 
     public void validateUpdate() {
         try {
-            if (content.getContentType().isEmpty()) {
+            if (ValidateUtil.isEmpty(content.getContentType())) {
                 addActionError(getText("MSG_CONTENT_TYPE_REQUIRE"));
             }
-            if (content.getChannelID() == null || content.getChannelID() <= 0 ||
-                    content.getNewChannelID() == null || content.getNewChannelID() <= 0) {
+            if (ValidateUtil.isEmpty(content.getNewChannelID()) || content.getNewChannelID() <= 0) {
                 addActionError(getText("MSG_CONTENT_CHANNEL_REQUIRE"));
             }
-            if (content.getContentTitle().isEmpty()) {
+            if (ValidateUtil.isEmpty(content.getContentTitle())) {
                 addActionError(getText("MSG_CONTENT_TITLE_REQUIRE"));
             }
             if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
-                if (product.getProductCountry().isEmpty()) {
+                if (ValidateUtil.isEmpty(product.getProductCountry())) {
                     addActionError(getText("MSG_CONTENT_PRODUCT_COUNTRY_REQUIRE"));
                 }
-                if (product.getProductOrigin().isEmpty()) {
+                if (ValidateUtil.isEmpty(product.getProductOrigin())) {
                     addActionError(getText("MSG_CONTENT_PRODUCT_ORIGINAL_REQUIRE"));
                 }
             }

@@ -9,7 +9,9 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +22,7 @@ import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 import org.json.simple.JSONObject;
 
 import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.dto.extend.DictItemDto;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -88,12 +91,13 @@ public class FileUploadAction extends BaseAction {
 
     public void upload() {
         try {
+            ServletContext sc = this.getServletContext();
             HttpServletRequest request = ServletActionContext.getRequest();
             HttpServletResponse response = ServletActionContext.getResponse();
             PrintWriter out = response.getWriter();
 
             // 文件保存目录路径
-            String savePath = ServletActionContext.getServletContext().getRealPath("/") + "attached/";
+            String savePath = sc.getRealPath("/") + "attached/";
 
             // 文件保存目录URL
             String saveUrl = request.getContextPath() + "/attached/";
@@ -106,12 +110,10 @@ public class FileUploadAction extends BaseAction {
             extMap.put("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
 
             // 最大文件大小
-            Object maxSizeObj = ActionContext.getContext().getApplication().get(CoreConstants.DICT_ITEM_MAX_SIZE);
-            
-            long maxSize = 1000000;
-            if (maxSizeObj != null && maxSizeObj instanceof String) {
-                maxSize = Long.parseLong((String) maxSizeObj);
-            }
+            Map<String, DictItemDto> uploadDictItemMap = (Map<String, DictItemDto>) sc.getAttribute(CoreConstants.DICT_CLASS_CORE_UPLOAD);
+            DictItemDto dictItemMaxSize = uploadDictItemMap.get(CoreConstants.DICT_ITEM_IMAGE_MAX_SIZE);
+
+            long maxSize = Long.parseLong(dictItemMaxSize.getDictItemValue());
 
             response.setContentType("text/html; charset=UTF-8");
 

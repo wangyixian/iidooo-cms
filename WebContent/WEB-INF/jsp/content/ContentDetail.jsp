@@ -2,47 +2,89 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="core" uri="/core-tags"%>
 <%@ taglib prefix="cms" uri="/cms-tags"%>
+<%@ taglib prefix="passport" uri="/passport-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<script type="text/javascript" src="${CORE_URL}/js/KindEditor/kindeditor-min.js"></script>
-<script type="text/javascript" src="${CORE_URL}/js/KindEditor/lang/zh_CN.js"></script>
-<script type="text/javascript" src="${CORE_URL}/js/jquery.treeview/jquery.treeview.js"></script>
-<script type="text/javascript" src="${CORE_URL}/js/jquery.treeview/lib/jquery.cookie.js"></script>
-<link type="text/css" rel="stylesheet" href="${CORE_URL}/js/jquery.treeview/jquery.treeview.css">
+<jsp:include page="../include/Tree.jsp"></jsp:include>
+<jsp:include page="../include/KindEditor.jsp"></jsp:include>
 
 <script type="text/javascript" src="js/content/ContentDetail.js"></script>
 <link type="text/css" rel="stylesheet" href="css/content/ContentDetail.css">
 
+<script type="text/javascript">
+
+	function createContent() {
+		editor.sync();
+		window.form.action = "contentCreate.action";
+		//if (validate()) {
+		window.form.submit();
+		//}
+	}
+
+	function updateContent() {
+		editor.sync();
+		window.form.action = "contentUpdate.action";
+		//if(validate()){
+		window.form.submit();
+		//}
+	}
+
+	function btnCopy() {
+		editor.sync();
+		$("#hidMode").val(3);
+		window.form.action = "contentDetail.action";
+		window.form.submit();
+	}
+
+	function deleteContent() {
+		editor.sync();
+		window.form.action = "contentDelete.action";
+		window.form.submit();
+	}
+
+	function returnBack() {
+		var siteID = $("#hidSiteID").val();
+		var channelID = $("#hidChannelID").val();
+		window.location.href = "contentList.action?content.siteID=" + siteID	+ "&content.channelID=" + channelID;
+	}
+
+	function validate() {
+		var message = "";
+		var txtContentTitle = $("#txtContentTitle").val();
+		if (txtContentTitle == "") {
+			message += "内容标题不能为空。";
+		}
+		if (message != "") {
+			alert(message);
+			return false;
+		}
+		return true;
+	}
+</script>
+
 </head>
 <body>	
 	<jsp:include page="../include/Top.jsp"></jsp:include>		
-	<div id="page_content_wrap">	
+	<div class="page_content_wrap">	
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?channel.siteID={0}&channel.channelID={1}"/>
+			<cms:channelTree baseURL="contentList.action?content.siteID={0}&content.channelID={1}"/>
 		</div>
 		<div class="page_content_right_wrap">		
-			<div class="bread_crumb">
-				<span>当前的位置：</span>
-				<s:if test="content.contentID == null">
-					<span>内容管理 - 内容创建</span>
-				</s:if>
-				<s:else>
-					<span>内容管理 - 内容详细</span>
-				</s:else>
-			</div>
+			<passport:breadCrumb/>	
 			<div class="page_content">
 				<s:actionerror/>
 				<s:actionmessage/>
 				<form id="form" method="post">					
+					<input id="hidSiteID" type="hidden" name="content.siteID" value="${content.siteID}">
 					<input id="hidChannelID" type="hidden" name="content.channelID" value="${content.channelID }">
 					<input type="hidden" name="content.contentID" value="${content.contentID}">
 					<input type="hidden" name="content.contentType" value="${content.contentType }">
 					<input type="hidden" name="content.version"	value="${content.version }">		
 					<input type="hidden" name="content.sequence" value="${content.sequence }">		
-					<table class="detail">
+					<table class="datagrid">
 						<tr>							
 							<th width="10%">内容类型</th>		
 							<td>
@@ -50,7 +92,7 @@
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
-								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }" siteID=${content.siteID }/>	
+								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }" siteID="${content.siteID }" isContainBlank="false"/>	
 							</td>			
 						</tr>
 						<tr>
@@ -94,7 +136,7 @@
 						<tr>
 							<th>内容详细</th>
 							<td colspan="3">
-								<textarea id="txtContentBody" name="content.contentBody">${content.contentBody }</textarea>
+								<textarea id="txtContentBody" class="kind_editor" name="content.contentBody">${content.contentBody }</textarea>
 							</td>
 						</tr>
 						<s:if test="content.contentType == 2">
@@ -135,7 +177,7 @@
 					</s:if>
 					<s:else>
 						<button type="button" onclick="return updateContent();">更新</button>
-						<button type="button" onclick="btnCopy();">复制</button>
+						<!-- <button type="button" onclick="btnCopy();">复制</button> -->
 					</s:else>
 					<button type="button" onclick="return returnBack();">返回</button>
 				</div>			

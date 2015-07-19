@@ -6,10 +6,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.dto.extend.ContentDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.content.IContentListService;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.PageUtil;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ContentListAction extends BaseAction {
 
@@ -24,8 +26,6 @@ public class ContentListAction extends BaseAction {
     private IContentListService contentListService;
 
     private List<ContentDto> contentList;
-    
-    private String siteCode;
 
     private ContentDto content;
 
@@ -35,14 +35,6 @@ public class ContentListAction extends BaseAction {
 
     public void setContentList(List<ContentDto> contentList) {
         this.contentList = contentList;
-    }
-
-    public String getSiteCode() {
-        return siteCode;
-    }
-
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
     }
 
     public ContentDto getContent() {
@@ -56,15 +48,27 @@ public class ContentListAction extends BaseAction {
     public String init() {
         try {
             if (content == null || content.getChannelID() == null) {
-                int count = contentListService.getContentListCount(0, siteCode);
-                PageDto page = PageUtil.executePage(count, this.getPage());
+                // The default initialization
+                SiteDto site = contentListService.getTopSite();
+                int count = contentListService.getContentListCount(site.getSiteID(), 0);
+
+                PageUtil pageUtil = new PageUtil(this.getServletContext());
+                PageDto page = pageUtil.executePage(count, this.getPage());
                 this.setPage(page);
-                this.contentList = contentListService.getContentList(0, this.getPage(), siteCode);
+
+                this.contentList = contentListService.getContentList(site.getSiteID(), 0, this.getPage());
+
+                // The page should use the content.siteID as the url parameter.
+                content = new ContentDto();
+                content.setSiteID(site.getSiteID());
             } else {
-                int count = contentListService.getContentListCount(content.getChannelID(), siteCode);
-                PageDto page = PageUtil.executePage(count, this.getPage());
+                int count = contentListService.getContentListCount(content.getSiteID(), content.getChannelID());
+
+                PageUtil pageUtil = new PageUtil(this.getServletContext());
+                PageDto page = pageUtil.executePage(count, this.getPage());
                 this.setPage(page);
-                this.contentList = contentListService.getContentList(content.getChannelID(), this.getPage(), siteCode);
+
+                this.contentList = contentListService.getContentList(content.getSiteID(), content.getChannelID(), this.getPage());
             }
             return SUCCESS;
         } catch (Exception e) {
@@ -79,17 +83,25 @@ public class ContentListAction extends BaseAction {
             if (!contentListService.deleteContent(content)) {
                 addActionError(getText("MSG_CONTENT_DELETE_FAILED", new String[] { content.getContentTitle() }));
                 return INPUT;
-            }            
-            
-            // After successfully delete the content, initialize the page content list.
-            this.init();
-            
+            }
+
             addActionMessage(getText("MSG_CONTENT_DELETE_SUCCESS", new String[] { content.getContentTitle() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
             return ERROR;
+        }
+    }
+
+    public void validateDelete() {
+        try {
+            if (content == null || ValidateUtil.isEmpty(content.getContentID())) {
+                addActionError(getText("MSG_CONTENT_ID_REQUIRE"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
         }
     }
 }

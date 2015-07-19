@@ -5,6 +5,8 @@ import com.iidooo.core.util.DateUtil;
 
 public class ContentDto extends Content {
 
+    private Integer siteID;
+
     // This field for change the content's channel on the ContentDetail Page
     private Integer newChannelID;
 
@@ -13,6 +15,14 @@ public class ContentDto extends Content {
     private String channelPath;
 
     private String createUserName;
+
+    public Integer getSiteID() {
+        return siteID;
+    }
+
+    public void setSiteID(Integer siteID) {
+        this.siteID = siteID;
+    }
 
     public Integer getNewChannelID() {
         return newChannelID;

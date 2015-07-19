@@ -1,12 +1,24 @@
 package com.iidooo.core.util;
 
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+
 import org.apache.log4j.Logger;
 
+import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dto.PageDto;
+import com.iidooo.core.dto.extend.DictItemDto;
 
 public class PageUtil {
     private static final Logger logger = Logger.getLogger(PageUtil.class);
-    
+
+    private ServletContext sc;
+
+    public PageUtil(ServletContext sc) {
+        this.sc = sc;
+    }
+
     /**
      * Execute the page action.
      * 
@@ -14,7 +26,7 @@ public class PageUtil {
      * @param page The input page object
      * @return The new page object
      */
-    public static PageDto executePage(int count, PageDto page) {
+    public PageDto executePage(int count, PageDto page) {
         PageDto result = new PageDto();
         try {
 
@@ -23,6 +35,11 @@ public class PageUtil {
             } else {
                 result.setCurrentPage(page.getCurrentPage());
             }
+
+            // Set the page default size
+            Map<String, DictItemDto> pageDictItemMap = (Map<String, DictItemDto>) sc.getAttribute(CoreConstants.DICT_CLASS_CORE_PAGE);
+            DictItemDto pageSize = pageDictItemMap.get(CoreConstants.DICT_ITEM_PAGE_SIZE);
+            page.setPageSize(Integer.parseInt(pageSize.getDictItemValue()));
 
             // Set paging dto fields.
             result.setPageSize(page.getPageSize());

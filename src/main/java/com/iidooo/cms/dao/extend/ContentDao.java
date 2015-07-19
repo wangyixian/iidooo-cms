@@ -18,6 +18,12 @@ public interface ContentDao {
     ContentDto selectByContentID(int contentID);
     
     ContentDto selectOneContentByChannelPath(@Param("siteCode") String siteCode, @Param("channelPath") String channelPath);
+
+    /**
+     * Select all of the contents and get the record count
+     * @return The record count.
+     */
+    int selectAllCount();
     
     /**
      * Select all of the contents with page
@@ -26,11 +32,10 @@ public interface ContentDao {
      */
     List<ContentDto> selectAll(PageDto page);
     
-    /**
-     * Select all of the contents and get the record count
-     * @return The record count.
-     */
-    int selectAllCount();
+    
+    int selectContentListCount(ContentDto content);
+    
+    List<ContentDto> selectContentList(@Param("content")ContentDto content, @Param("page")PageDto page);
     
     /**
      * Get all of the channel contents's count
@@ -60,7 +65,7 @@ public interface ContentDao {
 
     int insert(ContentDto content);
 
-    int updateByPrimaryKey(ContentDto content);
+    int update(ContentDto content);
 
-    int deleteByPrimaryKey(ContentDto content);
+    int delete(ContentDto content);
 }

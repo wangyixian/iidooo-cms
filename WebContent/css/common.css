@@ -344,7 +344,7 @@ a:hover {
 /* 页面内容区域的共通样式 Start */
 .page_content_wrap {
 	overflow: hidden;
-	height: 100%;
+	height: auto;
 }
 
 .page_content_left_wrap {
@@ -358,7 +358,14 @@ a:hover {
 	margin-left: 200px;
 	padding: 0 10px;
 	height: 100%;
+	overflow: hidden;
 }
+
+.page_content{
+	height: 100%;
+	overflow: hidden;
+}
+
 .page_content_980px {
 	width: 980px;
 	margin: 0 auto;

@@ -68,6 +68,11 @@
 
 	<!-- The listener of this application. Append the configuration of application need. -->
 	<listener>
+		<listener-class>com.iidooo.core.listener.ApplicationListener</listener-class>
+	</listener>
+
+	<!-- The listener of this application. Append the configuration of application need. -->
+	<listener>
 		<listener-class>com.iidooo.passport.listener.ApplicationListener</listener-class>
 	</listener>
 

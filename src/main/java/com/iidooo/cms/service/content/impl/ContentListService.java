@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dao.extend.ContentDao;
+import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.content.IContentListService;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -28,16 +31,31 @@ public class ContentListService implements IContentListService {
     private ChannelDao channelDao;
 
     @Autowired
-    private ContentDao contentDao;   
+    private ContentDao contentDao;
+
+    @Autowired
+    private SiteDao siteDao;
 
     @Override
-    public int getContentListCount(Integer channelID, String siteCode) {
+    public ContentDto getContent(Integer contentID) {
+        try {
+            ContentDto result = contentDao.selectByContentID(contentID);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+
+    @Override
+    public int getContentListCount(Integer siteID, Integer channelID) {
         int result = 0;
         try {
             if (channelID == null || channelID <= 0) {
                 result = contentDao.selectAllCount();
             } else {
-                List<Integer> channels = getOffspringChannelList(channelID, siteCode);
+                List<Integer> channels = getOffspringChannelList(channelID, siteID);
                 result = contentDao.selectContentListCountByChannels(channels);
             }
         } catch (Exception e) {
@@ -48,13 +66,13 @@ public class ContentListService implements IContentListService {
     }
 
     @Override
-    public List<ContentDto> getContentList(Integer channelID, PageDto page, String siteCode) {
+    public List<ContentDto> getContentList(Integer siteID, Integer channelID, PageDto page) {
         List<ContentDto> result = new ArrayList<ContentDto>();
         try {
             if (channelID == null || channelID <= 0) {
                 result = contentDao.selectAll(page);
             } else {
-                List<Integer> channels = getOffspringChannelList(channelID, siteCode);
+                List<Integer> channels = getOffspringChannelList(channelID, siteID);
                 result = contentDao.selectContentListByChannels(channels, page);
             }
         } catch (Exception e) {
@@ -67,16 +85,16 @@ public class ContentListService implements IContentListService {
     @Override
     public boolean deleteContent(ContentDto content) {
         try {
-            
+
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-            content.setUpdateUser(userID);
+            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            content.setUpdateUser(user.getUserID());
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-            int count = contentDao.deleteByPrimaryKey(content);
+            int count = contentDao.delete(content);
             if (count <= 0) {
                 return false;
-            }        
-            
+            }
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,14 +103,16 @@ public class ContentListService implements IContentListService {
         }
     }
 
-    private List<Integer> getOffspringChannelList(Integer channelID, String siteCode) {
+    private List<Integer> getOffspringChannelList(Integer channelID, Integer siteID) {
         List<Integer> result = new ArrayList<Integer>();
         try {
             result.add(channelID);
 
             ChannelUtil channelUtil = new ChannelUtil(channelDao);
-            
-            List<ChannelDto> channelList = channelDao.selectBySiteCode(siteCode);
+
+            ChannelDto channel = new ChannelDto();
+            channel.setSiteID(siteID);
+            List<ChannelDto> channelList = channelDao.selectChannelList(channel);
             channelUtil.counstructChildren(channelList);
 
             result = channelUtil.getOffspring(channelList, channelID);
@@ -103,7 +123,14 @@ public class ContentListService implements IContentListService {
         return result;
     }
 
-    
+    @Override
+    public SiteDto getTopSite() {
+        try {
+            SiteDto result = siteDao.selectTopSite();
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-    
 }

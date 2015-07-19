@@ -81,7 +81,10 @@ public class ContentAction extends BaseAPIAction {
                 page.setSortType(sortType);
 
                 int count = contentService.getContentListSize(siteCode, channelPath);
-                this.setPage(PageUtil.executePage(count, page));
+                
+                PageUtil pageUtil = new PageUtil(this.getServletContext());
+                this.setPage(pageUtil.executePage(count, page));
+                
                 List<ContentDto> contentList = contentService.getContentList(siteCode, channelPath, this.getPage());
 
                 JsonUtil.responseObjectArray(contentList, this.getPage(), this.getResponse());

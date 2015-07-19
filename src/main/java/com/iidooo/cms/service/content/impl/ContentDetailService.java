@@ -14,6 +14,7 @@ import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.content.IContentDetailService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
+import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -58,10 +59,10 @@ public class ContentDetailService implements IContentDetailService {
             content.setSequence(maxSequence + 1);
 
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-            content.setCreateUser(userID);
+            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            content.setCreateUser(user.getUserID());
             content.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-            content.setUpdateUser(userID);
+            content.setUpdateUser(user.getUserID());
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 
             int result = contentDao.insert(content);
@@ -101,11 +102,11 @@ public class ContentDetailService implements IContentDetailService {
     public boolean updateContent(ContentDto content) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            int userID = (int) sessionMap.get(PassportConstant.USER_ID);
-            content.setUpdateUser(userID);
+            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            content.setUpdateUser(user.getUserID());
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 
-            int result = contentDao.updateByPrimaryKey(content);
+            int result = contentDao.update(content);
             if (result <= 0) {
                 return false;
             }

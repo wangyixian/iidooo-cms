@@ -1,10 +1,14 @@
 package com.iidooo.core.constant;
 
-
-
 public class CoreConstants {
 
     public static final String BEAN_DICT_ITEM_DAO = "dictItemDao";
+    
+    public static final String DICT_CLASS_CORE_PAGE = "DICT_CLASS_CORE_PAGE";
+    public static final String DICT_CLASS_CORE_UPLOAD = "DICT_CLASS_CORE_UPLOAD";
+    
+    public static final String DICT_ITEM_PAGE_SIZE = "DICT_ITEM_PAGE_SIZE";
+    public static final String DICT_ITEM_IMAGE_MAX_SIZE = "DICT_ITEM_IMAGE_MAX_SIZE";
     
     public static final String HTTP_METHOD_GET = "GET";
     public static final String HTTP_METHOD_POST = "POST";
@@ -55,7 +59,6 @@ public class CoreConstants {
     // The field of page dto's sort type
     public static final String FIELD_PAGE_SORT_TYPE = "sortType";
 
-    public static final String DICT_ITEM_MAX_SIZE = "DICT_ITEM_MAX_SIZE";
 
     // The sort type of ascending
     public static final String SORT_TYPE_ASC = "asc";
