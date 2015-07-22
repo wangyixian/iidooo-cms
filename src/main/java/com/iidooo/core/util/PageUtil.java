@@ -31,15 +31,17 @@ public class PageUtil {
         try {
 
             if (page == null) {
-                page = new PageDto();
+                page = new PageDto(); 
+                
+                // Set the page default size
+                Map<String, DictItemDto> pageDictItemMap = (Map<String, DictItemDto>) sc.getAttribute(CoreConstants.DICT_CLASS_CORE_PAGE);
+                DictItemDto pageSize = pageDictItemMap.get(CoreConstants.DICT_ITEM_PAGE_SIZE);
+                page.setPageSize(Integer.parseInt(pageSize.getDictItemValue()));
             } else {
+                result.setSortField(page.getSortField());
+                result.setSortType(page.getSortType());
                 result.setCurrentPage(page.getCurrentPage());
             }
-
-            // Set the page default size
-            Map<String, DictItemDto> pageDictItemMap = (Map<String, DictItemDto>) sc.getAttribute(CoreConstants.DICT_CLASS_CORE_PAGE);
-            DictItemDto pageSize = pageDictItemMap.get(CoreConstants.DICT_ITEM_PAGE_SIZE);
-            page.setPageSize(Integer.parseInt(pageSize.getDictItemValue()));
 
             // Set paging dto fields.
             result.setPageSize(page.getPageSize());

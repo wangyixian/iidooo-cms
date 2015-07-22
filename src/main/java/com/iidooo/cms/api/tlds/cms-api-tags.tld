@@ -36,7 +36,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<name>channelList</name>
 		<tag-class>com.iidooo.cms.api.tag.ChannelListTag</tag-class>
@@ -119,6 +119,52 @@
 		</attribute>
 		<attribute>
 			<name>isShowDate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>sortField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>sortType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>contentSlideBlock</name>
+		<tag-class>com.iidooo.cms.api.tag.ContentSlideBlockTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>siteCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>channelPath</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>action</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pageSize</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

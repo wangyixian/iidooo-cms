@@ -76,13 +76,13 @@
 		<listener-class>com.iidooo.passport.listener.ApplicationListener</listener-class>
 	</listener>
 
-	<listener>
+	<!-- <listener>
 		<listener-class>com.iidooo.cms.listener.ApplicationListener</listener-class>
 	</listener>
 	<context-param>
 		<param-name>CMS_URL</param-name>
 		<param-value>http://localhost:8080/cms</param-value>
-	</context-param>
+	</context-param> -->
 
 	<session-config>
 		<session-timeout>30</session-timeout>

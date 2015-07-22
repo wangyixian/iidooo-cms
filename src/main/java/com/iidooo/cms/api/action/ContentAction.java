@@ -13,6 +13,7 @@ import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.JsonUtil;
 import com.iidooo.core.util.PageUtil;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ContentAction extends BaseAPIAction {
 
@@ -68,10 +69,23 @@ public class ContentAction extends BaseAPIAction {
                 String sortField = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_FIELD);
                 String sortType = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_TYPE);
 
-                if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty() || pageStart == null
-                        || pageStart.isEmpty() || pageSize == null || pageSize.isEmpty() || sortField == null || sortField.isEmpty()
-                        || sortType == null || sortType.isEmpty()) {
+                // The required item
+                if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty()) {
                     return;
+                }
+                
+                // The option item set the default value.
+                if (ValidateUtil.isEmpty(pageStart)) {
+                    pageStart = "0";
+                }                
+                if (ValidateUtil.isEmpty(pageSize)) {
+                    pageSize = "10";
+                }
+                if (ValidateUtil.isEmpty(sortField)) {
+                    sortField = CoreConstants.SORT_FIELD_UPDATETIME;
+                }
+                if (ValidateUtil.isEmpty(sortType)) {
+                    sortType = CoreConstants.SORT_TYPE_DESC;
                 }
 
                 PageDto page = new PageDto();
