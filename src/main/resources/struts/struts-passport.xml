@@ -34,5 +34,28 @@
 			<result name="success">/WEB-INF/jsp/Password.jsp</result>
 			<result name="input">/WEB-INF/jsp/Password.jsp</result>
 		</action>
+		<action name="userManage" class="com.iidooo.passport.action.user.UserListAction" method="init">
+			<result name="success">/WEB-INF/jsp/user/UserList.jsp</result>
+		</action>
+		<action name="userList" class="com.iidooo.passport.action.user.UserListAction" method="init">
+			<result name="success">/WEB-INF/jsp/user/UserList.jsp</result>
+		</action>
+		<action name="userListDelete" class="com.iidooo.passport.action.user.UserListAction" method="delete">
+			<result name="success" type="redirectAction">userList.action?user.userID=${user.userID}</result>
+			<result name="input">/WEB-INF/jsp/user/UserList.jsp</result>
+		</action>
+
+		<action name="userDetail" class="com.iidooo.passport.action.user.UserDetailAction" method="init">
+			<result name="success">/WEB-INF/jsp/user/UserDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/user/UserDetail.jsp</result>
+		</action>
+		<action name="userCreate" class="com.iidooo.passport.action.user.UserDetailAction" method="create">
+			<result name="success">/WEB-INF/jsp/user/UserDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/user/UserDetail.jsp</result>
+		</action>
+		<action name="userUpdate" class="com.iidooo.passport.action.user.UserDetailAction" method="update">
+			<result name="success">/WEB-INF/jsp/user/UserDetail.jsp</result>
+			<result name="input">/WEB-INF/jsp/user/UserDetail.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -1,30 +1,27 @@
 package com.iidooo.passport.service.user.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dao.extend.UserDao;
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.user.IUserListService;
+import com.iidooo.passport.service.user.IUserDetailService;
 import com.opensymphony.xwork2.ActionContext;
 @Service
-public class UserListService implements IUserListService {
+public class UserDetailService implements IUserDetailService {
 
-    private static final Logger logger = Logger.getLogger(UserListService.class);
+    private static final Logger logger = Logger.getLogger(UserDetailService.class);
 
     @Autowired
     private UserDao userDao;
 
     @Override
-    public UserDto getUser(int userID) {
+    public UserDto getUserByID(int userID) {
         try {
             UserDto result = userDao.selectByPrimaryKey(userID);
             return result;
@@ -36,42 +33,56 @@ public class UserListService implements IUserListService {
     }
 
     @Override
-    public int getUserListCount() {
-        int result = 0;
+    public boolean isLoginIDDuplicate( String loginID) {
         try {
-            result = userDao.selectAllCount();
+
+            UserDto user = userDao.selectByLoginID(loginID);
+            if (user == null) {
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
+            return false;
         }
-        return result;
     }
 
     @Override
-    public List<UserDto> getUserList(PageDto page) {
-        List<UserDto> result = new ArrayList<UserDto>();
-        try {
-            result = userDao.selectAll(page);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean deleteUser(UserDto user) {
+    public boolean createUser(UserDto user) {
         try {
 
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             UserDto loginUser = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            user.setCreateUser(loginUser.getUserID());
+            user.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             user.setUpdateUser(loginUser.getUserID());
             user.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
-            int count = userDao.delete(user);
-            if (count <= 0) {
+
+            int result = userDao.insert(user);
+            if (result <= 0) {
                 return false;
             }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return false;
+        }
+    }
 
+    @Override
+    public boolean updateUser(UserDto user) {
+        try {
+            Map<String, Object> sessionMap = ActionContext.getContext().getSession();
+            UserDto loginUser = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            user.setUpdateUser(loginUser.getUserID());
+            user.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+
+            int result = userDao.update(user);
+            if (result <= 0) {
+                return false;
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
