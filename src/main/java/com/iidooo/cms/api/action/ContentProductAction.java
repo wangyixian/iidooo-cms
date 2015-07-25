@@ -13,6 +13,7 @@ import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.JsonUtil;
 import com.iidooo.core.util.PageUtil;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ContentProductAction extends BaseAPIAction {
 
@@ -51,7 +52,7 @@ public class ContentProductAction extends BaseAPIAction {
             logger.fatal(e);
         }
     }
-    
+
     public void products() {
         try {
             String method = this.getRequestMethod();
@@ -63,11 +64,28 @@ public class ContentProductAction extends BaseAPIAction {
                 String pageSize = this.getRequestParameter(CoreConstants.FIELD_PAGE_SIZE);
                 String sortField = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_FIELD);
                 String sortType = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_TYPE);
-                
-                if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty() || pageStart == null
-                        || pageStart.isEmpty() || pageSize == null || pageSize.isEmpty() || sortField == null || sortField.isEmpty()
-                        || sortType == null || sortType.isEmpty()) {
+                String currentPage = this.getRequestParameter(CoreConstants.FIELD_PAGE_CURRENT_PAGE);
+
+                // The required item
+                if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty()) {
                     return;
+                }
+
+                // The option item set the default value.
+                if (ValidateUtil.isEmpty(pageStart)) {
+                    pageStart = "0";
+                }
+                if (ValidateUtil.isEmpty(pageSize)) {
+                    pageSize = "10";
+                }
+                if (ValidateUtil.isEmpty(sortField)) {
+                    sortField = CoreConstants.SORT_FIELD_UPDATETIME;
+                }
+                if (ValidateUtil.isEmpty(sortType)) {
+                    sortType = CoreConstants.SORT_TYPE_DESC;
+                }
+                if (ValidateUtil.isEmpty(currentPage)) {
+                    currentPage = "1";
                 }
 
                 PageDto page = new PageDto();
@@ -75,6 +93,7 @@ public class ContentProductAction extends BaseAPIAction {
                 page.setPageSize(Integer.parseInt(pageSize));
                 page.setSortField(sortField);
                 page.setSortType(sortType);
+                page.setCurrentPage(Integer.parseInt(currentPage));
 
                 // Construct the ContentProductDto as the search condition.
                 String productCountry = this.getRequestParameter(CmsConstant.FIELD_CONTENT_PRODUCT_COUNTRY);
@@ -83,12 +102,12 @@ public class ContentProductAction extends BaseAPIAction {
                 product.setProductCountry(productCountry);
                 product.setProductOrigin(productOrigin);
                 product.setChannelPath(channelPath);
-                
+
                 int count = contentProductService.searchContentProductListSize(siteCode, product);
-                
+
                 PageUtil pageUtil = new PageUtil(this.getServletContext());
                 this.setPage(pageUtil.executePage(count, page));
-                
+
                 List<ContentProductDto> productList = contentProductService.searchContentProductList(siteCode, product, this.getPage());
 
                 JsonUtil.responseObjectArray(productList, this.getPage(), this.getResponse());

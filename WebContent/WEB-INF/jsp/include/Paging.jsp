@@ -15,8 +15,9 @@
 		// Set the current page then submit to action, do the paging operation.
 		$("#hidCurrentPage").val(page);
 		
-		window.form.action=actionName+".action";
-		window.form.submit();
+		var $form = $("form");
+		$form.attr("action",actionName+".action");
+		$form.submit();		
 	}	
 	
 	function jump(){
@@ -37,6 +38,7 @@
 	<button type="button" value="跳转" onclick="jump()">跳转</button>
 
 	<input id="hidCurrentPage" type="hidden" name="page.currentPage" value="${page.currentPage}">
+	<input id="hidPageSize" type="hidden" name="page.pageSize" value="${page.pageSize}">
 	<input id="hidActionName" type="hidden" value="${actionName }">
 	<input id="hidPageSum" type="hidden" value="${page.pageSum}">
 </div>

@@ -13,8 +13,9 @@
 	function deleteChannel(channelID){
 		if (confirm("确定要删除该栏目吗？")) {
 			$("#hidChannelID").val(channelID);
-			window.form.action = "channelListDelete.action";
-			window.form.submit();
+			var $form = $("form");
+			$form.attr("action","channelListDelete.action");
+			$form.submit();
 	    }
 	}
 </script>

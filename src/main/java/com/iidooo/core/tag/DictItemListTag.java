@@ -24,9 +24,9 @@ public class DictItemListTag extends SimpleTagSupport {
 
     private final String HTML_LI_ONCLICK = "<li id={0}><a href='#' onclick={2}>{1}</a></li>";
 
-    private final String HTML_LI_FOCUS = "<li id={0} class='focus'><a href='#'>{1}</a></li>";
+    private final String HTML_LI_FOCUS = "<li id={0}><a class='focus' href='#'>{1}</a></li>";
 
-    private final String HTML_LI_FOCUS_ONCLICK = "<li id={0} class='focus'><a href='#' onclick={2}>{1}</a></li>";
+    private final String HTML_LI_FOCUS_ONCLICK = "<li id={0}><a class='focus' href='#' onclick={2}>{1}</a></li>";
 
     private String id;
 

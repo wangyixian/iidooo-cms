@@ -68,7 +68,8 @@ public class ContentAction extends BaseAPIAction {
                 String pageSize = this.getRequestParameter(CoreConstants.FIELD_PAGE_SIZE);
                 String sortField = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_FIELD);
                 String sortType = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_TYPE);
-
+                String currentPage = this.getRequestParameter(CoreConstants.FIELD_PAGE_CURRENT_PAGE);
+                
                 // The required item
                 if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty()) {
                     return;
@@ -87,13 +88,17 @@ public class ContentAction extends BaseAPIAction {
                 if (ValidateUtil.isEmpty(sortType)) {
                     sortType = CoreConstants.SORT_TYPE_DESC;
                 }
+                if (ValidateUtil.isEmpty(currentPage)) {
+                    currentPage = "1";
+                }
 
                 PageDto page = new PageDto();
                 page.setStart(Integer.parseInt(pageStart));
                 page.setPageSize(Integer.parseInt(pageSize));
                 page.setSortField(sortField);
                 page.setSortType(sortType);
-
+                page.setCurrentPage(Integer.parseInt(currentPage));
+                
                 int count = contentService.getContentListSize(siteCode, channelPath);
                 
                 PageUtil pageUtil = new PageUtil(this.getServletContext());

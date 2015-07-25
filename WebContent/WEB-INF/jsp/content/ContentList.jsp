@@ -14,14 +14,15 @@
 	function btnCreate(){
 		var contentType = $("#selContentType").val();
 		var siteID = $("#hidSiteID").val();
-		window.location.href="contentDetail.action?content.siteID=" + siteID + "&content.contentType=" + contentType;
+		$(location).attr('href',"contentDetail.action?content.siteID=" + siteID + "&content.contentType=" + contentType);
 	}
 	
 	function deleteContent(contentID){
 		if (confirm("确定要删除该内容吗？")) {
 			$("#hidContentID").val(contentID);
-			window.form.action = "contentListDelete.action";
-			window.form.submit();
+			var $form = $("form");
+			$form.attr("action","contentListDelete.action");
+			$form.submit();
 	    }
 	}
 </script>

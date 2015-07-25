@@ -48,17 +48,12 @@ public class CoreConstants {
 
     public static final String FIELD_DICT_ITEM_LIST = "dictItemList";
     
-    // The field of page dto's start
     public static final String FIELD_PAGE_START = "start";
-    // The field of page dto's end
     public static final String FIELD_PAGE_END = "end";
-    // The field of page dto's size
     public static final String FIELD_PAGE_SIZE = "size";
-    // The field of page dto's sort field
     public static final String FIELD_PAGE_SORT_FIELD = "sortField";
-    // The field of page dto's sort type
     public static final String FIELD_PAGE_SORT_TYPE = "sortType";
-
+    public static final String FIELD_PAGE_CURRENT_PAGE = "currentPage";
 
     // The sort type of ascending
     public static final String SORT_TYPE_ASC = "asc";

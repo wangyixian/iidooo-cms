@@ -12,18 +12,21 @@
 <script type="text/javascript">
 
 	function createChannel() {
-		window.form.action = "channelCreate.action";
-		window.form.submit();
+		var $form = $("form");
+		$form.attr("action","channelCreate.action");
+		$form.submit();
 	}
 
 	function updateChannel() {
-		window.form.action = "channelUpdate.action";
-		window.form.submit();
+		var $form = $("form");
+		$form.attr("action","channelUpdate.action");
+		$form.submit();
 	}
 
 	function deleteChannel() {
-		window.form.action = "channelDelete.action";
-		window.form.submit();
+		var $form = $("form");
+		$form.attr("action","channelDelete.action");
+		$form.submit();
 	}
 	
 /* 	function createSubChannel(parentID){
@@ -31,7 +34,8 @@
 	} */
 
 	function returnBack(parentID) {
-		window.location.href = "channelList.action?channel.channelID=" + parentID;
+		 $(location).attr('href',"channelList.action?channel.channelID=" + parentID);
+		//window.location.href = "channelList.action?channel.channelID=" + parentID;
 		
 	}
 </script>

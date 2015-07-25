@@ -18,37 +18,45 @@
 
 	function createContent() {
 		editor.sync();
-		window.form.action = "contentCreate.action";
+		
+		var $form = $("form");
+		$form.attr("action","contentCreate.action");
 		//if (validate()) {
-		window.form.submit();
+		$form.submit();
 		//}
 	}
 
 	function updateContent() {
 		editor.sync();
-		window.form.action = "contentUpdate.action";
+		
+		var $form = $("form");
+		$form.attr("action","contentUpdate.action");
 		//if(validate()){
-		window.form.submit();
+		$form.submit();
 		//}
 	}
 
 	function btnCopy() {
 		editor.sync();
 		$("#hidMode").val(3);
-		window.form.action = "contentDetail.action";
-		window.form.submit();
+		
+		var $form = $("form");
+		$form.attr("action","contentDetail.action");
+		$form.submit();
 	}
 
 	function deleteContent() {
 		editor.sync();
-		window.form.action = "contentDelete.action";
-		window.form.submit();
+		
+		var $form = $("form");
+		$form.attr("action","contentDelete.action");
+		$form.submit();
 	}
 
 	function returnBack() {
 		var siteID = $("#hidSiteID").val();
 		var channelID = $("#hidChannelID").val();
-		window.location.href = "contentList.action?content.siteID=" + siteID	+ "&content.channelID=" + channelID;
+		$(location).attr('href',"contentList.action?content.siteID=" + siteID	+ "&content.channelID=" + channelID);
 	}
 
 	function validate() {

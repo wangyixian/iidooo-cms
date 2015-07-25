@@ -174,6 +174,7 @@ public class SiteSupportAction extends BaseAction {
             data.put(CoreConstants.FIELD_PAGE_SIZE, page.getPageSize());
             data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, page.getSortField());
             data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, page.getSortType());
+            data.put(CoreConstants.FIELD_PAGE_CURRENT_PAGE, page.getCurrentPage());
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT_PRODUCTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);

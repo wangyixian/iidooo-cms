@@ -27,9 +27,9 @@ public class ChannelListTag extends SimpleTagSupport {
 
     private final String HTML_LI_ONCLICK = "<li id={0}><a href='#' onclick={2}>{1}</a></li>";
 
-    private final String HTML_LI_FOCUS = "<li id={0} class='focus'><a href='#'>{1}</a></li>";
+    private final String HTML_LI_FOCUS = "<li id={0}><a class='focus' href='#'>{1}</a></li>";
 
-    private final String HTML_LI_FOCUS_ONCLICK = "<li id={0} class='focus'><a href='#' onclick={2}>{1}</a></li>";
+    private final String HTML_LI_FOCUS_ONCLICK = "<li id={0}><a class='focus' href='#' onclick={2}>{1}</a></li>";
 
     private String id;
 
@@ -192,7 +192,9 @@ public class ChannelListTag extends SimpleTagSupport {
                     String channelPath = item.get(CmsConstant.FIELD_CHANNEL_PATH).toString();
                     result = result.replace(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
                 } else {
-                    result = result.replace(CmsConstant.FIELD_CHANNEL_PATH, "");
+                    // If the item is null, this is the blank item.
+                    // Set the parent path as the parameter, then all of the children channel's content will be gotten.
+                    result = result.replace(CmsConstant.FIELD_CHANNEL_PATH, this.parentPath);
                 }
             }
         } catch (Exception e) {
