@@ -20,12 +20,12 @@ import com.iidooo.core.util.StringUtil;
 public class ContentListBlockTag extends SimpleTagSupport {
     private static final Logger logger = Logger.getLogger(ContentListBlockTag.class);
 
-    private final String DIV_BLOCK = "<div id={0} class='block'>";
-    
-    private final String DIV_BLOCK_TITLE = "<div class='block_title'>{0}</div>";
-    
+    private final String DIV_BLOCK_START = "<div id={0} class='block'>";
+
+    private final String DIV_BLOCK_TITLE = "<div class='block_title'><a class='block_title_main' href='{0}'>{1}</a></div>";
+
     private String siteCode;
-    
+
     private String id;
 
     private String title;
@@ -36,7 +36,7 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
     private int pageStart = 0;
 
-    private int pageSize = 5;
+    private int pageSize = 10;
 
     private boolean isShowImage = false;
 
@@ -53,7 +53,7 @@ public class ContentListBlockTag extends SimpleTagSupport {
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -143,7 +143,9 @@ public class ContentListBlockTag extends SimpleTagSupport {
             out = pageContext.getOut();
 
             String cmsURL = (String) pageContext.getServletContext().getAttribute(CmsConstant.CMS_URL);
-            
+
+            String cmsBaseURL = cmsURL.substring(0, cmsURL.lastIndexOf("/"));
+
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
             data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
@@ -156,8 +158,8 @@ public class ContentListBlockTag extends SimpleTagSupport {
             JSONObject jsonObject = JSONObject.fromObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
 
-            out.println(StringUtil.replace(DIV_BLOCK, this.id));
-            out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.title));
+            out.println(StringUtil.replace(DIV_BLOCK_START, this.id));
+            out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath + ".action", this.title));
             out.println("<div class='block_content'>");
             out.println("<ul>");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -167,14 +169,14 @@ public class ContentListBlockTag extends SimpleTagSupport {
                 String contentTitle = item.getString(CmsConstant.FIELD_CONTENT_TITLE);
                 String contentImageTitle = item.getString(CmsConstant.FIELD_CONTENT_IMAGE_TITLE);
                 String contentDate = item.getString(CmsConstant.FIELD_CONTENT_UPDATE_DATE);
-                
+
                 out.println("<li>");
                 out.println("<div class='block_content_item'>");
 
                 if (isShowImage) {
                     out.println("<div class='block_content_item_image'>");
                     out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
-                    out.println("<img alt='" + contentTitle + "' src='" + contentImageTitle + "'>");
+                    out.println("<img alt='" + contentTitle + "' src='" + cmsBaseURL + contentImageTitle + "'>");
                     out.println("</a>");
                     out.println("</div>");
                 }

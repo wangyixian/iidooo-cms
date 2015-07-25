@@ -42,9 +42,9 @@ public class MenuInterceptor extends AbstractInterceptor {
                 logger.warn(request.getServletPath() + " is not contained in the system!");
                 return invocation.invoke();
             }
-            application.put(PassportConstant.SESSION_RESOURCE_CURRENT, currentSecurityResDto);
+            application.put(PassportConstant.CURRENT_RESOURCE, currentSecurityResDto);
             
-            List<ResourceDto> securityResList = (List<ResourceDto>) application.get(PassportConstant.SESSION_RESOURCE_LIST);
+            List<ResourceDto> securityResList = (List<ResourceDto>) application.get(PassportConstant.RESOURCE_LIST);
             // Set the parent resource selected
             for (ResourceDto item : securityResList) {
                 item.setIsSelected(false);
@@ -53,7 +53,7 @@ public class MenuInterceptor extends AbstractInterceptor {
                     item.setIsSelected(true);
 
                     if (item.getParentID() <= 0) {
-                        request.setAttribute(PassportConstant.SESSION_RESOURCE_SELECTED_ITEM, item);
+                        application.put(PassportConstant.CURRENT_ROOT_RESOURCE, item);
                     }
                 }
             }

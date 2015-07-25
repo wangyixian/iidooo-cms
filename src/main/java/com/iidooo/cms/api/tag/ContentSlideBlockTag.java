@@ -24,6 +24,8 @@ public class ContentSlideBlockTag extends SimpleTagSupport {
 
     private final String DIV_BLOCK_TITLE = "<div class='block_title'><a class='block_title_main' href='{0}'>{1}</a></div>";
 
+    private final String JAVA_SCRIPT_SLIDE_SCROLL = "<script type='text/javascript' src='{0}/js/slide_scroll.js'></script>";
+
     private String siteCode;
 
     private String id;
@@ -122,7 +124,7 @@ public class ContentSlideBlockTag extends SimpleTagSupport {
             data.put(CoreConstants.FIELD_PAGE_SIZE, pageSize);
             data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, sortField);
             data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, sortType);
-            
+
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
@@ -166,6 +168,9 @@ public class ContentSlideBlockTag extends SimpleTagSupport {
             out.println("</ul>");
             out.println("</div>");
             out.println("</div>");
+
+            out.println(StringUtil.replace(JAVA_SCRIPT_SLIDE_SCROLL, cmsURL));
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

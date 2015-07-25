@@ -13,6 +13,10 @@ package com.iidooo.passport.constant;
  */
 public class PassportConstant {
 
+
+    // The bean of SecurityResourceDao
+    public static final String BEAN_RESOURCE_DAO = "resourceDao";
+    
     // The login id of session and cookies key.
     public static final String LOGIN_ID = "LOGIN_ID";
 
@@ -41,12 +45,13 @@ public class PassportConstant {
     public static final String SECURITY_USER_NAME = "userName";
 
     // The current active resource
-    public static final String SESSION_RESOURCE_CURRENT = "SESSION_RESOURCE_CURRENT";
+    public static final String CURRENT_RESOURCE = "CURRENT_RESOURCE";
     // The current selected item of security resource session key
-    public static final String SESSION_RESOURCE_SELECTED_ITEM = "SESSION_RESOURCE_SELECTED_ITEM";
-    // The list of security resource list session key
-    public static final String SESSION_RESOURCE_LIST = "SESSION_RESOURCE_LIST";
+    public static final String CURRENT_ROOT_RESOURCE = "CURRENT_ROOT_RESOURCE";
     
+    // The list of security resource list session key
+    public static final String RESOURCE_LIST = "RESOURCE_LIST";
+
     // Key: ResourceURL
     // Value: ResourceDto
     public static final String RESOURCE_URL_MAP = "RESOURCE_URL_MAP";
@@ -54,8 +59,9 @@ public class PassportConstant {
     // Key: ResourceID
     // Value: ResourceDto
     public static final String RESOURCE_ID_MAP = "RESOURCE_ID_MAP";
-    
-    // The bean of SecurityResourceDao
-    public static final String BEAN_RESOURCE_DAO = "resourceDao";
+
+    // Key: ResourceURL
+    // Value: ResourceDto
+    public static final String ROOT_RESOURCE_URL_MAP = "ROOT_RESOURCE_URL_MAP";
 
 }

@@ -60,7 +60,7 @@ public class BreadCrumbTag extends SimpleTagSupport {
         try {
             Map<Integer, ResourceDto> resourceMap = (Map<Integer, ResourceDto>) sc.getAttribute(PassportConstant.RESOURCE_ID_MAP);
 
-            ResourceDto currentResource = (ResourceDto) sc.getAttribute(PassportConstant.SESSION_RESOURCE_CURRENT);
+            ResourceDto currentResource = (ResourceDto) sc.getAttribute(PassportConstant.CURRENT_RESOURCE);
             ResourceDto parentResource = resourceMap.get(currentResource.getParentID());
 
             result.add(0, currentResource);

@@ -408,43 +408,30 @@ a:hover {
 }
 /* 页面内容区域的共通样式 End */
 
-/* 侧边栏菜单的样式 Start */
-.sidemenu {
-	float: left;
-	width: 200px;
+/* 子彩蛋的样式 Start */
+.sub_menu {
+	width: 100%;
+	height: 100%;
 	overflow: hidden;
+	background-color: #134780;
+	color: #FFFFFF;
 }
 
-.sidemenu_title {
-	height: 40px;
-	line-height: 40px;
-	font-size: 14px;
-	border-top: solid 1px #e5e5e5;
-	border-bottom: solid 1px #e5e5e5;
-	border-right: 1px solid #e5e5e5;
-	position: relative;
-	background: -webkit-linear-gradient(#fff, #f2f2f2);
-	background: -moz-linear-gradient(#fff, #f2f2f2);
-	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
-		startColorstr=#ffffff, endColorstr=#f2f2f2);
+.sub_menu a{
+	color: #FFFFFF;
 }
 
-.sidemenu_title>h3 {
-	padding-left: 10px;
+.sub_menu .focus {
 	font-weight: bold;
+	text-decoration: underline;
 }
 
-.sidemenu_title_active {
-	border-left: 4px #2e82ff solid;
-}
-
-.sidemenu_item {
+.sub_menu_item {
 	padding-left: 20px;
 	height: 35px;
 	line-height: 35px;
 	display: block;
-	background: none;
-	color: #666;
+	color: #FFFFFF;
 	border-right: 1px solid #e5e5e5;
 }
 

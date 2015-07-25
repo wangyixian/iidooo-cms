@@ -4,11 +4,14 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="cms" extends="basic">		
+	<package name="cms" extends="basic">
 		<action name="index" class="com.iidooo.cms.action.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
 		</action>
-
+		
+		<action name="channelManage" class="com.iidooo.cms.action.channel.ChannelListAction">
+			<result name="success" type="redirectAction">channelList.action</result>
+		</action>
 		<action name="channelList" class="com.iidooo.cms.action.channel.ChannelListAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
@@ -29,7 +32,10 @@
 			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 		</action>
-
+		
+		<action name="contentManage" class="com.iidooo.cms.action.content.ContentListAction">
+			<result name="success" type="redirectAction">contentList.action</result>
+		</action>
 		<action name="contentList" class="com.iidooo.cms.action.content.ContentListAction" method="init">
 			<result name="success">/WEB-INF/jsp/content/ContentList.jsp</result>
 		</action>

@@ -38,7 +38,7 @@ public class MainMenuTag extends SimpleTagSupport {
 
             ServletContext sc = pageContext.getServletContext();
 
-            List<ResourceDto> resourceList = (List<ResourceDto>) sc.getAttribute(PassportConstant.SESSION_RESOURCE_LIST);
+            List<ResourceDto> resourceList = (List<ResourceDto>) sc.getAttribute(PassportConstant.RESOURCE_LIST);
             out.println("<div id='mainMenu' class='main_menu'>");
             out.println("<ul>");
             for (ResourceDto item : resourceList) {

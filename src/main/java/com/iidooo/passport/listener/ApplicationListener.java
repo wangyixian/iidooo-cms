@@ -1,6 +1,5 @@
 package com.iidooo.passport.listener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,74 +36,113 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
         try {
             ServletContext sc = arg0.getServletContext();
             ResourceDao securityResourceDao = (ResourceDao) SpringUtil.getBean(sc, PassportConstant.BEAN_RESOURCE_DAO);
-            List<ResourceDto> securityResList = securityResourceDao.selectAll();
+            List<ResourceDto> resourceList = securityResourceDao.selectAll();
+
+            this.constructResourceRelation(resourceList);
+
             // Save the resource list and will be used in MenuInterceptor
-            sc.setAttribute(PassportConstant.SESSION_RESOURCE_LIST, securityResList);
+            sc.setAttribute(PassportConstant.RESOURCE_LIST, resourceList);
 
             // Key: ResourceID
             // Value: ResourceDto
             Map<Integer, ResourceDto> resourceIDMap = new HashMap<Integer, ResourceDto>();
-            // Construct the result map first.
-            for (ResourceDto item : securityResList) {
+            // Key: ResourceURL
+            // Value: ResourceDto
+            Map<String, ResourceDto> resourceURLMap = new HashMap<String, ResourceDto>();
+            // Key: ResourceURL
+            // Value: ResourceDto
+            Map<String, ResourceDto> rootResourceURLMap = new HashMap<String, ResourceDto>();
+
+            for (ResourceDto item : resourceList) {
+                if (item.getParentID() <= 0) {
+                    rootResourceURLMap.put(item.getResourceURL(), item);
+                }
                 resourceIDMap.put(item.getResourceID(), item);
+                resourceURLMap.put(item.getResourceURL(), item);
             }
             sc.setAttribute(PassportConstant.RESOURCE_ID_MAP, resourceIDMap);
-
-            // Set the security resource map into the servlet context.
-            
-            Map<String, ResourceDto> rootSecurityResMap = this.constructSecurityResRelation(securityResList, resourceIDMap);
             // Save the resource map and will be used in MenuInterceptor
-            sc.setAttribute(PassportConstant.RESOURCE_URL_MAP, rootSecurityResMap);
+            sc.setAttribute(PassportConstant.RESOURCE_URL_MAP, resourceURLMap);
+            sc.setAttribute(PassportConstant.ROOT_RESOURCE_URL_MAP, rootResourceURLMap);
 
-            // Set the security resource tree into the servlet context.
-            // List<SecurityResourceDto> rootList = new ArrayList<SecurityResourceDto>();
-            // for (SecurityResourceDto item : securityResList) {
-            // if (item.getParentID() <= 0) {
-            // rootList.add(item);
-            // }
-            // }
-            // sc.setAttribute(PassportConstant.SESSION_SECURITY_RESOURCE_ROOT_LIST, rootList);
-
+//            // Set the security resource map into the servlet context.
+//            Map<String, ResourceDto> resourceURLMap = this.constructSecurityResRelation(securityResList, resourceIDMap);
+            
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
         }
     }
 
-    private Map<String, ResourceDto> constructSecurityResRelation(List<ResourceDto> securityResList, Map<Integer, ResourceDto> securityResIDMap) {
+    private void constructResourceRelation(List<ResourceDto> resourceList) {
         try {
-            Map<String, ResourceDto> resultMap = new HashMap<String, ResourceDto>();
+
+            // Key: ResourceID
+            // Value: ResourceDto
+            Map<Integer, ResourceDto> resourceIDMap = new HashMap<Integer, ResourceDto>();
+
+            // Construct the result map first.
+            for (ResourceDto item : resourceList) {
+                resourceIDMap.put(item.getResourceID(), item);
+            }
 
             // Set the security res's children list
-            for (ResourceDto item : securityResList) {
-                resultMap.put(item.getResourceURL(), item);
+            for (ResourceDto item : resourceList) {
                 if (item.getParentID() > 0) {
                     // Set the child into the parent module.
-                    ResourceDto parent = securityResIDMap.get(item.getParentID());
+                    ResourceDto parent = resourceIDMap.get(item.getParentID());
                     if (parent == null) {
                         continue;
-                    }
-                    if (parent.getChildren() == null) {
-                        parent.setChildren(new ArrayList<ResourceDto>());
                     }
                     parent.getChildren().add(item);
                 }
             }
 
             // Set the security res's off spring list.
-            for (ResourceDto item : securityResList) {
-                ResourceDto parent = securityResIDMap.get(item.getParentID());
+            for (ResourceDto item : resourceList) {
+                ResourceDto parent = resourceIDMap.get(item.getParentID());
                 while (parent != null) {
                     parent.getOffspring().add(item);
-                    parent = securityResIDMap.get(parent.getParentID());
+                    parent = resourceIDMap.get(parent.getParentID());
                 }
             }
-            return resultMap;
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
-            return null;
         }
     }
+
+//    private Map<String, ResourceDto> constructSecurityResRelation(List<ResourceDto> securityResList, Map<Integer, ResourceDto> securityResIDMap) {
+//        try {
+//            Map<String, ResourceDto> resultMap = new HashMap<String, ResourceDto>();
+//
+//            // Set the security res's children list
+//            for (ResourceDto item : securityResList) {
+//                resultMap.put(item.getResourceURL(), item);
+//                if (item.getParentID() > 0) {
+//                    // Set the child into the parent module.
+//                    ResourceDto parent = securityResIDMap.get(item.getParentID());
+//                    if (parent == null) {
+//                        continue;
+//                    }
+//                    parent.getChildren().add(item);
+//                }
+//            }
+//
+//            // Set the security res's off spring list.
+//            for (ResourceDto item : securityResList) {
+//                ResourceDto parent = securityResIDMap.get(item.getParentID());
+//                while (parent != null) {
+//                    parent.getOffspring().add(item);
+//                    parent = securityResIDMap.get(parent.getParentID());
+//                }
+//            }
+//            return resultMap;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            logger.fatal(e);
+//            return null;
+//        }
+//    }
 
 }
