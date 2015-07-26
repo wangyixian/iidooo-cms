@@ -34,13 +34,14 @@ public class ContentAction extends BaseAPIAction {
             case CoreConstants.HTTP_METHOD_GET:
                 String contentID = this.getRequestParameter(CmsConstant.FIELD_CONTENT_ID);
 
+                // If the content ID did not get, so this parameter will be used to get the default content.
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
                 String channelPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PATH);
 
-                if (contentID != null && !contentID.isEmpty()) {
+                if (!ValidateUtil.isEmpty(contentID)) {
                     ContentDto content = contentService.getContent(Integer.parseInt(contentID));
                     JsonUtil.responseObject(content, this.getResponse());
-                } else if (siteCode != null && !siteCode.isEmpty() && channelPath != null && !channelPath.isEmpty()) {
+                } else if (!ValidateUtil.isEmpty(siteCode) && !ValidateUtil.isEmpty(channelPath)) {
                     ContentDto content = contentService.getContent(siteCode, channelPath);
                     JsonUtil.responseObject(content, this.getResponse());
                 }
