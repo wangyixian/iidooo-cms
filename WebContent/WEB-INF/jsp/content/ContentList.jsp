@@ -47,11 +47,15 @@
 						<tr>
 							<th width="5%">ID</th>
 							<th width="10%">栏目</th>
-							<th width="35%">标题</th>
-							<th width="30%">副标题</th>
+							<th width="33%">标题</th>
 							<th width="5%">类型</th>
 							<th width="5%">评论可否</th>
-							<th width="10%">操作</th>
+							<th width="8%">创建者</th>
+							<th width="8%">创建日期</th>
+							<th width="8%">更新者</th>
+							<th width="8%">更新日期</th>
+							<th width="5%">访问量</th>
+							<th width="5%">操作</th>
 						</tr>
 						<s:iterator id="item" value="contentList" status="st">
 							<tr>
@@ -60,7 +64,6 @@
 								</td>
 								<td class="align_center">${item.channelName}</td>
 								<td><a href="contentDetail.action?content.siteID=${content.siteID }&content.contentID=${item.contentID }"> ${item.contentTitle} </a></td>
-								<td>${item.contentSubTitle}</td>
 								<td class="align_center">
 									<s:if test="#item.contentType == 1">默认</s:if>
 									<s:if test ="#item.contentType == 2">产品</s:if>
@@ -69,9 +72,12 @@
 									<s:if test="#item.isSilent == 0">可</s:if>
 									<s:if test="#item.isSilent == 1">否</s:if>
 								</td>
+								<td class="align_center">${item.createUserName }</td>
+								<td class="align_center">${item.createDate }</td>
+								<td class="align_center">${item.updateUserName }</td>
+								<td class="align_center">${item.updateDate }</td>
+								<td class="align_center">${item.pageViewed }</td>
 								<td class="align_center">
-									<a>上移</a>| 
-									<a>下移</a>| 
 									<a href="#" onclick="return deleteContent(${item.contentID})">删除</a>
 								</td>
 							</tr>

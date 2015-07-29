@@ -1,15 +1,13 @@
 package com.iidooo.cms.dto.generate;
 
-public class Statistics {
-    private Integer statisticsID;
+public class HisVisite {
+    private Integer hisID;
 
     private String IP;
 
     private String tableName;
 
     private Integer dataID;
-
-    private Integer times;
 
     private String remarks;
 
@@ -25,12 +23,12 @@ public class Statistics {
 
     private Integer version;
 
-    public Integer getStatisticsID() {
-        return statisticsID;
+    public Integer getHisID() {
+        return hisID;
     }
 
-    public void setStatisticsID(Integer statisticsID) {
-        this.statisticsID = statisticsID;
+    public void setHisID(Integer hisID) {
+        this.hisID = hisID;
     }
 
     public String getIP() {
@@ -55,14 +53,6 @@ public class Statistics {
 
     public void setDataID(Integer dataID) {
         this.dataID = dataID;
-    }
-
-    public Integer getTimes() {
-        return times;
-    }
-
-    public void setTimes(Integer times) {
-        this.times = times;
     }
 
     public String getRemarks() {

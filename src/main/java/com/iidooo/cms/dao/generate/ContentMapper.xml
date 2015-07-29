@@ -12,7 +12,6 @@
     <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
     <result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
-    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
     <result column="PageViewed" property="pageViewed" jdbcType="INTEGER" />
     <result column="UniqueVisitor" property="uniqueVisitor" jdbcType="INTEGER" />
@@ -29,9 +28,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     ContentID, ChannelID, ContentType, ContentTitle, ContentSubTitle, ContentImageTitle, 
-    MetaTitle, MetaKeywords, MetaDescription, ContentSummary, Sequence, IsSilent, PageViewed, 
-    UniqueVisitor, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, 
-    Version
+    MetaTitle, MetaKeywords, MetaDescription, ContentSummary, IsSilent, PageViewed, UniqueVisitor, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <sql id="Blob_Column_List" >
     ContentBody
@@ -52,19 +50,19 @@
     insert into CMS_CONTENT (ContentID, ChannelID, ContentType, 
       ContentTitle, ContentSubTitle, ContentImageTitle, 
       MetaTitle, MetaKeywords, MetaDescription, 
-      ContentSummary, Sequence, IsSilent, 
-      PageViewed, UniqueVisitor, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version, 
-      ContentBody)
+      ContentSummary, IsSilent, PageViewed, 
+      UniqueVisitor, Remarks, CreateTime, 
+      CreateUser, UpdateTime, UpdateUser, 
+      IsDelete, Version, ContentBody
+      )
     values (#{contentID,jdbcType=INTEGER}, #{channelID,jdbcType=INTEGER}, #{contentType,jdbcType=CHAR}, 
       #{contentTitle,jdbcType=VARCHAR}, #{contentSubTitle,jdbcType=VARCHAR}, #{contentImageTitle,jdbcType=VARCHAR}, 
       #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, 
-      #{contentSummary,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{isSilent,jdbcType=INTEGER}, 
-      #{pageViewed,jdbcType=INTEGER}, #{uniqueVisitor,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
-      #{contentBody,jdbcType=LONGVARCHAR})
+      #{contentSummary,jdbcType=VARCHAR}, #{isSilent,jdbcType=INTEGER}, #{pageViewed,jdbcType=INTEGER}, 
+      #{uniqueVisitor,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, #{contentBody,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Content" >
     insert into CMS_CONTENT
@@ -98,9 +96,6 @@
       </if>
       <if test="contentSummary != null" >
         ContentSummary,
-      </if>
-      <if test="sequence != null" >
-        Sequence,
       </if>
       <if test="isSilent != null" >
         IsSilent,
@@ -167,9 +162,6 @@
       <if test="contentSummary != null" >
         #{contentSummary,jdbcType=VARCHAR},
       </if>
-      <if test="sequence != null" >
-        #{sequence,jdbcType=INTEGER},
-      </if>
       <if test="isSilent != null" >
         #{isSilent,jdbcType=INTEGER},
       </if>
@@ -235,9 +227,6 @@
       <if test="contentSummary != null" >
         ContentSummary = #{contentSummary,jdbcType=VARCHAR},
       </if>
-      <if test="sequence != null" >
-        Sequence = #{sequence,jdbcType=INTEGER},
-      </if>
       <if test="isSilent != null" >
         IsSilent = #{isSilent,jdbcType=INTEGER},
       </if>
@@ -285,7 +274,6 @@
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-      Sequence = #{sequence,jdbcType=INTEGER},
       IsSilent = #{isSilent,jdbcType=INTEGER},
       PageViewed = #{pageViewed,jdbcType=INTEGER},
       UniqueVisitor = #{uniqueVisitor,jdbcType=INTEGER},
@@ -310,7 +298,6 @@
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-      Sequence = #{sequence,jdbcType=INTEGER},
       IsSilent = #{isSilent,jdbcType=INTEGER},
       PageViewed = #{pageViewed,jdbcType=INTEGER},
       UniqueVisitor = #{uniqueVisitor,jdbcType=INTEGER},

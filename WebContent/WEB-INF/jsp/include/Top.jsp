@@ -10,7 +10,7 @@
 		<div class="login_info">
 			<ul>
 				<li><a href='logout.action'>退出</a></li>
-				<li class="">欢迎：${USER_NAME }</li>
+				<li class="">欢迎：${LOGIN_USER.userName }</li>
 			</ul>
 		</div>
 		<passport:mainMenu/>

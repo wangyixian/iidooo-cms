@@ -61,8 +61,6 @@ public interface ContentDao {
 
     List<ContentDto> selectByChannelPath(@Param("siteCode") String siteCode, @Param("channelPath") String channelPath, @Param("page") PageDto page);
 
-    int selectMaxSequence();
-
     int insert(ContentDto content);
 
     int update(ContentDto content);

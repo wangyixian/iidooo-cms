@@ -55,9 +55,6 @@ public class ContentDetailService implements IContentDetailService {
     public boolean createContent(ContentDto content) {
         try {
 
-            int maxSequence = contentDao.selectMaxSequence();
-            content.setSequence(maxSequence + 1);
-
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
             content.setCreateUser(user.getUserID());

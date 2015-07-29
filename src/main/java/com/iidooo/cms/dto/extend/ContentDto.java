@@ -16,6 +16,12 @@ public class ContentDto extends Content {
 
     private String createUserName;
 
+    private String createDate;
+
+    private String updateUserName;
+
+    private String updateDate;
+
     public Integer getSiteID() {
         return siteID;
     }
@@ -56,8 +62,29 @@ public class ContentDto extends Content {
         this.createUserName = createUserName;
     }
 
+    public String getCreateDate() {
+        createDate = DateUtil.format(this.getCreateTime(), DateUtil.FORMAT_DATETIME, DateUtil.FORMAT_DATE);
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
+
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
+    }
+
     public String getUpdateDate() {
-        String date = DateUtil.format(this.getUpdateTime(), DateUtil.FORMAT_DATETIME, DateUtil.FORMAT_DATE);
-        return date;
+        updateDate = DateUtil.format(this.getUpdateTime(), DateUtil.FORMAT_DATETIME, DateUtil.FORMAT_DATE);
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 }

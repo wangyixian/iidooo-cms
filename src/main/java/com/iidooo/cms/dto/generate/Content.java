@@ -21,8 +21,6 @@ public class Content {
 
     private String contentSummary;
 
-    private Integer sequence;
-
     private Integer isSilent;
 
     private Integer pageViewed;
@@ -123,14 +121,6 @@ public class Content {
 
     public void setContentSummary(String contentSummary) {
         this.contentSummary = contentSummary == null ? null : contentSummary.trim();
-    }
-
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
     }
 
     public Integer getIsSilent() {
