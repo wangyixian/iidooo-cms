@@ -91,7 +91,6 @@
 					<input type="hidden" name="content.contentID" value="${content.contentID}">
 					<input type="hidden" name="content.contentType" value="${content.contentType }">
 					<input type="hidden" name="content.version"	value="${content.version }">		
-					<input type="hidden" name="content.sequence" value="${content.sequence }">		
 					<table class="datagrid">
 						<tr>							
 							<th width="10%">内容类型</th>		

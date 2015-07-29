@@ -12,7 +12,6 @@
 		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
 		<result column="ContentSummary" property="contentSummary" jdbcType="VARCHAR" />
-		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
 		<result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
 		<result column="ProductCountry" property="productCountry" jdbcType="CHAR" />
 		<result column="ProductOrigin" property="productOrigin" jdbcType="CHAR" />
@@ -32,7 +31,6 @@
 		C.MetaTitle,
 		C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary,
-		C.Sequence,
 		C.IsSilent, P.ProductCountry, P.ProductOrigin, C.Remarks, C.CreateTime, C.CreateUser,
 		C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
