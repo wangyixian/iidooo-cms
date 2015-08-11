@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.cms.dao.generate.HisVisiteMapper" >
-  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.HisVisite" >
-    <id column="HisID" property="hisID" jdbcType="INTEGER" />
-    <result column="IP" property="IP" jdbcType="VARCHAR" />
-    <result column="TableName" property="tableName" jdbcType="VARCHAR" />
-    <result column="DataID" property="dataID" jdbcType="INTEGER" />
+<mapper namespace="com.iidooo.cms.dao.generate.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.Comment" >
+    <id column="CommentID" property="commentID" jdbcType="INTEGER" />
+    <result column="ParentID" property="parentID" jdbcType="INTEGER" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -15,43 +14,40 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    HisID, IP, TableName, DataID, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
+    CommentID, ParentID, Comment, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
     IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from CMS_HIS_VISITE
-    where HisID = #{hisID,jdbcType=INTEGER}
+    from CMS_COMMENT
+    where CommentID = #{commentID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from CMS_HIS_VISITE
-    where HisID = #{hisID,jdbcType=INTEGER}
+    delete from CMS_COMMENT
+    where CommentID = #{commentID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.HisVisite" >
-    insert into CMS_HIS_VISITE (HisID, IP, TableName, 
-      DataID, Remarks, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      IsDelete, Version)
-    values (#{hisID,jdbcType=INTEGER}, #{IP,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
-      #{dataID,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Comment" >
+    insert into CMS_COMMENT (CommentID, ParentID, Comment, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
+    values (#{commentID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.HisVisite" >
-    insert into CMS_HIS_VISITE
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Comment" >
+    insert into CMS_COMMENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="hisID != null" >
-        HisID,
+      <if test="commentID != null" >
+        CommentID,
       </if>
-      <if test="IP != null" >
-        IP,
+      <if test="parentID != null" >
+        ParentID,
       </if>
-      <if test="tableName != null" >
-        TableName,
-      </if>
-      <if test="dataID != null" >
-        DataID,
+      <if test="comment != null" >
+        Comment,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -76,17 +72,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="hisID != null" >
-        #{hisID,jdbcType=INTEGER},
+      <if test="commentID != null" >
+        #{commentID,jdbcType=INTEGER},
       </if>
-      <if test="IP != null" >
-        #{IP,jdbcType=VARCHAR},
+      <if test="parentID != null" >
+        #{parentID,jdbcType=INTEGER},
       </if>
-      <if test="tableName != null" >
-        #{tableName,jdbcType=VARCHAR},
-      </if>
-      <if test="dataID != null" >
-        #{dataID,jdbcType=INTEGER},
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
@@ -111,17 +104,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.HisVisite" >
-    update CMS_HIS_VISITE
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.Comment" >
+    update CMS_COMMENT
     <set >
-      <if test="IP != null" >
-        IP = #{IP,jdbcType=VARCHAR},
+      <if test="parentID != null" >
+        ParentID = #{parentID,jdbcType=INTEGER},
       </if>
-      <if test="tableName != null" >
-        TableName = #{tableName,jdbcType=VARCHAR},
-      </if>
-      <if test="dataID != null" >
-        DataID = #{dataID,jdbcType=INTEGER},
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
@@ -145,13 +135,12 @@
         Version = #{version,jdbcType=INTEGER},
       </if>
     </set>
-    where HisID = #{hisID,jdbcType=INTEGER}
+    where CommentID = #{commentID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.HisVisite" >
-    update CMS_HIS_VISITE
-    set IP = #{IP,jdbcType=VARCHAR},
-      TableName = #{tableName,jdbcType=VARCHAR},
-      DataID = #{dataID,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.Comment" >
+    update CMS_COMMENT
+    set ParentID = #{parentID,jdbcType=INTEGER},
+      Comment = #{comment,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},
@@ -159,6 +148,6 @@
       UpdateUser = #{updateUser,jdbcType=INTEGER},
       IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
-    where HisID = #{hisID,jdbcType=INTEGER}
+    where CommentID = #{commentID,jdbcType=INTEGER}
   </update>
 </mapper>

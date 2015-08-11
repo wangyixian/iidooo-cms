@@ -5,15 +5,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.SiteDto;
-import com.iidooo.cms.service.content.IContentListService;
-import com.iidooo.core.action.BaseAction;
+import com.iidooo.cms.service.content.ContentListService;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.PageUtil;
 import com.iidooo.core.util.ValidateUtil;
 
-public class ContentListAction extends BaseAction {
+public class ContentListAction extends CmsBaseAction {
 
     /**
      * 
@@ -23,7 +23,7 @@ public class ContentListAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(ContentListAction.class);
 
     @Autowired
-    private IContentListService contentListService;
+    private ContentListService contentListService;
 
     private List<ContentDto> contentList;
 

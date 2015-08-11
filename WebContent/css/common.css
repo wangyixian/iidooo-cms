@@ -215,7 +215,6 @@ a:hover {
 	padding: 5px;
 }
 /* 数据一览表 End */
-
 .block {
 	margin-top: 10px;
 }
@@ -292,20 +291,24 @@ a:hover {
 
 .top_wrap .logo_wrap {
 	float: left;
+	width: 230px;
 }
 
 .top_wrap .menu_wrap {
+	margin-left: 230px;
 }
 
 .top_wrap .menu_wrap .login_info {
 	height: 30px;
+	margin-left: 22px;
+	overflow: hidden;
 }
 
 .top_wrap .menu_wrap .login_info li {
-	float: right;
+	float: left;
 	height: 30px;
 	line-height: 30px;
-	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .top_wrap .menu_wrap .main_menu {
@@ -324,6 +327,13 @@ a:hover {
 	float: left;
 	margin: 0px;
 	padding: 0px;
+}
+
+.top_wrap .menu_wrap .site_list {
+	float: right;
+	height: 40px;
+	line-height: 40px;
+	margin-right: 10px;
 }
 
 .top_wrap .menu_wrap a {
@@ -361,7 +371,7 @@ a:hover {
 	overflow: hidden;
 }
 
-.page_content{
+.page_content {
 	height: 100%;
 	overflow: hidden;
 }
@@ -417,7 +427,7 @@ a:hover {
 	color: #FFFFFF;
 }
 
-.sub_menu a{
+.sub_menu a {
 	color: #FFFFFF;
 }
 
@@ -517,7 +527,7 @@ a:hover {
 }
 
 /* The button style of <a> */
-.button{
+.button {
 	border: 1px solid #5c8ebf;
 	padding: 5px 10px;
 	-moz-border-radius: 2px;
@@ -536,7 +546,7 @@ a:hover {
 	cursor: pointer;
 }
 
-.button:hover{
+.button:hover {
 	border: 1px solid #4f85b9;
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
 		startColorstr=#67a1d4, endColorstr=#5d91c3);
@@ -549,7 +559,6 @@ a:hover {
 }
 
 /* The button style of <a> end*/
-
 .button_bar {
 	margin-top: 10px;
 }

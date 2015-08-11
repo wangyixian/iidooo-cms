@@ -6,7 +6,7 @@ import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.core.dto.PageDto;
 
-public interface IContentListService {
+public interface ContentListService {
 
     ContentDto getContent(Integer contentID);
     

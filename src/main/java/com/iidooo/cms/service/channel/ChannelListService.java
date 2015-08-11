@@ -6,7 +6,7 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.passport.dto.extend.RoleDto;
 
-public interface IChannelListService {
+public interface ChannelListService {
     
     ChannelDto getChannel(int channelID);
     

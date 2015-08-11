@@ -63,8 +63,8 @@
 		<include refid="Base_Column_List" />
 		from CMS_CHANNEL C
 		join CMS_SITE S
-		on C.IsDelete = 0 and S.IsDelete = 0 and
-		S.SiteCode = #{siteCode,jdbcType=VARCHAR} and
+		on C.IsDelete = 0 and S.IsDelete = 0 and C.SiteID = S.SiteID
+		and S.SiteCode = #{siteCode,jdbcType=VARCHAR} and
 		C.ChannelPath =
 		#{channelPath,jdbcType=VARCHAR}
 	</select>

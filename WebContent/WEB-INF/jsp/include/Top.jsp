@@ -9,10 +9,26 @@
 	<div class="menu_wrap">
 		<div class="login_info">
 			<ul>
+				<li class="">欢迎：${sessionScope.LOGIN_USER.userName}</li>
 				<li><a href='logout.action'>退出</a></li>
-				<li class="">欢迎：${LOGIN_USER.userName }</li>
 			</ul>
-		</div>
-		<passport:mainMenu/>
+		</div>	
+		<div class="main_menu_info">			
+			<passport:mainMenu/>
+			<div class="site_list">
+				<label for="selDefaultSite">当前站点：</label>
+				<select id="selDefaultSite" name="site.siteID">
+					<s:iterator value="#session.LOGIN_SITE_LIST" id="item" status="st">
+					<s:if test="#item.siteID==site.siteID">
+						<option value="${item.siteID }" selected="selected">${item.siteName }</option>
+					</s:if>
+					<s:else>
+						<option value="${item.siteID }">${item.siteName }</option>
+					</s:else>
+					</s:iterator>
+				</select>
+				<a href="${site.siteURL }">查看首页</a>
+			</div>			
+		</div>		
 	</div>
 </div>

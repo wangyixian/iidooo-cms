@@ -1,6 +1,6 @@
-package com.iidooo.cms.dao.generate;
+package com.iidooo.core.dao.generate;
 
-import com.iidooo.cms.dto.generate.HisVisite;
+import com.iidooo.core.dto.generate.HisVisite;
 
 public interface HisVisiteMapper {
     int deleteByPrimaryKey(Integer hisID);

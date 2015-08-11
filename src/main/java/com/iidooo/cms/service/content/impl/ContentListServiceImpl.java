@@ -14,7 +14,7 @@ import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.SiteDto;
-import com.iidooo.cms.service.content.IContentListService;
+import com.iidooo.cms.service.content.ContentListService;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.DateUtil;
@@ -23,9 +23,9 @@ import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
-public class ContentListService implements IContentListService {
+public class ContentListServiceImpl implements ContentListService {
 
-    private static final Logger logger = Logger.getLogger(ContentListService.class);
+    private static final Logger logger = Logger.getLogger(ContentListServiceImpl.class);
 
     @Autowired
     private ChannelDao channelDao;

@@ -59,11 +59,11 @@ public class ChannelListTag extends SimpleTagSupport {
         this.value = value;
     }
 
-    public boolean isContainBlank() {
+    public boolean getIsContainBlank() {
         return isContainBlank;
     }
 
-    public void setContainBlank(boolean isContainBlank) {
+    public void setIsContainBlank(boolean isContainBlank) {
         this.isContainBlank = isContainBlank;
     }
 

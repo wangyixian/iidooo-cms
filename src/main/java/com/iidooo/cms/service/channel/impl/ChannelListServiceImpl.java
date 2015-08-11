@@ -12,7 +12,7 @@ import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.SiteDto;
-import com.iidooo.cms.service.channel.IChannelListService;
+import com.iidooo.cms.service.channel.ChannelListService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.RoleDto;
@@ -20,9 +20,9 @@ import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
-public class ChannelListService implements IChannelListService {
+public class ChannelListServiceImpl implements ChannelListService {
 
-    private static final Logger logger = Logger.getLogger(ChannelListService.class);
+    private static final Logger logger = Logger.getLogger(ChannelListServiceImpl.class);
 
     @Autowired
     private ChannelDao channelDao;

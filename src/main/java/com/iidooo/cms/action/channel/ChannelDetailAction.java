@@ -3,12 +3,12 @@ package com.iidooo.cms.action.channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.service.channel.IChannelDetailService;
-import com.iidooo.core.action.BaseAction;
+import com.iidooo.cms.service.channel.ChannelDetailService;
 import com.iidooo.core.util.ValidateUtil;
 
-public class ChannelDetailAction extends BaseAction {
+public class ChannelDetailAction extends CmsBaseAction {
 
     /**
      * 
@@ -18,7 +18,7 @@ public class ChannelDetailAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(ChannelDetailAction.class);
 
     @Autowired
-    private IChannelDetailService channelInfoService;
+    private ChannelDetailService channelInfoService;
 
     private ChannelDto channel;
 

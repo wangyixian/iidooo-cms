@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.service.channel.IChannelDetailService;
+import com.iidooo.cms.service.channel.ChannelDetailService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
-public class ChannelDetailService implements IChannelDetailService {
+public class ChannelDetailServiceImpl implements ChannelDetailService {
 
-    private static final Logger logger = Logger.getLogger(ChannelDetailService.class);
+    private static final Logger logger = Logger.getLogger(ChannelDetailServiceImpl.class);
 
     @Autowired
     private ChannelDao channelDao;

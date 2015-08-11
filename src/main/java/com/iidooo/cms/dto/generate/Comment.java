@@ -1,13 +1,11 @@
 package com.iidooo.cms.dto.generate;
 
-public class HisVisite {
-    private Integer hisID;
+public class Comment {
+    private Integer commentID;
 
-    private String IP;
+    private Integer parentID;
 
-    private String tableName;
-
-    private Integer dataID;
+    private String comment;
 
     private String remarks;
 
@@ -23,36 +21,28 @@ public class HisVisite {
 
     private Integer version;
 
-    public Integer getHisID() {
-        return hisID;
+    public Integer getCommentID() {
+        return commentID;
     }
 
-    public void setHisID(Integer hisID) {
-        this.hisID = hisID;
+    public void setCommentID(Integer commentID) {
+        this.commentID = commentID;
     }
 
-    public String getIP() {
-        return IP;
+    public Integer getParentID() {
+        return parentID;
     }
 
-    public void setIP(String IP) {
-        this.IP = IP == null ? null : IP.trim();
+    public void setParentID(Integer parentID) {
+        this.parentID = parentID;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getComment() {
+        return comment;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName == null ? null : tableName.trim();
-    }
-
-    public Integer getDataID() {
-        return dataID;
-    }
-
-    public void setDataID(Integer dataID) {
-        this.dataID = dataID;
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 
     public String getRemarks() {

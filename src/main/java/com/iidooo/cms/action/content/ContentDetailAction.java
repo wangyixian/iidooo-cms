@@ -3,14 +3,14 @@ package com.iidooo.cms.action.content;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
-import com.iidooo.cms.service.content.IContentDetailService;
-import com.iidooo.core.action.BaseAction;
+import com.iidooo.cms.service.content.ContentDetailService;
 import com.iidooo.core.util.ValidateUtil;
 
-public class ContentDetailAction extends BaseAction {
+public class ContentDetailAction extends CmsBaseAction {
 
     /**
      * 
@@ -20,7 +20,7 @@ public class ContentDetailAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(ContentDetailAction.class);
 
     @Autowired
-    private IContentDetailService contentInfoService;
+    private ContentDetailService contentInfoService;
 
     private ContentDto content;
 

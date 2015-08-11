@@ -2,7 +2,7 @@ package com.iidooo.cms.service.channel;
 
 import com.iidooo.cms.dto.extend.ChannelDto;
 
-public interface IChannelDetailService {
+public interface ChannelDetailService {
 
     /**
      * Get channel by primary id

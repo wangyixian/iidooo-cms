@@ -37,12 +37,16 @@ public class ContentListBlockTag extends SimpleTagSupport {
     private int pageStart = 0;
 
     private int pageSize = 10;
+    
+    private boolean isShowTitle = true;
+    
+    private boolean isShowSummary = false;
 
     private boolean isShowImage = false;
 
     private boolean isShowDate = false;
 
-    private String sortField = CoreConstants.SORT_FIELD_SEQUENCE;
+    private String sortField = CoreConstants.SORT_FIELD_UNIQUE_VISITOR;
 
     private String sortType = CoreConstants.SORT_TYPE_ASC;
 
@@ -100,6 +104,22 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+    
+    public boolean getIsShowTitle(){
+        return isShowTitle;
+    }
+    
+    public void setIsShowTitle(Boolean isShowTitle){
+        this.isShowTitle = isShowTitle;
+    }
+    
+    public boolean getIsShowSummary(){
+        return isShowSummary;
+    }
+    
+    public void setIsShowSummary(boolean isShowSummary){
+        this.isShowSummary = isShowSummary;
     }
 
     public boolean getIsShowImage() {
@@ -169,7 +189,8 @@ public class ContentListBlockTag extends SimpleTagSupport {
                 String contentTitle = item.getString(CmsConstant.FIELD_CONTENT_TITLE);
                 String contentImageTitle = item.getString(CmsConstant.FIELD_CONTENT_IMAGE_TITLE);
                 String contentDate = item.getString(CmsConstant.FIELD_CONTENT_UPDATE_DATE);
-
+                String contentSummary = item.getString(CmsConstant.FIELD_CONTENT_SUMMARY);
+                
                 out.println("<li>");
                 out.println("<div class='block_content_item'>");
 
@@ -181,15 +202,29 @@ public class ContentListBlockTag extends SimpleTagSupport {
                     out.println("</div>");
                 }
 
-                out.println("<div class='block_content_item_title'>");
-                out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
-                out.println(contentTitle);
-                out.println("</a>");
-                out.println("</div>");
+                // If show summary, the content detail should be wrapped for layout.
+                if (isShowSummary) {
+                    out.println("<div class='block_content_item_text'>");
+                }
+                
+                if (isShowTitle) {
+                    out.println("<div class='block_content_item_title'>");
+                    out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
+                    out.println(contentTitle);
+                    out.println("</a>");
+                    out.println("</div>");
+                }
 
                 if (isShowDate) {
                     out.println("<div class='block_content_item_date'>");
                     out.println(contentDate);
+                    out.println("</div>");
+                }
+                
+                if (isShowSummary) {
+                    out.println("<div class='block_content_item_summary'>");
+                    out.println(contentSummary);
+                    out.println("</div>");
                     out.println("</div>");
                 }
 

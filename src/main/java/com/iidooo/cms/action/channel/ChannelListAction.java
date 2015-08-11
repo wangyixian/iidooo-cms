@@ -5,13 +5,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.SiteDto;
-import com.iidooo.cms.service.channel.IChannelListService;
-import com.iidooo.core.action.BaseAction;
+import com.iidooo.cms.service.channel.ChannelListService;
 import com.iidooo.core.util.ValidateUtil;
 
-public class ChannelListAction extends BaseAction {
+public class ChannelListAction extends CmsBaseAction {
 
     /**
      * 
@@ -21,7 +21,7 @@ public class ChannelListAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
 
     @Autowired
-    private IChannelListService channelListService;
+    private ChannelListService channelListService;
 
     private List<ChannelDto> channelList;
 

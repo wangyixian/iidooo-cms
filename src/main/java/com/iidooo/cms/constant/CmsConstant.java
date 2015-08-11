@@ -11,6 +11,9 @@ public class CmsConstant {
     // The channel path "index" is a special define.
     public static final String CHANNEL_PATH_INDEX = "index";
     
+    // The site list of the login user can access.
+    public static final String LOGIN_SITE_LIST = "LOGIN_SITE_LIST";    
+    
     // The content type of default
     public static final String DICT_ITEM_CONTENT_TYPE_DEFAULT = "01";
     // The content type of product
@@ -44,6 +47,7 @@ public class CmsConstant {
     public static final String FIELD_CONTENT_TITLE = "contentTitle";
     public static final String FIELD_CONTENT_IMAGE_TITLE = "contentImageTitle";
     public static final String FIELD_CONTENT_UPDATE_DATE = "updateDate";
+    public static final String FIELD_CONTENT_SUMMARY = "contentSummary";
     
     public static final String FIELD_CONTENT_PRODUCT_COUNTRY = "productCountry";
     public static final String FIELD_CONTENT_PRODUCT_ORIGIN = "productOrigin";

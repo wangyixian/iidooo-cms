@@ -104,8 +104,8 @@ public class LoginAction extends BaseAction {
             sessionMap.put(PassportConstant.LOGIN_USER, user);
 
             // Put the login user's role list into the session.
-//            List<RoleDto> roleList = loginService.getUserRoleList(user.getUserID());
-//            sessionMap.put(PassportConstant.LOGIN_ROLE_LIST, roleList);
+            List<RoleDto> roleList = loginService.getUserRoleList(user.getUserID());
+            sessionMap.put(PassportConstant.LOGIN_ROLE_LIST, roleList);
             
             // Redirect to the URL of saved form Filter
             Cookie[] cookies = request.getCookies();

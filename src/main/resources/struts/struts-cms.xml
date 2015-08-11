@@ -5,7 +5,7 @@
 
 <struts>
 	<package name="cms" extends="basic">
-		<action name="index" class="com.iidooo.cms.action.IndexAction" method="init">
+		<action name="index" class="com.iidooo.cms.action.index.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
 		</action>
 		
