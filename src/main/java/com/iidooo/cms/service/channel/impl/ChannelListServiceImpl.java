@@ -92,7 +92,7 @@ public class ChannelListServiceImpl implements ChannelListService {
     public List<SiteDto> getSiteList(List<RoleDto> roleList) {
         List<SiteDto> result = new ArrayList<SiteDto>();
         try {
-            result = siteDao.selectSiteList(roleList);
+            result = siteDao.selectSiteListByRoles(roleList);
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

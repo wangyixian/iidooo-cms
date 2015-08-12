@@ -78,7 +78,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>		
 	<div class="page_content_wrap">	
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.siteID={0}&content.channelID={1}"/>
+			<cms:channelTree baseURL="contentList.action?content.siteID={0}&content.channelID={1}"/>			
 		</div>
 		<div class="page_content_right_wrap">		
 			<passport:breadCrumb/>	
@@ -191,7 +191,6 @@
 			</div>
 		</div>
 	</div>
-		
 	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

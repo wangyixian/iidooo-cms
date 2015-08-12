@@ -33,12 +33,19 @@
 		C.MetaDescription,
 		C.ContentSummary, C.IsSilent, PageViewed, UniqueVisitor,
 		C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime,
-		C.UpdateUser, C.IsDelete,
+		C.UpdateUser,
+		C.IsDelete,
 		C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
+
+	<select id="selectCountBySiteID" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		select count(C.ContentID)
+		from CMS_CONTENT C join CMS_CHANNEL L
+		on C.IsDelete = 0 and L.IsDelete = 0 and L.SiteID = #{siteID,jdbcType=INTEGER}
+	</select>
 
 	<select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
 		SELECT
@@ -70,24 +77,26 @@
 		select count(*)
 		from CMS_CONTENT C
 		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = 0
-		and C.IsDelete = 0
+		and
+		C.IsDelete = 0
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.core.dto.PageDto">
-		select 
-			<include refid="Base_Column_List" />, 
-			C.ChannelName  as channelName, CU.UserName as createUserName, UU.UserName as updateUserName
-		from 
-			(select
-			<include refid="Base_Column_List" />
-			, L.ChannelName
-			from CMS_CONTENT C
-			join CMS_CHANNEL L
-			on L.ChannelID = C.ChannelID and C.IsDelete = 0 and
-			L.IsDelete = 0
-			order by C.UpdateTime desc limit #{start},
-			#{pageSize}) C
-			left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0 
-			left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
+		select
+		<include refid="Base_Column_List" />
+		,
+		C.ChannelName as channelName, CU.UserName as createUserName, UU.UserName as updateUserName
+		from
+		(select
+		<include refid="Base_Column_List" />
+		, L.ChannelName
+		from CMS_CONTENT C
+		join CMS_CHANNEL L
+		on L.ChannelID = C.ChannelID and C.IsDelete = 0 and
+		L.IsDelete = 0
+		order by C.UpdateTime desc limit #{start},
+		#{pageSize}) C
+		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0
+		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
 	</select>
 
 	<select id="selectContentListCount" resultType="java.lang.Integer" parameterType="com.iidooo.cms.dto.extend.ContentDto">
@@ -111,20 +120,21 @@
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
 	</select>
 	<select id="selectContentListByChannels" resultMap="BaseResultMap">
-		select 
-			<include refid="Base_Column_List" />, 
-			C.ChannelName  as channelName, CU.UserName as createUserName, UU.UserName as updateUserName
-		from 
-			(select
-			<include refid="Base_Column_List" />
-			, L.ChannelName
-			from CMS_CONTENT C
-			join CMS_CHANNEL L on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0 and
-			L.ChannelID in
-			<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
-			order by C.${page.sortField} ${page.sortType}
-			limit #{page.start}, #{page.pageSize}) C
-		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0 
+		select
+		<include refid="Base_Column_List" />
+		,
+		C.ChannelName as channelName, CU.UserName as createUserName, UU.UserName as updateUserName
+		from
+		(select
+		<include refid="Base_Column_List" />
+		, L.ChannelName
+		from CMS_CONTENT C
+		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0 and
+		L.ChannelID in
+		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
+		order by C.${page.sortField} ${page.sortType}
+		limit #{page.start}, #{page.pageSize}) C
+		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0
 		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
 	</select>
 
@@ -226,17 +236,19 @@
 
 	<update id="update" parameterType="com.iidooo.cms.dto.extend.ContentDto">
 		update CMS_CONTENT
-		set 
+		set
 		ChannelID = #{channelID,jdbcType=INTEGER},
 		ContentType = #{contentType,jdbcType=CHAR},
 		ContentTitle =
 		#{contentTitle,jdbcType=VARCHAR},
-		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
+		ContentSubTitle =
+		#{contentSubTitle,jdbcType=VARCHAR},
 		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
 		MetaTitle = #{metaTitle,jdbcType=VARCHAR},
 		MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
 		MetaDescription = #{metaDescription,jdbcType=VARCHAR},
-		ContentSummary = #{contentSummary,jdbcType=VARCHAR},
+		ContentSummary =
+		#{contentSummary,jdbcType=VARCHAR},
 		ContentBody =
 		#{contentBody,jdbcType=LONGVARCHAR},
 		IsSilent = #{isSilent,jdbcType=INTEGER},

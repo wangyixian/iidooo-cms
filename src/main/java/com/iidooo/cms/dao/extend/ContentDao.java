@@ -10,6 +10,8 @@ import com.iidooo.core.dto.PageDto;
 
 public interface ContentDao {
 
+    int selectCountBySiteID(int siteID);
+    
     /**
      * Select content by content ID
      * @param contentID This content' ID will be selected

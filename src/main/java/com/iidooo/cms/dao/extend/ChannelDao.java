@@ -8,6 +8,8 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 
 public interface ChannelDao {
 
+    int selectCountBySiteID(int siteID);
+    
     /**
      * Select all of the channels with the site code and channel level
      * @param siteCode The site code should be defined.

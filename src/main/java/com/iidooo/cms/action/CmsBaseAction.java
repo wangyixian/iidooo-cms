@@ -10,14 +10,14 @@ public class CmsBaseAction extends BaseAction {
      */
     private static final long serialVersionUID = 1L;
 
-    private SiteDto site;
+    private SiteDto defaultSite;
 
-    public SiteDto getSite() {
-        return site;
+    public SiteDto getDefaultSite() {
+        return defaultSite;
     }
 
-    public void setSite(SiteDto site) {
-        this.site = site;
+    public void setDefaultSite(SiteDto defaultSite) {
+        this.defaultSite = defaultSite;
     }
 
 }

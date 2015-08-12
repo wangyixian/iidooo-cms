@@ -9,22 +9,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.SiteDto;
-import com.iidooo.cms.service.index.IndexService;
+import com.iidooo.cms.service.index.SiteListService;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.RoleDto;
 import com.opensymphony.xwork2.ActionContext;
 
-public class IndexAction extends CmsBaseAction {
+public class SiteListAction extends CmsBaseAction {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(IndexAction.class);
+    private static final Logger logger = Logger.getLogger(SiteListAction.class);
 
     @Autowired
-    private IndexService indexService;
+    private SiteListService siteListService;
+
+    private List<SiteDto> siteList;
+
+    public List<SiteDto> getSiteList() {
+        return siteList;
+    }
+
+    public void setSiteList(List<SiteDto> siteList) {
+        this.siteList = siteList;
+    }
 
     public String init() {
         try {
@@ -35,10 +45,10 @@ public class IndexAction extends CmsBaseAction {
             List<RoleDto> roleList = (List<RoleDto>) session.get(PassportConstant.LOGIN_ROLE_LIST);
 
             // Set the site list into session
-            List<SiteDto> siteList = indexService.getSiteList(roleList);
-            session.put(CmsConstant.LOGIN_SITE_LIST, siteList);
+            siteList = siteListService.getSiteList(roleList);
+            session.put(CmsConstant.SESSION_SITE_LIST, siteList);
             if (siteList.size() > 0) {
-                this.setSite(siteList.get(0));
+                this.setDefaultSite(siteList.get(0));
             }
 
             return SUCCESS;
@@ -48,5 +58,4 @@ public class IndexAction extends CmsBaseAction {
             return ERROR;
         }
     }
-
 }

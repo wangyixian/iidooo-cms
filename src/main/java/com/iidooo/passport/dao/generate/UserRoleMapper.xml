@@ -5,9 +5,17 @@
     <id column="UserRoleID" property="userRoleID" jdbcType="INTEGER" />
     <result column="UserID" property="userID" jdbcType="INTEGER" />
     <result column="RoleID" property="roleID" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    UserRoleID, UserID, RoleID
+    UserRoleID, UserID, RoleID, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
+    IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,10 +28,14 @@
     where UserRoleID = #{userRoleID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.iidooo.passport.dto.generate.UserRole" >
-    insert into PASSPORT_USER_ROLE (UserRoleID, UserID, RoleID
-      )
-    values (#{userRoleID,jdbcType=INTEGER}, #{userID,jdbcType=INTEGER}, #{roleID,jdbcType=INTEGER}
-      )
+    insert into PASSPORT_USER_ROLE (UserRoleID, UserID, RoleID, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
+    values (#{userRoleID,jdbcType=INTEGER}, #{userID,jdbcType=INTEGER}, #{roleID,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.UserRole" >
     insert into PASSPORT_USER_ROLE
@@ -37,6 +49,27 @@
       <if test="roleID != null" >
         RoleID,
       </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="createTime != null" >
+        CreateTime,
+      </if>
+      <if test="createUser != null" >
+        CreateUser,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser,
+      </if>
+      <if test="isDelete != null" >
+        IsDelete,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userRoleID != null" >
@@ -47,6 +80,27 @@
       </if>
       <if test="roleID != null" >
         #{roleID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -59,13 +113,41 @@
       <if test="roleID != null" >
         RoleID = #{roleID,jdbcType=INTEGER},
       </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CreateUser = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IsDelete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        Version = #{version,jdbcType=INTEGER},
+      </if>
     </set>
     where UserRoleID = #{userRoleID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.passport.dto.generate.UserRole" >
     update PASSPORT_USER_ROLE
     set UserID = #{userID,jdbcType=INTEGER},
-      RoleID = #{roleID,jdbcType=INTEGER}
+      RoleID = #{roleID,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=INTEGER},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER}
     where UserRoleID = #{userRoleID,jdbcType=INTEGER}
   </update>
 </mapper>

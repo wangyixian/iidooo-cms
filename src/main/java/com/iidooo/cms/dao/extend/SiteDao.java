@@ -13,7 +13,7 @@ public interface SiteDao {
     
     List<SiteDto> selectAll();
     
-    List<SiteDto> selectSiteList(@Param("roleList")List<RoleDto> roleList);
+    List<SiteDto> selectSiteListByRoles(@Param("roleList")List<RoleDto> roleList);
     
     SiteDto selectBySiteCode(String siteCode);
     

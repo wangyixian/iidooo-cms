@@ -23,7 +23,7 @@
 		S.UpdateTime, S.UpdateUser, S.IsDelete, S.Version
 	</sql>
 
-	<select id="selectBySiteID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	<select id="selectBySiteID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from CMS_SITE S
@@ -37,14 +37,24 @@
 		where S.IsDelete = 0
 	</select>
 
-	<select id="selectSiteList" resultMap="BaseResultMap">
+	<select id="selectSiteListByRoles" resultMap="BaseResultMap">
 		select
+		<include refid="Base_Column_List" />
+		,
+		CU.UserName as createUserName, UU.UserName as updateUserName
+		from
+		(
+		select distinct
 		<include refid="Base_Column_List" />
 		from CMS_SITE S
 		join CMS_SITE_ROLE SR
-		on S.SiteID = SR.SiteID and SR.RoleID in
+		on S.SiteID = SR.SiteID and SR.RoleID and S.IsDelete = 0 and SR.IsDelete = 0
+		in
 		<foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">#{item.roleID}</foreach>
-		and S.IsDelete = 0
+		) S
+		left outer join PASSPORT_USER CU on S.CreateUser = CU.UserID and CU.IsDelete = 0
+		left outer join PASSPORT_USER UU on S.UpdateUser = UU.UserID and
+		UU.IsDelete = 0
 	</select>
 
 	<select id="selectBySiteCode" resultMap="BaseResultMap" parameterType="java.lang.String">

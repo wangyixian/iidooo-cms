@@ -63,7 +63,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
             if (roleList == null || roleList.size() <= 0) {
                 siteList = siteDao.selectAll();
             } else {
-                siteList = siteDao.selectSiteList(roleList);
+                siteList = siteDao.selectSiteListByRoles(roleList);
             }
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);

@@ -27,6 +27,11 @@
 		C.MetaDescription,C.Sequence,C.IsHidden, C.Remarks, C.CreateTime,
 		C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
 	</sql>
+	
+	<select id="selectCountBySiteID" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		select count(C.ChannelID)
+		from CMS_CHANNEL C where C.IsDelete = 0 and C.SiteID = #{siteID,jdbcType=INTEGER}
+	</select>
 
 	<select id="selectBySiteCode" resultMap="BaseResultMap">
 		select
