@@ -70,9 +70,7 @@ public class LoginAction extends BaseAction {
             if (user == null) {
                 addActionError(getText("MSG_LOGIN_FAILED"));
                 return INPUT;
-            }
-            
-            
+            }           
 
             HttpServletResponse response = ServletActionContext.getResponse();
             HttpServletRequest request = ServletActionContext.getRequest();

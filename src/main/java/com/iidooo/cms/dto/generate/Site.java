@@ -15,6 +15,8 @@ public class Site {
 
     private String metaDescription;
 
+    private Integer sequence;
+
     private String remarks;
 
     private String createTime;
@@ -83,6 +85,14 @@ public class Site {
 
     public void setMetaDescription(String metaDescription) {
         this.metaDescription = metaDescription == null ? null : metaDescription.trim();
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public String getRemarks() {

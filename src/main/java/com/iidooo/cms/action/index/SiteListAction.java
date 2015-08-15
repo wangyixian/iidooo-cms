@@ -26,30 +26,10 @@ public class SiteListAction extends CmsBaseAction {
     @Autowired
     private SiteListService siteListService;
 
-    private List<SiteDto> siteList;
-
-    public List<SiteDto> getSiteList() {
-        return siteList;
-    }
-
-    public void setSiteList(List<SiteDto> siteList) {
-        this.siteList = siteList;
-    }
 
     public String init() {
         try {
 
-            Map<String, Object> session = ActionContext.getContext().getSession();
-
-            @SuppressWarnings("unchecked")
-            List<RoleDto> roleList = (List<RoleDto>) session.get(PassportConstant.LOGIN_ROLE_LIST);
-
-            // Set the site list into session
-            siteList = siteListService.getSiteList(roleList);
-            session.put(CmsConstant.SESSION_SITE_LIST, siteList);
-            if (siteList.size() > 0) {
-                this.setDefaultSite(siteList.get(0));
-            }
 
             return SUCCESS;
         } catch (Exception e) {

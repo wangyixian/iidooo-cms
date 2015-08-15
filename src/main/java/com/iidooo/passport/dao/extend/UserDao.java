@@ -21,6 +21,8 @@ public interface UserDao {
     
     int updateByPrimaryKey(UserDto user);
     
+    int updateLoginTime(UserDto user);
+    
     int updatePassword(UserDto user);
     
     int insert(UserDto user);

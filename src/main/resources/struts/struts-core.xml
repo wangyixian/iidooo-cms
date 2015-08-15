@@ -6,9 +6,9 @@
 <struts>
 	<package name="core" extends="basic">
 
-		<action name="index" class="com.iidooo.core.action.IndexAction" method="init">
+<!-- 		<action name="index" class="com.iidooo.core.action.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
-		</action>
+		</action> -->
 
 		<!-- The ajax action did not need the result, the result will output as json -->
 		<action name="fileUpload" class="com.iidooo.core.action.FileUploadAction" method="upload">

@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+.page_content_list_item {
+	border: solid 2px #f2f2f2;
+	margin-bottom: 5px;
+	padding: 5px;
+	font-size: 13px;
+}

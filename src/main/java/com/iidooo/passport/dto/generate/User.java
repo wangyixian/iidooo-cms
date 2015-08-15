@@ -23,6 +23,8 @@ public class User {
 
     private String description;
 
+    private String loginTime;
+
     private String remarks;
 
     private String createTime;
@@ -123,6 +125,14 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime == null ? null : loginTime.trim();
     }
 
     public String getRemarks() {

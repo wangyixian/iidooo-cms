@@ -6,6 +6,7 @@
     <result column="ParentID" property="parentID" jdbcType="INTEGER" />
     <result column="ResourceName" property="resourceName" jdbcType="VARCHAR" />
     <result column="ResourceURL" property="resourceURL" jdbcType="VARCHAR" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -15,13 +16,13 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ResourceID, ParentID, ResourceName, ResourceURL, Remarks, CreateTime, 
+    ResourceID, ParentID, ResourceName, ResourceURL, Sequence, Remarks, CreateTime, 
     CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from PASSPORT_RESOURCE
-    where IsDelete = 0
+    from PASSPORT_RESOURCE R
+    where R.IsDelete = 0 order by R.Sequence asc
   </select>
 </mapper>

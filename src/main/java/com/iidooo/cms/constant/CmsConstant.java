@@ -12,7 +12,9 @@ public class CmsConstant {
     public static final String CHANNEL_PATH_INDEX = "index";
     
     // The site list of the login user can access.
-    public static final String SESSION_SITE_LIST = "SESSION_SITE_LIST";    
+    public static final String SESSION_SITE_LIST = "SESSION_SITE_LIST";   
+    public static final String SESSION_SITE_MAP = "SESSION_SITE_MAP";
+    public static final String SESSION_DEFAULT_SITE = "SESSION_DEFAULT_SITE";
     
     // The content type of default
     public static final String DICT_ITEM_CONTENT_TYPE_DEFAULT = "01";

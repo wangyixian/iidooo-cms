@@ -9,6 +9,7 @@
 		<result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
 		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
+		<result column="Sequence" property="sequence" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -18,7 +19,7 @@
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		S.SiteID, S.SiteCode, S.SiteName, S.SiteURL, S.MetaTitle, S.MetaKeywords, S.MetaDescription, S.Remarks,
+		S.SiteID, S.SiteCode, S.SiteName, S.SiteURL, S.MetaTitle, S.MetaKeywords, S.MetaDescription, S.Sequence, S.Remarks,
 		S.CreateTime, S.CreateUser,
 		S.UpdateTime, S.UpdateUser, S.IsDelete, S.Version
 	</sql>
@@ -34,7 +35,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from CMS_SITE S
-		where S.IsDelete = 0
+		where S.IsDelete = 0 order by S.Sequence asc
 	</select>
 
 	<select id="selectSiteListByRoles" resultMap="BaseResultMap">
@@ -54,7 +55,7 @@
 		) S
 		left outer join PASSPORT_USER CU on S.CreateUser = CU.UserID and CU.IsDelete = 0
 		left outer join PASSPORT_USER UU on S.UpdateUser = UU.UserID and
-		UU.IsDelete = 0
+		UU.IsDelete = 0 order by S.Sequence asc
 	</select>
 
 	<select id="selectBySiteCode" resultMap="BaseResultMap" parameterType="java.lang.String">

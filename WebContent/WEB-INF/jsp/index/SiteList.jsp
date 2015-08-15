@@ -14,7 +14,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">
-			<passport:subMenu />
+			<passport:subMenu title="我的工作台"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb />
@@ -25,18 +25,16 @@
 					<table class="datagrid">
 						<tr>
 							<th width="5%">ID</th>
-							<th width="8%">站点编码</th>
-							<th width="10%">站点名称</th>
+							<th width="10%">站点编码</th>
+							<th width="20%">站点名称</th>
 							<th width="20%">站点路径</th>
-							<th width="8%">创建者</th>
+							<th width="10%">创建者</th>
 							<th width="10%">创建日期</th>
-							<th width="8%">更新者</th>
+							<th width="10%">更新者</th>
 							<th width="10%">更新日期</th>
-							<th width="8%">栏目总数</th>
-							<th width="8%">内容总数</th>
 							<th width="5%">操作</th>
 						</tr>
-						<s:iterator id="item" value="siteList" status="st">
+						<s:iterator id="item" value="#session.SESSION_SITE_LIST" status="st">
 							<tr>
 								<td class="align_center"><a href="siteDetail.action?site.siteID=${item.siteID }">${item.siteID}</a></td>
 								<td>${item.siteCode}</td>
@@ -46,8 +44,6 @@
 								<td class="align_center">${item.createDate }</td>
 								<td class="align_center">${item.updateUserName }</td>
 								<td class="align_center">${item.updateDate }</td>
-								<td class="align_center">${item.channelSum }</td>
-								<td class="align_center">${item.contentSum }</td>
 								<td class="align_center"><a href="#" onclick="return deleteContent(${item.siteID})">删除</a></td>
 							</tr>
 						</s:iterator>

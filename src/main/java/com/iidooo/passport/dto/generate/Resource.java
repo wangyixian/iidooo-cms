@@ -9,6 +9,8 @@ public class Resource {
 
     private String resourceURL;
 
+    private Integer sequence;
+
     private String remarks;
 
     private String createTime;
@@ -53,6 +55,14 @@ public class Resource {
 
     public void setResourceURL(String resourceURL) {
         this.resourceURL = resourceURL == null ? null : resourceURL.trim();
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public String getRemarks() {

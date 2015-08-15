@@ -5,10 +5,13 @@
 
 <struts>
 	<package name="cms" extends="basic">
-		<action name="index" class="com.iidooo.cms.action.index.SiteListAction">
-			<result name="success" type="redirectAction">siteList.action</result>
+		<action name="index" class="com.iidooo.cms.action.index.IndexAction">
+			<result name="success" type="redirectAction">welcome.action</result>
 		</action>
-				
+		<action name="updateDefaultSite" class="com.iidooo.cms.action.index.IndexAction" method="updateDefaultSite"></action>
+		<action name="welcome" class="com.iidooo.cms.action.index.IndexAction" method="init">
+			<result name="success">/WEB-INF/jsp/index/Index.jsp</result>
+		</action>
 		<action name="siteList" class="com.iidooo.cms.action.index.SiteListAction" method="init">
 			<result name="success">/WEB-INF/jsp/index/SiteList.jsp</result>
 		</action>

@@ -13,6 +13,7 @@
     <result column="Wechat" property="wechat" jdbcType="VARCHAR" />
     <result column="Telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="LoginTime" property="loginTime" jdbcType="VARCHAR" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -23,7 +24,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     UserID, UserName, LoginID, Password, IsDisable, Sex, Birthday, Email, Wechat, Telephone, 
-    Description, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    Description, LoginTime, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
+    IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -39,17 +41,17 @@
     insert into PASSPORT_USER (UserID, UserName, LoginID, 
       Password, IsDisable, Sex, 
       Birthday, Email, Wechat, 
-      Telephone, Description, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
+      Telephone, Description, LoginTime, 
+      Remarks, CreateTime, CreateUser, 
+      UpdateTime, UpdateUser, IsDelete, 
+      Version)
     values (#{userID,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{loginID,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{isDisable,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, 
       #{birthday,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
+      #{telephone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{loginTime,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.passport.dto.generate.User" >
     insert into PASSPORT_USER
@@ -86,6 +88,9 @@
       </if>
       <if test="description != null" >
         Description,
+      </if>
+      <if test="loginTime != null" >
+        LoginTime,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -143,6 +148,9 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=VARCHAR},
+      </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
@@ -199,6 +207,9 @@
       <if test="description != null" >
         Description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="loginTime != null" >
+        LoginTime = #{loginTime,jdbcType=VARCHAR},
+      </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
       </if>
@@ -235,6 +246,7 @@
       Wechat = #{wechat,jdbcType=VARCHAR},
       Telephone = #{telephone,jdbcType=VARCHAR},
       Description = #{description,jdbcType=VARCHAR},
+      LoginTime = #{loginTime,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

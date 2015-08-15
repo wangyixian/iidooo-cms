@@ -9,6 +9,7 @@
     <result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
     <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -18,8 +19,8 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    SiteID, SiteCode, SiteName, SiteURL, MetaTitle, MetaKeywords, MetaDescription, Remarks, 
-    CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    SiteID, SiteCode, SiteName, SiteURL, MetaTitle, MetaKeywords, MetaDescription, Sequence, 
+    Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -34,14 +35,16 @@
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Site" >
     insert into CMS_SITE (SiteID, SiteCode, SiteName, 
       SiteURL, MetaTitle, MetaKeywords, 
-      MetaDescription, Remarks, CreateTime, 
-      CreateUser, UpdateTime, UpdateUser, 
-      IsDelete, Version)
+      MetaDescription, Sequence, Remarks, 
+      CreateTime, CreateUser, UpdateTime, 
+      UpdateUser, IsDelete, Version
+      )
     values (#{siteID,jdbcType=INTEGER}, #{siteCode,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, 
       #{siteURL,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, 
-      #{metaDescription,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+      #{metaDescription,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.Site" >
     insert into CMS_SITE
@@ -66,6 +69,9 @@
       </if>
       <if test="metaDescription != null" >
         MetaDescription,
+      </if>
+      <if test="sequence != null" >
+        Sequence,
       </if>
       <if test="remarks != null" >
         Remarks,
@@ -111,6 +117,9 @@
       <if test="metaDescription != null" >
         #{metaDescription,jdbcType=VARCHAR},
       </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
@@ -155,6 +164,9 @@
       <if test="metaDescription != null" >
         MetaDescription = #{metaDescription,jdbcType=VARCHAR},
       </if>
+      <if test="sequence != null" >
+        Sequence = #{sequence,jdbcType=INTEGER},
+      </if>
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
       </if>
@@ -187,6 +199,7 @@
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},
+      Sequence = #{sequence,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=VARCHAR},
       CreateUser = #{createUser,jdbcType=INTEGER},

@@ -13,6 +13,7 @@
 		<result column="Wechat" property="wechat" jdbcType="VARCHAR" />
 		<result column="Telephone" property="telephone" jdbcType="VARCHAR" />
 		<result column="Description" property="description" jdbcType="VARCHAR" />
+		<result column="LoginTime" property="loginTime" jdbcType="VARCHAR" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
 		<result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -25,13 +26,13 @@
 		UserID, UserName, LoginID, Password, IsDisable, Sex,
 		Birthday, Email, Wechat,
 		Telephone,
-		Description, Remarks, CreateTime,
-		CreateUser, UpdateTime, UpdateUser, IsDelete,
+		Description, LoginTime, Remarks, CreateTime,
+		CreateUser,
+		UpdateTime, UpdateUser, IsDelete,
 		Version
 	</sql>
 
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from PASSPORT_USER
@@ -47,8 +48,7 @@
 		#{password} and IsDelete = 0
 	</select>
 
-	<select id="selectByLoginID" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+	<select id="selectByLoginID" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from PASSPORT_USER
@@ -92,6 +92,14 @@
 		#{userID,jdbcType=INTEGER}
 	</update>
 
+	<update id="updateLoginTime" parameterType="com.iidooo.passport.dto.extend.UserDto">
+		update
+		PASSPORT_USER
+		set LoginTime = #{loginTime,jdbcType=VARCHAR},
+		Version = Version + 1
+		where UserID = #{userID,jdbcType=INTEGER}
+	</update>
+
 	<update id="updatePassword" parameterType="com.iidooo.passport.dto.extend.UserDto">
 		update PASSPORT_USER
 		set Password = #{password,jdbcType=VARCHAR},
@@ -103,8 +111,7 @@
 		where UserID =
 		#{userID,jdbcType=INTEGER}
 	</update>
-	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID"
-		parameterType="com.iidooo.passport.dto.extend.UserDto">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="contentID" parameterType="com.iidooo.passport.dto.extend.UserDto">
 		insert into PASSPORT_USER (
 		UserID,
 		UserName,

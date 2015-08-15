@@ -41,9 +41,9 @@ public abstract class BaseAction extends ActionSupport {
      * The action URL, contain the parameters
      */
     private String actionUrl;
-    
+
     private PageDto page;
-    
+
     public String getActionName() {
         return actionName;
     }
@@ -69,7 +69,6 @@ public abstract class BaseAction extends ActionSupport {
     public void setActionUrl(String actionUrl) {
         this.actionUrl = actionUrl;
     }
-    
 
     public PageDto getPage() {
         return page;
@@ -78,7 +77,6 @@ public abstract class BaseAction extends ActionSupport {
     public void setPage(PageDto page) {
         this.page = page;
     }
-
 
     /**
      * Get the session
@@ -95,17 +93,6 @@ public abstract class BaseAction extends ActionSupport {
         return session;
     }
 
-    public void setSession(String key, Object value) {
-        try {
-            ActionContext ac = ActionContext.getContext();
-            Map<String, Object> session = ac.getSession();
-            session.put(key, value);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-        }
-    }
-
     public Map<String, Object> getApplication() {
         try {
             ActionContext ac = ActionContext.getContext();
@@ -117,7 +104,7 @@ public abstract class BaseAction extends ActionSupport {
             return null;
         }
     }
-    
+
     /**
      * 通过Key获取Request作用域的对象值
      * 
@@ -135,8 +122,8 @@ public abstract class BaseAction extends ActionSupport {
             return null;
         }
     }
-    
-    public String getRequestMethod(){
+
+    public String getRequestMethod() {
         try {
             HttpServletRequest request = this.getRequest();
             String value = request.getMethod();
@@ -147,11 +134,12 @@ public abstract class BaseAction extends ActionSupport {
             return null;
         }
     }
-    
+
     /**
-     * 通过Key获取Session作用域的对象值
-     * @param key key Session作用域的存储方式是Map，通过该Key获取值
-     * @return 获得的值是个Object对象
+     * Get the object from session by key
+     * 
+     * @param key The key to get the session object
+     * @return The object gotten.
      */
     public Object getSessionValue(String key) {
         try {
@@ -162,6 +150,23 @@ public abstract class BaseAction extends ActionSupport {
             e.printStackTrace();
             logger.fatal(e);
             return null;
+        }
+    }
+
+    
+    /**
+     * Set the value into the session with a key.
+     * @param key This key is as the session map key.
+     * @param value This value will be set into the session with the key.
+     */
+    public void setSessionValue(String key, Object value) {
+        try {
+            ActionContext ac = ActionContext.getContext();
+            Map<String, Object> session = ac.getSession();
+            session.put(key, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
         }
     }
 
