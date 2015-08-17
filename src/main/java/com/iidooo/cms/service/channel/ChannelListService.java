@@ -17,8 +17,6 @@ public interface ChannelListService {
     List<ChannelDto> getChildrenChannelList(int siteID, int parentID);
 
     List<SiteDto> getSiteList(List<RoleDto> roleList);
-
-    SiteDto getTopSite();
     
     /**
      * Delete the channel

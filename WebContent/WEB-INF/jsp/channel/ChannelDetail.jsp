@@ -44,7 +44,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="channelList.action?channel.siteID={0}&channel.channelID={1}"/>
+			<cms:channelTree baseURL="channelList.action?channel.channelID={0}" title="栏目树"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb />
@@ -54,13 +54,17 @@
 				<form id="form" method="post">
 					<input type="hidden" name="channel.channelID" value="${channel.channelID }">
 					<input type="hidden" name="channel.version"	value="${channel.version }">
-					<input type="hidden" name="channel.siteID"	value="${channel.siteID }">
+					<input type="hidden" name="channel.siteID"	value="${sessionScope.SESSION_DEFAULT_SITE.siteID }">
 					<input type="hidden" name="channel.sequence" value="${channel.sequence }">
 					<table class="datagrid">
 						<tr>
+							<th width="90px">当前站点</th>
+							<td>${sessionScope.SESSION_DEFAULT_SITE.siteName }</td>
+						</tr>
+						<tr>
 							<th width="90px">上级栏目</th>
 							<td>
-								<cms:channelSelect name="channel.parentID" id="selChannel" siteID="${channel.siteID }"   value="${channel.parentID}"/>
+								<cms:channelSelect name="channel.parentID" id="selChannel" value="${channel.parentID}"/>
 							</td>
 						</tr>
 						<tr>
@@ -118,6 +122,5 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

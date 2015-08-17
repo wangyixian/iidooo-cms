@@ -17,5 +17,4 @@ public interface SiteDao {
     
     SiteDto selectBySiteCode(String siteCode);
     
-    SiteDto selectTopSite();
 }

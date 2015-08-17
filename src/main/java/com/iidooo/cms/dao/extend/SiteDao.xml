@@ -65,11 +65,4 @@
 		where S.SiteCode = #{siteCode,jdbcType=VARCHAR} and S.IsDelete = 0
 	</select>
 
-	<select id="selectTopSite" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CMS_SITE S
-		where S.IsDelete = 0 order by S.SiteID limit 0,1
-	</select>
-
 </mapper>

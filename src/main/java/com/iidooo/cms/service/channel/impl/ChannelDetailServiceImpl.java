@@ -72,8 +72,8 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
             }
 
             // Set the channel sequence
-            int maxSequence = channelDao.selectMaxSequence(channel.getParentID());
-            channel.setSequence(maxSequence + 1);
+            //int maxSequence = channelDao.selectMaxSequence(channel.getParentID());
+            channel.setSequence(1);
 
             int result = channelDao.insert(channel);
             if (result <= 0) {

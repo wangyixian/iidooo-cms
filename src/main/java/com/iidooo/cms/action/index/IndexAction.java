@@ -1,14 +1,10 @@
 package com.iidooo.cms.action.index;
 
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.action.CmsBaseAction;
@@ -19,7 +15,6 @@ import com.iidooo.core.util.JsonUtil;
 import com.iidooo.core.util.ValidateUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.RoleDto;
-import com.opensymphony.xwork2.ActionContext;
 
 public class IndexAction extends CmsBaseAction {
 

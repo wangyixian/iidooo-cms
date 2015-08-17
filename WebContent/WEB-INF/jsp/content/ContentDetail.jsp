@@ -78,7 +78,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>		
 	<div class="page_content_wrap">	
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.siteID={0}&content.channelID={1}"/>			
+			<cms:channelTree baseURL="contentList.action?content.channelID={0}" title="栏目树"/>			
 		</div>
 		<div class="page_content_right_wrap">		
 			<passport:breadCrumb/>	
@@ -86,7 +86,6 @@
 				<s:actionerror/>
 				<s:actionmessage/>
 				<form id="form" method="post">					
-					<input id="hidSiteID" type="hidden" name="content.siteID" value="${content.siteID}">
 					<input id="hidChannelID" type="hidden" name="content.channelID" value="${content.channelID }">
 					<input type="hidden" name="content.contentID" value="${content.contentID}">
 					<input type="hidden" name="content.contentType" value="${content.contentType }">
@@ -99,7 +98,7 @@
 							</td>		
 							<th width="10%">所属栏目</th>
 							<td>
-								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }" siteID="${content.siteID }" isContainBlank="false"/>	
+								<cms:channelSelect id="selChannelID" name="content.newChannelID" value="${content.channelID }" isContainBlank="false"/>	
 							</td>			
 						</tr>
 						<tr>
@@ -191,6 +190,5 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

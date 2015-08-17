@@ -15,6 +15,4 @@ public interface ContentListService {
     List<ContentDto> getContentList(Integer siteID, Integer channelID, PageDto page);
 
     boolean deleteContent(ContentDto content);
-
-    SiteDto getTopSite();
 }

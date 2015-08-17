@@ -24,7 +24,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">			
-			<cms:channelTree baseURL="channelList.action?channel.siteID={0}&channel.channelID={1}"/>
+			<cms:channelTree baseURL="channelList.action?channel.channelID={0}" title="栏目树"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb/>
@@ -32,7 +32,6 @@
 				<form id="form" action="" method="post">
 					<s:actionerror/>
 					<s:actionmessage/>
-					<input id="hidSiteID" type="hidden" name="channel.siteID" value="${channel.siteID }">
 					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }">
 					<input id="hidParentID" type="hidden" name="channel.parentID" value="${channel.parentID }">
 					<table class="datagrid">
@@ -73,12 +72,11 @@
 						</s:iterator>
 					</table>
 					<div class="button_bar">
-						<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}&channel.siteID=${channel.siteID}">添加</a>
+						<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}">添加</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

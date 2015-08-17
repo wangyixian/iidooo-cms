@@ -13,8 +13,7 @@
 <script type="text/javascript">
 	function btnCreate(){
 		var contentType = $("#selContentType").val();
-		var siteID = $("#hidSiteID").val();
-		$(location).attr('href',"contentDetail.action?content.siteID=" + siteID + "&content.contentType=" + contentType);
+		$(location).attr('href',"contentDetail.action?content.contentType=" + contentType);
 	}
 	
 	function deleteContent(contentID){
@@ -31,7 +30,7 @@
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
 		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="contentList.action?content.siteID={0}&content.channelID={1}"/>
+			<cms:channelTree baseURL="contentList.action?content.channelID={0}" title="栏目树"/>
 		</div>
 		<div class="page_content_right_wrap">
 			<passport:breadCrumb/>		
@@ -39,7 +38,6 @@
 				<form id="form" action="" method="post">
 					<s:actionerror />
 					<s:actionmessage />
-					<input id="hidSiteID" type="hidden" name="content.siteID" value="${content.siteID }">
 					<input id="hidChannelID" type="hidden" name="content.channelID" value="${content.channelID }">
 					<input id="hidContentID" type="hidden" name="content.contentID" value="${content.contentID }">
 					<input id="hidContentTitle" type="hidden" name="content.contentTitle">
@@ -60,10 +58,10 @@
 						<s:iterator id="item" value="contentList" status="st">
 							<tr>
 								<td class="align_center">
-									<a href="contentDetail.action?content.siteID=${content.siteID }&content.contentID=${item.contentID }"> ${item.contentID} </a>
+									<a href="contentDetail.action?content.contentID=${item.contentID }"> ${item.contentID} </a>
 								</td>
 								<td class="align_center">${item.channelName}</td>
-								<td><a href="contentDetail.action?content.siteID=${content.siteID }&content.contentID=${item.contentID }"> ${item.contentTitle} </a></td>
+								<td><a href="contentDetail.action?content.contentID=${item.contentID }"> ${item.contentTitle} </a></td>
 								<td class="align_center">
 									<s:if test="#item.contentType == 1">默认</s:if>
 									<s:if test ="#item.contentType == 2">产品</s:if>
@@ -95,6 +93,5 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

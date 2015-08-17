@@ -123,14 +123,4 @@ public class ContentListServiceImpl implements ContentListService {
         return result;
     }
 
-    @Override
-    public SiteDto getTopSite() {
-        try {
-            SiteDto result = siteDao.selectTopSite();
-            return result;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
 }

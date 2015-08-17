@@ -7,6 +7,7 @@ import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
+import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.content.ContentDetailService;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -45,13 +46,11 @@ public class ContentDetailAction extends CmsBaseAction {
     public String init() {
         try {
             if (content != null && content.getContentID() != null) {
-                int siteID = content.getSiteID();
                 content = contentInfoService.getContentByID(content.getContentID());
                 if (content == null) {
                     addActionMessage(getText("MSG_CONTENT_NOT_EXIST", new String[] { content.getContentID().toString() }));
                     return INPUT;
                 }
-                content.setSiteID(siteID);
 
                 if (content.getContentType().equals(CmsConstant.DICT_ITEM_CONTENT_TYPE_PRODUCT)) {
                     product = (ContentProductDto) content;

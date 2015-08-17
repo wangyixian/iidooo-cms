@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.action.CmsBaseAction;
+import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.content.ContentListService;
@@ -49,7 +50,7 @@ public class ContentListAction extends CmsBaseAction {
         try {
             if (content == null || content.getChannelID() == null) {
                 // The default initialization
-                SiteDto site = contentListService.getTopSite();
+                SiteDto site = (SiteDto)this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
                 int count = contentListService.getContentListCount(site.getSiteID(), 0);
 
                 PageUtil pageUtil = new PageUtil(this.getServletContext());

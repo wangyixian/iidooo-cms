@@ -101,16 +101,6 @@ public class ChannelListServiceImpl implements ChannelListService {
     }
 
     @Override
-    public SiteDto getTopSite() {
-        try {
-            SiteDto result = siteDao.selectTopSite();
-            return result;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
     public boolean deleteChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();

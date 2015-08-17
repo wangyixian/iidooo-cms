@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.action.CmsBaseAction;
+import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.channel.ChannelListService;
@@ -46,16 +47,12 @@ public class ChannelListAction extends CmsBaseAction {
     public String init() {
         try {
             if (channel == null) {
-                // List<RoleDto> roleList = (List<RoleDto>) this.getSessionValue(PassportConstant.LOGIN_ROLE_LIST);
-                // List<SiteDto> siteList = channelListService.getSiteList(roleList);
-                // Default is get the root channel list.
-                SiteDto site = channelListService.getTopSite();
+                SiteDto site = (SiteDto)this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
                 channelList = channelListService.getChildrenChannelList(site.getSiteID(), 0);
 
                 // The page should use the channel.parentID as the url parameter.
                 channel = new ChannelDto();
                 channel.setParentID(0);
-                channel.setSiteID(site.getSiteID());
             } else {
                 // Get the current channel's children channel list
                 channelList = channelListService.getChildrenChannelList(channel.getChannelID());

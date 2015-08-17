@@ -425,13 +425,13 @@ a:hover {
 }
 
 .sub_menu .sub_menu_title {
+	background-color: #134780;
+	color: #FFFFFF;
 	font-size: 14px;
 	font-weight: normal;
 	height: 30px;
 	line-height: 30px;
-	background-color: #134780;
-	color: #FFFFFF;
-	padding: 0 5px;
+	padding-left: 10px;
 	margin-bottom: 1px;
 }
 
@@ -491,14 +491,15 @@ a:hover {
 	height: 100%;
 }
 
-.tree_wrap .title {
+.tree_wrap .tree_title {
 	background-color: #134780;
-	color: white;
+	color: #FFFFFF;
 	font-size: 14px;
 	font-weight: normal;
 	height: 30px;
 	line-height: 30px;
 	padding-left: 10px;
+	margin-bottom: 1px;
 }
 
 .tree_wrap .content {
