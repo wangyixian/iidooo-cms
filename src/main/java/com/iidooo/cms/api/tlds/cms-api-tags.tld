@@ -4,7 +4,7 @@
 	<tlib-version>1.1</tlib-version>
 	<jsp-version>1.1</jsp-version>
 	<short-name>cms-api-tags</short-name>
-
+	
 	<tag>
 		<name>metaInfo</name>
 		<tag-class>com.iidooo.cms.api.tag.MetaInfoTag</tag-class>
@@ -44,11 +44,16 @@
 
 	<tag>
 		<name>channelList</name>
-		<tag-class>com.iidooo.cms.api.tag.ChannelListTag</tag-class>
+		<tag-class>com.iidooo.cms.api.tag.ChannelListBlockTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>id</name>
 			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
@@ -94,7 +99,7 @@
 		</attribute>
 		<attribute>
 			<name>title</name>
-			<required>true</required>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>

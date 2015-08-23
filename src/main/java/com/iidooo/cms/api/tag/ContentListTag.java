@@ -33,7 +33,7 @@ public class ContentListTag extends SimpleTagSupport {
 
     private boolean isShowDate = false;
 
-    private String sortField = CoreConstants.SORT_FIELD_SEQUENCE;
+    private String sortField = CoreConstants.SORT_FIELD_UNIQUE_VISITOR;
 
     private String sortType = CoreConstants.SORT_TYPE_ASC;
 

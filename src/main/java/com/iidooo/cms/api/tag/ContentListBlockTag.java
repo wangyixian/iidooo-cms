@@ -16,6 +16,7 @@ import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
+import com.iidooo.core.util.ValidateUtil;
 
 public class ContentListBlockTag extends SimpleTagSupport {
     private static final Logger logger = Logger.getLogger(ContentListBlockTag.class);
@@ -179,7 +180,9 @@ public class ContentListBlockTag extends SimpleTagSupport {
             JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
 
             out.println(StringUtil.replace(DIV_BLOCK_START, this.id));
-            out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath + ".action", this.title));
+            if (!ValidateUtil.isEmpty(this.title)) {
+                out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath, this.title));                
+            }
             out.println("<div class='block_content'>");
             out.println("<ul>");
             for (int i = 0; i < jsonArray.size(); i++) {

@@ -18,20 +18,27 @@ import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
+import com.iidooo.core.util.ValidateUtil;
 
-public class ChannelListTag extends SimpleTagSupport {
+public class ChannelListBlockTag extends SimpleTagSupport {
 
-    private static final Logger logger = Logger.getLogger(ChannelListTag.class);
+    private static final Logger logger = Logger.getLogger(ChannelListBlockTag.class);
 
-    private final String HTML_LI = "<li id={0}><a href='#'>{1}</a></li>";
+    private final String DIV_BLOCK_START = "<div id={0} class='block'>";
 
-    private final String HTML_LI_ONCLICK = "<li id={0}><a href='#' onclick={2}>{1}</a></li>";
+    private final String DIV_BLOCK_TITLE = "<div class='block_title'><a class='block_title_main' href='{0}'>{1}</a></div>";
+    
+    private final String HTML_LI = "<li id={0} class='block_content_item'><a href='#'>{1}</a></li>";
 
-    private final String HTML_LI_FOCUS = "<li id={0}><a class='focus' href='#'>{1}</a></li>";
+    private final String HTML_LI_ONCLICK = "<li id={0} class='block_content_item'><a href='#' onclick={2}>{1}</a></li>";
 
-    private final String HTML_LI_FOCUS_ONCLICK = "<li id={0}><a class='focus' href='#' onclick={2}>{1}</a></li>";
+    private final String HTML_LI_FOCUS = "<li id={0} class='block_content_item'><a class='focus' href='#'>{1}</a></li>";
+
+    private final String HTML_LI_FOCUS_ONCLICK = "<li id={0} class='block_content_item'><a class='focus' href='#' onclick={2}>{1}</a></li>";
 
     private String id;
+
+    private String title;
 
     private String value;
 
@@ -49,6 +56,14 @@ public class ChannelListTag extends SimpleTagSupport {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getValue() {
@@ -113,7 +128,13 @@ public class ChannelListTag extends SimpleTagSupport {
                 return;
             }
 
-            out.println("<ul id='" + id + "' class='channel_list'>");
+            out.println(StringUtil.replace(DIV_BLOCK_START, this.id));
+            if (!ValidateUtil.isEmpty(this.title)) {
+                out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.parentPath, this.title));
+            }
+            out.println("<div class='block_content'>");
+            
+            out.println("<ul>");
 
             // Save the li html string and then write out them.
             List<String> liList = new ArrayList<String>();
@@ -169,15 +190,18 @@ public class ChannelListTag extends SimpleTagSupport {
             }
 
             out.println("</ul>");
+
+            out.println("</div>");
+            out.println("</div>");
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
         }
     }
-    
-    private String getFunction(JSONObject item){
+
+    private String getFunction(JSONObject item) {
         String result = onClick;
-        
+
         try {
             if (result.contains(CmsConstant.FIELD_CHANNEL_ID)) {
                 if (item != null) {
@@ -186,7 +210,7 @@ public class ChannelListTag extends SimpleTagSupport {
                 } else {
                     result = result.replace(CmsConstant.FIELD_CHANNEL_ID, "");
                 }
-            } 
+            }
             if (result.contains(CmsConstant.FIELD_CHANNEL_PATH)) {
                 if (item != null) {
                     String channelPath = item.get(CmsConstant.FIELD_CHANNEL_PATH).toString();
@@ -201,7 +225,7 @@ public class ChannelListTag extends SimpleTagSupport {
             e.printStackTrace();
             logger.fatal(e);
         }
-        
+
         return result;
     }
 }

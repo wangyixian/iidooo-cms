@@ -38,9 +38,9 @@ public class ContentSlideBlockTag extends SimpleTagSupport {
 
     private int pageSize = 5;
 
-    private String sortField = CoreConstants.SORT_FIELD_SEQUENCE;
+    private String sortField = CoreConstants.SORT_FIELD_UNIQUE_VISITOR;
 
-    private String sortType = CoreConstants.SORT_TYPE_DESC;
+    private String sortType = CoreConstants.SORT_TYPE_ASC;
 
     public String getSiteCode() {
         return siteCode;
@@ -130,7 +130,7 @@ public class ContentSlideBlockTag extends SimpleTagSupport {
             JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
 
             out.println(StringUtil.replace(DIV_BLOCK_START, this.id));
-            out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath + ".action", this.title));
+            out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath, this.title));
 
             out.println("<div id='slide' class='block_content'>");
             out.println("<ul class='slideul1'>");

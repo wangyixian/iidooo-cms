@@ -3,7 +3,7 @@
 <taglib>
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.0</jsp-version>
-	<short-name>core-tags</short-name>
+	<short-name>core-api-tags</short-name>
 	<tag>
 		<name>dictItemSelect</name>
 		<tag-class>com.iidooo.core.api.tag.DictItemSelectTag</tag-class>
