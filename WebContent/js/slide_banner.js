@@ -1,94 +1,111 @@
-//左右滚动
-(function($) {
-	$.fn.extend({
-		Scroll : function(opt, callback) {
-			if (!opt)
-				var opt = {};
-			var _btnleft = $(opt.left);
-			var _btnright = $(opt.right);
-			var timerID;
-			var _this = this.eq(0).find("div").eq(1);
-			var lineW = _this.find("a:first").width(),
-			// 获取列宽
-			line = opt.line ? parseInt(opt.line, 10) : parseInt(_this.width()
-					/ lineW, 10),
-			// 每次滚动的列数，默认为一屏，即父容器列宽
-			speed = opt.speed ? parseInt(opt.speed, 10) : 500; // 滚动速度，数值越大，速度越慢（毫秒）
-			timer = opt.timer ? parseInt(opt.timer, 10) : 3000; // 滚动的时间间隔（毫秒）
-			if (line == 0)
-				line = 1;
-			var upWidth = 0 - line * lineW;
-			// 滚动函数
-			var scrollLeft = function() {
-				if (!_this.is(":animated")) {
-					_this.animate({
-						left : upWidth
-					}, speed, function() {
-						for (i = 1; i <= line; i++) {
-							_this.find("a:first").appendTo(_this);
-						}
-						_this.css({
-							left : 0
-						});
-					});
-				}
+$(function(){
+	
+	// 图片上下翻滚
+	var len = $('.slidebtn>ul>li').length;
+	var index = 0;
+	var autoplay;
+	$('.slidebtn li').mouseover(function(){
+		index = $('.slidebtn li').index(this);
+		showImg(index);
+	}).eq(0).mouseover();
+	
+	$('.slidebox').hover(function(){
+		clearInterval(autoplay);
+	},function(){
+		autoplay = setInterval(function(){
+			showImg(index)
+			index++;
+			if(index==len){
+				index=0;
 			}
-			var scrollRight = function() {
-				if (!_this.is(":animated")) {
-					for (i = 1; i <= line; i++) {
-						_this.find("a:last").show().prependTo(_this);
-					}
-					_this.css({
-						left : upWidth
-					});
-					_this.animate({
-						left : 0
-					}, speed, function() {
-					});
-				}
-			} // Shawphy:自动播放
-			var autoPlay = function() {
-				if (timer)
-					timerID = window.setInterval(scrollLeft, timer);
-			};
-			var autoStop = function() {
-				if (timer)
-					window.clearInterval(timerID);
-			};
-			// 鼠标事件绑定
-			_this.hover(autoStop, autoPlay).mouseout();
-			_btnleft.css("cursor", "pointer").click(scrollLeft).hover(autoStop,
-					autoPlay);
-			_btnright.css("cursor", "pointer").click(scrollRight).hover(
-					autoStop, autoPlay);
-		}
-	})
-})(jQuery);
-$(document).ready(function() {
-	$("#scrollable").Scroll({
-		line : 5,
-		speed : 500,
-		timer : 3000,
-		left : ".prev",
-		right : ".next"
-	});
+		},3000);
+	}).trigger('mouseleave');
+
+	function showImg(index){
+		var picheight = $('.slidebox').height();
+		$('.slidepic').stop(true,false).animate({top:-picheight*index},600)
+		$('.slidebtn li').removeClass('current').eq(index).addClass('current');
+	};
+	
+	
+	// 图片左右翻滚
+	var size = $('.slidebtn-01>ul>li').length;
+	var frist = 0;
+	var datetime;
+	$('.slidebtn-01 li').mouseover(function(){
+		frist = $('.slidebtn-01 li').index(this);
+		showpic(frist);
+	}).eq(0).mouseover();
+	
+	$('.slidebox-01').hover(function(){
+		clearInterval(datetime);
+	},function(){
+		datetime = setInterval(function(){
+			showpic(frist)
+			frist++;
+			if(frist==size){
+				frist=0;
+			}
+		},3000);
+	}).trigger('mouseleave');
+
+	function showpic(frist){
+		var imgheight = $('.slidebox-01').width();
+		$('.slidepic-01').stop(true,false).animate({left:-imgheight*frist},600)
+		$('.slidebtn-01 li').removeClass('current').eq(frist).addClass('current');
+	};
+	
 });
 
-// 上下滚动
-function AutoScroll(obj) {
-	$(obj).find("ul:first").animate({
-		marginTop : "-25px"
-	}, 500, function() {
-		$(this).css({
-			marginTop : "0px"
-		}).find("li:first").appendTo(this);
-	});
-}
-$(document).ready(function() {
-	var myar = setInterval('AutoScroll("#scrollDiv")', 1000);
-	$("#scrollDiv").hover(function() {
-		clearInterval(myar);
-	}, function() {
-		myar = setInterval('AutoScroll("#scrollDiv")', 1000)
-	}); // 当鼠标放上去的时候，滚动停止，鼠标离开的时候滚动开始
-});
+//图片淡隐淡现
+var defaultOpts ={ interval:2000, fadeInTime:300, fadeOutTime:200 };
+
+	var _titles = $("ul.slide-txt li");
+	var _titles_bg = $("ul.op li");
+	var _bodies = $("ul.slide-pic li");
+	var _count = _titles.length;
+	var _current = 0;
+	var _intervalID = null;
+	
+	var stop = function(){
+		window.clearInterval(_intervalID);
+	};
+	
+	var slide = function(opts){
+		if (opts){
+			_current = opts.current || 0;
+		} else{
+			_current = (_current >= (_count - 1)) ? 0 :(++_current);
+		};
+		_bodies.filter(":visible").fadeOut(defaultOpts.fadeOutTime, function(){
+			_bodies.eq(_current).fadeIn(defaultOpts.fadeInTime);
+			_bodies.removeClass("current").eq(_current).addClass("current");
+		});
+		_titles.removeClass("current").eq(_current).addClass("current");
+		_titles_bg.removeClass("current").eq(_current).addClass("current");
+	}; 
+	
+	var go = function(){
+		stop();
+		_intervalID = window.setInterval(function(){
+			slide();
+		}, defaultOpts.interval);
+	}; 
+	
+	var itemMouseOver = function(target, items){
+		stop();
+		var i = $.inArray(target, items);
+		slide({ current:i });
+	};
+	
+	_titles.hover(function(){
+		if($(this).attr('class')!='current'){
+			itemMouseOver(this, _titles);
+		}else{
+			stop();
+		}
+	}, go);
+
+	_bodies.hover(stop, go);
+
+	go();
