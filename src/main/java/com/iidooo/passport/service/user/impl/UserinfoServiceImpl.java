@@ -1,10 +1,4 @@
-package com.iidooo.passport.service.impl;
-
-import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dao.extend.UserDao;
-import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.IUserinfoService;
+package com.iidooo.passport.service.user.impl;
 
 import java.util.Map;
 
@@ -12,12 +6,17 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iidooo.core.util.DateUtil;
+import com.iidooo.passport.constant.PassportConstant;
+import com.iidooo.passport.dao.extend.UserDao;
+import com.iidooo.passport.dto.extend.UserDto;
+import com.iidooo.passport.service.user.UserinfoService;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
-public class UserinfoService implements IUserinfoService {
+public class UserinfoServiceImpl implements UserinfoService {
 
-    private static final Logger logger = Logger.getLogger(UserinfoService.class);
+    private static final Logger logger = Logger.getLogger(UserinfoServiceImpl.class);
 
     @Autowired
     private UserDao securityUserDao;

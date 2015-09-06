@@ -1,10 +1,8 @@
-package com.iidooo.passport.service;
-
-import java.util.List;
+package com.iidooo.passport.service.user;
 
 import com.iidooo.passport.dto.extend.UserDto;
 
-public interface IUserinfoService {
+public interface UserinfoService {
     
     UserDto getUser(String loginID);
     

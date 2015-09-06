@@ -15,6 +15,9 @@
 		<action name="siteList" class="com.iidooo.cms.action.index.SiteListAction" method="init">
 			<result name="success">/WEB-INF/jsp/index/SiteList.jsp</result>
 		</action>
+		<action name="siteDetail" class="com.iidooo.cms.action.index.SiteDetailAction" method="init">
+			<result name="success">/WEB-INF/jsp/index/SiteDetail.jsp</result>
+		</action>
 
 		<action name="channelManage" class="com.iidooo.cms.action.channel.ChannelListAction">
 			<result name="success" type="redirectAction">channelList.action</result>

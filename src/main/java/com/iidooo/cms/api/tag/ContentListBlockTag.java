@@ -38,9 +38,9 @@ public class ContentListBlockTag extends SimpleTagSupport {
     private int pageStart = 0;
 
     private int pageSize = 10;
-    
+
     private boolean isShowTitle = true;
-    
+
     private boolean isShowSummary = false;
 
     private boolean isShowImage = false;
@@ -50,6 +50,10 @@ public class ContentListBlockTag extends SimpleTagSupport {
     private String sortField = CoreConstants.SORT_FIELD_UNIQUE_VISITOR;
 
     private String sortType = CoreConstants.SORT_TYPE_ASC;
+
+    private String value;
+
+    private String target = "_self";
 
     public String getSiteCode() {
         return siteCode;
@@ -106,20 +110,20 @@ public class ContentListBlockTag extends SimpleTagSupport {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
-    
-    public boolean getIsShowTitle(){
+
+    public boolean getIsShowTitle() {
         return isShowTitle;
     }
-    
-    public void setIsShowTitle(Boolean isShowTitle){
+
+    public void setIsShowTitle(Boolean isShowTitle) {
         this.isShowTitle = isShowTitle;
     }
-    
-    public boolean getIsShowSummary(){
+
+    public boolean getIsShowSummary() {
         return isShowSummary;
     }
-    
-    public void setIsShowSummary(boolean isShowSummary){
+
+    public void setIsShowSummary(boolean isShowSummary) {
         this.isShowSummary = isShowSummary;
     }
 
@@ -155,6 +159,22 @@ public class ContentListBlockTag extends SimpleTagSupport {
         this.sortType = sortType;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
     @Override
     public void doTag() throws JspException, IOException {
         PageContext pageContext = null;
@@ -181,7 +201,7 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
             out.println(StringUtil.replace(DIV_BLOCK_START, this.id));
             if (!ValidateUtil.isEmpty(this.title)) {
-                out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath, this.title));                
+                out.println(StringUtil.replace(DIV_BLOCK_TITLE, this.channelPath, this.title));
             }
             out.println("<div class='block_content'>");
             out.println("<ul>");
@@ -193,13 +213,17 @@ public class ContentListBlockTag extends SimpleTagSupport {
                 String contentImageTitle = item.getString(CmsConstant.FIELD_CONTENT_IMAGE_TITLE);
                 String contentDate = item.getString(CmsConstant.FIELD_CONTENT_UPDATE_DATE);
                 String contentSummary = item.getString(CmsConstant.FIELD_CONTENT_SUMMARY);
-                
-                out.println("<li>");
+
+                if (!ValidateUtil.isEmpty(value) && contentID.equals(value)) {
+                    out.println("<li class='focus'>");
+                } else {
+                    out.println("<li>");
+                }
                 out.println("<div class='block_content_item'>");
 
                 if (isShowImage) {
                     out.println("<div class='block_content_item_image'>");
-                    out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
+                    out.println("<a target='" + target + "' href='" + action + "?content.contentID=" + contentID + "'>");
                     out.println("<img alt='" + contentTitle + "' src='" + cmsBaseURL + contentImageTitle + "'>");
                     out.println("</a>");
                     out.println("</div>");
@@ -209,10 +233,10 @@ public class ContentListBlockTag extends SimpleTagSupport {
                 if (isShowSummary) {
                     out.println("<div class='block_content_item_text'>");
                 }
-                
+
                 if (isShowTitle) {
                     out.println("<div class='block_content_item_title'>");
-                    out.println("<a target='_blank' href='" + action + "?content.contentID=" + contentID + "'>");
+                    out.println("<a target='" + target + "' href='" + action + "?content.contentID=" + contentID + "'>");
                     out.println(contentTitle);
                     out.println("</a>");
                     out.println("</div>");
@@ -223,7 +247,7 @@ public class ContentListBlockTag extends SimpleTagSupport {
                     out.println(contentDate);
                     out.println("</div>");
                 }
-                
+
                 if (isShowSummary) {
                     out.println("<div class='block_content_item_summary'>");
                     out.println(contentSummary);

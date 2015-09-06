@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.user.IUserDetailService;
+import com.iidooo.passport.service.user.UserDetailService;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -17,7 +17,7 @@ public class UserDetailAction extends BaseAction  {
     private static final Logger logger = Logger.getLogger(UserDetailAction.class);
 
     @Autowired
-    private IUserDetailService userInfoService;
+    private UserDetailService userInfoService;
 
     private UserDto user;
 

@@ -1,9 +1,9 @@
-package com.iidooo.passport.service;
+package com.iidooo.passport.service.security;
 
 import com.iidooo.passport.dto.extend.UserDto;
 
 
-public interface IPasswordService {
+public interface PasswordService {
     boolean checkOldPassword(String loginID, String oldPassword);
     
     boolean saveNewPassword(UserDto user, String newPassword);

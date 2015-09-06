@@ -1,4 +1,4 @@
-package com.iidooo.passport.action;
+package com.iidooo.passport.action.security;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.IPasswordService;
+import com.iidooo.passport.service.security.PasswordService;
 import com.opensymphony.xwork2.ActionContext;
 
 public class PasswordAction extends BaseAction {
@@ -21,7 +21,7 @@ public class PasswordAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(PasswordAction.class);
 
     @Autowired
-    private IPasswordService passwordService;
+    private PasswordService passwordService;
 
     private String oldPassword;
 

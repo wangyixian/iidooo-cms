@@ -155,15 +155,15 @@ public class SiteSupportAction extends BaseAction {
             if (page == null) {
                 page = new PageDto();
             }
-            
+
             if (product == null) {
                 product = new ContentProductDto();
                 product.setChannelPath(channelPath);
             }
-            
+
             // Set the product and will be used on the page
             this.product = product;
-            
+
             // Get the content by the API content
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
@@ -209,7 +209,7 @@ public class SiteSupportAction extends BaseAction {
             data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, page.getSortField());
             data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, page.getSortType());
             data.put(CoreConstants.FIELD_PAGE_CURRENT_PAGE, page.getCurrentPage());
-            
+
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
 

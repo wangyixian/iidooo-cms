@@ -29,8 +29,10 @@ public class MenuInterceptor extends AbstractInterceptor {
             HttpServletRequest request = (HttpServletRequest) invocation.getInvocationContext().get(ServletActionContext.HTTP_REQUEST);
             String path = request.getServletPath();
 
+            @SuppressWarnings("static-access")
             ActionContext actionContext = invocation.getInvocationContext().getContext();
             Map<String, Object> application = actionContext.getApplication();
+            @SuppressWarnings("unchecked")
             Map<String, ResourceDto> securityResMap = (Map<String, ResourceDto>) application.get(PassportConstant.RESOURCE_URL_MAP);
 
             if (path.startsWith("/")) {
@@ -44,6 +46,7 @@ public class MenuInterceptor extends AbstractInterceptor {
             }
             application.put(PassportConstant.CURRENT_RESOURCE, currentSecurityResDto);
             
+            @SuppressWarnings("unchecked")
             List<ResourceDto> securityResList = (List<ResourceDto>) application.get(PassportConstant.RESOURCE_LIST);
             // Set the parent resource selected
             for (ResourceDto item : securityResList) {

@@ -16,13 +16,26 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ResourceID, ParentID, ResourceName, ResourceURL, Sequence, Remarks, CreateTime, 
-    CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+    R.ResourceID, R.ParentID, R.ResourceName, R.ResourceURL, R.Sequence, R.Remarks, R.CreateTime, 
+    R.CreateUser, R.UpdateTime, R.UpdateUser, R.IsDelete, R.Version
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from PASSPORT_RESOURCE R
     where R.IsDelete = 0 order by R.Sequence asc
+  </select>
+  
+  <select id="selectResourceListByRoles" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PASSPORT_RESOURCE R
+    join 
+  	(select RR.ResourceID
+  	from PASSPORT_ROLE_RESOURCE RR
+  	where RR.IsDelete = 0 and RR.RoleID in 
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item.roleID}</foreach>
+  	) RR
+  	on R.ResourceID = RR.ResourceID and R.IsDelete = 0
   </select>
 </mapper>

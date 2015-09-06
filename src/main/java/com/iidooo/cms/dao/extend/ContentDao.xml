@@ -41,12 +41,6 @@
 		C.ContentBody
 	</sql>
 
-	<select id="selectCountBySiteID" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-		select count(C.ContentID)
-		from CMS_CONTENT C join CMS_CHANNEL L
-		on C.IsDelete = 0 and L.IsDelete = 0 and L.SiteID = #{siteID,jdbcType=INTEGER}
-	</select>
-
 	<select id="selectByContentID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -73,14 +67,21 @@
 		C.UpdateTime desc limit 0, 1
 	</select>
 
-	<select id="selectAllCount" resultType="java.lang.Integer">
-		select count(*)
+	<select id="selectContentListCount" resultType="java.lang.Integer">
+		select count(C.ContentID)
 		from CMS_CONTENT C
-		join CMS_CHANNEL L on C.ChannelID = L.ChannelID and L.IsDelete = 0
-		and
-		C.IsDelete = 0
+		join CMS_CHANNEL L
+		on C.ChannelID = C.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
+		and L.SiteID =
+		#{siteID,jdbcType=INTEGER}
+		<if test="content != null">
+			<if test="content.channelID != null">
+				and C.ChannelID = #{content.channelID,jdbcType=INTEGER}
+			</if>
+		</if>
 	</select>
-	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.iidooo.core.dto.PageDto">
+
+	<select id="selectContentList" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -92,24 +93,19 @@
 		from CMS_CONTENT C
 		join CMS_CHANNEL L
 		on L.ChannelID = C.ChannelID and C.IsDelete = 0 and
-		L.IsDelete = 0
-		order by C.UpdateTime desc limit #{start},
-		#{pageSize}) C
+		L.IsDelete = 0 and L.SiteID =
+		#{siteID,jdbcType=INTEGER}
+		order by C.UpdateTime desc limit #{page.start},
+		#{page.pageSize}
+		<if test="content != null">
+			<if test="content.channelID != null">
+				and C.ChannelID = #{content.channelID,jdbcType=INTEGER}
+			</if>
+		</if>
+		) C
 		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0
-		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
-	</select>
-
-	<select id="selectContentListCount" resultType="java.lang.Integer" parameterType="com.iidooo.cms.dto.extend.ContentDto">
-		select count(*)
-		from CMS_CONTENT C
-		join CMS_CHANNEL L
-		on C.ChannelID = C.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
-		<if test="channelID != null">
-			and C.ChannelID = #{channelID,jdbcType=INTEGER}
-		</if>
-		<if test="siteID != null">
-			and L.SiteID = #{siteID,jdbcType=INTEGER}
-		</if>
+		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and
+		UU.IsDelete = 0
 	</select>
 
 	<select id="selectContentListCountByChannels" resultType="java.lang.Integer">
@@ -134,7 +130,8 @@
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 		order by C.${page.sortField} ${page.sortType}
 		limit #{page.start}, #{page.pageSize}) C
-		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0
+		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID
+		and CU.IsDelete = 0
 		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
 	</select>
 
@@ -243,15 +240,18 @@
 		#{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle =
 		#{contentSubTitle,jdbcType=VARCHAR},
-		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
+		ContentImageTitle =
+		#{contentImageTitle,jdbcType=VARCHAR},
 		MetaTitle = #{metaTitle,jdbcType=VARCHAR},
 		MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
-		MetaDescription = #{metaDescription,jdbcType=VARCHAR},
+		MetaDescription =
+		#{metaDescription,jdbcType=VARCHAR},
 		ContentSummary =
 		#{contentSummary,jdbcType=VARCHAR},
 		ContentBody =
 		#{contentBody,jdbcType=LONGVARCHAR},
-		IsSilent = #{isSilent,jdbcType=INTEGER},
+		IsSilent =
+		#{isSilent,jdbcType=INTEGER},
 		Remarks =
 		#{remarks,jdbcType=VARCHAR},
 		UpdateTime = #{updateTime,jdbcType=VARCHAR},

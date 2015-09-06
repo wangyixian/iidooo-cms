@@ -6,34 +6,35 @@
 <struts>
 	<package name="passport" extends="basic">
 	
-		<action name="login" class="com.iidooo.passport.action.LoginAction" method="login">
+		<action name="login" class="com.iidooo.passport.action.security.LoginAction" method="login">
 			<result name="success" type="redirect">index.action</result>
 			<result name="input">/WEB-INF/jsp/Login.jsp</result>			
 		</action>
 		
-		<action name="logout" class="com.iidooo.passport.action.LoginAction" method="logout">
+		<action name="logout" class="com.iidooo.passport.action.security.LoginAction" method="logout">
 			<result name="success">/WEB-INF/jsp/Login.jsp</result>
 		</action>
 
+		<action name="password" class="com.iidooo.passport.action.security.PasswordAction" method="init">
+			<result name="success">/WEB-INF/jsp/Password.jsp</result>
+		</action>
+		<action name="savePassword" class="com.iidooo.passport.action.security.PasswordAction" method="save">
+			<result name="success">/WEB-INF/jsp/Password.jsp</result>
+			<result name="input">/WEB-INF/jsp/Password.jsp</result>
+		</action>
+		
 		<action name="index" class="com.iidooo.passport.action.IndexAction" method="init">
 			<result name="success">/WEB-INF/jsp/Index.jsp</result>
 		</action>
 
-		<action name="userinfo" class="com.iidooo.passport.action.UserinfoAction" method="init">
+		<action name="userinfo" class="com.iidooo.passport.action.user.UserinfoAction" method="init">
 			<result name="success">/WEB-INF/jsp/Userinfo.jsp</result>
 		</action>
-		<action name="saveUserinfo" class="com.iidooo.passport.action.UserinfoAction" method="save">
+		<action name="saveUserinfo" class="com.iidooo.passport.action.user.UserinfoAction" method="save">
 			<result name="success">/WEB-INF/jsp/Userinfo.jsp</result>
 			<result name="input">/WEB-INF/jsp/Userinfo.jsp</result>
 		</action>
 
-		<action name="password" class="com.iidooo.passport.action.PasswordAction" method="init">
-			<result name="success">/WEB-INF/jsp/Password.jsp</result>
-		</action>
-		<action name="savePassword" class="com.iidooo.passport.action.PasswordAction" method="save">
-			<result name="success">/WEB-INF/jsp/Password.jsp</result>
-			<result name="input">/WEB-INF/jsp/Password.jsp</result>
-		</action>
 		<action name="userManage" class="com.iidooo.passport.action.user.UserListAction" method="init">
 			<result name="success">/WEB-INF/jsp/user/UserList.jsp</result>
 		</action>

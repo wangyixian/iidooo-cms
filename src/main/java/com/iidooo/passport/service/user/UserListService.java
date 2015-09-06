@@ -5,7 +5,7 @@ import java.util.List;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.passport.dto.extend.UserDto;
 
-public interface IUserListService {
+public interface UserListService {
     UserDto getUser(int userId);   
 
     

@@ -3,9 +3,10 @@
  * Author(e-mail)    wangyixian@iidooo.com
  * Creation date     2015-03-27
  */
-package com.iidooo.passport.action;
+package com.iidooo.passport.action.security;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.constant.CoreConstants;
 import com.iidooo.passport.constant.PassportConstant;
+import com.iidooo.passport.dto.extend.ResourceDto;
 import com.iidooo.passport.dto.extend.RoleDto;
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.ILoginService;
+import com.iidooo.passport.service.security.LoginService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -41,7 +43,7 @@ public class LoginAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(LoginAction.class);
 
     @Autowired
-    private ILoginService loginService;
+    private LoginService loginService;
 
     private String loginID;
 
@@ -104,6 +106,15 @@ public class LoginAction extends BaseAction {
             // Put the login user's role list into the session.
             List<RoleDto> roleList = loginService.getUserRoleList(user.getUserID());
             sessionMap.put(PassportConstant.LOGIN_ROLE_LIST, roleList);
+            
+            // Put the user's resource list into the session.
+            List<ResourceDto> resourceList = loginService.getUserResourceList(roleList);
+            sessionMap.put(PassportConstant.LOGIN_RESOURCE_LIST, resourceList);
+            List<String> resourceURLList = new ArrayList<String>();
+            for (ResourceDto resourceDto : resourceList) {
+                resourceURLList.add(resourceDto.getResourceURL());
+            }
+            sessionMap.put(PassportConstant.LOGIN_RESOURCE_URL_LIST, resourceURLList);
             
             // Redirect to the URL of saved form Filter
             Cookie[] cookies = request.getCookies();

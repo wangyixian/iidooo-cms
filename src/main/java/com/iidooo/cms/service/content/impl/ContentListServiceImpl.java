@@ -13,7 +13,6 @@ import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
-import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.content.ContentListService;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.dto.PageDto;
@@ -53,7 +52,7 @@ public class ContentListServiceImpl implements ContentListService {
         int result = 0;
         try {
             if (channelID == null || channelID <= 0) {
-                result = contentDao.selectAllCount();
+                result = contentDao.selectContentListCount(siteID, null);
             } else {
                 List<Integer> channels = getOffspringChannelList(channelID, siteID);
                 result = contentDao.selectContentListCountByChannels(channels);
@@ -70,7 +69,7 @@ public class ContentListServiceImpl implements ContentListService {
         List<ContentDto> result = new ArrayList<ContentDto>();
         try {
             if (channelID == null || channelID <= 0) {
-                result = contentDao.selectAll(page);
+                result = contentDao.selectContentList(siteID, null, page);
             } else {
                 List<Integer> channels = getOffspringChannelList(channelID, siteID);
                 result = contentDao.selectContentListByChannels(channels, page);

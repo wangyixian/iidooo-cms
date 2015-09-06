@@ -38,7 +38,7 @@
 							<tr>
 								<td class="align_center"><a href="siteDetail.action?site.siteID=${item.siteID }">${item.siteID}</a></td>
 								<td>${item.siteCode}</td>
-								<td><a href="siteDetail.action?site.siteID=${item.siteName }">${item.siteName}</a></td>
+								<td><a href="siteDetail.action?site.siteID=${item.siteID }">${item.siteName}</a></td>
 								<td><a href="${item.siteURL }" target="_blank">${item.siteURL}</a></td>								
 								<td class="align_center">${item.createUserName }</td>
 								<td class="align_center">${item.createDate }</td>

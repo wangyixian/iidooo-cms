@@ -1,4 +1,4 @@
-package com.iidooo.passport.action;
+package com.iidooo.passport.action.user;
 
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import com.iidooo.core.util.ValidateUtil;
 import com.iidooo.passport.constant.PassportConstant;
 import com.iidooo.passport.dto.extend.ResourceDto;
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.IUserinfoService;
+import com.iidooo.passport.service.user.UserinfoService;
 import com.opensymphony.xwork2.ActionContext;
 
 public class UserinfoAction extends BaseAction {
@@ -23,7 +23,7 @@ public class UserinfoAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(UserinfoAction.class);
 
     @Autowired
-    private IUserinfoService userInfoService;
+    private UserinfoService userInfoService;
 
     private UserDto user;
 

@@ -10,7 +10,7 @@ import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.PageUtil;
 import com.iidooo.core.util.ValidateUtil;
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.user.IUserListService;
+import com.iidooo.passport.service.user.UserListService;
 
 public class UserListAction extends BaseAction {
     /**
@@ -21,7 +21,7 @@ public class UserListAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(UserListAction.class);
 
     @Autowired
-    private IUserListService userListService;
+    private UserListService userListService;
 
     private List<UserDto> userList;
 

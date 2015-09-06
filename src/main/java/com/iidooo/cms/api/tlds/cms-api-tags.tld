@@ -43,7 +43,7 @@
 	</tag>
 
 	<tag>
-		<name>channelList</name>
+		<name>channelListBlock</name>
 		<tag-class>com.iidooo.cms.api.tag.ChannelListBlockTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
@@ -149,6 +149,16 @@
 		</attribute>
 		<attribute>
 			<name>sortType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>target</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

@@ -28,7 +28,9 @@ public class PassportConstant {
 
     public static final String LOGIN_USER = "LOGIN_USER";
     public static final String LOGIN_ROLE_LIST = "LOGIN_ROLE_LIST";
-
+    public static final String LOGIN_RESOURCE_LIST = "LOGIN_RESOURCE_LIST";
+    public static final String LOGIN_RESOURCE_URL_LIST = "LOGIN_RESOURCE_URL_LIST";
+    
     // The SSO URL of session key.
     // If the APP should login, should redirect to this SSO URL
     public static final String PASSPORT_URL = "PASSPORT_URL";
@@ -37,8 +39,6 @@ public class PassportConstant {
     public static final String ACCESS_URL = "ACCESS_URL";
 
     public static final String REST_API_USER = "user";
-
-    public static final String RESOURCE_CODE = "RESOURCE_CODE";
 
     public static final String SECURITY_USER_ID = "userID";
 
@@ -64,4 +64,6 @@ public class PassportConstant {
     // Value: ResourceDto
     public static final String ROOT_RESOURCE_URL_MAP = "ROOT_RESOURCE_URL_MAP";
 
+    // The action result of security, means security validation is failed.
+    public static final String RESULT_SECURITY = "security";
 }

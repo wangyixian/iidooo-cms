@@ -1,4 +1,4 @@
-package com.iidooo.passport.service.impl;
+package com.iidooo.passport.service.security.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +8,11 @@ import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.SecurityUtil;
 import com.iidooo.passport.dao.extend.UserDao;
 import com.iidooo.passport.dto.extend.UserDto;
-import com.iidooo.passport.service.IPasswordService;
+import com.iidooo.passport.service.security.PasswordService;
 
 @Service
-public class PasswordService implements IPasswordService {
-    private static final Logger logger = Logger.getLogger(PasswordService.class);
+public class PasswordServiceImpl implements PasswordService {
+    private static final Logger logger = Logger.getLogger(PasswordServiceImpl.class);
 
     @Autowired
     private UserDao securityUserDao;

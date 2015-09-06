@@ -4,7 +4,7 @@ package com.iidooo.passport.service.user;
 import com.iidooo.passport.dto.extend.UserDto;
 
 
-public interface IUserDetailService {
+public interface UserDetailService {
 
     /**
      * Get user by primary id
