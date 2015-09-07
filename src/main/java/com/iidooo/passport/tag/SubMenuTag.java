@@ -46,15 +46,21 @@ public class SubMenuTag extends SimpleTagSupport {
             ResourceDto currentRootResource = (ResourceDto) sc.getAttribute(PassportConstant.CURRENT_ROOT_RESOURCE);
 
             out.println("<div id='subMenu' class='sub_menu'>");
-            
+
             if (!ValidateUtil.isEmpty(title)) {
                 out.println("<div class='sub_menu_title'>");
                 out.println(title);
                 out.println("</div>");
             }
-            
+
             out.println("<ul>");
             for (ResourceDto item : currentRootResource.getChildren()) {
+
+                // If the resource was set as invisible, it should not be shown in the menu.
+                if (item.getInvisible() != 0) {
+                    continue;
+                }
+
                 if (item.getIsSelected()) {
                     out.println(StringUtil.replace(HTML_LI_FOCUS, item.getResourceURL(), item.getResourceName()));
                 } else {

@@ -7,6 +7,7 @@
     <result column="ResourceName" property="resourceName" jdbcType="VARCHAR" />
     <result column="ResourceURL" property="resourceURL" jdbcType="VARCHAR" />
     <result column="Sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="Invisible" property="invisible" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
     <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
@@ -16,7 +17,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    R.ResourceID, R.ParentID, R.ResourceName, R.ResourceURL, R.Sequence, R.Remarks, R.CreateTime, 
+    R.ResourceID, R.ParentID, R.ResourceName, R.ResourceURL, R.Sequence, R.Invisible, R.Remarks, R.CreateTime, 
     R.CreateUser, R.UpdateTime, R.UpdateUser, R.IsDelete, R.Version
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">

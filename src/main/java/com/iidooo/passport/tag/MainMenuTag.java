@@ -38,12 +38,18 @@ public class MainMenuTag extends SimpleTagSupport {
 
             ServletContext sc = pageContext.getServletContext();
 
+            @SuppressWarnings("unchecked")
             List<ResourceDto> resourceList = (List<ResourceDto>) sc.getAttribute(PassportConstant.RESOURCE_LIST);
             out.println("<div id='mainMenu' class='main_menu'>");
             out.println("<ul>");
             for (ResourceDto item : resourceList) {
                 
-                // If the menu level  set as 1, the resource's children should not be displayed.
+                // If the resource was set as invisible, it should not be shown in the menu.
+                if (item.getInvisible() != 0) {
+                    continue;
+                }
+                
+                // If the menu level was set as 1, the resource's children should not be displayed.
                 if (this.level == 1 && item.getParentID() > 0) {
                     continue;
                 }
