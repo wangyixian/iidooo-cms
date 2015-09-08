@@ -71,7 +71,7 @@
 		select count(C.ContentID)
 		from CMS_CONTENT C
 		join CMS_CHANNEL L
-		on C.ChannelID = C.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
+		on C.ChannelID = L.ChannelID and C.IsDelete = 0 and L.IsDelete = 0
 		and L.SiteID =
 		#{siteID,jdbcType=INTEGER}
 		<if test="content != null">

@@ -6,6 +6,8 @@
 <struts>
 	<package name="passport" extends="basic">
 	
+		<action name="identifyCode" class="com.iidooo.passport.action.security.IdentifyCodeAction" method="init"></action>
+	
 		<action name="login" class="com.iidooo.passport.action.security.LoginAction" method="login">
 			<result name="success" type="redirect">index.action</result>
 			<result name="input">/WEB-INF/jsp/Login.jsp</result>			

@@ -16,6 +16,7 @@ import org.apache.struts2.ServletActionContext;
 import com.iidooo.core.action.BaseAPIAction;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.passport.action.IndexAction;
+import com.iidooo.passport.action.security.IdentifyCodeAction;
 import com.iidooo.passport.action.security.LoginAction;
 import com.iidooo.passport.constant.PassportConstant;
 import com.opensymphony.xwork2.ActionContext;
@@ -53,6 +54,9 @@ public class AuthInterceptor extends AbstractInterceptor {
                 return invocation.invoke();
             }
 
+            if (actionclass instanceof IdentifyCodeAction) {
+                return invocation.invoke();
+            }
             // The session did not contain the LOGIN_USER, forward to the the login page.
             Map<String, Object> session = ActionContext.getContext().getSession();
             if (session == null || !session.containsKey(PassportConstant.LOGIN_USER)) {

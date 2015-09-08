@@ -56,7 +56,7 @@
 	function returnBack() {
 		var siteID = $("#hidSiteID").val();
 		var channelID = $("#hidChannelID").val();
-		$(location).attr('href',"contentList.action?content.siteID=" + siteID	+ "&content.channelID=" + channelID);
+		$(location).attr('href',"contentList.action?content.channelID=" + channelID);
 	}
 
 	function validate() {

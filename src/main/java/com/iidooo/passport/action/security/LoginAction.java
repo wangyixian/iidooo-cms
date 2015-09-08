@@ -48,6 +48,8 @@ public class LoginAction extends BaseAction {
     private String loginID;
 
     private String password;
+    
+    //private String identifyCode;
 
     public String getLoginID() {
         return loginID;
@@ -64,6 +66,14 @@ public class LoginAction extends BaseAction {
     public void setPassword(String password) {
         this.password = password;
     }
+
+//    public String getIdentifyCode() {
+//        return identifyCode;
+//    }
+//
+//    public void setIdentifyCode(String identifyCode) {
+//        this.identifyCode = identifyCode;
+//    }
 
     public String login() {
         try {
@@ -139,11 +149,11 @@ public class LoginAction extends BaseAction {
         try {
             // The login id and password is required.
             if (loginID == null || loginID.isEmpty()) {
-                addActionError(this.getText("MSG_FIELD_REQUIRED", new String[] { getText("LABEL_LOGIN_ID") }));
+                addActionError(this.getText("MSG_LOGIN_LOGIN_ID_REQUIRE"));
             }
 
             if (password == null || password.isEmpty()) {
-                addActionError(this.getText("MSG_FIELD_REQUIRED", new String[] { getText("LABEL_LOGIN_PASSWORD") }));
+                addActionError(this.getText("MSG_LOGIN_PASSWORD_REQUIRE"));
             }
         } catch (Exception e) {
             e.printStackTrace();

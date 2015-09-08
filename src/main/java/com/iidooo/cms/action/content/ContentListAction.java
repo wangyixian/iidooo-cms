@@ -48,9 +48,9 @@ public class ContentListAction extends CmsBaseAction {
 
     public String init() {
         try {
+            // The default initialization
+            SiteDto site = (SiteDto)this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
             if (content == null || content.getChannelID() == null) {
-                // The default initialization
-                SiteDto site = (SiteDto)this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
                 int count = contentListService.getContentListCount(site.getSiteID(), 0);
 
                 PageUtil pageUtil = new PageUtil(this.getServletContext());
@@ -63,13 +63,13 @@ public class ContentListAction extends CmsBaseAction {
                 content = new ContentDto();
                 content.setSiteID(site.getSiteID());
             } else {
-                int count = contentListService.getContentListCount(content.getSiteID(), content.getChannelID());
+                int count = contentListService.getContentListCount(site.getSiteID(), content.getChannelID());
 
                 PageUtil pageUtil = new PageUtil(this.getServletContext());
                 PageDto page = pageUtil.executePage(count, this.getPage());
                 this.setPage(page);
 
-                this.contentList = contentListService.getContentList(content.getSiteID(), content.getChannelID(), this.getPage());
+                this.contentList = contentListService.getContentList(site.getSiteID(), content.getChannelID(), this.getPage());
             }
             return SUCCESS;
         } catch (Exception e) {

@@ -18,30 +18,30 @@ import com.iidooo.passport.dto.extend.UserDto;
 import com.iidooo.passport.service.security.LoginService;
 
 @Service
-public class LoginServiceImpl implements LoginService{
-    
+public class LoginServiceImpl implements LoginService {
+
     private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
-    
+
     @Autowired
     private UserDao userDao;
-    
+
     @Autowired
     private RoleDao roleDao;
-    
+
     @Autowired
     private ResourceDao resourceDao;
-    
+
     @Override
     public UserDto login(String loginID, String password) {
         try {
             password = SecurityUtil.getMd5(password);
-            UserDto result = userDao.selectForLogin(loginID, password);       
-            
+            UserDto result = userDao.selectForLogin(loginID, password);
+
             if (result != null) {
                 result.setLoginTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
                 userDao.updateLoginTime(result);
             }
-            
+
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class LoginServiceImpl implements LoginService{
             logger.fatal(e);
             e.printStackTrace();
         }
-        
+
         return result;
     }
 
@@ -69,7 +69,9 @@ public class LoginServiceImpl implements LoginService{
     public List<ResourceDto> getUserResourceList(List<RoleDto> roles) {
         List<ResourceDto> result = new ArrayList<ResourceDto>();
         try {
-            result = resourceDao.selectResourceListByRoles(roles);
+            if (roles != null && roles.size() > 0) {
+                result = resourceDao.selectResourceListByRoles(roles);
+            }
         } catch (Exception e) {
             logger.fatal(e);
             e.printStackTrace();
