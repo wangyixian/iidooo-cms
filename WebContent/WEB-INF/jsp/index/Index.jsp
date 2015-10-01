@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="/cms/css/index/Index.css">
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/index/Index.css">
 </head>
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>

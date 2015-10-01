@@ -3,7 +3,12 @@ package com.iidooo.cms.dto.extend;
 import com.iidooo.cms.dto.generate.Site;
 import com.iidooo.core.util.DateUtil;
 
-public class SiteDto extends Site{
+public class SiteDto extends Site implements java.io.Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private String createUserName;
     
     private String updateUserName;

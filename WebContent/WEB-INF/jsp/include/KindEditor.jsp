@@ -1,5 +1,5 @@
-<script type="text/javascript" src="/cms/js/KindEditor/kindeditor-min.js"></script>
-<script type="text/javascript" src="/cms/js/KindEditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="${SITE_URL}/js/KindEditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="${SITE_URL}/js/KindEditor/lang/zh_CN.js"></script>
 <script type="text/javascript">
 	var editor;
 	KindEditor.ready(function(K) {

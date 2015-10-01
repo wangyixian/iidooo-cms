@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
@@ -16,7 +14,7 @@ import com.iidooo.core.dao.extend.DictItemDao;
 import com.iidooo.core.dto.extend.DictItemDto;
 import com.iidooo.core.util.SpringUtil;
 
-public class ApplicationListener extends HttpServlet implements ServletContextListener {
+public class ApplicationListener extends BaseListener {
 
     /**
      * 
@@ -25,13 +23,15 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
 
     private static final Logger logger = Logger.getLogger(ApplicationListener.class);
 
+    @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void contextInitialized(ServletContextEvent arg0) {
-        try {
+        try {            
             ServletContext sc = arg0.getServletContext();
             // String coreURL = sc.getInitParameter(CoreConstants.CORE_URL);
             // sc.setAttribute(CoreConstants.CORE_URL, coreURL);
@@ -40,6 +40,7 @@ public class ApplicationListener extends HttpServlet implements ServletContextLi
 
             this.setAttribute(sc, dictItemDao, CoreConstants.DICT_CLASS_CORE_PAGE);
             this.setAttribute(sc, dictItemDao, CoreConstants.DICT_CLASS_CORE_UPLOAD);
+            
 
         } catch (Exception e) {
             e.printStackTrace();

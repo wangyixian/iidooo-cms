@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="/cms/css/site/SiteDetail.css">
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/site/SiteDetail.css">
 </head>
 <body>
 

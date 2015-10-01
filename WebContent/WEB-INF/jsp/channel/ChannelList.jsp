@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/Tree.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="/cms/css/channel/ChannelList.css">
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/channel/ChannelList.css">
 <script type="text/javascript">	
 	function deleteChannel(channelID){
 		if (confirm("确定要删除该栏目吗？")) {

@@ -11,8 +11,8 @@
 <jsp:include page="../include/Tree.jsp"></jsp:include>
 <jsp:include page="../include/KindEditor.jsp"></jsp:include>
 
-<script type="text/javascript" src="js/content/ContentDetail.js"></script>
-<link type="text/css" rel="stylesheet" href="css/content/ContentDetail.css">
+<script type="text/javascript" src="${SITE_URL}/js/content/ContentDetail.js"></script>
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/content/ContentDetail.css">
 
 <script type="text/javascript">
 

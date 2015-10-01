@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="include/Header.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="/cms/css/Login.css">
+<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/Login.css">
 <title>统一权限认证系统－用户登录</title>
 <script type="text/javascript">
 	function myReload() {
