@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.api.service.ISiteService;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.SiteDto;
-import com.iidooo.core.action.BaseAPIAction;
-import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.action.common.BaseAPIAction;
+import com.iidooo.core.constant.HttpConstant;
 import com.iidooo.core.util.JsonUtil;
 
 public class SiteAction extends BaseAPIAction{
@@ -26,7 +26,7 @@ public class SiteAction extends BaseAPIAction{
         try {
             String method = this.getRequestMethod();
             switch (method) {
-            case CoreConstants.HTTP_METHOD_GET:
+            case HttpConstant.METHOD_GET:
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
 
                 if (siteCode == null || siteCode.isEmpty()) {

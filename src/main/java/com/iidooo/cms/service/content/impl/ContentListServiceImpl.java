@@ -15,10 +15,10 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.service.content.ContentListService;
 import com.iidooo.cms.util.ChannelUtil;
+import com.iidooo.core.constant.SessionConstant;
 import com.iidooo.core.dto.PageDto;
+import com.iidooo.core.dto.extend.SecurityUserDto;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -86,7 +86,7 @@ public class ContentListServiceImpl implements ContentListService {
         try {
 
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             content.setUpdateUser(user.getUserID());
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             int count = contentDao.delete(content);

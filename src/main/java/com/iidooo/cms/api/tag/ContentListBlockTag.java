@@ -13,7 +13,9 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.iidooo.cms.constant.CmsConstant;
-import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.constant.ClassConstant;
+import com.iidooo.core.constant.DBConstant;
+import com.iidooo.core.constant.RestfulConstant;
 import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
@@ -47,9 +49,9 @@ public class ContentListBlockTag extends SimpleTagSupport {
 
     private boolean isShowDate = false;
 
-    private String sortField = CoreConstants.SORT_FIELD_UNIQUE_VISITOR;
+    private String sortField = DBConstant.FIELD_UNIQUE_VISITOR;
 
-    private String sortType = CoreConstants.SORT_TYPE_ASC;
+    private String sortType = DBConstant.SORT_TYPE_ASC;
 
     private String value;
 
@@ -190,14 +192,14 @@ public class ContentListBlockTag extends SimpleTagSupport {
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
             data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
-            data.put(CoreConstants.FIELD_PAGE_START, pageStart);
-            data.put(CoreConstants.FIELD_PAGE_SIZE, pageSize);
-            data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, sortField);
-            data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, sortType);
+            data.put(ClassConstant.FIELD_PAGE_START, pageStart);
+            data.put(ClassConstant.FIELD_PAGE_SIZE, pageSize);
+            data.put(ClassConstant.FIELD_PAGE_SORT_FIELD, sortField);
+            data.put(ClassConstant.FIELD_PAGE_SORT_TYPE, sortType);
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
+            JSONArray jsonArray = jsonObject.getJSONArray(RestfulConstant.REST_API_RESULT_LIST);
 
             out.println(StringUtil.replace(DIV_BLOCK_START, this.id));
             if (!ValidateUtil.isEmpty(this.title)) {

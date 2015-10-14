@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.api.service.IContentService;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ContentDto;
-import com.iidooo.core.action.BaseAPIAction;
-import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.action.common.BaseAPIAction;
+import com.iidooo.core.constant.ClassConstant;
+import com.iidooo.core.constant.DBConstant;
+import com.iidooo.core.constant.HttpConstant;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.JsonUtil;
 import com.iidooo.core.util.PageUtil;
@@ -31,7 +33,7 @@ public class ContentAction extends BaseAPIAction {
         try {
             String method = this.getRequestMethod();
             switch (method) {
-            case CoreConstants.HTTP_METHOD_GET:
+            case HttpConstant.METHOD_GET:
                 String contentID = this.getRequestParameter(CmsConstant.FIELD_CONTENT_ID);
 
                 // If the content ID did not get, so this parameter will be used to get the default content.
@@ -62,14 +64,14 @@ public class ContentAction extends BaseAPIAction {
         try {
             String method = this.getRequestMethod();
             switch (method) {
-            case CoreConstants.HTTP_METHOD_GET:
+            case HttpConstant.METHOD_GET:
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
                 String channelPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PATH);
-                String pageStart = this.getRequestParameter(CoreConstants.FIELD_PAGE_START);
-                String pageSize = this.getRequestParameter(CoreConstants.FIELD_PAGE_SIZE);
-                String sortField = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_FIELD);
-                String sortType = this.getRequestParameter(CoreConstants.FIELD_PAGE_SORT_TYPE);
-                String currentPage = this.getRequestParameter(CoreConstants.FIELD_PAGE_CURRENT_PAGE);
+                String pageStart = this.getRequestParameter(ClassConstant.FIELD_PAGE_START);
+                String pageSize = this.getRequestParameter(ClassConstant.FIELD_PAGE_SIZE);
+                String sortField = this.getRequestParameter(ClassConstant.FIELD_PAGE_SORT_FIELD);
+                String sortType = this.getRequestParameter(ClassConstant.FIELD_PAGE_SORT_TYPE);
+                String currentPage = this.getRequestParameter(ClassConstant.FIELD_PAGE_CURRENT_PAGE);
                 
                 // The required item
                 if (siteCode == null || siteCode.isEmpty() || channelPath == null || channelPath.isEmpty()) {
@@ -84,10 +86,10 @@ public class ContentAction extends BaseAPIAction {
                     pageSize = "10";
                 }
                 if (ValidateUtil.isEmpty(sortField)) {
-                    sortField = CoreConstants.SORT_FIELD_UPDATETIME;
+                    sortField = DBConstant.FIELD_UPDATETIME;
                 }
                 if (ValidateUtil.isEmpty(sortType)) {
-                    sortType = CoreConstants.SORT_TYPE_DESC;
+                    sortType = DBConstant.SORT_TYPE_DESC;
                 }
                 if (ValidateUtil.isEmpty(currentPage)) {
                     currentPage = "1";

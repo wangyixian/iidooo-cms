@@ -1,18 +1,10 @@
 package com.iidooo.cms.action.index;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iidooo.cms.action.CmsBaseAction;
-import com.iidooo.cms.constant.CmsConstant;
-import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.index.SiteListService;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.RoleDto;
-import com.opensymphony.xwork2.ActionContext;
 
 public class SiteListAction extends CmsBaseAction {
 

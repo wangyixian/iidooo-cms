@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-	<display-name>cms</display-name>
+	<display-name>iidooo-cms</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
@@ -71,32 +71,11 @@
 		<listener-class>com.iidooo.core.listener.ApplicationListener</listener-class>
 	</listener>
 
-	<!-- The listener of this application. Append the configuration of application need. -->
-	<listener>
-		<listener-class>com.iidooo.passport.listener.ApplicationListener</listener-class>
-	</listener>
-
-	<!-- <listener>
-		<listener-class>com.iidooo.cms.listener.ApplicationListener</listener-class>
-	</listener>
-	<context-param>
-		<param-name>CMS_URL</param-name>
-		<param-value>http://localhost:8080/cms</param-value>
-	</context-param> -->
-
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
 
 	<jsp-config>
-		<taglib>
-			<taglib-uri>/core-tags</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/core-tags.tld</taglib-location>
-		</taglib>
-		<taglib>
-			<taglib-uri>/passport-tags</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/passport-tags.tld</taglib-location>
-		</taglib>
 		<taglib>
 			<taglib-uri>/cms-tags</taglib-uri>
 			<taglib-location>/WEB-INF/tlds/cms-tags.tld</taglib-location>

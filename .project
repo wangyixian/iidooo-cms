@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>cms</name>
+	<name>iidooo-cms</name>
 	<comment></comment>
 	<projects>
+		<project>iidooo-core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -53,8 +53,8 @@
 		in
 		<foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">#{item.roleID}</foreach>
 		) S
-		left outer join PASSPORT_USER CU on S.CreateUser = CU.UserID and CU.IsDelete = 0
-		left outer join PASSPORT_USER UU on S.UpdateUser = UU.UserID and
+		left outer join CORE_SECURITY_USER CU on S.CreateUser = CU.UserID and CU.IsDelete = 0
+		left outer join CORE_SECURITY_USER UU on S.UpdateUser = UU.UserID and
 		UU.IsDelete = 0 order by S.Sequence asc
 	</select>
 

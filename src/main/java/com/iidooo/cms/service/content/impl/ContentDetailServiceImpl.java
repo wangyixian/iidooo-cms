@@ -12,9 +12,9 @@ import com.iidooo.cms.dao.extend.ContentProductDao;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
 import com.iidooo.cms.service.content.ContentDetailService;
+import com.iidooo.core.constant.SessionConstant;
+import com.iidooo.core.dto.extend.SecurityUserDto;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -56,7 +56,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
         try {
 
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             content.setCreateUser(user.getUserID());
             content.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             content.setUpdateUser(user.getUserID());
@@ -99,7 +99,7 @@ public class ContentDetailServiceImpl implements ContentDetailService {
     public boolean updateContent(ContentDto content) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             content.setUpdateUser(user.getUserID());
             content.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 

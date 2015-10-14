@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.ChannelDetailService;
+import com.iidooo.core.constant.SessionConstant;
+import com.iidooo.core.dto.extend.SecurityUserDto;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -57,7 +57,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     public boolean createChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             channel.setCreateUser(user.getUserID());
             channel.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             channel.setUpdateUser(user.getUserID());
@@ -91,7 +91,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
     public boolean updateChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto user = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             channel.setUpdateUser(user.getUserID());
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
 

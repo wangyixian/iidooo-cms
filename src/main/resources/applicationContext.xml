@@ -50,12 +50,12 @@
 	<!-- define the SqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.iidooo.core.dto com.iidooo.passport.dto com.iidooo.cms.dto" />
+		<property name="typeAliasesPackage" value="com.iidooo.core.dto com.iidooo.cms.dto" />
 	</bean>
 
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.iidooo.core.dao com.iidooo.passport.dao com.iidooo.cms.dao" />
+		<property name="basePackage" value="com.iidooo.core.dao com.iidooo.cms.dao" />
 	</bean>
 <!-- 
 	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

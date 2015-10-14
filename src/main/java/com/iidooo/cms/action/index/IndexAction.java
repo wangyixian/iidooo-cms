@@ -11,10 +11,10 @@ import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.index.IndexService;
+import com.iidooo.core.constant.SessionConstant;
+import com.iidooo.core.dto.extend.SecurityRoleDto;
 import com.iidooo.core.util.JsonUtil;
 import com.iidooo.core.util.ValidateUtil;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.RoleDto;
 
 public class IndexAction extends CmsBaseAction {
 
@@ -31,7 +31,7 @@ public class IndexAction extends CmsBaseAction {
     public String init() {
         try {
             @SuppressWarnings("unchecked")
-            List<RoleDto> roleList = (List<RoleDto>) this.getSessionValue(PassportConstant.LOGIN_ROLE_LIST);
+            List<SecurityRoleDto> roleList = (List<SecurityRoleDto>) this.getSessionValue(SessionConstant.LOGIN_ROLE_LIST);
 
             // Set the site list into session
             List<SiteDto> siteList = indexService.getSiteList(roleList);

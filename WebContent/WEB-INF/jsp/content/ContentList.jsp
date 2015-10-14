@@ -2,7 +2,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="core" uri="/core-tags"%>
 <%@ taglib prefix="cms" uri="/cms-tags"%>
-<%@ taglib prefix="passport" uri="/passport-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,7 +32,7 @@
 			<cms:channelTree baseURL="contentList.action?content.channelID={0}" title="栏目树"/>
 		</div>
 		<div class="page_content_right_wrap">
-			<passport:breadCrumb/>		
+			<core:breadCrumb/>		
 			<div class="page_content">
 				<form id="form" action="" method="post">
 					<s:actionerror />

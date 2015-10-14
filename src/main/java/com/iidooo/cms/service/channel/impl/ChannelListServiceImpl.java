@@ -13,10 +13,10 @@ import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.channel.ChannelListService;
+import com.iidooo.core.constant.SessionConstant;
+import com.iidooo.core.dto.extend.SecurityRoleDto;
+import com.iidooo.core.dto.extend.SecurityUserDto;
 import com.iidooo.core.util.DateUtil;
-import com.iidooo.passport.constant.PassportConstant;
-import com.iidooo.passport.dto.extend.RoleDto;
-import com.iidooo.passport.dto.extend.UserDto;
 import com.opensymphony.xwork2.ActionContext;
 
 @Service
@@ -89,7 +89,7 @@ public class ChannelListServiceImpl implements ChannelListService {
     }
 
     @Override
-    public List<SiteDto> getSiteList(List<RoleDto> roleList) {
+    public List<SiteDto> getSiteList(List<SecurityRoleDto> roleList) {
         List<SiteDto> result = new ArrayList<SiteDto>();
         try {
             result = siteDao.selectSiteListByRoles(roleList);
@@ -104,7 +104,7 @@ public class ChannelListServiceImpl implements ChannelListService {
     public boolean deleteChannel(ChannelDto channel) {
         try {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            UserDto use = (UserDto) sessionMap.get(PassportConstant.LOGIN_USER);
+            SecurityUserDto use = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             channel.setUpdateUser(use.getUserID());
             channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
             int count = channelDao.deleteByChannelID(channel);

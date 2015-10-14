@@ -103,8 +103,8 @@
 			</if>
 		</if>
 		) C
-		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0
-		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and
+		left outer join CORE_SECURITY_USER CU on C.CreateUser = CU.UserID and CU.IsDelete = 0
+		left outer join CORE_SECURITY_USER UU on C.UpdateUser = UU.UserID and
 		UU.IsDelete = 0
 	</select>
 
@@ -130,9 +130,9 @@
 		<foreach item="item" index="index" collection="channels" open="(" separator="," close=")">#{item}</foreach>
 		order by C.${page.sortField} ${page.sortType}
 		limit #{page.start}, #{page.pageSize}) C
-		left outer join PASSPORT_USER CU on C.CreateUser = CU.UserID
+		left outer join CORE_SECURITY_USER CU on C.CreateUser = CU.UserID
 		and CU.IsDelete = 0
-		left outer join PASSPORT_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
+		left outer join CORE_SECURITY_USER UU on C.UpdateUser = UU.UserID and UU.IsDelete = 0
 	</select>
 
 	<select id="selectContents" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">

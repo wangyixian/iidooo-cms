@@ -11,8 +11,9 @@ import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.dto.extend.ContentDto;
 import com.iidooo.cms.dto.extend.ContentProductDto;
-import com.iidooo.core.action.BaseAction;
-import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.action.common.BaseAction;
+import com.iidooo.core.constant.ClassConstant;
+import com.iidooo.core.constant.RestfulConstant;
 import com.iidooo.core.dto.PageDto;
 import com.iidooo.core.util.HttpUtil;
 
@@ -170,17 +171,17 @@ public class SiteSupportAction extends BaseAction {
             data.put(CmsConstant.FIELD_CHANNEL_PATH, product.getChannelPath());
             data.put(CmsConstant.FIELD_CONTENT_PRODUCT_COUNTRY, product.getProductCountry());
             data.put(CmsConstant.FIELD_CONTENT_PRODUCT_ORIGIN, product.getProductOrigin());
-            data.put(CoreConstants.FIELD_PAGE_START, page.getStart());
-            data.put(CoreConstants.FIELD_PAGE_SIZE, page.getPageSize());
-            data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, page.getSortField());
-            data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, page.getSortType());
-            data.put(CoreConstants.FIELD_PAGE_CURRENT_PAGE, page.getCurrentPage());
+            data.put(ClassConstant.FIELD_PAGE_START, page.getStart());
+            data.put(ClassConstant.FIELD_PAGE_SIZE, page.getPageSize());
+            data.put(ClassConstant.FIELD_PAGE_SORT_FIELD, page.getSortField());
+            data.put(ClassConstant.FIELD_PAGE_SORT_TYPE, page.getSortType());
+            data.put(ClassConstant.FIELD_PAGE_CURRENT_PAGE, page.getCurrentPage());
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENT_PRODUCTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
 
-            JSONObject jsonPage = jsonObject.getJSONObject(CoreConstants.REST_API_RESULT_PAGE);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
+            JSONObject jsonPage = jsonObject.getJSONObject(RestfulConstant.REST_API_RESULT_PAGE);
+            JSONArray jsonArray = jsonObject.getJSONArray(RestfulConstant.REST_API_RESULT_LIST);
 
             this.setPage((PageDto) JSONObject.toBean(jsonPage, PageDto.class));
             this.productList = (List<ContentProductDto>) JSONArray.toCollection(jsonArray, ContentProductDto.class);
@@ -204,17 +205,17 @@ public class SiteSupportAction extends BaseAction {
             JSONObject data = new JSONObject();
             data.put(CmsConstant.FIELD_SITE_CODE, siteCode);
             data.put(CmsConstant.FIELD_CHANNEL_PATH, channelPath);
-            data.put(CoreConstants.FIELD_PAGE_START, page.getStart());
-            data.put(CoreConstants.FIELD_PAGE_SIZE, page.getPageSize());
-            data.put(CoreConstants.FIELD_PAGE_SORT_FIELD, page.getSortField());
-            data.put(CoreConstants.FIELD_PAGE_SORT_TYPE, page.getSortType());
-            data.put(CoreConstants.FIELD_PAGE_CURRENT_PAGE, page.getCurrentPage());
+            data.put(ClassConstant.FIELD_PAGE_START, page.getStart());
+            data.put(ClassConstant.FIELD_PAGE_SIZE, page.getPageSize());
+            data.put(ClassConstant.FIELD_PAGE_SORT_FIELD, page.getSortField());
+            data.put(ClassConstant.FIELD_PAGE_SORT_TYPE, page.getSortType());
+            data.put(ClassConstant.FIELD_PAGE_CURRENT_PAGE, page.getCurrentPage());
 
             String response = HttpUtil.doGet(cmsURL, CmsConstant.REST_API_CONTENTS, data.toString());
             JSONObject jsonObject = JSONObject.fromObject(response);
 
-            JSONObject jsonPage = jsonObject.getJSONObject(CoreConstants.REST_API_RESULT_PAGE);
-            JSONArray jsonArray = jsonObject.getJSONArray(CoreConstants.REST_API_RESULT_LIST);
+            JSONObject jsonPage = jsonObject.getJSONObject(RestfulConstant.REST_API_RESULT_PAGE);
+            JSONArray jsonArray = jsonObject.getJSONArray(RestfulConstant.REST_API_RESULT_LIST);
 
             this.setPage((PageDto) JSONObject.toBean(jsonPage, PageDto.class));
             this.contentList = (List<ContentDto>) JSONArray.toCollection(jsonArray, ContentDto.class);

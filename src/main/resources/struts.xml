@@ -7,18 +7,18 @@
 	<constant name="struts.devMode" value="false" />
 	<!-- <constant name="struts.objectFactory" value="spring"/> -->
 	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.custom.i18n.resources" value="languages.cms_label, languages.cms_msg" />
+	<constant name="struts.custom.i18n.resources" value="languages.core_label, languages.core_msg, languages.cms_label, languages.cms_msg" />
 	<constant name="struts.multipart.maxSize" value="102400000" />
 	<!-- <constant name="struts.xwork.chaining.copyErrors" value="true"/> -->
 	<!-- <constant name="struts.xwork.chaining.copyFieldErrors" value="true"/> -->
 	<!-- <constant name="struts.xwork.chaining.copyMessages" value="true"/> -->
 
-	<package name="basic" extends="struts-default" abstract="true">
+	<package name="iidooo-default" extends="struts-default" abstract="true">
 	
 		<interceptors>
 			<interceptor name="actionInterceptor" class="com.iidooo.core.interceptor.ActionInterceptor"></interceptor>
-			<interceptor name="authInterceptor" class="com.iidooo.passport.interceptor.AuthInterceptor"></interceptor>
-			<interceptor name="menuInterceptor" class="com.iidooo.passport.interceptor.MenuInterceptor"></interceptor>
+			<interceptor name="authInterceptor" class="com.iidooo.core.interceptor.AuthInterceptor"></interceptor>
+			<interceptor name="menuInterceptor" class="com.iidooo.core.interceptor.MenuInterceptor"></interceptor>
 			
 			<interceptor-stack name="defaultStackWrap">
 				<interceptor-ref name="defaultStack" />
@@ -39,11 +39,9 @@
 			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
 		</global-exception-mappings>
 	</package>
-
+	
 	<include file="struts/struts-core.xml"></include>
 	<include file="struts/struts-core-api.xml"></include>
-	<include file="struts/struts-passport.xml"></include>
-	<include file="struts/struts-passport-api.xml"></include>
 	<include file="struts/struts-cms.xml"></include>
 	<include file="struts/struts-cms-api.xml"></include>
 	

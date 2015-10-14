@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.iidooo.cms.api.service.IChannelService;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.core.action.BaseAPIAction;
-import com.iidooo.core.constant.CoreConstants;
+import com.iidooo.core.action.common.BaseAPIAction;
+import com.iidooo.core.constant.HttpConstant;
 import com.iidooo.core.util.JsonUtil;
 
 public class ChannelAction extends BaseAPIAction {
@@ -29,7 +29,7 @@ public class ChannelAction extends BaseAPIAction {
         try {
             String method = this.getRequestMethod();
             switch (method) {
-            case CoreConstants.HTTP_METHOD_GET:
+            case HttpConstant.METHOD_GET:
 
                 // The restful API of get channel by site code and channel path
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
@@ -57,7 +57,7 @@ public class ChannelAction extends BaseAPIAction {
         try {
             String method = this.getRequestMethod();
             switch (method) {
-            case CoreConstants.HTTP_METHOD_GET:
+            case HttpConstant.METHOD_GET:
 
                 String siteCode = this.getRequestParameter(CmsConstant.FIELD_SITE_CODE);
                 String parentPath = this.getRequestParameter(CmsConstant.FIELD_CHANNEL_PARENT_PATH);

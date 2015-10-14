@@ -7,12 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.dao.extend.ChannelDao;
-import com.iidooo.cms.dao.extend.ContentDao;
 import com.iidooo.cms.dao.extend.SiteDao;
 import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.index.IndexService;
-import com.iidooo.passport.dto.extend.RoleDto;
+import com.iidooo.core.dto.extend.SecurityRoleDto;
 
 @Service
 public class IndexServiceImpl implements IndexService {
@@ -23,7 +21,7 @@ public class IndexServiceImpl implements IndexService {
     private SiteDao siteDao;
 
     @Override
-    public List<SiteDto> getSiteList(List<RoleDto> roleList) {
+    public List<SiteDto> getSiteList(List<SecurityRoleDto> roleList) {
         List<SiteDto> result = new ArrayList<SiteDto>();
         try {
             result = siteDao.selectSiteListByRoles(roleList);

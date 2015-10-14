@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="passport" uri="/passport-tags"%>
+<%@ taglib prefix="core" uri="/core-tags"%>
 <script type="text/javascript">
 	function changeDefaultSite() {
 		var defaultSite = $("#selDefaultSite").val();
@@ -26,7 +26,7 @@
 			</ul>
 		</div>
 		<div class="main_menu_info">
-			<passport:mainMenu />
+			<core:mainMenu />
 			<div class="site_list">
 				<label for="selDefaultSite">当前站点：</label>
 				<select id="selDefaultSite" name="site.siteID" onChange="changeDefaultSite()">
