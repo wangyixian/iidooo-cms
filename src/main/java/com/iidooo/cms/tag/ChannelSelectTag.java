@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.SiteDto;
+import com.iidooo.cms.dto.extend.CommentDto;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 
@@ -101,7 +101,7 @@ public class ChannelSelectTag extends SimpleTagSupport {
                 out.println(StringUtil.replace(HTML_SELECT, id, name));
             }
 
-            SiteDto site = (SiteDto)session.getAttribute(CmsConstant.SESSION_DEFAULT_SITE);
+            CommentDto site = (CommentDto)session.getAttribute(CmsConstant.SESSION_DEFAULT_SITE);
             if (isContainBlank) {
                 out.println(StringUtil.replace(HTML_OPTION, "0", site.getSiteName()));
                 this.index = 1;

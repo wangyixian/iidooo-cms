@@ -3,16 +3,14 @@ package com.iidooo.cms.action.channel;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.action.CmsBaseAction;
-import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.SiteDto;
 import com.iidooo.cms.service.channel.ChannelListService;
+import com.iidooo.cms.service.channel.impl.ChannelListServiceImpl;
+import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.util.ValidateUtil;
 
-public class ChannelListAction extends CmsBaseAction {
+public class ChannelListAction extends BaseAction {
 
     /**
      * 
@@ -21,7 +19,6 @@ public class ChannelListAction extends CmsBaseAction {
 
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
 
-    @Autowired
     private ChannelListService channelListService;
 
     private List<ChannelDto> channelList;
@@ -43,13 +40,14 @@ public class ChannelListAction extends CmsBaseAction {
     public void setChannel(ChannelDto channel) {
         this.channel = channel;
     }
+    
+    public ChannelListAction(){
+        this.channelListService = new ChannelListServiceImpl();
+    }
 
     public String init() {
         try {
             if (channel == null) {
-                SiteDto site = (SiteDto)this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
-                channelList = channelListService.getChildrenChannelList(site.getSiteID(), 0);
-
                 // The page should use the channel.parentID as the url parameter.
                 channel = new ChannelDto();
                 channel.setParentID(0);

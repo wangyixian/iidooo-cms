@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="cms" uri="/cms-tags"%>
-<%@ taglib prefix="core" uri="/core-tags" %>
+<%@ taglib prefix="core" uri="/core-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +10,16 @@
 <jsp:include page="../include/Tree.jsp"></jsp:include>
 <link type="text/css" rel="stylesheet" href="${SITE_URL}/css/channel/ChannelList.css">
 <script type="text/javascript">	
+	$(function() {
+		var $tree = $("#tree");
+		if ($tree != null) {
+			$tree.treeview({
+				animated : "fast",
+				persist : "location"
+			});
+		}
+	})
+
 	function deleteChannel(channelID){
 		if (confirm("确定要删除该栏目吗？")) {
 			$("#hidChannelID").val(channelID);
@@ -23,17 +33,17 @@
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>
 	<div class="page_content_wrap">
-		<div class="page_content_left_wrap">			
-			<cms:channelTree baseURL="channelList.action?channel.channelID={0}" title="栏目树"/>
+		<div class="page_content_left_wrap">
+			<cms:channelTree baseURL="channelList.action?channel.channelID={0}" title="栏目树" />
 		</div>
 		<div class="page_content_right_wrap">
-			<core:breadCrumb/>
+			<core:breadCrumb />
 			<div class="page_content">
 				<form id="form" action="" method="post">
-					<s:actionerror/>
-					<s:actionmessage/>
-					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }">
-					<input id="hidParentID" type="hidden" name="channel.parentID" value="${channel.parentID }">
+					<s:actionerror />
+					<s:actionmessage />
+					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }"> <input id="hidParentID" type="hidden"
+						name="channel.parentID" value="${channel.parentID }">
 					<table class="datagrid">
 						<tr>
 							<th width="5%">ID</th>
@@ -46,28 +56,13 @@
 						</tr>
 						<s:iterator id="item" value="channelList" status="st">
 							<tr>
-								<td class="align_center">
-									<a href="channelDetail.action?channel.channelID=${item.channelID }">
-										${item.channelID }
-									</a>
-								</td>
-								<td class="align_center">
-									<a href="channelDetail.action?channel.channelID=${item.channelID }">
-										${item.channelName }
-									</a>
-								</td>
+								<td class="align_center"><a href="channelDetail.action?channel.channelID=${item.channelID }"> ${item.channelID } </a></td>
+								<td class="align_center"><a href="channelDetail.action?channel.channelID=${item.channelID }"> ${item.channelName } </a></td>
 								<td class="align_center">${item.channelPath }</td>
-								<td class="align_center">
-									<s:if test="#item.isHidden == 0">否</s:if>
-									<s:else>是</s:else>
-								</td>							
+								<td class="align_center"><s:if test="#item.isHidden == 0">否</s:if> <s:else>是</s:else></td>
 								<td class="align_center">${item.metaTitle}</td>
 								<td class="align_center">${item.metaKeywords}</td>
-								<td class="align_center">
-									<a href="#">上移</a>|
-									<a href="#">下移</a>|
-									<a href="#" onclick="return deleteChannel(${item.channelID })">删除</a>
-								</td>
+								<td class="align_center"><a href="#">上移</a>| <a href="#">下移</a>| <a href="#" onclick="return deleteChannel(${item.channelID })">删除</a></td>
 							</tr>
 						</s:iterator>
 					</table>

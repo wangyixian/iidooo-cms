@@ -31,7 +31,7 @@
 		<default-interceptor-ref name="defaultStackWrap" />
 		<global-results>
 			<result name="error">/WEB-INF/jsp/Error.jsp</result>
-			<result name="login">/WEB-INF/jsp/Login.jsp</result>
+			<result name="login">/WEB-INF/jsp/system/Login.jsp</result>
 			<result name="security">/WEB-INF/jsp/Security.jsp</result>
 		</global-results>
 

@@ -4,19 +4,15 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="cms" extends="iidooo-default">
-		<action name="index" class="com.iidooo.cms.action.index.IndexAction">
-			<result name="success" type="redirectAction">welcome.action</result>
+	<package name="iidooo-cms" extends="iidooo-default">
+
+		<action name="login" class="com.iidooo.cms.action.system.LoginAction" method="login">
+			<result name="success" type="redirectAction">channelManage.action</result>
+			<result name="input">/WEB-INF/jsp/system/Login.jsp</result>
 		</action>
-		<action name="updateDefaultSite" class="com.iidooo.cms.action.index.IndexAction" method="updateDefaultSite"></action>
-		<action name="welcome" class="com.iidooo.cms.action.index.IndexAction" method="init">
-			<result name="success">/WEB-INF/jsp/index/Index.jsp</result>
-		</action>
-		<action name="siteList" class="com.iidooo.cms.action.index.SiteListAction" method="init">
-			<result name="success">/WEB-INF/jsp/index/SiteList.jsp</result>
-		</action>
-		<action name="siteDetail" class="com.iidooo.cms.action.index.SiteDetailAction" method="init">
-			<result name="success">/WEB-INF/jsp/index/SiteDetail.jsp</result>
+
+		<action name="logout" class="com.iidooo.cms.action.system.LoginAction" method="logout">
+			<result name="success">/WEB-INF/jsp/system/Login.jsp</result>
 		</action>
 
 		<action name="channelManage" class="com.iidooo.cms.action.channel.ChannelListAction">

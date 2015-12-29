@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.api.service.ISiteService;
 import com.iidooo.cms.dao.extend.SiteDao;
-import com.iidooo.cms.dto.extend.SiteDto;
+import com.iidooo.cms.dto.extend.CommentDto;
 
 @Service
 public class SiteService implements ISiteService {
@@ -17,9 +17,9 @@ public class SiteService implements ISiteService {
     private SiteDao siteDao;
     
     @Override
-    public SiteDto getSite(String siteCode) {
+    public CommentDto getSite(String siteCode) {
         try {
-            SiteDto result = siteDao.selectBySiteCode(siteCode);
+            CommentDto result = siteDao.selectBySiteCode(siteCode);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

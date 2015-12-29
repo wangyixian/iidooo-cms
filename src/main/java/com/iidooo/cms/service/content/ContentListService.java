@@ -3,7 +3,7 @@ package com.iidooo.cms.service.content;
 import java.util.List;
 
 import com.iidooo.cms.dto.extend.ContentDto;
-import com.iidooo.cms.dto.extend.SiteDto;
+import com.iidooo.cms.dto.extend.CommentDto;
 import com.iidooo.core.dto.PageDto;
 
 public interface ContentListService {

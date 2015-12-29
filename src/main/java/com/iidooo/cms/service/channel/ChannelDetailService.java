@@ -12,7 +12,7 @@ public interface ChannelDetailService {
      */
     ChannelDto getChannelByID(int channelID);
     
-    boolean isChannelPathDuplicate(int siteID, String channelPath);
+    boolean isChannelPathDuplicate(String channelPath);
 
     boolean createChannel(ChannelDto channel);
 

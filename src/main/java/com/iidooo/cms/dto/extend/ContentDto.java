@@ -1,6 +1,7 @@
 package com.iidooo.cms.dto.extend;
 
 import com.iidooo.cms.dto.generate.Content;
+import com.iidooo.core.constant.DateTimeFormat;
 import com.iidooo.core.util.DateUtil;
 
 public class ContentDto extends Content {
@@ -63,7 +64,7 @@ public class ContentDto extends Content {
     }
 
     public String getCreateDate() {
-        createDate = DateUtil.format(this.getCreateTime(), DateUtil.FORMAT_DATETIME, DateUtil.FORMAT_DATE);
+        createDate = DateUtil.format(this.getCreateTime(), DateTimeFormat.DATE_TIME_HYPHEN, DateTimeFormat.DATE_HYPHEN);
         return createDate;
     }
 
@@ -80,7 +81,7 @@ public class ContentDto extends Content {
     }
 
     public String getUpdateDate() {
-        updateDate = DateUtil.format(this.getUpdateTime(), DateUtil.FORMAT_DATETIME, DateUtil.FORMAT_DATE);
+        updateDate = DateUtil.format(this.getUpdateTime(), DateTimeFormat.DATE_TIME_HYPHEN, DateTimeFormat.DATE_HYPHEN);
         return updateDate;
     }
 

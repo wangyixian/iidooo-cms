@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.SiteDto;
+import com.iidooo.cms.dto.extend.CommentDto;
 import com.iidooo.core.util.SpringUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
@@ -58,7 +58,7 @@ public class ChannelTreeTag extends SimpleTagSupport {
             out = pageContext.getOut();
 
             HttpSession session = pageContext.getSession();
-            SiteDto site = (SiteDto) session.getAttribute(CmsConstant.SESSION_DEFAULT_SITE);
+            CommentDto site = (CommentDto) session.getAttribute(CmsConstant.SESSION_DEFAULT_SITE);
 
             ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(pageContext.getServletContext(), CmsConstant.BEAN_CHANNEL_DAO);
 

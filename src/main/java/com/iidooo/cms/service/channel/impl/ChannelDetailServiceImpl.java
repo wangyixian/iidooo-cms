@@ -4,26 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.ChannelDetailService;
+import com.iidooo.core.constant.DateTimeFormat;
 import com.iidooo.core.constant.SessionConstant;
 import com.iidooo.core.dto.extend.SecurityUserDto;
 import com.iidooo.core.util.DateUtil;
 import com.opensymphony.xwork2.ActionContext;
 
-@Service
 public class ChannelDetailServiceImpl implements ChannelDetailService {
 
     private static final Logger logger = Logger.getLogger(ChannelDetailServiceImpl.class);
 
-    @Autowired
     private ChannelDao channelDao;
 
-    @Override
     public ChannelDto getChannelByID(int channelID) {
         try {
             ChannelDto result = channelDao.selectByChannelID(channelID);
@@ -35,11 +31,9 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
         }
     }
 
-    @Override
-    public boolean isChannelPathDuplicate(int siteID, String channelPath) {
+    public boolean isChannelPathDuplicate(String channelPath) {
         try {
             ChannelDto channel = new ChannelDto();
-            channel.setSiteID(siteID);
             channel.setChannelPath(channelPath);
             List<ChannelDto> channelList = channelDao.selectChannelList(channel);
             if (channelList.size() > 0) {
@@ -59,9 +53,9 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             channel.setCreateUser(user.getUserID());
-            channel.setCreateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+            channel.setCreateTime(DateUtil.getNow(DateTimeFormat.DATE_TIME_HYPHEN));
             channel.setUpdateUser(user.getUserID());
-            channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+            channel.setUpdateTime(DateUtil.getNow(DateTimeFormat.DATE_TIME_HYPHEN));
 
             // Set the channel level
             ChannelDto parentChannel = channelDao.selectByChannelID(channel.getParentID());
@@ -93,7 +87,7 @@ public class ChannelDetailServiceImpl implements ChannelDetailService {
             Map<String, Object> sessionMap = ActionContext.getContext().getSession();
             SecurityUserDto user = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
             channel.setUpdateUser(user.getUserID());
-            channel.setUpdateTime(DateUtil.getNow(DateUtil.FORMAT_DATETIME));
+            channel.setUpdateTime(DateUtil.getNow(DateTimeFormat.DATE_TIME_HYPHEN));
 
             // Set the channel level
             ChannelDto parentChannel = channelDao.selectByChannelID(channel.getParentID());

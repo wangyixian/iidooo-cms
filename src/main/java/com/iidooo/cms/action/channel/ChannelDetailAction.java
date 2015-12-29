@@ -1,16 +1,15 @@
 package com.iidooo.cms.action.channel;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.iidooo.cms.action.CmsBaseAction;
 import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.SiteDto;
+import com.iidooo.cms.dto.extend.CommentDto;
 import com.iidooo.cms.service.channel.ChannelDetailService;
+import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.util.ValidateUtil;
 
-public class ChannelDetailAction extends CmsBaseAction {
+public class ChannelDetailAction extends BaseAction {
 
     /**
      * 
@@ -19,7 +18,6 @@ public class ChannelDetailAction extends CmsBaseAction {
 
     private static final Logger logger = Logger.getLogger(ChannelDetailAction.class);
 
-    @Autowired
     private ChannelDetailService channelInfoService;
 
     private ChannelDto channel;
@@ -49,7 +47,7 @@ public class ChannelDetailAction extends CmsBaseAction {
     public String create() {
         try {
             // The validate of channel path should not be duplicated.
-            if (channelInfoService.isChannelPathDuplicate(channel.getSiteID(), channel.getChannelPath())) {
+            if (channelInfoService.isChannelPathDuplicate(channel.getChannelPath())) {
                 addActionError(getText("MSG_CHANNEL_CREATE_FAILED_DUPLICATE", new String[] { channel.getChannelPath() }));
                 return INPUT;
             }
@@ -82,11 +80,6 @@ public class ChannelDetailAction extends CmsBaseAction {
             // The channel path must be English
             if (!ValidateUtil.isEnglish(channel.getChannelPath())) {
                 addActionError(getText("MSG_CHANNEL_PATH_ENGLISH"));
-            }
-
-            if (ValidateUtil.isEmpty(channel.getSiteID())) {
-                SiteDto site = (SiteDto) this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
-                channel.setSiteID(site.getSiteID());
             }
 
         } catch (Exception e) {
@@ -128,11 +121,6 @@ public class ChannelDetailAction extends CmsBaseAction {
             // The channel path must be English
             if (!ValidateUtil.isEnglish(channel.getChannelPath())) {
                 addActionError(getText("MSG_CHANNEL_PATH_ENGLISH"));
-            }
-
-            if (ValidateUtil.isEmpty(channel.getSiteID())) {
-                SiteDto site = (SiteDto) this.getSessionValue(CmsConstant.SESSION_DEFAULT_SITE);
-                channel.setSiteID(site.getSiteID());
             }
         } catch (Exception e) {
             e.printStackTrace();

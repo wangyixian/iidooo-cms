@@ -7,32 +7,12 @@ import com.iidooo.cms.dto.generate.Channel;
 
 public class ChannelDto extends Channel {
 
-    private String siteCode;
-    
-    private String siteURL;
-
     private String createUserName;
 
     private String updateUserName;
 
     // The children channels of this channel
     private List<ChannelDto> children;
-        
-    public String getSiteCode() {
-        return siteCode;
-    }
-
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
-    }
-
-    public String getSiteURL() {
-        return siteURL;
-    }
-
-    public void setSiteURL(String siteURL) {
-        this.siteURL = siteURL;
-    }
 
     public String getCreateUserName() {
         return createUserName;
