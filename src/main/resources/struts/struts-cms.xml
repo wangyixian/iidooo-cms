@@ -21,11 +21,6 @@
 		<action name="channelList" class="com.iidooo.cms.action.channel.ChannelListAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelList.jsp</result>
 		</action>
-		<action name="channelListDelete" class="com.iidooo.cms.action.channel.ChannelListAction" method="delete">
-			<result name="success" type="redirectAction">channelList.action?channel.siteID=${channel.siteID}&amp;channel.channelID=${channel.parentID}</result>
-			<result name="input">/WEB-INF/jsp/channel/ChannelList.jsp</result>
-		</action>
-
 		<action name="channelDetail" class="com.iidooo.cms.action.channel.ChannelDetailAction" method="init">
 			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
@@ -35,7 +30,11 @@
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 		</action>
 		<action name="channelUpdate" class="com.iidooo.cms.action.channel.ChannelDetailAction" method="update">
-			<result name="success">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
+			<result name="success" type="redirectAction">channelList.action?channel.parentID=${channel.parentID}</result>
+			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
+		</action>
+		<action name="channelDelete" class="com.iidooo.cms.action.channel.ChannelDetailAction" method="delete">
+			<result name="success" type="redirectAction">channelList.action?channel.parentID=${channel.parentID}</result>
 			<result name="input">/WEB-INF/jsp/channel/ChannelDetail.jsp</result>
 		</action>
 

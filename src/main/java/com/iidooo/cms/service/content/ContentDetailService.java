@@ -8,4 +8,7 @@ public interface ContentDetailService {
     boolean createContent(ContentDto content);
     
     boolean updateContent(ContentDto content);
+    
+
+    boolean deleteContent(ContentDto content);
 }

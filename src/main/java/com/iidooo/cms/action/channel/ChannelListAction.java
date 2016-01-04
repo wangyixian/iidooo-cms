@@ -10,7 +10,6 @@ import com.iidooo.cms.service.channel.impl.ChannelListServiceImpl;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.action.BaseAction;
 import com.iidooo.core.tag.entity.TreeNode;
-import com.iidooo.core.util.ValidateUtil;
 
 public class ChannelListAction extends BaseAction {
 
@@ -81,37 +80,6 @@ public class ChannelListAction extends BaseAction {
             e.printStackTrace();
             logger.fatal(e);
             return ERROR;
-        }
-    }
-
-    public String delete() {
-        try {
-            if (!channelListService.deleteChannel(this.channel)) {
-                addActionError(getText("MSG_CHANNEL_DELETE_FAILED", new String[] { channel.getChannelName() }));
-                return INPUT;
-            }
-
-            addActionMessage(getText("MSG_CHANNEL_DELETE_SUCCESS", new String[] { channel.getChannelName() }));
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return ERROR;
-        }
-    }
-
-    public void validateDelete() {
-        try {
-            if (channel == null || ValidateUtil.isEmpty(channel.getChannelID())) {
-                addActionError(getText("MSG_CHANNEL_ID_REQUIRE"));
-            }
-
-            if (channelListService.hasChildren(channel.getChannelID())) {
-                addActionError(getText("MSG_CHANNEL_DELETE_FAILED_CHILDREN", new String[] { channel.getChannelName() }));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
         }
     }
 }

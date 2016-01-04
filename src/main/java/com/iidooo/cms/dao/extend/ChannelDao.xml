@@ -33,6 +33,13 @@
 		FROM CMS_CHANNEL C WHERE C.IsDelete = 0 AND C.ParentID = #{parentID,jdbcType=INTEGER}
 		ORDER BY C.UpdateTime DESC
 	</select>
+	
+	<select id="selectCountByParentID" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM CMS_CHANNEL C 
+		WHERE C.IsDelete = 0
+		AND C.ParentID = #{parentID,jdbcType=INTEGER}
+	</select>
 
 	<select id="selectAllChannels" resultMap="BaseResultMap">
 		SELECT
@@ -75,19 +82,7 @@
 		C.ChannelID = #{channelID,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectChannelListCount" resultType="java.lang.Integer" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
-		select count(*)
-		from CMS_CHANNEL C where C.IsDelete = 0
-		<if test="parentID != null">
-			and C.ParentID = #{parentID,jdbcType=INTEGER}
-		</if>
-		<if test="siteID != null">
-			and C.SiteID = #{siteID,jdbcType=INTEGER}
-		</if>
-		<if test="channelPath != null">
-			and C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
-		</if>
-	</select>
+	
 
 	<select id="selectChannelList" resultMap="BaseResultMap" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		select

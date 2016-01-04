@@ -15,7 +15,14 @@ public interface ChannelDao {
      * @return ChannelDto的List
      */
     List<ChannelDto> selectByParentID(int parentID);
- 
+
+    /**
+     * 通过ParentID获得栏目一览的个数
+     * @param parentID ParentID即父栏目的ID
+     * @return 子栏目的个数
+     */
+    int selectCountByParentID(int parentID);
+    
     /**
      * 通过Channel ID获得栏目对象
      * @param channelID 主键
@@ -39,7 +46,6 @@ public interface ChannelDao {
     
     List<ChannelDto> selectChannelChildren(@Param("siteCode") String siteCode, @Param("parentPath") String parentPath);
 
-    int selectChannelListCount(ChannelDto channel);
 
     /**
      * Get the channel list by the record of ChannelDto
@@ -66,18 +72,18 @@ public interface ChannelDao {
     int insert(ChannelDto channel);
 
     /**
-     * Update a channel by the ChannelDto
+     * 更新一个栏目对象
      * 
-     * @param channel This ChannelDto will updated.
-     * @return The affected record number.
+     * @param channel 该栏目对象会被更新
+     * @return 受影响的行数
      */
     int update(ChannelDto channel);
 
     /**
-     * Logic delete the channel, set the IsDelete = 1
+     * 根据ChannelID逻辑删除一个栏目对象
      * 
-     * @param channel This channel will be delete
-     * @return The deleted channel count
+     * @param channel 该栏目对象会被删除
+     * @return 受影响的行数
      */
     int deleteByChannelID(ChannelDto channel);
 }

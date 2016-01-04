@@ -38,26 +38,6 @@ public class ChannelListServiceImpl implements ChannelListService {
         }
     }
 
-    @Override
-    public boolean hasChildren(int parentID) {
-        SqlSession sqlSession = MybatisUtil.getSqlSessionFactory().openSession();
-        try {
-            ChannelDao channelDao = sqlSession.getMapper(ChannelDao.class);
-            ChannelDto channel = new ChannelDto();
-            channel.setParentID(parentID);
-            int count = channelDao.selectChannelListCount(channel);
-            if (count > 0) {
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return false;
-        } finally {
-            sqlSession.close();
-        }
-    }
 
     @Override
     public List<ChannelDto> getChildrenChannelList(int parentID) {
@@ -77,26 +57,4 @@ public class ChannelListServiceImpl implements ChannelListService {
         return result;
     }
 
-    @Override
-    public boolean deleteChannel(ChannelDto channel) {
-        SqlSession sqlSession = MybatisUtil.getSqlSessionFactory().openSession();
-        try {
-            ChannelDao channelDao = sqlSession.getMapper(ChannelDao.class);
-            Map<String, Object> sessionMap = ActionContext.getContext().getSession();
-            SecurityUserDto use = (SecurityUserDto) sessionMap.get(SessionConstant.LOGIN_USER);
-            channel.setUpdateUser(use.getUserID());
-            channel.setUpdateTime(DateUtil.getNow(DateTimeFormat.DATE_TIME_HYPHEN));
-            int count = channelDao.deleteByChannelID(channel);
-            if (count <= 0) {
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-            return false;
-        } finally {
-            sqlSession.close();
-        }
-    }
 }

@@ -69,11 +69,11 @@ public class ChannelDetailAction extends BaseAction {
         try {
             if (!channelDetailService.createChannel(channel)) {
                 addActionError(getText("MSG_CREATE_FAILED"));
-                
+
                 // 构建栏目树
                 root = ChannelUtil.constructChannelTree();
                 root.setName(this.getText(root.getName()));
-                
+
                 return INPUT;
             }
             return SUCCESS;
@@ -123,10 +123,12 @@ public class ChannelDetailAction extends BaseAction {
     public String update() {
         try {
             if (!channelDetailService.updateChannel(channel)) {
-                addActionError(getText("MSG_CHANNEL_UPDATE_FAILED", new String[] { channel.getChannelName() }));
+                addActionError(getText("MSG_UPDATE_FAILED"));
+                // 构建栏目树
+                root = ChannelUtil.constructChannelTree();
+                root.setName(this.getText(root.getName()));
                 return INPUT;
             }
-            addActionMessage(getText("MSG_CHANNEL_UPDATE_SUCCESS", new String[] { channel.getChannelName() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,26 +139,78 @@ public class ChannelDetailAction extends BaseAction {
 
     public void validateUpdate() {
         try {
+            // 更新的对象不存在
             if (channel == null || ValidateUtil.isEmpty(channel.getChannelID())) {
-                addActionError(getText("MSG_CHANNEL_ID_REQUIRE"));
+                addActionError(getText("MSG_OBJECT_NOT_EXIST"));
             }
 
+            // 栏目名称不能为空
             if (ValidateUtil.isEmpty(channel.getChannelName())) {
-                addActionError(getText("MSG_CHANNEL_NAME_REQUIRE"));
+                addActionError(getText("MSG_FIELD_REQUIRED", new String[] { getText("LABEL_CHANNEL_NAME") }));
             }
 
+            // 栏目路径不能为空
             if (ValidateUtil.isEmpty(channel.getChannelPath())) {
-                addActionError(getText("MSG_CHANNEL_PATH_REQUIRE"));
+                addActionError(getText("MSG_FIELD_REQUIRED", new String[] { getText("LABEL_CHANNEL_PATH") }));
             }
 
-            // The channel path must be English
+            // 栏目路径必须是英文格式
             if (!ValidateUtil.isEnglish(channel.getChannelPath())) {
-                addActionError(getText("MSG_CHANNEL_PATH_ENGLISH"));
+                addActionError(getText("MSG_FIELD_ENGLISH_REQUIRED", new String[] { getText("LABEL_CHANNEL_PATH") }));
             }
+
+            // 自己不能做自己的父节点
+            if (channel.getParentID() == channel.getChannelID()) {
+                addActionError(getText("MSG_PARENT_SELF_EXCEPTION"));
+            }
+
+            if (this.getActionErrors().size() > 0) {
+                // 构建栏目树
+                root = ChannelUtil.constructChannelTree();
+                root.setName(this.getText(root.getName()));
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
             addActionError(getText("MSG_VALIDATION_EXCEPTION"));
+        }
+    }
+
+    public String delete() {
+        try {
+            if (!channelDetailService.deleteChannel(this.channel)) {
+                addActionError(getText("MSG_DELETE_FAILED"));
+                return INPUT;
+            }
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return ERROR;
+        }
+    }
+
+    public void validateDelete() {
+        try {
+            // 更新的对象不存在
+            if (channel == null || ValidateUtil.isEmpty(channel.getChannelID())) {
+                addActionError(getText("MSG_OBJECT_NOT_EXIST"));
+            }
+
+            // 存在子无法删除
+            if (channelDetailService.hasChildren(channel.getChannelID())) {
+                addActionError(getText("MSG_DELETE_FAILED_CHILDREN"));
+            }
+
+            if (this.getActionErrors().size() > 0) {
+                // 构建栏目树
+                root = ChannelUtil.constructChannelTree();
+                root.setName(this.getText(root.getName()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
         }
     }
 }

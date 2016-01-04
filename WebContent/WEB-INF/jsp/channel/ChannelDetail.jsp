@@ -33,10 +33,12 @@
 		$form.submit();
 	}
 
-	function deleteChannel() {
-		var $form = $("form");
-		$form.attr("action","channelDelete.action");
-		$form.submit();
+	function deleteChannel(){
+		if (confirm("确定要删除该栏目吗？")) {
+			var $form = $("form");
+			$form.attr("action","channelDelete.action");
+			$form.submit();
+	    }
 	}
 	
 /* 	function createSubChannel(parentID){
@@ -60,7 +62,6 @@
 			<core:breadCrumb />
 			<div class="page_content">
 				<s:actionerror />
-				<s:actionmessage />
 				<form id="form" method="post">
 					<input type="hidden" name="channel.channelID" value="${channel.channelID }">
 					<input type="hidden" name="channel.version"	value="${channel.version }">
@@ -119,6 +120,7 @@
 						</s:if>
 						<s:else>
 							<button type="button" onclick="return updateChannel();">更新</button>
+							<button type="button" onclick="return deleteChannel();">删除</button>
 							<%-- <button type="button" onclick="createSubChannel(${channel.channelID});">添加子栏目</button> --%>
 						</s:else>
 						<button type="button" onclick="return returnBack(${channel.parentID});">返回</button>

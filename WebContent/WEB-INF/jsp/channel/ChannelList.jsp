@@ -24,7 +24,7 @@
 		if (confirm("确定要删除该栏目吗？")) {
 			$("#hidChannelID").val(channelID);
 			var $form = $("form");
-			$form.attr("action","channelListDelete.action");
+			$form.attr("action","channelDelete.action");
 			$form.submit();
 	    }
 	}
@@ -41,9 +41,8 @@
 			<div class="page_content">
 				<form id="form" action="" method="post">
 					<s:actionerror />
-					<s:actionmessage />
-					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }"> <input id="hidParentID" type="hidden"
-						name="channel.parentID" value="${channel.parentID }">
+					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }">
+					<input id="hidParentID" type="hidden" name="channel.parentID" value="${channel.parentID }">
 					<table class="datagrid list">
 						<tr>
 							<th width="5%">ID</th>
@@ -60,7 +59,11 @@
 								<td class="align_center">${item.channelPath }</td>
 								<td class="align_center">${item.metaTitle}</td>
 								<td class="align_center">${item.metaKeywords}</td>
-								<td class="align_center"><a href="#">详细</a> | <a href="#">上移</a> | <a href="#">下移</a> | <a href="#" onclick="return deleteChannel(${item.channelID })">删除</a></td>
+								<td class="align_center">
+									<a href="channelDetail.action?channel.channelID=${item.channelID }">详细</a> | 
+									<a href="#">上移</a> | <a href="#">下移</a> | 
+									<a href="#" onclick="return deleteChannel(${item.channelID })">删除</a>
+								</td>
 							</tr>
 						</s:iterator>
 					</table>

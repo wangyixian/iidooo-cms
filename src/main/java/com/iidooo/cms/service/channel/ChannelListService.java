@@ -15,14 +15,4 @@ public interface ChannelListService {
     
     ChannelDto getChannel(int channelID);
     
-    boolean hasChildren(int parentID);
-    
-    
-    /**
-     * Delete the channel
-     * 
-     * @param channel This channel should be delete.
-     * @return Delete success or not.
-     */
-    boolean deleteChannel(ChannelDto channel);
 }
