@@ -1,24 +1,20 @@
 package com.iidooo.cms.tag;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dao.extend.ChannelDao;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.CommentDto;
-import com.iidooo.core.util.SpringUtil;
+import com.iidooo.cms.util.ChannelUtil;
+import com.iidooo.core.util.MybatisUtil;
 import com.iidooo.core.util.StringUtil;
 
 public class ChannelSelectTag extends SimpleTagSupport {
@@ -92,41 +88,29 @@ public class ChannelSelectTag extends SimpleTagSupport {
         try {
             pageContext = (PageContext) getJspContext();
             out = pageContext.getOut();
-            HttpSession session = pageContext.getSession();
-            ServletContext sc = pageContext.getServletContext();
-            
+
             if (isDiabled) {
                 out.println(StringUtil.replace(HTML_SELECT_DISABLED, id, name));
             } else {
                 out.println(StringUtil.replace(HTML_SELECT, id, name));
             }
 
-            CommentDto site = (CommentDto)session.getAttribute(CmsConstant.SESSION_DEFAULT_SITE);
             if (isContainBlank) {
-                out.println(StringUtil.replace(HTML_OPTION, "0", site.getSiteName()));
-                this.index = 1;
+                out.println(StringUtil.replace(HTML_OPTION, "0", ""));
             }
 
-            ChannelDao channelDao = (ChannelDao) SpringUtil.getBean(sc, CmsConstant.BEAN_CHANNEL_DAO);
+            SqlSession sqlSession = MybatisUtil.getSqlSessionFactory().openSession();
+            ChannelDao channelDao = sqlSession.getMapper(ChannelDao.class);
 
-            ChannelDto channel = new ChannelDto();
-            channel.setSiteID(site.getSiteID());
-            List<ChannelDto> channelList = channelDao.selectChannelList(channel);
-            counstructChildren(channelList);
+            List<ChannelDto> channelList = channelDao.selectAllChannels();
+            ChannelUtil.counstructChildren(channelList);
 
-            if (channelList.size() > 0) {                
+            if (channelList.size() > 0) {
                 for (ChannelDto item : channelList) {
                     if (item.getParentID() <= 0) {
                         printHTML(out, item);
-                        if (isContainBlank) {
-                            this.index = 1;
-                        } else {
-                            this.index = 0;
-                        }
                     }
                 }
-            } else {
-                logger.warn("The root tree node has not any child.");
             }
 
             out.println("</select>");
@@ -154,31 +138,6 @@ public class ChannelSelectTag extends SimpleTagSupport {
                 this.printHTML(out, child);
                 this.index--;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.fatal(e);
-        }
-    }
-
-    private void counstructChildren(List<ChannelDto> channelList) {
-        try {
-            Map<Integer, ChannelDto> channelMap = new HashMap<Integer, ChannelDto>();
-            for (ChannelDto item : channelList) {
-                channelMap.put(item.getChannelID(), item);
-            }
-
-            for (ChannelDto item : channelList) {
-                int parentID = item.getParentID();
-
-                // The root channel skip
-                if (parentID <= 0) {
-                    continue;
-                }
-
-                ChannelDto parentChannel = channelMap.get(parentID);
-                parentChannel.getChildren().add(item);
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

@@ -47,7 +47,7 @@ public class ChannelService implements IChannelService {
     public ChannelDto getChannel(String siteCode, String channelPath) {
         try {
             ChannelDto result = null;
-            result = channelDao.selectChannelByPath(siteCode, channelPath);
+            result = channelDao.selectByChannelPath(channelPath);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

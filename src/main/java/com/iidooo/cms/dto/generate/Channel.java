@@ -9,8 +9,6 @@ public class Channel {
 
     private String channelPath;
 
-    private Integer channelLevel;
-
     private String metaTitle;
 
     private String metaKeywords;
@@ -65,14 +63,6 @@ public class Channel {
 
     public void setChannelPath(String channelPath) {
         this.channelPath = channelPath == null ? null : channelPath.trim();
-    }
-
-    public Integer getChannelLevel() {
-        return channelLevel;
-    }
-
-    public void setChannelLevel(Integer channelLevel) {
-        this.channelLevel = channelLevel;
     }
 
     public String getMetaTitle() {

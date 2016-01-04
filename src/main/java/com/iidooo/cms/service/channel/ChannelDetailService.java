@@ -5,14 +5,20 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 public interface ChannelDetailService {
 
     /**
-     * Get channel by primary id
+     * 通过ChannelID获得栏目对象
      * 
-     * @param channelID The channel id to get the channel.
-     * @return The gotten channel.
+     * @param channelID
+     * @return 所获得的ChannelDto对象
      */
     ChannelDto getChannelByID(int channelID);
-    
-    boolean isChannelPathDuplicate(String channelPath);
+
+    /**
+     * 通过ChannelPath获得栏目对象
+     * 
+     * @param channelPath
+     * @return 所获得的ChannelDto对象
+     */
+    ChannelDto getChannelByPath(String channelPath);
 
     boolean createChannel(ChannelDto channel);
 

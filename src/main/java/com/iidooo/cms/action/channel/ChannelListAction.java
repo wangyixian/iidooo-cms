@@ -7,7 +7,9 @@ import org.apache.log4j.Logger;
 import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.service.channel.ChannelListService;
 import com.iidooo.cms.service.channel.impl.ChannelListServiceImpl;
+import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.tag.entity.TreeNode;
 import com.iidooo.core.util.ValidateUtil;
 
 public class ChannelListAction extends BaseAction {
@@ -19,11 +21,27 @@ public class ChannelListAction extends BaseAction {
 
     private static final Logger logger = Logger.getLogger(ChannelListAction.class);
 
+    /**
+     * 处理栏目一览页面的service
+     */
     private ChannelListService channelListService;
+
+    /**
+     * 创建栏目树所用的根节点
+     */
+    private TreeNode root;
 
     private List<ChannelDto> channelList;
 
     private ChannelDto channel;
+
+    public TreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
 
     public List<ChannelDto> getChannelList() {
         return channelList;
@@ -40,23 +58,24 @@ public class ChannelListAction extends BaseAction {
     public void setChannel(ChannelDto channel) {
         this.channel = channel;
     }
-    
-    public ChannelListAction(){
+
+    public ChannelListAction() {
         this.channelListService = new ChannelListServiceImpl();
     }
 
     public String init() {
         try {
             if (channel == null) {
-                // The page should use the channel.parentID as the url parameter.
+                // 页面初始化时该参数为空
                 channel = new ChannelDto();
                 channel.setParentID(0);
-            } else {
-                // Get the current channel's children channel list
-                channelList = channelListService.getChildrenChannelList(channel.getChannelID());
-                channel.setParentID(channel.getChannelID());
             }
 
+            // 根据ParentID获取栏目一览
+            channelList = channelListService.getChildrenChannelList(channel.getParentID());
+
+            root = ChannelUtil.constructChannelTree();
+            root.setName(this.getText(root.getName()));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

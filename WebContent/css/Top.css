@@ -1,0 +1,70 @@
+@CHARSET "UTF-8";
+
+/* 顶部的区域 Start*/
+.top-wrap {
+	width: 100%;
+	background-color: #134780;
+	height: 70px;
+	color: #FFFFFF;
+}
+
+.top-wrap .logo-wrap {
+	float: left;
+	width: 230px;
+}
+
+.top-wrap .menu-wrap {
+	margin-left: 230px;
+}
+
+.top-wrap .menu-wrap .login-info {
+	height: 30px;
+	text-align: right;
+}
+
+.top-wrap .menu-wrap .login-info li {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	padding-right: 10px;
+}
+
+.top-wrap .menu-wrap .main_menu {
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	font-size: 18px;
+	height: 40px;
+}
+
+.top-wrap .menu-wrap .main_menu li {
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+
+.top-wrap .menu-wrap .site_list {
+	float: right;
+	height: 40px;
+	line-height: 40px;
+	margin-right: 10px;
+}
+
+.top-wrap .menu-wrap a {
+	color: #FFFFFF;
+}
+
+.top-wrap .menu-wrap a:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+.top-wrap .menu-wrap .focus {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+/* 顶部的区域 End*/

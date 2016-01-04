@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/Tree.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="${SITE_URL}/css/channel/ChannelList.css">
+<link type="text/css" rel="stylesheet" href="/iidooo-cms/css/channel/ChannelList.css">
 <script type="text/javascript">	
 	$(function() {
 		var $tree = $("#tree");
@@ -32,11 +32,11 @@
 </head>
 <body>
 	<jsp:include page="../include/Top.jsp"></jsp:include>
-	<div class="page_content_wrap">
-		<div class="page_content_left_wrap">
-			<cms:channelTree baseURL="channelList.action?channel.channelID={0}" title="栏目树" />
+	<div class="page-content-wrap">
+		<div class="page-content-left-wrap">
+			<core:tree id="tree" cssClass="filetree" root="${root }" />
 		</div>
-		<div class="page_content_right_wrap">
+		<div class="page-content-right-wrap">
 			<core:breadCrumb />
 			<div class="page_content">
 				<form id="form" action="" method="post">
@@ -44,34 +44,33 @@
 					<s:actionmessage />
 					<input id="hidChannelID" type="hidden" name="channel.channelID" value="${channel.channelID }"> <input id="hidParentID" type="hidden"
 						name="channel.parentID" value="${channel.parentID }">
-					<table class="datagrid">
+					<table class="datagrid list">
 						<tr>
 							<th width="5%">ID</th>
 							<th width="10%">栏目名称</th>
 							<th width="10%">访问路径</th>
-							<th width="5%">隐藏</th>
 							<th width="30%">Meta标题</th>
 							<th width="30%">Meta关键字</th>
-							<th width="10%">操作</th>
+							<th width="15%">操作</th>
 						</tr>
 						<s:iterator id="item" value="channelList" status="st">
 							<tr>
 								<td class="align_center"><a href="channelDetail.action?channel.channelID=${item.channelID }"> ${item.channelID } </a></td>
 								<td class="align_center"><a href="channelDetail.action?channel.channelID=${item.channelID }"> ${item.channelName } </a></td>
 								<td class="align_center">${item.channelPath }</td>
-								<td class="align_center"><s:if test="#item.isHidden == 0">否</s:if> <s:else>是</s:else></td>
 								<td class="align_center">${item.metaTitle}</td>
 								<td class="align_center">${item.metaKeywords}</td>
-								<td class="align_center"><a href="#">上移</a>| <a href="#">下移</a>| <a href="#" onclick="return deleteChannel(${item.channelID })">删除</a></td>
+								<td class="align_center"><a href="#">详细</a> | <a href="#">上移</a> | <a href="#">下移</a> | <a href="#" onclick="return deleteChannel(${item.channelID })">删除</a></td>
 							</tr>
 						</s:iterator>
 					</table>
-					<div class="button_bar">
+					<div class="button-bar">
 						<a class="button" href="channelDetail.action?channel.parentID=${channel.parentID}">添加</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<jsp:include page="../include/Footer.jsp"></jsp:include>
 </body>
 </html>

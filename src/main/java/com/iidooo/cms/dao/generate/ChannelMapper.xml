@@ -6,7 +6,6 @@
     <result column="ParentID" property="parentID" jdbcType="INTEGER" />
     <result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
     <result column="ChannelPath" property="channelPath" jdbcType="VARCHAR" />
-    <result column="ChannelLevel" property="channelLevel" jdbcType="INTEGER" />
     <result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
     <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
     <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
@@ -21,7 +20,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ChannelID, ParentID, ChannelName, ChannelPath, ChannelLevel, MetaTitle, MetaKeywords, 
+    ChannelID, ParentID, ChannelName, ChannelPath, MetaTitle, MetaKeywords, 
     MetaDescription, Sequence, IsHidden, Remarks, CreateTime, CreateUser, UpdateTime, 
     UpdateUser, IsDelete, Version
   </sql>
@@ -37,13 +36,13 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.dto.generate.Channel" >
     insert into CMS_CHANNEL (ChannelID, ParentID, ChannelName, 
-      ChannelPath, ChannelLevel, MetaTitle, 
+      ChannelPath, MetaTitle, 
       MetaKeywords, MetaDescription, Sequence, 
       IsHidden, Remarks, CreateTime, 
       CreateUser, UpdateTime, UpdateUser, 
       IsDelete, Version)
     values (#{channelID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{channelName,jdbcType=VARCHAR}, 
-      #{channelPath,jdbcType=VARCHAR}, #{channelLevel,jdbcType=INTEGER}, #{metaTitle,jdbcType=VARCHAR}, 
+      #{channelPath,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, 
       #{metaKeywords,jdbcType=VARCHAR}, #{metaDescription,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, 
       #{isHidden,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=INTEGER}, 
@@ -63,9 +62,6 @@
       </if>
       <if test="channelPath != null" >
         ChannelPath,
-      </if>
-      <if test="channelLevel != null" >
-        ChannelLevel,
       </if>
       <if test="metaTitle != null" >
         MetaTitle,
@@ -117,9 +113,6 @@
       <if test="channelPath != null" >
         #{channelPath,jdbcType=VARCHAR},
       </if>
-      <if test="channelLevel != null" >
-        #{channelLevel,jdbcType=INTEGER},
-      </if>
       <if test="metaTitle != null" >
         #{metaTitle,jdbcType=VARCHAR},
       </if>
@@ -170,9 +163,6 @@
       <if test="channelPath != null" >
         ChannelPath = #{channelPath,jdbcType=VARCHAR},
       </if>
-      <if test="channelLevel != null" >
-        ChannelLevel = #{channelLevel,jdbcType=INTEGER},
-      </if>
       <if test="metaTitle != null" >
         MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       </if>
@@ -217,7 +207,6 @@
     set ParentID = #{parentID,jdbcType=INTEGER},
       ChannelName = #{channelName,jdbcType=VARCHAR},
       ChannelPath = #{channelPath,jdbcType=VARCHAR},
-      ChannelLevel = #{channelLevel,jdbcType=INTEGER},
       MetaTitle = #{metaTitle,jdbcType=VARCHAR},
       MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
       MetaDescription = #{metaDescription,jdbcType=VARCHAR},

@@ -2,11 +2,12 @@ package com.iidooo.cms.action.channel;
 
 import org.apache.log4j.Logger;
 
-import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.dto.extend.ChannelDto;
-import com.iidooo.cms.dto.extend.CommentDto;
 import com.iidooo.cms.service.channel.ChannelDetailService;
+import com.iidooo.cms.service.channel.impl.ChannelDetailServiceImpl;
+import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.action.BaseAction;
+import com.iidooo.core.tag.entity.TreeNode;
 import com.iidooo.core.util.ValidateUtil;
 
 public class ChannelDetailAction extends BaseAction {
@@ -18,9 +19,22 @@ public class ChannelDetailAction extends BaseAction {
 
     private static final Logger logger = Logger.getLogger(ChannelDetailAction.class);
 
-    private ChannelDetailService channelInfoService;
+    private ChannelDetailService channelDetailService;
+
+    /**
+     * 创建栏目树所用的根节点
+     */
+    private TreeNode root;
 
     private ChannelDto channel;
+
+    public TreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
 
     public ChannelDto getChannel() {
         return channel;
@@ -30,12 +44,19 @@ public class ChannelDetailAction extends BaseAction {
         this.channel = channel;
     }
 
+    public ChannelDetailAction() {
+        channelDetailService = new ChannelDetailServiceImpl();
+    }
+
     public String init() {
         try {
-            // The modify mode will trace the channel ID.
             if (channel != null && channel.getChannelID() != null && channel.getChannelID() > 0) {
-                channel = channelInfoService.getChannelByID(channel.getChannelID());
+                channel = channelDetailService.getChannelByID(channel.getChannelID());
             }
+
+            // 构建栏目树
+            root = ChannelUtil.constructChannelTree();
+            root.setName(this.getText(root.getName()));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,17 +67,15 @@ public class ChannelDetailAction extends BaseAction {
 
     public String create() {
         try {
-            // The validate of channel path should not be duplicated.
-            if (channelInfoService.isChannelPathDuplicate(channel.getChannelPath())) {
-                addActionError(getText("MSG_CHANNEL_CREATE_FAILED_DUPLICATE", new String[] { channel.getChannelPath() }));
+            if (!channelDetailService.createChannel(channel)) {
+                addActionError(getText("MSG_CREATE_FAILED"));
+                
+                // 构建栏目树
+                root = ChannelUtil.constructChannelTree();
+                root.setName(this.getText(root.getName()));
+                
                 return INPUT;
             }
-
-            if (!channelInfoService.createChannel(channel)) {
-                addActionError(getText("MSG_CHANNEL_CREATE_FAILED"));
-                return INPUT;
-            }
-            addActionMessage(getText("MSG_CHANNEL_CREATE_SUCCESS", new String[] { channel.getChannelName() }));
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,19 +86,31 @@ public class ChannelDetailAction extends BaseAction {
 
     public void validateCreate() {
         try {
-            // The validate of channel name should not be empty.
+            // 栏目名称不能为空
             if (ValidateUtil.isEmpty(channel.getChannelName())) {
-                addActionError(getText("MSG_CHANNEL_NAME_REQUIRE"));
+                addActionError(getText("MSG_FIELD_REQUIRED", new String[] { getText("LABEL_CHANNEL_NAME") }));
             }
 
-            // The validate of channel path should not be empty.
+            // 栏目路径不能为空
             if (ValidateUtil.isEmpty(channel.getChannelPath())) {
-                addActionError(getText("MSG_CHANNEL_PATH_REQUIRE"));
+                addActionError(getText("MSG_FIELD_REQUIRED", new String[] { getText("LABEL_CHANNEL_PATH") }));
             }
 
-            // The channel path must be English
+            // 栏目路径必须是英文格式
             if (!ValidateUtil.isEnglish(channel.getChannelPath())) {
-                addActionError(getText("MSG_CHANNEL_PATH_ENGLISH"));
+                addActionError(getText("MSG_FIELD_ENGLISH_REQUIRED", new String[] { getText("LABEL_CHANNEL_PATH") }));
+            }
+
+            // 判断该栏目路径是否存在
+            ChannelDto existChannel = channelDetailService.getChannelByPath(channel.getChannelPath());
+            if (existChannel != null) {
+                addActionError(getText("MSG_FIELD_DUPLICATE", new String[] { channel.getChannelPath() }));
+            }
+
+            if (this.getActionErrors().size() > 0) {
+                // 构建栏目树
+                root = ChannelUtil.constructChannelTree();
+                root.setName(this.getText(root.getName()));
             }
 
         } catch (Exception e) {
@@ -91,7 +122,7 @@ public class ChannelDetailAction extends BaseAction {
 
     public String update() {
         try {
-            if (!channelInfoService.updateChannel(channel)) {
+            if (!channelDetailService.updateChannel(channel)) {
                 addActionError(getText("MSG_CHANNEL_UPDATE_FAILED", new String[] { channel.getChannelName() }));
                 return INPUT;
             }

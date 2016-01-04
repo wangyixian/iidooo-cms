@@ -4,10 +4,8 @@
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.dto.extend.ChannelDto">
 		<id column="ChannelID" property="channelID" jdbcType="INTEGER" />
 		<result column="ParentID" property="parentID" jdbcType="INTEGER" />
-		<result column="SiteID" property="siteID" jdbcType="INTEGER" />
 		<result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
 		<result column="ChannelPath" property="channelPath" jdbcType="VARCHAR" />
-		<result column="ChannelLevel" property="channelLevel" jdbcType="INTEGER" />
 		<result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
 		<result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
 		<result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
@@ -22,26 +20,24 @@
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		C.ChannelID, C.ParentID, C.SiteID, C.ChannelName, C.ChannelPath, C.ChannelLevel, C.MetaTitle,
-		C.MetaKeywords,
-		C.MetaDescription,C.Sequence,C.IsHidden, C.Remarks, C.CreateTime,
-		C.CreateUser, C.UpdateTime, C.UpdateUser, C.IsDelete, C.Version
+		C.ChannelID, C.ParentID, C.ChannelName, C.ChannelPath, C.MetaTitle, C.MetaKeywords,
+		C.MetaDescription, C.Sequence,
+		C.IsHidden, C.Remarks,
+		C.CreateTime, C.CreateUser, C.UpdateTime,
+		C.UpdateUser, C.IsDelete, C.Version
 	</sql>
-	
-	<select id="selectCountBySiteID" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-		select count(C.ChannelID)
-		from CMS_CHANNEL C where C.IsDelete = 0 and C.SiteID = #{siteID,jdbcType=INTEGER}
+
+	<select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM CMS_CHANNEL C WHERE C.IsDelete = 0 AND C.ParentID = #{parentID,jdbcType=INTEGER}
+		ORDER BY C.UpdateTime DESC
 	</select>
 
-	<select id="selectBySiteCode" resultMap="BaseResultMap">
-		select
+	<select id="selectAllChannels" resultMap="BaseResultMap">
+		SELECT
 		<include refid="Base_Column_List" />
-		, S.SiteURL as siteURL
-		from CMS_CHANNEL C
-		join CMS_SITE S
-		on C.SiteID = S.SiteID and C.IsDelete = 0 and S.IsDelete = 0
-		and S.SiteCode =
-		#{siteCode,jdbcType=VARCHAR}
+		FROM CMS_CHANNEL C WHERE C.IsDelete = 0
 	</select>
 
 	<select id="selectChannelChildren" resultMap="BaseResultMap">
@@ -63,15 +59,12 @@
 		</if>
 	</select>
 
-	<select id="selectChannelByPath" resultMap="BaseResultMap">
-		select
+	<select id="selectByChannelPath" resultMap="BaseResultMap">
+		SELECT
 		<include refid="Base_Column_List" />
-		from CMS_CHANNEL C
-		join CMS_SITE S
-		on C.IsDelete = 0 and S.IsDelete = 0 and C.SiteID = S.SiteID
-		and S.SiteCode = #{siteCode,jdbcType=VARCHAR} and
-		C.ChannelPath =
-		#{channelPath,jdbcType=VARCHAR}
+		FROM CMS_CHANNEL C
+		WHERE C.IsDelete = 0 AND
+		C.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 	</select>
 
 	<select id="selectByChannelID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -111,22 +104,18 @@
 		</if>
 		order by C.Sequence
 	</select>
-
+	
 	<select id="selectMaxSequence" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-		select max(C.Sequence)
-		from CMS_CHANNEL C
-		where C.IsDelete = 0
-		and
-		C.ParentID = #{parentID,jdbcType=INTEGER}
+		SELECT MAX(C.Sequence) as sequence 
+		FROM CMS_CHANNEL C 
+		WHERE C.ParentID = #{parentID,jdbcType=INTEGER}
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="channelID" parameterType="com.iidooo.cms.dto.extend.ChannelDto">
 		insert into CMS_CHANNEL (
 		ParentID,
-		SiteID,
 		ChannelName,
 		ChannelPath,
-		ChannelLevel,
 		MetaTitle,
 		MetaKeywords,
 		MetaDescription,
@@ -138,13 +127,13 @@
 		)
 		values
 		(#{parentID,jdbcType=INTEGER},
-		#{siteID,jdbcType=INTEGER},
 		#{channelName,jdbcType=VARCHAR},
 		#{channelPath,jdbcType=VARCHAR},
-		#{channelLevel,jdbcType=INTEGER},#{metaTitle,jdbcType=VARCHAR},
+		#{metaTitle,jdbcType=VARCHAR},
 		#{metaKeywords,jdbcType=VARCHAR},
 		#{metaDescription,jdbcType=VARCHAR},
-		#{sequence,jdbcType=INTEGER}, #{isHidden,jdbcType=INTEGER},
+		#{sequence, jdbcType=VARCHAR},
+		#{isHidden,jdbcType=INTEGER},
 		#{remarks,jdbcType=VARCHAR},
 		#{createTime,jdbcType=VARCHAR},
 		#{createUser,jdbcType=INTEGER},
@@ -158,8 +147,6 @@
 		ChannelName =
 		#{channelName,jdbcType=VARCHAR},
 		ChannelPath = #{channelPath,jdbcType=VARCHAR},
-		ChannelLevel =
-		#{channelLevel,jdbcType=INTEGER},
 		MetaTitle =
 		#{metaTitle,jdbcType=VARCHAR},
 		MetaKeywords =

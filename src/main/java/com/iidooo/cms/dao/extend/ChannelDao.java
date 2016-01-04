@@ -8,19 +8,39 @@ import com.iidooo.cms.dto.extend.ChannelDto;
 
 public interface ChannelDao {
 
-    int selectCountBySiteID(int siteID);
+    /**
+     * 通过ParentID获得栏目一览
+     * 
+     * @param parentID ParentID即父栏目的ID
+     * @return ChannelDto的List
+     */
+    List<ChannelDto> selectByParentID(int parentID);
+ 
+    /**
+     * 通过Channel ID获得栏目对象
+     * @param channelID 主键
+     * @return 所获得栏目对象
+     */
+    ChannelDto selectByChannelID(int channelID);
     
     /**
-     * Select all of the channels with the site code and channel level
-     * @param siteCode The site code should be defined.
-     * @return The list of channels
+     * 通过Channel Path 获得栏目对象
+     * 
+     * @param 通过该Channel Path 获得栏目对象
+     * @return 所获得栏目对象
      */
-    List<ChannelDto> selectBySiteCode(@Param("siteCode")String siteCode);
+    ChannelDto selectByChannelPath(String channelPath);
+    
+    /**
+     * 获得所有的栏目
+     * @return 所有的栏目
+     */
+    List<ChannelDto> selectAllChannels();
+    
+    List<ChannelDto> selectChannelChildren(@Param("siteCode") String siteCode, @Param("parentPath") String parentPath);
 
-    List<ChannelDto> selectChannelChildren(@Param("siteCode")String siteCode, @Param("parentPath")String parentPath);    
-    
     int selectChannelListCount(ChannelDto channel);
-    
+
     /**
      * Get the channel list by the record of ChannelDto
      * 
@@ -29,34 +49,33 @@ public interface ChannelDao {
      */
     List<ChannelDto> selectChannelList(ChannelDto channel);
 
-    int selectMaxSequence(int parentID);
-    
     /**
-     * Get the channel by channel path
-     * @param siteCode This site's channel will be gotten
-     * @param channelPath The channel path
-     * @return The ChannelDto gotten from DB.
+     * 获得同一个ParentID下的最大Sequence
+     * 
+     * @param parentID 该ParentID下的所有子栏目
+     * @return 最大的Sequence
      */
-    ChannelDto selectChannelByPath(@Param("siteCode")String siteCode, @Param("channelPath")String channelPath);
-
-    ChannelDto selectByChannelID(int channelID);
+    Integer selectMaxSequence(int parentID);   
 
     /**
-     * Insert a new ChannelDto into the database
-     * @param channel This ChannelDto should be inserted.
-     * @return The affected record number.
+     * 添加一个新的栏目
+     * 
+     * @param channel 要被添加的栏目对象
+     * @return 受影响的行数
      */
     int insert(ChannelDto channel);
-    
+
     /**
      * Update a channel by the ChannelDto
+     * 
      * @param channel This ChannelDto will updated.
      * @return The affected record number.
      */
     int update(ChannelDto channel);
-    
+
     /**
      * Logic delete the channel, set the IsDelete = 1
+     * 
      * @param channel This channel will be delete
      * @return The deleted channel count
      */
