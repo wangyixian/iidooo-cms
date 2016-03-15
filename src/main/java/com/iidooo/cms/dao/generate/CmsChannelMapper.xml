@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.dao.generate.CmsChannelMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.dto.generate.CmsChannel" >
+    <id column="ChannelID" property="channelID" jdbcType="INTEGER" />
+    <result column="ParentID" property="parentID" jdbcType="INTEGER" />
+    <result column="ChannelName" property="channelName" jdbcType="VARCHAR" />
+    <result column="ChannelPath" property="channelPath" jdbcType="VARCHAR" />
+    <result column="MetaTitle" property="metaTitle" jdbcType="VARCHAR" />
+    <result column="MetaKeywords" property="metaKeywords" jdbcType="VARCHAR" />
+    <result column="MetaDescription" property="metaDescription" jdbcType="VARCHAR" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ChannelID, ParentID, ChannelName, ChannelPath, MetaTitle, MetaKeywords, MetaDescription, 
+    Sequence, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, IsDelete, Version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from CMS_CHANNEL
+    where ChannelID = #{channelID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from CMS_CHANNEL
+    where ChannelID = #{channelID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
+    insert into CMS_CHANNEL (ChannelID, ParentID, ChannelName, 
+      ChannelPath, MetaTitle, MetaKeywords, 
+      MetaDescription, Sequence, Remarks, 
+      CreateTime, CreateUser, UpdateTime, 
+      UpdateUser, IsDelete, Version
+      )
+    values (#{channelID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, #{channelName,jdbcType=VARCHAR}, 
+      #{channelPath,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{metaKeywords,jdbcType=VARCHAR}, 
+      #{metaDescription,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
+    insert into CMS_CHANNEL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="channelID != null" >
+        ChannelID,
+      </if>
+      <if test="parentID != null" >
+        ParentID,
+      </if>
+      <if test="channelName != null" >
+        ChannelName,
+      </if>
+      <if test="channelPath != null" >
+        ChannelPath,
+      </if>
+      <if test="metaTitle != null" >
+        MetaTitle,
+      </if>
+      <if test="metaKeywords != null" >
+        MetaKeywords,
+      </if>
+      <if test="metaDescription != null" >
+        MetaDescription,
+      </if>
+      <if test="sequence != null" >
+        Sequence,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="createTime != null" >
+        CreateTime,
+      </if>
+      <if test="createUser != null" >
+        CreateUser,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser,
+      </if>
+      <if test="isDelete != null" >
+        IsDelete,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="channelID != null" >
+        #{channelID,jdbcType=INTEGER},
+      </if>
+      <if test="parentID != null" >
+        #{parentID,jdbcType=INTEGER},
+      </if>
+      <if test="channelName != null" >
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelPath != null" >
+        #{channelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null" >
+        #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metaKeywords != null" >
+        #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
+    update CMS_CHANNEL
+    <set >
+      <if test="parentID != null" >
+        ParentID = #{parentID,jdbcType=INTEGER},
+      </if>
+      <if test="channelName != null" >
+        ChannelName = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelPath != null" >
+        ChannelPath = #{channelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null" >
+        MetaTitle = #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metaKeywords != null" >
+        MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        MetaDescription = #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        Sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CreateUser = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UpdateUser = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IsDelete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        Version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ChannelID = #{channelID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.dto.generate.CmsChannel" >
+    update CMS_CHANNEL
+    set ParentID = #{parentID,jdbcType=INTEGER},
+      ChannelName = #{channelName,jdbcType=VARCHAR},
+      ChannelPath = #{channelPath,jdbcType=VARCHAR},
+      MetaTitle = #{metaTitle,jdbcType=VARCHAR},
+      MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
+      MetaDescription = #{metaDescription,jdbcType=VARCHAR},
+      Sequence = #{sequence,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=INTEGER},
+      UpdateTime = #{updateTime,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER}
+    where ChannelID = #{channelID,jdbcType=INTEGER}
+  </update>
+</mapper>

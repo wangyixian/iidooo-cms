@@ -3,7 +3,7 @@
 	<name>iidooo-cms</name>
 	<comment></comment>
 	<projects>
-		<project>iidooo-core</project>
+		<project>core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

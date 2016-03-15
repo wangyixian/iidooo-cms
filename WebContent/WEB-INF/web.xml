@@ -2,51 +2,16 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
 	<display-name>iidooo-cms</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
 
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-	<!-- 初始化Mybatis数据信息 -->
-	<listener>
-		<listener-class>com.iidooo.core.listener.MybatisInitListener</listener-class>
-	</listener>
-	<context-param>
-		<param-name>resource</param-name>
-		<param-value>mybatis/configuration.xml</param-value>
-	</context-param>
-	
-	<!-- 初始化资源数据，可以配置功能树，菜单等 -->
-	<listener>
-		<listener-class>com.iidooo.core.listener.SecurityResInitListener</listener-class>
-	</listener>
-
-	<!-- 初始化字典项信息 -->
-	<listener>
-		<listener-class>com.iidooo.core.listener.DictInitListener</listener-class>
-	</listener>
-
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-
-	<jsp-config>
-		<taglib>
-			<taglib-uri>/cms-tags</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/cms-tags.tld</taglib-location>
-		</taglib>
-	</jsp-config>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<!-- spring MVC 处理所有的请求，对于静态资源，在配置文件中会对其作特殊处理 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 </web-app>
