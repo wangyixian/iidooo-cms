@@ -7,14 +7,14 @@
     <result column="RoleID" property="roleID" jdbcType="INTEGER" />
     <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="CreateUser" property="createUser" jdbcType="INTEGER" />
+    <result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
     <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="UpdateUser" property="updateUser" jdbcType="INTEGER" />
+    <result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
     <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    UserRoleID, UserID, RoleID, Remarks, CreateTime, CreateUser, UpdateTime, UpdateUser, 
+    UserRoleID, UserID, RoleID, Remarks, CreateTime, CreateUserID, UpdateTime, UpdateUserID, 
     IsDelete, Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,12 +29,12 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.model.po.SecurityUserRole" >
     insert into SECURITY_USER_ROLE (UserRoleID, UserID, RoleID, 
-      Remarks, CreateTime, CreateUser, 
-      UpdateTime, UpdateUser, IsDelete, 
+      Remarks, CreateTime, CreateUserID, 
+      UpdateTime, UpdateUserID, IsDelete, 
       Version)
     values (#{userRoleID,jdbcType=INTEGER}, #{userID,jdbcType=INTEGER}, #{roleID,jdbcType=INTEGER}, 
-      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserID,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUserID,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.iidooo.cms.model.po.SecurityUserRole" >
@@ -55,14 +55,14 @@
       <if test="createTime != null" >
         CreateTime,
       </if>
-      <if test="createUser != null" >
-        CreateUser,
+      <if test="createUserID != null" >
+        CreateUserID,
       </if>
       <if test="updateTime != null" >
         UpdateTime,
       </if>
-      <if test="updateUser != null" >
-        UpdateUser,
+      <if test="updateUserID != null" >
+        UpdateUserID,
       </if>
       <if test="isDelete != null" >
         IsDelete,
@@ -87,14 +87,14 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=INTEGER},
+      <if test="createUserID != null" >
+        #{createUserID,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateUser != null" >
-        #{updateUser,jdbcType=INTEGER},
+      <if test="updateUserID != null" >
+        #{updateUserID,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null" >
         #{isDelete,jdbcType=INTEGER},
@@ -119,14 +119,14 @@
       <if test="createTime != null" >
         CreateTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUser != null" >
-        CreateUser = #{createUser,jdbcType=INTEGER},
+      <if test="createUserID != null" >
+        CreateUserID = #{createUserID,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
         UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateUser != null" >
-        UpdateUser = #{updateUser,jdbcType=INTEGER},
+      <if test="updateUserID != null" >
+        UpdateUserID = #{updateUserID,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null" >
         IsDelete = #{isDelete,jdbcType=INTEGER},
@@ -143,9 +143,9 @@
       RoleID = #{roleID,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      CreateUser = #{createUser,jdbcType=INTEGER},
+      CreateUserID = #{createUserID,jdbcType=INTEGER},
       UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
-      UpdateUser = #{updateUser,jdbcType=INTEGER},
+      UpdateUserID = #{updateUserID,jdbcType=INTEGER},
       IsDelete = #{isDelete,jdbcType=INTEGER},
       Version = #{version,jdbcType=INTEGER}
     where UserRoleID = #{userRoleID,jdbcType=INTEGER}

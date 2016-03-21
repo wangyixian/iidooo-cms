@@ -20,9 +20,9 @@
     <result column="CommentCount" jdbcType="INTEGER" property="commentCount" />
     <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="CreateUser" jdbcType="INTEGER" property="createUser" />
+    <result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
     <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="UpdateUser" jdbcType="INTEGER" property="updateUser" />
+    <result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
     <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
     <result column="Version" jdbcType="INTEGER" property="version" />
   </resultMap>
@@ -32,7 +32,7 @@
   <sql id="Base_Column_List">
     C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle, 
     C.MetaTitle, C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount, 
-    C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime, C.UpdateUser, 
+    C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID, 
     C.IsDelete, C.Version
   </sql>
   <sql id="Blob_Column_List">

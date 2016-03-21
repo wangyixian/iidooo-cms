@@ -9,15 +9,15 @@
     <result column="Sequence" jdbcType="INTEGER" property="sequence" />
     <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="CreateUser" jdbcType="INTEGER" property="createUser" />
+    <result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
     <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="UpdateUser" jdbcType="INTEGER" property="updateUser" />
+    <result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
     <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
     <result column="Version" jdbcType="INTEGER" property="version" />
   </resultMap>
   <sql id="Base_Column_List">
-    P.PictureID, P.ContentID, P.PictureName, P.PircutreURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUser, 
-    P.UpdateTime, P.UpdateUser, P.IsDelete, P.Version
+    P.PictureID, P.ContentID, P.PictureName, P.PircutreURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID, 
+    P.UpdateTime, P.UpdateUserID, P.IsDelete, P.Version
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

@@ -33,11 +33,11 @@ public class SecurityUser {
 
     private Date createTime;
 
-    private Integer createUser;
+    private Integer createUserID;
 
     private Date updateTime;
 
-    private Integer updateUser;
+    private Integer updateUserID;
 
     private Integer isDelete;
 
@@ -163,12 +163,12 @@ public class SecurityUser {
         this.createTime = createTime;
     }
 
-    public Integer getCreateUser() {
-        return createUser;
+    public Integer getCreateUserID() {
+        return createUserID;
     }
 
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
+    public void setCreateUserID(Integer createUserID) {
+        this.createUserID = createUserID;
     }
 
     public Date getUpdateTime() {
@@ -179,12 +179,12 @@ public class SecurityUser {
         this.updateTime = updateTime;
     }
 
-    public Integer getUpdateUser() {
-        return updateUser;
+    public Integer getUpdateUserID() {
+        return updateUserID;
     }
 
-    public void setUpdateUser(Integer updateUser) {
-        this.updateUser = updateUser;
+    public void setUpdateUserID(Integer updateUserID) {
+        this.updateUserID = updateUserID;
     }
 
     public Integer getIsDelete() {
