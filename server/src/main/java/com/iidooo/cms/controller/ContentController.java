@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.iidooo.cms.dto.extend.CmsContentDto;
+import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.enums.MessageCode;
 import com.iidooo.core.enums.MessageType;
@@ -37,6 +37,10 @@ public class ContentController {
     public @ResponseBody ResponseResult getContentList(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
+            
+            // 解决跨域请求的问题
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            
             // 解析获得传入的参数
             // 必填参数
             String channelPath = request.getParameter("channelPath");
@@ -75,7 +79,7 @@ public class ContentController {
             page.setStart(Integer.valueOf(start));
             page.setPageSize(Integer.valueOf(pageSize));
             
-            List<CmsContentDto> contentList = this.contentService.getContentListByType(channelPath, contentType, page);
+            List<CmsContent> contentList = this.contentService.getContentListByType(channelPath, contentType, page);
             if (contentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty);
             } else {

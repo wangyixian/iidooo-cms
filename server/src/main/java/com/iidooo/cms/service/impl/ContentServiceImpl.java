@@ -9,12 +9,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iidooo.cms.dao.extend.CmsContentDao;
-import com.iidooo.cms.dao.extend.CmsContentNewsDao;
-import com.iidooo.cms.dao.extend.CmsPictureDao;
-import com.iidooo.cms.dto.extend.CmsContentDto;
-import com.iidooo.cms.dto.extend.CmsPictureDto;
 import com.iidooo.cms.enums.ContentType;
+import com.iidooo.cms.mapper.CmsContentMapper;
+import com.iidooo.cms.mapper.CmsContentNewsMapper;
+import com.iidooo.cms.mapper.CmsPictureMapper;
+import com.iidooo.cms.model.po.CmsContent;
+import com.iidooo.cms.model.po.CmsPicture;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.model.Page;
 
@@ -24,18 +24,18 @@ public class ContentServiceImpl implements ContentService {
     private static final Logger logger = Logger.getLogger(ContentServiceImpl.class);
 
     @Autowired
-    private CmsContentDao cmsContentDao;
+    private CmsContentMapper cmsContentDao;
 
     @Autowired
-    private CmsContentNewsDao cmsContentNewsDao;
+    private CmsContentNewsMapper cmsContentNewsDao;
 
     @Autowired
-    private CmsPictureDao cmsPictureDao;
+    private CmsPictureMapper cmsPictureDao;
 
     @Override
-    public List<CmsContentDto> getContentListByType(String channelPath, String contentType, Page page) {
+    public List<CmsContent> getContentListByType(String channelPath, String contentType, Page page) {
         try {
-            List<CmsContentDto> result = new ArrayList<CmsContentDto>();
+            List<CmsContent> result = new ArrayList<CmsContent>();
 
             if (contentType.equals(ContentType.News.getValue())) {
                 result = cmsContentNewsDao.selectContentNewsList(channelPath, page);
@@ -43,17 +43,25 @@ public class ContentServiceImpl implements ContentService {
                 result = cmsContentDao.selectContentListByType(channelPath, contentType, page);
             }
 
-            List<CmsPictureDto> pictures = cmsPictureDao.selectByContentList(result);
+            List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);
             // Key: ContentID
             // Value: Picture List
-            Map<Integer, List<CmsPictureDto>> picturesMap = new HashMap<Integer, List<CmsPictureDto>>();            
-            for (CmsPictureDto item : pictures) {
+            Map<Integer, List<CmsPicture>> picturesMap = new HashMap<Integer, List<CmsPicture>>();            
+            for (CmsPicture item : pictures) {
                 if (picturesMap.containsKey(item.getContentID())) {
                     picturesMap.get(item.getContentID()).add(item);
                 } else {
-                    List<CmsPictureDto> tempPictureList = new ArrayList<CmsPictureDto>();
+                    List<CmsPicture> tempPictureList = new ArrayList<CmsPicture>();
                     tempPictureList.add(item);
                     picturesMap.put(item.getContentID(), tempPictureList);
+                }
+            }
+            
+            // Put the picture list into content
+            for (CmsContent item : result) {
+                if (picturesMap.containsKey(item.getContentID())) {
+                    List<CmsPicture> pictureList = picturesMap.get(item.getContentID());
+                    item.setPictureList(pictureList);
                 }
             }
 

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iidooo.cms.mapper.CmsContentNewsMapper">
+ <resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsContentNews" >
+    <id column="ContentID" jdbcType="INTEGER" property="contentID" />
+    <result column="ChannelID" jdbcType="INTEGER" property="channelID" />
+    <result column="ContentType" jdbcType="VARCHAR" property="contentType" />
+    <result column="ContentTitle" jdbcType="VARCHAR" property="contentTitle" />
+    <result column="ContentSubTitle" jdbcType="VARCHAR" property="contentSubTitle" />
+    <result column="ContentImageTitle" jdbcType="VARCHAR" property="contentImageTitle" />
+    <result column="MetaTitle" jdbcType="VARCHAR" property="metaTitle" />
+    <result column="MetaKeywords" jdbcType="VARCHAR" property="metaKeywords" />
+    <result column="MetaDescription" jdbcType="VARCHAR" property="metaDescription" />
+    <result column="ContentSummary" jdbcType="VARCHAR" property="contentSummary" />
+    <result column="IsSilent" jdbcType="INTEGER" property="isSilent" />
+    <result column="StickyIndex" jdbcType="INTEGER" property="stickyIndex" />
+    <result column="PageViewCount" jdbcType="INTEGER" property="pageViewCount" />
+    <result column="UniqueVisitorCount" jdbcType="INTEGER" property="uniqueVisitorCount" />
+    <result column="StarCount" jdbcType="INTEGER" property="starCount" /> 
+    <result column="CommentCount" jdbcType="INTEGER" property="commentCount" />
+    <result column="Source" property="source" jdbcType="VARCHAR" />
+    <result column="SourceURL" property="sourceURL" jdbcType="VARCHAR" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CreateUser" jdbcType="INTEGER" property="createUser" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UpdateUser" jdbcType="INTEGER" property="updateUser" />
+    <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
+    <result column="Version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContentNews" extends="BaseResultMap" >
+    <result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    N.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle, 
+    C.MetaTitle, C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount, 
+    C.UniqueVisitorCount, C.StarCount, C.CommentCount, N.Source, N.SourceURL, C.Remarks, C.CreateTime, C.CreateUser, C.UpdateTime, C.UpdateUser, 
+    C.IsDelete, C.Version
+  </sql>
+  <sql id="Blob_Column_List" >
+    C.ContentBody
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CMS_CONTENT_NEWS
+    where ContentID = #{contentID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from CMS_CONTENT_NEWS
+    where ContentID = #{contentID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.cms.model.po.CmsContentNews">
+    insert into CMS_CONTENT_NEWS (ContentID, Source, SourceURL
+      )
+    values (#{contentID,jdbcType=INTEGER}, #{source,jdbcType=VARCHAR}, #{sourceURL,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.cms.model.po.CmsContentNews">
+    insert into CMS_CONTENT_NEWS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contentID != null">
+        ContentID,
+      </if>
+      <if test="source != null">
+        Source,
+      </if>
+      <if test="sourceURL != null">
+        SourceURL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contentID != null">
+        #{contentID,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceURL != null">
+        #{sourceURL,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsContentNews">
+    update CMS_CONTENT_NEWS
+    <set>
+      <if test="source != null">
+        Source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceURL != null">
+        SourceURL = #{sourceURL,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ContentID = #{contentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContentNews">
+    update CMS_CONTENT_NEWS
+    set Source = #{source,jdbcType=VARCHAR},
+      SourceURL = #{sourceURL,jdbcType=VARCHAR}
+    where ContentID = #{contentID,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectContentNewsList" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
+    from CMS_CONTENT_NEWS N 
+    join CMS_CONTENT C on C.IsDelete = 0 and N.ContentID = C.ContentID
+    join CMS_CHANNEL L on L.IsDelete = 0 and C.ChannelID = L.ChannelID 
+    and L.ChannelPath =  #{channelPath,jdbcType=VARCHAR} 
+    and C.ContentType = '2'
+    order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+  </select>
+</mapper>

@@ -11,8 +11,6 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.iidooo.cms.dao.extend.ChannelDao;
-import com.iidooo.cms.dto.extend.ChannelDto;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.util.MybatisUtil;
 import com.iidooo.core.util.StringUtil;
