@@ -14,13 +14,9 @@
 		<level value="WARN" />
 	</logger>
 
-	<logger name="org.apache.struts2">
-		<level value="WARN" />
-	</logger>
-
 	<!-- 配置sql文在控制台输出 -->
 	<category name="java.sql">
-		<priority value="WARN" />
+		<priority value="DEBUG" />
 	</category>
 	<category name="com.ibatis">
 		<priority value="WARN" />

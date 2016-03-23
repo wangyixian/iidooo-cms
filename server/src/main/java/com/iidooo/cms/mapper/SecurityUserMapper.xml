@@ -11,7 +11,7 @@
     <result column="Sex" property="sex" jdbcType="CHAR" />
     <result column="Birthday" property="birthday" jdbcType="DATE" />
     <result column="WeixinID" property="weixinID" jdbcType="VARCHAR" />
-    <result column="Photo" property="photo" jdbcType="VARCHAR" />
+    <result column="PhotoURL" property="photoURL" jdbcType="VARCHAR" />
     <result column="IsSilent" property="isSilent" jdbcType="INTEGER" />
     <result column="IsDisable" property="isDisable" jdbcType="INTEGER" />
     <result column="UserType" property="userType" jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
     <result column="Version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    UserID, LoginID, Password, UserName, Mobile, Email, Sex, Birthday, WeixinID, Photo, 
+    UserID, LoginID, Password, UserName, Mobile, Email, Sex, Birthday, WeixinID, PhotoURL, 
     IsSilent, IsDisable, UserType, Remarks, CreateTime, CreateUserID, UpdateTime, UpdateUserID, 
     IsDelete, Version
   </sql>
@@ -42,14 +42,14 @@
     insert into SECURITY_USER (UserID, LoginID, Password, 
       UserName, Mobile, Email, 
       Sex, Birthday, WeixinID, 
-      Photo, IsSilent, IsDisable, 
+      PhotoURL, IsSilent, IsDisable, 
       UserType, Remarks, CreateTime, 
       CreateUserID, UpdateTime, UpdateUserID, 
       IsDelete, Version)
     values (#{userID,jdbcType=INTEGER}, #{loginID,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{sex,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{weixinID,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{isSilent,jdbcType=INTEGER}, #{isDisable,jdbcType=INTEGER}, 
+      #{photoURL,jdbcType=VARCHAR}, #{isSilent,jdbcType=INTEGER}, #{isDisable,jdbcType=INTEGER}, 
       #{userType,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUserID,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserID,jdbcType=INTEGER}, 
       #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
@@ -84,8 +84,8 @@
       <if test="weixinID != null" >
         WeixinID,
       </if>
-      <if test="photo != null" >
-        Photo,
+      <if test="photoURL != null" >
+        PhotoURL,
       </if>
       <if test="isSilent != null" >
         IsSilent,
@@ -146,8 +146,8 @@
       <if test="weixinID != null" >
         #{weixinID,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null" >
-        #{photo,jdbcType=VARCHAR},
+      <if test="photoURL != null" >
+        #{photoURL,jdbcType=VARCHAR},
       </if>
       <if test="isSilent != null" >
         #{isSilent,jdbcType=INTEGER},
@@ -208,8 +208,8 @@
       <if test="weixinID != null" >
         WeixinID = #{weixinID,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null" >
-        Photo = #{photo,jdbcType=VARCHAR},
+      <if test="photoURL != null" >
+        PhotoURL = #{photoURL,jdbcType=VARCHAR},
       </if>
       <if test="isSilent != null" >
         IsSilent = #{isSilent,jdbcType=INTEGER},
@@ -254,7 +254,7 @@
       Sex = #{sex,jdbcType=CHAR},
       Birthday = #{birthday,jdbcType=DATE},
       WeixinID = #{weixinID,jdbcType=VARCHAR},
-      Photo = #{photo,jdbcType=VARCHAR},
+      PhotoURL = #{photoURL,jdbcType=VARCHAR},
       IsSilent = #{isSilent,jdbcType=INTEGER},
       IsDisable = #{isDisable,jdbcType=INTEGER},
       UserType = #{userType,jdbcType=VARCHAR},

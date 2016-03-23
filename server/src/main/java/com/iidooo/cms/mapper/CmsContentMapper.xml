@@ -359,6 +359,6 @@
     C.IsDelete = 0 and L.IsDelete = 0 and C.ChannelID = L.ChannelID 
     and L.ChannelPath =  #{channelPath,jdbcType=VARCHAR} 
     and C.ContentType = #{contentType,jdbcType=VARCHAR}
-    order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+    order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
   </select>
 </mapper>

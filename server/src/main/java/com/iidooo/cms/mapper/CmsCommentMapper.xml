@@ -13,10 +13,11 @@
     <result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
     <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
     <result column="Version" property="version" jdbcType="INTEGER" />
+    <association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.po.SecurityUser"></association>
   </resultMap>
   <sql id="Base_Column_List" >
-    CommentID, ContentID, ParentID, Comment, Remarks, CreateTime, CreateUserID, UpdateTime, 
-    UpdateUserID, IsDelete, Version
+    C.CommentID, C.ContentID, C.ParentID, C.Comment, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, 
+    C.UpdateUserID, C.IsDelete, C.Version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -161,4 +162,16 @@
       Version = #{version,jdbcType=INTEGER}
     where CommentID = #{commentID,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByContentID" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CMS_COMMENT C
+	where C.IsDelete = 0 and C.ContentID = #{contentID,jdbcType=VARCHAR}
+    order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+  </select>
+  <select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+  	select U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent
+  	from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+  </select>
 </mapper>

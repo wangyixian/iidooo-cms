@@ -21,7 +21,7 @@ public class SecurityUser {
 
     private String weixinID;
 
-    private String photo;
+    private String photoURL;
 
     private Integer isSilent;
 
@@ -115,12 +115,12 @@ public class SecurityUser {
         this.weixinID = weixinID == null ? null : weixinID.trim();
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhotoURL() {
+        return photoURL;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL == null ? null : photoURL.trim();
     }
 
     public Integer getIsSilent() {
