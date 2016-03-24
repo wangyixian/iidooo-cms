@@ -5,7 +5,7 @@
     <id column="PictureID" jdbcType="INTEGER" property="pictureID" />
     <result column="ContentID" jdbcType="INTEGER" property="contentID" />
     <result column="PictureName" jdbcType="VARCHAR" property="pictureName" />
-    <result column="PircutreURL" jdbcType="VARCHAR" property="pircutreURL" />
+    <result column="PictureURL" jdbcType="VARCHAR" property="pictureURL" />
     <result column="Sequence" jdbcType="INTEGER" property="sequence" />
     <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
@@ -16,7 +16,7 @@
     <result column="Version" jdbcType="INTEGER" property="version" />
   </resultMap>
   <sql id="Base_Column_List">
-    P.PictureID, P.ContentID, P.PictureName, P.PircutreURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID, 
+    P.PictureID, P.ContentID, P.PictureName, P.PictureURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID, 
     P.UpdateTime, P.UpdateUserID, P.IsDelete, P.Version
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -31,12 +31,12 @@
   </delete>
   <insert id="insert" parameterType="com.iidooo.cms.model.po.CmsPicture">
     insert into CMS_PICTURE (PictureID, ContentID, PictureName, 
-      PircutreURL, Sequence, Remarks, 
+      PictureURL, Sequence, Remarks, 
       CreateTime, CreateUser, UpdateTime, 
       UpdateUser, IsDelete, Version
       )
     values (#{pictureID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{pictureName,jdbcType=VARCHAR}, 
-      #{pircutreURL,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{pictureURL,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
       )
@@ -53,8 +53,8 @@
       <if test="pictureName != null">
         PictureName,
       </if>
-      <if test="pircutreURL != null">
-        PircutreURL,
+      <if test="pictureURL != null">
+        PictureURL,
       </if>
       <if test="sequence != null">
         Sequence,
@@ -91,8 +91,8 @@
       <if test="pictureName != null">
         #{pictureName,jdbcType=VARCHAR},
       </if>
-      <if test="pircutreURL != null">
-        #{pircutreURL,jdbcType=VARCHAR},
+      <if test="pictureURL != null">
+        #{pictureURL,jdbcType=VARCHAR},
       </if>
       <if test="sequence != null">
         #{sequence,jdbcType=INTEGER},
@@ -129,8 +129,8 @@
       <if test="pictureName != null">
         PictureName = #{pictureName,jdbcType=VARCHAR},
       </if>
-      <if test="pircutreURL != null">
-        PircutreURL = #{pircutreURL,jdbcType=VARCHAR},
+      <if test="pictureURL != null">
+        PictureURL = #{pictureURL,jdbcType=VARCHAR},
       </if>
       <if test="sequence != null">
         Sequence = #{sequence,jdbcType=INTEGER},
@@ -163,7 +163,7 @@
     update CMS_PICTURE
     set ContentID = #{contentID,jdbcType=INTEGER},
       PictureName = #{pictureName,jdbcType=VARCHAR},
-      PircutreURL = #{pircutreURL,jdbcType=VARCHAR},
+      PictureURL = #{pictureURL,jdbcType=VARCHAR},
       Sequence = #{sequence,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
       CreateTime = #{createTime,jdbcType=TIMESTAMP},

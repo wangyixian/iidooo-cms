@@ -25,6 +25,7 @@
     <result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
     <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
     <result column="Version" jdbcType="INTEGER" property="version" />
+    <association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.po.SecurityUser"></association>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContent">
     <result column="ContentBody" jdbcType="LONGVARCHAR" property="contentBody" />
@@ -360,5 +361,11 @@
     and L.ChannelPath =  #{channelPath,jdbcType=VARCHAR} 
     and C.ContentType = #{contentType,jdbcType=VARCHAR}
     order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+  </select>  
+  <select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+  	select 
+  	U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, 
+  	U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+  	from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -2,16 +2,12 @@ package com.iidooo.cms.model.po;
 
 import java.util.Date;
 
-public class CmsPicture {
-    private Integer pictureID;
+public class SecurityClient {
+    private Integer clientID;
 
-    private Integer contentID;
+    private String appID;
 
-    private String pictureName;
-
-    private String pictureURL;
-
-    private Integer sequence;
+    private String secret;
 
     private String remarks;
 
@@ -27,44 +23,28 @@ public class CmsPicture {
 
     private Integer version;
 
-    public Integer getPictureID() {
-        return pictureID;
+    public Integer getClientID() {
+        return clientID;
     }
 
-    public void setPictureID(Integer pictureID) {
-        this.pictureID = pictureID;
+    public void setClientID(Integer clientID) {
+        this.clientID = clientID;
     }
 
-    public Integer getContentID() {
-        return contentID;
+    public String getAppID() {
+        return appID;
     }
 
-    public void setContentID(Integer contentID) {
-        this.contentID = contentID;
+    public void setAppID(String appID) {
+        this.appID = appID == null ? null : appID.trim();
     }
 
-    public String getPictureName() {
-        return pictureName;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName == null ? null : pictureName.trim();
-    }
-
-    public String getPictureURL() {
-        return pictureURL;
-    }
-
-    public void setPictureURL(String pictureURL) {
-        this.pictureURL = pictureURL == null ? null : pictureURL.trim();
-    }
-
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
+    public void setSecret(String secret) {
+        this.secret = secret == null ? null : secret.trim();
     }
 
     public String getRemarks() {

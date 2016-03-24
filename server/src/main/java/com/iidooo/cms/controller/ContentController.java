@@ -36,11 +36,7 @@ public class ContentController {
     @RequestMapping(value = "/getContentList", method = RequestMethod.POST)
     public @ResponseBody ResponseResult getContentList(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
-        try {
-            
-            // 解决跨域请求的问题
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            
+        try {            
             // 解析获得传入的参数
             // 必填参数
             String channelPath = request.getParameter("channelPath");
@@ -86,6 +82,8 @@ public class ContentController {
                 result.setStatus(ResponseStatus.OK);
                 result.setData(contentList);
             }
+            
+            
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());

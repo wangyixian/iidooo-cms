@@ -23,6 +23,12 @@ public class SecurityUserInfo {
 
     private Integer isSilent;
 
+    private Integer isDisable;
+
+    private Integer level;
+
+    private Integer points;
+
     public Integer getUserID() {
         return userID;
     }
@@ -101,5 +107,31 @@ public class SecurityUserInfo {
 
     public void setIsSilent(Integer isSilent) {
         this.isSilent = isSilent;
+    } 
+    
+    public Integer getIsDisable() {
+        return isDisable;
     }
+
+    public void setIsDisable(Integer isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+    
+    
 }

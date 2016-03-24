@@ -36,10 +36,6 @@ public class CommentController {
     public @ResponseBody ResponseResult getCommentList(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
-
-            // 解决跨域请求的问题
-            response.setHeader("Access-Control-Allow-Origin", "*");
-
             String contentID = request.getParameter("contentID");
             if (StringUtil.isBlank(contentID)) {
                 // 验证失败，返回message

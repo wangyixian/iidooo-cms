@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.iidooo.cms.model.vo.SecurityUserInfo;
+
 public class CmsContent {
     private Integer contentID;
 
@@ -256,5 +258,15 @@ public class CmsContent {
 
     public void setPictureList(List<CmsPicture> pictureList) {
         this.pictureList = pictureList;
+    }
+    
+    private SecurityUserInfo createUser;
+
+    public SecurityUserInfo getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(SecurityUserInfo createUser) {
+        this.createUser = createUser;
     }
 }

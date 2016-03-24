@@ -29,6 +29,10 @@ public class SecurityUser {
 
     private String userType;
 
+    private Integer level;
+
+    private Integer points;
+
     private String remarks;
 
     private Date createTime;
@@ -145,6 +149,22 @@ public class SecurityUser {
 
     public void setUserType(String userType) {
         this.userType = userType == null ? null : userType.trim();
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 
     public String getRemarks() {

@@ -171,7 +171,9 @@
     order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
   </select>
   <select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
-  	select U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent
+  	select 
+  	U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, 
+  	U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
   	from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
   </select>
 </mapper>
