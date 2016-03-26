@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="http://localhost:8080/iidooo-cms/createComment" method="post">
+    <table>
+        <tr>
+            <td>创建者用户ID</td>
+            <td><input type="text" name="createUserID" value="1"></td>
+            <td>必填项，创建评论的用户ID</td>
+        </tr>
+        <tr>
+            <td>内容ID</td>
+            <td><input type="text" name="contentID" value="1"></td>
+            <td>必填项，给哪个Content创建评论</td>
+        </tr>
+        <tr>
+            <td>评论内容</td>
+            <td><input type="text" name="comment" value="评论内容测试"></td>
+            <td>必填项，评论的内容</td>
+        </tr>
+        <tr>
+            <td>回复哪条评论ID</td>
+            <td><input type="text" name="parentID" value="0"></td>
+            <td>可选，如果是回复某条评论，填入该评论对象的ID，默认为0</td>
+        </tr>
+        <tr>
+            <td><button type="submit">提交</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -2,6 +2,8 @@ package com.iidooo.cms.model.vo;
 
 import java.util.Date;
 
+import com.iidooo.cms.model.po.SecurityUser;
+
 public class SecurityUserInfo {
     private Integer userID;
 
@@ -28,6 +30,26 @@ public class SecurityUserInfo {
     private Integer level;
 
     private Integer points;
+    
+    public SecurityUserInfo(){
+        
+    }
+    
+    public SecurityUserInfo(SecurityUser user){
+        this.setBirthday(user.getBirthday());
+        this.setEmail(user.getEmail());
+        this.setIsDisable(user.getIsDisable());
+        this.setIsSilent(user.getIsSilent());
+        this.setLevel(user.getLevel());
+        this.setLoginID(user.getLoginID());
+        this.setMobile(user.getMobile());
+        this.setPhotoURL(user.getPhotoURL());
+        this.setPoints(user.getPoints());
+        this.setSex(user.getSex());
+        this.setUserID(user.getUserID());
+        this.setUserName(user.getUserName());
+        this.setWeixinID(user.getWeixinID());
+    }
 
     public Integer getUserID() {
         return userID;

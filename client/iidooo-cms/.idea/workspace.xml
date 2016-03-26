@@ -21,11 +21,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ContentList.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ContentList.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/test/ContentList.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.02276176">
+            <state vertical-scroll-proportion="-0.625">
               <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateComment.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/test/CreateComment.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-20.625">
+              <caret line="33" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="33" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdateComment.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/test/UpdateComment.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.569044">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -79,6 +99,8 @@
         <option value="$PROJECT_DIR$/pages/test/CreateDefaultUser.html" />
         <option value="$PROJECT_DIR$/pages/test/GetUserInfo.html" />
         <option value="$PROJECT_DIR$/pages/test/ContentList.html" />
+        <option value="$PROJECT_DIR$/pages/test/CreateComment.html" />
+        <option value="$PROJECT_DIR$/pages/test/UpdateComment.html" />
       </list>
     </option>
   </component>
@@ -278,14 +300,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/test/CommentList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.125">
-          <caret line="38" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="38" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/GetUserInfo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
@@ -296,8 +310,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/ContentList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02276176">
+        <state vertical-scroll-proportion="-0.625">
           <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/CommentList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-23.125">
+          <caret line="38" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="38" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/CreateComment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.625">
+          <caret line="33" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="33" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/UpdateComment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.569044">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
           <folding />
         </state>
       </provider>

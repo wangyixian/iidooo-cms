@@ -16,7 +16,7 @@
 
 	<!-- 配置sql文在控制台输出 -->
 	<category name="java.sql">
-		<priority value="DEBUG" />
+		<priority value="WARN" />
 	</category>
 	<category name="com.ibatis">
 		<priority value="WARN" />

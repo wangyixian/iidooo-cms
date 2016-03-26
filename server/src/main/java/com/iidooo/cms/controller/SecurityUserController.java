@@ -35,15 +35,15 @@ public class SecurityUserController {
                 // 验证失败，返回message
                 Message message = new Message(MessageCode.FieldRequired, MessageType.ERROR, "userID");
                 result.getMessages().add(message);
-                result.setStatus(ResponseStatus.Failed);
+                result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
             }            
 
             SecurityUserInfo userInfo = this.securityUserService.getUserInfoByID(Integer.valueOf(userID));
             if (userInfo == null) {
-                result.setStatus(ResponseStatus.QueryEmpty);
+                result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
-                result.setStatus(ResponseStatus.OK);
+                result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(userInfo);
             }
 
@@ -61,9 +61,9 @@ public class SecurityUserController {
         try {
             SecurityUserInfo userInfo = this.securityUserService.createDefaultUser();
             if (userInfo == null) {
-                result.setStatus(ResponseStatus.InsertFailed);
+                result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
-                result.setStatus(ResponseStatus.OK);
+                result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(userInfo);
             }
 

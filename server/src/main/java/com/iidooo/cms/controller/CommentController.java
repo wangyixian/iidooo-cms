@@ -1,5 +1,6 @@
 package com.iidooo.cms.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,7 @@ public class CommentController {
                 // 验证失败，返回message
                 Message message = new Message(MessageCode.FieldRequired, MessageType.ERROR, "contentID");
                 result.getMessages().add(message);
-                result.setStatus(ResponseStatus.Failed);
+                result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
             }
 
@@ -73,9 +74,9 @@ public class CommentController {
 
             List<CmsComment> commentList = this.commentService.getCommentListByContentID(Integer.valueOf(contentID), page);
             if (commentList.size() <= 0) {
-                result.setStatus(ResponseStatus.QueryEmpty);
+                result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
-                result.setStatus(ResponseStatus.OK);
+                result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(commentList);
             }
 
@@ -83,6 +84,137 @@ public class CommentController {
             logger.fatal(e);
             Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
             result.getMessages().add(message);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/createComment", method = RequestMethod.POST)
+    public @ResponseBody ResponseResult createComment(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+
+            // 解析获得传入的参数
+            // 必填参数
+            String createUserID = request.getParameter("createUserID");
+            String contentID = request.getParameter("contentID");
+            String comment = request.getParameter("comment");
+
+            List<Message> messages = validateCreateComment(createUserID, contentID, comment);
+            if (messages.size() > 0) {
+                // 验证失败，返回message
+                result.setStatus(ResponseStatus.Failed.getCode());
+                result.setMessages(messages);
+                return result;
+            }
+
+            String parentID = request.getParameter("parentID");
+            if (StringUtil.isBlank(parentID)) {
+                parentID = "0";
+            }
+
+            CmsComment cmsComment = new CmsComment();
+            cmsComment.setComment(comment);
+            cmsComment.setContentID(Integer.parseInt(contentID));
+            cmsComment.setParentID(Integer.parseInt(parentID));
+            cmsComment.setCreateUserID(Integer.parseInt(createUserID));
+            cmsComment = this.commentService.createComment(cmsComment);
+            if (cmsComment == null) {
+                result.setStatus(ResponseStatus.InsertFailed.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(cmsComment);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            result.getMessages().add(message);
+        }
+        return result;
+    }
+    
+    @RequestMapping(value = "/updateComment", method = RequestMethod.POST)
+    public @ResponseBody ResponseResult updateComment(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+
+            // 解析获得传入的参数
+            // 必填参数
+            String commentID = request.getParameter("commentID");
+            String comment = request.getParameter("comment");
+
+            List<Message> messages = validateUpdateComment(commentID, comment);
+            if (messages.size() > 0) {
+                // 验证失败，返回message
+                result.setStatus(ResponseStatus.Failed.getCode());
+                result.setMessages(messages);
+                return result;
+            }
+
+            CmsComment cmsComment = new CmsComment();
+            cmsComment.setComment(comment);
+            cmsComment.setCommentID(Integer.parseInt(commentID));
+            cmsComment = this.commentService.updateComment(cmsComment);
+            if (cmsComment == null) {
+                result.setStatus(ResponseStatus.UpdateFailed.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(cmsComment);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            result.getMessages().add(message);
+        }
+        return result;
+    }
+
+    private List<Message> validateCreateComment(String createUserID, String contentID, String comment) {
+        List<Message> result = new ArrayList<Message>();
+        try {
+            if (StringUtil.isBlank(createUserID)) {
+                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "createUserID");
+                result.add(message);
+            }
+
+            if (StringUtil.isBlank(contentID)) {
+                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "contentID");
+                result.add(message);
+            }
+
+            if (StringUtil.isBlank(comment)) {
+                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "comment");
+                result.add(message);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageCode.Exception, MessageType.FATAL);
+            message.setDescription(e.getMessage());
+            result.add(message);
+        }
+        return result;
+    }
+    
+    private List<Message> validateUpdateComment(String commentID, String comment) {
+        List<Message> result = new ArrayList<Message>();
+        try {
+            if (StringUtil.isBlank(commentID)) {
+                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "commentID");
+                result.add(message);
+            }
+
+            if (StringUtil.isBlank(comment)) {
+                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "comment");
+                result.add(message);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageCode.Exception, MessageType.FATAL);
+            message.setDescription(e.getMessage());
+            result.add(message);
         }
         return result;
     }

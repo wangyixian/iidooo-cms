@@ -44,7 +44,7 @@ public class ContentController {
             List<Message> messages = validateGetContentList(channelPath, contentType);
             if (messages.size() > 0) {
                 // 验证失败，返回message
-                result.setStatus(ResponseStatus.Failed);
+                result.setStatus(ResponseStatus.Failed.getCode());
                 result.setMessages(messages);
                 return result;
             }
@@ -77,9 +77,9 @@ public class ContentController {
             
             List<CmsContent> contentList = this.contentService.getContentListByType(channelPath, contentType, page);
             if (contentList.size() <= 0) {
-                result.setStatus(ResponseStatus.QueryEmpty);
+                result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
-                result.setStatus(ResponseStatus.OK);
+                result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(contentList);
             }
             

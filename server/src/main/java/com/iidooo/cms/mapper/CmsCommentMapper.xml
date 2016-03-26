@@ -1,179 +1,134 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iidooo.cms.mapper.CmsCommentMapper" >
-  <resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsComment" >
-    <id column="CommentID" property="commentID" jdbcType="INTEGER" />
-    <result column="ContentID" property="contentID" jdbcType="INTEGER" />
-    <result column="ParentID" property="parentID" jdbcType="INTEGER" />
-    <result column="Comment" property="comment" jdbcType="VARCHAR" />
-    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
-    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
-    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
-    <result column="Version" property="version" jdbcType="INTEGER" />
-    <association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.po.SecurityUser"></association>
-  </resultMap>
-  <sql id="Base_Column_List" >
-    C.CommentID, C.ContentID, C.ParentID, C.Comment, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, 
-    C.UpdateUserID, C.IsDelete, C.Version
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from CMS_COMMENT
-    where CommentID = #{commentID,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from CMS_COMMENT
-    where CommentID = #{commentID,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.iidooo.cms.model.po.CmsComment" >
-    insert into CMS_COMMENT (CommentID, ContentID, ParentID, 
-      Comment, Remarks, CreateTime, 
-      CreateUserID, UpdateTime, UpdateUserID, 
-      IsDelete, Version)
-    values (#{commentID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER}, 
-      #{comment,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUserID,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserID,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.cms.model.po.CmsComment" >
-    insert into CMS_COMMENT
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="commentID != null" >
-        CommentID,
-      </if>
-      <if test="contentID != null" >
-        ContentID,
-      </if>
-      <if test="parentID != null" >
-        ParentID,
-      </if>
-      <if test="comment != null" >
-        Comment,
-      </if>
-      <if test="remarks != null" >
-        Remarks,
-      </if>
-      <if test="createTime != null" >
-        CreateTime,
-      </if>
-      <if test="createUserID != null" >
-        CreateUserID,
-      </if>
-      <if test="updateTime != null" >
-        UpdateTime,
-      </if>
-      <if test="updateUserID != null" >
-        UpdateUserID,
-      </if>
-      <if test="isDelete != null" >
-        IsDelete,
-      </if>
-      <if test="version != null" >
-        Version,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="commentID != null" >
-        #{commentID,jdbcType=INTEGER},
-      </if>
-      <if test="contentID != null" >
-        #{contentID,jdbcType=INTEGER},
-      </if>
-      <if test="parentID != null" >
-        #{parentID,jdbcType=INTEGER},
-      </if>
-      <if test="comment != null" >
-        #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null" >
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createUserID != null" >
-        #{createUserID,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUserID != null" >
-        #{updateUserID,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null" >
-        #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="version != null" >
-        #{version,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsComment" >
-    update CMS_COMMENT
-    <set >
-      <if test="contentID != null" >
-        ContentID = #{contentID,jdbcType=INTEGER},
-      </if>
-      <if test="parentID != null" >
-        ParentID = #{parentID,jdbcType=INTEGER},
-      </if>
-      <if test="comment != null" >
-        Comment = #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null" >
-        Remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createUserID != null" >
-        CreateUserID = #{createUserID,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null" >
-        UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUserID != null" >
-        UpdateUserID = #{updateUserID,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null" >
-        IsDelete = #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="version != null" >
-        Version = #{version,jdbcType=INTEGER},
-      </if>
-    </set>
-    where CommentID = #{commentID,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsComment" >
-    update CMS_COMMENT
-    set ContentID = #{contentID,jdbcType=INTEGER},
-      ParentID = #{parentID,jdbcType=INTEGER},
-      Comment = #{comment,jdbcType=VARCHAR},
-      Remarks = #{remarks,jdbcType=VARCHAR},
-      CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      CreateUserID = #{createUserID,jdbcType=INTEGER},
-      UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
-      UpdateUserID = #{updateUserID,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=INTEGER},
-      Version = #{version,jdbcType=INTEGER}
-    where CommentID = #{commentID,jdbcType=INTEGER}
-  </update>
-  
-  <select id="selectByContentID" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CMS_COMMENT C
-	where C.IsDelete = 0 and C.ContentID = #{contentID,jdbcType=VARCHAR}
-    order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
-  </select>
-  <select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
-  	select 
-  	U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, 
-  	U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
-  	from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
-  </select>
+<mapper namespace="com.iidooo.cms.mapper.CmsCommentMapper">
+	<resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsComment">
+		<id column="CommentID" property="commentID" jdbcType="INTEGER" />
+		<result column="ContentID" property="contentID" jdbcType="INTEGER" />
+		<result column="ParentID" property="parentID" jdbcType="INTEGER" />
+		<result column="Comment" property="comment" jdbcType="VARCHAR" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
+		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+		<result column="Version" property="version" jdbcType="INTEGER" />
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.po.SecurityUser"></association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		C.CommentID, C.ContentID, C.ParentID, C.Comment, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime,
+		C.UpdateUserID, C.IsDelete, C.Version
+	</sql>
+
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+		select
+		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
+		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByCommentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_COMMENT C
+		where C.CommentID = #{commentID,jdbcType=INTEGER} and C.IsDelete = 0
+	</select>
+
+	<select id="selectByContentID" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_COMMENT C
+		where C.IsDelete = 0 and C.ContentID = #{contentID,jdbcType=VARCHAR}
+		order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from CMS_COMMENT
+		where CommentID = #{commentID,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="commentID" parameterType="com.iidooo.cms.model.po.CmsComment">
+		insert into CMS_COMMENT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="contentID != null">
+				ContentID,
+			</if>
+			<if test="parentID != null">
+				ParentID,
+			</if>
+			<if test="comment != null">
+				Comment,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="createUserID != null">
+				CreateUserID,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID,
+			</if>
+			IsDelete,Version
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="contentID != null">
+				#{contentID,jdbcType=INTEGER},
+			</if>
+			<if test="parentID != null">
+				#{parentID,jdbcType=INTEGER},
+			</if>
+			<if test="comment != null">
+				#{comment,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserID != null">
+				#{createUserID,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				#{updateUserID,jdbcType=INTEGER},
+			</if>
+			0,1
+		</trim>
+	</insert>
+	<update id="updateByCommentID" parameterType="com.iidooo.cms.model.po.CmsComment">
+		update CMS_COMMENT
+		<set>
+			<if test="contentID != null">
+				ContentID = #{contentID,jdbcType=INTEGER},
+			</if>
+			<if test="parentID != null">
+				ParentID = #{parentID,jdbcType=INTEGER},
+			</if>
+			<if test="comment != null">
+				Comment = #{comment,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+			</if>
+			<if test="version != null">
+				Version = Version + 1,
+			</if>
+		</set>
+		where CommentID = #{commentID,jdbcType=INTEGER}
+	</update>
 </mapper>
