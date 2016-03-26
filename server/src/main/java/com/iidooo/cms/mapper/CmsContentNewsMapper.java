@@ -24,8 +24,9 @@ public interface CmsContentNewsMapper {
     /**
      * 得到指定栏目下的内容一览
      * @param channelPath 栏目路径
+     * @param createUserID 指定内容创建者
      * @param page 分页对象
      * @return 内容一览List
      */
-    List<CmsContent> selectContentNewsList(@Param("channelPath")String channelPath, @Param("page")Page page);
+    List<CmsContent> selectContentNewsList(@Param("channelPath")String channelPath, @Param("createUserID")Integer createUserID, @Param("page")Page page);
 }

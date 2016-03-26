@@ -48,6 +48,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
             user.setPhotoURL("");
             user.setPoints(0);
             user.setSex("2");
+            user.setWeixinID("");
             user.setUserType("2");
             user.setCreateTime(new Date());
             user.setCreateUserID(1);

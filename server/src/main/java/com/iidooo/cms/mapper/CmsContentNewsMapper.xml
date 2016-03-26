@@ -109,6 +109,9 @@
     join CMS_CHANNEL L on L.IsDelete = 0 and C.ChannelID = L.ChannelID 
     and L.ChannelPath =  #{channelPath,jdbcType=VARCHAR} 
     and C.ContentType = '2'
+    <if test="createUserID != null">
+    and C.CreateUserID = #{createUserID,jdbcType=INTEGER}
+    </if>
     order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
   </select>
 </mapper>

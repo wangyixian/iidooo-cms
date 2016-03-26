@@ -47,7 +47,7 @@ public class ContentController {
                 result.setStatus(ResponseStatus.Failed.getCode());
                 result.setMessages(messages);
                 return result;
-            }
+            }            
             
             String sortField = request.getParameter("sortField");
             if (StringUtil.isBlank(sortField)) {
@@ -75,7 +75,13 @@ public class ContentController {
             page.setStart(Integer.valueOf(start));
             page.setPageSize(Integer.valueOf(pageSize));
             
-            List<CmsContent> contentList = this.contentService.getContentListByType(channelPath, contentType, page);
+            CmsContent cmsContent = new CmsContent();
+            cmsContent.setContentType(contentType);
+            String createUserID = request.getParameter("createUserID");
+            if (StringUtil.isNotBlank(createUserID)) {
+                cmsContent.setCreateUserID(Integer.parseInt(createUserID));
+            }
+            List<CmsContent> contentList = this.contentService.getContentListByType(channelPath, cmsContent, page);
             if (contentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {

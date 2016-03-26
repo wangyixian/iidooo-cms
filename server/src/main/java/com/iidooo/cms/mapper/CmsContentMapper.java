@@ -23,12 +23,12 @@ public interface CmsContentMapper {
     int updateByPrimaryKey(CmsContent record);
     
     /**
-     * 根据ContentType查询获得内容一览
+     * 根据栏目路径查询获得内容一览
      * @param channelPath 限定的栏目路径
-     * @param contentType 内容类型
+     * @param createUserID 指定内容创建者
      * @param page 分页对象
      * @return 内容一览List对象
      */
-    List<CmsContent> selectContentListByType(@Param("channelPath")String channelPath, @Param("contentType")String contentType, @Param("page")Page page);
+    List<CmsContent> selectContentListByChannelPath(@Param("channelPath")String channelPath, @Param("createUserID")Integer createUserID, @Param("page")Page page);
 
 }

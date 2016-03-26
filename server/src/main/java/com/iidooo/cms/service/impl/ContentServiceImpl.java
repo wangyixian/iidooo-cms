@@ -33,14 +33,15 @@ public class ContentServiceImpl implements ContentService {
     private CmsPictureMapper cmsPictureDao;
 
     @Override
-    public List<CmsContent> getContentListByType(String channelPath, String contentType, Page page) {
+    public List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page) {
         try {
             List<CmsContent> result = new ArrayList<CmsContent>();
 
+            String contentType = cmsContent.getContentType();
             if (contentType.equals(ContentType.News.getValue())) {
-                result = cmsContentNewsDao.selectContentNewsList(channelPath, page);
+                result = cmsContentNewsDao.selectContentNewsList(channelPath, cmsContent.getCreateUserID(), page);
             } else {
-                result = cmsContentDao.selectContentListByType(channelPath, contentType, page);
+                result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent.getCreateUserID(), page);
             }
 
             List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);

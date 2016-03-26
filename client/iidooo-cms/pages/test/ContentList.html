@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-    <form action="http://www.iidooo.com/iidooo-cms/getContentList" method="post">
+    <form action="http://localhost:8080/iidooo-cms/getContentList" method="post">
         <table>
             <tr>
                 <td>栏目Path</td>
@@ -16,6 +16,11 @@
                 <td>内容类型</td>
                 <td><input type="text" name="contentType" value="2"></td>
                 <td>必填项，内容类型，2:新闻，3:自媒体</td>
+            </tr>
+            <tr>
+                <td>用户ID</td>
+                <td><input type="text" name="createUserID" value="1"></td>
+                <td>可选，获取指定用户的内容列表</td>
             </tr>
             <tr>
                 <td>排序字段</td>

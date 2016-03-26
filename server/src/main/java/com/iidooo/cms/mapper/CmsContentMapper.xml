@@ -351,7 +351,7 @@
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   
-  <select id="selectContentListByType" resultMap="ResultMapWithBLOBs">
+  <select id="selectContentListByChannelPath" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />,
     <include refid="Blob_Column_List" />
@@ -359,7 +359,10 @@
     join CMS_CHANNEL L on 
     C.IsDelete = 0 and L.IsDelete = 0 and C.ChannelID = L.ChannelID 
     and L.ChannelPath =  #{channelPath,jdbcType=VARCHAR} 
-    and C.ContentType = #{contentType,jdbcType=VARCHAR}
+    and C.ContentType = '1'
+    <if test="createUserID != null">
+    and C.CreateUserID = #{createUserID,jdbcType=INTEGER}
+    </if>
     order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
   </select>  
   <select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
