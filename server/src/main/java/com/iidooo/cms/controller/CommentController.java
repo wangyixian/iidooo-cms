@@ -117,12 +117,17 @@ public class CommentController {
             cmsComment.setContentID(Integer.parseInt(contentID));
             cmsComment.setParentID(Integer.parseInt(parentID));
             cmsComment.setCreateUserID(Integer.parseInt(createUserID));
-            cmsComment = this.commentService.createComment(cmsComment);
-            if (cmsComment == null) {
+            Integer createCommentID = this.commentService.createComment(cmsComment);
+            if (createCommentID == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
-                result.setStatus(ResponseStatus.OK.getCode());
-                result.setData(cmsComment);
+                cmsComment = commentService.getCommentByID(createCommentID);
+                if (cmsComment == null) {
+                    result.setStatus(ResponseStatus.QueryEmpty.getCode());
+                } else {
+                    result.setStatus(ResponseStatus.OK.getCode());
+                    result.setData(cmsComment);
+                }
             }
 
         } catch (Exception e) {

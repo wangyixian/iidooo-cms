@@ -222,7 +222,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsContent">
+  <update id="updateByContentID" parameterType="com.iidooo.cms.model.po.CmsContent">
     update CMS_CONTENT
     <set>
       <if test="channelID != null">
@@ -273,23 +273,14 @@
       <if test="remarks != null">
         Remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createUser != null">
-        CreateUser = #{createUser,jdbcType=INTEGER},
-      </if>
       <if test="updateTime != null">
         UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateUser != null">
         UpdateUser = #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="isDelete != null">
-        IsDelete = #{isDelete,jdbcType=INTEGER},
-      </if>
       <if test="version != null">
-        Version = #{version,jdbcType=INTEGER},
+        Version = Version + 1,
       </if>
       <if test="contentBody != null">
         ContentBody = #{contentBody,jdbcType=LONGVARCHAR},
@@ -297,31 +288,12 @@
     </set>
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.iidooo.cms.model.po.CmsContent">
+  <update id="updateForIncrementCommentCount" parameterType="com.iidooo.cms.model.po.CmsContent">
     update CMS_CONTENT
-    set ChannelID = #{channelID,jdbcType=INTEGER},
-      ContentType = #{contentType,jdbcType=VARCHAR},
-      ContentTitle = #{contentTitle,jdbcType=VARCHAR},
-      ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
-      ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
-      MetaTitle = #{metaTitle,jdbcType=VARCHAR},
-      MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
-      MetaDescription = #{metaDescription,jdbcType=VARCHAR},
-      ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-      IsSilent = #{isSilent,jdbcType=INTEGER},
-      IsSticky = #{isSticky,jdbcType=INTEGER},
-      PageViewCount = #{pageViewCount,jdbcType=INTEGER},
-      UniqueVisitorCount = #{uniqueVisitorCount,jdbcType=INTEGER},
-      StarCount = #{starCount,jdbcType=INTEGER},
-      CommentCount = #{commentCount,jdbcType=INTEGER},
-      Remarks = #{remarks,jdbcType=VARCHAR},
-      CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      CreateUser = #{createUser,jdbcType=INTEGER},
+    set CommentCount = CommentCount + 1,
       UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
-      UpdateUser = #{updateUser,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=INTEGER},
-      Version = #{version,jdbcType=INTEGER},
-      ContentBody = #{contentBody,jdbcType=LONGVARCHAR}
+      UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+      Version = Version + 1
     where ContentID = #{contentID,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContent">

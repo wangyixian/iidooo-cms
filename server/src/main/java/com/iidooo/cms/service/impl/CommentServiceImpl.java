@@ -7,9 +7,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iidooo.cms.mapper.CmsCommentMapper;
+import com.iidooo.cms.mapper.CmsContentMapper;
 import com.iidooo.cms.model.po.CmsComment;
+import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.service.CommentService;
 import com.iidooo.core.model.Page;
 
@@ -20,6 +23,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CmsCommentMapper cmsCommentMapper;
+    
+    @Autowired
+    private CmsContentMapper cmsContentMapper;
 
     @Override
     public List<CmsComment> getCommentListByContentID(Integer contentID, Page page) {
@@ -45,7 +51,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CmsComment createComment(CmsComment cmsComment) {
+    @Transactional
+    public Integer createComment(CmsComment cmsComment) throws Exception {
 
         try {
             cmsComment.setRemarks("");
@@ -53,11 +60,19 @@ public class CommentServiceImpl implements CommentService {
             cmsComment.setUpdateUserID(cmsComment.getCreateUserID());
             cmsComment.setUpdateTime(new Date());
             if (cmsCommentMapper.insert(cmsComment) <= 0) {
-                return null;
+                throw new Exception();
             }
-            cmsComment = cmsCommentMapper.selectByCommentID(cmsComment.getCommentID());
+            
+            // 评论创建成功后，内容表的评论总数＋1
+            CmsContent cmsContent = new CmsContent();
+            cmsContent.setContentID(cmsComment.getContentID());
+            cmsContent.setUpdateTime(new Date());
+            cmsContent.setUpdateUserID(cmsComment.getCreateUserID());
+            if(cmsContentMapper.updateForIncrementCommentCount(cmsContent) <= 0){
+                throw new Exception();
+            }
 
-            return cmsComment;
+            return cmsComment.getCommentID();
         } catch (Exception e) {
             logger.fatal(e);
             throw e;

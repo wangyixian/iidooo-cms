@@ -16,12 +16,6 @@ public interface CmsContentMapper {
 
     CmsContent selectByPrimaryKey(Integer contentID);
     
-    int updateByPrimaryKeySelective(CmsContent record);
-
-    int updateByPrimaryKeyWithBLOBs(CmsContent record);
-
-    int updateByPrimaryKey(CmsContent record);
-    
     /**
      * 根据栏目路径查询获得内容一览
      * @param channelPath 限定的栏目路径
@@ -30,5 +24,21 @@ public interface CmsContentMapper {
      * @return 内容一览List对象
      */
     List<CmsContent> selectContentListByChannelPath(@Param("channelPath")String channelPath, @Param("createUserID")Integer createUserID, @Param("page")Page page);
+    
+    /**
+     * 根据ContentID更新CmsContent
+     * @param cmsContnt 该对象的数据会被更新进数据库
+     * @return 更新影响到的行数
+     */
+    int updateByContentID(CmsContent cmsContnt);
 
+    /**
+     * 增加评论数
+     * @return 更新所影响的行数
+     */
+    int updateForIncrementCommentCount(CmsContent cmsContnt);
+
+    int updateByPrimaryKey(CmsContent record);
+    
+    
 }
