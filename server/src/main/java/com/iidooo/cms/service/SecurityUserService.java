@@ -5,5 +5,7 @@ import com.iidooo.cms.model.vo.SecurityUserInfo;
 public interface SecurityUserService {
     SecurityUserInfo getUserInfoByID(Integer userID);
     
-    SecurityUserInfo createDefaultUser();
+    SecurityUserInfo createDefaultUser(String photoBaseURL);
+    
+    SecurityUserInfo updateUserInfo(SecurityUserInfo userInfo);
 }

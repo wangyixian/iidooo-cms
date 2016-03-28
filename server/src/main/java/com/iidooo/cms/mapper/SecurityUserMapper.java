@@ -22,7 +22,10 @@ public interface SecurityUserMapper {
      */
     SecurityUserInfo selectByUserID(Integer userID);
 
-    int updateByUserIDSelective(SecurityUser user);
-
-    int updateByPrimaryKey(SecurityUser record);
+    /**
+     * 根据用户ID更新用户信息
+     * @param user 该用户信息会被更新进数据库
+     * @return 更行影响的行数
+     */
+    int updateByUserID(SecurityUser user);
 }

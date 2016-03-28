@@ -202,7 +202,7 @@
       0,1
     </trim>
   </insert>
-  <update id="updateByUserIDSelective" parameterType="com.iidooo.cms.model.po.SecurityUser" >
+  <update id="updateByUserID" parameterType="com.iidooo.cms.model.po.SecurityUser" >
     update SECURITY_USER
     <set >
       <if test="loginID != null" >
@@ -255,31 +255,6 @@
       </if>
        Version = Version + 1,
     </set>
-    where UserID = #{userID,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.SecurityUser" >
-    update SECURITY_USER
-    set LoginID = #{loginID,jdbcType=VARCHAR},
-      Password = #{password,jdbcType=VARCHAR},
-      UserName = #{userName,jdbcType=VARCHAR},
-      Mobile = #{mobile,jdbcType=VARCHAR},
-      Email = #{email,jdbcType=VARCHAR},
-      Sex = #{sex,jdbcType=CHAR},
-      Birthday = #{birthday,jdbcType=DATE},
-      WeixinID = #{weixinID,jdbcType=VARCHAR},
-      PhotoURL = #{photoURL,jdbcType=VARCHAR},
-      IsSilent = #{isSilent,jdbcType=INTEGER},
-      IsDisable = #{isDisable,jdbcType=INTEGER},
-      UserType = #{userType,jdbcType=VARCHAR},
-      Level = #{level,jdbcType=INTEGER},
-      Points = #{points,jdbcType=INTEGER},
-      Remarks = #{remarks,jdbcType=VARCHAR},
-      CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      CreateUserID = #{createUserID,jdbcType=INTEGER},
-      UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
-      UpdateUserID = #{updateUserID,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=INTEGER},
-      Version = #{version,jdbcType=INTEGER}
     where UserID = #{userID,jdbcType=INTEGER}
   </update>
 </mapper>

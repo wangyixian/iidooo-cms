@@ -23,6 +23,12 @@
     from SECURITY_CLIENT
     where ClientID = #{clientID,jdbcType=INTEGER}
   </select>
+  <select id="selectByAppIDSecret" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from SECURITY_CLIENT
+    where AppID = #{appID,jdbcType=VARCHAR} and Secret = #{secret,jdbcType=VARCHAR} and IsDelete = 0
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from SECURITY_CLIENT
     where ClientID = #{clientID,jdbcType=INTEGER}
