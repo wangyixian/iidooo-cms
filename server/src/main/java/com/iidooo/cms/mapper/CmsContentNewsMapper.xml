@@ -27,19 +27,29 @@
 		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContentNews" extends="BaseResultMap">
 		<result column="ContentBody" property="contentBody" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		N.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
-		C.MetaTitle, C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
-		C.UniqueVisitorCount, C.StarCount, C.CommentCount, N.Source, N.SourceURL, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
+		C.MetaTitle, C.MetaKeywords,
+		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
+		C.UniqueVisitorCount, C.StarCount, C.CommentCount, N.Source,
+		N.SourceURL, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
+
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+		select
+		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
+		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+	</select>
 
 	<select id="selectByContentID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
 		select
@@ -58,7 +68,8 @@
 		<include refid="Blob_Column_List" />
 		from CMS_CONTENT_NEWS N
 		join CMS_CONTENT C on C.IsDelete = 0 and N.ContentID = C.ContentID
-		join CMS_CHANNEL L on L.IsDelete = 0 and C.ChannelID = L.ChannelID
+		join CMS_CHANNEL L on L.IsDelete = 0 and C.ChannelID =
+		L.ChannelID
 		and L.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '2'
 		<if test="createUserID != null and createUserID > 0">
@@ -111,7 +122,8 @@
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContentNews">
 		update CMS_CONTENT_NEWS
 		set Source = #{source,jdbcType=VARCHAR},
-		SourceURL = #{sourceURL,jdbcType=VARCHAR}
+		SourceURL =
+		#{sourceURL,jdbcType=VARCHAR}
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
 

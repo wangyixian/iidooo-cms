@@ -25,20 +25,29 @@
 		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
-		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.po.SecurityUser"></association>
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContent">
 		<result column="ContentBody" jdbcType="LONGVARCHAR" property="contentBody" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
-		C.MetaTitle, C.MetaKeywords, C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
-		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
+		C.MetaTitle, C.MetaKeywords,
+		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
+		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.Remarks,
+		C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
 		C.ContentBody
 	</sql>
+
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+		select
+		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
+		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+	</select>
 
 	<select id="selectByContentID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
 		select
@@ -257,15 +266,18 @@
 	<update id="updateForIncrementCommentCount" parameterType="com.iidooo.cms.model.po.CmsContent">
 		update CMS_CONTENT
 		set CommentCount = CommentCount + 1,
-		UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+		UpdateTime =
+		#{updateTime,jdbcType=TIMESTAMP},
 		UpdateUserID = #{updateUserID,jdbcType=INTEGER},
 		Version = Version + 1
-		where ContentID = #{contentID,jdbcType=INTEGER}
+		where ContentID =
+		#{contentID,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContent">
 		update CMS_CONTENT
 		set ChannelID = #{channelID,jdbcType=INTEGER},
-		ContentType = #{contentType,jdbcType=VARCHAR},
+		ContentType =
+		#{contentType,jdbcType=VARCHAR},
 		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
 		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
 		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
@@ -276,16 +288,20 @@
 		IsSilent = #{isSilent,jdbcType=INTEGER},
 		IsSticky = #{isSticky,jdbcType=INTEGER},
 		PageViewCount = #{pageViewCount,jdbcType=INTEGER},
-		UniqueVisitorCount = #{uniqueVisitorCount,jdbcType=INTEGER},
+		UniqueVisitorCount =
+		#{uniqueVisitorCount,jdbcType=INTEGER},
 		StarCount = #{starCount,jdbcType=INTEGER},
 		CommentCount = #{commentCount,jdbcType=INTEGER},
-		Remarks = #{remarks,jdbcType=VARCHAR},
+		Remarks =
+		#{remarks,jdbcType=VARCHAR},
 		CreateTime = #{createTime,jdbcType=TIMESTAMP},
 		CreateUser = #{createUser,jdbcType=INTEGER},
-		UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+		UpdateTime =
+		#{updateTime,jdbcType=TIMESTAMP},
 		UpdateUser = #{updateUser,jdbcType=INTEGER},
 		IsDelete = #{isDelete,jdbcType=INTEGER},
-		Version = #{version,jdbcType=INTEGER}
+		Version =
+		#{version,jdbcType=INTEGER}
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
 
@@ -294,7 +310,8 @@
 		set
 		PageViewCount = #{pvCount,jdbcType=INTEGER},
 		UniqueVisitorCount = #{uvCount,jdbcType=INTEGER}
-		where ContentID = #{contentID,jdbcType=INTEGER}
+		where ContentID =
+		#{contentID,jdbcType=INTEGER}
 	</update>
 
 	<select id="selectContentListByChannelPath" resultMap="ResultMapWithBLOBs">
@@ -305,17 +322,12 @@
 		from CMS_CONTENT C
 		join CMS_CHANNEL L on
 		C.IsDelete = 0 and L.IsDelete = 0 and C.ChannelID = L.ChannelID
-		and L.ChannelPath = #{channelPath,jdbcType=VARCHAR}
+		and L.ChannelPath =
+		#{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '1'
 		<if test="createUserID != null">
 			and C.CreateUserID = #{createUserID,jdbcType=INTEGER}
 		</if>
 		order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
-	</select>
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
-		select
-		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
-		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
-		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 </mapper>

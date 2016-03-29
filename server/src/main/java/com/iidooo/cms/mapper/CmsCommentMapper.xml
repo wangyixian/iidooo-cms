@@ -5,7 +5,6 @@
 		<id column="CommentID" property="commentID" jdbcType="INTEGER" />
 		<result column="ContentID" property="contentID" jdbcType="INTEGER" />
 		<result column="ParentID" property="parentID" jdbcType="INTEGER" />
-		<result column="Comment" property="comment" jdbcType="VARCHAR" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
@@ -13,11 +12,18 @@
 		<result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
 		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
-		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.po.SecurityUser"></association>
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsComment" extends="BaseResultMap">
+		<result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		C.CommentID, C.ContentID, C.ParentID, C.Comment, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime,
-		C.UpdateUserID, C.IsDelete, C.Version
+		C.CommentID, C.ContentID, C.ParentID, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime,
+		C.UpdateUserID, C.IsDelete,
+		C.Version
+	</sql>
+	<sql id="Blob_Column_List">
+		C.Comment
 	</sql>
 
 	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
@@ -30,6 +36,8 @@
 	<select id="selectByCommentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
 		from CMS_COMMENT C
 		where C.CommentID = #{commentID,jdbcType=INTEGER} and C.IsDelete = 0
 	</select>
@@ -37,16 +45,19 @@
 	<select id="selectByContentID" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
 		from CMS_COMMENT C
 		where C.IsDelete = 0 and C.ContentID = #{contentID,jdbcType=VARCHAR}
-		order by ${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+		order by ${page.sortField} ${page.sortType} limit
+		${page.start}, ${page.pageSize}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from CMS_COMMENT
 		where CommentID = #{commentID,jdbcType=INTEGER}
 	</delete>
-	
+
 	<insert id="insert" useGeneratedKeys="true" keyProperty="commentID" parameterType="com.iidooo.cms.model.po.CmsComment">
 		insert into CMS_COMMENT
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -84,7 +95,7 @@
 				#{parentID,jdbcType=INTEGER},
 			</if>
 			<if test="comment != null">
-				#{comment,jdbcType=VARCHAR},
+				#{comment,jdbcType=LONGVARCHAR},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -114,7 +125,7 @@
 				ParentID = #{parentID,jdbcType=INTEGER},
 			</if>
 			<if test="comment != null">
-				Comment = #{comment,jdbcType=VARCHAR},
+				Comment = #{comment,jdbcType=LONGVARCHAR},
 			</if>
 			<if test="remarks != null">
 				Remarks = #{remarks,jdbcType=VARCHAR},
