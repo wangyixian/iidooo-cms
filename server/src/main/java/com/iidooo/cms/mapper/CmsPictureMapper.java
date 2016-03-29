@@ -8,9 +8,12 @@ import com.iidooo.cms.model.po.CmsPicture;
 public interface CmsPictureMapper {
     int deleteByPrimaryKey(Integer pictureID);
 
-    int insert(CmsPicture record);
-
-    int insertSelective(CmsPicture record);
+    /**
+     * 插入图片数据
+     * @param picture 该图片数据会被插入数据库
+     * @return 所影响的行数
+     */
+    int insert(CmsPicture picture);
 
     CmsPicture selectByPrimaryKey(Integer pictureID);
 

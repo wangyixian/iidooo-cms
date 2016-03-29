@@ -10,11 +10,14 @@ import com.iidooo.core.model.Page;
 public interface CmsContentMapper {
     int deleteByPrimaryKey(Integer contentID);
 
-    int insert(CmsContent record);
+    int insert(CmsContent content);
 
-    int insertSelective(CmsContent record);
-
-    CmsContent selectByPrimaryKey(Integer contentID);
+    /**
+     * 根据ContentID查询获得内容对象
+     * @param contentID 通过该内容ID查询
+     * @return 所获得的内容对象
+     */
+    CmsContent selectByContentID(Integer contentID);
     
     /**
      * 根据栏目路径查询获得内容一览
@@ -37,6 +40,15 @@ public interface CmsContentMapper {
      * @return 更新所影响的行数
      */
     int updateForIncrementCommentCount(CmsContent cmsContnt);
+        
+    /**
+     * 更新内容的PV和UV
+     * @param contentID 该内容的PV，UV会被更新
+     * @param pvCount PV数量
+     * @param uvCount UV数量
+     * @return 更新所影响的行数
+     */
+    int updateViewCount(@Param("contentID")Integer contentID, @Param("pvCount")Integer pvCount, @Param("uvCount")Integer uvCount);
 
     int updateByPrimaryKey(CmsContent record);
     

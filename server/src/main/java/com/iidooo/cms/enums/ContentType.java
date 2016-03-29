@@ -1,35 +1,24 @@
 package com.iidooo.cms.enums;
 
 public enum ContentType {
-    Default("Default", "1"),
+    Default("1"),
 
-    News("News", "2"),
+    News("2"),
 
-    Blog("Blog", "3");
+    Blog("3");
 
-    private ContentType(String name, String value) {
-        this.name = name;
-        this.value = value;
+    private ContentType(String code) {
+        this.code = code;
     }
 
-    private String name;
+    private String code;
 
-    private String value;
-
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

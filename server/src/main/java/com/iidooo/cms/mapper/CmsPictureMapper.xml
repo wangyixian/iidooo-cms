@@ -29,24 +29,9 @@
     delete from CMS_PICTURE
     where PictureID = #{pictureID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.iidooo.cms.model.po.CmsPicture">
-    insert into CMS_PICTURE (PictureID, ContentID, PictureName, 
-      PictureURL, Sequence, Remarks, 
-      CreateTime, CreateUser, UpdateTime, 
-      UpdateUser, IsDelete, Version
-      )
-    values (#{pictureID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{pictureName,jdbcType=VARCHAR}, 
-      #{pictureURL,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.iidooo.cms.model.po.CmsPicture">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="pictureID" parameterType="com.iidooo.cms.model.po.CmsPicture">
     insert into CMS_PICTURE
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="pictureID != null">
-        PictureID,
-      </if>
       <if test="contentID != null">
         ContentID,
       </if>
@@ -74,17 +59,9 @@
       <if test="updateUser != null">
         UpdateUser,
       </if>
-      <if test="isDelete != null">
-        IsDelete,
-      </if>
-      <if test="version != null">
-        Version,
-      </if>
+        IsDelete,Version
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="pictureID != null">
-        #{pictureID,jdbcType=INTEGER},
-      </if>
       <if test="contentID != null">
         #{contentID,jdbcType=INTEGER},
       </if>
@@ -112,12 +89,7 @@
       <if test="updateUser != null">
         #{updateUser,jdbcType=INTEGER},
       </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="version != null">
-        #{version,jdbcType=INTEGER},
-      </if>
+      0,1
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsPicture">

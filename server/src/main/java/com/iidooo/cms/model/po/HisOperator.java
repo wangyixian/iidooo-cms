@@ -3,40 +3,38 @@ package com.iidooo.cms.model.po;
 import java.util.Date;
 
 public class HisOperator {
-    private Integer hisID;
+    private Integer operatorID;
 
     private String tableName;
 
     private Integer tableKey;
 
+    private String operation;
+
     private String operatorIP;
 
-    private String operatorMac;
-
-    private String operatorBrowser;
-
-    private String operationCode;
+    private String userAgent;
 
     private String remarks;
-
-    private Date createTime;
-
-    private Integer createUserID;
 
     private Date updateTime;
 
     private Integer updateUserID;
 
+    private Date createTime;
+
+    private Integer createUserID;
+
     private Integer isDelete;
 
     private Integer version;
 
-    public Integer getHisID() {
-        return hisID;
+    public Integer getOperatorID() {
+        return operatorID;
     }
 
-    public void setHisID(Integer hisID) {
-        this.hisID = hisID;
+    public void setOperatorID(Integer operatorID) {
+        this.operatorID = operatorID;
     }
 
     public String getTableName() {
@@ -55,6 +53,14 @@ public class HisOperator {
         this.tableKey = tableKey;
     }
 
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation == null ? null : operation.trim();
+    }
+
     public String getOperatorIP() {
         return operatorIP;
     }
@@ -63,28 +69,12 @@ public class HisOperator {
         this.operatorIP = operatorIP == null ? null : operatorIP.trim();
     }
 
-    public String getOperatorMac() {
-        return operatorMac;
+    public String getUserAgent() {
+        return userAgent;
     }
 
-    public void setOperatorMac(String operatorMac) {
-        this.operatorMac = operatorMac == null ? null : operatorMac.trim();
-    }
-
-    public String getOperatorBrowser() {
-        return operatorBrowser;
-    }
-
-    public void setOperatorBrowser(String operatorBrowser) {
-        this.operatorBrowser = operatorBrowser == null ? null : operatorBrowser.trim();
-    }
-
-    public String getOperationCode() {
-        return operationCode;
-    }
-
-    public void setOperationCode(String operationCode) {
-        this.operationCode = operationCode == null ? null : operationCode.trim();
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent == null ? null : userAgent.trim();
     }
 
     public String getRemarks() {
@@ -93,22 +83,6 @@ public class HisOperator {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getCreateUserID() {
-        return createUserID;
-    }
-
-    public void setCreateUserID(Integer createUserID) {
-        this.createUserID = createUserID;
     }
 
     public Date getUpdateTime() {
@@ -125,6 +99,22 @@ public class HisOperator {
 
     public void setUpdateUserID(Integer updateUserID) {
         this.updateUserID = updateUserID;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getCreateUserID() {
+        return createUserID;
+    }
+
+    public void setCreateUserID(Integer createUserID) {
+        this.createUserID = createUserID;
     }
 
     public Integer getIsDelete() {

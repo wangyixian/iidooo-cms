@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iidooo.cms.model.vo.SecurityUserInfo;
 import com.iidooo.cms.service.SecurityUserService;
-import com.iidooo.core.enums.MessageCode;
 import com.iidooo.core.enums.MessageType;
+import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.ResponseStatus;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.ResponseResult;
@@ -34,7 +34,7 @@ public class SecurityUserController {
             String userID = request.getParameter("userID");
             if (StringUtil.isBlank(userID)) {
                 // 验证失败，返回message
-                Message message = new Message(MessageCode.FieldRequired, MessageType.ERROR, "userID");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.ERROR, "userID");
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
@@ -50,7 +50,7 @@ public class SecurityUserController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
             result.getMessages().add(message);
         }
         return result;
@@ -71,7 +71,7 @@ public class SecurityUserController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
             result.getMessages().add(message);
         }
         return result;
@@ -91,7 +91,7 @@ public class SecurityUserController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
             result.getMessages().add(message);
         }
         return result;

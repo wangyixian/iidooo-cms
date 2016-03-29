@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iidooo.cms.model.po.CmsComment;
 import com.iidooo.cms.service.CommentService;
-import com.iidooo.core.enums.MessageCode;
 import com.iidooo.core.enums.MessageType;
+import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.ResponseStatus;
 import com.iidooo.core.enums.SortField;
 import com.iidooo.core.enums.SortType;
@@ -40,7 +40,7 @@ public class CommentController {
             String contentID = request.getParameter("contentID");
             if (StringUtil.isBlank(contentID)) {
                 // 验证失败，返回message
-                Message message = new Message(MessageCode.FieldRequired, MessageType.ERROR, "contentID");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.ERROR, "contentID");
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
@@ -82,7 +82,7 @@ public class CommentController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
             result.getMessages().add(message);
         }
         return result;
@@ -132,7 +132,7 @@ public class CommentController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
             result.getMessages().add(message);
         }
         return result;
@@ -169,7 +169,7 @@ public class CommentController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
             result.getMessages().add(message);
         }
         return result;
@@ -179,23 +179,23 @@ public class CommentController {
         List<Message> result = new ArrayList<Message>();
         try {
             if (StringUtil.isBlank(createUserID)) {
-                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "createUserID");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "createUserID");
                 result.add(message);
             }
 
             if (StringUtil.isBlank(contentID)) {
-                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "contentID");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.add(message);
             }
 
             if (StringUtil.isBlank(comment)) {
-                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "comment");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "comment");
                 result.add(message);
             }
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
             message.setDescription(e.getMessage());
             result.add(message);
         }
@@ -206,18 +206,18 @@ public class CommentController {
         List<Message> result = new ArrayList<Message>();
         try {
             if (StringUtil.isBlank(commentID)) {
-                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "commentID");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "commentID");
                 result.add(message);
             }
 
             if (StringUtil.isBlank(comment)) {
-                Message message = new Message(MessageCode.FieldRequired, MessageType.WARN, "comment");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "comment");
                 result.add(message);
             }
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageCode.Exception, MessageType.FATAL);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
             message.setDescription(e.getMessage());
             result.add(message);
         }

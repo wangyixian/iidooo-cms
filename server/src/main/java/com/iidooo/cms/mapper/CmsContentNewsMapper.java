@@ -11,11 +11,19 @@ import com.iidooo.core.model.Page;
 public interface CmsContentNewsMapper {
     int deleteByPrimaryKey(Integer contentID);
 
-    int insert(CmsContentNews record);
+    /**
+     * 插入新的新闻内容对象
+     * @param contentNews 该新闻内容对象会被插入
+     * @return 所影响的行数
+     */
+    int insert(CmsContentNews contentNews);
 
-    int insertSelective(CmsContentNews record);
-
-    CmsContentNews selectByPrimaryKey(Integer contentID);
+    /**
+     * 根据内容ID获得新闻内容对象
+     * @param contentID 通过该内容ID获得
+     * @return 所获的的新闻内容对象
+     */
+    CmsContentNews selectByContentID(Integer contentID);
 
     int updateByPrimaryKeySelective(CmsContentNews record);
 
