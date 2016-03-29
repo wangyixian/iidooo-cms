@@ -34,12 +34,6 @@ public interface CmsContentMapper {
      * @return 更新影响到的行数
      */
     int updateByContentID(CmsContent cmsContnt);
-
-    /**
-     * 增加评论数
-     * @return 更新所影响的行数
-     */
-    int updateForIncrementCommentCount(CmsContent cmsContnt);
         
     /**
      * 更新内容的PV和UV
@@ -50,6 +44,14 @@ public interface CmsContentMapper {
      */
     int updateViewCount(@Param("contentID")Integer contentID, @Param("pvCount")Integer pvCount, @Param("uvCount")Integer uvCount);
 
+    /**
+     * 更新内容的评论数
+     * @param contentID 指定内容ID
+     * @param commentCount 评论数
+     * @return 更新所影响的行数
+     */
+    int updateCommentCount(@Param("contentID")Integer contentID, @Param("commentCount") Integer commentCount);
+    
     int updateByPrimaryKey(CmsContent record);
     
     

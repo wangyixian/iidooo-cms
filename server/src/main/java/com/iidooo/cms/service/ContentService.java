@@ -10,6 +10,13 @@ public interface ContentService {
     
     /**
      * 通过内容类型和内容ID获取内容对象
+     * @param contentID 内容ID
+     * @return 所获的的内容对象
+     */
+    CmsContent getContent(Integer contentID);
+    
+    /**
+     * 通过内容类型和内容ID获取内容对象
      * @param contentType 内容类型的枚举
      * @param contentID 内容ID
      * @return 所获的的内容对象
@@ -29,4 +36,10 @@ public interface ContentService {
      * @param uvCount uv数量
      */
     void updateViewCount(Integer contentID, int pvCount, int uvCount);
+    
+    /**
+     * 更新内容的评论数
+     * @param contentID 指定内容的ID
+     */
+    void updateCommentCount(Integer contentID);
 }

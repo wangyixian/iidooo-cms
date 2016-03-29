@@ -263,16 +263,6 @@
 		</set>
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
-	<update id="updateForIncrementCommentCount" parameterType="com.iidooo.cms.model.po.CmsContent">
-		update CMS_CONTENT
-		set CommentCount = CommentCount + 1,
-		UpdateTime =
-		#{updateTime,jdbcType=TIMESTAMP},
-		UpdateUserID = #{updateUserID,jdbcType=INTEGER},
-		Version = Version + 1
-		where ContentID =
-		#{contentID,jdbcType=INTEGER}
-	</update>
 	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContent">
 		update CMS_CONTENT
 		set ChannelID = #{channelID,jdbcType=INTEGER},
@@ -310,8 +300,14 @@
 		set
 		PageViewCount = #{pvCount,jdbcType=INTEGER},
 		UniqueVisitorCount = #{uvCount,jdbcType=INTEGER}
-		where ContentID =
-		#{contentID,jdbcType=INTEGER}
+		where ContentID = #{contentID,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateCommentCount">		
+		update CMS_CONTENT
+		set
+		CommentCount = #{commentCount,jdbcType=INTEGER}
+		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
 
 	<select id="selectContentListByChannelPath" resultMap="ResultMapWithBLOBs">

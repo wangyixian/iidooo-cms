@@ -28,6 +28,7 @@ import com.iidooo.core.model.Message;
 import com.iidooo.core.model.Page;
 import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.util.StringUtil;
+import com.iidooo.core.util.ValidateUtil;
 
 @Controller
 public class ContentController {
@@ -36,7 +37,7 @@ public class ContentController {
 
     @Autowired
     private ContentService contentService;
-    
+
     @Autowired
     private HisOperatorService hisOperatorService;
 
@@ -51,9 +52,16 @@ public class ContentController {
             if (StringUtil.isBlank(contentID)) {
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentID)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
             }
+
             if (StringUtil.isBlank(contentType)) {
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentType)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
                 result.getMessages().add(message);
             }
 
@@ -69,14 +77,14 @@ public class ContentController {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
                 return result;
             }
-            
+
             // 返回找到的内容对象
             result.setStatus(ResponseStatus.OK.getCode());
             result.setData(content);
-            
+
             // 更新浏览记录
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
-            
+
             // 更新该内容的PV和UV
             int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
             int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
@@ -108,7 +116,11 @@ public class ContentController {
             if (StringUtil.isBlank(contentType)) {
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
                 result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentType)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
             }
+            
             if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
@@ -149,7 +161,7 @@ public class ContentController {
             } else {
                 cmsContent.setCreateUserID(null);
             }
-            
+
             List<CmsContent> contentList = this.contentService.getContentListByType(channelPath, cmsContent, page);
             if (contentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());

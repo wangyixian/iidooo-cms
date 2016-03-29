@@ -25,6 +25,13 @@ public interface CmsCommentMapper {
     CmsComment selectByCommentID(Integer commentID);
     
     /**
+     * 得到内容的评论数
+     * @param contentID 指定内容的评论数
+     * @return 评论数
+     */
+    int selectCommentCount(Integer contentID);
+    
+    /**
      * 根据内容ID获得关联的评论一览
      * @param contentID
      * @param page 分页对象

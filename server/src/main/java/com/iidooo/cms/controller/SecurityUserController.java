@@ -19,6 +19,7 @@ import com.iidooo.core.enums.ResponseStatus;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.util.StringUtil;
+import com.iidooo.core.util.ValidateUtil;
 
 @Controller
 public class SecurityUserController {
@@ -34,7 +35,13 @@ public class SecurityUserController {
             String userID = request.getParameter("userID");
             if (StringUtil.isBlank(userID)) {
                 // 验证失败，返回message
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.ERROR, "userID");
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            } else if (!ValidateUtil.isNumber(userID)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;

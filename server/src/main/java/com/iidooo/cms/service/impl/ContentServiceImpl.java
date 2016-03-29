@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iidooo.cms.enums.ContentType;
+import com.iidooo.cms.mapper.CmsCommentMapper;
 import com.iidooo.cms.mapper.CmsContentMapper;
 import com.iidooo.cms.mapper.CmsContentNewsMapper;
 import com.iidooo.cms.mapper.CmsPictureMapper;
@@ -34,6 +35,20 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private CmsPictureMapper cmsPictureDao;
+    
+    @Autowired
+    private CmsCommentMapper cmsCommentMapper;
+
+    @Override
+    public CmsContent getContent(Integer contentID) {
+        try {
+            CmsContent result = cmsContentDao.selectByContentID(contentID);
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
 
     @Override
     public CmsContent getContent(String contentType, Integer contentID) {
@@ -63,26 +78,28 @@ public class ContentServiceImpl implements ContentService {
             } else {
                 result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent.getCreateUserID(), page);
             }
+            if (result.size() > 0) {
 
-            List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);
-            // Key: ContentID
-            // Value: Picture List
-            Map<Integer, List<CmsPicture>> picturesMap = new HashMap<Integer, List<CmsPicture>>();
-            for (CmsPicture item : pictures) {
-                if (picturesMap.containsKey(item.getContentID())) {
-                    picturesMap.get(item.getContentID()).add(item);
-                } else {
-                    List<CmsPicture> tempPictureList = new ArrayList<CmsPicture>();
-                    tempPictureList.add(item);
-                    picturesMap.put(item.getContentID(), tempPictureList);
+                List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);
+                // Key: ContentID
+                // Value: Picture List
+                Map<Integer, List<CmsPicture>> picturesMap = new HashMap<Integer, List<CmsPicture>>();
+                for (CmsPicture item : pictures) {
+                    if (picturesMap.containsKey(item.getContentID())) {
+                        picturesMap.get(item.getContentID()).add(item);
+                    } else {
+                        List<CmsPicture> tempPictureList = new ArrayList<CmsPicture>();
+                        tempPictureList.add(item);
+                        picturesMap.put(item.getContentID(), tempPictureList);
+                    }
                 }
-            }
 
-            // Put the picture list into content
-            for (CmsContent item : result) {
-                if (picturesMap.containsKey(item.getContentID())) {
-                    List<CmsPicture> pictureList = picturesMap.get(item.getContentID());
-                    item.setPictureList(pictureList);
+                // Put the picture list into content
+                for (CmsContent item : result) {
+                    if (picturesMap.containsKey(item.getContentID())) {
+                        List<CmsPicture> pictureList = picturesMap.get(item.getContentID());
+                        item.setPictureList(pictureList);
+                    }
                 }
             }
 
@@ -153,7 +170,18 @@ public class ContentServiceImpl implements ContentService {
             cmsContentDao.updateViewCount(contentID, pvCount, uvCount);
         } catch (Exception e) {
             logger.fatal(e);
-        }        
+        }
+    }
+
+    @Override
+    public void updateCommentCount(Integer contentID) {
+        try { 
+            int commentCount = cmsCommentMapper.selectCommentCount(contentID);
+            cmsContentDao.updateCommentCount(contentID, commentCount);            
+        } catch (Exception e) {
+            logger.fatal(e);
+        }
+        
     }
 
 }

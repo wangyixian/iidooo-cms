@@ -18,10 +18,10 @@ public interface CommentService {
     /**
      * 创建一条评论
      * @param cmsComment 创建的评论对象
-     * @return 新创建的评论ID
+     * @return 新创建的评论对象
      * @throws Exception 抛出的未处理异常
      */
-    Integer createComment(CmsComment cmsComment) throws Exception;
+    CmsComment createComment(CmsComment cmsComment);
     
     /**
      * 更新一条评论
