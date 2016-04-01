@@ -39,28 +39,48 @@ public class CmsStarServiceImpl implements CmsStarService {
                 cmsStar.setUpdateTime(new Date());
                 cmsStar.setUpdateUserID(createUserID);
                 if (cmsStarMapper.insert(cmsStar) > 0) {
-                    if(cmsContentMapper.updateStarCount(contentID, true) <= 0){
+                    if (cmsContentMapper.updateStarCount(contentID, true) <= 0) {
                         throw new Exception();
                     }
                 } else {
                     return false;
                 }
             } else {
-                boolean isPlus = false;
                 if (cmsStar.getIsStar() <= 0) {
-                    // DB中的该条记录的点赞处于未点赞状态，那么就点赞更新
                     cmsStar.setIsStar(1);
-                    isPlus = true;
-                } else {
-                    // DB中的该条记录的点赞处于点赞状态，那么就取消点赞
-                    cmsStar.setIsStar(0);
-                }
-                if (cmsStarMapper.update(cmsStar) > 0) {
-                    if(cmsContentMapper.updateStarCount(contentID, isPlus) <= 0){
-                        throw new Exception();
+                    if (cmsStarMapper.update(cmsStar) > 0) {
+                        if (cmsContentMapper.updateStarCount(contentID, true) <= 0) {
+                            throw new Exception();
+                        }
+                    } else {
+                        return false;
                     }
-                } else {
-                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean unstarContent(Integer contentID, Integer createUserID) throws Exception {
+        try {
+            CmsStar cmsStar = cmsStarMapper.selectByUserContentID(contentID, createUserID);
+            if (cmsStar == null) {
+                return false;
+            } else {
+                if (cmsStar.getIsStar() >= 1) {
+                    cmsStar.setIsStar(0);
+                    if (cmsStarMapper.update(cmsStar) > 0) {
+                        if (cmsContentMapper.updateStarCount(contentID, false) <= 0) {
+                            throw new Exception();
+                        }
+                    } else {
+                        return false;
+                    }
                 }
             }
             return true;

@@ -3,6 +3,8 @@ package com.iidooo.cms.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,7 +68,63 @@ public class CmsStarController {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
-                result.setData(contentService.getContentStarCount(Integer.parseInt(contentID)));
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("contentID", Integer.parseInt(contentID));
+                jsonObject.put("createUserID", Integer.parseInt(createUserID));
+                jsonObject.put("starCount", contentService.getContentStarCount(Integer.parseInt(contentID)));
+                
+                result.setData(jsonObject);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            result.getMessages().add(message);
+        }
+        return result;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/unstarContent", method = RequestMethod.POST)
+    public ResponseResult unstarContent(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            // 解析获得传入的参数
+            // 必填参数
+            String createUserID = request.getParameter("createUserID");
+            String contentID = request.getParameter("contentID");
+
+            if (StringUtil.isBlank(createUserID)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "createUserID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(createUserID)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "createUserID");
+                result.getMessages().add(message);
+            }
+            if (StringUtil.isBlank(contentID)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentID)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                // 验证失败，返回message
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }            
+            
+            if (this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID)) == false) {
+                result.setStatus(ResponseStatus.InsertFailed.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("contentID", Integer.parseInt(contentID));
+                jsonObject.put("createUserID", Integer.parseInt(createUserID));
+                jsonObject.put("starCount", contentService.getContentStarCount(Integer.parseInt(contentID)));
+                
+                result.setData(jsonObject);
             }
 
         } catch (Exception e) {
