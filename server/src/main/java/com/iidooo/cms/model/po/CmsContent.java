@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.iidooo.cms.model.vo.CmsTagInfo;
 import com.iidooo.cms.model.vo.SecurityUserInfo;
 
 public class CmsContent {
@@ -270,13 +271,16 @@ public class CmsContent {
         this.createUser = createUser;
     }
     
-    private List<CmsTag> tagList;
+    private List<CmsTagInfo> tagList;
 
-    public List<CmsTag> getTagList() {
+    public List<CmsTagInfo> getTagList() {
+        if (tagList == null) {
+            tagList = new ArrayList<CmsTagInfo>();
+        }
         return tagList;
     }
 
-    public void setTagList(List<CmsTag> tagList) {
+    public void setTagList(List<CmsTagInfo> tagList) {
         this.tagList = tagList;
     }
     

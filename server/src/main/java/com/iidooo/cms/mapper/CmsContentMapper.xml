@@ -52,18 +52,20 @@
 		C.ContentBody
 	</sql>
 
-	<!-- 根据CmsContent表中的ContentID查询CmsTag信息 -->
-	<select id="selectTagList" parameterType="java.lang.Integer" resultMap="TagListResultMap">
-		select T.TagID, T.TagName, T.Remarks from CMS_CONTENT_TAG CT join
-		CMS_TAG T on CT.TagID = T.TagID and
-		CT.IsDelete = 0 and T.IsDelete = 0 and ContentID = #{contentID,jdbcType=INTEGER};
-	</select>
+	
 
 	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
 		select
 		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
 		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据CmsContent表中的ContentID查询CmsTag信息 -->
+	<select id="selectTagList" parameterType="java.lang.Integer" resultMap="TagListResultMap">
+		select T.TagID, T.TagName, T.Remarks from CMS_CONTENT_TAG CT join
+		CMS_TAG T on CT.TagID = T.TagID and
+		CT.IsDelete = 0 and T.IsDelete = 0 and ContentID = #{contentID,jdbcType=INTEGER};
 	</select>
 
 	<select id="selectByContentID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
