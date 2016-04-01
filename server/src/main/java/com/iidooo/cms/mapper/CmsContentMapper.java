@@ -29,6 +29,13 @@ public interface CmsContentMapper {
     List<CmsContent> selectContentListByChannelPath(@Param("channelPath")String channelPath, @Param("createUserID")Integer createUserID, @Param("page")Page page);
     
     /**
+     * 得到内容的点赞数
+     * @param contentID 该内容ID的点赞数
+     * @return 点赞数
+     */
+    int selectStarCount(Integer contentID);
+    
+    /**
      * 根据ContentID更新CmsContent
      * @param cmsContnt 该对象的数据会被更新进数据库
      * @return 更新影响到的行数
@@ -51,6 +58,14 @@ public interface CmsContentMapper {
      * @return 更新所影响的行数
      */
     int updateCommentCount(@Param("contentID")Integer contentID, @Param("commentCount") Integer commentCount);
+    
+    /**
+     * 更新内容的点赞总数
+     * @param contentID 指定内容ID
+     * @param isPlus 是否是增加赞的标识
+     * @return 更新所影响的行数
+     */
+    int updateStarCount(@Param("contentID")Integer contentID, @Param("isPlus")boolean isPlus);
     
     int updateByPrimaryKey(CmsContent record);
     

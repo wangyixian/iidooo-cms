@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.mapper.CmsStarMapper">
+	<resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsStar">
+		<id column="StartID" property="startID" jdbcType="INTEGER" />
+		<result column="ContentID" property="contentID" jdbcType="INTEGER" />
+		<result column="IsStar" property="isStar" jdbcType="INTEGER" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+		<result column="Version" property="version" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		StartID, ContentID, IsStar, Remarks, UpdateTime, UpdateUserID, CreateTime, CreateUserID,
+		IsDelete, Version
+	</sql>
+
+	<!-- 根据内容的ContentID和点赞用户的CreateUserID查找已存在的赞对象 -->
+	<select id="selectByUserContentID" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_STAR
+		where IsDelete = 0 and
+		ContentID = #{contentID,jdbcType=INTEGER} and CreateUserID = #{createUserID,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from CMS_STAR
+		where StartID = #{startID,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 初次点赞时插入一个点赞对象 -->
+	<insert id="insert" parameterType="com.iidooo.cms.model.po.CmsStar">
+		insert into CMS_STAR
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="contentID != null">
+				ContentID,
+			</if>
+			IsStar,
+			<if test="remarks != null">
+				Remarks,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="createUserID != null">
+				CreateUserID,
+			</if>
+			IsDelete,Version
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="contentID != null">
+				#{contentID,jdbcType=INTEGER},
+			</if>
+			1,
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				#{updateUserID,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserID != null">
+				#{createUserID,jdbcType=INTEGER},
+			</if>
+			0,1
+		</trim>
+	</insert>
+
+	<!-- 更新点赞数据 -->
+	<update id="update" parameterType="com.iidooo.cms.model.po.CmsStar">
+		update CMS_STAR
+		<set>
+			<if test="isStar != null">
+				IsStar = #{isStar,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+			</if>
+			Version = Version + 1
+		</set>
+		where StartID = #{startID,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsStar">
+		update CMS_STAR
+		set ContentID = #{contentID,jdbcType=INTEGER},
+		IsStar =
+		#{isStar,jdbcType=INTEGER},
+		Remarks = #{remarks,jdbcType=VARCHAR},
+		UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+		UpdateUserID =
+		#{updateUserID,jdbcType=INTEGER},
+		CreateTime = #{createTime,jdbcType=TIMESTAMP},
+		CreateUserID = #{createUserID,jdbcType=INTEGER},
+		IsDelete =
+		#{isDelete,jdbcType=INTEGER},
+		Version = #{version,jdbcType=INTEGER}
+		where StartID = #{startID,jdbcType=INTEGER}
+	</update>
+</mapper>

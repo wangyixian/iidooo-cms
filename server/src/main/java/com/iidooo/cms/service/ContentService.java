@@ -28,6 +28,13 @@ public interface ContentService {
     CmsContent createContent(CmsContent content) throws Exception;
     
     CmsContentNews createContentNews(CmsContentNews contentNews)  throws Exception;
+        
+    /**
+     * 得到点赞数
+     * @param contentID 获得该内容ID的点赞数
+     * @return 点赞数
+     */
+    int getContentStarCount(Integer contentID);
     
     /**
      * 更新内容的PV和UV

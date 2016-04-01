@@ -52,7 +52,7 @@
 		C.ContentBody
 	</sql>
 
-	
+
 
 	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
 		select
@@ -60,7 +60,7 @@
 		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
-	
+
 	<!-- 根据CmsContent表中的ContentID查询CmsTag信息 -->
 	<select id="selectTagList" parameterType="java.lang.Integer" resultMap="TagListResultMap">
 		select T.TagID, T.TagName, T.Remarks from CMS_CONTENT_TAG CT join
@@ -75,6 +75,12 @@
 		<include refid="Blob_Column_List" />
 		from CMS_CONTENT C
 		where C.ContentID = #{contentID,jdbcType=INTEGER} and C.IsDelete = 0
+	</select>
+
+	<!-- 获得内容的点赞数 -->
+	<select id="selectStarCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select C.StarCount from CMS_CONTENT C where C.IsDelete = 0 and
+		C.ContentID = #{contentID,jdbcType=INTEGER}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -327,6 +333,19 @@
 		update CMS_CONTENT
 		set
 		CommentCount = #{commentCount,jdbcType=INTEGER}
+		where ContentID = #{contentID,jdbcType=INTEGER}
+	</update>
+
+	<!-- 更新内容的点赞数 -->
+	<update id="updateStarCount">
+		update CMS_CONTENT
+		set
+		<if test="isPlus == true">
+			StarCount = StarCount + 1
+		</if>
+		<if test="isPlus == false">
+			StarCount = StarCount - 1
+		</if>
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
 

@@ -35,7 +35,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private CmsPictureMapper cmsPictureDao;
-    
+
     @Autowired
     private CmsCommentMapper cmsCommentMapper;
 
@@ -175,13 +175,24 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public void updateCommentCount(Integer contentID) {
-        try { 
+        try {
             int commentCount = cmsCommentMapper.selectCommentCount(contentID);
-            cmsContentDao.updateCommentCount(contentID, commentCount);            
+            cmsContentDao.updateCommentCount(contentID, commentCount);
         } catch (Exception e) {
             logger.fatal(e);
         }
-        
+
+    }
+
+    @Override
+    public int getContentStarCount(Integer contentID) {
+        try {
+            return cmsContentDao.selectStarCount(contentID);
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            return 0;
+        }
     }
 
 }
