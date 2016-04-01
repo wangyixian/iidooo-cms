@@ -269,4 +269,16 @@ public class CmsContent {
     public void setCreateUser(SecurityUserInfo createUser) {
         this.createUser = createUser;
     }
+    
+    private List<CmsTag> tagList;
+
+    public List<CmsTag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<CmsTag> tagList) {
+        this.tagList = tagList;
+    }
+    
+    
 }

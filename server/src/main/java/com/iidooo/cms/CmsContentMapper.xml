@@ -25,21 +25,12 @@
 		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
+		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.po.CmsTag"></collection>
 		<association select="selectCreateUser" column="createUserID" property="createUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
-
-		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.vo.CmsTagInfo"></collection>
-
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContent">
 		<result column="ContentBody" jdbcType="LONGVARCHAR" property="contentBody" />
 	</resultMap>
-
-	<resultMap id="TagListResultMap" type="com.iidooo.cms.model.vo.CmsTagInfo">
-		<id column="TagID" property="tagID" jdbcType="INTEGER" />
-		<result column="TagName" property="tagName" jdbcType="VARCHAR" />
-		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
-	</resultMap>
-
 	<sql id="Base_Column_List">
 		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
@@ -52,11 +43,9 @@
 		C.ContentBody
 	</sql>
 
-	<!-- 根据CmsContent表中的ContentID查询CmsTag信息 -->
-	<select id="selectTagList" parameterType="java.lang.Integer" resultMap="TagListResultMap">
-		select T.TagID, T.TagName, T.Remarks from CMS_CONTENT_TAG CT join
-		CMS_TAG T on CT.TagID = T.TagID and
-		CT.IsDelete = 0 and T.IsDelete = 0 and ContentID = #{contentID,jdbcType=INTEGER};
+	<!-- 根据CmsContent表中的ContentID查询CmsTag信息 -->  
+	<select id="selectTagList" parameterType="java.lang.Integer">
+		
 	</select>
 
 	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">

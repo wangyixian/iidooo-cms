@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.mapper.CmsContentTagMapper" >
+  <resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsContentTag" >
+    <id column="ContentTagID" property="contentTagID" jdbcType="INTEGER" />
+    <result column="ContentID" property="contentID" jdbcType="INTEGER" />
+    <result column="TagID" property="tagID" jdbcType="INTEGER" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+    <result column="Version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ContentTagID, ContentID, TagID, Remarks, UpdateTime, UpdateUserID, CreateTime, CreateUserID, 
+    IsDelete, Version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from CMS_CONTENT_TAG
+    where ContentTagID = #{contentTagID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from CMS_CONTENT_TAG
+    where ContentTagID = #{contentTagID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iidooo.cms.model.po.CmsContentTag" >
+    insert into CMS_CONTENT_TAG (ContentTagID, ContentID, TagID, 
+      Remarks, UpdateTime, UpdateUserID, 
+      CreateTime, CreateUserID, IsDelete, 
+      Version)
+    values (#{contentTagID,jdbcType=INTEGER}, #{contentID,jdbcType=INTEGER}, #{tagID,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserID,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUserID,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iidooo.cms.model.po.CmsContentTag" >
+    insert into CMS_CONTENT_TAG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentTagID != null" >
+        ContentTagID,
+      </if>
+      <if test="contentID != null" >
+        ContentID,
+      </if>
+      <if test="tagID != null" >
+        TagID,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateUserID != null" >
+        UpdateUserID,
+      </if>
+      <if test="createTime != null" >
+        CreateTime,
+      </if>
+      <if test="createUserID != null" >
+        CreateUserID,
+      </if>
+      <if test="isDelete != null" >
+        IsDelete,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentTagID != null" >
+        #{contentTagID,jdbcType=INTEGER},
+      </if>
+      <if test="contentID != null" >
+        #{contentID,jdbcType=INTEGER},
+      </if>
+      <if test="tagID != null" >
+        #{tagID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserID != null" >
+        #{updateUserID,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserID != null" >
+        #{createUserID,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsContentTag" >
+    update CMS_CONTENT_TAG
+    <set >
+      <if test="contentID != null" >
+        ContentID = #{contentID,jdbcType=INTEGER},
+      </if>
+      <if test="tagID != null" >
+        TagID = #{tagID,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserID != null" >
+        UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserID != null" >
+        CreateUserID = #{createUserID,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IsDelete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        Version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ContentTagID = #{contentTagID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContentTag" >
+    update CMS_CONTENT_TAG
+    set ContentID = #{contentID,jdbcType=INTEGER},
+      TagID = #{tagID,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      CreateUserID = #{createUserID,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=INTEGER},
+      Version = #{version,jdbcType=INTEGER}
+    where ContentTagID = #{contentTagID,jdbcType=INTEGER}
+  </update>
+</mapper>
