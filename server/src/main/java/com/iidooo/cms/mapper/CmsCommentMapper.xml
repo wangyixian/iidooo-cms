@@ -103,7 +103,7 @@
 			<if test="parentID != null">
 				#{parentID,jdbcType=INTEGER},
 			</if>
-			(select Max(Sequence) from CMS_COMMENT C where C.ContentID = #{contentID,jdbcType=INTEGER} and C.IsDelete = 0) + 1,
+			(select ifnull(Max(Sequence),0) from CMS_COMMENT C where C.ContentID = #{contentID,jdbcType=INTEGER} and C.IsDelete = 0) + 1,
 			<if test="comment != null">
 				#{comment,jdbcType=LONGVARCHAR},
 			</if>
