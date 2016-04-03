@@ -11,6 +11,8 @@ public class CmsComment {
 
     private Integer parentID;
 
+    private Integer sequence;
+
     private String comment;
 
     private String remarks;
@@ -49,6 +51,14 @@ public class CmsComment {
 
     public void setParentID(Integer parentID) {
         this.parentID = parentID;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public String getComment() {
@@ -114,7 +124,7 @@ public class CmsComment {
     public void setVersion(Integer version) {
         this.version = version;
     }
-    
+
     private SecurityUserInfo createUser;
 
     public SecurityUserInfo getCreateUser() {
@@ -124,6 +134,5 @@ public class CmsComment {
     public void setCreateUser(SecurityUserInfo createUser) {
         this.createUser = createUser;
     }
-    
-    
+
 }

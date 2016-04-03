@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iidooo.cms.enums.TableName;
+import com.iidooo.cms.model.po.CmsStar;
 import com.iidooo.cms.service.CmsStarService;
 import com.iidooo.cms.service.ContentService;
+import com.iidooo.cms.service.HisOperatorService;
 import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.ResponseStatus;
@@ -26,13 +29,16 @@ import com.iidooo.core.util.ValidateUtil;
 public class CmsStarController {
 
     private static final Logger logger = Logger.getLogger(CmsStarController.class);
-    
+
     @Autowired
     private CmsStarService cmsStarService;
-    
+
     @Autowired
     private ContentService contentService;
-    
+
+    @Autowired
+    private HisOperatorService hisOperatorService;
+
     @ResponseBody
     @RequestMapping(value = "/starContent", method = RequestMethod.POST)
     public ResponseResult starContent(HttpServletRequest request, HttpServletResponse response) {
@@ -62,9 +68,10 @@ public class CmsStarController {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
-            }            
-            
-            if (this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID)) == false) {
+            }
+
+            CmsStar cmsStar = this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID));
+            if (cmsStar == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
@@ -72,9 +79,12 @@ public class CmsStarController {
                 jsonObject.put("contentID", Integer.parseInt(contentID));
                 jsonObject.put("createUserID", Integer.parseInt(createUserID));
                 jsonObject.put("starCount", contentService.getContentStarCount(Integer.parseInt(contentID)));
-                
+
                 result.setData(jsonObject);
             }
+
+            // 更新浏览记录
+            hisOperatorService.createHisOperator(TableName.CMS_STAR.toString(), cmsStar.getStartID(), request);
 
         } catch (Exception e) {
             logger.fatal(e);
@@ -83,7 +93,7 @@ public class CmsStarController {
         }
         return result;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/unstarContent", method = RequestMethod.POST)
     public ResponseResult unstarContent(HttpServletRequest request, HttpServletResponse response) {
@@ -113,9 +123,10 @@ public class CmsStarController {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
-            }            
-            
-            if (this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID)) == false) {
+            }
+
+            CmsStar cmsStar = this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID));
+            if (cmsStar == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
@@ -123,9 +134,12 @@ public class CmsStarController {
                 jsonObject.put("contentID", Integer.parseInt(contentID));
                 jsonObject.put("createUserID", Integer.parseInt(createUserID));
                 jsonObject.put("starCount", contentService.getContentStarCount(Integer.parseInt(contentID)));
-                
+
                 result.setData(jsonObject);
             }
+
+            // 更新浏览记录
+            hisOperatorService.createHisOperator(TableName.CMS_STAR.toString(), cmsStar.getStartID(), request);
 
         } catch (Exception e) {
             logger.fatal(e);

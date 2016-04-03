@@ -25,7 +25,7 @@ public class CmsStarServiceImpl implements CmsStarService {
 
     @Override
     @Transactional
-    public boolean starContent(Integer contentID, Integer createUserID) throws Exception {
+    public CmsStar starContent(Integer contentID, Integer createUserID) throws Exception {
         try {
             CmsStar cmsStar = cmsStarMapper.selectByUserContentID(contentID, createUserID);
             if (cmsStar == null) {
@@ -42,8 +42,6 @@ public class CmsStarServiceImpl implements CmsStarService {
                     if (cmsContentMapper.updateStarCount(contentID, true) <= 0) {
                         throw new Exception();
                     }
-                } else {
-                    return false;
                 }
             } else {
                 if (cmsStar.getIsStar() <= 0) {
@@ -52,12 +50,10 @@ public class CmsStarServiceImpl implements CmsStarService {
                         if (cmsContentMapper.updateStarCount(contentID, true) <= 0) {
                             throw new Exception();
                         }
-                    } else {
-                        return false;
                     }
                 }
             }
-            return true;
+            return cmsStar;
         } catch (Exception e) {
             logger.fatal(e);
             throw e;
@@ -66,24 +62,19 @@ public class CmsStarServiceImpl implements CmsStarService {
 
     @Override
     @Transactional
-    public boolean unstarContent(Integer contentID, Integer createUserID) throws Exception {
+    public CmsStar unstarContent(Integer contentID, Integer createUserID) throws Exception {
         try {
             CmsStar cmsStar = cmsStarMapper.selectByUserContentID(contentID, createUserID);
-            if (cmsStar == null) {
-                return false;
-            } else {
-                if (cmsStar.getIsStar() >= 1) {
-                    cmsStar.setIsStar(0);
-                    if (cmsStarMapper.update(cmsStar) > 0) {
-                        if (cmsContentMapper.updateStarCount(contentID, false) <= 0) {
-                            throw new Exception();
-                        }
-                    } else {
-                        return false;
+
+            if (cmsStar != null && cmsStar.getIsStar() >= 1) {
+                cmsStar.setIsStar(0);
+                if (cmsStarMapper.update(cmsStar) > 0) {
+                    if (cmsContentMapper.updateStarCount(contentID, false) <= 0) {
+                        throw new Exception();
                     }
                 }
             }
-            return true;
+            return cmsStar;
         } catch (Exception e) {
             logger.fatal(e);
             throw e;

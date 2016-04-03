@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.iidooo.cms.mapper.HisOperatorMapper;
 import com.iidooo.cms.model.po.HisOperator;
 import com.iidooo.cms.service.HisOperatorService;
+import com.iidooo.core.util.StringUtil;
 
 @Service
 public class HisOperatorServiceImpl implements HisOperatorService {
@@ -28,6 +29,15 @@ public class HisOperatorServiceImpl implements HisOperatorService {
             String operatorIP = request.getRemoteAddr();
             String userAgent = request.getHeader("User-Agent");
             
+            // 得到操作者的UserID
+            String userID = request.getParameter("userID");
+            if (StringUtil.isBlank(userID)) {
+                userID = request.getParameter("createUserID");
+            }
+            if (StringUtil.isBlank(userID)) {
+                userID = "1";
+            }
+            
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
@@ -36,9 +46,9 @@ public class HisOperatorServiceImpl implements HisOperatorService {
             hisOperator.setUserAgent(userAgent);
             hisOperator.setRemarks("");
             hisOperator.setCreateTime(new Date());
-            hisOperator.setCreateUserID(1);
+            hisOperator.setCreateUserID(Integer.valueOf(userID));
             hisOperator.setUpdateTime(new Date());
-            hisOperator.setUpdateUserID(1);
+            hisOperator.setUpdateUserID(Integer.valueOf(userID));
             
             hisOperatorMapper.insert(hisOperator);
         } catch (Exception e) {

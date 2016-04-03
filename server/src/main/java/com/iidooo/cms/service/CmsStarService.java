@@ -1,8 +1,10 @@
 package com.iidooo.cms.service;
 
+import com.iidooo.cms.model.po.CmsStar;
+
 
 public interface CmsStarService {
-    boolean starContent(Integer contentID, Integer createUserID) throws Exception;
+    CmsStar starContent(Integer contentID, Integer createUserID) throws Exception;
     
-    boolean unstarContent(Integer contentID, Integer createUserID) throws Exception;
+    CmsStar unstarContent(Integer contentID, Integer createUserID) throws Exception;
 }

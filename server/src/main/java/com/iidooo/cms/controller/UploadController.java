@@ -17,6 +17,7 @@ import com.aliyun.oss.OSSClient;
 import com.iidooo.aliyun.util.OSSUtil;
 import com.iidooo.cms.constant.PropertyKey;
 import com.iidooo.cms.enums.FileType;
+import com.iidooo.cms.service.HisOperatorService;
 import com.iidooo.cms.service.UploadService;
 import com.iidooo.core.util.FileUtil;
 import com.iidooo.core.util.StringUtil;
@@ -27,6 +28,9 @@ public class UploadController {
 
     @Autowired
     private UploadService uploadService;
+    
+    @Autowired
+    private HisOperatorService hisOperatorService;
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public @ResponseBody String uploadFile(HttpServletRequest request, HttpServletResponse response) {

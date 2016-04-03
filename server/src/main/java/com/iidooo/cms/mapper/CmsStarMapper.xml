@@ -33,7 +33,7 @@
 	</delete>
 
 	<!-- 初次点赞时插入一个点赞对象 -->
-	<insert id="insert" parameterType="com.iidooo.cms.model.po.CmsStar">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="startID" parameterType="com.iidooo.cms.model.po.CmsStar">
 		insert into CMS_STAR
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="contentID != null">

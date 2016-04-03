@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.po.CmsComment;
 import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.vo.SecurityUserInfo;
 import com.iidooo.cms.service.CommentService;
 import com.iidooo.cms.service.ContentService;
+import com.iidooo.cms.service.HisOperatorService;
 import com.iidooo.cms.service.SecurityUserService;
 import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.MessageLevel;
@@ -43,6 +45,9 @@ public class CommentController {
 
     @Autowired
     private ContentService contentService;
+    
+    @Autowired
+    private HisOperatorService hisOperatorService;
 
     @RequestMapping(value = "/getCommentList", method = RequestMethod.POST)
     public @ResponseBody ResponseResult getCommentList(HttpServletRequest request, HttpServletResponse response) {
@@ -64,7 +69,7 @@ public class CommentController {
 
             String sortField = request.getParameter("sortField");
             if (StringUtil.isBlank(sortField)) {
-                sortField = SortField.CreateTime.toString();
+                sortField = SortField.Sequence.toString();
             }
 
             String sortType = request.getParameter("sortType");
@@ -95,7 +100,7 @@ public class CommentController {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(commentList);
             }
-
+            
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
@@ -181,6 +186,8 @@ public class CommentController {
             // 更新内容的评论数
             contentService.updateCommentCount(Integer.parseInt(contentID));
 
+            // 更新浏览记录
+            hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
@@ -216,7 +223,10 @@ public class CommentController {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);
             }
-
+            
+            // 更新浏览记录
+            hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
+            
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());

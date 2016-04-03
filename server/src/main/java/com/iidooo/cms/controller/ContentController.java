@@ -83,7 +83,7 @@ public class ContentController {
             result.setData(content);
 
             // 更新浏览记录
-            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(),  request);
 
             // 更新该内容的PV和UV
             int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
