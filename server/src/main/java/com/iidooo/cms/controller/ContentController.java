@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,29 @@ public class ContentController {
 
     @Autowired
     private HisOperatorService hisOperatorService;
+    
+    @ResponseBody
+    @RequestMapping(value = "/getContentPVSum", method = RequestMethod.POST)
+    public ResponseResult getContentPVSum(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+           
+            int pvCount = hisOperatorService.getPVCount("CMS_CONTENT", null, "/getContent");
+            
+            // 返回找到的内容对象
+            result.setStatus(ResponseStatus.OK.getCode());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("PVSum", pvCount);
+            result.setData(jsonObject);
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            message.setDescription(e.getMessage());
+            result.getMessages().add(message);
+        }
+        return result;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/getContent", method = RequestMethod.POST)
@@ -86,8 +111,8 @@ public class ContentController {
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(),  request);
 
             // 更新该内容的PV和UV
-            int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
-            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+            int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request.getServletPath());
+            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request.getServletPath());
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
             content.setUniqueVisitorCount(uvCount);

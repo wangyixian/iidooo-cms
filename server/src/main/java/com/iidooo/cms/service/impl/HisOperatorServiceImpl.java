@@ -57,13 +57,13 @@ public class HisOperatorServiceImpl implements HisOperatorService {
     }
 
     @Override
-    public int getPVCount(String tableName, Integer tableKey, HttpServletRequest request) {
+    public int getPVCount(String tableName, Integer tableKey, String operation) {
         int result = 0;
         try {
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
-            hisOperator.setOperation(request.getServletPath());
+            hisOperator.setOperation(operation);
             result = hisOperatorMapper.selectPVCount(hisOperator);
         } catch (Exception e) {
             logger.fatal(e);
@@ -72,13 +72,13 @@ public class HisOperatorServiceImpl implements HisOperatorService {
     }
 
     @Override
-    public int getUVCount(String tableName, Integer tableKey, HttpServletRequest request) {
+    public int getUVCount(String tableName, Integer tableKey, String operation) {
         int result = 0;
         try {
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
-            hisOperator.setOperation(request.getServletPath());
+            hisOperator.setOperation(operation);
             result = hisOperatorMapper.selectUVCount(hisOperator);
         } catch (Exception e) {
             logger.fatal(e);

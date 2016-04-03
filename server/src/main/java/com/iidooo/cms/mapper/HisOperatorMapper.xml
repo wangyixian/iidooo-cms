@@ -29,7 +29,9 @@
 		IsDelete = 0 and
 		TableName =
 		#{tableName,jdbcType=VARCHAR} and
-		TableKey = #{tableKey,jdbcType=INTEGER} and
+		<if test="tableKey != null">
+			TableKey = #{tableKey,jdbcType=INTEGER} and
+		</if>
 		Operation = #{operation,jdbcType=VARCHAR}
 	</select>
 
@@ -43,7 +45,9 @@
 		IsDelete = 0 and
 		TableName =
 		#{tableName,jdbcType=VARCHAR} and
-		TableKey = #{tableKey,jdbcType=INTEGER} and
+		<if test="tableKey != null">
+			TableKey = #{tableKey,jdbcType=INTEGER} and
+		</if>
 		Operation =
 		#{operation,jdbcType=VARCHAR}
 		group by OperatorIP) H
