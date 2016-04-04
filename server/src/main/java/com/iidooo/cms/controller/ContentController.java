@@ -49,7 +49,7 @@ public class ContentController {
         ResponseResult result = new ResponseResult();
         try {
            
-            int pvCount = hisOperatorService.getPVCount("CMS_CONTENT", null, "/getContent");
+            int pvCount = hisOperatorService.getPVCount("CMS_CONTENT", null, "getContent");
             
             // 返回找到的内容对象
             result.setStatus(ResponseStatus.OK.getCode());

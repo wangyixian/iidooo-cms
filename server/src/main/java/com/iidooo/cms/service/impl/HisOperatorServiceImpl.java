@@ -26,6 +26,8 @@ public class HisOperatorServiceImpl implements HisOperatorService {
         try {
 
             String operation = request.getServletPath();
+            // 移除斜杠
+            operation = operation.substring(1);
             String operatorIP = request.getRemoteAddr();
             String userAgent = request.getHeader("User-Agent");
             

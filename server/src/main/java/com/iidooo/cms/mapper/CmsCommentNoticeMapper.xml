@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iidooo.cms.mapper.CmsCommentNoticeMapper">
+	<resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsCommentNotice">
+		<id column="NoticeID" property="noticeID" jdbcType="INTEGER" />
+		<result column="UserID" property="userID" jdbcType="INTEGER" />
+		<result column="CommentID" property="commentID" jdbcType="INTEGER" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
+		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
+		<result column="Version" property="version" jdbcType="INTEGER" />
+		<association column="commentID" property="comment" select="selectComment" javaType="com.iidooo.cms.model.po.CmsComment"></association>
+		<association column="createUserID" property="comment.createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		NoticeID, UserID, CommentID, Remarks, UpdateTime, UpdateUserID, CreateTime, CreateUserID,
+		IsDelete, Version
+	</sql>
+
+	<select id="selectComment" resultType="com.iidooo.cms.model.po.CmsComment" parameterType="java.lang.Integer">
+		select
+		C.CommentID, C.ContentID, C.ParentID,
+		C.Sequence, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime,
+		C.UpdateUserID, C.IsDelete,
+		C.Version,C.Comment
+		from CMS_COMMENT C
+		where C.CommentID
+		= #{commentID,jdbcType=INTEGER} and C.IsDelete = 0
+	</select>
+
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+		select
+		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
+		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByUserID" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_COMMENT_NOTICE
+		where UserID = #{userID,jdbcType=INTEGER} and IsDelete = 0
+		order by ${page.sortField} ${page.sortType} limit
+		${page.start},
+		${page.pageSize}
+	</select>
+
+	<select id="selectByPrimaryID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_COMMENT_NOTICE
+		where NoticeID = #{noticeID,jdbcType=INTEGER} and IsDelete = 0
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from CMS_COMMENT_NOTICE
+		where NoticeID = #{noticeID,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteByUserID" parameterType="java.lang.Integer">
+		delete from CMS_COMMENT_NOTICE
+		where UserID = #{userID,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert" parameterType="com.iidooo.cms.model.po.CmsCommentNotice">
+		insert into CMS_COMMENT_NOTICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userID != null">
+				UserID,
+			</if>
+			<if test="commentID != null">
+				CommentID,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="createUserID != null">
+				CreateUserID,
+			</if>
+			IsDelete,
+			Version
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userID != null">
+				#{userID,jdbcType=INTEGER},
+			</if>
+			<if test="commentID != null">
+				#{commentID,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				#{updateUserID,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserID != null">
+				#{createUserID,jdbcType=INTEGER},
+			</if>
+			0,1
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsCommentNotice">
+		update CMS_COMMENT_NOTICE
+		<set>
+			<if test="userID != null">
+				UserID = #{userID,jdbcType=INTEGER},
+			</if>
+			<if test="commentID != null">
+				CommentID = #{commentID,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CreateTime = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserID != null">
+				CreateUserID = #{createUserID,jdbcType=INTEGER},
+			</if>
+			<if test="isDelete != null">
+				IsDelete = #{isDelete,jdbcType=INTEGER},
+			</if>
+			<if test="version != null">
+				Version = #{version,jdbcType=INTEGER},
+			</if>
+		</set>
+		where NoticeID = #{noticeID,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsCommentNotice">
+		update CMS_COMMENT_NOTICE
+		set UserID = #{userID,jdbcType=INTEGER},
+		CommentID =
+		#{commentID,jdbcType=INTEGER},
+		Remarks = #{remarks,jdbcType=VARCHAR},
+		UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+		UpdateUserID =
+		#{updateUserID,jdbcType=INTEGER},
+		CreateTime = #{createTime,jdbcType=TIMESTAMP},
+		CreateUserID = #{createUserID,jdbcType=INTEGER},
+		IsDelete =
+		#{isDelete,jdbcType=INTEGER},
+		Version = #{version,jdbcType=INTEGER}
+		where NoticeID = #{noticeID,jdbcType=INTEGER}
+	</update>
+</mapper>

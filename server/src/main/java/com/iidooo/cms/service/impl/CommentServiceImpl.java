@@ -7,9 +7,14 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iidooo.cms.mapper.CmsCommentMapper;
+import com.iidooo.cms.mapper.CmsCommentNoticeMapper;
+import com.iidooo.cms.mapper.CmsContentMapper;
 import com.iidooo.cms.model.po.CmsComment;
+import com.iidooo.cms.model.po.CmsCommentNotice;
+import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.service.CommentService;
 import com.iidooo.core.model.Page;
 
@@ -20,6 +25,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CmsCommentMapper cmsCommentMapper;
+
+    @Autowired
+    private CmsCommentNoticeMapper cmsCommentNoticeMapper;
+
+    @Autowired
+    private CmsContentMapper cmsContentMapper;
 
     @Override
     public List<CmsComment> getCommentListByContentID(Integer contentID, Page page) {
@@ -45,18 +56,36 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CmsComment createComment(CmsComment cmsComment) {
-
+    @Transactional
+    public boolean createComment(CmsComment cmsComment) throws Exception{
         try {
             cmsComment.setRemarks("");
             cmsComment.setCreateTime(new Date());
             cmsComment.setUpdateUserID(cmsComment.getCreateUserID());
             cmsComment.setUpdateTime(new Date());
             if (cmsCommentMapper.insert(cmsComment) <= 0) {
-                return null;
+                throw new Exception();
             }
-            
-            return cmsCommentMapper.selectByCommentID(cmsComment.getCommentID());
+
+            // 发送一个评论通知给内容所有者或者评论相关者
+            CmsContent cmsContent = cmsContentMapper.selectByContentID(cmsComment.getContentID());
+            // 创建评论和该条内容的创建者不是同一个人的话，把这个评论推送给内容创建者
+            if (cmsContent != null && !cmsContent.getCreateUserID().equals(cmsComment.getCreateUserID())) {
+                CmsCommentNotice commentNotice = new CmsCommentNotice();
+                commentNotice.setCommentID(cmsComment.getCommentID());
+                commentNotice.setCreateTime(new Date());
+                commentNotice.setCreateUserID(cmsComment.getCreateUserID());
+                commentNotice.setRemarks("");
+                commentNotice.setUpdateTime(new Date());
+                commentNotice.setUpdateUserID(cmsComment.getCreateUserID());
+                commentNotice.setUserID(cmsContent.getCreateUserID());
+
+                if(cmsCommentNoticeMapper.insert(commentNotice) <= 0){
+                    throw new Exception();
+                }
+            }
+
+            return true;
         } catch (Exception e) {
             logger.fatal(e);
             throw e;

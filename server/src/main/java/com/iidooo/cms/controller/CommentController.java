@@ -175,10 +175,10 @@ public class CommentController {
             cmsComment.setContentID(Integer.parseInt(contentID));
             cmsComment.setParentID(Integer.parseInt(parentID));
             cmsComment.setCreateUserID(Integer.parseInt(createUserID));
-            cmsComment = this.commentService.createComment(cmsComment);
-            if (cmsComment == null) {
+            if (!this.commentService.createComment(cmsComment)) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
+                cmsComment = commentService.getCommentByID(cmsComment.getCommentID());
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);
             }
