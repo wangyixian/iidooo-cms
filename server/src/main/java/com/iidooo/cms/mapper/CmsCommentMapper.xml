@@ -29,8 +29,8 @@
 
 	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
 		select
-		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
-		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday,
+		U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 
@@ -47,7 +47,8 @@
 		select
 		count(C.CommentID)
 		from CMS_COMMENT C
-		where C.IsDelete = 0 and C.ContentID = #{commentID,jdbcType=INTEGER}
+		where C.IsDelete = 0 and C.ContentID =
+		#{commentID,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectByContentID" resultMap="BaseResultMap">
@@ -57,10 +58,12 @@
 		<include refid="Blob_Column_List" />
 		from CMS_COMMENT C
 		where C.IsDelete = 0 and C.ContentID = #{contentID,jdbcType=VARCHAR}
-		order by ${page.sortField} ${page.sortType} limit
-		${page.start}, ${page.pageSize}
+		<if test="page != null">
+			order by ${page.sortField} ${page.sortType} limit
+			${page.start}, ${page.pageSize}
+		</if>
 	</select>
-	
+
 	<select id="selectByUserID" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
@@ -68,9 +71,10 @@
 		<include refid="Blob_Column_List" />
 		from CMS_COMMENT C join CMS_COMMENT_NOTICE N
 		on C.CommentID = N.CommentID and UserID = #{userID,jdbcType=INTEGER} and C.IsDelete = 0
-		order by ${page.sortField} ${page.sortType} limit
-		${page.start},
-		${page.pageSize}
+		<if test="page != null">
+			order by ${page.sortField} ${page.sortType} limit
+			${page.start}, ${page.pageSize}
+		</if>
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -87,7 +91,7 @@
 			<if test="parentID != null">
 				ParentID,
 			</if>
-			Sequence, 
+			Sequence,
 			<if test="comment != null">
 				Comment,
 			</if>

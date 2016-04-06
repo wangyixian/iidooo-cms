@@ -52,4 +52,17 @@ public class CmsCommentNoticeServiceImpl implements CmsCommentNoticeService {
             throw e;
         }
     }
+    
+    @Override
+    public boolean deleteCommentNoticeList(Integer userID, Integer contentID){
+        try {
+            if(cmsCommentNoticeMapper.deleteByUserContentID(userID, contentID) <= 0){
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.iidooo.cms.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
             throw e;
         }
     }
-    
+
     @Override
     public List<CmsComment> getNoticeCommentListByUserID(Integer userID, Page page) {
         try {
@@ -69,31 +70,63 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public boolean createComment(CmsComment cmsComment) throws Exception{
+    public boolean createComment(CmsComment cmsComment) throws Exception {
         try {
-            cmsComment.setRemarks("");
-            cmsComment.setCreateTime(new Date());
-            cmsComment.setUpdateUserID(cmsComment.getCreateUserID());
-            cmsComment.setUpdateTime(new Date());
             if (cmsCommentMapper.insert(cmsComment) <= 0) {
                 throw new Exception();
             }
 
             // 发送一个评论通知给内容所有者或者评论相关者
             CmsContent cmsContent = cmsContentMapper.selectByContentID(cmsComment.getContentID());
-            // 创建评论和该条内容的创建者不是同一个人的话，把这个评论推送给内容创建者
-            if (cmsContent != null && !cmsContent.getCreateUserID().equals(cmsComment.getCreateUserID())) {
-                CmsCommentNotice commentNotice = new CmsCommentNotice();
-                commentNotice.setCommentID(cmsComment.getCommentID());
-                commentNotice.setCreateTime(new Date());
-                commentNotice.setCreateUserID(cmsComment.getCreateUserID());
-                commentNotice.setRemarks("");
-                commentNotice.setUpdateTime(new Date());
-                commentNotice.setUpdateUserID(cmsComment.getCreateUserID());
-                commentNotice.setUserID(cmsContent.getCreateUserID());
 
-                if(cmsCommentNoticeMapper.insert(commentNotice) <= 0){
-                    throw new Exception();
+            // 创建评论和该条内容的创建者不是同一个人的话，把这个评论推送给内容创建者
+            if (cmsContent != null) {
+                List<CmsComment> cmsCommentList = cmsCommentMapper.selectByContentID(cmsContent.getContentID(), null);
+
+                // 记录本次推送过的用户ID列表，以免重复推送
+                List<Integer> noticedUserList = new ArrayList<Integer>();
+                // 评论者自己先不用受到通知
+                noticedUserList.add(cmsComment.getCreateUserID());
+                // 如果不是内容创建者自己的评论，那么先给内容创建者发一条通知推送
+                if (!cmsContent.getCreateUserID().equals(cmsComment.getCreateUserID())) {
+                    CmsCommentNotice commentNotice = new CmsCommentNotice();
+                    commentNotice.setUserID(cmsContent.getCreateUserID());
+                    commentNotice.setContentID(cmsComment.getContentID());
+                    commentNotice.setCommentID(cmsComment.getCommentID());
+                    commentNotice.setCreateTime(new Date());
+                    commentNotice.setCreateUserID(cmsComment.getCreateUserID());
+                    commentNotice.setUpdateTime(new Date());
+                    commentNotice.setUpdateUserID(cmsComment.getCreateUserID());
+
+                    if (cmsCommentNoticeMapper.insert(commentNotice) <= 0) {
+                        throw new Exception();
+                    } else {
+                        noticedUserList.add(commentNotice.getUserID());
+                    }
+                }
+
+                // 其他评论者也要被推送
+                for (CmsComment item : cmsCommentList) {
+
+                    // 推送过的不重复推送
+                    if (noticedUserList.contains(item.getCreateUserID())) {
+                        continue;
+                    }
+
+                    CmsCommentNotice commentNotice = new CmsCommentNotice();
+                    commentNotice.setUserID(item.getCreateUserID());
+                    commentNotice.setContentID(item.getContentID());
+                    commentNotice.setCommentID(item.getCommentID());
+                    commentNotice.setCreateTime(new Date());
+                    commentNotice.setCreateUserID(cmsComment.getCreateUserID());
+                    commentNotice.setUpdateTime(new Date());
+                    commentNotice.setUpdateUserID(cmsComment.getCreateUserID());
+
+                    if (cmsCommentNoticeMapper.insert(commentNotice) <= 0) {
+                        throw new Exception();
+                    } else {
+                        noticedUserList.add(commentNotice.getUserID());
+                    }
                 }
             }
 

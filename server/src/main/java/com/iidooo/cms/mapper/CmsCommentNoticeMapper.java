@@ -29,6 +29,14 @@ public interface CmsCommentNoticeMapper {
     int deleteByUserID(Integer userID);
     
     /**
+     * 删除该用户ID的关于该内容ID的所有评论通知
+     * @param userID 用户ID
+     * @param contentID 内容ID
+     * @return 删除操作所影响的行数
+     */
+    int deleteByUserContentID(@Param("userID")Integer userID, @Param("contentID")Integer contentID);
+    
+    /**
      * 创建评论通知数据
      * @param cmsCommentNotice 该评论通知对象的数据会被插入
      * @return 插入数据所影响的行数

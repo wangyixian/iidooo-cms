@@ -10,4 +10,6 @@ public interface CmsCommentNoticeService {
     boolean deleteCommentNotice(Integer userID, Integer commentID);
     
     boolean deleteCommentNoticeList(Integer userID);
+    
+    boolean deleteCommentNoticeList(Integer userID, Integer contentID);
 }

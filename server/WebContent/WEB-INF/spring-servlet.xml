@@ -48,6 +48,12 @@
 			<value>${mysql.password}</value>
 		</property>
 	</bean>
+	
+	<bean id="transactionManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource"></property>  
+    </bean>     
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

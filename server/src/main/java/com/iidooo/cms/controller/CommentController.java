@@ -1,6 +1,7 @@
 package com.iidooo.cms.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.po.CmsComment;
 import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.vo.SecurityUserInfo;
+import com.iidooo.cms.service.CmsCommentNoticeService;
 import com.iidooo.cms.service.CommentService;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.cms.service.HisOperatorService;
@@ -39,13 +41,16 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+    
+    @Autowired
+    private CmsCommentNoticeService cmsCommentNoticeService;
 
     @Autowired
     private SecurityUserService sercurityUserService;
 
     @Autowired
     private ContentService contentService;
-    
+
     @Autowired
     private HisOperatorService hisOperatorService;
 
@@ -53,14 +58,15 @@ public class CommentController {
     public @ResponseBody ResponseResult getCommentList(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
-            String contentID = request.getParameter("contentID");
-            if (StringUtil.isBlank(contentID)) {
+            String contentIDStr = request.getParameter("contentID");
+            String userIDStr = request.getParameter("userID");
+            if (StringUtil.isBlank(contentIDStr)) {
                 // 验证失败，返回message
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
-            } else if (!ValidateUtil.isNumber(contentID)) {
+            } else if (!ValidateUtil.isNumber(contentIDStr)) {
                 Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
@@ -93,22 +99,35 @@ public class CommentController {
             page.setStart(Integer.valueOf(start));
             page.setPageSize(Integer.valueOf(pageSize));
 
-            List<CmsComment> commentList = this.commentService.getCommentListByContentID(Integer.valueOf(contentID), page);
+            int contentID = Integer.parseInt(contentIDStr);
+            List<CmsComment> commentList = this.commentService.getCommentListByContentID(contentID, page);
             if (commentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(commentList);
             }
-            
+
+            // 删除该用户对于该内容的评论通知
+            if (StringUtil.isNotBlank(userIDStr)) {
+                if (!ValidateUtil.isNumber(userIDStr)) {
+                    Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                    result.getMessages().add(message);
+                } else {
+                    int userID = Integer.parseInt(userIDStr);
+                    cmsCommentNoticeService.deleteCommentNoticeList(userID, contentID);
+                }
+            }
+
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            result.setStatus(ResponseStatus.Failed.getCode());
             result.getMessages().add(message);
         }
         return result;
     }
-    
+
     @RequestMapping(value = "/getNoticeCommentList", method = RequestMethod.POST)
     public @ResponseBody ResponseResult getNoticeCommentList(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
@@ -152,7 +171,7 @@ public class CommentController {
             page.setSortType(sortType);
             page.setStart(Integer.valueOf(start));
             page.setPageSize(Integer.valueOf(pageSize));
-            
+
             List<CmsComment> commentList = this.commentService.getNoticeCommentListByUserID(Integer.valueOf(userID), page);
             if (commentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
@@ -160,7 +179,7 @@ public class CommentController {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(commentList);
             }
-            
+
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
@@ -176,21 +195,21 @@ public class CommentController {
         try {
             // 解析获得传入的参数
             // 必填参数
-            String createUserID = request.getParameter("createUserID");
-            String contentID = request.getParameter("contentID");
+            String userIDStr = request.getParameter("userID");
+            String contentIDStr = request.getParameter("contentID");
             String comment = request.getParameter("comment");
 
-            if (StringUtil.isBlank(createUserID)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "createUserID");
+            if (StringUtil.isBlank(userIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
                 result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(createUserID)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "createUserID");
+            } else if (!ValidateUtil.isNumber(userIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
                 result.getMessages().add(message);
             }
-            if (StringUtil.isBlank(contentID)) {
+            if (StringUtil.isBlank(contentIDStr)) {
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(contentID)) {
+            } else if (!ValidateUtil.isNumber(contentIDStr)) {
                 Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.getMessages().add(message);
             }
@@ -205,13 +224,20 @@ public class CommentController {
                 return result;
             }
 
-            String parentID = request.getParameter("parentID");
-            if (StringUtil.isBlank(parentID)) {
-                parentID = "0";
+            String parentIDStr = request.getParameter("parentID");
+            if (StringUtil.isBlank(parentIDStr)) {
+                parentIDStr = "0";
+            } else if (!ValidateUtil.isNumber(parentIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "parentID");
+                result.getMessages().add(message);
             }
 
+            int userID = Integer.parseInt(userIDStr);
+            int contentID = Integer.parseInt(contentIDStr);
+            int parentID = Integer.parseInt(parentIDStr);
+
             // 判断用户是否可以创建评论IsSlient＝1
-            SecurityUserInfo userInfo = sercurityUserService.getUserInfoByID(Integer.parseInt(createUserID));
+            SecurityUserInfo userInfo = sercurityUserService.getUserInfoByID(userID);
             if (userInfo != null && userInfo.getIsSilent() != 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.ConfinedFailed.getCode());
@@ -221,7 +247,7 @@ public class CommentController {
             }
 
             // 判断内容是否允许被评论IsSlient=1
-            CmsContent cmsContent = contentService.getContent(Integer.parseInt(contentID));
+            CmsContent cmsContent = contentService.getContent(contentID);
             if (cmsContent != null && cmsContent.getIsSilent() != 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.ConfinedFailed.getCode());
@@ -231,10 +257,14 @@ public class CommentController {
             }
 
             CmsComment cmsComment = new CmsComment();
+            cmsComment.setContentID(contentID);
+            cmsComment.setParentID(parentID);
             cmsComment.setComment(comment);
-            cmsComment.setContentID(Integer.parseInt(contentID));
-            cmsComment.setParentID(Integer.parseInt(parentID));
-            cmsComment.setCreateUserID(Integer.parseInt(createUserID));
+            cmsComment.setCreateUserID(userID);
+            cmsComment.setCreateTime(new Date());
+            cmsComment.setUpdateUserID(cmsComment.getCreateUserID());
+            cmsComment.setUpdateTime(new Date());
+
             if (!this.commentService.createComment(cmsComment)) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
@@ -242,15 +272,16 @@ public class CommentController {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);
             }
-            
+
             // 更新内容的评论数
-            contentService.updateCommentCount(Integer.parseInt(contentID));
+            contentService.updateCommentCount(contentID);
 
             // 更新浏览记录
             hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            result.setStatus(ResponseStatus.Failed.getCode());
             result.getMessages().add(message);
         }
         return result;
@@ -283,10 +314,10 @@ public class CommentController {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);
             }
-            
+
             // 更新浏览记录
             hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
-            
+
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());

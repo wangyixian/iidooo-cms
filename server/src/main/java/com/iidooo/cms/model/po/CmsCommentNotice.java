@@ -7,6 +7,8 @@ public class CmsCommentNotice {
 
     private Integer userID;
 
+    private Integer contentID;
+
     private Integer commentID;
 
     private String remarks;
@@ -37,6 +39,14 @@ public class CmsCommentNotice {
 
     public void setUserID(Integer userID) {
         this.userID = userID;
+    }
+
+    public Integer getContentID() {
+        return contentID;
+    }
+
+    public void setContentID(Integer contentID) {
+        this.contentID = contentID;
     }
 
     public Integer getCommentID() {

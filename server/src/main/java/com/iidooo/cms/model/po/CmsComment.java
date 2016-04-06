@@ -134,5 +134,4 @@ public class CmsComment {
     public void setCreateUser(SecurityUserInfo createUser) {
         this.createUser = createUser;
     }
-
 }

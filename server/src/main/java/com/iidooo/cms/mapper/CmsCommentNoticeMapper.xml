@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.iidooo.cms.model.po.CmsCommentNotice">
 		<id column="NoticeID" property="noticeID" jdbcType="INTEGER" />
 		<result column="UserID" property="userID" jdbcType="INTEGER" />
+		<result column="ContentID" property="contentID" jdbcType="INTEGER" />
 		<result column="CommentID" property="commentID" jdbcType="INTEGER" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
@@ -14,7 +15,7 @@
 		<result column="Version" property="version" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		NoticeID, UserID, CommentID, Remarks, UpdateTime, UpdateUserID, CreateTime, CreateUserID,
+		NoticeID, UserID, ContentID, CommentID, Remarks, UpdateTime, UpdateUserID, CreateTime, CreateUserID,
 		IsDelete, Version
 	</sql>
 
@@ -40,7 +41,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from CMS_COMMENT_NOTICE
-		where UserID = #{userID,jdbcType=INTEGER} and 
+		where UserID = #{userID,jdbcType=INTEGER} and
 		CommentID = #{commentID,jdbcType=INTEGER}
 	</select>
 
@@ -61,6 +62,11 @@
 		where UserID = #{userID,jdbcType=INTEGER} and CommentID = #{commentID,jdbcType=INTEGER}
 	</delete>
 
+	<delete id="deleteByUserContentID">
+		delete from CMS_COMMENT_NOTICE
+		where UserID = #{userID,jdbcType=INTEGER} and ContentID = #{contentID,jdbcType=INTEGER}
+	</delete>
+
 	<delete id="deleteByUserID" parameterType="java.lang.Integer">
 		delete from CMS_COMMENT_NOTICE
 		where UserID = #{userID,jdbcType=INTEGER}
@@ -71,6 +77,9 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userID != null">
 				UserID,
+			</if>
+			<if test="contentID != null">
+				ContentID,
 			</if>
 			<if test="commentID != null">
 				CommentID,
@@ -96,6 +105,9 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="userID != null">
 				#{userID,jdbcType=INTEGER},
+			</if>
+			<if test="contentID != null">
+				#{contentID,jdbcType=INTEGER},
 			</if>
 			<if test="commentID != null">
 				#{commentID,jdbcType=INTEGER},
