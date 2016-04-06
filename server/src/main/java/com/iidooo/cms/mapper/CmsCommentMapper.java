@@ -33,12 +33,20 @@ public interface CmsCommentMapper {
     
     /**
      * 根据内容ID获得关联的评论一览
-     * @param contentID
+     * @param contentID 内容ID
      * @param page 分页对象
      * @return 评论一览列表
      */
     List<CmsComment> selectByContentID(@Param("contentID")Integer contentID, @Param("page")Page page);
 
+    /**
+     * 根据用户ID获得关联的评论一览，从通知表中获得
+     * @param userID 用户ID
+     * @param page 分页对象
+     * @return 评论一览列表
+     */
+    List<CmsComment> selectByUserID(@Param("userID")Integer userID, @Param("page")Page page);
+    
     /**
      * 更新CmsComment数据
      * @param 要更新的 CmsComment 对象内容

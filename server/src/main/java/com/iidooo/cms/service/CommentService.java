@@ -8,6 +8,8 @@ import com.iidooo.core.model.Page;
 public interface CommentService {
     List<CmsComment> getCommentListByContentID(Integer contentID, Page page);
     
+    List<CmsComment> getNoticeCommentListByUserID(Integer userID, Page page);
+    
     /**
      * 根据CommentID获取一条评论
      * @param commentID 获取该ID的评论

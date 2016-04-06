@@ -1,11 +1,8 @@
 package com.iidooo.cms.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 import com.iidooo.cms.model.po.CmsCommentNotice;
-import com.iidooo.core.model.Page;
 
 public interface CmsCommentNoticeMapper {
     
@@ -15,6 +12,14 @@ public interface CmsCommentNoticeMapper {
      * @return 删除操作所影响的行数
      */
     int deleteByPrimaryKey(Integer noticeID);
+    
+    /**
+     * 根据CommentID 和 UserID 删除评论通知
+     * @param userID 用户ID
+     * @param commentID 内容ID
+     * @return 删除操作所影响的行数
+     */
+    int deleteByCommentUserID(@Param("userID")Integer userID, @Param("commentID")Integer commentID);
 
     /**
      * 根据UserID这删除相关评论通知
@@ -40,10 +45,11 @@ public interface CmsCommentNoticeMapper {
     /**
      * 根据用户ID查询评论通知一览
      * @param userID 查询该用户ID的评论通知
+     * @param commentID 查询该用户ID的评论通知
      * @param page 分页对象
-     * @return 评论通知对象一览
+     * @return 评论通知对象
      */
-    List<CmsCommentNotice> selectByUserID(@Param("userID")Integer userID, @Param("page")Page page);
+    CmsCommentNotice selectByCommentUserID(@Param("userID")Integer userID, @Param("commentID")Integer commentID);
 
     int updateByPrimaryKeySelective(CmsCommentNotice record);
 

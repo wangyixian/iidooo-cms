@@ -60,6 +60,18 @@
 		order by ${page.sortField} ${page.sortType} limit
 		${page.start}, ${page.pageSize}
 	</select>
+	
+	<select id="selectByUserID" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from CMS_COMMENT C join CMS_COMMENT_NOTICE N
+		on C.CommentID = N.CommentID and UserID = #{userID,jdbcType=INTEGER} and C.IsDelete = 0
+		order by ${page.sortField} ${page.sortType} limit
+		${page.start},
+		${page.pageSize}
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from CMS_COMMENT

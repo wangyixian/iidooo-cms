@@ -7,5 +7,7 @@ public enum TableName {
     
     CMS_COMMENT,
     
+    CMS_COMMENT_NOTICE,
+    
     SECURITY_USER,
 }

@@ -43,6 +43,18 @@ public class CommentServiceImpl implements CommentService {
             throw e;
         }
     }
+    
+    @Override
+    public List<CmsComment> getNoticeCommentListByUserID(Integer userID, Page page) {
+        try {
+            List<CmsComment> result = new ArrayList<CmsComment>();
+            result = cmsCommentMapper.selectByUserID(userID, page);
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
 
     @Override
     public CmsComment getCommentByID(Integer commentID) {

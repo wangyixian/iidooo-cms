@@ -1,14 +1,13 @@
 package com.iidooo.cms.service;
 
-import java.util.List;
-
 import com.iidooo.cms.model.po.CmsCommentNotice;
-import com.iidooo.core.model.Page;
+
 
 public interface CmsCommentNoticeService {
-    List<CmsCommentNotice> getCommentNoticeList(Integer userID, Page page);
     
-    CmsCommentNotice getCommentNotice(Integer noticeID) throws Exception;
+    CmsCommentNotice getCommentNotice(Integer userID, Integer commentID);
+    
+    boolean deleteCommentNotice(Integer userID, Integer commentID);
     
     boolean deleteCommentNoticeList(Integer userID);
 }

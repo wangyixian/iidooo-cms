@@ -31,7 +31,7 @@ public class SecurityUserInfo {
 
     private Integer points;
 
-    private Integer contentCount;
+    private Integer contentCount = 0;
 
     public SecurityUserInfo() {
 

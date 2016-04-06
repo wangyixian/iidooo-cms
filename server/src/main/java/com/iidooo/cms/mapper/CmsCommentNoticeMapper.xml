@@ -12,8 +12,6 @@
 		<result column="CreateUserID" property="createUserID" jdbcType="INTEGER" />
 		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
-		<association column="commentID" property="comment" select="selectComment" javaType="com.iidooo.cms.model.po.CmsComment"></association>
-		<association column="createUserID" property="comment.createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
 	</resultMap>
 	<sql id="Base_Column_List">
 		NoticeID, UserID, CommentID, Remarks, UpdateTime, UpdateUserID, CreateTime, CreateUserID,
@@ -38,14 +36,12 @@
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectByUserID" resultMap="BaseResultMap">
+	<select id="selectByCommentUserID" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from CMS_COMMENT_NOTICE
-		where UserID = #{userID,jdbcType=INTEGER} and IsDelete = 0
-		order by ${page.sortField} ${page.sortType} limit
-		${page.start},
-		${page.pageSize}
+		where UserID = #{userID,jdbcType=INTEGER} and 
+		CommentID = #{commentID,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectByPrimaryID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -58,6 +54,11 @@
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from CMS_COMMENT_NOTICE
 		where NoticeID = #{noticeID,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteByCommentUserID">
+		delete from CMS_COMMENT_NOTICE
+		where UserID = #{userID,jdbcType=INTEGER} and CommentID = #{commentID,jdbcType=INTEGER}
 	</delete>
 
 	<delete id="deleteByUserID" parameterType="java.lang.Integer">

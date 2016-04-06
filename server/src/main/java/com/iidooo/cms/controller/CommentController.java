@@ -21,8 +21,8 @@ import com.iidooo.cms.service.CommentService;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.cms.service.HisOperatorService;
 import com.iidooo.cms.service.SecurityUserService;
-import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.MessageLevel;
+import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.ResponseStatus;
 import com.iidooo.core.enums.SortField;
 import com.iidooo.core.enums.SortType;
@@ -94,6 +94,66 @@ public class CommentController {
             page.setPageSize(Integer.valueOf(pageSize));
 
             List<CmsComment> commentList = this.commentService.getCommentListByContentID(Integer.valueOf(contentID), page);
+            if (commentList.size() <= 0) {
+                result.setStatus(ResponseStatus.QueryEmpty.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(commentList);
+            }
+            
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            result.getMessages().add(message);
+        }
+        return result;
+    }
+    
+    @RequestMapping(value = "/getNoticeCommentList", method = RequestMethod.POST)
+    public @ResponseBody ResponseResult getNoticeCommentList(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String userID = request.getParameter("userID");
+            if (StringUtil.isBlank(userID)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            } else if (!ValidateUtil.isNumber(userID)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            String sortField = request.getParameter("sortField");
+            if (StringUtil.isBlank(sortField)) {
+                sortField = SortField.Sequence.toString();
+            }
+
+            String sortType = request.getParameter("sortType");
+            if (StringUtil.isBlank(sortType)) {
+                sortType = SortType.desc.toString();
+            }
+
+            String start = request.getParameter("start");
+            if (StringUtil.isBlank(start)) {
+                start = "0";
+            }
+
+            String pageSize = request.getParameter("pageSize");
+            if (StringUtil.isBlank(pageSize)) {
+                pageSize = "10";
+            }
+
+            Page page = new Page();
+            page.setSortField(sortField);
+            page.setSortType(sortType);
+            page.setStart(Integer.valueOf(start));
+            page.setPageSize(Integer.valueOf(pageSize));
+            
+            List<CmsComment> commentList = this.commentService.getNoticeCommentListByUserID(Integer.valueOf(userID), page);
             if (commentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {

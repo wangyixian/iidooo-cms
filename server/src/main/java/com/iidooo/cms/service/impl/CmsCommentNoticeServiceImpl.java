@@ -1,17 +1,12 @@
 package com.iidooo.cms.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.iidooo.cms.mapper.CmsCommentNoticeMapper;
 import com.iidooo.cms.model.po.CmsCommentNotice;
 import com.iidooo.cms.service.CmsCommentNoticeService;
-import com.iidooo.core.model.Page;
 
 @Service
 public class CmsCommentNoticeServiceImpl implements CmsCommentNoticeService {
@@ -21,29 +16,23 @@ public class CmsCommentNoticeServiceImpl implements CmsCommentNoticeService {
     private CmsCommentNoticeMapper cmsCommentNoticeMapper;
     
     @Override
-    public List<CmsCommentNotice> getCommentNoticeList(Integer userID, Page page) {
+    public CmsCommentNotice getCommentNotice(Integer userID, Integer commentID){
         try {
-            List<CmsCommentNotice> result = new ArrayList<CmsCommentNotice>();
-            result = cmsCommentNoticeMapper.selectByUserID(userID, page);
+            CmsCommentNotice result = cmsCommentNoticeMapper.selectByCommentUserID(userID, commentID);
             return result;
         } catch (Exception e) {
             logger.fatal(e);
             throw e;
         }
     }
-
+    
     @Override
-    @Transactional
-    public CmsCommentNotice getCommentNotice(Integer noticeID) throws Exception {
+    public boolean deleteCommentNotice(Integer userID, Integer commentID) {
         try {
-            CmsCommentNotice result = null;
-            result = cmsCommentNoticeMapper.selectByPrimaryID(noticeID);
-            
-            if (result != null) {
-                if(cmsCommentNoticeMapper.deleteByPrimaryKey(result.getNoticeID()) <= 0){
-                    throw new Exception();
-                }
-            }
+            boolean result = false;
+            if (cmsCommentNoticeMapper.deleteByCommentUserID(userID, commentID) > 0) {
+                return true;
+            } 
             return result;
         } catch (Exception e) {
             logger.fatal(e);

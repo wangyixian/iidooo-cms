@@ -102,15 +102,4 @@ public class CmsCommentNotice {
     public void setVersion(Integer version) {
         this.version = version;
     }
-
-    private CmsComment comment;
-
-    public CmsComment getComment() {
-        return comment;
-    }
-
-    public void setComment(CmsComment comment) {
-        this.comment = comment;
-    }
-
 }
