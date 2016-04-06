@@ -52,8 +52,9 @@
   </sql>
   <select id="selectByUserID" resultMap="UserInfoResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="UserInfo_Column_List" />
-    from SECURITY_USER U
+    <include refid="UserInfo_Column_List" />, C.ContentCount
+    from SECURITY_USER U , 
+    (select count(C.ContentID) as ContentCount from CMS_CONTENT C where CreateUserID = #{userID,jdbcType=INTEGER}) C
     where U.UserID = #{userID,jdbcType=INTEGER}
   </select>
   

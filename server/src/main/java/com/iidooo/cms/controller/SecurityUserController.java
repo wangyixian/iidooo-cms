@@ -57,10 +57,9 @@ public class SecurityUserController {
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(userInfo);
-            }
-
-            // 更新浏览记录
-            hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), userInfo.getUserID(), request);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), userInfo.getUserID(), request);
+            }          
 
         } catch (Exception e) {
             logger.fatal(e);

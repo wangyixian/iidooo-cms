@@ -30,12 +30,14 @@ public class SecurityUserInfo {
     private Integer level;
 
     private Integer points;
-    
-    public SecurityUserInfo(){
-        
+
+    private Integer contentCount;
+
+    public SecurityUserInfo() {
+
     }
-    
-    public SecurityUserInfo(SecurityUser user){
+
+    public SecurityUserInfo(SecurityUser user) {
         this.setBirthday(user.getBirthday());
         this.setEmail(user.getEmail());
         this.setIsDisable(user.getIsDisable());
@@ -129,8 +131,8 @@ public class SecurityUserInfo {
 
     public void setIsSilent(Integer isSilent) {
         this.isSilent = isSilent;
-    } 
-    
+    }
+
     public Integer getIsDisable() {
         return isDisable;
     }
@@ -154,6 +156,13 @@ public class SecurityUserInfo {
     public void setPoints(Integer points) {
         this.points = points;
     }
-    
-    
+
+    public Integer getContentCount() {
+        return contentCount;
+    }
+
+    public void setContentCount(Integer contentCount) {
+        this.contentCount = contentCount;
+    }
+
 }
