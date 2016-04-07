@@ -1,32 +1,22 @@
 package com.iidooo.cms.enums;
 
 public enum FileType {
-    UserPhoto("UserPhoto", "1"),
+    UserPhoto("1"),
 
-    ContentPicture("ContentPicture", "2");
+    ContentPicture("2");
 
-    private FileType(String name, String value) {
-        this.name = name;
-        this.value = value;
+    private FileType(String code) {
+        this.code = code;
     }
 
-    private String name;
+    private String code;
 
-    private String value;
-
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

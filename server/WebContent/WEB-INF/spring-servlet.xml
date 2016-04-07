@@ -31,7 +31,7 @@
 	<!-- 配置数据源 -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>classpath:mybatis/jdbc-test.properties</value>
+			<value>classpath:mybatis/jdbc-localhost.properties</value>
 		</property>
 	</bean>
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -49,6 +49,7 @@
 		</property>
 	</bean>
 	
+	<!-- 加入声明式事物处理，抛出异常自动回滚 -->
 	<bean id="transactionManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource"></property>  
