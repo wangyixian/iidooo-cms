@@ -21,6 +21,7 @@ import com.iidooo.cms.model.po.CmsContentNews;
 import com.iidooo.cms.model.po.CmsPicture;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.model.Page;
+import com.iidooo.core.util.StringUtil;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -54,11 +55,20 @@ public class ContentServiceImpl implements ContentService {
     public CmsContent getContent(String contentType, Integer contentID) {
         try {
             CmsContent result = null;
-            if (contentType.equals(ContentType.Default.getCode())) {
-                result = cmsContentDao.selectByContentID(contentID);
-            } else if (contentType.equals(ContentType.News.getCode())) {
+            
+            // 如果该contentType未指定，则判断要获取的contentType
+            if (StringUtil.isBlank(contentType)) {
                 result = cmsContentNewsDao.selectByContentID(contentID);
-            }
+                if (result == null) {
+                    result = cmsContentDao.selectByContentID(contentID);
+                }
+            } else {
+                if (contentType.equals(ContentType.Default.getCode())) {
+                    result = cmsContentDao.selectByContentID(contentID);
+                } else if (contentType.equals(ContentType.News.getCode())) {
+                    result = cmsContentNewsDao.selectByContentID(contentID);
+                }
+            }            
 
             return result;
         } catch (Exception e) {

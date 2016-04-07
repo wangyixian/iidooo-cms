@@ -3,7 +3,6 @@ package com.iidooo.cms.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,8 +114,8 @@ public class CommentServiceImpl implements CommentService {
 
                     CmsCommentNotice commentNotice = new CmsCommentNotice();
                     commentNotice.setUserID(item.getCreateUserID());
-                    commentNotice.setContentID(item.getContentID());
-                    commentNotice.setCommentID(item.getCommentID());
+                    commentNotice.setContentID(cmsComment.getContentID());
+                    commentNotice.setCommentID(cmsComment.getCommentID());
                     commentNotice.setCreateTime(new Date());
                     commentNotice.setCreateUserID(cmsComment.getCreateUserID());
                     commentNotice.setUpdateTime(new Date());

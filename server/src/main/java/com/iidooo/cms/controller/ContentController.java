@@ -73,20 +73,11 @@ public class ContentController {
         try {
             // 获取和验证字段
             String contentID = request.getParameter("contentID");
-            String contentType = request.getParameter("contentType");
             if (StringUtil.isBlank(contentID)) {
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
                 result.getMessages().add(message);
             } else if (!ValidateUtil.isNumber(contentID)) {
                 Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
-                result.getMessages().add(message);
-            }
-
-            if (StringUtil.isBlank(contentType)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
-                result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(contentType)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
                 result.getMessages().add(message);
             }
 
@@ -96,6 +87,11 @@ public class ContentController {
                 return result;
             }
 
+            String contentType = request.getParameter("contentType");
+            if (StringUtil.isNotBlank(contentType) && !ValidateUtil.isNumber(contentID)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
+            }
             // 查询获得内容对象
             CmsContent content = contentService.getContent(contentType, Integer.valueOf(contentID));
             if (content == null) {

@@ -17,7 +17,7 @@ public interface ContentService {
     
     /**
      * 通过内容类型和内容ID获取内容对象
-     * @param contentType 内容类型的枚举
+     * @param contentType 内容类型，可选参数，如果为空则要判断是哪个类型
      * @param contentID 内容ID
      * @return 所获的的内容对象
      */
