@@ -120,8 +120,8 @@
 			<if test="isSilent != null">
 				IsSilent,
 			</if>
-			<if test="isSticky != null">
-				IsSticky,
+			<if test="stickyIndex != null">
+				StickyIndex,
 			</if>
 			<if test="pageViewCount != null">
 				PageViewCount,
@@ -141,14 +141,14 @@
 			<if test="createTime != null">
 				CreateTime,
 			</if>
-			<if test="createUser != null">
-				CreateUser,
+			<if test="createUserID != null">
+				CreateUserID,
 			</if>
 			<if test="updateTime != null">
 				UpdateTime,
 			</if>
-			<if test="updateUser != null">
-				UpdateUser,
+			<if test="updateUserID != null">
+				UpdateUserID,
 			</if>
 			IsDelete,Version,
 			<if test="contentBody != null">
@@ -186,8 +186,8 @@
 			<if test="isSilent != null">
 				#{isSilent,jdbcType=INTEGER},
 			</if>
-			<if test="isSticky != null">
-				#{isSticky,jdbcType=INTEGER},
+			<if test="stickyIndex != null">
+				#{stickyIndex,jdbcType=INTEGER},
 			</if>
 			<if test="pageViewCount != null">
 				#{pageViewCount,jdbcType=INTEGER},
@@ -207,14 +207,14 @@
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="createUser != null">
-				#{createUser,jdbcType=INTEGER},
+			<if test="createUserID != null">
+				#{createUserID,jdbcType=INTEGER},
 			</if>
 			<if test="updateTime != null">
 				#{updateTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="updateUser != null">
-				#{updateUser,jdbcType=INTEGER},
+			<if test="updateUserID != null">
+				#{updateUserID,jdbcType=INTEGER},
 			</if>
 			0,1,
 			<if test="contentBody != null">
@@ -222,6 +222,7 @@
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="updateByContentID" parameterType="com.iidooo.cms.model.po.CmsContent">
 		update CMS_CONTENT
 		<set>
@@ -255,8 +256,8 @@
 			<if test="isSilent != null">
 				IsSilent = #{isSilent,jdbcType=INTEGER},
 			</if>
-			<if test="isSticky != null">
-				IsSticky = #{isSticky,jdbcType=INTEGER},
+			<if test="stickyIndex != null">
+				StickyIndex = #{stickyIndex,jdbcType=INTEGER},
 			</if>
 			<if test="pageViewCount != null">
 				PageViewCount = #{pageViewCount,jdbcType=INTEGER},
@@ -301,7 +302,7 @@
 		MetaDescription = #{metaDescription,jdbcType=VARCHAR},
 		ContentSummary = #{contentSummary,jdbcType=VARCHAR},
 		IsSilent = #{isSilent,jdbcType=INTEGER},
-		IsSticky = #{isSticky,jdbcType=INTEGER},
+		StickyIndex = #{stickyIndex,jdbcType=INTEGER},
 		PageViewCount = #{pageViewCount,jdbcType=INTEGER},
 		UniqueVisitorCount =
 		#{uniqueVisitorCount,jdbcType=INTEGER},

@@ -1,6 +1,6 @@
 package com.iidooo.cms.controller;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,15 +42,15 @@ public class ContentController {
 
     @Autowired
     private HisOperatorService hisOperatorService;
-    
+
     @ResponseBody
     @RequestMapping(value = "/getContentPVSum", method = RequestMethod.POST)
     public ResponseResult getContentPVSum(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
-           
+
             int pvCount = hisOperatorService.getPVCount("CMS_CONTENT", null, "getContent");
-            
+
             // 返回找到的内容对象
             result.setStatus(ResponseStatus.OK.getCode());
             JSONObject jsonObject = new JSONObject();
@@ -87,13 +87,8 @@ public class ContentController {
                 return result;
             }
 
-            String contentType = request.getParameter("contentType");
-            if (StringUtil.isNotBlank(contentType) && !ValidateUtil.isNumber(contentID)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
-                result.getMessages().add(message);
-            }
             // 查询获得内容对象
-            CmsContent content = contentService.getContent(contentType, Integer.valueOf(contentID));
+            CmsContent content = contentService.getContent(Integer.valueOf(contentID));
             if (content == null) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
                 return result;
@@ -104,7 +99,7 @@ public class ContentController {
             result.setData(content);
 
             // 更新浏览记录
-            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(),  request);
+            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
             // 更新该内容的PV和UV
             int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request.getServletPath());
@@ -141,7 +136,7 @@ public class ContentController {
                 Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
                 result.getMessages().add(message);
             }
-            
+
             if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
@@ -205,62 +200,108 @@ public class ContentController {
         try {
             // 解析获得传入的参数
             // 必填参数
-            String channelID = request.getParameter("channelID");
+            String channelIDStr = request.getParameter("channelID");
+            String userIDStr = request.getParameter("userID");
             String contentType = request.getParameter("contentType");
-            List<Message> messages = validateCreateContent(channelID, contentType);
-            if (messages.size() > 0) {
+            if (StringUtil.isBlank(channelIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "channelID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(channelIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "channelID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(userIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(userIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(contentType)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentType)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
-                result.setMessages(messages);
                 return result;
             }
 
+            int channelID = Integer.parseInt(channelIDStr);
+            int userID = Integer.parseInt(userIDStr);
+
+            // 获取可选参数
+            String contentTitle = request.getParameter("contentTitle");
+            String contentSubTitle = request.getParameter("contentSubTitle");
+            String contentImageTitle = request.getParameter("contentImageTitle");
+            String metaTitle = request.getParameter("metaTitle");
+            String metaKeywords = request.getParameter("metaKeywords");
+            String metaDescription = request.getParameter("metaDescription");
+            String contentSummary = request.getParameter("contentSummary");
+            String contentBody = request.getParameter("contentBody");
+            String isSilent = request.getParameter("isSilent");
+            String stickyIndex = request.getParameter("stickyIndex");
+            String remarks = request.getParameter("remarks");
+
+            // 工厂创建对象
+            CmsContent content = null;
             if (contentType.equals(ContentType.Default.getCode())) {
-                CmsContent content = new CmsContent();
-                content = contentService.createContent(content);
-                if (content == null) {
-                    result.setStatus(ResponseStatus.InsertFailed.getCode());
-                } else {
-                    result.setStatus(ResponseStatus.OK.getCode());
-                    result.setData(content);
-                }
+                content = new CmsContent();
             } else if (contentType.equals(ContentType.News.getCode())) {
-                CmsContentNews contentNews = new CmsContentNews();
-                contentNews = contentService.createContentNews(contentNews);
-                if (contentNews == null) {
-                    result.setStatus(ResponseStatus.InsertFailed.getCode());
-                } else {
-                    result.setStatus(ResponseStatus.OK.getCode());
-                    result.setData(contentNews);
-                }
+                content = new CmsContentNews();
+
+                // 设置CmsContentNews参数
+                String source = request.getParameter("source");
+                String sourceURL = request.getParameter("sourceURL");
+                CmsContentNews contentNews = (CmsContentNews) content;
+                contentNews.setSource(source);
+                contentNews.setSourceURL(sourceURL);
+            }
+
+            // 设置CmsContent属性
+            content.setChannelID(channelID);
+            content.setContentType(contentType);
+            content.setContentTitle(contentTitle);
+            content.setMetaKeywords(metaKeywords);
+            content.setContentSubTitle(contentSubTitle);
+            content.setContentImageTitle(contentImageTitle);
+            content.setMetaTitle(metaTitle);
+            content.setMetaDescription(metaDescription);
+            content.setContentSummary(contentSummary);
+            content.setContentBody(contentBody);
+            if (StringUtil.isNotBlank(isSilent) && ValidateUtil.isNumber(isSilent)) {
+                content.setIsSilent(Integer.parseInt(isSilent));
+            }
+            if (StringUtil.isNotBlank(stickyIndex) && ValidateUtil.isNumber(stickyIndex)) {
+                content.setStickyIndex(Integer.parseInt(stickyIndex));
+            }
+            content.setRemarks(remarks);
+            content.setCreateTime(new Date());
+            content.setCreateUserID(userID);
+            content.setUpdateTime(new Date());
+            content.setUpdateUserID(userID);
+
+            if(contentService.createContent(content)){
+                content = contentService.getContent(content.getContentID());
+            }
+            if (content == null) {
+                result.setStatus(ResponseStatus.InsertFailed.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(content);
             }
 
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            result.setStatus(ResponseStatus.Failed.getCode());
             result.getMessages().add(message);
-        }
-        return result;
-    }
-
-    private List<Message> validateCreateContent(String channelID, String contentType) {
-        List<Message> result = new ArrayList<Message>();
-        try {
-            if (StringUtil.isBlank(channelID)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "channelID");
-                result.add(message);
-            }
-
-            if (StringUtil.isBlank(contentType)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
-                result.add(message);
-            }
-
-        } catch (Exception e) {
-            logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.add(message);
         }
         return result;
     }

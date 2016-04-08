@@ -123,6 +123,7 @@
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsContentNews">
 		update CMS_CONTENT_NEWS
 		<set>

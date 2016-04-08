@@ -3,7 +3,6 @@ package com.iidooo.cms.service;
 import java.util.List;
 
 import com.iidooo.cms.model.po.CmsContent;
-import com.iidooo.cms.model.po.CmsContentNews;
 import com.iidooo.core.model.Page;
 
 public interface ContentService {
@@ -15,19 +14,9 @@ public interface ContentService {
      */
     CmsContent getContent(Integer contentID);
     
-    /**
-     * 通过内容类型和内容ID获取内容对象
-     * @param contentType 内容类型，可选参数，如果为空则要判断是哪个类型
-     * @param contentID 内容ID
-     * @return 所获的的内容对象
-     */
-    CmsContent getContent(String contentType, Integer contentID);
-    
     List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page);
     
-    CmsContent createContent(CmsContent content) throws Exception;
-    
-    CmsContentNews createContentNews(CmsContentNews contentNews)  throws Exception;
+    boolean createContent(CmsContent content) throws Exception;
         
     /**
      * 得到点赞数

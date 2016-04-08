@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="http://www.iidooo.com/iidooo-cms/createContent" method="post">
+    <table>
+        <tr>
+            <td>App ID</td>
+            <td><input type="text" name="appID" value="ToxicWave"></td>
+            <td>必填项，授权应用的ID</td>
+        </tr>
+        <tr>
+            <td>秘钥</td>
+            <td><input type="text" name="secret" value="f6f1eac67d6a47b2b560a4a4cf3b494d"></td>
+            <td>必填项，授权应用秘钥</td>
+        </tr>
+        <tr>
+            <td>用户ID</td>
+            <td><input type="text" name="userID" value="1"></td>
+            <td>必填项，用户ID</td>
+        </tr>
+        <tr>
+            <td>栏目ID</td>
+            <td><input type="text" name="channelID" value="1"></td>
+            <td>必填项，给哪个栏目创建内容</td>
+        </tr>
+        <tr>
+            <td>内容类型</td>
+            <td><input type="text" name="contentType" value="1"></td>
+            <td>必填项，要创建的内容类型，1:自媒体，2:新闻</td>
+        </tr>
+        <tr>
+            <td>内容标题</td>
+            <td><input type="text" name="contentTitle" value="测试标题"></td>
+            <td>可选，内容的标题</td>
+        </tr>
+        <tr>
+            <td>内容副标题</td>
+            <td><input type="text" name="contentSubTitle" value="测试副标题"></td>
+            <td>可选，内容的副标题</td>
+        </tr>
+        <tr>
+            <td>内容标题图片路径</td>
+            <td><input type="text" name="contentImageTitle" value=""></td>
+            <td>可选，内容的内容标题图片路径</td>
+        </tr>
+        <tr>
+            <td>内容metaTitle</td>
+            <td><input type="text" name="metaTitle" value=""></td>
+            <td>可选，内容的metaTitle</td>
+        </tr>
+        <tr>
+            <td>内容metaKeywords</td>
+            <td><input type="text" name="metaKeywords" value=""></td>
+            <td>可选，内容的metaKeywords</td>
+        </tr>
+        <tr>
+            <td>内容metaDescription</td>
+            <td><input type="text" name="metaDescription" value=""></td>
+            <td>可选，内容的metaDescription</td>
+        </tr>
+        <tr>
+            <td>内容摘要</td>
+            <td><input type="text" name="contentSummary" value=""></td>
+            <td>可选，内容的摘要</td>
+        </tr>
+        <tr>
+            <td>内容主体文本</td>
+            <td><input type="text" name="contentBody" value="随便写一些什么吧！"></td>
+            <td>可选，内容的主体文本</td>
+        </tr>
+        <tr>
+            <td>内容是否禁止评论</td>
+            <td><input type="text" name="isSilent" value="0"></td>
+            <td>可选，1:禁止评论，0:可以评论，默认是0</td>
+        </tr>
+        <tr>
+            <td>内容置顶索引</td>
+            <td><input type="text" name="stickyIndex" value="0"></td>
+            <td>可选，索引值越高，置顶越高</td>
+        </tr>
+        <tr>
+            <td>新闻来源</td>
+            <td><input type="text" name="source" value="百度"></td>
+            <td>可选，只有在ContentType=2时才有效</td>
+        </tr>
+        <tr>
+            <td>新闻来源URL</td>
+            <td><input type="text" name="sourceURL" value="www.baidu.com"></td>
+            <td>可选，只有在ContentType=2时才有效</td>
+        </tr>
+        <tr>
+            <td><button type="submit">提交</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
