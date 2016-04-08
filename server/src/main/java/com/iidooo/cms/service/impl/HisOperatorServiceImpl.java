@@ -30,7 +30,7 @@ public class HisOperatorServiceImpl implements HisOperatorService {
             operation = operation.substring(1);
             String operatorIP = request.getRemoteAddr();
             String userAgent = request.getHeader("User-Agent");
-            
+
             // 得到操作者的UserID
             String userID = request.getParameter("userID");
             if (StringUtil.isBlank(userID)) {
@@ -39,7 +39,7 @@ public class HisOperatorServiceImpl implements HisOperatorService {
             if (StringUtil.isBlank(userID)) {
                 userID = "1";
             }
-            
+
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
@@ -51,7 +51,7 @@ public class HisOperatorServiceImpl implements HisOperatorService {
             hisOperator.setCreateUserID(Integer.valueOf(userID));
             hisOperator.setUpdateTime(new Date());
             hisOperator.setUpdateUserID(Integer.valueOf(userID));
-            
+
             hisOperatorMapper.insert(hisOperator);
         } catch (Exception e) {
             logger.fatal(e);
@@ -62,6 +62,9 @@ public class HisOperatorServiceImpl implements HisOperatorService {
     public int getPVCount(String tableName, Integer tableKey, String operation) {
         int result = 0;
         try {
+            // 移除斜杠
+            operation = operation.substring(1);
+
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
@@ -77,6 +80,9 @@ public class HisOperatorServiceImpl implements HisOperatorService {
     public int getUVCount(String tableName, Integer tableKey, String operation) {
         int result = 0;
         try {
+            // 移除斜杠
+            operation = operation.substring(1);
+
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
