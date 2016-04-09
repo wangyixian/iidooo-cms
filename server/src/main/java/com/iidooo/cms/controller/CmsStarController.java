@@ -88,8 +88,10 @@ public class CmsStarController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
             result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
     }
@@ -143,8 +145,10 @@ public class CmsStarController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
             result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
     }

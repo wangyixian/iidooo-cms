@@ -1,6 +1,5 @@
 package com.iidooo.cms.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -121,9 +120,10 @@ public class CommentController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
-            result.setStatus(ResponseStatus.Failed.getCode());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
             result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
     }
@@ -182,8 +182,10 @@ public class CommentController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
             result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
     }
@@ -280,9 +282,10 @@ public class CommentController {
             hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
-            result.setStatus(ResponseStatus.Failed.getCode());
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
             result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
     }
@@ -296,11 +299,22 @@ public class CommentController {
             String commentID = request.getParameter("commentID");
             String comment = request.getParameter("comment");
 
-            List<Message> messages = validateUpdateComment(commentID, comment);
-            if (messages.size() > 0) {
+            if (StringUtil.isBlank(commentID)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "commentID");
+                result.getMessages().add(message);
+            } else if (ValidateUtil.isNumber(commentID)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "commentID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(comment)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "comment");
+                result.getMessages().add(message);
+            }
+            
+            if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
-                result.setMessages(messages);
                 return result;
             }
 
@@ -320,30 +334,10 @@ public class CommentController {
 
         } catch (Exception e) {
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, e.getMessage());
-            result.getMessages().add(message);
-        }
-        return result;
-    }
-
-    private List<Message> validateUpdateComment(String commentID, String comment) {
-        List<Message> result = new ArrayList<Message>();
-        try {
-            if (StringUtil.isBlank(commentID)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "commentID");
-                result.add(message);
-            }
-
-            if (StringUtil.isBlank(comment)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "comment");
-                result.add(message);
-            }
-
-        } catch (Exception e) {
-            logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
             message.setDescription(e.getMessage());
-            result.add(message);
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
     }

@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<form action="http://www.iidooo.com/iidooo-cms/uploadFile" method="post" enctype="multipart/form-data">
+<form action="http://localhost:8080/iidooo-cms/uploadFile" method="post" enctype="multipart/form-data">
     <table>
         <tr>
             <td>App ID</td>
@@ -23,6 +23,13 @@
                 <input name="file" type="file"/>
             </td>
             <td>必填项，选择文件</td>
+        </tr>
+        <tr>
+            <td>文件类型</td>
+            <td>
+                <input type="text" name="fileType" value="1"></td>
+            </td>
+            <td>必填项，文件类型，1:用户头像，2:内容图片</td>
         </tr>
         <tr>
             <td>
