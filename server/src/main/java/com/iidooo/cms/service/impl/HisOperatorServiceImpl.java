@@ -62,9 +62,6 @@ public class HisOperatorServiceImpl implements HisOperatorService {
     public int getPVCount(String tableName, Integer tableKey, String operation) {
         int result = 0;
         try {
-            // 移除斜杠
-            operation = operation.substring(1);
-
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);
@@ -80,9 +77,6 @@ public class HisOperatorServiceImpl implements HisOperatorService {
     public int getUVCount(String tableName, Integer tableKey, String operation) {
         int result = 0;
         try {
-            // 移除斜杠
-            operation = operation.substring(1);
-
             HisOperator hisOperator = new HisOperator();
             hisOperator.setTableName(tableName);
             hisOperator.setTableKey(tableKey);

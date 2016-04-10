@@ -103,8 +103,9 @@ public class ContentController {
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
             // 更新该内容的PV和UV
-            int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request.getServletPath());
-            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), request.getServletPath());
+            String option = request.getServletPath().substring(1);
+            int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
+            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
             content.setUniqueVisitorCount(uvCount);

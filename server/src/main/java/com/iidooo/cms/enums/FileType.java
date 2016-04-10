@@ -3,7 +3,9 @@ package com.iidooo.cms.enums;
 public enum FileType {
     UserPhoto("1"),
 
-    ContentPicture("2");
+    NewsPicture("2"),
+    
+    ContentPicture("3");
 
     private FileType(String code) {
         this.code = code;

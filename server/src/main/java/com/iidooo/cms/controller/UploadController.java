@@ -92,10 +92,12 @@ public class UploadController {
 
             String newFilePath = FileUtil.getNewFileName(uploadFilePath, "_mini");
             if (fileType.equals(FileType.UserPhoto.getCode())) {
-                PictureUtil.compress(uploadFilePath, newFilePath, 200, 200, true);
-                PictureUtil.cutCenterSquare(newFilePath, newFilePath);
-            } else {
+                PictureUtil.cutSquare(uploadFilePath, newFilePath);
+                PictureUtil.compress(newFilePath, newFilePath, 200, 200, false);
+            } else if (fileType.equals(FileType.NewsPicture.getCode())) {
                 PictureUtil.compress(uploadFilePath, newFilePath, 500, 500, true);
+            } else {
+                PictureUtil.compress(uploadFilePath, newFilePath, 1000, 1000, true);
             }
 
             // 把文件上传到阿里云OSS的既定路径下
