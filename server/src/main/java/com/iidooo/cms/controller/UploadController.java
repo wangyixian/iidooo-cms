@@ -89,7 +89,8 @@ public class UploadController {
             String fileName = file.getOriginalFilename();
             fileName = FileUtil.getUniqueFileName(fileName);
             String uploadFilePath = FileUtil.save(file.getBytes(), uploadFolderPath, fileName);
-
+            PictureUtil.MaintainOrientation(uploadFilePath);
+            
             String newFilePath = FileUtil.getNewFileName(uploadFilePath, "_mini");
             if (fileType.equals(FileType.UserPhoto.getCode())) {
                 PictureUtil.cutSquare(uploadFilePath, newFilePath);
