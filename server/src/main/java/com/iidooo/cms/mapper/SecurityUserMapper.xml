@@ -251,6 +251,9 @@
       <if test="remarks != null" >
         Remarks = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="updateTime != null" >
+        UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="updateUserID != null" >
         UpdateUserID = #{updateUserID,jdbcType=INTEGER},
       </if>

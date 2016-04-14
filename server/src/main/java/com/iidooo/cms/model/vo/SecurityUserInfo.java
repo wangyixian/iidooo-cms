@@ -38,6 +38,8 @@ public class SecurityUserInfo {
     }
 
     public SecurityUserInfo(SecurityUser user) {
+        this.setUserID(user.getUserID());
+        this.setUserName(user.getUserName());
         this.setBirthday(user.getBirthday());
         this.setEmail(user.getEmail());
         this.setIsDisable(user.getIsDisable());
@@ -48,8 +50,6 @@ public class SecurityUserInfo {
         this.setPhotoURL(user.getPhotoURL());
         this.setPoints(user.getPoints());
         this.setSex(user.getSex());
-        this.setUserID(user.getUserID());
-        this.setUserName(user.getUserName());
         this.setWeixinID(user.getWeixinID());
     }
 

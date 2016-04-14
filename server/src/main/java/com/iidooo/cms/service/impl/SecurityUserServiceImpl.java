@@ -80,6 +80,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     public SecurityUserInfo updateUserInfo(SecurityUserInfo userInfo) {
         try {
             SecurityUser user = new SecurityUser();
+            user.setUserID(userInfo.getUserID());
             user.setUserName(userInfo.getUserName());
             user.setBirthday(userInfo.getBirthday());
             user.setEmail(userInfo.getEmail());
@@ -98,7 +99,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
                 return null;
             }
                         
-            SecurityUserInfo result = new SecurityUserInfo(user);
+            SecurityUserInfo result = securityUserMapper.selectByUserID(userInfo.getUserID());
             
             return result;
             

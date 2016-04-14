@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="http://localhost:8080/iidooo-cms/updateUserInfo" method="post">
+    <table>
+        <tr>
+            <td>App ID</td>
+            <td><input type="text" name="appID" value="ToxicWave"></td>
+            <td>必填项，授权应用的ID</td>
+        </tr>
+        <tr>
+            <td>秘钥</td>
+            <td><input type="text" name="secret" value="f6f1eac67d6a47b2b560a4a4cf3b494d"></td>
+            <td>必填项，授权应用秘钥</td>
+        </tr>
+        <tr>
+            <td>用户ID</td>
+            <td><input type="text" name="userID" value="1"></td>
+            <td>必填项，更新用户的唯一标识</td>
+        </tr>
+        <tr>
+            <td>用户名</td>
+            <td><input type="text" name="userName" value="xxxxxx"></td>
+            <td>可选项，更新用户的名字</td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td><input type="text" name="sex" value="1"></td>
+            <td>可选项，更新用户的的性别，1:男性，2:女性</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" name="email" value="xxx@iidooo.com"></td>
+            <td>可选项，更新用户的邮件地址</td>
+        </tr>
+        <tr>
+            <td>头像照片</td>
+            <td><input type="text" name="photoURL" value="http://localhost:8080/iidooo-cms/resources/upload/img/photo/default_2.jpg"></td>
+            <td>可选项，更新用户的头像</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">提交</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
