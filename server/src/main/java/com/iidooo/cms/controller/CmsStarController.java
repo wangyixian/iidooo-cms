@@ -72,7 +72,7 @@ public class CmsStarController {
 
             CmsStar cmsStar = this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID));
             if (cmsStar == null) {
-                result.setStatus(ResponseStatus.InsertFailed.getCode());
+                result.setStatus(ResponseStatus.ConfinedFailed.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 JSONObject jsonObject = new JSONObject();
@@ -81,10 +81,12 @@ public class CmsStarController {
                 jsonObject.put("starCount", contentService.getContentStarCount(Integer.parseInt(contentID)));
 
                 result.setData(jsonObject);
+                
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.CMS_STAR.toString(), cmsStar.getStartID(), request);
             }
 
-            // 更新浏览记录
-            hisOperatorService.createHisOperator(TableName.CMS_STAR.toString(), cmsStar.getStartID(), request);
+            
 
         } catch (Exception e) {
             logger.fatal(e);

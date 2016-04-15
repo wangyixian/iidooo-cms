@@ -51,6 +51,8 @@ public class CmsStarServiceImpl implements CmsStarService {
                             throw new Exception();
                         }
                     }
+                } else {
+                    return null;
                 }
             }
             return cmsStar;

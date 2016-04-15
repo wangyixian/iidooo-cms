@@ -1,6 +1,7 @@
 package com.iidooo.cms.controller;
 
 import java.io.File;
+import java.util.Properties;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.aliyun.oss.OSSClient;
 import com.iidooo.aliyun.util.OSSUtil;
-import com.iidooo.cms.constant.PropertyKey;
 import com.iidooo.cms.enums.FileType;
 import com.iidooo.cms.service.UploadService;
 import com.iidooo.core.enums.MessageLevel;
@@ -81,7 +81,8 @@ public class UploadController {
             }
 
             // 保存上传的文件到服务器的既定路径下
-            String uploadFolderPath = (String) sc.getAttribute(PropertyKey.SERVER_UPLOAD_FOLDER);
+            Properties systemProperties = (Properties)sc.getAttribute("system.properties");
+            String uploadFolderPath = systemProperties.getProperty("SERVER_UPLOAD_FOLDER");
             String yearMonth = DateUtil.getNow(DateUtil.DATE_YEAR_MONTH_SIMPLE);
             uploadFolderPath = uploadFolderPath + File.separator + yearMonth;
 
@@ -90,7 +91,7 @@ public class UploadController {
             fileName = FileUtil.getUniqueFileName(fileName);
             String uploadFilePath = FileUtil.save(file.getBytes(), uploadFolderPath, fileName);
             PictureUtil.MaintainOrientation(uploadFilePath);
-            
+
             String newFilePath = FileUtil.getNewFileName(uploadFilePath, "_mini");
             if (fileType.equals(FileType.UserPhoto.getCode())) {
                 PictureUtil.cutSquare(uploadFilePath, newFilePath);
@@ -102,17 +103,13 @@ public class UploadController {
             }
 
             // 把文件上传到阿里云OSS的既定路径下
-            String domain = (String) sc.getAttribute(PropertyKey.ALIYUN_OSS_DOMAIN);
-            String endpoint = (String) sc.getAttribute(PropertyKey.ALIYUN_OSS_END_POINT);
-            String accessKeyId = (String) sc.getAttribute(PropertyKey.ALIYUN_OSS_ACCESS_KEY_ID);
-            String accessKeySecret = (String) sc.getAttribute(PropertyKey.ALIYUN_OSS_ACCESS_KEY_SECRET);
-            String bucketName = (String) sc.getAttribute(PropertyKey.ALIYUN_OSS_BUCKET_NAME);
+            Properties aliyunProperties = (Properties) sc.getAttribute("aliyun.properties");
 
-            OSSClient ossClient = OSSUtil.getOSSClient(endpoint, accessKeyId, accessKeySecret);
-            String newKey = OSSUtil.uploadFile(ossClient, bucketName, yearMonth + "/", newFilePath);
+            OSSClient ossClient = OSSUtil.getOSSClient(aliyunProperties);
+            String newKeyURL = OSSUtil.uploadFile(aliyunProperties, ossClient, yearMonth + "/", newFilePath);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("url", domain + newKey);
+            jsonObject.put("url", newKeyURL);
 
             result.setStatus(ResponseStatus.OK.getCode());
             result.setData(jsonObject);

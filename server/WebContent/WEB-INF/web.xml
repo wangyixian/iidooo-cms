@@ -35,6 +35,6 @@
 	
 	<!-- 系统所需要的一些准备数据在此监听器中加载 -->
 	<listener>
-		<listener-class>com.iidooo.cms.listener.SystemListener</listener-class>
+		<listener-class>com.iidooo.core.listener.PropertiesLoadListener</listener-class>
 	</listener>
 </web-app>
