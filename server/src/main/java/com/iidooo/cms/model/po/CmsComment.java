@@ -2,7 +2,7 @@ package com.iidooo.cms.model.po;
 
 import java.util.Date;
 
-import com.iidooo.cms.model.vo.SecurityUserInfo;
+import com.iidooo.core.model.vo.SecurityUserInfo;
 
 public class CmsComment {
     private Integer commentID;

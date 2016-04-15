@@ -1,5 +1,6 @@
 package com.iidooo.cms.listener;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -28,16 +29,23 @@ public class SystemListener extends HttpServlet implements ServletContextListene
     public void contextInitialized(ServletContextEvent arg0) {
         try {
             ServletContext sc = arg0.getServletContext();
-            
-            // 把 system.properties 加入 ServletContext
-            Properties systemProperties = PropertiesUtil.loadProperties("system.properties");
-            Iterator<Entry<Object, Object>> it=systemProperties.entrySet().iterator();
-            while(it.hasNext()){
-                Entry<Object, Object> entry=it.next();
-                String key = entry.getKey().toString();
-                String value = entry.getValue().toString();
-                sc.setAttribute(key, value);
+
+            {
+                // 把 system.properties 加入 ServletContext
+                Properties systemProperties = PropertiesUtil.loadProperties("system.properties");
+                Iterator<Entry<Object, Object>> it = systemProperties.entrySet().iterator();
+                while (it.hasNext()) {
+                    Entry<Object, Object> entry = it.next();
+                    String key = entry.getKey().toString();
+                    String value = entry.getValue().toString();
+                    sc.setAttribute(key, value);
+                }
             }
+
+            // 把 mail.properties 加入 ServletContext
+            Properties mailProperties = PropertiesUtil.loadProperties("mail.properties");
+            sc.setAttribute("mail.properties", mailProperties);
+            
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

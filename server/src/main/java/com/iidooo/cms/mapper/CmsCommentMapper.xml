@@ -13,7 +13,7 @@
 		<result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
 		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
-		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.vo.SecurityUserInfo"></association>
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsComment" extends="BaseResultMap">
 		<result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
@@ -27,7 +27,7 @@
 		C.Comment
 	</sql>
 
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.vo.SecurityUserInfo">
 		select
 		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday,
 		U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points

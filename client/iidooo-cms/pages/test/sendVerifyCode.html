@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<form action="http://localhost:8080/iidooo-cms/starContent" method="post">
+<form action="http://localhost:8080/iidooo-cms/sendVerifyCode" method="post">
     <table>
         <tr>
             <td>App ID</td>
@@ -18,14 +18,9 @@
             <td>必填项，授权应用秘钥</td>
         </tr>
         <tr>
-            <td>内容ID</td>
-            <td><input type="text" name="contentID" value="1"></td>
-            <td>必填项，要查看的内容ID</td>
-        </tr>
-        <tr>
-            <td>点赞用户ID</td>
-            <td><input type="text" name="createUserID" value="1"></td>
-            <td>必填项，点赞用户</td>
+            <td>Email</td>
+            <td><input type="text" name="email" value="xxx@iidooo.com"></td>
+            <td>可选项，接收验证码的邮件地址</td>
         </tr>
         <tr>
             <td>

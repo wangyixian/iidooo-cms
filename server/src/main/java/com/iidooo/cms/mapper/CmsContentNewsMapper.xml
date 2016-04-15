@@ -27,7 +27,7 @@
 		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
-		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.cms.model.vo.SecurityUserInfo"></association>
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.vo.SecurityUserInfo"></association>
 		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.vo.CmsTagInfo"></collection>
 		
 	</resultMap>
@@ -53,7 +53,7 @@
 		C.ContentBody
 	</sql>
 
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.cms.model.vo.SecurityUserInfo">
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.vo.SecurityUserInfo">
 		select
 		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
 		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points

@@ -12,7 +12,7 @@
      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
 	<!-- 自动扫描该命名空间下的类，进行自动装配 -->
-	<context:component-scan base-package="com.iidooo.cms.*"></context:component-scan>
+	<context:component-scan base-package="com.iidooo.core.*,com.iidooo.cms.*"></context:component-scan>
 
 	<!-- 提供MVC所有的注解驱动功能 -->
 	<mvc:annotation-driven />
@@ -59,12 +59,12 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动配置别名 -->
-		<property name="typeAliasesPackage" value="com.iidooo.cms.model.po" />
+		<property name="typeAliasesPackage" value="com.iidooo.core.model.po com.iidooo.cms.model.po" />
 	</bean>
 
 	<!-- Mapper接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.iidooo.cms.mapper" />
+		<property name="basePackage" value="com.iidooo.core.mapper com.iidooo.cms.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 

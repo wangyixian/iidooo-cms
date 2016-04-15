@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.iidooo.cms.model.vo.CmsTagInfo;
-import com.iidooo.cms.model.vo.SecurityUserInfo;
+import com.iidooo.core.model.vo.SecurityUserInfo;
 
 public class CmsContent {
     private Integer contentID;

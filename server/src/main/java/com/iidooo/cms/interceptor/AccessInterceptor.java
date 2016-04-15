@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.iidooo.cms.mapper.SecurityClientMapper;
+import com.iidooo.core.mapper.SecurityClientMapper;
 import com.iidooo.core.util.StringUtil;
 
 public class AccessInterceptor extends HandlerInterceptorAdapter {
