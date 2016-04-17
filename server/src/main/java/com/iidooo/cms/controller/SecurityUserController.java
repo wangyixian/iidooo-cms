@@ -140,25 +140,25 @@ public class SecurityUserController {
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
             }
-            
-            if (StringUtil.isBlank(userID)) {
-                // 验证失败，返回message
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
-                result.getMessages().add(message);
-                result.setStatus(ResponseStatus.Failed.getCode());
-                return result;
-            } else if (!ValidateUtil.isNumber(userID)) {
-                // 验证失败，返回message
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
-                result.getMessages().add(message);
-                result.setStatus(ResponseStatus.Failed.getCode());
-                return result;
-            }
 
             userInfo.setUserID(Integer.parseInt(userID));
             userInfo.setUserName(userName);
             userInfo.setMobile(mobile);
-            userInfo.setEmail(email);
+
+            if (StringUtil.isNotBlank(email)) {
+                if (StringUtil.isBlank(verifyCode) || !verifyCodeMap.containsKey(email)) {
+                    // 验证失败，返回message
+                    Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "verifyCode");
+                    result.getMessages().add(message);
+                    result.setStatus(ResponseStatus.Failed.getCode());
+                    return result;
+                } else {
+                    // 邮件验证码确认成功
+                    userInfo.setEmail(email);
+                    verifyCodeMap.remove(email);
+                }
+            }
+
             userInfo.setSex(sex);
             if (StringUtil.isNotBlank(birthday)) {
                 Date birthdayDate = DateUtil.parseToDate(birthday, DateUtil.DATE_HYPHEN);
@@ -226,7 +226,7 @@ public class SecurityUserController {
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
             }
-            
+
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
