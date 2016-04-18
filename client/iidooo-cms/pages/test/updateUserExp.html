@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="http://localhost:8080/iidooo-cms/updateUserExp" method="post">
+    <table>
+        <tr>
+            <td>App ID</td>
+            <td><input type="text" name="appID" value="ToxicWave"></td>
+            <td>必填项，授权应用的ID</td>
+        </tr>
+        <tr>
+            <td>秘钥</td>
+            <td><input type="text" name="secret" value="f6f1eac67d6a47b2b560a4a4cf3b494d"></td>
+            <td>必填项，授权应用秘钥</td>
+        </tr>
+        <tr>
+            <td>用户ID</td>
+            <td><input type="text" name="userID" value="1"></td>
+            <td>必填项，更新用户的唯一标识</td>
+        </tr>
+        <tr>
+            <td>累加经验值</td>
+            <td><input type="text" name="experience" value="5"></td>
+            <td>必填项，这次累加的经验值</td>
+        </tr>
+        <tr>
+            <td>是否有每日上限</td>
+            <td><input type="text" name="isLimited" value="1"></td>
+            <td>可选项，是否每日上限的Flag，默认为1</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">提交</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

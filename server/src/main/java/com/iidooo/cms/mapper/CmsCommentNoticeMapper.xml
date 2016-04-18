@@ -30,13 +30,6 @@
 		= #{commentID,jdbcType=INTEGER} and C.IsDelete = 0
 	</select>
 
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.vo.SecurityUserInfo">
-		select
-		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
-		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
-		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
-	</select>
-
 	<select id="selectByCommentUserID" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />

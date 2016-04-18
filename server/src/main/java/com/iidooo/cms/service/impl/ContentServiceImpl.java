@@ -128,6 +128,17 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
+    public int getUserContentCount(Integer userID) {
+        try {
+            int result = cmsContentDao.selectCountByUserID(userID);
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
     public void updateViewCount(Integer contentID, int pvCount, int uvCount) {
         try {
             cmsContentDao.updateViewCount(contentID, pvCount, uvCount);

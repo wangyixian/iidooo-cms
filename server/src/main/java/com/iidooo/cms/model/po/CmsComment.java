@@ -2,7 +2,8 @@ package com.iidooo.cms.model.po;
 
 import java.util.Date;
 
-import com.iidooo.core.model.vo.SecurityUserInfo;
+import com.iidooo.cms.model.vo.SecurityUserInfo;
+import com.iidooo.core.model.po.SecurityUser;
 
 public class CmsComment {
     private Integer commentID;
@@ -125,13 +126,13 @@ public class CmsComment {
         this.version = version;
     }
 
-    private SecurityUserInfo createUser;
+    private SecurityUser createUser;
 
-    public SecurityUserInfo getCreateUser() {
+    public SecurityUser getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(SecurityUserInfo createUser) {
+    public void setCreateUser(SecurityUser createUser) {
         this.createUser = createUser;
     }
 }

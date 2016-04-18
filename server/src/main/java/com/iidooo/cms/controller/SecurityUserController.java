@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iidooo.cms.enums.TableName;
+import com.iidooo.cms.model.vo.SecurityUserInfo;
+import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.ResponseStatus;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.ResponseResult;
-import com.iidooo.core.model.vo.SecurityUserInfo;
+import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.service.SecurityUserService;
 import com.iidooo.core.util.DateUtil;
@@ -40,6 +42,9 @@ public class SecurityUserController {
 
     @Autowired
     private SecurityUserService securityUserService;
+
+    @Autowired
+    private ContentService contentService;
 
     @Autowired
     private HisOperatorService hisOperatorService;
@@ -63,14 +68,76 @@ public class SecurityUserController {
                 return result;
             }
 
-            SecurityUserInfo userInfo = this.securityUserService.getUserInfoByID(Integer.valueOf(userID));
-            if (userInfo == null) {
+            SecurityUser securityUser = this.securityUserService.getSecurityUserByID(Integer.valueOf(userID));
+            if (securityUser == null) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
+                // 设置用户内容总数
+                SecurityUserInfo securityUserInfo = new SecurityUserInfo(securityUser);
+                int contentCount = contentService.getUserContentCount(securityUser.getUserID());
+                securityUserInfo.setContentCount(contentCount);
+
                 result.setStatus(ResponseStatus.OK.getCode());
-                result.setData(userInfo);
+                result.setData(securityUser);
                 // 更新浏览记录
-                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), userInfo.getUserID(), request);
+                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), securityUser.getUserID(), request);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/getUserByEmail", method = RequestMethod.POST)
+    public @ResponseBody ResponseResult getUserByEmail(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String email = request.getParameter("email");
+            String verifyCode = request.getParameter("verifyCode");
+
+            if (StringUtil.isBlank(email)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            }
+            if (StringUtil.isBlank(verifyCode) || !verifyCodeMap.containsKey(email)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "verifyCode");
+                result.getMessages().add(message);
+            } else if (!verifyCodeMap.get(email).equals(verifyCode)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "verifyCode");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            verifyCodeMap.remove(email);
+
+            SecurityUser securityUser = securityUserService.getSecurityUserByEmail(email);
+            if (securityUser == null) {
+                String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
+                securityUser = securityUserService.createDefaultUser(photoBaseURL + "/resources/upload/img/photo/default.png", email);
+            }
+            if (securityUser == null) {
+                result.setStatus(ResponseStatus.InsertFailed.getCode());
+            } else {
+                // 设置用户内容总数
+                SecurityUserInfo securityUserInfo = new SecurityUserInfo(securityUser);
+                int contentCount = contentService.getUserContentCount(securityUser.getUserID());
+                securityUserInfo.setContentCount(contentCount);
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(securityUserInfo);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), securityUser.getUserID(), request);
             }
 
         } catch (Exception e) {
@@ -88,7 +155,7 @@ public class SecurityUserController {
         ResponseResult result = new ResponseResult();
         try {
             String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
-            SecurityUserInfo userInfo = this.securityUserService.createDefaultUser(photoBaseURL + "/resources/upload/img/photo/default.png");
+            SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + "/resources/upload/img/photo/default.png", "");
             if (userInfo == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
@@ -113,7 +180,7 @@ public class SecurityUserController {
     public @ResponseBody ResponseResult updateUserInfo(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
-            SecurityUserInfo userInfo = new SecurityUserInfo();
+            SecurityUser userInfo = new SecurityUser();
 
             String userID = request.getParameter("userID");
             String userName = request.getParameter("userName");
@@ -152,10 +219,26 @@ public class SecurityUserController {
                     result.getMessages().add(message);
                     result.setStatus(ResponseStatus.Failed.getCode());
                     return result;
+                } else if (!verifyCodeMap.get(email).equals(verifyCode)) {
+                    // 验证失败，返回message
+                    Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "verifyCode");
+                    result.getMessages().add(message);
+                    result.setStatus(ResponseStatus.ConfinedFailed.getCode());
+                    return result;
                 } else {
                     // 邮件验证码确认成功
                     userInfo.setEmail(email);
                     verifyCodeMap.remove(email);
+
+                    SecurityUser securityUser = securityUserService.getSecurityUserByEmail(email);
+                    if (securityUser != null && securityUser.getUserID() != userInfo.getUserID()) {
+                        // 验证失败，返回message
+                        Message message = new Message(MessageType.FieldDuplicate.getCode(), MessageLevel.ERROR, "email");
+                        message.setDescription("The setting email is duplicated.");
+                        result.getMessages().add(message);
+                        result.setStatus(ResponseStatus.DuplicateFailed.getCode());
+                        return result;
+                    }
                 }
             }
 
@@ -194,6 +277,70 @@ public class SecurityUserController {
         return result;
     }
 
+    @RequestMapping(value = "/updateUserExp", method = RequestMethod.POST)
+    public @ResponseBody ResponseResult updateUserExp(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String userIDStr = request.getParameter("userID");
+            String experienceStr = request.getParameter("experience");
+            // 是否是受每日经验限定的Flag
+            String isLimitedStr = request.getParameter("isLimited");
+
+            if (StringUtil.isBlank(userIDStr)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(userIDStr)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(experienceStr)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "experience");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(experienceStr)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "experience");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            if (StringUtil.isBlank(isLimitedStr) || !ValidateUtil.isNumber(isLimitedStr)) {
+                isLimitedStr = "1";
+            }
+
+            int userID = Integer.parseInt(userIDStr);
+            int experience = Integer.parseInt(experienceStr);
+            int isLimited = Integer.parseInt(isLimitedStr);
+
+            SecurityUser userInfo = this.securityUserService.updateUserExp(userID, experience, isLimited);
+            if (userInfo == null) {
+                Message message = new Message(MessageType.Information.getCode(), MessageLevel.INFO);
+                message.setDescription("The user's exp is more than limited of today!");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.OK.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(userInfo);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), userInfo.getUserID(), request);
+            }
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.getMessage());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
     public @ResponseBody ResponseResult sendVerifyCode(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
@@ -220,7 +367,7 @@ public class SecurityUserController {
             ServletContext sc = request.getServletContext();
             Properties mailProperties = (Properties) sc.getAttribute("mail.properties");
 
-            String content = "【毒电波】亲爱的用户，您本次绑定邮箱用的验证码是：" + verifyCode;
+            String content = "亲爱的用户，" + verifyCode + " 是您的验证码，15分钟内有效。";
             if (!MailUtil.sendMail(mailProperties, content, email)) {
                 result.setStatus(ResponseStatus.Failed.getCode());
             } else {

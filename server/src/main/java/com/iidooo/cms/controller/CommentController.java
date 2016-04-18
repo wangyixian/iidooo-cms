@@ -27,7 +27,7 @@ import com.iidooo.core.enums.SortType;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.Page;
 import com.iidooo.core.model.ResponseResult;
-import com.iidooo.core.model.vo.SecurityUserInfo;
+import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.service.SecurityUserService;
 import com.iidooo.core.util.StringUtil;
@@ -239,7 +239,7 @@ public class CommentController {
             int parentID = Integer.parseInt(parentIDStr);
 
             // 判断用户是否可以创建评论IsSlient＝1
-            SecurityUserInfo userInfo = sercurityUserService.getUserInfoByID(userID);
+            SecurityUser userInfo = sercurityUserService.getSecurityUserByID(userID);
             if (userInfo != null && userInfo.getIsSilent() != 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.ConfinedFailed.getCode());

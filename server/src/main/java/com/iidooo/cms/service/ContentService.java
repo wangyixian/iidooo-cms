@@ -26,6 +26,13 @@ public interface ContentService {
     int getContentStarCount(Integer contentID);
     
     /**
+     * 得到指定用户的内容数
+     * @param userID 该用户ID所创建的内容数
+     * @return 内容数量
+     */
+    int getUserContentCount(Integer userID);
+    
+    /**
      * 更新内容的PV和UV
      * @param contentID 该内容的PV和UV会被统计
      * @param pvCount pv数量

@@ -13,7 +13,7 @@
 		<result column="UpdateUserID" property="updateUserID" jdbcType="INTEGER" />
 		<result column="IsDelete" property="isDelete" jdbcType="INTEGER" />
 		<result column="Version" property="version" jdbcType="INTEGER" />
-		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.vo.SecurityUserInfo"></association>
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.po.SecurityUser"></association>
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsComment" extends="BaseResultMap">
 		<result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
@@ -27,10 +27,11 @@
 		C.Comment
 	</sql>
 
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.vo.SecurityUserInfo">
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.po.SecurityUser">
 		select
-		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday,
-		U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, 
+    	U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID, 
+    	U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 

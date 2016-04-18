@@ -72,7 +72,10 @@ public class CmsStarController {
 
             CmsStar cmsStar = this.cmsStarService.starContent(Integer.parseInt(contentID), Integer.parseInt(createUserID));
             if (cmsStar == null) {
-                result.setStatus(ResponseStatus.ConfinedFailed.getCode());
+                Message message = new Message(MessageType.Information.getCode(), MessageLevel.INFO);
+                message.setDescription("Star content failed, because you are already starred this content!");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.OK.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 JSONObject jsonObject = new JSONObject();

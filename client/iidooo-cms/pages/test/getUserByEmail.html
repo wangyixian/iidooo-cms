@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<form action="http://localhost:8080/iidooo-cms/deleteCommentNotice" method="post">
+<form action="http://localhost:8080/iidooo-cms/getUserByEmail" method="post">
     <table>
         <tr>
             <td>App ID</td>
@@ -18,17 +18,19 @@
             <td>必填项，授权应用秘钥</td>
         </tr>
         <tr>
-            <td>UserID</td>
-            <td><input type="text" name="userID" value="1"></td>
-            <td>必填项，要获取的评论通知的用户ID</td>
+            <td>邮箱</td>
+            <td><input type="text" name="email"></td>
+            <td>必填项，要获取的用户的邮箱地址</td>
         </tr>
         <tr>
-            <td>CommentID</td>
-            <td><input type="text" name="commentID" value="1"></td>
-            <td>必填项，要获取的评论通知的评论ID</td>
+            <td>验证码</td>
+            <td><input type="text" name="verifyCode" value=""></td>
+            <td>必填项，要获取的用户的邮箱地址收到的验证码</td>
         </tr>
         <tr>
-            <td><button type="submit">提交</button></td>
+            <td>
+                <button type="submit">提交</button>
+            </td>
         </tr>
     </table>
 </form>

@@ -27,7 +27,7 @@
 		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
-		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.vo.SecurityUserInfo"></association>
+		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.po.SecurityUser"></association>
 		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.vo.CmsTagInfo"></collection>
 		
 	</resultMap>
@@ -53,10 +53,11 @@
 		C.ContentBody
 	</sql>
 
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.vo.SecurityUserInfo">
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.po.SecurityUser">
 		select
-		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
-		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, 
+    	U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID, 
+    	U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 	

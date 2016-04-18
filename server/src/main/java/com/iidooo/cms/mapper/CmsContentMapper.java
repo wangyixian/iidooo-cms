@@ -20,6 +20,13 @@ public interface CmsContentMapper {
     CmsContent selectByContentID(Integer contentID);
     
     /**
+     * 获得指定用户的内容数
+     * @param userID 指定用户的ID
+     * @return 返回的内容数
+     */
+    int selectCountByUserID(Integer userID);
+    
+    /**
      * 根据栏目路径查询获得内容一览
      * @param channelPath 限定的栏目路径
      * @param createUserID 指定内容创建者

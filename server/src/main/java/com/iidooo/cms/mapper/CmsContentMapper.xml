@@ -25,7 +25,7 @@
 		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
-		<association select="selectCreateUser" column="createUserID" property="createUser" javaType="com.iidooo.core.model.vo.SecurityUserInfo"></association>
+		<association select="selectCreateUser" column="createUserID" property="createUser" javaType="com.iidooo.core.model.po.SecurityUser"></association>
 
 		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.vo.CmsTagInfo"></collection>
 
@@ -52,12 +52,11 @@
 		C.ContentBody
 	</sql>
 
-
-
-	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.vo.SecurityUserInfo">
+	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.po.SecurityUser">
 		select
-		U.UserID, U.LoginID, U.UserName, U.Mobile, U.Email, U.Sex,
-		U.Birthday, U.WeixinID, U.PhotoURL, U.IsSilent, U.IsDisable, U.Level, U.Points
+		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, 
+    	U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID, 
+    	U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 
@@ -75,6 +74,11 @@
 		<include refid="Blob_Column_List" />
 		from CMS_CONTENT C
 		where C.ContentID = #{contentID,jdbcType=INTEGER} and C.IsDelete = 0
+	</select>
+
+	<select id="selectCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(C.ContentID) 
+		from CMS_CONTENT C where C.CreateUserID = #{userID,jdbcType=INTEGER}
 	</select>
 
 	<!-- 获得内容的点赞数 -->
