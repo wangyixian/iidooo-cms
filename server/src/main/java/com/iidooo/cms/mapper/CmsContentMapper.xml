@@ -18,6 +18,8 @@
 		<result column="UniqueVisitorCount" jdbcType="INTEGER" property="uniqueVisitorCount" />
 		<result column="StarCount" jdbcType="INTEGER" property="starCount" />
 		<result column="CommentCount" jdbcType="INTEGER" property="commentCount" />
+		<result column="StartShowTime" property="startShowTime" jdbcType="TIMESTAMP" />
+		<result column="EndShowTime" property="endShowTime" jdbcType="TIMESTAMP" />
 		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
 		<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
@@ -44,7 +46,7 @@
 		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
-		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.Remarks,
+		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowTime, C.EndShowTime, C.Remarks,
 		C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
@@ -54,9 +56,10 @@
 
 	<select id="selectCreateUser" parameterType="java.lang.Integer" resultType="com.iidooo.core.model.po.SecurityUser">
 		select
-		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, 
-    	U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID, 
-    	U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
+		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile,
+		U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL,
+		U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID,
+		U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 
@@ -77,7 +80,7 @@
 	</select>
 
 	<select id="selectCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		select count(C.ContentID) 
+		select count(C.ContentID)
 		from CMS_CONTENT C where C.CreateUserID = #{userID,jdbcType=INTEGER}
 	</select>
 
@@ -138,6 +141,12 @@
 			</if>
 			<if test="commentCount != null">
 				CommentCount,
+			</if>
+			<if test="startShowTime != null">
+				StartShowTime,
+			</if>
+			<if test="endShowTime != null">
+				EndShowTime,
 			</if>
 			<if test="remarks != null">
 				Remarks,
@@ -205,6 +214,12 @@
 			<if test="commentCount != null">
 				#{commentCount,jdbcType=INTEGER},
 			</if>
+			<if test="startShowTime != null">
+				#{startShowTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endShowTime != null">
+				#{endShowTime,jdbcType=TIMESTAMP},
+			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
 			</if>
@@ -226,7 +241,7 @@
 			</if>
 		</trim>
 	</insert>
-	
+
 	<update id="updateByContentID" parameterType="com.iidooo.cms.model.po.CmsContent">
 		update CMS_CONTENT
 		<set>
@@ -274,6 +289,12 @@
 			</if>
 			<if test="commentCount != null">
 				CommentCount = #{commentCount,jdbcType=INTEGER},
+			</if>
+			<if test="startShowTime != null">
+				StartShowTime = #{startShowTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endShowTime != null">
+				EndShowTime = #{endShowTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="remarks != null">
 				Remarks = #{remarks,jdbcType=VARCHAR},
@@ -365,6 +386,8 @@
 		and L.ChannelPath =
 		#{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '1'
+		and C.StartShowTime &lt;= now() 
+		and C.EndShowTime &gt;= now()
 		<if test="createUserID != null">
 			and C.CreateUserID = #{createUserID,jdbcType=INTEGER}
 		</if>

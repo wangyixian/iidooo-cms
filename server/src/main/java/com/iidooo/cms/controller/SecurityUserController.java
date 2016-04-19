@@ -79,8 +79,6 @@ public class SecurityUserController {
 
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(securityUserInfo);
-                // 更新浏览记录
-                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), securityUser.getUserID(), request);
             }
 
         } catch (Exception e) {
@@ -244,7 +242,7 @@ public class SecurityUserController {
 
             userInfo.setSex(sex);
             if (StringUtil.isNotBlank(birthday)) {
-                Date birthdayDate = DateUtil.parseToDate(birthday, DateUtil.DATE_HYPHEN);
+                Date birthdayDate = DateUtil.getDate(birthday, DateUtil.DATE_HYPHEN);
                 userInfo.setBirthday(birthdayDate);
             }
             userInfo.setWeixinID(weixinID);
@@ -328,8 +326,6 @@ public class SecurityUserController {
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(userInfo);
-                // 更新浏览记录
-                hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), userInfo.getUserID(), request);
             }
         } catch (Exception e) {
             logger.fatal(e);

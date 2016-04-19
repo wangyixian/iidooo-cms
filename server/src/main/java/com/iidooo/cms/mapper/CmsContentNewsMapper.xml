@@ -18,6 +18,8 @@
 		<result column="UniqueVisitorCount" jdbcType="INTEGER" property="uniqueVisitorCount" />
 		<result column="StarCount" jdbcType="INTEGER" property="starCount" />
 		<result column="CommentCount" jdbcType="INTEGER" property="commentCount" />
+		<result column="StartShowTime" property="startShowTime" jdbcType="TIMESTAMP" />
+		<result column="EndShowTime" property="endShowTime" jdbcType="TIMESTAMP" />
 		<result column="Source" property="source" jdbcType="VARCHAR" />
 		<result column="SourceURL" property="sourceURL" jdbcType="VARCHAR" />
 		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
@@ -45,7 +47,7 @@
 		N.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
-		C.UniqueVisitorCount, C.StarCount, C.CommentCount, N.Source,
+		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowTime, C.EndShowTime, N.Source,
 		N.SourceURL, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
@@ -89,6 +91,8 @@
 		L.ChannelID
 		and L.ChannelPath = #{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '2'
+		and C.StartShowTime &lt;= now() 
+		and C.EndShowTime &gt;= now()
 		<if test="createUserID != null and createUserID > 0">
 			and C.CreateUserID = #{createUserID,jdbcType=INTEGER}
 		</if>

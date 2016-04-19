@@ -40,6 +40,10 @@ public class CmsContent {
 
     private Integer commentCount;
 
+    private Date startShowTime;
+
+    private Date endShowTime;
+
     private String remarks;
 
     private Date createTime;
@@ -182,6 +186,22 @@ public class CmsContent {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public Date getStartShowTime() {
+        return startShowTime;
+    }
+
+    public void setStartShowTime(Date startShowTime) {
+        this.startShowTime = startShowTime;
+    }
+
+    public Date getEndShowTime() {
+        return endShowTime;
+    }
+
+    public void setEndShowTime(Date endShowTime) {
+        this.endShowTime = endShowTime;
     }
 
     public String getRemarks() {

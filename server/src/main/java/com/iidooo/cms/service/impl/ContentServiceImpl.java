@@ -20,6 +20,7 @@ import com.iidooo.cms.model.po.CmsContentNews;
 import com.iidooo.cms.model.po.CmsPicture;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.model.Page;
+import com.iidooo.core.util.DateUtil;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -101,7 +102,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     @Transactional
     public boolean createContent(CmsContent content) throws Exception {
-        try {
+        try {            
             if (cmsContentDao.insert(content) <= 0) {
                 throw new Exception();
             }
