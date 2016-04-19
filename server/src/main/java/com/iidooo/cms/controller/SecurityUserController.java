@@ -78,7 +78,7 @@ public class SecurityUserController {
                 securityUserInfo.setContentCount(contentCount);
 
                 result.setStatus(ResponseStatus.OK.getCode());
-                result.setData(securityUser);
+                result.setData(securityUserInfo);
                 // 更新浏览记录
                 hisOperatorService.createHisOperator(TableName.SECURITY_USER.toString(), securityUser.getUserID(), request);
             }

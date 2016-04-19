@@ -41,6 +41,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="getUserInfo.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/test/getUserInfo.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.25037935">
+              <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="starContent.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/test/starContent.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -81,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="updateUserExp.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="updateUserExp.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/test/updateUserExp.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65857357">
-              <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+            <state vertical-scroll-proportion="-1.8333334">
+              <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -116,7 +126,6 @@
         <option value="$PROJECT_DIR$/pages/test/starCotent.html" />
         <option value="$PROJECT_DIR$/pages/test/createDefaultUser.html" />
         <option value="$PROJECT_DIR$/pages/test/getCommentNoticeList.html" />
-        <option value="$PROJECT_DIR$/pages/test/getUserInfo.html" />
         <option value="$PROJECT_DIR$/pages/test/getNoticeCommentList.html" />
         <option value="$PROJECT_DIR$/pages/test/getCommentNotice.html" />
         <option value="$PROJECT_DIR$/pages/test/deleteCommentNotice.html" />
@@ -129,10 +138,11 @@
         <option value="$PROJECT_DIR$/pages/test/createComment.html" />
         <option value="$PROJECT_DIR$/pages/test/createContent.html" />
         <option value="$PROJECT_DIR$/pages/test/starContent.html" />
-        <option value="$PROJECT_DIR$/pages/test/updateUserExp.html" />
         <option value="$PROJECT_DIR$/pages/test/getUserByEmail.html" />
-        <option value="$PROJECT_DIR$/pages/test/sendVerifyCode.html" />
         <option value="$PROJECT_DIR$/pages/test/updateUserInfo.html" />
+        <option value="$PROJECT_DIR$/pages/test/updateUserExp.html" />
+        <option value="$PROJECT_DIR$/pages/test/getUserInfo.html" />
+        <option value="$PROJECT_DIR$/pages/test/sendVerifyCode.html" />
       </list>
     </option>
   </component>
@@ -461,14 +471,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/test/getUserInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.75">
-          <caret line="30" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="30" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/createComment.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
@@ -517,14 +519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/test/sendVerifyCode.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/UpdateComment.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.625">
@@ -551,8 +545,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/updateUserExp.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65857357">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state vertical-scroll-proportion="-1.8333334">
+          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/sendVerifyCode.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375">
+          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/getUserInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25037935">
+          <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
           <folding />
         </state>
       </provider>
