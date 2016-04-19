@@ -62,10 +62,14 @@ public class ContentServiceImpl implements ContentService {
             List<CmsContent> result = new ArrayList<CmsContent>();
 
             String contentType = cmsContent.getContentType();
+            cmsContent.setStartShowDate(DateUtil.getNow(DateUtil.DATE_HYPHEN));
+            cmsContent.setStartShowTime(DateUtil.getNow(DateUtil.TIME_COLON));
+            cmsContent.setEndShowDate(DateUtil.getNow(DateUtil.DATE_HYPHEN));
+            cmsContent.setEndShowTime(DateUtil.getNow(DateUtil.TIME_COLON));
             if (contentType.equals(ContentType.News.getCode())) {
-                result = cmsContentNewsDao.selectContentNewsList(channelPath, cmsContent.getCreateUserID(), page);
+                result = cmsContentNewsDao.selectContentNewsList(channelPath, cmsContent, page);
             } else {
-                result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent.getCreateUserID(), page);
+                result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent, page);
             }
             if (result.size() > 0) {
 

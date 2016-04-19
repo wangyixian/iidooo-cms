@@ -18,8 +18,10 @@
 		<result column="UniqueVisitorCount" jdbcType="INTEGER" property="uniqueVisitorCount" />
 		<result column="StarCount" jdbcType="INTEGER" property="starCount" />
 		<result column="CommentCount" jdbcType="INTEGER" property="commentCount" />
-		<result column="StartShowTime" property="startShowTime" jdbcType="TIMESTAMP" />
-		<result column="EndShowTime" property="endShowTime" jdbcType="TIMESTAMP" />
+		<result column="StartShowDate" property="startShowDate" jdbcType="VARCHAR" />
+		<result column="StartShowTime" property="startShowTime" jdbcType="VARCHAR" />
+		<result column="EndShowDate" property="endShowDate" jdbcType="VARCHAR" />
+		<result column="EndShowTime" property="endShowTime" jdbcType="VARCHAR" />
 		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
 		<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
@@ -46,8 +48,8 @@
 		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
-		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowTime, C.EndShowTime, C.Remarks,
-		C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
+		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowDate, C.StartShowTime, 
+    	C.EndShowDate, C.EndShowTime, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
@@ -58,7 +60,8 @@
 		select
 		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile,
 		U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL,
-		U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID,
+		U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime,
+		U.UpdateUserID,
 		U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
 		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
@@ -81,7 +84,8 @@
 
 	<select id="selectCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CMS_CONTENT C where C.CreateUserID = #{userID,jdbcType=INTEGER}
+		from CMS_CONTENT C where C.CreateUserID
+		= #{userID,jdbcType=INTEGER}
 	</select>
 
 	<!-- 获得内容的点赞数 -->
@@ -142,8 +146,14 @@
 			<if test="commentCount != null">
 				CommentCount,
 			</if>
+			<if test="startShowDate != null">
+				StartShowDate,
+			</if>
 			<if test="startShowTime != null">
 				StartShowTime,
+			</if>
+			<if test="endShowDate != null">
+				EndShowDate,
 			</if>
 			<if test="endShowTime != null">
 				EndShowTime,
@@ -214,11 +224,17 @@
 			<if test="commentCount != null">
 				#{commentCount,jdbcType=INTEGER},
 			</if>
+			<if test="startShowDate != null">
+				#{startShowDate,jdbcType=VARCHAR},
+			</if>
 			<if test="startShowTime != null">
-				#{startShowTime,jdbcType=TIMESTAMP},
+				#{startShowTime,jdbcType=VARCHAR},
+			</if>
+			<if test="endShowDate != null">
+				#{endShowDate,jdbcType=VARCHAR},
 			</if>
 			<if test="endShowTime != null">
-				#{endShowTime,jdbcType=TIMESTAMP},
+				#{endShowTime,jdbcType=VARCHAR},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -290,11 +306,17 @@
 			<if test="commentCount != null">
 				CommentCount = #{commentCount,jdbcType=INTEGER},
 			</if>
+			<if test="startShowDate != null">
+				StartShowDate = #{startShowDate,jdbcType=VARCHAR},
+			</if>
 			<if test="startShowTime != null">
-				StartShowTime = #{startShowTime,jdbcType=TIMESTAMP},
+				StartShowTime = #{startShowTime,jdbcType=VARCHAR},
+			</if>
+			<if test="endShowDate != null">
+				EndShowDate = #{endShowDate,jdbcType=VARCHAR},
 			</if>
 			<if test="endShowTime != null">
-				EndShowTime = #{endShowTime,jdbcType=TIMESTAMP},
+				EndShowTime = #{endShowTime,jdbcType=VARCHAR},
 			</if>
 			<if test="remarks != null">
 				Remarks = #{remarks,jdbcType=VARCHAR},
@@ -386,10 +408,21 @@
 		and L.ChannelPath =
 		#{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '1'
-		and C.StartShowTime &lt;= now() 
-		and C.EndShowTime &gt;= now()
-		<if test="createUserID != null">
-			and C.CreateUserID = #{createUserID,jdbcType=INTEGER}
+		and CASE
+        WHEN
+            (C.StartShowDate &lt;&gt; ''
+                AND C.EndShowDate &lt;&gt; '')
+        THEN
+        	C.StartShowDate &lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
+                AND C.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+                AND C.EndShowDate &gt;= #{cmsContent.endShowDate,jdbcType=VARCHAR}
+                AND C.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+        ELSE
+		C.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+		and C.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+		END
+		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
+			and C.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
 		</if>
 		order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
 	</select>

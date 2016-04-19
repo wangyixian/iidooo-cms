@@ -40,9 +40,13 @@ public class CmsContent {
 
     private Integer commentCount;
 
-    private Date startShowTime;
+    private String startShowDate;
 
-    private Date endShowTime;
+    private String startShowTime;
+
+    private String endShowDate;
+
+    private String endShowTime;
 
     private String remarks;
 
@@ -188,20 +192,36 @@ public class CmsContent {
         this.commentCount = commentCount;
     }
 
-    public Date getStartShowTime() {
+    public String getStartShowDate() {
+        return startShowDate;
+    }
+
+    public void setStartShowDate(String startShowDate) {
+        this.startShowDate = startShowDate == null ? null : startShowDate.trim();
+    }
+
+    public String getStartShowTime() {
         return startShowTime;
     }
 
-    public void setStartShowTime(Date startShowTime) {
-        this.startShowTime = startShowTime;
+    public void setStartShowTime(String startShowTime) {
+        this.startShowTime = startShowTime == null ? null : startShowTime.trim();
     }
 
-    public Date getEndShowTime() {
+    public String getEndShowDate() {
+        return endShowDate;
+    }
+
+    public void setEndShowDate(String endShowDate) {
+        this.endShowDate = endShowDate == null ? null : endShowDate.trim();
+    }
+
+    public String getEndShowTime() {
         return endShowTime;
     }
 
-    public void setEndShowTime(Date endShowTime) {
-        this.endShowTime = endShowTime;
+    public void setEndShowTime(String endShowTime) {
+        this.endShowTime = endShowTime == null ? null : endShowTime.trim();
     }
 
     public String getRemarks() {

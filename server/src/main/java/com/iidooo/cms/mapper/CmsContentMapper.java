@@ -29,11 +29,11 @@ public interface CmsContentMapper {
     /**
      * 根据栏目路径查询获得内容一览
      * @param channelPath 限定的栏目路径
-     * @param createUserID 指定内容创建者
+     * @param cmsContent 指定内容的参数
      * @param page 分页对象
      * @return 内容一览List对象
      */
-    List<CmsContent> selectContentListByChannelPath(@Param("channelPath")String channelPath, @Param("createUserID")Integer createUserID, @Param("page")Page page);
+    List<CmsContent> selectContentListByChannelPath(@Param("channelPath")String channelPath, @Param("cmsContent")CmsContent cmsContent, @Param("page")Page page);
     
     /**
      * 得到内容的点赞数

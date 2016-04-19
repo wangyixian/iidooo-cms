@@ -29,7 +29,6 @@ import com.iidooo.core.model.Message;
 import com.iidooo.core.model.Page;
 import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.service.HisOperatorService;
-import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -287,8 +286,10 @@ public class ContentController {
             if (StringUtil.isNotBlank(stickyIndex) && ValidateUtil.isNumber(stickyIndex)) {
                 content.setStickyIndex(Integer.parseInt(stickyIndex));
             }
-            content.setStartShowTime(DateUtil.getDate("1970-01-01 00:00:00", DateUtil.DATE_TIME_HYPHEN));
-            content.setEndShowTime(DateUtil.getDate("9999-12-31 00:00:00", DateUtil.DATE_TIME_HYPHEN));
+            content.setStartShowDate("");
+            content.setStartShowTime("00:00:00");
+            content.setEndShowDate("");
+            content.setEndShowTime("23:59:59");
             content.setRemarks(remarks);
             content.setCreateTime(new Date());
             content.setCreateUserID(userID);
