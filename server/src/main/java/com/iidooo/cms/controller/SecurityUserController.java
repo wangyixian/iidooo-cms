@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.vo.SecurityUserInfo;
 import com.iidooo.cms.service.ContentService;
@@ -101,15 +102,18 @@ public class SecurityUserController {
             if (StringUtil.isBlank(email)) {
                 // 验证失败，返回message
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                message.setDescription("The field of userID is required.");
                 result.getMessages().add(message);
             }
             if (StringUtil.isBlank(verifyCode) || !verifyCodeMap.containsKey(email)) {
                 // 验证失败，返回message
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "verifyCode");
+                message.setDescription("The field of verifyCode is required.");
                 result.getMessages().add(message);
             } else if (!verifyCodeMap.get(email).equals(verifyCode)) {
                 // 验证失败，返回message
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "verifyCode");
+                message.setDescription("This email's verify code is wrong.");
                 result.getMessages().add(message);
             }
 
@@ -123,7 +127,8 @@ public class SecurityUserController {
             SecurityUser securityUser = securityUserService.getSecurityUserByEmail(email);
             if (securityUser == null) {
                 String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
-                securityUser = securityUserService.createDefaultUser(photoBaseURL + "/resources/upload/img/photo/default.png", email);
+                String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
+                securityUser = securityUserService.createDefaultUser(photoBaseURL + photoPath, email);
             }
             if (securityUser == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
@@ -153,7 +158,8 @@ public class SecurityUserController {
         ResponseResult result = new ResponseResult();
         try {
             String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
-            SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + "/resources/upload/img/photo/default.png", "");
+            String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
+            SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + photoPath, "");
             if (userInfo == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
@@ -357,7 +363,7 @@ public class SecurityUserController {
                 return result;
             }
 
-            String verifyCode = StringUtil.getRandomNumber(4);
+            String verifyCode = StringUtil.getRandomNumber(4, 9);
             this.verifyCodeMap.put(email, verifyCode);
 
             ServletContext sc = request.getServletContext();

@@ -51,11 +51,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="getContentList.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="getContentList.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/test/getContentList.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6828528">
+            <state vertical-scroll-proportion="-18.75">
               <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createDefaultUser.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/test/createDefaultUser.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.15933232">
+              <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -86,16 +96,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.9583333">
               <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="getNoticeCommentList.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/test/getNoticeCommentList.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.375">
-              <caret line="7" column="67" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -491,14 +491,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/test/createDefaultUser.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/uploadFile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-22.833334">
@@ -581,8 +573,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/test/getContentList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6828528">
+        <state vertical-scroll-proportion="-18.75">
           <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/createDefaultUser.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15933232">
+          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
           <folding />
         </state>
       </provider>
