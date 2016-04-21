@@ -32,7 +32,7 @@
 		<!-- spring MVC 处理所有的请求，对于静态资源，在配置文件中会对其作特殊处理 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 系统所需要的一些准备数据在此监听器中加载 -->
 	<listener>
 		<listener-class>com.iidooo.core.listener.PropertiesLoadListener</listener-class>

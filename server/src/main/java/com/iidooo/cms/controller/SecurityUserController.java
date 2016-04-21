@@ -96,6 +96,9 @@ public class SecurityUserController {
     public @ResponseBody ResponseResult getUserByEmail(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
+            ServletContext sc = request.getServletContext();
+            Properties properties = (Properties) sc.getAttribute("random_name.properties");
+
             String email = request.getParameter("email");
             String verifyCode = request.getParameter("verifyCode");
 
@@ -128,7 +131,7 @@ public class SecurityUserController {
             if (securityUser == null) {
                 String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
                 String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
-                securityUser = securityUserService.createDefaultUser(photoBaseURL + photoPath, email);
+                securityUser = securityUserService.createDefaultUser(photoBaseURL + photoPath, email, properties);
             }
             if (securityUser == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
@@ -157,9 +160,12 @@ public class SecurityUserController {
     public @ResponseBody ResponseResult createDefaultUser(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
+            ServletContext sc = request.getServletContext();
+            Properties properties = (Properties) sc.getAttribute("random_name.properties");
+            
             String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
             String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
-            SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + photoPath, "");
+            SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + photoPath, "", properties);
             if (userInfo == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {

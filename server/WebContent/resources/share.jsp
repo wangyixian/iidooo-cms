@@ -6,6 +6,8 @@
 <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
 <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
 <title>毒电波</title>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/img/favicon.ico"/>
+<link rel="bookmark" href="<%=request.getContextPath()%>/resources/img/favicon.ico"/>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/api.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/libs/showdown/showdown.min.js"></script>
 </head>

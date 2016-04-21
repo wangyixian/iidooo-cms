@@ -127,7 +127,7 @@ td, th {
     bottom: 0px;
     height: 40px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     font-size: 15px;
 }
