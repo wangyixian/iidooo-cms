@@ -93,6 +93,11 @@
 		select C.StarCount from CMS_CONTENT C where C.IsDelete = 0 and
 		C.ContentID = #{contentID,jdbcType=INTEGER}
 	</select>
+	
+	<!-- 得到所有内容的PV -->
+	<select id="selectPVCountSum" resultType = "java.lang.Integer">
+		select sum(C.PageViewCount) from CMS_CONTENT C where C.IsDelete = 0
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from CMS_CONTENT

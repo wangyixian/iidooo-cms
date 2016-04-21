@@ -33,6 +33,12 @@ public interface ContentService {
     int getUserContentCount(Integer userID);
     
     /**
+     * 得到所有的PV数量
+     * @return PV总数
+     */
+    int getPVCountSum();
+    
+    /**
      * 更新内容的PV和UV
      * @param contentID 该内容的PV和UV会被统计
      * @param pvCount pv数量

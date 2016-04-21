@@ -6,11 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,29 +42,21 @@ public class ContentController {
     @Autowired
     private HisOperatorService hisOperatorService;
 
-    @ResponseBody
-    @RequestMapping(value = "/getContentPVSum", method = RequestMethod.POST)
-    public ResponseResult getContentPVSum(HttpServletRequest request, HttpServletResponse response) {
-        ResponseResult result = new ResponseResult();
-        try {
-
-            int pvCount = hisOperatorService.getPVCount("CMS_CONTENT", null, "getContent");
-
-            // 返回找到的内容对象
-            result.setStatus(ResponseStatus.OK.getCode());
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("PVSum", pvCount);
-            result.setData(jsonObject);
-
-        } catch (Exception e) {
-            logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
-        }
-        return result;
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
+//    public ResponseResult getContent(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+//        ResponseResult result = new ResponseResult();
+//        try {
+//            System.out.println(id);
+//        } catch (Exception e) {
+//            logger.fatal(e);
+//            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+//            message.setDescription(e.getMessage());
+//            result.getMessages().add(message);
+//            result.setStatus(ResponseStatus.Failed.getCode());
+//        }
+//        return result;
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/getContent", method = RequestMethod.POST)
@@ -104,7 +95,7 @@ public class ContentController {
 
             // 更新该内容的PV和UV
             String option = request.getServletPath().substring(1);
-            int pvCount = hisOperatorService.getPVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
+            int pvCount = content.getPageViewCount() + 1;
             int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
@@ -295,8 +286,8 @@ public class ContentController {
             content.setCreateUserID(userID);
             content.setUpdateTime(new Date());
             content.setUpdateUserID(userID);
-            
-            if(contentService.createContent(content)){
+
+            if (contentService.createContent(content)) {
                 content = contentService.getContent(content.getContentID());
             }
             if (content == null) {

@@ -142,6 +142,17 @@ public class ContentServiceImpl implements ContentService {
             throw e;
         }
     }
+    
+    @Override
+    public int getPVCountSum(){
+        try {
+            int result = cmsContentDao.selectPVCountSum();
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
 
     @Override
     public void updateViewCount(Integer contentID, int pvCount, int uvCount) {

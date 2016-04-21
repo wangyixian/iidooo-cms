@@ -41,6 +41,12 @@ public interface CmsContentMapper {
      * @return 点赞数
      */
     int selectStarCount(Integer contentID);
+        
+    /**
+     * 得到所有内容的PV
+     * @return PV总数量
+     */
+    int selectPVCountSum();
     
     /**
      * 根据ContentID更新CmsContent
