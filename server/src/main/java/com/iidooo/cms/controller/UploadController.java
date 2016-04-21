@@ -98,7 +98,7 @@ public class UploadController {
                 PictureUtil.compress(newFilePath, newFilePath, 200, 200, false);
             } else if (fileType.equals(FileType.NewsPicture.getCode())) {
                 PictureUtil.compress(uploadFilePath, newFilePath, 500, 500, true);
-            } else {
+            } else if (fileType.equals(FileType.ContentPicture.getCode())){
                 PictureUtil.compress(uploadFilePath, newFilePath, 1000, 1000, true);
             }
 

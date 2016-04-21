@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.enums.TableName;
@@ -42,21 +43,32 @@ public class ContentController {
     @Autowired
     private HisOperatorService hisOperatorService;
 
-//    @ResponseBody
-//    @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
-//    public ResponseResult getContent(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
-//        ResponseResult result = new ResponseResult();
-//        try {
-//            System.out.println(id);
-//        } catch (Exception e) {
-//            logger.fatal(e);
-//            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-//            message.setDescription(e.getMessage());
-//            result.getMessages().add(message);
-//            result.setStatus(ResponseStatus.Failed.getCode());
-//        }
-//        return result;
-//    }
+    @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
+    public ModelAndView content(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView result = new ModelAndView("/resources/share.jsp");
+        try {
+
+            // 查询获得内容对象
+            CmsContent content = contentService.getContent(id);
+            
+            // 更新浏览记录
+            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+
+            // 更新该内容的PV和UV
+            String option = request.getServletPath().substring(1);
+            int pvCount = content.getPageViewCount() + 1;
+            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
+            contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
+            content.setPageViewCount(pvCount);
+            content.setUniqueVisitorCount(uvCount);          
+
+            result.addObject("content", content);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+        }
+        return result;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/getContent", method = RequestMethod.POST)
