@@ -81,32 +81,50 @@ public class UploadController {
             }
 
             // 保存上传的文件到服务器的既定路径下
-            Properties systemProperties = (Properties)sc.getAttribute("system.properties");
+            Properties systemProperties = (Properties) sc.getAttribute("system.properties");
             String uploadFolderPath = systemProperties.getProperty("SERVER_UPLOAD_FOLDER");
             String yearMonth = DateUtil.getNow(DateUtil.DATE_YEAR_MONTH_SIMPLE);
             uploadFolderPath = uploadFolderPath + File.separator + yearMonth;
 
             // 写出文件到指定路径下
             String fileName = file.getOriginalFilename();
+            if (StringUtil.isBlank(fileName)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.Exception.getCode(), MessageLevel.ERROR, "file.getOriginalFilename()");
+                message.setDescription("The file name is blank by invoke getOriginalFilename.");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
             fileName = FileUtil.getUniqueFileName(fileName);
             String uploadFilePath = FileUtil.save(file.getBytes(), uploadFolderPath, fileName);
+            if (StringUtil.isBlank(uploadFilePath)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.Exception.getCode(), MessageLevel.ERROR, "uploadFilePath");
+                message.setDescription("Save file to server failed.");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
             PictureUtil.MaintainOrientation(uploadFilePath);
 
-            String newFilePath = FileUtil.getNewFileName(uploadFilePath, "_mini");
+            // String newFilePath = FileUtil.getNewFileName(uploadFilePath, "_mini");
             if (fileType.equals(FileType.UserPhoto.getCode())) {
-                PictureUtil.cutSquare(uploadFilePath, newFilePath);
-                PictureUtil.compress(newFilePath, newFilePath, 200, 200, false);
+                PictureUtil.cutSquare(uploadFilePath, uploadFilePath);
+                PictureUtil.compress(uploadFilePath, uploadFilePath, 200, 200, false);
             } else if (fileType.equals(FileType.NewsPicture.getCode())) {
-                PictureUtil.compress(uploadFilePath, newFilePath, 500, 500, true);
-            } else if (fileType.equals(FileType.ContentPicture.getCode())){
-                PictureUtil.compress(uploadFilePath, newFilePath, 1000, 1000, true);
+                PictureUtil.compress(uploadFilePath, uploadFilePath, 500, 500, true);
+            } else if (fileType.equals(FileType.ContentPicture.getCode())) {
+                PictureUtil.compress(uploadFilePath, uploadFilePath, 1000, 1000, true);
             }
 
             // 把文件上传到阿里云OSS的既定路径下
             Properties aliyunProperties = (Properties) sc.getAttribute("aliyun.properties");
 
             OSSClient ossClient = OSSUtil.getOSSClient(aliyunProperties);
-            String newKeyURL = OSSUtil.uploadFile(aliyunProperties, ossClient, yearMonth + "/", newFilePath);
+            String newKeyURL = OSSUtil.uploadFile(aliyunProperties, ossClient, yearMonth + "/", uploadFilePath);
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("url", newKeyURL);
@@ -117,7 +135,7 @@ public class UploadController {
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
+            message.setDescription(e.toString());
             result.getMessages().add(message);
             result.setStatus(ResponseStatus.Failed.getCode());
         }

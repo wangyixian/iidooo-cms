@@ -11,6 +11,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
+import com.iidooo.cms.mapper.CmsChannelMapper;
+import com.iidooo.cms.model.po.CmsChannel;
 import com.iidooo.cms.util.ChannelUtil;
 import com.iidooo.core.util.MybatisUtil;
 import com.iidooo.core.util.StringUtil;
@@ -98,18 +100,18 @@ public class ChannelSelectTag extends SimpleTagSupport {
             }
 
             SqlSession sqlSession = MybatisUtil.getSqlSessionFactory().openSession();
-            ChannelDao channelDao = sqlSession.getMapper(ChannelDao.class);
+            CmsChannelMapper channelDao = sqlSession.getMapper(CmsChannelMapper.class);
 
-            List<ChannelDto> channelList = channelDao.selectAllChannels();
-            ChannelUtil.counstructChildren(channelList);
-
-            if (channelList.size() > 0) {
-                for (ChannelDto item : channelList) {
-                    if (item.getParentID() <= 0) {
-                        printHTML(out, item);
-                    }
-                }
-            }
+//            List<CmsChannel> channelList = channelDao.selectAllChannels();
+//            ChannelUtil.counstructChildren(channelList);
+//
+//            if (channelList.size() > 0) {
+//                for (CmsChannel item : channelList) {
+//                    if (item.getParentID() <= 0) {
+//                        printHTML(out, item);
+//                    }
+//                }
+//            }
 
             out.println("</select>");
         } catch (Exception e) {
@@ -118,7 +120,7 @@ public class ChannelSelectTag extends SimpleTagSupport {
         }
     }
 
-    private void printHTML(JspWriter out, ChannelDto channelDto) throws JspException, IOException {
+    private void printHTML(JspWriter out, CmsChannel channelDto) throws JspException, IOException {
         try {
             String name = channelDto.getChannelName();
             for (int i = 0; i < index; i++) {
@@ -130,12 +132,12 @@ public class ChannelSelectTag extends SimpleTagSupport {
                 out.println(StringUtil.replace(HTML_OPTION, channelDto.getChannelID().toString(), name));
             }
 
-            List<ChannelDto> children = channelDto.getChildren();
-            for (ChannelDto child : children) {
-                this.index++;
-                this.printHTML(out, child);
-                this.index--;
-            }
+//            List<CmsChannel> children = channelDto.getChildren();
+//            for (CmsChannel child : children) {
+//                this.index++;
+//                this.printHTML(out, child);
+//                this.index--;
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);

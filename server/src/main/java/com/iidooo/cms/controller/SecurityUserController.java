@@ -23,8 +23,10 @@ import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.ResponseStatus;
+import com.iidooo.core.enums.UserType;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.ResponseResult;
+import com.iidooo.core.model.po.SecurityAccessToken;
 import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.service.SecurityUserService;
@@ -50,8 +52,101 @@ public class SecurityUserController {
     @Autowired
     private HisOperatorService hisOperatorService;
 
+    @ResponseBody
+    @RequestMapping(value = "/admin/getAccessToken", method = RequestMethod.POST)
+    public ResponseResult getAccessToken(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String loginID = request.getParameter("loginID");
+            String password = request.getParameter("password");
+
+            if (StringUtil.isBlank(loginID)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "loginID");
+                message.setDescription("The field of loginID is requied!");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(password)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "password");
+                message.setDescription("The field of password is requied!");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            SecurityAccessToken accessToken = this.securityUserService.getAccessTokenByLogin(loginID, password, UserType.Admin.getCode());
+            if (accessToken == null) {
+                Message message = new Message(MessageType.Information.getCode(), MessageLevel.INFO);
+                message.setDescription("The loginID or password wrong.");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.QueryEmpty.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(accessToken);
+                // 插入操作历史记录
+                hisOperatorService.createHisOperator("SECURITY_ACCESS_TOKEN", accessToken.getTokenID(), request);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/admin/getUserByToken", method = RequestMethod.POST)
+    public ResponseResult getUserByToken(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String accessToken = request.getParameter("accessToken");
+
+            if (StringUtil.isBlank(accessToken)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "accessToken");
+                message.setDescription("The field of accessToken is requied!");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            SecurityUser securityUser = this.securityUserService.getSecurityUserByToken(accessToken);
+            if (securityUser == null) {
+                Message message = new Message(MessageType.Information.getCode(), MessageLevel.ERROR);
+                message.setDescription("The token is wrong to get user info.");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(securityUser);
+                // 插入操作历史记录
+                hisOperatorService.createHisOperator("SECURITY_USER", securityUser.getUserID(), request);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
-    public @ResponseBody ResponseResult getUserInfo(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseResult getUserInfo(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
             String userID = request.getParameter("userID");
@@ -162,7 +257,7 @@ public class SecurityUserController {
         try {
             ServletContext sc = request.getServletContext();
             Properties properties = (Properties) sc.getAttribute("random_name.properties");
-            
+
             String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
             String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
             SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + photoPath, "", properties);

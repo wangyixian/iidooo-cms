@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IDO CMS SYSTEM - 我的控制台</title>
+    <script src="libs/jquery/js/jquery-2.1.4.min.js"></script>
+    <script src="libs/jquery.cookie/jquery.cookie.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/index.js"></script>
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">IDO CMS SYSTEM</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li id="dashboard" onclick="loadPage('/dashboard.html', 'dashboard')"><a href="#dashbord">我的控制台</a></li>-->
+                    <li id="content-manage" onclick="loadPage('/content-manage.html', 'content-manage')">
+                        <a href="#content_manage">内容管理</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="./">您好，<span id="insertUserName"></span></a></li>
+                    <li><a href="../navbar-static-top/">注销</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div id="page">
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted text-center">Powered by 上海轶度网络科技有限公司</p>
+        <p class="text-muted text-center">version 0.0.0.1 B20160424</p>
+    </div>
+</footer>
+
+</body>
+</html>

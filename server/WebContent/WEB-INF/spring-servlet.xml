@@ -31,7 +31,7 @@
 	<!-- 配置数据源 -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>classpath:mybatis/jdbc-test.properties</value>
+			<value>classpath:mybatis/jdbc-localhost.properties</value>
 		</property>
 	</bean>
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -76,8 +76,8 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<!-- 拦截所有的Controller -->
-			<mvc:mapping path="/app" />
-			<mvc:mapping path="/app/**" />
+			<mvc:mapping path="/" />
+			<mvc:mapping path="/**" />
 			<!-- 不拦截的静态资源url -->
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/content/**"/>
