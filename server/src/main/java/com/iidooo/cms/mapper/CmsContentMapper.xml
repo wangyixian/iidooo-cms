@@ -98,6 +98,52 @@
 	<select id="selectPVCountSum" resultType = "java.lang.Integer">
 		select sum(C.PageViewCount) from CMS_CONTENT C where C.IsDelete = 0
 	</select>
+	
+	<!-- 检索内容一览信息的数量 -->
+	<select id="selectCountForSearch" resultType = "java.lang.Integer">
+		select
+		count(C.ContentID)
+		from CMS_CONTENT C
+		where C.IsDelete = 0 
+		<if test="cmsContent.channelID != null and cmsContent.channelID != 0">
+			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER} 
+		</if>
+		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
+			and C.ContentTitle like "%${cmsContent.contentTitle,jdbcType=VARCHAR}%" 
+		</if>
+		<if test="cmsContent.contentType != null and cmsContent.contentType != 0">
+			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
+		</if>
+		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+			and C.CreateTime &gt;= #{startDate}
+			and C.CreateTime &lt;= #{endDate}
+		</if>
+	</select>
+	
+	<!-- 检索内容一览信息 -->
+	<select id="selectForSearch" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CMS_CONTENT C
+		where C.IsDelete = 0 
+		<if test="cmsContent.channelID != null and cmsContent.channelID != 0">
+			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER} 
+		</if>
+		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
+			and C.ContentTitle like "%${cmsContent.contentTitle,jdbcType=VARCHAR}%" 
+		</if>
+		<if test="cmsContent.contentType != null and cmsContent.contentType != 0">
+			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
+		</if>
+		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+			and C.CreateTime &gt;= #{startDate}
+			and C.CreateTime &lt;= #{endDate}
+		</if>
+		<if test="page != null">
+			order by ${page.sortField} ${page.sortType} 
+			limit ${page.start}, ${page.pageSize}
+		</if>
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from CMS_CONTENT

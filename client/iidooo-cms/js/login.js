@@ -8,8 +8,8 @@ function login() {
         type: 'POST',
         url: server + "/admin/getAccessToken",
         data: {
-            appID: "CMSSystem",
-            secret: "e96b669ba65848bcb20f5de53dcc370e",
+            appID: appID,
+            secret: secret,
             loginID: loginID,
             password: password
         },

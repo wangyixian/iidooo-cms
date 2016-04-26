@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.iidooo.cms.constant.CmsDictContant;
 import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.po.CmsContent;
@@ -28,7 +29,10 @@ import com.iidooo.core.enums.SortType;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.Page;
 import com.iidooo.core.model.ResponseResult;
+import com.iidooo.core.model.po.DictItem;
+import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
+import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -43,6 +47,65 @@ public class ContentController {
     @Autowired
     private HisOperatorService hisOperatorService;
 
+    @Autowired
+    private DictItemService dictItemService;
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/getContentTypeList", method = RequestMethod.POST)
+    public ResponseResult getContentTypeList(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+
+            List<DictItem> dictItems = dictItemService.getDictItemsByClassCode(CmsDictContant.DICT_CLASS_CONTENT_TYPE);
+
+            // 返回找到的内容对象
+            result.setStatus(ResponseStatus.OK.getCode());
+            result.setData(dictItems);
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/admin/searchContentList", method = RequestMethod.POST)
+    public ResponseResult searchContentList(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String channelID = request.getParameter("channelID");
+            String contentTitle = request.getParameter("contentTitle");
+            String contentType = request.getParameter("contentType");
+            String startDate = request.getParameter("startDate");
+            String endDate = request.getParameter("endDate");           
+            
+            CmsContent cmsContent = new CmsContent();
+            cmsContent.setChannelID(Integer.valueOf(channelID));
+            cmsContent.setContentTitle(contentTitle);
+            cmsContent.setContentType(contentType);
+            
+            int count = contentService.getContentListCount(cmsContent, startDate, endDate);
+
+            List<CmsContent> contentList = contentService.getContentList(cmsContent, startDate, endDate, null);
+            
+            // 返回找到的内容对象
+            result.setStatus(ResponseStatus.OK.getCode());
+            result.setData(contentList);
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
     public ModelAndView content(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView result = new ModelAndView("/resources/share.jsp");
@@ -50,7 +113,7 @@ public class ContentController {
 
             // 查询获得内容对象
             CmsContent content = contentService.getContent(id);
-            
+
             // 更新浏览记录
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
@@ -60,7 +123,7 @@ public class ContentController {
             int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
-            content.setUniqueVisitorCount(uvCount);          
+            content.setUniqueVisitorCount(uvCount);
 
             result.addObject("content", content);
         } catch (Exception e) {

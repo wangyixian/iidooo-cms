@@ -2,7 +2,11 @@ package com.iidooo.cms.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.messaging.handler.annotation.Payload;
+
 import com.iidooo.cms.model.po.CmsChannel;
+import com.iidooo.core.model.Page;
 
 public interface CmsChannelMapper {
     int deleteByPrimaryKey(Integer channelID);
@@ -16,8 +20,6 @@ public interface CmsChannelMapper {
      * @return 得到栏目一览列表
      */
     List<CmsChannel> selectChannelList();
-
-    CmsChannel selectByPrimaryKey(Integer channelID);
 
     int updateByPrimaryKeySelective(CmsChannel record);
 

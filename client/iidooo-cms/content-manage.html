@@ -2,7 +2,7 @@
 <link href="libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
         charset="UTF-8"></script>
-<script src="js/content-manage.js"></script>
+<script type="text/javascript" src="js/content-manage.js"></script>
 <div class="container-fluid">
     <div class="search-condition-section">
         <div class="form-group">
@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-xs-8">
                         <select id="selChannelList" class="form-control">
-                            <option>全部</option>
+                            <option value="0" selected="selected">全部</option>
                         </select>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-xs-8">
                         <select id="selContentType" class="form-control">
-                            <option>全部</option>
+                            <option value="0" selected="selected">全部</option>
                         </select>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-xs-8">
                         <div class="input-group date form_date" data-date="" data-date-format="yyyy-MM-dd"
                              data-link-field="dtp_input2" data-link-format="yyyy-MM-dd">
-                            <input class="form-control" size="14" type="text" value="" readonly>
+                            <input id="inputStartDate" class="form-control" size="14" type="text" value="" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     <div class="col-xs-8">
                         <div class="input-group date form_date" data-date="" data-date-format="yyyy-MM-dd"
                              data-link-field="dtp_input2" data-link-format="yyyy-MM-dd">
-                            <input class="form-control" size="14" type="text" value="" readonly>
+                            <input id="inputEndDate" class="form-control" size="14" type="text" value="" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
         </div>
         <div class="text-right">
             <div class="btn-group" role="group">
-                <button id="btnSearch" class="btn btn-primary" type="button">查&nbsp;询</button>
+                <button id="btnSearch" class="btn btn-primary" type="button" onclick="search()">查&nbsp;询</button>
             </div>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default">发&nbsp;布</button>
@@ -77,15 +77,13 @@
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">默认</a></li>
-                    <li><a href="#">新闻</a></li>
+                <ul id="ulCreateDropDown" class="dropdown-menu">
                 </ul>
             </div>
         </div>
     </div>
     <div class="search-result-section">
-        <table class="table table-striped table-hover">
+        <table id="tableSearcResult" class="table table-striped table-hover">
             <thead>
             <tr>
                 <th>ID</th>
@@ -100,116 +98,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>毒电波</td>
-                <td>新闻标题一</td>
-                <td>10</td>
-                <td>新闻</td>
-                <td>管理员</td>
-                <td>2016-04-01 18:00:59</td>
-                <td>102</td>
-                <td>详细 | 删除</td>
-            </tr>
+
             </tbody>
         </table>
         <nav class="text-center">

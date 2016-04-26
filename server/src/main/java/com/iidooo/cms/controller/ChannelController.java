@@ -48,4 +48,26 @@ public class ChannelController {
         }
         return result;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/admin/searchChannelList", method = RequestMethod.POST)
+    public ResponseResult searchChannelList(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            
+            List<CmsChannel> channels = channelService.getAllChannelList();   
+
+            // 返回找到的内容对象
+            result.setStatus(ResponseStatus.OK.getCode());
+            result.setData(channels);
+            
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
 }

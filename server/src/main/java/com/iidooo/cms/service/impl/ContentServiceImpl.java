@@ -1,6 +1,7 @@
 package com.iidooo.cms.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +97,28 @@ public class ContentServiceImpl implements ContentService {
                 }
             }
 
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
+    
+    @Override
+    public int getContentListCount(CmsContent cmsContent, String startDate, String endDate){
+        try { 
+            int count = cmsContentDao.selectCountForSearch(cmsContent, startDate, endDate);
+            return count;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
+    
+    @Override
+    public List<CmsContent> getContentList(CmsContent cmsContent, String startDate, String endDate, Page page){
+        try { 
+            List<CmsContent> result = cmsContentDao.selectForSearch(cmsContent, startDate, endDate, page);
             return result;
         } catch (Exception e) {
             logger.fatal(e);
