@@ -32,7 +32,6 @@ import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.model.po.DictItem;
 import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
-import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -82,6 +81,14 @@ public class ContentController {
             String contentType = request.getParameter("contentType");
             String startDate = request.getParameter("startDate");
             String endDate = request.getParameter("endDate");           
+            
+            if (StringUtil.isNotBlank(startDate)) {
+                startDate = startDate + " 00:00:00";
+            }
+            
+            if (StringUtil.isNotBlank(endDate)) {
+                startDate = startDate + " 23:59:59";
+            }
             
             CmsContent cmsContent = new CmsContent();
             cmsContent.setChannelID(Integer.valueOf(channelID));

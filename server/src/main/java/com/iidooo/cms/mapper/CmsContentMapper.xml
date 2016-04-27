@@ -109,7 +109,7 @@
 			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER} 
 		</if>
 		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
-			and C.ContentTitle like "%${cmsContent.contentTitle,jdbcType=VARCHAR}%" 
+			and C.ContentTitle like "%${cmsContent.contentTitle}%" 
 		</if>
 		<if test="cmsContent.contentType != null and cmsContent.contentType != 0">
 			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
@@ -130,13 +130,15 @@
 			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER} 
 		</if>
 		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
-			and C.ContentTitle like "%${cmsContent.contentTitle,jdbcType=VARCHAR}%" 
+			and C.ContentTitle like "%${cmsContent.contentTitle}%" 
 		</if>
 		<if test="cmsContent.contentType != null and cmsContent.contentType != 0">
 			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
 		</if>
-		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+		<if test="startDate != null and startDate != ''">
 			and C.CreateTime &gt;= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
 			and C.CreateTime &lt;= #{endDate}
 		</if>
 		<if test="page != null">
