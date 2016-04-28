@@ -1,20 +1,25 @@
 /**
  * Created by Ethan on 16/4/6.
  */
-//var client = "http://localhost:63342/iidooo-cms-admin-admin";
-//var server = "http://localhost:8080/iidooo-cms-admin";
-var client = "http://www.iidooo.com/iidooo-cms-admin";
-var server = "http://www.iidooo.com/iidooo-cms";
+var client = "http://localhost:63342/iidooo-cms-admin";
+var serverURL = "http://localhost:8080/iidooo-cms";
+//var client = "http://www.iidooo.com/iidooo-cms-admin";
+//var serverURL = "http://www.iidooo.com/iidooo-cms";
 
 var appID = "CMSSystem";
 var secret = "e96b669ba65848bcb20f5de53dcc370e";
-var accessToken = function () {
-    $.cookie("ACCESS_TOKEN");
-};
+var accessToken = "";
+var userID = "";
 
-var getContentTypeList = "/admin/getContentTypeList";
+var getUserByTokenURL = "/admin/getUserByToken";
 
-var searchContentList = "/admin/searchContentList";
+var getContentTypeListURL = "/admin/getContentTypeList";
+
+var searchContentListURL = "/admin/searchContentList";
+
+var uploadFileURL = "/admin/uploadFile";
+
+var createContentURL = "/admin/createContent";
 
 // 日期格式化
 Date.prototype.format = function (format) {
@@ -34,4 +39,24 @@ Date.prototype.format = function (format) {
             RegExp.$1.length == 1 ? o[k] :
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
+}
+
+function ajaxPost(url, data, callback) {
+    $.ajax({
+        type: "POST",
+        timeout: 3000, //超时时间设置，单位毫秒
+        url: url,
+        dataType: "json",
+        data: data,
+        success: function (result) {
+            if (result && null != result.status && ((result.status + "").indexOf("20") == 0)) {
+                callback(result.data);
+            } else {
+                alert("请求接收但处理失败，请联系管理员！");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //ajaxpost(url, data, callback);
+        }
+    });
 }

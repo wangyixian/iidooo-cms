@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.po.CmsContentNews;
+import com.iidooo.cms.model.po.CmsPicture;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.MessageType;
@@ -32,6 +35,8 @@ import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.model.po.DictItem;
 import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
+import com.iidooo.core.util.DateUtil;
+import com.iidooo.core.util.FileUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -70,7 +75,7 @@ public class ContentController {
         }
         return result;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/admin/searchContentList", method = RequestMethod.POST)
     public ResponseResult searchContentList(HttpServletRequest request, HttpServletResponse response) {
@@ -80,25 +85,25 @@ public class ContentController {
             String contentTitle = request.getParameter("contentTitle");
             String contentType = request.getParameter("contentType");
             String startDate = request.getParameter("startDate");
-            String endDate = request.getParameter("endDate");           
-            
+            String endDate = request.getParameter("endDate");
+
             if (StringUtil.isNotBlank(startDate)) {
                 startDate = startDate + " 00:00:00";
             }
-            
+
             if (StringUtil.isNotBlank(endDate)) {
                 startDate = startDate + " 23:59:59";
             }
-            
+
             CmsContent cmsContent = new CmsContent();
             cmsContent.setChannelID(Integer.valueOf(channelID));
             cmsContent.setContentTitle(contentTitle);
             cmsContent.setContentType(contentType);
-            
+
             int count = contentService.getContentListCount(cmsContent, startDate, endDate);
 
             List<CmsContent> contentList = contentService.getContentList(cmsContent, startDate, endDate, null);
-            
+
             // 返回找到的内容对象
             result.setStatus(ResponseStatus.OK.getCode());
             result.setData(contentList);
@@ -272,8 +277,9 @@ public class ContentController {
         return result;
     }
 
-    @RequestMapping(value = "/createContent", method = RequestMethod.POST)
-    public @ResponseBody ResponseResult createContent(HttpServletRequest request, HttpServletResponse response) {
+    @ResponseBody
+    @RequestMapping(value = { "/createContent", "/admin/createContent" }, method = RequestMethod.POST)
+    public ResponseResult createContent(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
             // 解析获得传入的参数
@@ -326,6 +332,11 @@ public class ContentController {
             String isSilent = request.getParameter("isSilent");
             String stickyIndex = request.getParameter("stickyIndex");
             String remarks = request.getParameter("remarks");
+            String startShowDate = request.getParameter("startShowDate");
+            String startShowTime = request.getParameter("startShowTime");
+            String endShowDate = request.getParameter("endShowDate");
+            String endShowTime = request.getParameter("endShowTime");
+            String pictureListStr = request.getParameter("pictureList");
 
             // 工厂创建对象
             CmsContent content = null;
@@ -359,15 +370,28 @@ public class ContentController {
             if (StringUtil.isNotBlank(stickyIndex) && ValidateUtil.isNumber(stickyIndex)) {
                 content.setStickyIndex(Integer.parseInt(stickyIndex));
             }
-            content.setStartShowDate("");
-            content.setStartShowTime("00:00:00");
-            content.setEndShowDate("");
-            content.setEndShowTime("23:59:59");
+            content.setStartShowDate(DateUtil.format(startShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
+            content.setStartShowTime(DateUtil.format(startShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+            content.setEndShowDate(DateUtil.format(endShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
+            content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
             content.setRemarks(remarks);
             content.setCreateTime(new Date());
             content.setCreateUserID(userID);
             content.setUpdateTime(new Date());
             content.setUpdateUserID(userID);
+
+            if (StringUtil.isNotBlank(pictureListStr)) {
+                JSONArray jsonArray = JSONArray.fromObject(pictureListStr);
+                for (Object object : jsonArray) {
+                    String pictureURL = object.toString();
+                    String pictureName = FileUtil.getFileName(pictureURL);
+                    CmsPicture picture = new CmsPicture();
+                    picture.setPictureName(pictureName);
+                    picture.setPictureURL(pictureURL);
+                    content.getPictureList().add(picture);
+                }
+                    
+            }
 
             if (contentService.createContent(content)) {
                 content = contentService.getContent(content.getContentID());

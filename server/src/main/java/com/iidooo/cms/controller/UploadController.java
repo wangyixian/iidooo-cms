@@ -44,7 +44,7 @@ public class UploadController {
     @Autowired
     private HisOperatorService hisOperatorService;
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    @RequestMapping(value = { "/uploadFile", "/admin/uploadFile" }, method = RequestMethod.POST)
     public @ResponseBody ResponseResult uploadFile(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {

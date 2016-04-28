@@ -103,10 +103,10 @@ public class ContentServiceImpl implements ContentService {
             throw e;
         }
     }
-    
+
     @Override
-    public int getContentListCount(CmsContent cmsContent, String startDate, String endDate){
-        try { 
+    public int getContentListCount(CmsContent cmsContent, String startDate, String endDate) {
+        try {
             int count = cmsContentDao.selectCountForSearch(cmsContent, startDate, endDate);
             return count;
         } catch (Exception e) {
@@ -114,10 +114,10 @@ public class ContentServiceImpl implements ContentService {
             throw e;
         }
     }
-    
+
     @Override
-    public List<CmsContent> getContentList(CmsContent cmsContent, String startDate, String endDate, Page page){
-        try { 
+    public List<CmsContent> getContentList(CmsContent cmsContent, String startDate, String endDate, Page page) {
+        try {
             List<CmsContent> result = cmsContentDao.selectForSearch(cmsContent, startDate, endDate, page);
             return result;
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     @Transactional
     public boolean createContent(CmsContent content) throws Exception {
-        try {            
+        try {
             if (cmsContentDao.insert(content) <= 0) {
                 throw new Exception();
             }
@@ -141,12 +141,16 @@ public class ContentServiceImpl implements ContentService {
                 }
             }
 
-            // for (CmsPicture picture : content.getPictureList()) {
-            // picture.setContentID(content.getContentID());
-            // if (cmsPictureDao.insert(picture) <= 0) {
-            // throw new Exception();
-            // }
-            // }
+            for (CmsPicture picture : content.getPictureList()) {
+                picture.setCreateTime(new Date());
+                picture.setCreateUserID(content.getCreateUserID());
+                picture.setUpdateTime(new Date());
+                picture.setUpdateUserID(content.getCreateUserID());
+                picture.setContentID(content.getContentID());
+                if (cmsPictureDao.insert(picture) <= 0) {
+                    throw new Exception();
+                }
+            }
 
             return true;
         } catch (Exception e) {
@@ -165,9 +169,9 @@ public class ContentServiceImpl implements ContentService {
             throw e;
         }
     }
-    
+
     @Override
-    public int getPVCountSum(){
+    public int getPVCountSum() {
         try {
             int result = cmsContentDao.selectPVCountSum();
             return result;

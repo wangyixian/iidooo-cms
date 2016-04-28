@@ -2,17 +2,19 @@
  * Created by Ethan on 16/4/22.
  */
 $(function () {
-    var accessToken = $.cookie("ACCESS_TOKEN");
+    accessToken = $.cookie("ACCESS_TOKEN");
     if (accessToken == null) {
         location.href = client + "/login.html";
         return;
     }
+    userID = $.cookie("USER_ID");
     setUserInfo(accessToken);
     loadPage("/content-manage.html", "content-manage");
 });
 
 // 单页应用加载page
 function loadPage(page, activeNavItem) {
+    //console.log("load page start.");
     $('#page').load(client + page);
     setActiveNavItem(activeNavItem);
 }
@@ -20,10 +22,10 @@ function loadPage(page, activeNavItem) {
 function setUserInfo(accessToken) {
     $.ajax({
         type: 'POST',
-        url: server + "/admin/getUserByToken",
+        url: serverURL + getUserByTokenURL,
         data: {
-            appID: "CMSSystem",
-            secret: "e96b669ba65848bcb20f5de53dcc370e",
+            appID: appID,
+            secret: secret,
             accessToken: accessToken
         },
         dataType: 'json',
@@ -32,11 +34,11 @@ function setUserInfo(accessToken) {
                 $("#insertUserName").text(result.data.userName);
 
             } else {
-                alert(result.status);
+                console.log(result);
             }
         },
         error: function (result) {
-            alert(result);
+            console.log(result);
         }
     });
 }
@@ -44,4 +46,12 @@ function setUserInfo(accessToken) {
 function setActiveNavItem(activeNavItem) {
     var activeLi = $('#navbar ' + '#' + activeNavItem);
     activeLi.addClass('active');
+}
+
+function logout() {
+    $.cookie("ACCESS_TOKEN", null);
+    $.cookie("USER_ID", null);
+    accessToken = "";
+    userID = "";
+    location.href = client + "/login.html";
 }

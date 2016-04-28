@@ -29,6 +29,8 @@
     delete from CMS_PICTURE
     where PictureID = #{pictureID,jdbcType=INTEGER}
   </delete>
+  
+  <!-- 插入图片数据 -->
   <insert id="insert" useGeneratedKeys="true" keyProperty="pictureID" parameterType="com.iidooo.cms.model.po.CmsPicture">
     insert into CMS_PICTURE
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -41,23 +43,21 @@
       <if test="pictureURL != null">
         PictureURL,
       </if>
-      <if test="sequence != null">
         Sequence,
-      </if>
       <if test="remarks != null">
         Remarks,
       </if>
       <if test="createTime != null">
         CreateTime,
       </if>
-      <if test="createUser != null">
-        CreateUser,
+      <if test="createUserID != null">
+        CreateUserID,
       </if>
       <if test="updateTime != null">
         UpdateTime,
       </if>
-      <if test="updateUser != null">
-        UpdateUser,
+      <if test="updateUserID != null">
+        UpdateUserID,
       </if>
         IsDelete,Version
     </trim>
@@ -71,27 +71,26 @@
       <if test="pictureURL != null">
         #{pictureURL,jdbcType=VARCHAR},
       </if>
-      <if test="sequence != null">
-        #{sequence,jdbcType=INTEGER},
-      </if>
+      (select ifnull(Max(Sequence),0) from CMS_PICTURE P where P.ContentID = #{contentID,jdbcType=INTEGER} and P.IsDelete = 0) + 1,
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=INTEGER},
+      <if test="createUserID != null">
+        #{createUserID,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=INTEGER},
+      <if test="updateUserID != null">
+        #{updateUserID,jdbcType=INTEGER},
       </if>
       0,1
     </trim>
   </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsPicture">
     update CMS_PICTURE
     <set>
@@ -153,5 +152,6 @@
     from CMS_PICTURE P
     where P.IsDelete = 0 and P.ContentID in 
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item.contentID}</foreach>
+    order by P.Sequence desc
   </select>
 </mapper>

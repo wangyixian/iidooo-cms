@@ -6,9 +6,9 @@ var channelMap = {}; // Key: channelID Value: channelName
 var contentTypeMap = {}; // Key: dictItemCode Value: dictItemName
 
 $(function () {
-
-    initSelChannelList();
-    initSelContentType();
+    //console.log("content-manage init");
+    initSelChannelList("selChannelList");
+    initSelContentType("selContentType");
     $('.form_date').datetimepicker({
         weekStart: 1,
         todayBtn: 1,
@@ -21,10 +21,10 @@ $(function () {
     });
 });
 
-function initSelChannelList() {
+function initSelChannelList(id) {
     $.ajax({
         type: 'POST',
-        url: server + "/admin/getChannelList",
+        url: serverURL + "/admin/getChannelList",
         data: {
             appID: appID,
             secret: secret,
@@ -35,8 +35,8 @@ function initSelChannelList() {
             var temp = eval(result);
             if (result.status == 200) {
                 //console.info(result);
-                var $selChannelList = $("#selChannelList");
-                for(var i=0; i < result.data.length; i++){
+                var $selChannelList = $("#" + id);
+                for (var i = 0; i < result.data.length; i++) {
                     var channel = result.data[i];
 
                     // 记录到channelMap
@@ -52,10 +52,10 @@ function initSelChannelList() {
     });
 }
 
-function initSelContentType() {
+function initSelContentType(id) {
     $.ajax({
         type: 'POST',
-        url: server + getContentTypeList,
+        url: serverURL + getContentTypeListURL,
         data: {
             appID: appID,
             secret: secret,
@@ -65,10 +65,8 @@ function initSelContentType() {
         success: function (result) {
             if (result.status == 200) {
                 //console.info(result);
-                var $selContentType = $("#selContentType");
-                var $ulCreateDropDown = $("#ulCreateDropDown");
-
-                for(var i=0; i < result.data.length; i++){
+                var $selContentType = $("#" + id);
+                for (var i = 0; i < result.data.length; i++) {
                     var dictItem = result.data[i];
 
                     // 记录到contentTypeMap
@@ -78,20 +76,13 @@ function initSelContentType() {
                     $option.attr("value", dictItem.dictItemCode);
                     $option.text(dictItem.dictItemName);
                     $selContentType.append($option);
-
-                    var $li = $("<li></li>");
-                    var $a = $("<a></a>");
-                    $li.append($a);
-                    $a.attr("href", "#");
-                    $a.text(dictItem.dictItemName);
-                    $ulCreateDropDown.append($li);
                 }
             }
         }
     });
 }
 
-function search(){
+function search() {
     var channelID = $("#selChannelList").val();
     var contentTitle = $("#inputContentTitle").val();
     var contentType = $("#selContentType").val();
@@ -100,7 +91,7 @@ function search(){
 
     $.ajax({
         type: 'POST',
-        url: server + searchContentList,
+        url: serverURL + searchContentListURL,
         data: {
             appID: appID,
             secret: secret,
@@ -121,7 +112,7 @@ function search(){
                 $tableSearcResult.empty();
 
                 // 插入新的查询所获得的数据
-                for(var i=0; i < result.data.length; i++){
+                for (var i = 0; i < result.data.length; i++) {
                     var content = result.data[i];
                     var $tr = $("<tr></tr>");
                     var $tdContentID = $("<td>" + content.contentID + "</td>");
@@ -149,4 +140,10 @@ function search(){
             }
         }
     });
+}
+
+function create() {
+    contentDetailMode = "1";
+    loadPage("/content-detail.html", "content-manage");
+
 }

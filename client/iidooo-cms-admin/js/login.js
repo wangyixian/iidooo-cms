@@ -6,7 +6,7 @@ function login() {
     var password = $("#inputPassword").val();
     $.ajax({
         type: 'POST',
-        url: server + "/admin/getAccessToken",
+        url: serverURL + "/admin/getAccessToken",
         data: {
             appID: appID,
             secret: secret,
@@ -16,17 +16,17 @@ function login() {
         dataType: 'json',
         success: function (result) {
             if(result.status == 200){
+                accessToken = result.data.token;
+                userID = result.data.userID;
                 // 当没有指明 cookie有效时间时，所创建的cookie有效期默认到用户关闭浏览器为止，所以被称为“会话cookie（session cookie）”。
                 $.cookie("ACCESS_TOKEN", result.data.token, {expires:1});
+                $.cookie("USER_ID", result.data.userID, {expires:1});
 
                 location.href = client + "/index.html";
 
             } else{
-                alert(result.status);
+                console.log(result);
             }
-        },
-        error: function(result){
-            alert(result);
         }
     });
 }

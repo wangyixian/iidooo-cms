@@ -21,63 +21,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/login.html">
+      <file leaf-file-name="content-detail.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/content-detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625">
-              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+            <state vertical-scroll-proportion="-5.071429">
+              <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="content-manage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/content-manage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.75">
-              <caret line="118" column="24" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="content-manage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/content-manage.js">
+      <file leaf-file-name="content-detail.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/content-detail.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="130" column="99" selection-start-line="130" selection-start-column="99" selection-end-line="130" selection-end-column="99" />
-              <folding>
-                <element signature="e#0#39#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3846154">
-              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/index.html">
+      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-26.875">
-              <caret line="43" column="15" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/index.js">
+        <entry file="file://$PROJECT_DIR$/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
               <folding>
                 <element signature="e#0#39#0" expanded="false" />
               </folding>
@@ -85,14 +63,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/login.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-17.5">
+              <caret line="36" column="51" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content-manage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/content-manage.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+              <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
               <folding>
-                <element signature="n#!!doc;n#login#0" expanded="false" />
+                <element signature="e#0#39#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content-detail.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/content-detail.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content-manage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content-manage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.75">
+              <caret line="14" column="77" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,66 +110,66 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Html5" />
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="Html5" />
       </list>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/SecurityUser.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/GetUserInfo.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/CreateComment.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/UploadUserPhoto.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/ContentList.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/CreateDefaultUser.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/starCount.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/starCotent.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getCommentNoticeList.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getCommentNotice.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/deleteCommentNotice.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/deleteCommentNoticeList.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/createContent.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getCommentList.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getContentList.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getContentPVSum.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getNoticeCommentList.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getUserInfo.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/sendVerifyCode.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/starContent.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/UpdateComment.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/updateUserInfo.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/updateUserExp.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getContent.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getInitData.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/createComment.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/getUserByEmail.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/wiget/footer.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/signin.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/css/login.css" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/libs/bootstrap/examples/sticky-footer/index.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js/widgets/header.js" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/css/index.css" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/wiget/header.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/css/content_list.css" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/widgets/header.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/widgets/footer.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/dashboard.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/content_list.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js/content_list.js" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/createDefaultUser.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test/uploadFile.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/content_manage.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/login.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js/index.js" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/content-manage.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js/content-manage.js" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/index.html" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js/login.js" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js/common.js" />
-        <option value="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/common.js" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getCommentNotice.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/deleteCommentNotice.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/deleteCommentNoticeList.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/createContent.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getCommentList.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getContentList.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getContentPVSum.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getNoticeCommentList.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getUserInfo.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/sendVerifyCode.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/starContent.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/UpdateComment.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/updateUserInfo.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/updateUserExp.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getContent.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getInitData.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/createComment.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/getUserByEmail.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/wiget/footer.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/signin.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/css/login.css" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/libs/bootstrap/examples/sticky-footer/index.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/js/widgets/header.js" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/css/index.css" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/wiget/header.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/css/content_list.css" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/widgets/header.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/widgets/footer.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/dashboard.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/content_list.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/js/content_list.js" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/createDefaultUser.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/pages/test/uploadFile.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/content_manage.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/login.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/js/index.js" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/content-manage.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/js/content-manage.js" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/index.html" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/js/login.js" />
+        <option value="$PROJECT_DIR$/../iidooo-cms/js/common.js" />
+        <option value="$PROJECT_DIR$/content-manage.html" />
+        <option value="$PROJECT_DIR$/css/content-detail.css" />
+        <option value="$PROJECT_DIR$/css/index.css" />
+        <option value="$PROJECT_DIR$/js/login.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/content-detail.html" />
+        <option value="$PROJECT_DIR$/js/common.js" />
+        <option value="$PROJECT_DIR$/js/index.js" />
+        <option value="$PROJECT_DIR$/js/content-detail.js" />
+        <option value="$PROJECT_DIR$/js/content-manage.js" />
       </list>
     </option>
   </component>
@@ -173,6 +181,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="-1" />
     <option name="y" value="23" />
     <option name="width" value="1436" />
     <option name="height" value="877" />
@@ -200,16 +209,14 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="iidooo-cms-admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iidooo-cms-admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -219,10 +226,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="iidooo-cms-admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -237,6 +240,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iidooo-cms-admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iidooo-cms-admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jquery" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -310,30 +331,28 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="last_opened_file_path" value="$USER_HOME$/workspace/github/iidooo-cms/client/toxicwaveshare" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/libs/jquery.cookie" />
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/libs/jquery/js" />
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/libs/bootstrap-datetimepicker" />
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/libs" />
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/js" />
+      <recent name="$PROJECT_DIR$/libs/jquery" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/../iidooo-cms/libs/jquery.cookie" />
+      <recent name="$PROJECT_DIR$/../iidooo-cms/libs/jquery/js" />
+      <recent name="$PROJECT_DIR$/../iidooo-cms/libs/bootstrap-datetimepicker" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms" />
-      <recent name="$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms/pages/test" />
+      <recent name="$PROJECT_DIR$/../iidooo-cms" />
+      <recent name="$PROJECT_DIR$/../iidooo-cms/pages/test" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.content-manage.html">
@@ -401,7 +420,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1436" height="877" extended-state="0" />
+    <frame x="-1" y="23" width="1436" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -419,8 +438,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -441,15 +460,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/content-manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="64" selection-start-line="79" selection-start-column="64" selection-end-line="79" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/content-manage.js">
+    <entry file="file://$PROJECT_DIR$/js/content-manage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -459,7 +470,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
@@ -467,198 +478,192 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getContentPVSum.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getContentPVSum.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/createContent.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/createContent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getContent.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getContent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/createComment.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/createComment.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="43" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/createContent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getCommentList.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/createContent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getContentList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getContentPVSum.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getNoticeCommentList.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getCommentList.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/sendVerifyCode.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getContentList.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/UpdateComment.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getContentPVSum.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getUserInfo.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getNoticeCommentList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/sendVerifyCode.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/UpdateComment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/test/getUserInfo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.75">
           <caret line="30" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="30" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/updateUserInfo.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/updateUserInfo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.458333">
           <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/updateUserExp.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/updateUserExp.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.8333333">
           <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/starContent.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/starContent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getContent.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getContent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15933232">
           <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getInitData.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getInitData.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15933232">
           <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/createComment.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/createComment.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44461304">
           <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/getUserByEmail.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/getUserByEmail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15933232">
           <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/jquery/js/jquery-2.1.4.min.map">
+    <entry file="file://$PROJECT_DIR$/libs/jquery/js/jquery-2.1.4.min.map">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
       <provider editor-type-id="sourcemapFileViewerProvider">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap/css/bootstrap-theme.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap/css/bootstrap-theme.css">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap/js/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap/css/bootstrap.css">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33235726">
           <caret line="4593" column="1" selection-start-line="4593" selection-start-column="1" selection-end-line="4593" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap/css/bootstrap.min.css">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap/css/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34603658">
           <caret line="4" column="75344" selection-start-line="4" selection-start-column="75344" selection-end-line="4" selection-end-column="75344" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/css/login.css">
+    <entry file="file://$PROJECT_DIR$/css/login.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.85651535">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap-treeview/js/bootstrap-treeview.js">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap-treeview/js/bootstrap-treeview.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -666,33 +671,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap-treeview/css/default.css">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap-treeview/css/default.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33235726">
           <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/css/content-manage.css">
+    <entry file="file://$PROJECT_DIR$/css/content-manage.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/createDefaultUser.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/createDefaultUser.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53571427">
           <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/pages/test/uploadFile.html">
+    <entry file="file://$PROJECT_DIR$/pages/test/uploadFile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43650794">
           <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -703,7 +706,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/jquery.cookie/jquery.cookie.js">
+    <entry file="file://$PROJECT_DIR$/libs/jquery.cookie/jquery.cookie.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -711,7 +714,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -719,23 +722,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03968254">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js">
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.42307693">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -745,64 +732,121 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/content-manage.html">
+    <entry file="file://$PROJECT_DIR$/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.75">
-          <caret line="118" column="24" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/login.js">
+    <entry file="file://$PROJECT_DIR$/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03968254">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/jquery/jquery.fileupload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8525641">
+          <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/bootstrap/js/bootstrap.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/content-detail.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.01923077">
+          <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30769232">
+          <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
           <folding>
             <element signature="n#!!doc;n#login#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/index.html">
+    <entry file="file://$PROJECT_DIR$/content-manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-26.875">
-          <caret line="43" column="15" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="15" />
+        <state vertical-scroll-proportion="-8.75">
+          <caret line="14" column="77" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/index.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.5">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
           <folding>
             <element signature="e#0#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/content-manage.js">
+    <entry file="file://$PROJECT_DIR$/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="130" column="99" selection-start-line="130" selection-start-column="99" selection-end-line="130" selection-end-column="99" />
+          <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/content-detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/content-manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
           <folding>
             <element signature="e#0#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/workspace/github/iidooo-cms/client/iidooo-cms-admin/js/common.js">
+    <entry file="file://$PROJECT_DIR$/content-detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3846154">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        <state vertical-scroll-proportion="-5.071429">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding />
         </state>
       </provider>
