@@ -111,6 +111,4 @@ public interface CmsContentMapper {
      */
     int updateStarCount(@Param("contentID") Integer contentID, @Param("isPlus") boolean isPlus);
 
-    int updateByPrimaryKey(CmsContent record);
-
 }

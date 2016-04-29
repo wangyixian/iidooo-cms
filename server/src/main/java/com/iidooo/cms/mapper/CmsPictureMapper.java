@@ -6,7 +6,13 @@ import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.po.CmsPicture;
 
 public interface CmsPictureMapper {
-    int deleteByPrimaryKey(Integer pictureID);
+    
+    /**
+     * 根据内容ID把图片列表删掉
+     * @param contentID 内容ID
+     * @return 所影响的行数
+     */
+    int deleteByContentID(Integer contentID);
 
     /**
      * 插入图片数据

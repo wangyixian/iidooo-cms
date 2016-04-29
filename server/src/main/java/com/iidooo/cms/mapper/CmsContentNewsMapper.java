@@ -25,9 +25,12 @@ public interface CmsContentNewsMapper {
      */
     CmsContentNews selectByContentID(Integer contentID);
 
-    int updateByPrimaryKeySelective(CmsContentNews record);
-
-    int updateByPrimaryKey(CmsContentNews record);
+    /**
+     * 根据ContentID更新新闻
+     * @param contentNews 更新对象
+     * @return 所影响的行数
+     */
+    int updateByContentID(CmsContentNews contentNews);
     
     /**
      * 得到指定栏目下的内容一览

@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -146,7 +147,7 @@ public class ContentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getContent", method = RequestMethod.POST)
+    @RequestMapping(value = { "/getContent", "/admin/getContent" }, method = RequestMethod.POST)
     public ResponseResult getContent(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
@@ -187,6 +188,7 @@ public class ContentController {
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
             content.setUniqueVisitorCount(uvCount);
+
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
@@ -370,10 +372,20 @@ public class ContentController {
             if (StringUtil.isNotBlank(stickyIndex) && ValidateUtil.isNumber(stickyIndex)) {
                 content.setStickyIndex(Integer.parseInt(stickyIndex));
             }
-            content.setStartShowDate(DateUtil.format(startShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
-            content.setStartShowTime(DateUtil.format(startShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
-            content.setEndShowDate(DateUtil.format(endShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
-            content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+
+            if (DateUtil.isFormat(startShowDate, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setStartShowDate(DateUtil.format(startShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
+            }
+            if (DateUtil.isFormat(startShowTime, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setStartShowTime(DateUtil.format(startShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+            }
+            if (DateUtil.isFormat(endShowDate, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setEndShowDate(DateUtil.format(endShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
+            }
+            if (DateUtil.isFormat(endShowTime, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+            }
+
             content.setRemarks(remarks);
             content.setCreateTime(new Date());
             content.setCreateUserID(userID);
@@ -390,7 +402,7 @@ public class ContentController {
                     picture.setPictureURL(pictureURL);
                     content.getPictureList().add(picture);
                 }
-                    
+
             }
 
             if (contentService.createContent(content)) {
@@ -401,12 +413,180 @@ public class ContentController {
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(content);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
             }
 
         } catch (Exception e) {
             logger.fatal(e);
             Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
             message.setDescription(e.getMessage());
+            result.setStatus(ResponseStatus.Failed.getCode());
+            result.getMessages().add(message);
+        }
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = { "/admin/updateContent" }, method = RequestMethod.POST)
+    public ResponseResult updateContent(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            // 解析获得传入的参数
+            // 必填参数
+            String contentIDStr = request.getParameter("contentID");
+            String channelIDStr = request.getParameter("channelID");
+            String userIDStr = request.getParameter("userID");
+            String contentType = request.getParameter("contentType");
+
+            if (StringUtil.isBlank(contentIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(channelIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "channelID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(channelIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "channelID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(userIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(userIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(contentType)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentType)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                // 验证失败，返回message
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            int contentID = Integer.parseInt(contentIDStr);
+            int channelID = Integer.parseInt(channelIDStr);
+            int userID = Integer.parseInt(userIDStr);
+
+            // 获取可选参数
+            String contentTitle = request.getParameter("contentTitle");
+            String contentSubTitle = request.getParameter("contentSubTitle");
+            String contentImageTitle = request.getParameter("contentImageTitle");
+            String metaTitle = request.getParameter("metaTitle");
+            String metaKeywords = request.getParameter("metaKeywords");
+            String metaDescription = request.getParameter("metaDescription");
+            String contentSummary = request.getParameter("contentSummary");
+            String contentBody = request.getParameter("contentBody");
+            String isSilent = request.getParameter("isSilent");
+            String stickyIndex = request.getParameter("stickyIndex");
+            String remarks = request.getParameter("remarks");
+            String startShowDate = request.getParameter("startShowDate");
+            String startShowTime = request.getParameter("startShowTime");
+            String endShowDate = request.getParameter("endShowDate");
+            String endShowTime = request.getParameter("endShowTime");
+            String pictureListStr = request.getParameter("pictureList");
+
+            // 工厂创建对象
+            CmsContent content = null;
+            if (contentType.equals(ContentType.Default.getCode())) {
+                content = new CmsContent();
+            } else if (contentType.equals(ContentType.News.getCode())) {
+                content = new CmsContentNews();
+
+                // 设置CmsContentNews参数
+                String source = request.getParameter("source");
+                String sourceURL = request.getParameter("sourceURL");
+                CmsContentNews contentNews = (CmsContentNews) content;
+                contentNews.setSource(source);
+                contentNews.setSourceURL(sourceURL);
+            }
+
+            // 设置CmsContent属性
+            content.setContentID(contentID);
+            content.setChannelID(channelID);
+            content.setContentType(contentType);
+            content.setContentTitle(contentTitle);
+            content.setMetaKeywords(metaKeywords);
+            content.setContentSubTitle(contentSubTitle);
+            content.setContentImageTitle(contentImageTitle);
+            content.setMetaTitle(metaTitle);
+            content.setMetaDescription(metaDescription);
+            content.setContentSummary(contentSummary);
+            content.setContentBody(contentBody);
+            if (StringUtil.isNotBlank(isSilent) && ValidateUtil.isNumber(isSilent)) {
+                content.setIsSilent(Integer.parseInt(isSilent));
+            }
+            if (StringUtil.isNotBlank(stickyIndex) && ValidateUtil.isNumber(stickyIndex)) {
+                content.setStickyIndex(Integer.parseInt(stickyIndex));
+            }
+
+            if (DateUtil.isFormat(startShowDate, DateUtil.DATE_HYPHEN)) {
+                content.setStartShowDate(startShowDate);
+            } else if (DateUtil.isFormat(startShowDate, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setStartShowDate(DateUtil.format(startShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
+            }
+            if (DateUtil.isFormat(startShowTime, DateUtil.TIME_COLON)) {
+                content.setStartShowTime(startShowTime);
+            } else if (DateUtil.isFormat(startShowTime, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setStartShowTime(DateUtil.format(startShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+            }
+            if (DateUtil.isFormat(endShowDate, DateUtil.DATE_HYPHEN)) {
+                content.setEndShowDate(endShowDate);
+            } else if (DateUtil.isFormat(endShowDate, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setEndShowDate(DateUtil.format(endShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
+            }
+            if (DateUtil.isFormat(endShowTime, DateUtil.TIME_COLON)) {
+                content.setEndShowTime(endShowTime);
+            } else if (DateUtil.isFormat(endShowTime, DateUtil.DATE_TIME_HYPHEN)) {
+                content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+            }
+
+            content.setRemarks(remarks);
+            content.setUpdateTime(new Date());
+            content.setUpdateUserID(userID);
+
+            if (StringUtil.isNotBlank(pictureListStr)) {
+                JSONArray jsonArray = JSONArray.fromObject(pictureListStr);
+                for (Object object : jsonArray) {
+                    String pictureURL = object.toString();
+                    String pictureName = FileUtil.getFileName(pictureURL);
+                    CmsPicture picture = new CmsPicture();
+                    picture.setPictureName(pictureName);
+                    picture.setPictureURL(pictureURL);
+                    content.getPictureList().add(picture);
+                }
+            }
+
+            if (contentService.updateContent(content)) {
+                content = contentService.getContent(content.getContentID());
+            }
+
+            if (content == null) {
+                result.setStatus(ResponseStatus.UpdateFailed.getCode());
+            } else {
+                result.setStatus(ResponseStatus.OK.getCode());
+                result.setData(content);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+            }
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
             result.setStatus(ResponseStatus.Failed.getCode());
             result.getMessages().add(message);
         }

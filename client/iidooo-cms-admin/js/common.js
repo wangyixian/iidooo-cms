@@ -1,15 +1,18 @@
 /**
  * Created by Ethan on 16/4/6.
  */
-var client = "http://localhost:63342/iidooo-cms-admin";
-var serverURL = "http://localhost:8080/iidooo-cms";
-//var client = "http://www.iidooo.com/iidooo-cms-admin";
-//var serverURL = "http://www.iidooo.com/iidooo-cms";
+//var client = "http://localhost:63342/iidooo-cms-admin";
+//var serverURL = "http://localhost:8080/iidooo-cms";
+var client = "http://toxic.iidooo.com:8080/iidooo-cms-admin";
+var serverURL = "http://toxic.iidooo.com:8080/iidooo-cms";
 
 var appID = "CMSSystem";
 var secret = "e96b669ba65848bcb20f5de53dcc370e";
 var accessToken = "";
 var userID = "";
+
+// 页面操作的模式，1:创建 2:修改
+var pageMode = 1;
 
 var getUserByTokenURL = "/admin/getUserByToken";
 
@@ -20,6 +23,29 @@ var searchContentListURL = "/admin/searchContentList";
 var uploadFileURL = "/admin/uploadFile";
 
 var createContentURL = "/admin/createContent";
+
+var getContentURL = "/admin/getContent";
+
+var updateContentURL = "/admin/updateContent";
+
+var CmsContent = {
+    contentID: 0
+};
+
+var CmsPicture = {
+    contentID: 0,
+    createTime: 0,
+    createUserID: 0,
+    isDelete: 0,
+    pictureID: 0,
+    pictureName: "",
+    pictureURL: "",
+    remarks: "",
+    sequence: 0,
+    updateTime: 0,
+    updateUserID: 0,
+    version: 0,
+}
 
 // 日期格式化
 Date.prototype.format = function (format) {
@@ -52,7 +78,7 @@ function ajaxPost(url, data, callback) {
             if (result && null != result.status && ((result.status + "").indexOf("20") == 0)) {
                 callback(result.data);
             } else {
-                alert("请求接收但处理失败，请联系管理员！");
+                alert("服务器端处理失败，出现异常，请联系管理员！");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

@@ -1,6 +1,5 @@
 package com.iidooo.cms.service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.iidooo.cms.model.po.CmsContent;
@@ -22,6 +21,8 @@ public interface ContentService {
     List<CmsContent> getContentList(CmsContent cmsContent, String startDate, String endDate, Page page);
     
     boolean createContent(CmsContent content) throws Exception;
+    
+    boolean updateContent(CmsContent content) throws Exception;
         
     /**
      * 得到点赞数

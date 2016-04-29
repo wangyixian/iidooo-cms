@@ -25,9 +25,11 @@
     from CMS_PICTURE
     where PictureID = #{pictureID,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  
+  <!-- 根据内容ID把图片列表删掉 -->
+  <delete id="deleteByContentID" parameterType="java.lang.Integer">
     delete from CMS_PICTURE
-    where PictureID = #{pictureID,jdbcType=INTEGER}
+    where ContentID = #{contentID,jdbcType=INTEGER}
   </delete>
   
   <!-- 插入图片数据 -->

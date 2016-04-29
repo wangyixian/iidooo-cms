@@ -31,13 +31,14 @@
 		<result column="Version" jdbcType="INTEGER" property="version" />
 		<association select="selectCreateUser" column="createUserID" property="createUser" javaType="com.iidooo.core.model.po.SecurityUser"></association>
 
+		<collection select="selectPictureList" column="contentID" property="pictureList" ofType="com.iidooo.cms.model.po.CmsPicture"></collection>
 		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.vo.CmsTagInfo"></collection>
 
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContent">
 		<result column="ContentBody" jdbcType="LONGVARCHAR" property="contentBody" />
 	</resultMap>
-
+	
 	<resultMap id="TagListResultMap" type="com.iidooo.cms.model.vo.CmsTagInfo">
 		<id column="TagID" property="tagID" jdbcType="INTEGER" />
 		<result column="TagName" property="tagName" jdbcType="VARCHAR" />
@@ -71,6 +72,32 @@
 		select T.TagID, T.TagName, T.Remarks from CMS_CONTENT_TAG CT join
 		CMS_TAG T on CT.TagID = T.TagID and
 		CT.IsDelete = 0 and T.IsDelete = 0 and ContentID = #{contentID,jdbcType=INTEGER};
+	</select>
+	
+	<!-- 根据CmsContent表中的ContentID查询CmsPicture信息 -->
+	<resultMap id="PictureListResultMap" type="com.iidooo.cms.model.po.CmsPicture">
+		<id column="PictureID" jdbcType="INTEGER" property="pictureID" />
+    	<result column="ContentID" jdbcType="INTEGER" property="contentID" />
+    	<result column="PictureName" jdbcType="VARCHAR" property="pictureName" />
+    	<result column="PictureURL" jdbcType="VARCHAR" property="pictureURL" />
+    	<result column="Sequence" jdbcType="INTEGER" property="sequence" />
+    	<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    	<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    	<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
+	    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+	    <result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
+	    <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
+	    <result column="Version" jdbcType="INTEGER" property="version" />
+	</resultMap>
+	<sql id="Picture_Column_List">
+	    P.PictureID, P.ContentID, P.PictureName, P.PictureURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID, 
+	    P.UpdateTime, P.UpdateUserID, P.IsDelete, P.Version
+  	</sql>
+	<select id="selectPictureList" parameterType="java.lang.Integer" resultMap="PictureListResultMap">
+		select 
+		<include refid="Picture_Column_List" /> from CMS_PICTURE P 
+		where P.IsDelete = 0 and P.ContentID = #{contentID,jdbcType=INTEGER}
+		order by P.Sequence asc, P.CreateTime desc
 	</select>
 
 	<select id="selectByContentID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
@@ -377,47 +404,14 @@
 			<if test="updateTime != null">
 				UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="updateUser != null">
-				UpdateUser = #{updateUser,jdbcType=INTEGER},
+			<if test="updateUserID != null">
+				UpdateUserID = #{updateUserID,jdbcType=INTEGER},
 			</if>
-			<if test="version != null">
 				Version = Version + 1,
-			</if>
 			<if test="contentBody != null">
 				ContentBody = #{contentBody,jdbcType=LONGVARCHAR},
 			</if>
 		</set>
-		where ContentID = #{contentID,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContent">
-		update CMS_CONTENT
-		set ChannelID = #{channelID,jdbcType=INTEGER},
-		ContentType =
-		#{contentType,jdbcType=VARCHAR},
-		ContentTitle = #{contentTitle,jdbcType=VARCHAR},
-		ContentSubTitle = #{contentSubTitle,jdbcType=VARCHAR},
-		ContentImageTitle = #{contentImageTitle,jdbcType=VARCHAR},
-		MetaTitle = #{metaTitle,jdbcType=VARCHAR},
-		MetaKeywords = #{metaKeywords,jdbcType=VARCHAR},
-		MetaDescription = #{metaDescription,jdbcType=VARCHAR},
-		ContentSummary = #{contentSummary,jdbcType=VARCHAR},
-		IsSilent = #{isSilent,jdbcType=INTEGER},
-		StickyIndex = #{stickyIndex,jdbcType=INTEGER},
-		PageViewCount = #{pageViewCount,jdbcType=INTEGER},
-		UniqueVisitorCount =
-		#{uniqueVisitorCount,jdbcType=INTEGER},
-		StarCount = #{starCount,jdbcType=INTEGER},
-		CommentCount = #{commentCount,jdbcType=INTEGER},
-		Remarks =
-		#{remarks,jdbcType=VARCHAR},
-		CreateTime = #{createTime,jdbcType=TIMESTAMP},
-		CreateUser = #{createUser,jdbcType=INTEGER},
-		UpdateTime =
-		#{updateTime,jdbcType=TIMESTAMP},
-		UpdateUser = #{updateUser,jdbcType=INTEGER},
-		IsDelete = #{isDelete,jdbcType=INTEGER},
-		Version =
-		#{version,jdbcType=INTEGER}
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
 

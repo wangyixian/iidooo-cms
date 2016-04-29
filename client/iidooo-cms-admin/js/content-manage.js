@@ -105,7 +105,6 @@ function search() {
         dataType: 'json',
         success: function (result) {
             if (result.status == 200) {
-                console.info(result);
                 var $tableSearcResult = $("#tableSearcResult tbody");
 
                 // 先清空表格数据
@@ -123,7 +122,7 @@ function search() {
                     var $tdCreateUserID = $("<td>" + content.createUser.userName + "</td>");
                     var $tdCreateTime = $("<td>" + new Date(content.createTime).format('yyyy-MM-dd hh:mm:ss') + "</td>");
                     var $tdPageViewCount = $("<td>" + content.pageViewCount + "</td>");
-                    var $tdOption = $("<td>详细 | 删除 | 取消置顶</td>");
+                    var $tdOption = $("<td><a id='btnModify' href='#'>修改</a> | <a id='btnDelete' href='#'>删除</a> | <a id='btnSticky' href='#'>置顶</a></td>");
 
                     $tr.append($tdContentID);
                     $tr.append($tdChannelID);
@@ -136,14 +135,35 @@ function search() {
                     $tr.append($tdOption);
 
                     $tableSearcResult.append($tr);
+
+                    $("#btnModify").attr("id", "btnModify" + i);
+                    $("#btnDelete").attr("id", "btnDelete" + i);
+                    $("#btnSticky").attr("id", "btnSticky" + i);
+
+                    $("#btnModify" + i).attr("onclick", "modifyContent(" + content.contentID + ")");
+                    $("#btnDelete" + i).attr("onclick", "deleteContent(" + content.contentID + ")");
+                    $("#btnSticky" + i).attr("onclick", "stickyContent(" + content.contentID + ")");
                 }
             }
         }
     });
 }
 
-function create() {
-    contentDetailMode = "1";
+$("#btnCreate").bind("click", function () {
+    pageMode = 1;
     loadPage("/content-detail.html", "content-manage");
 
+});
+
+function modifyContent(contentID) {
+    pageMode = 2;
+    CmsContent.contentID = contentID;
+    //alert(contentID);
+    loadPage("/content-detail.html", "content-manage");
+}
+
+function deleteContent() {
+}
+
+function stickyContent() {
 }

@@ -72,30 +72,30 @@ public class ContentServiceImpl implements ContentService {
             } else {
                 result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent, page);
             }
-            if (result.size() > 0) {
-
-                List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);
-                // Key: ContentID
-                // Value: Picture List
-                Map<Integer, List<CmsPicture>> picturesMap = new HashMap<Integer, List<CmsPicture>>();
-                for (CmsPicture item : pictures) {
-                    if (picturesMap.containsKey(item.getContentID())) {
-                        picturesMap.get(item.getContentID()).add(item);
-                    } else {
-                        List<CmsPicture> tempPictureList = new ArrayList<CmsPicture>();
-                        tempPictureList.add(item);
-                        picturesMap.put(item.getContentID(), tempPictureList);
-                    }
-                }
-
-                // Put the picture list into content
-                for (CmsContent item : result) {
-                    if (picturesMap.containsKey(item.getContentID())) {
-                        List<CmsPicture> pictureList = picturesMap.get(item.getContentID());
-                        item.setPictureList(pictureList);
-                    }
-                }
-            }
+//            if (result.size() > 0) {
+//
+//                List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);
+//                // Key: ContentID
+//                // Value: Picture List
+//                Map<Integer, List<CmsPicture>> picturesMap = new HashMap<Integer, List<CmsPicture>>();
+//                for (CmsPicture item : pictures) {
+//                    if (picturesMap.containsKey(item.getContentID())) {
+//                        picturesMap.get(item.getContentID()).add(item);
+//                    } else {
+//                        List<CmsPicture> tempPictureList = new ArrayList<CmsPicture>();
+//                        tempPictureList.add(item);
+//                        picturesMap.put(item.getContentID(), tempPictureList);
+//                    }
+//                }
+//
+//                // Put the picture list into content
+//                for (CmsContent item : result) {
+//                    if (picturesMap.containsKey(item.getContentID())) {
+//                        List<CmsPicture> pictureList = picturesMap.get(item.getContentID());
+//                        item.setPictureList(pictureList);
+//                    }
+//                }
+//            }
 
             return result;
         } catch (Exception e) {
@@ -159,6 +159,41 @@ public class ContentServiceImpl implements ContentService {
         }
     }
 
+    @Override
+    @Transactional
+    public boolean updateContent(CmsContent content) throws Exception{
+        try {
+            if (cmsContentDao.updateByContentID(content) <= 0) {
+                throw new Exception();
+            }
+
+            if (content.getContentType().equals(ContentType.News.getCode())) {
+                CmsContentNews cmsContentNews = (CmsContentNews) content;
+                if (cmsContentNewsDao.updateByContentID(cmsContentNews) <= 0) {
+                    throw new Exception();
+                }
+            }
+
+            // 为了处理直观，先全部删除再新建
+            cmsPictureDao.deleteByContentID(content.getContentID());
+            for (CmsPicture picture : content.getPictureList()) {
+                picture.setCreateTime(new Date());
+                picture.setCreateUserID(content.getCreateUserID());
+                picture.setUpdateTime(new Date());
+                picture.setUpdateUserID(content.getCreateUserID());
+                picture.setContentID(content.getContentID());
+                if (cmsPictureDao.insert(picture) <= 0) {
+                    throw new Exception();
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+    
     @Override
     public int getUserContentCount(Integer userID) {
         try {

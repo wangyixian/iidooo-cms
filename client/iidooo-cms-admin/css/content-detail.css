@@ -1,4 +1,29 @@
-#txtSummaryPreview{
-    height: 100%;
-    overflow: hidden;
+#contentSummary{
+    height: 300px;
+}
+
+#txtSummaryPreview {
+    height: 300px;
+}
+
+#contentBody{
+    height: 500px;
+}
+
+#txtContentBodyPreview{
+    height: 550px;
+}
+
+.markdownPreview {
+    overflow-y: scroll;
+    word-break: break-all;
+    font-size: 8px;
+    background-color: lightcyan;
+}
+
+.markdownPreview pre{
+    background-color: rgba(245, 245, 245, 1.0);
+    border:1px solid rgba(220, 220, 220, 1.0);
+    white-space: pre-wrap;
+    padding: 10px;
 }

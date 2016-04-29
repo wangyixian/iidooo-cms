@@ -32,6 +32,7 @@
 		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
 		<result column="Version" jdbcType="INTEGER" property="version" />
 		<association column="createUserID" property="createUser" select="selectCreateUser" javaType="com.iidooo.core.model.po.SecurityUser"></association>
+		<collection select="selectPictureList" column="contentID" property="pictureList" ofType="com.iidooo.cms.model.po.CmsPicture"></collection>
 		<collection select="selectTagList" column="contentID" property="tagList" ofType="com.iidooo.cms.model.vo.CmsTagInfo"></collection>
 
 	</resultMap>
@@ -72,6 +73,32 @@
 		select T.TagID, T.TagName, T.Remarks from CMS_CONTENT_TAG CT join
 		CMS_TAG T on CT.TagID = T.TagID and
 		CT.IsDelete = 0 and T.IsDelete = 0 and ContentID = #{contentID,jdbcType=INTEGER};
+	</select>
+	
+	<!-- 根据CmsContent表中的ContentID查询CmsPicture信息 -->
+	<resultMap id="PictureListResultMap" type="com.iidooo.cms.model.po.CmsPicture">
+		<id column="PictureID" jdbcType="INTEGER" property="pictureID" />
+    	<result column="ContentID" jdbcType="INTEGER" property="contentID" />
+    	<result column="PictureName" jdbcType="VARCHAR" property="pictureName" />
+    	<result column="PictureURL" jdbcType="VARCHAR" property="pictureURL" />
+    	<result column="Sequence" jdbcType="INTEGER" property="sequence" />
+    	<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    	<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    	<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
+	    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+	    <result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
+	    <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
+	    <result column="Version" jdbcType="INTEGER" property="version" />
+	</resultMap>
+	<sql id="Picture_Column_List">
+	    P.PictureID, P.ContentID, P.PictureName, P.PictureURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID, 
+	    P.UpdateTime, P.UpdateUserID, P.IsDelete, P.Version
+  	</sql>
+	<select id="selectPictureList" parameterType="java.lang.Integer" resultMap="PictureListResultMap">
+		select 
+		<include refid="Picture_Column_List" /> from CMS_PICTURE P 
+		where P.IsDelete = 0 and P.ContentID = #{contentID,jdbcType=INTEGER}
+		order by P.Sequence asc, P.CreateTime desc
 	</select>
 
 	<select id="selectByContentID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
@@ -144,7 +171,8 @@
 		</trim>
 	</insert>
 
-	<update id="updateByPrimaryKeySelective" parameterType="com.iidooo.cms.model.po.CmsContentNews">
+	<!-- 根据ContentID更新新闻 -->
+	<update id="updateByContentID" parameterType="com.iidooo.cms.model.po.CmsContentNews">
 		update CMS_CONTENT_NEWS
 		<set>
 			<if test="source != null">
@@ -154,13 +182,6 @@
 				SourceURL = #{sourceURL,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where ContentID = #{contentID,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.iidooo.cms.model.po.CmsContentNews">
-		update CMS_CONTENT_NEWS
-		set Source = #{source,jdbcType=VARCHAR},
-		SourceURL =
-		#{sourceURL,jdbcType=VARCHAR}
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
 
