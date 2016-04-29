@@ -56,28 +56,6 @@ public class ContentController {
     private DictItemService dictItemService;
 
     @ResponseBody
-    @RequestMapping(value = "/admin/getContentTypeList", method = RequestMethod.POST)
-    public ResponseResult getContentTypeList(HttpServletRequest request, HttpServletResponse response) {
-        ResponseResult result = new ResponseResult();
-        try {
-
-            List<DictItem> dictItems = dictItemService.getDictItemsByClassCode(CmsDictContant.DICT_CLASS_CONTENT_TYPE);
-
-            // 返回找到的内容对象
-            result.setStatus(ResponseStatus.OK.getCode());
-            result.setData(dictItems);
-
-        } catch (Exception e) {
-            logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.toString());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
-        }
-        return result;
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/admin/searchContentList", method = RequestMethod.POST)
     public ResponseResult searchContentList(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
@@ -87,6 +65,7 @@ public class ContentController {
             String contentType = request.getParameter("contentType");
             String startDate = request.getParameter("startDate");
             String endDate = request.getParameter("endDate");
+            String status = request.getParameter("status");
 
             if (StringUtil.isNotBlank(startDate)) {
                 startDate = startDate + " 00:00:00";
@@ -100,7 +79,7 @@ public class ContentController {
             cmsContent.setChannelID(Integer.valueOf(channelID));
             cmsContent.setContentTitle(contentTitle);
             cmsContent.setContentType(contentType);
-
+            cmsContent.setStatus(status);
             int count = contentService.getContentListCount(cmsContent, startDate, endDate);
 
             List<CmsContent> contentList = contentService.getContentList(cmsContent, startDate, endDate, null);
@@ -339,6 +318,7 @@ public class ContentController {
             String endShowDate = request.getParameter("endShowDate");
             String endShowTime = request.getParameter("endShowTime");
             String pictureListStr = request.getParameter("pictureList");
+            String status = request.getParameter("status");
 
             // 工厂创建对象
             CmsContent content = null;
@@ -373,17 +353,31 @@ public class ContentController {
                 content.setStickyIndex(Integer.parseInt(stickyIndex));
             }
 
-            if (DateUtil.isFormat(startShowDate, DateUtil.DATE_TIME_HYPHEN)) {
+            if (DateUtil.isFormat(startShowDate, DateUtil.DATE_HYPHEN)) {
+                content.setStartShowDate(startShowDate);
+            } else if (DateUtil.isFormat(startShowDate, DateUtil.DATE_TIME_HYPHEN)) {
                 content.setStartShowDate(DateUtil.format(startShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
             }
-            if (DateUtil.isFormat(startShowTime, DateUtil.DATE_TIME_HYPHEN)) {
+            if (DateUtil.isFormat(startShowTime, DateUtil.TIME_COLON)) {
+                content.setStartShowTime(startShowTime);
+            } else if (DateUtil.isFormat(startShowTime, DateUtil.DATE_TIME_HYPHEN)) {
                 content.setStartShowTime(DateUtil.format(startShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
             }
-            if (DateUtil.isFormat(endShowDate, DateUtil.DATE_TIME_HYPHEN)) {
+            if (DateUtil.isFormat(endShowDate, DateUtil.DATE_HYPHEN)) {
+                content.setEndShowDate(endShowDate);
+            } else if (DateUtil.isFormat(endShowDate, DateUtil.DATE_TIME_HYPHEN)) {
                 content.setEndShowDate(DateUtil.format(endShowDate, DateUtil.DATE_TIME_HYPHEN, DateUtil.DATE_HYPHEN));
             }
-            if (DateUtil.isFormat(endShowTime, DateUtil.DATE_TIME_HYPHEN)) {
+            if (DateUtil.isFormat(endShowTime, DateUtil.TIME_COLON)) {
+                content.setEndShowTime(endShowTime);
+            } else if (DateUtil.isFormat(endShowTime, DateUtil.DATE_TIME_HYPHEN)) {
                 content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
+            }
+
+            if (StringUtil.isNotBlank(status) && ValidateUtil.isNumber(status)) {
+                content.setStatus(status);
+            } else {
+                content.setStatus("0");
             }
 
             content.setRemarks(remarks);
@@ -498,7 +492,8 @@ public class ContentController {
             String endShowDate = request.getParameter("endShowDate");
             String endShowTime = request.getParameter("endShowTime");
             String pictureListStr = request.getParameter("pictureList");
-
+            String status = request.getParameter("status");
+            
             // 工厂创建对象
             CmsContent content = null;
             if (contentType.equals(ContentType.Default.getCode())) {
@@ -553,7 +548,11 @@ public class ContentController {
             } else if (DateUtil.isFormat(endShowTime, DateUtil.DATE_TIME_HYPHEN)) {
                 content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
             }
-
+            
+            if (StringUtil.isNotBlank(status) && ValidateUtil.isNumber(status)) {
+                content.setStatus(status);
+            }
+            
             content.setRemarks(remarks);
             content.setUpdateTime(new Date());
             content.setUpdateUserID(userID);

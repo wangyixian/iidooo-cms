@@ -7,6 +7,8 @@ $(function () {
 
     initSelContentType("contentType");
 
+    initSelContentStatus("status");
+
     $('.form_date').datetimepicker({
         weekStart: 1,
         todayBtn: 1,
@@ -53,8 +55,10 @@ function initForModifyMode() {
         $("#contentTitle").val(data.contentTitle);
         $("#contentSubTitle").val(data.contentSubTitle);
         $("#contentImageTitle").val(data.contentImageTitle);
-        if (data.isSilent = "1") {
-            $("#isSilent").attr("checked", "checked");
+        if (data.isSilent == "1") {
+            $("#isSilent").attr("checked", true);
+        } else {
+            $("#isSilent").attr("checked", false);
         }
         $("#stickyIndex").val(data.stickyIndex);
         $("#metaTitle").val(data.metaTitle);
@@ -65,10 +69,11 @@ function initForModifyMode() {
         $("#startShowDate").val(data.startShowDate);
         $("#startShowTime").val(data.startShowTime);
         $("#endShowDate").val(data.endShowDate);
-        $("#endShowTime").val();
+        $("#endShowTime").val(data.endShowTime);
+        $("#status").val(data.status);
         $("#source").val(data.source);
         $("#sourceURL").val(data.sourceURL);
-
+        console.log(data);
 
         if (data.pictureList.length > 0) {
             $("#divContentImageList").attr("class", "show");
@@ -99,6 +104,7 @@ function initForModifyMode() {
             });
         }
 
+        console.log(data);
         changeContentType();
     };
     ajaxPost(url, data, callback);
@@ -305,6 +311,7 @@ $("#btnSave").bind("click", function () {
     data.startShowTime = $("#startShowTime").val();
     data.endShowDate = $("#endShowDate").val();
     data.endShowTime = $("#endShowTime").val();
+    data.status = $("#status").val();
     data.source = $("#source").val();
     data.sourceURL = $("#sourceURL").val();
 

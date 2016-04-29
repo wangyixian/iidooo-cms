@@ -22,6 +22,7 @@
 		<result column="StartShowTime" property="startShowTime" jdbcType="VARCHAR" />
 		<result column="EndShowDate" property="endShowDate" jdbcType="VARCHAR" />
 		<result column="EndShowTime" property="endShowTime" jdbcType="VARCHAR" />
+    	<result column="Status" property="status" jdbcType="VARCHAR" />
 		<result column="Source" property="source" jdbcType="VARCHAR" />
 		<result column="SourceURL" property="sourceURL" jdbcType="VARCHAR" />
 		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
@@ -51,7 +52,7 @@
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
 		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowDate, C.StartShowTime, 
-    	C.EndShowDate, C.EndShowTime, N.Source,
+    	C.EndShowDate, C.EndShowTime, C.Status, N.Source,
 		N.SourceURL, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
@@ -117,7 +118,7 @@
 		,
 		<include refid="Blob_Column_List" />
 		from CMS_CONTENT_NEWS N
-		join CMS_CONTENT C on C.IsDelete = 0 and N.ContentID = C.ContentID
+		join CMS_CONTENT C on C.IsDelete = 0 and C.Status = 0 and N.ContentID = C.ContentID
 		join CMS_CHANNEL L on L.IsDelete = 0 and C.ChannelID =
 		L.ChannelID
 		and L.ChannelPath = #{channelPath,jdbcType=VARCHAR}

@@ -4,11 +4,13 @@
 
 var channelMap = {}; // Key: channelID Value: channelName
 var contentTypeMap = {}; // Key: dictItemCode Value: dictItemName
+var contentStatusMap = {}; // Key: dictItemCode Value: dictItemName
 
 $(function () {
     //console.log("content-manage init");
     initSelChannelList("selChannelList");
     initSelContentType("selContentType");
+    initSelContentStatus("status");
     $('.form_date').datetimepicker({
         weekStart: 1,
         todayBtn: 1,
@@ -55,11 +57,12 @@ function initSelChannelList(id) {
 function initSelContentType(id) {
     $.ajax({
         type: 'POST',
-        url: serverURL + getContentTypeListURL,
+        url: serverURL + getDictItemListURL,
         data: {
             appID: appID,
             secret: secret,
-            accessToken: accessToken
+            accessToken: accessToken,
+            dictClassCode: "DICT_CLASS_CONTENT_TYPE"
         },
         dataType: 'json',
         success: function (result) {
@@ -82,12 +85,44 @@ function initSelContentType(id) {
     });
 }
 
+function initSelContentStatus(id) {
+    $.ajax({
+        type: 'POST',
+        url: serverURL + getDictItemListURL,
+        data: {
+            appID: appID,
+            secret: secret,
+            accessToken: accessToken,
+            dictClassCode: "DICT_CLASS_CONTENT_STATUS"
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.status == 200) {
+                //console.info(result);
+                var $selContentStatus = $("#" + id);
+                for (var i = 0; i < result.data.length; i++) {
+                    var dictItem = result.data[i];
+
+                    // 记录到contentTypeMap
+                    contentStatusMap[dictItem.dictItemCode] = dictItem.dictItemName;
+
+                    var $option = $("<option></option>");
+                    $option.attr("value", dictItem.dictItemCode);
+                    $option.text(dictItem.dictItemName);
+                    $selContentStatus.append($option);
+                }
+            }
+        }
+    });
+}
+
 function search() {
     var channelID = $("#selChannelList").val();
     var contentTitle = $("#inputContentTitle").val();
     var contentType = $("#selContentType").val();
     var startDate = $("#inputStartDate").val();
     var endDate = $("#inputEndDate").val();
+    var status = $("#status").val();
 
     $.ajax({
         type: 'POST',
@@ -100,7 +135,8 @@ function search() {
             contentTitle: contentTitle,
             contentType: contentType,
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            status: status
         },
         dataType: 'json',
         success: function (result) {
@@ -119,6 +155,7 @@ function search() {
                     var $tdContentTitle = $("<td>" + content.contentTitle + "</td>");
                     var $tdStickyIndex = $("<td>" + content.stickyIndex + "</td>");
                     var $tdContentType = $("<td>" + contentTypeMap[content.contentType] + "</td>");
+                    var $tdStatus = $("<td>" + contentStatusMap[content.status] + "</td>");
                     var $tdCreateUserID = $("<td>" + content.createUser.userName + "</td>");
                     var $tdCreateTime = $("<td>" + new Date(content.createTime).format('yyyy-MM-dd hh:mm:ss') + "</td>");
                     var $tdPageViewCount = $("<td>" + content.pageViewCount + "</td>");
@@ -129,6 +166,7 @@ function search() {
                     $tr.append($tdContentTitle);
                     $tr.append($tdStickyIndex);
                     $tr.append($tdContentType);
+                    $tr.append($tdStatus);
                     $tr.append($tdCreateUserID);
                     $tr.append($tdCreateTime);
                     $tr.append($tdPageViewCount);
@@ -152,7 +190,6 @@ function search() {
 $("#btnCreate").bind("click", function () {
     pageMode = 1;
     loadPage("/content-detail.html", "content-manage");
-
 });
 
 function modifyContent(contentID) {

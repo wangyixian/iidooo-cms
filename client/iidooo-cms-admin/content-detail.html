@@ -132,7 +132,7 @@
                         <div class="col-xs-4 control-label">
                             预览
                         </div>
-                        <div  id="txtContentBodyPreview" class="col-xs-8 markdownPreview">
+                        <div id="txtContentBodyPreview" class="col-xs-8 markdownPreview">
                         </div>
                     </div>
                 </div>
@@ -197,27 +197,36 @@
                     </div>
                     <div class="col-xs-6">
                         <div class="col-xs-4 control-label">
-                            <label>禁止评论</label>
+                            <label>内容状态
+                            </label>
                         </div>
-                        <div class="col-xs-8">
-                            <input id="isSilent" type="checkbox" class="checkbox">
+                        <div class="col-xs-6">
+                            <select id="status" class="form-control">
+                            </select>
+                        </div>
+                        <div class="col-xs-2 checkbox">
+                            <label>
+                                <input id="isSilent" type="checkbox"/>禁言
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-            <div class="row">
+                <div class="row">
                     <div class="col-xs-6">
                         <div class="col-xs-4 control-label">
                             <label>显示开始日期</label>
                         </div>
                         <div class="col-xs-8">
                             <div class="input-group date form_date" data-date=""
-                                 data-date-format="yyyy-mm-dd" data-link-field="startShowDate" data-link-format="yyyy-mm-dd">
+                                 data-date-format="yyyy-mm-dd" data-link-field="startShowDate"
+                                 data-link-format="yyyy-mm-dd">
                                 <input id="startShowDate" class="form-control" type="text" value="" readonly>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
                     </div>
@@ -227,10 +236,12 @@
                         </div>
                         <div class="col-xs-8">
                             <div class="input-group date form_date" data-date=""
-                                 data-date-format="yyyy-mm-dd" data-link-field="endShowDate" data-link-format="yyyy-mm-dd">
+                                 data-date-format="yyyy-mm-dd" data-link-field="endShowDate"
+                                 data-link-format="yyyy-mm-dd">
                                 <input id="endShowDate" class="form-control" type="text" value="" readonly>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
                     </div>
@@ -238,14 +249,15 @@
             </div>
 
             <div class="form-group">
-            <div class="row">
+                <div class="row">
                     <div class="col-xs-6">
                         <div class="col-xs-4 control-label">
                             <label>显示开始时间</label>
                         </div>
                         <div class="col-xs-8">
                             <div class="input-group date form_time" data-date=""
-                                 data-date-format="hh:ii:ss" data-link-field="startShowTime" data-link-format="hh:ii:ss">
+                                 data-date-format="hh:ii:ss" data-link-field="startShowTime"
+                                 data-link-format="hh:ii:ss">
                                 <input id="startShowTime" class="form-control" type="text" value="00:00:00" readonly>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>

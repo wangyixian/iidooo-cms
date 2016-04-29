@@ -48,6 +48,8 @@ public class CmsContent {
 
     private String endShowTime;
 
+    private String status;
+
     private String remarks;
 
     private Date createTime;
@@ -222,6 +224,14 @@ public class CmsContent {
 
     public void setEndShowTime(String endShowTime) {
         this.endShowTime = endShowTime == null ? null : endShowTime.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     public String getRemarks() {

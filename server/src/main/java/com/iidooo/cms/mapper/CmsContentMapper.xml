@@ -22,6 +22,7 @@
 		<result column="StartShowTime" property="startShowTime" jdbcType="VARCHAR" />
 		<result column="EndShowDate" property="endShowDate" jdbcType="VARCHAR" />
 		<result column="EndShowTime" property="endShowTime" jdbcType="VARCHAR" />
+    	<result column="Status" property="status" jdbcType="VARCHAR" />
 		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
 		<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
@@ -50,7 +51,7 @@
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
 		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowDate, C.StartShowTime, 
-    	C.EndShowDate, C.EndShowTime, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
+    	C.EndShowDate, C.EndShowTime, C.Status, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
@@ -111,8 +112,7 @@
 
 	<select id="selectCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CMS_CONTENT C where C.CreateUserID
-		= #{userID,jdbcType=INTEGER}
+		from CMS_CONTENT C where C.CreateUserID	= #{userID,jdbcType=INTEGER} and C.IsDelete = 0
 	</select>
 
 	<!-- 获得内容的点赞数 -->
@@ -138,12 +138,15 @@
 		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
 			and C.ContentTitle like "%${cmsContent.contentTitle}%" 
 		</if>
-		<if test="cmsContent.contentType != null and cmsContent.contentType != 0">
+		<if test="cmsContent.contentType != null and cmsContent.contentType != '' and cmsContent.contentType != 0">
 			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
 		</if>
 		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
 			and C.CreateTime &gt;= #{startDate}
 			and C.CreateTime &lt;= #{endDate}
+		</if>
+		<if test="cmsContent.status != null and cmsContent.status != ''">
+			and C.Status = #{cmsContent.status,jdbcType=VARCHAR}
 		</if>
 	</select>
 	
@@ -167,6 +170,9 @@
 		</if>
 		<if test="endDate != null and endDate != ''">
 			and C.CreateTime &lt;= #{endDate}
+		</if>
+		<if test="cmsContent.status != null and cmsContent.status != ''">
+			and C.Status = #{cmsContent.status,jdbcType=VARCHAR}
 		</if>
 		<if test="page != null">
 			order by ${page.sortField} ${page.sortType} 
@@ -237,6 +243,9 @@
 			</if>
 			<if test="endShowTime != null">
 				EndShowTime,
+			</if>
+			<if test="status != null">
+				Status,
 			</if>
 			<if test="remarks != null">
 				Remarks,
@@ -315,6 +324,9 @@
 			</if>
 			<if test="endShowTime != null">
 				#{endShowTime,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -398,6 +410,9 @@
 			<if test="endShowTime != null">
 				EndShowTime = #{endShowTime,jdbcType=VARCHAR},
 			</if>
+			<if test="status != null">
+				Status = #{status,jdbcType=VARCHAR},
+			</if>
 			<if test="remarks != null">
 				Remarks = #{remarks,jdbcType=VARCHAR},
 			</if>
@@ -451,7 +466,7 @@
 		<include refid="Blob_Column_List" />
 		from CMS_CONTENT C
 		join CMS_CHANNEL L on
-		C.IsDelete = 0 and L.IsDelete = 0 and C.ChannelID = L.ChannelID
+		C.IsDelete = 0 and C.Status = '0' and L.IsDelete = 0 and C.ChannelID = L.ChannelID
 		and L.ChannelPath =
 		#{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '1'

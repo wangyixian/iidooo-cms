@@ -1,8 +1,15 @@
 /**
  * Created by Ethan on 16/4/6.
  */
+ // 开发环境
 //var client = "http://localhost:63342/iidooo-cms-admin";
 //var serverURL = "http://localhost:8080/iidooo-cms";
+
+// 测试环境
+//var client = "http://www.iidooo.com/iidooo-cms-admin";
+//var serverURL = "http://www.iidooo.com/iidooo-cms";
+
+// 正式环境
 var client = "http://toxic.iidooo.com:8080/iidooo-cms-admin";
 var serverURL = "http://toxic.iidooo.com:8080/iidooo-cms";
 
@@ -11,12 +18,12 @@ var secret = "e96b669ba65848bcb20f5de53dcc370e";
 var accessToken = "";
 var userID = "";
 
-// 页面操作的模式，1:创建 2:修改
-var pageMode = 1;
+// 页面操作的模式，0:无视 1:创建 2:修改
+var pageMode = 0;
 
 var getUserByTokenURL = "/admin/getUserByToken";
 
-var getContentTypeListURL = "/admin/getContentTypeList";
+var getDictItemListURL = "/core/getDictItemList";
 
 var searchContentListURL = "/admin/searchContentList";
 
@@ -78,7 +85,8 @@ function ajaxPost(url, data, callback) {
             if (result && null != result.status && ((result.status + "").indexOf("20") == 0)) {
                 callback(result.data);
             } else {
-                alert("服务器端处理失败，出现异常，请联系管理员！");
+                alert("服务器端处理失败，出现异常，详细请看控制台！错误编号：" + result.status);
+                console.log(result);
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
