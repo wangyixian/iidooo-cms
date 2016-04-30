@@ -130,8 +130,6 @@ public class SecurityUserController {
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(securityUser);
-                // 插入操作历史记录
-                hisOperatorService.createHisOperator("SECURITY_USER", securityUser.getUserID(), request);
             }
 
         } catch (Exception e) {

@@ -97,8 +97,10 @@ public class UploadController {
                 return result;
             }
 
-            fileName = FileUtil.getUniqueFileName(fileName);
-            String uploadFilePath = FileUtil.save(file.getBytes(), uploadFolderPath, fileName);
+            String suffix = FileUtil.getFileSuffix(fileName);
+            // fileName = FileUtil.changeFileName(fileName, DateUtil.DATE_TIME_FULL_SIMPLE);
+            String nowStr = DateUtil.getNow(DateUtil.DATE_TIME_FULL_SIMPLE );
+            String uploadFilePath = FileUtil.save(file.getBytes(), uploadFolderPath, nowStr + "." + suffix);
             if (StringUtil.isBlank(uploadFilePath)) {
                 // 验证失败，返回message
                 Message message = new Message(MessageType.Exception.getCode(), MessageLevel.ERROR, "uploadFilePath");
