@@ -1,9 +1,13 @@
 #contentSummary{
-    height: 300px;
+    height: 100px;
 }
 
 #txtSummaryPreview {
-    height: 300px;
+    height: 100px;
+}
+
+#txtSummaryPreview img {
+    width: 100%;
 }
 
 #contentBody{
@@ -12,6 +16,10 @@
 
 #txtContentBodyPreview{
     height: 550px;
+}
+
+#txtContentBodyPreview img{
+    width: 100%;
 }
 
 .markdownPreview {

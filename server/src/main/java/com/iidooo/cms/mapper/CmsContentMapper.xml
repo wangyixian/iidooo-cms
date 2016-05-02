@@ -22,7 +22,7 @@
 		<result column="StartShowTime" property="startShowTime" jdbcType="VARCHAR" />
 		<result column="EndShowDate" property="endShowDate" jdbcType="VARCHAR" />
 		<result column="EndShowTime" property="endShowTime" jdbcType="VARCHAR" />
-    	<result column="Status" property="status" jdbcType="VARCHAR" />
+		<result column="Status" property="status" jdbcType="VARCHAR" />
 		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
 		<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
@@ -39,7 +39,7 @@
 	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.iidooo.cms.model.po.CmsContent">
 		<result column="ContentBody" jdbcType="LONGVARCHAR" property="contentBody" />
 	</resultMap>
-	
+
 	<resultMap id="TagListResultMap" type="com.iidooo.cms.model.vo.CmsTagInfo">
 		<id column="TagID" property="tagID" jdbcType="INTEGER" />
 		<result column="TagName" property="tagName" jdbcType="VARCHAR" />
@@ -50,8 +50,9 @@
 		C.ContentID, C.ChannelID, C.ContentType, C.ContentTitle, C.ContentSubTitle, C.ContentImageTitle,
 		C.MetaTitle, C.MetaKeywords,
 		C.MetaDescription, C.ContentSummary, C.IsSilent, C.StickyIndex, C.PageViewCount,
-		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowDate, C.StartShowTime, 
-    	C.EndShowDate, C.EndShowTime, C.Status, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
+		C.UniqueVisitorCount, C.StarCount, C.CommentCount, C.StartShowDate,
+		C.StartShowTime,
+		C.EndShowDate, C.EndShowTime, C.Status, C.Remarks, C.CreateTime, C.CreateUserID, C.UpdateTime, C.UpdateUserID,
 		C.IsDelete, C.Version
 	</sql>
 	<sql id="Blob_Column_List">
@@ -74,29 +75,31 @@
 		CMS_TAG T on CT.TagID = T.TagID and
 		CT.IsDelete = 0 and T.IsDelete = 0 and ContentID = #{contentID,jdbcType=INTEGER};
 	</select>
-	
+
 	<!-- 根据CmsContent表中的ContentID查询CmsPicture信息 -->
 	<resultMap id="PictureListResultMap" type="com.iidooo.cms.model.po.CmsPicture">
 		<id column="PictureID" jdbcType="INTEGER" property="pictureID" />
-    	<result column="ContentID" jdbcType="INTEGER" property="contentID" />
-    	<result column="PictureName" jdbcType="VARCHAR" property="pictureName" />
-    	<result column="PictureURL" jdbcType="VARCHAR" property="pictureURL" />
-    	<result column="Sequence" jdbcType="INTEGER" property="sequence" />
-    	<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
-    	<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
-    	<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
-	    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
-	    <result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
-	    <result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
-	    <result column="Version" jdbcType="INTEGER" property="version" />
+		<result column="ContentID" jdbcType="INTEGER" property="contentID" />
+		<result column="PictureName" jdbcType="VARCHAR" property="pictureName" />
+		<result column="PictureURL" jdbcType="VARCHAR" property="pictureURL" />
+		<result column="Sequence" jdbcType="INTEGER" property="sequence" />
+		<result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="CreateUserID" jdbcType="INTEGER" property="createUserID" />
+		<result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="UpdateUserID" jdbcType="INTEGER" property="updateUserID" />
+		<result column="IsDelete" jdbcType="INTEGER" property="isDelete" />
+		<result column="Version" jdbcType="INTEGER" property="version" />
 	</resultMap>
 	<sql id="Picture_Column_List">
-	    P.PictureID, P.ContentID, P.PictureName, P.PictureURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID, 
-	    P.UpdateTime, P.UpdateUserID, P.IsDelete, P.Version
-  	</sql>
+		P.PictureID, P.ContentID, P.PictureName, P.PictureURL, P.Sequence, P.Remarks, P.CreateTime, P.CreateUserID,
+		P.UpdateTime, P.UpdateUserID,
+		P.IsDelete, P.Version
+	</sql>
 	<select id="selectPictureList" parameterType="java.lang.Integer" resultMap="PictureListResultMap">
-		select 
-		<include refid="Picture_Column_List" /> from CMS_PICTURE P 
+		select
+		<include refid="Picture_Column_List" />
+		from CMS_PICTURE P
 		where P.IsDelete = 0 and P.ContentID = #{contentID,jdbcType=INTEGER}
 		order by P.Sequence asc, P.CreateTime desc
 	</select>
@@ -112,7 +115,8 @@
 
 	<select id="selectCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CMS_CONTENT C where C.CreateUserID	= #{userID,jdbcType=INTEGER} and C.IsDelete = 0
+		from CMS_CONTENT C where C.CreateUserID
+		= #{userID,jdbcType=INTEGER} and C.IsDelete = 0
 	</select>
 
 	<!-- 获得内容的点赞数 -->
@@ -120,26 +124,26 @@
 		select C.StarCount from CMS_CONTENT C where C.IsDelete = 0 and
 		C.ContentID = #{contentID,jdbcType=INTEGER}
 	</select>
-	
+
 	<!-- 得到所有内容的PV -->
-	<select id="selectPVCountSum" resultType = "java.lang.Integer">
+	<select id="selectPVCountSum" resultType="java.lang.Integer">
 		select sum(C.PageViewCount) from CMS_CONTENT C where C.IsDelete = 0
 	</select>
-	
+
 	<!-- 检索内容一览信息的数量 -->
-	<select id="selectCountForSearch" resultType = "java.lang.Integer">
+	<select id="selectCountForSearch" resultType="java.lang.Integer">
 		select
 		count(C.ContentID)
 		from CMS_CONTENT C
-		where C.IsDelete = 0 
+		where C.IsDelete = 0
 		<if test="cmsContent.channelID != null and cmsContent.channelID != 0">
-			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER} 
+			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER}
 		</if>
 		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
-			and C.ContentTitle like "%${cmsContent.contentTitle}%" 
+			and C.ContentTitle like "%${cmsContent.contentTitle}%"
 		</if>
 		<if test="cmsContent.contentType != null and cmsContent.contentType != '' and cmsContent.contentType != 0">
-			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
+			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR}
 		</if>
 		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
 			and C.CreateTime &gt;= #{startDate}
@@ -149,21 +153,21 @@
 			and C.Status = #{cmsContent.status,jdbcType=VARCHAR}
 		</if>
 	</select>
-	
+
 	<!-- 检索内容一览信息 -->
 	<select id="selectForSearch" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from CMS_CONTENT C
-		where C.IsDelete = 0 
+		where C.IsDelete = 0
 		<if test="cmsContent.channelID != null and cmsContent.channelID != 0">
-			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER} 
+			and C.ChannelID = #{cmsContent.channelID,jdbcType=INTEGER}
 		</if>
 		<if test="cmsContent.contentTitle != null and cmsContent.contentTitle != ''">
-			and C.ContentTitle like "%${cmsContent.contentTitle}%" 
+			and C.ContentTitle like "%${cmsContent.contentTitle}%"
 		</if>
 		<if test="cmsContent.contentType != null and cmsContent.contentType != 0">
-			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR} 
+			and C.ContentType = #{cmsContent.contentType,jdbcType=VARCHAR}
 		</if>
 		<if test="startDate != null and startDate != ''">
 			and C.CreateTime &gt;= #{startDate}
@@ -175,7 +179,7 @@
 			and C.Status = #{cmsContent.status,jdbcType=VARCHAR}
 		</if>
 		<if test="page != null">
-			order by ${page.sortField} ${page.sortType} 
+			order by ${page.sortField} ${page.sortType}
 			limit ${page.start}, ${page.pageSize}
 		</if>
 	</select>
@@ -422,7 +426,7 @@
 			<if test="updateUserID != null">
 				UpdateUserID = #{updateUserID,jdbcType=INTEGER},
 			</if>
-				Version = Version + 1,
+			Version = Version + 1,
 			<if test="contentBody != null">
 				ContentBody = #{contentBody,jdbcType=LONGVARCHAR},
 			</if>
@@ -471,21 +475,86 @@
 		#{channelPath,jdbcType=VARCHAR}
 		and C.ContentType = '1'
 		and CASE
-        WHEN
-            (C.StartShowDate &lt;&gt; ''
-                AND C.EndShowDate &lt;&gt; '')
-        THEN
-        	C.StartShowDate &lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
-                AND C.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
-                AND C.EndShowDate &gt;= #{cmsContent.endShowDate,jdbcType=VARCHAR}
-                AND C.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
-        ELSE
-		C.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+		WHEN
+		(C.StartShowDate &lt;&gt; ''
+		AND C.EndShowDate &lt;&gt; '')
+		THEN
+		C.StartShowDate
+		&lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
+		AND C.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+		AND C.EndShowDate &gt;=
+		#{cmsContent.endShowDate,jdbcType=VARCHAR}
+		AND C.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+		ELSE
+		C.StartShowTime &lt;=
+		#{cmsContent.startShowTime,jdbcType=VARCHAR}
 		and C.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
 		END
 		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
 			and C.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
 		</if>
 		order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
+	</select>
+
+	<!-- 毒电波用的Tab2自媒体一览 -->
+	<select id="selectContentListForToxicWaveTab2" resultMap="ResultMapWithBLOBs">
+		(select
+		C1.ContentID, C1.ChannelID, C1.ContentType, C1.ContentTitle, C1.ContentSubTitle, 
+		C1.ContentImageTitle, C1.MetaTitle, C1.MetaKeywords,
+		C1.MetaDescription, C1.ContentSummary, C1.IsSilent, C1.StickyIndex, C1.PageViewCount,
+		C1.UniqueVisitorCount, C1.StarCount, C1.CommentCount, C1.StartShowDate, C1.StartShowTime, 
+    	C1.EndShowDate, C1.EndShowTime, C1.Status, C1.Remarks, C1.CreateTime, C1.CreateUserID, 
+    	C1.UpdateTime, C1.UpdateUserID,	C1.IsDelete, C1.Version, C1.ContentBody 
+    	from CMS_CONTENT C1 join CMS_CHANNEL L1 on 
+    	C1.IsDelete = 0 and C1.Status = 0 and L1.IsDelete = 0 and C1.ChannelID = L1.ChannelID
+		and L1.ChannelPath = 'ToxicWave' and C1.ContentType = '1' and 
+		date_format(C1.CreateTime,'%Y-%m-%d') = CURRENT_DATE()
+		and CASE
+        WHEN
+            (C1.StartShowDate &lt;&gt; ''
+                AND C1.EndShowDate &lt;&gt; '')
+        THEN
+        	C1.StartShowDate &lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
+                AND C1.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+                AND C1.EndShowDate &gt;= #{cmsContent.endShowDate,jdbcType=VARCHAR}
+                AND C1.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+        ELSE
+		C1.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+		and C1.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+		END
+		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
+			and C1.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
+		</if>
+		order by C1.StarCount desc, C1.`CreateTime` desc)
+		union
+		(select * from
+		(select 
+			C2.ContentID, C2.ChannelID, C2.ContentType, C2.ContentTitle, C2.ContentSubTitle, 
+			C2.ContentImageTitle, C2.MetaTitle, C2.MetaKeywords,
+			C2.MetaDescription, C2.ContentSummary, C2.IsSilent, C2.StickyIndex, C2.PageViewCount,
+			C2.UniqueVisitorCount, C2.StarCount, C2.CommentCount, C2.StartShowDate, C2.StartShowTime, 
+	    	C2.EndShowDate, C2.EndShowTime, C2.Status, C2.Remarks, C2.CreateTime, C2.CreateUserID, 
+	    	C2.UpdateTime, C2.UpdateUserID,	C2.IsDelete, C2.Version, C2.ContentBody 
+		from `CMS_CONTENT` C2 join CMS_CHANNEL L2 on 
+    	C2.IsDelete = 0 and C2.Status = 0 and L2.IsDelete = 0 and C2.ChannelID = L2.ChannelID
+		and L2.ChannelPath = 'ToxicWave' and C2.ContentType = '1'	
+		and CASE
+        WHEN
+            (C2.StartShowDate &lt;&gt; ''
+                AND C2.EndShowDate &lt;&gt; '')
+        THEN
+        	C2.StartShowDate &lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
+                AND C2.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+                AND C2.EndShowDate &gt;= #{cmsContent.endShowDate,jdbcType=VARCHAR}
+                AND C2.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+        ELSE
+			C2.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+			and C2.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+		END
+		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
+			and C2.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
+		</if>
+		order by C2.`CreateTime` desc limit ${page.start}, ${page.pageSize}) as C21)
+		limit ${page.start}, ${page.pageSize}
 	</select>
 </mapper>

@@ -1,6 +1,5 @@
 package com.iidooo.cms.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -39,7 +38,14 @@ public interface CmsContentMapper {
      */
     List<CmsContent> selectContentListByChannelPath(@Param("channelPath") String channelPath, @Param("cmsContent") CmsContent cmsContent,
             @Param("page") Page page);
-
+        
+    /**
+     * 毒电波用的Tab2自媒体一览
+     * @param cmsContent 指定内容的参数
+     * @return 内容一览List
+     */
+    List<CmsContent> selectContentListForToxicWaveTab2(@Param("cmsContent")CmsContent cmsContent, @Param("page") Page page);
+    
     /**
      * 得到内容的点赞数
      * 

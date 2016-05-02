@@ -40,4 +40,11 @@ public interface CmsContentNewsMapper {
      * @return 内容一览List
      */
     List<CmsContent> selectContentNewsList(@Param("channelPath")String channelPath, @Param("cmsContent")CmsContent cmsContent, @Param("page")Page page);
+
+    /**
+     * 毒电波用的Tab1新闻一览
+     * @param cmsContent 指定内容的参数
+     * @return 内容一览List
+     */
+    List<CmsContent> selectContentListForToxicWaveTab1(@Param("cmsContent")CmsContent cmsContent, @Param("page") Page page);
 }

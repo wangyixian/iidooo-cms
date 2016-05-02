@@ -36,6 +36,8 @@ $(function () {
     if (pageMode == 2) {
         initForModifyMode();
     }
+
+    changeContentType();
 });
 
 function initForModifyMode() {
@@ -105,7 +107,6 @@ function initForModifyMode() {
         }
 
         console.log(data);
-        changeContentType();
     };
     ajaxPost(url, data, callback);
 }

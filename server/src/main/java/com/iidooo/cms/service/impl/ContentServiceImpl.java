@@ -2,9 +2,7 @@ package com.iidooo.cms.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,34 +66,18 @@ public class ContentServiceImpl implements ContentService {
             cmsContent.setEndShowDate(DateUtil.getNow(DateUtil.DATE_HYPHEN));
             cmsContent.setEndShowTime(DateUtil.getNow(DateUtil.TIME_COLON));
             if (contentType.equals(ContentType.News.getCode())) {
-                result = cmsContentNewsDao.selectContentNewsList(channelPath, cmsContent, page);
+                if (channelPath.equals("ToxicWave")) {
+                    result = cmsContentNewsDao.selectContentListForToxicWaveTab1(cmsContent, page);
+                } else {
+                    result = cmsContentNewsDao.selectContentNewsList(channelPath, cmsContent, page);
+                }
             } else {
-                result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent, page);
+                if (channelPath.equals("ToxicWave")) {
+                    result = cmsContentDao.selectContentListForToxicWaveTab2(cmsContent, page);
+                } else {
+                    result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent, page);
+                }
             }
-//            if (result.size() > 0) {
-//
-//                List<CmsPicture> pictures = cmsPictureDao.selectByContentList(result);
-//                // Key: ContentID
-//                // Value: Picture List
-//                Map<Integer, List<CmsPicture>> picturesMap = new HashMap<Integer, List<CmsPicture>>();
-//                for (CmsPicture item : pictures) {
-//                    if (picturesMap.containsKey(item.getContentID())) {
-//                        picturesMap.get(item.getContentID()).add(item);
-//                    } else {
-//                        List<CmsPicture> tempPictureList = new ArrayList<CmsPicture>();
-//                        tempPictureList.add(item);
-//                        picturesMap.put(item.getContentID(), tempPictureList);
-//                    }
-//                }
-//
-//                // Put the picture list into content
-//                for (CmsContent item : result) {
-//                    if (picturesMap.containsKey(item.getContentID())) {
-//                        List<CmsPicture> pictureList = picturesMap.get(item.getContentID());
-//                        item.setPictureList(pictureList);
-//                    }
-//                }
-//            }
 
             return result;
         } catch (Exception e) {

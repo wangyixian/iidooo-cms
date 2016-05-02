@@ -141,6 +141,62 @@
 		</if>
 		order by C.StickyIndex desc, C.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
 	</select>
+	
+	<select id="selectContentListForToxicWaveTab1" resultMap="ResultMapWithBLOBs">	
+		(select 
+		N1.ContentID, C1.ChannelID, C1.ContentType, C1.ContentTitle, C1.ContentSubTitle, 
+		C1.ContentImageTitle, C1.MetaTitle, C1.MetaKeywords,
+		C1.MetaDescription, C1.ContentSummary, C1.IsSilent, C1.StickyIndex, C1.PageViewCount,
+		C1.UniqueVisitorCount, C1.StarCount, C1.CommentCount, C1.StartShowDate, C1.StartShowTime, 
+    	C1.EndShowDate, C1.EndShowTime, C1.Status, N1.Source,
+		N1.SourceURL, C1.Remarks, C1.CreateTime, C1.CreateUserID, C1.UpdateTime, C1.UpdateUserID,
+		C1.IsDelete, C1.Version, C1.ContentBody 
+		from CMS_CONTENT_NEWS N1
+		join CMS_CONTENT C1 on C1.IsDelete = 0 and C1.Status = 0 and N1.ContentID = C1.ContentID
+		join CMS_CHANNEL L1 on L1.IsDelete = 0 and C1.ChannelID = L1.ChannelID
+		and L1.ChannelPath = 'ToxicWave' and C1.ContentType = '2' and C1.StickyIndex > 0
+		and CASE
+        WHEN
+            (C1.StartShowDate &lt;&gt; ''
+                AND C1.EndShowDate &lt;&gt; '')
+        THEN
+        	C1.StartShowDate &lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
+                AND C1.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+                AND C1.EndShowDate &gt;= #{cmsContent.endShowDate,jdbcType=VARCHAR}
+                AND C1.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+        ELSE
+		C1.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+		and C1.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+		END
+		order by C1.CreateTime desc limit 0,1)
+		union 
+		(select 
+		N2.ContentID, C2.ChannelID, C2.ContentType, C2.ContentTitle, C2.ContentSubTitle, 
+		C2.ContentImageTitle, C2.MetaTitle, C2.MetaKeywords,
+		C2.MetaDescription, C2.ContentSummary, C2.IsSilent, C2.StickyIndex, C2.PageViewCount,
+		C2.UniqueVisitorCount, C2.StarCount, C2.CommentCount, C2.StartShowDate, C2.StartShowTime, 
+    	C2.EndShowDate, C2.EndShowTime, C2.Status, N2.Source,
+		N2.SourceURL, C2.Remarks, C2.CreateTime, C2.CreateUserID, C2.UpdateTime, C2.UpdateUserID,
+		C2.IsDelete, C2.Version, C2.ContentBody 
+		from CMS_CONTENT_NEWS N2
+		join CMS_CONTENT C2 on C2.IsDelete = 0 and C2.Status = 0 and N2.ContentID = C2.ContentID
+		join CMS_CHANNEL L2 on L2.IsDelete = 0 and C2.ChannelID = L2.ChannelID
+		and L2.ChannelPath = 'ToxicWave' and C2.ContentType = '2' 
+		and CASE
+        WHEN
+            (C2.StartShowDate &lt;&gt; ''
+                AND C2.EndShowDate &lt;&gt; '')
+        THEN
+        	C2.StartShowDate &lt;= #{cmsContent.startShowDate,jdbcType=VARCHAR}
+                AND C2.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+                AND C2.EndShowDate &gt;= #{cmsContent.endShowDate,jdbcType=VARCHAR}
+                AND C2.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+        ELSE
+		C2.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
+		and C2.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
+		END
+		order by C2.CreateTime desc limit ${page.start}, ${page.pageSize}) limit ${page.start}, ${page.pageSize}
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from CMS_CONTENT_NEWS
