@@ -40,6 +40,9 @@ import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.FileUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
+import com.iidooo.weixin.entity.Signature;
+import com.iidooo.weixin.thread.WeixinThread;
+import com.iidooo.weixin.util.WeixinUtil;
 
 @Controller
 public class ContentController {
@@ -118,6 +121,16 @@ public class ContentController {
             content.setUniqueVisitorCount(uvCount);
 
             result.addObject("content", content);
+
+            // 处理微信分享JS SDK的相关参数
+            String jsAPITicket = WeixinThread.getJsAPITicket().getTicket();
+            String url = request.getRequestURL().toString();
+            if (request.getQueryString() != null && request.getQueryString().length() > 0) {
+                url = url + "?" + request.getQueryString();
+            }
+            Signature signature = WeixinUtil.getSignature(jsAPITicket, url);
+            result.addObject("signature", signature);
+            result.addObject("appID", WeixinThread.getAppID());
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -493,7 +506,7 @@ public class ContentController {
             String endShowTime = request.getParameter("endShowTime");
             String pictureListStr = request.getParameter("pictureList");
             String status = request.getParameter("status");
-            
+
             // 工厂创建对象
             CmsContent content = null;
             if (contentType.equals(ContentType.Default.getCode())) {
@@ -548,11 +561,11 @@ public class ContentController {
             } else if (DateUtil.isFormat(endShowTime, DateUtil.DATE_TIME_HYPHEN)) {
                 content.setEndShowTime(DateUtil.format(endShowTime, DateUtil.DATE_TIME_HYPHEN, DateUtil.TIME_COLON));
             }
-            
+
             if (StringUtil.isNotBlank(status) && ValidateUtil.isNumber(status)) {
                 content.setStatus(status);
             }
-            
+
             content.setRemarks(remarks);
             content.setUpdateTime(new Date());
             content.setUpdateUserID(userID);

@@ -2,16 +2,16 @@
  * Created by Ethan on 16/4/6.
  */
  // 开发环境
-//var client = "http://localhost:63342/iidooo-cms-admin";
+var client = "http://localhost:63342/iidooo-cms-admin";
 //var serverURL = "http://localhost:8080/iidooo-cms";
 
 // 测试环境
-//var client = "http://www.iidooo.com/iidooo-cms-admin";
-//var serverURL = "http://www.iidooo.com/iidooo-cms";
+var client = "http://www.iidooo.com/iidooo-cms-admin";
+var serverURL = "http://www.iidooo.com/iidooo-cms";
 
 // 正式环境
-var client = "http://toxic.iidooo.com:8080/iidooo-cms-admin";
-var serverURL = "http://toxic.iidooo.com:8080/iidooo-cms";
+//var client = "http://toxic.iidooo.com:8080/iidooo-cms-admin";
+//var serverURL = "http://toxic.iidooo.com:8080/iidooo-cms";
 
 var appID = "CMSSystem";
 var secret = "e96b669ba65848bcb20f5de53dcc370e";

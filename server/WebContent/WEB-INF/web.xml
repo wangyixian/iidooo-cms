@@ -37,4 +37,17 @@
 	<listener>
 		<listener-class>com.iidooo.core.listener.PropertiesLoadListener</listener-class>
 	</listener>
+	
+	<!-- 配置微信的监听器 -->
+	<listener>
+		<listener-class>com.iidooo.weixin.listener.WeiXinListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>AppID</param-name>
+		<param-value>wx1b960367423a2a00</param-value>
+	</context-param>
+	<context-param>
+		<param-name>AppSecret</param-name>
+		<param-value>9f6ef54b107121facb3bac200a2d4513</param-value>
+	</context-param>
 </web-app>

@@ -6,20 +6,12 @@
     height: 100px;
 }
 
-#txtSummaryPreview img {
-    width: 100%;
-}
-
 #contentBody{
     height: 500px;
 }
 
 #txtContentBodyPreview{
     height: 550px;
-}
-
-#txtContentBodyPreview img{
-    width: 100%;
 }
 
 .markdownPreview {
@@ -34,4 +26,14 @@
     border:1px solid rgba(220, 220, 220, 1.0);
     white-space: pre-wrap;
     padding: 10px;
+}
+
+.markdownPreview blockquote {
+    padding: 10px;
+    margin: 0px;
+    border-left: 5px solid rgba(220, 220, 220, 1.0);
+}
+
+.markdownPreview img{
+    max-width: 100%;
 }
