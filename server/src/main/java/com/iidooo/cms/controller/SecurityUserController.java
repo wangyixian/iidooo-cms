@@ -101,7 +101,7 @@ public class SecurityUserController {
         }
         return result;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/admin/getUserByToken", method = RequestMethod.POST)
     public ResponseResult getUserByToken(HttpServletRequest request, HttpServletResponse response) {
@@ -306,6 +306,15 @@ public class SecurityUserController {
             } else if (!ValidateUtil.isNumber(userID)) {
                 // 验证失败，返回message
                 Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            // 更新用户，用户名不能设置为空
+            if (StringUtil.isBlank(userName)) {
+                // 验证失败，返回message
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userName");
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;

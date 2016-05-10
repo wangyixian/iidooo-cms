@@ -14,6 +14,15 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/js/libs/bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/libs/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<style type="text/css">
+
+.content hr{
+      border:0px;
+      border-top:1px solid rgba(220, 220, 220, 1.0);
+    }
+
+</style>
 </head>
 <body>
 	<input id="appID" type="hidden" value="${appID }">
@@ -29,9 +38,9 @@
 		<div id="title" class="title">${content.contentTitle}</div>
 		<div id="insert" class="content">${content.contentBody}</div>
 	</div>
-	<div id="download" class="area2" onclick="checkDownload()"> <img id="logo"
+	<a id="download" class="area2" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.cookie.toxicwave"> <img id="logo"
 		src="<%=request.getContextPath()%>/resources/img/logo-small.png"> <span>点我下载毒电波APP-有毒的负能量平台</span>
-	</div>
+	</a>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-body">
 			<img style='width: 70%; float: right;' src="<%=request.getContextPath()%>/resources/img/img_share.png">
@@ -41,22 +50,23 @@
 <script>
 	showdown.setOption('strikethrough', 'true');
 	var converter = new showdown.Converter();
-	var text = document.getElementById("insert").innerHTML;
+	var text = document.getElementById("insert").innerHTML.replace("&gt;", ">");
 	var html = converter.makeHtml(text);
 	document.getElementById("insert").innerHTML = html;
 
-	function checkDownload() {
+	/* function checkDownload() {
 		var ua = navigator.userAgent.toLowerCase();
-		if (ua.match(/MicroMessenger/i) == "micromessenger") {
+		if (ua.match(/MicroMessenger/i) == "micromessenger" || 
+				ua.match(/WeiBo/i) == "weibo") {
 			$('#myModal').modal('show')
 		} else {
 			if (/iphone|ipad|ipod/.test(ua)) {
-				location.href = "https://itunes.apple.com/us/app/du-dian-bo-you-du-fu-neng/id1102657554";
+				location.href = "https://itunes.apple.com/cn/app/id1102004240?ls=1&mt=12";
 			} else if (/android/.test(ua)) {
-				location.href = "http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/toxicwave.apk";
+				location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.cookie.toxicwave";
 			}
 		}
-	}
+	} */
 
 	wx.config({
 		debug : false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

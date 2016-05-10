@@ -498,6 +498,7 @@
 
 	<!-- 毒电波用的Tab2自媒体一览 -->
 	<select id="selectContentListForToxicWaveTab2" resultMap="ResultMapWithBLOBs">
+		(select * from
 		(select
 		C1.ContentID, C1.ChannelID, C1.ContentType, C1.ContentTitle, C1.ContentSubTitle, 
 		C1.ContentImageTitle, C1.MetaTitle, C1.MetaKeywords,
@@ -525,7 +526,7 @@
 		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
 			and C1.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
 		</if>
-		order by C1.StarCount desc, C1.`CreateTime` desc)
+		order by C1.StarCount desc, C1.`CreateTime` desc limit ${page.start}, ${page.pageSize}) as C11)
 		union
 		(select * from
 		(select 
@@ -537,7 +538,8 @@
 	    	C2.UpdateTime, C2.UpdateUserID,	C2.IsDelete, C2.Version, C2.ContentBody 
 		from `CMS_CONTENT` C2 join CMS_CHANNEL L2 on 
     	C2.IsDelete = 0 and C2.Status = 0 and L2.IsDelete = 0 and C2.ChannelID = L2.ChannelID
-		and L2.ChannelPath = 'ToxicWave' and C2.ContentType = '1'	
+		and L2.ChannelPath = 'ToxicWave' and C2.ContentType = '1' and 
+		date_format(C2.CreateTime,'%Y-%m-%d') &lt;&gt; CURRENT_DATE()
 		and CASE
         WHEN
             (C2.StartShowDate &lt;&gt; ''
