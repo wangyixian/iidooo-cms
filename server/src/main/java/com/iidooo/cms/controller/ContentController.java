@@ -1,5 +1,6 @@
 package com.iidooo.cms.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -105,7 +106,6 @@ public class ContentController {
     public ModelAndView content(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView result = new ModelAndView("/resources/share.jsp");
         try {
-
             // 查询获得内容对象
             CmsContent content = contentService.getContent(id);
 
@@ -113,9 +113,12 @@ public class ContentController {
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
             // 更新该内容的PV和UV
-            String option = request.getServletPath().substring(1);
+            // UV 的统计需要两个接口的请求
+            List<String> optionList = new ArrayList<String>();
+            optionList.add(request.getServletPath().substring(1));
+            optionList.add("getContent");            
             int pvCount = content.getPageViewCount() + 1;
-            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
+            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), optionList);
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
             content.setUniqueVisitorCount(uvCount);
@@ -174,9 +177,11 @@ public class ContentController {
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
             // 更新该内容的PV和UV
-            String option = request.getServletPath().substring(1);
+            List<String> optionList = new ArrayList<String>();
+            optionList.add(request.getServletPath().substring(1));
+            optionList.add("content/" + content.getContentID());
             int pvCount = content.getPageViewCount() + 1;
-            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), option);
+            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), optionList);
             contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
             content.setPageViewCount(pvCount);
             content.setUniqueVisitorCount(uvCount);

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -44,8 +45,9 @@ public class UploadController {
     @Autowired
     private HisOperatorService hisOperatorService;
 
+    @ResponseBody
     @RequestMapping(value = { "/uploadFile", "/admin/uploadFile" }, method = RequestMethod.POST)
-    public @ResponseBody ResponseResult uploadFile(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseResult uploadFile(HttpServletRequest request, HttpServletResponse response) {
         ResponseResult result = new ResponseResult();
         try {
             ServletContext sc = request.getServletContext();
@@ -98,8 +100,9 @@ public class UploadController {
             }
 
             String suffix = FileUtil.getFileSuffix(fileName);
+
             // fileName = FileUtil.changeFileName(fileName, DateUtil.DATE_TIME_FULL_SIMPLE);
-            String nowStr = DateUtil.getNow(DateUtil.DATE_TIME_FULL_SIMPLE );
+            String nowStr = DateUtil.getNow(DateUtil.DATE_TIME_FULL_SIMPLE);
             String uploadFilePath = FileUtil.save(file.getBytes(), uploadFolderPath, nowStr + "." + suffix);
             if (StringUtil.isBlank(uploadFilePath)) {
                 // 验证失败，返回message
@@ -110,16 +113,18 @@ public class UploadController {
                 return result;
             }
 
-            PictureUtil.MaintainOrientation(uploadFilePath);
-
-            // String newFilePath = FileUtil.getNewFileName(uploadFilePath, "_mini");
-            if (fileType.equals(FileType.UserPhoto.getCode())) {
-                PictureUtil.cutSquare(uploadFilePath, uploadFilePath);
-                PictureUtil.compress(uploadFilePath, uploadFilePath, 200, 200, false);
-            } else if (fileType.equals(FileType.NewsPicture.getCode())) {
-                PictureUtil.compress(uploadFilePath, uploadFilePath, 500, 500, true);
-            } else if (fileType.equals(FileType.ContentPicture.getCode())) {
-                PictureUtil.compress(uploadFilePath, uploadFilePath, 1000, 1000, true);
+            if (PictureUtil.isImage(uploadFilePath)) {
+                if (fileType.equals(FileType.UserPhoto.getCode())) {
+                    PictureUtil.MaintainOrientation(uploadFilePath);
+                    PictureUtil.cutSquare(uploadFilePath, uploadFilePath);
+                    PictureUtil.compress(uploadFilePath, uploadFilePath, 200, 200, false);
+                } else if (fileType.equals(FileType.NewsPicture.getCode())) {
+                    PictureUtil.MaintainOrientation(uploadFilePath);
+                    PictureUtil.compress(uploadFilePath, uploadFilePath, 500, 500, true);
+                } else if (fileType.equals(FileType.ContentPicture.getCode())) {
+                    PictureUtil.MaintainOrientation(uploadFilePath);
+                    PictureUtil.compress(uploadFilePath, uploadFilePath, 1000, 1000, true);
+                }
             }
 
             // 把文件上传到阿里云OSS的既定路径下
@@ -135,11 +140,20 @@ public class UploadController {
             result.setData(jsonObject);
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.toString());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            if (e instanceof MaxUploadSizeExceededException) {
+                Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL, "");
+                message.setDescription("MaxUploadSizeExceededException and the file size should be less than "
+                        + ((MaxUploadSizeExceededException) e).getMaxUploadSize());
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.MaxUploadSizeExceededException.getCode());
+            } else {
+                Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+                message.setDescription(e.toString());
+                result.getMessages().add(message);
+                result.setStatus(ResponseStatus.Failed.getCode());
+            }
         }
         return result;
     }

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +44,8 @@ public class SecurityUserController {
     // key: email
     // value: verfy code
     Map<String, String> verifyCodeMap = new HashMap<>();
+    
+    private long FIVE_MINUTE = 5 * 60 * 1000;
 
     @Autowired
     private SecurityUserService securityUserService;
@@ -479,12 +483,13 @@ public class SecurityUserController {
             ServletContext sc = request.getServletContext();
             Properties mailProperties = (Properties) sc.getAttribute("mail.properties");
 
-            String content = "亲爱的用户，" + verifyCode + " 是您的验证码，15分钟内有效。";
+            String content = "亲爱的用户，" + verifyCode + " 是您的验证码，5分钟内有效。";
             if (!MailUtil.sendMail(mailProperties, content, email)) {
                 result.setStatus(ResponseStatus.Failed.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
             }
+            verifyCodeTimeTask(email);
 
         } catch (Exception e) {
             logger.fatal(e);
@@ -494,5 +499,26 @@ public class SecurityUserController {
             result.setStatus(ResponseStatus.Failed.getCode());
         }
         return result;
+    }
+    
+    private void verifyCodeTimeTask(final String account) {
+
+        new Thread() {
+            public void run() {
+
+                TimerTask task = new TimerTask() {
+                    public void run() {
+                        verifyCodeMap.remove(account);
+                    }
+                };
+
+                Timer timer = new Timer(false);
+                timer.schedule(task, FIVE_MINUTE);
+                /*
+                 * try { Thread.sleep(FIVE_MINUTE + 1000); } catch
+                 * (InterruptedException e) { logger.info("验证码计时异常",e); }
+                 */
+            }
+        }.start();
     }
 }
