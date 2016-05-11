@@ -57,6 +57,7 @@ public class CmsStarServiceImpl implements CmsStarService {
             }
             return cmsStar;
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
             throw e;
         }

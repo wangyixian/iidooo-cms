@@ -25,6 +25,7 @@
 		from CMS_STAR
 		where IsDelete = 0 and
 		ContentID = #{contentID,jdbcType=INTEGER} and CreateUserID = #{createUserID,jdbcType=INTEGER}
+		limit 0, 1
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
