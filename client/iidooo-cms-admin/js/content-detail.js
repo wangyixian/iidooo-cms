@@ -75,6 +75,13 @@ function initForModifyMode() {
         $("#status").val(data.status);
         $("#source").val(data.source);
         $("#sourceURL").val(data.sourceURL);
+
+        // 预览初始化
+        showdown.setOption('strikethrough', 'true');
+        var converter = new showdown.Converter();
+        $("#txtSummaryPreview").html(converter.makeHtml($("#contentSummary").val()));
+        $("#txtContentBodyPreview").html(converter.makeHtml($("#contentBody").val()));
+
         console.log(data);
 
         if (data.pictureList.length > 0) {
@@ -169,18 +176,18 @@ $("#uploadContentBodyImage").fileupload({
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
     maxNumberOfFiles: 1,
-    formData: {
-        'appID': appID,
-        'secret': secret,
-        'accessToken': accessToken,
-        'fileType': $("#selContentBodyFileType").val()
-    },
+    //formData: {
+    //    'appID': appID,
+    //    'secret': secret,
+    //    'accessToken': accessToken,
+    //    'fileType': $("#selContentBodyFileType").val()
+    //},
     maxFileSize: 10000000,
     done: function (e, result) {
         var data = result.result;
         if (data.status == "200") {
             var contentBodyVal = $("#contentBody").val();
-            $("#contentBody").val(contentBodyVal + "![](" + data.data.url + ")");
+            $("#contentBody").val(contentBodyVal + "\r\n![](" + data.data.url + ")\r\n\r\n");
 
             var converter = new showdown.Converter();
             var rawMarkup = converter.makeHtml($("#contentBody").val());
@@ -206,6 +213,16 @@ $("#uploadContentBodyImage").fileupload({
     }
 });
 
+//文件上传前触发事件
+$('#uploadContentBodyImage').bind('fileuploadsubmit', function (e, data) {
+    data.formData = {
+        'appID': appID,
+        'secret': secret,
+        'accessToken': accessToken,
+        'fileType': $("#selContentBodyFileType").val()
+    };  //如果需要额外添加参数可以在这里添加
+});
+
 
 // 上传内容图片列表
 $("#uploadContentImage").fileupload({
@@ -214,7 +231,7 @@ $("#uploadContentImage").fileupload({
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
     maxNumberOfFiles: 1,
-    formData: {'appID': appID, 'secret': secret, 'accessToken': accessToken, 'fileType': $("#selFileType").val()},
+    //formData: {'appID': appID, 'secret': secret, 'accessToken': accessToken, 'fileType': $("#selFileType").val()},
     maxFileSize: 10000000,
     done: function (e, result) {
         var data = result.result;
@@ -262,6 +279,16 @@ $("#uploadContentImage").fileupload({
 
         console.log('Fail!');
     }
+});
+
+//文件上传前触发事件
+$('#uploadContentImage').bind('fileuploadsubmit', function (e, data) {
+    data.formData = {
+        'appID': appID,
+        'secret': secret,
+        'accessToken': accessToken,
+        'fileType': $("#selFileType").val()
+    };  //如果需要额外添加参数可以在这里添加
 });
 
 $('#contentSummary').keyup(function () {
@@ -315,6 +342,7 @@ $("#btnSave").bind("click", function () {
     data.status = $("#status").val();
     data.source = $("#source").val();
     data.sourceURL = $("#sourceURL").val();
+    data.remarks = $("#remarks").val();
 
     var $pictureList = $("input[id^=pictureList]");
     var pictureList = [];
@@ -326,7 +354,13 @@ $("#btnSave").bind("click", function () {
 
     console.log(data);
     var callback = function (data) {
-        alert("保存成功！");
+        if(pageMode == 1){
+            pageMode = 2;
+            $("#contentID").val(data.contentID);
+            alert("新建成功，进入修改模式！");
+        } else{
+            alert("更新成功！");
+        }
     };
     ajaxPost(url, data, callback);
 });
