@@ -9,5 +9,7 @@ public enum TableName {
     
     CMS_COMMENT_NOTICE,
     
+    cms_favorite,
+    
     SECURITY_USER,
 }
