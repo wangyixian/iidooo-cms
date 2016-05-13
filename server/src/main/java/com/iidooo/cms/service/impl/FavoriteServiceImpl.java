@@ -50,19 +50,19 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public boolean removeFavorite(Integer userID, Integer contentID) {
+    public Integer removeFavorite(Integer userID, Integer contentID) {
         try {
-            CmsFavorite cmsFavorite = new CmsFavorite();
-            cmsFavorite.setUserID(userID);
-            cmsFavorite.setContentID(contentID);
-            cmsFavorite.setUpdateTime(new Date());
-            cmsFavorite.setUpdateUserID(userID);
 
-            if (favoriteMapper.deleteByUserContentID(cmsFavorite) > 0) {
-                return true;
+            CmsFavorite cmsFavorite = favoriteMapper.selectByUserContentID(userID, contentID);
+            if (cmsFavorite != null) {
+                cmsFavorite.setUpdateTime(new Date());
+                cmsFavorite.setUpdateUserID(userID);
+                favoriteMapper.deleteByUserContentID(cmsFavorite);
+                return cmsFavorite.getFavoriteID();
             } else {
-                return false;
+                return null;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -81,5 +81,19 @@ public class FavoriteServiceImpl implements FavoriteService {
             throw e;
         }
     }
+
+    @Override
+    public List<CmsFavorite> getFavoriteList(Integer userID) {
+        try {
+            List<CmsFavorite> result = favoriteMapper.selectFavoriteList(userID);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+    
+    
 
 }

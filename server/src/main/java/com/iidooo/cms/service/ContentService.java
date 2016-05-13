@@ -14,6 +14,14 @@ public interface ContentService {
      */
     CmsContent getContent(Integer contentID);
     
+    /**
+     * 通过内容类型和内容ID获取内容对象
+     * @param contentID 内容ID
+     * @param userID 为了在content对象上设置是否被该用户收藏的Flag
+     * @return 所获的的内容对象
+     */    
+    CmsContent getContent(Integer contentID, Integer userID);
+    
     List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page);
     
     int getContentListCount(CmsContent cmsContent, String startDate, String endDate);

@@ -13,9 +13,11 @@ import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.mapper.CmsCommentMapper;
 import com.iidooo.cms.mapper.CmsContentMapper;
 import com.iidooo.cms.mapper.CmsContentNewsMapper;
+import com.iidooo.cms.mapper.CmsFavoriteMapper;
 import com.iidooo.cms.mapper.CmsPictureMapper;
 import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.po.CmsContentNews;
+import com.iidooo.cms.model.po.CmsFavorite;
 import com.iidooo.cms.model.po.CmsPicture;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.core.model.Page;
@@ -37,6 +39,9 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private CmsCommentMapper cmsCommentMapper;
+    
+    @Autowired
+    private CmsFavoriteMapper favoriteMapper;
 
     @Override
     public CmsContent getContent(Integer contentID) {
@@ -54,6 +59,31 @@ public class ContentServiceImpl implements ContentService {
             throw e;
         }
     }
+    
+    @Override
+    public CmsContent getContent(Integer contentID, Integer userID) {
+        try {
+            CmsContent result = null;
+
+            result = cmsContentNewsDao.selectByContentID(contentID);
+            if (result == null) {
+                result = cmsContentDao.selectByContentID(contentID);
+            }
+
+            if (userID != null) {
+                CmsFavorite cmsFavorite = favoriteMapper.selectByUserContentID(userID, contentID);
+                if (cmsFavorite != null) {
+                    result.setFavoriteID(cmsFavorite.getFavoriteID().toString());
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+
 
     @Override
     public List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page) {

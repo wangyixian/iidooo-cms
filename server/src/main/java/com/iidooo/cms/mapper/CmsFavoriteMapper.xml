@@ -144,6 +144,14 @@
     order by F.${page.sortField} ${page.sortType} limit ${page.start}, ${page.pageSize}
   </select>
   
+  <!-- 根据用户ID获得所有的收藏一览 -->
+  <select id="selectFavoriteList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from cms_favorite F 
+    where F.UserID = #{userID,jdbcType=INTEGER} and F.IsDelete = 0
+  </select>
+  
   <!-- 取消收藏，进行逻辑删除 -->
   <delete id="deleteByUserContentID" parameterType="java.lang.Integer" >
     update cms_favorite

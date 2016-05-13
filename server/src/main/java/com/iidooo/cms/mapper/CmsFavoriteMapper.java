@@ -39,6 +39,13 @@ public interface CmsFavoriteMapper {
      * @return CmsContentWrap 列表
      */
     List<CmsContentWrap> selectByUserID(@Param("userID")Integer userID,@Param("page") Page page);
+    
+    /**
+     * 根据用户ID获得所有的收藏一览
+     * @param userID 用户ID
+     * @return Favorite的List
+     */
+    List<CmsFavorite> selectFavoriteList(Integer userID);
 
     int updateByPrimaryKeySelective(CmsFavorite record);
 

@@ -2,7 +2,9 @@ package com.iidooo.cms.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,19 +15,20 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.iidooo.cms.constant.CmsDictContant;
 import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.po.CmsContentNews;
+import com.iidooo.cms.model.po.CmsFavorite;
 import com.iidooo.cms.model.po.CmsPicture;
+import com.iidooo.cms.model.vo.CmsContentWrap;
 import com.iidooo.cms.service.ContentService;
+import com.iidooo.cms.service.FavoriteService;
 import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.ResponseStatus;
@@ -34,7 +37,6 @@ import com.iidooo.core.enums.SortType;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.Page;
 import com.iidooo.core.model.ResponseResult;
-import com.iidooo.core.model.po.DictItem;
 import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.util.DateUtil;
@@ -58,6 +60,9 @@ public class ContentController {
 
     @Autowired
     private DictItemService dictItemService;
+    
+    @Autowired
+    private FavoriteService favoriteService;
 
     @ResponseBody
     @RequestMapping(value = "/admin/searchContentList", method = RequestMethod.POST)
@@ -161,9 +166,15 @@ public class ContentController {
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
             }
-
+            
+            String userIDStr = request.getParameter("userID");
+            Integer userID = null;
+            if (StringUtil.isNotBlank(userIDStr) && ValidateUtil.isNumber(userIDStr)) {
+                userID = Integer.valueOf(userIDStr);
+            }
+            
             // 查询获得内容对象
-            CmsContent content = contentService.getContent(Integer.valueOf(contentID));
+            CmsContent content = contentService.getContent(Integer.valueOf(contentID), userID);
             if (content == null) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
                 return result;
@@ -262,6 +273,23 @@ public class ContentController {
             if (contentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
+                
+                // 设置是否收藏的FavoriteID
+                String userIDStr = request.getParameter("userID");
+                if (StringUtil.isNotBlank(userIDStr) && ValidateUtil.isNumber(userIDStr)) {
+                    List<CmsFavorite> cmsFavorites = favoriteService.getFavoriteList(Integer.parseInt(userIDStr));
+                    // Key: ContentID, Value: FavoriteID
+                    Map<Integer, Integer> favoriteIDMap = new HashMap<Integer, Integer>();
+                    for (CmsFavorite item : cmsFavorites) {
+                        favoriteIDMap.put(item.getContentID(), item.getFavoriteID());
+                    }
+                    
+                    for (CmsContent item : contentList) {
+                        if (favoriteIDMap.containsKey(item.getContentID())) {
+                            item.setFavoriteID(favoriteIDMap.get(item.getContentID()).toString());
+                        }
+                    }
+                }
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(contentList);
             }

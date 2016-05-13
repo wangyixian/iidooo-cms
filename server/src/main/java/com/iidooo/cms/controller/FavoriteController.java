@@ -147,13 +147,16 @@ public class FavoriteController {
             page.setSortType(sortType);
             page.setStart(Integer.valueOf(start));
             page.setPageSize(Integer.valueOf(pageSize));
-
-            if (favoriteService.removeFavorite(userID, contentID)) {
+            
+            Integer favoriteID = favoriteService.removeFavorite(userID, contentID);
+            if (favoriteID != null) {
                 result.setStatus(ResponseStatus.OK.getCode());
                 List<CmsContentWrap> contentWrapList = favoriteService.getFavoriteContentList(userID, page);
                 result.setData(contentWrapList);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.cms_favorite.toString(), favoriteID, request);
             } else {
-                result.setStatus(ResponseStatus.InsertFailed.getCode());
+                result.setStatus(ResponseStatus.UpdateFailed.getCode());
                 result.setData("failed");
             }
 

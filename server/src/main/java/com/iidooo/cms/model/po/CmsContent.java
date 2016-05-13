@@ -333,6 +333,16 @@ public class CmsContent {
     public void setTagList(List<CmsTagInfo> tagList) {
         this.tagList = tagList;
     }
+        
+    private String favoriteID = "";
+
+    public String getFavoriteID() {
+        return favoriteID;
+    }
+
+    public void setFavoriteID(String favoriteID) {
+        this.favoriteID = favoriteID;
+    }
     
     
 }
