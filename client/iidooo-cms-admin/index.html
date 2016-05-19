@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>IDO CMS SYSTEM - 我的控制台</title>
-    <script src="libs/jquery/js/jquery-2.1.4.min.js"></script>
-    <script src="libs/jquery.cookie/jquery.cookie.js"></script>
-    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
-    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
+    <link href="scripts/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -33,7 +27,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./">您好，<span id="insertUserName"></span></a></li>
+                    <li><a href="">您好，<span id="insertUserName"></span></a></li>
                     <li><a href="#" onclick="logout()">注销</a></li>
                 </ul>
             </div>
@@ -45,12 +39,7 @@
 
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted text-center">Powered by 上海轶度网络科技有限公司</p>
-        <p class="text-muted text-center">version 0.0.0.1 B20160424</p>
-    </div>
-</footer>
+<div id="footer"></div>
 
 </body>
 </html>

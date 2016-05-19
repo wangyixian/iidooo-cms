@@ -1,0 +1,21 @@
+header{
+    background-color: #000000;
+}
+
+.navbar-inverse .navbar-inner {
+    background: #0C7854;
+}
+.navbar .nav > li > a {
+    color: #ffffff;
+}
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    color: paleturquoise;
+}
+
+.navbar .nav > li > a:hover {
+    color: paleturquoise;
+}
+
+.navbar-inner .brand{
+    color: #ffffff;
+}

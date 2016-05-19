@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<form action="http://www.iidooo.com/iidooo-cms/getContentList" method="post">
+<form action="http://toxic.iidooo.com/iidooo-cms/getContentList" method="post">
     <table>
         <tr>
             <td>App ID</td>
@@ -28,9 +28,14 @@
             <td>必填项，内容类型，1:默认，2:新闻，3:自媒体</td>
         </tr>
         <tr>
-            <td>用户ID</td>
+            <td>创建者ID</td>
             <td><input type="text" name="createUserID" value="1"></td>
             <td>可选，获取指定用户的内容列表</td>
+        </tr>
+        <tr>
+            <td>当前操作用户ID</td>
+            <td><input type="text" name="userID" value="1"></td>
+            <td>可选，当前操作的用户</td>
         </tr>
         <tr>
             <td>排序字段</td>

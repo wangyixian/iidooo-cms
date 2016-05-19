@@ -167,7 +167,10 @@
         ELSE
 		C1.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
 		and C1.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
-		END
+		END		
+		<if test="cmsContent.createTime != null">
+			and C1.CreateTime &gt;= #{cmsContent.createTime,jdbcType=TIMESTAMP}
+		</if>
 		order by C1.CreateTime desc limit 0,1)
 		union 
 		(select 
@@ -194,7 +197,10 @@
         ELSE
 		C2.StartShowTime &lt;= #{cmsContent.startShowTime,jdbcType=VARCHAR}
 		and C2.EndShowTime &gt;= #{cmsContent.endShowTime,jdbcType=VARCHAR}
-		END
+		END		
+		<if test="cmsContent.createTime != null">
+			and C2.CreateTime &gt;= #{cmsContent.createTime,jdbcType=TIMESTAMP}
+		</if>
 		order by C2.CreateTime desc limit ${page.start}, ${page.pageSize}) limit ${page.start}, ${page.pageSize}
 	</select>
 

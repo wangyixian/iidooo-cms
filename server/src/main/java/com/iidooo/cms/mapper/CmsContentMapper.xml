@@ -526,6 +526,9 @@
 		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
 			and C1.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
 		</if>
+		<if test="cmsContent.createTime != null and (cmsContent.createUserID == null or cmsContent.createUserID &lt;= 0)">
+			and C1.CreateTime &gt;= #{cmsContent.createTime,jdbcType=TIMESTAMP}
+		</if>
 		order by C1.StarCount desc, C1.`CreateTime` desc limit ${page.start}, ${page.pageSize}) as C11)
 		union
 		(select * from
@@ -555,6 +558,9 @@
 		END
 		<if test="cmsContent.createUserID != null and cmsContent.createUserID > 0">
 			and C2.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
+		</if>
+		<if test="cmsContent.createTime != null and (cmsContent.createUserID == null or cmsContent.createUserID &lt;= 0)">
+			and C2.CreateTime &gt;= #{cmsContent.createTime,jdbcType=TIMESTAMP}
 		</if>
 		order by C2.`CreateTime` desc limit ${page.start}, ${page.pageSize}) as C21)
 		limit ${page.start}, ${page.pageSize}

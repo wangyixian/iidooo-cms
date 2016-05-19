@@ -60,7 +60,7 @@ public class ContentController {
 
     @Autowired
     private DictItemService dictItemService;
-    
+
     @Autowired
     private FavoriteService favoriteService;
 
@@ -113,32 +113,35 @@ public class ContentController {
         try {
             // 查询获得内容对象
             CmsContent content = contentService.getContent(id);
+            if (content != null) {
 
-            // 更新浏览记录
-            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
-            // 更新该内容的PV和UV
-            // UV 的统计需要两个接口的请求
-            List<String> optionList = new ArrayList<String>();
-            optionList.add(request.getServletPath().substring(1));
-            optionList.add("getContent");            
-            int pvCount = content.getPageViewCount() + 1;
-            int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), optionList);
-            contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
-            content.setPageViewCount(pvCount);
-            content.setUniqueVisitorCount(uvCount);
+                // 更新该内容的PV和UV
+                // UV 的统计需要两个接口的请求
+                List<String> optionList = new ArrayList<String>();
+                optionList.add(request.getServletPath().substring(1));
+                optionList.add("getContent");
+                int pvCount = content.getPageViewCount() + 1;
+                int uvCount = hisOperatorService.getUVCount(TableName.CMS_CONTENT.toString(), content.getContentID(), optionList);
+                contentService.updateViewCount(content.getContentID(), pvCount, uvCount);
+                content.setPageViewCount(pvCount);
+                content.setUniqueVisitorCount(uvCount);
 
-            result.addObject("content", content);
+                result.addObject("content", content);
 
-            // 处理微信分享JS SDK的相关参数
-            String jsAPITicket = WeixinThread.getJsAPITicket().getTicket();
-            String url = request.getRequestURL().toString();
-            if (request.getQueryString() != null && request.getQueryString().length() > 0) {
-                url = url + "?" + request.getQueryString();
+                // 处理微信分享JS SDK的相关参数
+                String jsAPITicket = WeixinThread.getJsAPITicket().getTicket();
+                String url = request.getRequestURL().toString();
+                if (request.getQueryString() != null && request.getQueryString().length() > 0) {
+                    url = url + "?" + request.getQueryString();
+                }
+                Signature signature = WeixinUtil.getSignature(jsAPITicket, url);
+                result.addObject("signature", signature);
+                result.addObject("appID", WeixinThread.getAppID());
+
             }
-            Signature signature = WeixinUtil.getSignature(jsAPITicket, url);
-            result.addObject("signature", signature);
-            result.addObject("appID", WeixinThread.getAppID());
         } catch (Exception e) {
             e.printStackTrace();
             logger.fatal(e);
@@ -166,13 +169,13 @@ public class ContentController {
                 result.setStatus(ResponseStatus.Failed.getCode());
                 return result;
             }
-            
+
             String userIDStr = request.getParameter("userID");
             Integer userID = null;
             if (StringUtil.isNotBlank(userIDStr) && ValidateUtil.isNumber(userIDStr)) {
                 userID = Integer.valueOf(userIDStr);
             }
-            
+
             // 查询获得内容对象
             CmsContent content = contentService.getContent(Integer.valueOf(contentID), userID);
             if (content == null) {
@@ -273,7 +276,7 @@ public class ContentController {
             if (contentList.size() <= 0) {
                 result.setStatus(ResponseStatus.QueryEmpty.getCode());
             } else {
-                
+
                 // 设置是否收藏的FavoriteID
                 String userIDStr = request.getParameter("userID");
                 if (StringUtil.isNotBlank(userIDStr) && ValidateUtil.isNumber(userIDStr)) {
@@ -283,7 +286,7 @@ public class ContentController {
                     for (CmsFavorite item : cmsFavorites) {
                         favoriteIDMap.put(item.getContentID(), item.getFavoriteID());
                     }
-                    
+
                     for (CmsContent item : contentList) {
                         if (favoriteIDMap.containsKey(item.getContentID())) {
                             item.setFavoriteID(favoriteIDMap.get(item.getContentID()).toString());

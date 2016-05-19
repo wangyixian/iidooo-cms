@@ -344,5 +344,14 @@ public class CmsContent {
         this.favoriteID = favoriteID;
     }
     
-    
+    // 显示剩余秒数，通过字典项设置的天数 ＋ CreateTime 和现时间比较得出
+    private long remainTime = 0;
+
+    public long getRemainTime() {
+        return remainTime;
+    }
+
+    public void setRemainTime(long remainTime) {
+        this.remainTime = remainTime;
+    }    
 }

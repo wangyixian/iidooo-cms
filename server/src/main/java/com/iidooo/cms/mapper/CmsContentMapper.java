@@ -42,6 +42,7 @@ public interface CmsContentMapper {
     /**
      * 毒电波用的Tab2自媒体一览
      * @param cmsContent 指定内容的参数
+     * @param page 分页显示对象
      * @return 内容一览List
      */
     List<CmsContent> selectContentListForToxicWaveTab2(@Param("cmsContent")CmsContent cmsContent, @Param("page") Page page);

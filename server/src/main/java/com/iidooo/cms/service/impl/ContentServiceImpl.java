@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.iidooo.cms.constant.CmsDictContant;
 import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.mapper.CmsCommentMapper;
 import com.iidooo.cms.mapper.CmsContentMapper;
@@ -20,13 +21,18 @@ import com.iidooo.cms.model.po.CmsContentNews;
 import com.iidooo.cms.model.po.CmsFavorite;
 import com.iidooo.cms.model.po.CmsPicture;
 import com.iidooo.cms.service.ContentService;
+import com.iidooo.core.mapper.DictItemMapper;
 import com.iidooo.core.model.Page;
+import com.iidooo.core.model.po.DictItem;
 import com.iidooo.core.util.DateUtil;
 
 @Service
 public class ContentServiceImpl implements ContentService {
 
     private static final Logger logger = Logger.getLogger(ContentServiceImpl.class);
+
+    @Autowired
+    private DictItemMapper dictItemMapper;
 
     @Autowired
     private CmsContentMapper cmsContentDao;
@@ -39,7 +45,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private CmsCommentMapper cmsCommentMapper;
-    
+
     @Autowired
     private CmsFavoriteMapper favoriteMapper;
 
@@ -53,13 +59,17 @@ public class ContentServiceImpl implements ContentService {
                 result = cmsContentDao.selectByContentID(contentID);
             }
 
+            // 设置所剩余的显示秒数
+            if (result != null) {
+                result.setRemainTime(this.getRemainTime(result.getContentType(), result.getCreateTime()));
+            }
             return result;
         } catch (Exception e) {
             logger.fatal(e);
             throw e;
         }
     }
-    
+
     @Override
     public CmsContent getContent(Integer contentID, Integer userID) {
         try {
@@ -70,11 +80,14 @@ public class ContentServiceImpl implements ContentService {
                 result = cmsContentDao.selectByContentID(contentID);
             }
 
-            if (userID != null) {
+            if (result != null && userID != null) {
                 CmsFavorite cmsFavorite = favoriteMapper.selectByUserContentID(userID, contentID);
                 if (cmsFavorite != null) {
                     result.setFavoriteID(cmsFavorite.getFavoriteID().toString());
                 }
+
+                // 设置所剩余的显示秒数
+                result.setRemainTime(this.getRemainTime(result.getContentType(), result.getCreateTime()));
             }
             return result;
         } catch (Exception e) {
@@ -83,14 +96,28 @@ public class ContentServiceImpl implements ContentService {
         }
     }
 
-
-
     @Override
     public List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page) {
         try {
             List<CmsContent> result = new ArrayList<CmsContent>();
 
             String contentType = cmsContent.getContentType();
+
+            // 获得内容显示过期天数的配置字典项
+            String dictClassCode = CmsDictContant.DICT_CLASS_CMS_PROPERTIES;
+            String dictItemCode = "";
+            if (contentType.equals(ContentType.News.getCode())) {
+                dictItemCode = CmsDictContant.DICT_ITEM_CONTENT_TYPE_2_EXPIRE_DAY;
+            } else {
+                dictItemCode = CmsDictContant.DICT_ITEM_CONTENT_TYPE_1_EXPIRE_DAY;
+            }
+            DictItem expireDictItem = dictItemMapper.selectByClassItemCode(dictClassCode, dictItemCode);
+            Integer expireDay = Integer.parseInt(expireDictItem.getDictItemValue());
+            if (expireDay > 0) {
+                Date createTime = DateUtil.getDate(new Date(), -expireDay);
+                cmsContent.setCreateTime(createTime);
+            }
+
             cmsContent.setStartShowDate(DateUtil.getNow(DateUtil.DATE_HYPHEN));
             cmsContent.setStartShowTime(DateUtil.getNow(DateUtil.TIME_COLON));
             cmsContent.setEndShowDate(DateUtil.getNow(DateUtil.DATE_HYPHEN));
@@ -107,6 +134,11 @@ public class ContentServiceImpl implements ContentService {
                 } else {
                     result = cmsContentDao.selectContentListByChannelPath(channelPath, cmsContent, page);
                 }
+            }
+
+            // 设置所剩余的显示秒数
+            for (CmsContent item : result) {
+                item.setRemainTime(this.getRemainTime(item.getContentType(), item.getCreateTime()));
             }
 
             return result;
@@ -173,7 +205,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     @Transactional
-    public boolean updateContent(CmsContent content) throws Exception{
+    public boolean updateContent(CmsContent content) throws Exception {
         try {
             if (cmsContentDao.updateByContentID(content) <= 0) {
                 throw new Exception();
@@ -205,7 +237,7 @@ public class ContentServiceImpl implements ContentService {
             throw e;
         }
     }
-    
+
     @Override
     public int getUserContentCount(Integer userID) {
         try {
@@ -254,6 +286,34 @@ public class ContentServiceImpl implements ContentService {
             return cmsContentDao.selectStarCount(contentID);
 
         } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return 0;
+        }
+    }
+
+    private long getRemainTime(String contentType, Date createTime) {
+        try {
+            // 获得内容显示过期天数的配置字典项
+            String dictClassCode = CmsDictContant.DICT_CLASS_CMS_PROPERTIES;
+            String dictItemCode = "";
+            if (contentType.equals(ContentType.News.getCode())) {
+                dictItemCode = CmsDictContant.DICT_ITEM_CONTENT_TYPE_2_EXPIRE_DAY;
+            } else {
+                dictItemCode = CmsDictContant.DICT_ITEM_CONTENT_TYPE_1_EXPIRE_DAY;
+            }
+            DictItem expireDictItem = dictItemMapper.selectByClassItemCode(dictClassCode, dictItemCode);
+            Integer expireDay = Integer.parseInt(expireDictItem.getDictItemValue());
+
+            long result = Long.MAX_VALUE;
+            if (expireDay > 0) {
+                Date expireDate = DateUtil.getDate(createTime, expireDay);
+                result = DateUtil.subtract(expireDate, new Date());
+            }             
+            
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
             return 0;
         }
