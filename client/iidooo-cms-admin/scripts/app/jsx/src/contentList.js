@@ -2,10 +2,10 @@
  * Created by Ethan on 16/5/18.
  */
 
-var ContentManageActions = Reflux.createActions(['search']);
+var ContentListActions = Reflux.createActions(['search']);
 
-var ContentManageStore = Reflux.createStore({
-    listenables: [ContentManageActions],
+var ContentListStore = Reflux.createStore({
+    listenables: [ContentListActions],
     onSearch: function (data) {
         var url = serverURL + searchContentListURL;
         data.appID = appID;
@@ -42,16 +42,16 @@ var ContentManageStore = Reflux.createStore({
     }
 });
 
-var ContentManage = React.createClass({
-    mixins: [Reflux.connect(ContentManageStore, 'contentList')],
+var ContentList = React.createClass({
+    mixins: [Reflux.connect(ContentListStore, 'contentList')],
     getInitialState: function () {
         return {
             channelID: 0,
             contentTitle: "",
-            contentType: 0,
+            contentType: "0",
             startDate: "",
             endDate: "",
-            status: 0,
+            status: "",
             contentList: [],
             channelMap: {},
             contentTypeMap: {},
@@ -65,7 +65,7 @@ var ContentManage = React.createClass({
         this.state.contentTitle = this.refs.inputContentTitle.value;
         this.state.startDate = this.refs.inputStartDate.value;
         this.state.endDate = this.refs.inputEndDate.value;
-        ContentManageActions.search(this.state);
+        ContentListActions.search(this.state);
     },
     onChildChanged: function (childState) {
         if (childState.channelID != null) {
@@ -98,7 +98,7 @@ var ContentManage = React.createClass({
                                     <label htmlFor="channelList">所属栏目</label>
                                 </div>
                                 <div className="col-xs-8">
-                                    <ChannelList ref="channelList" channelID={this.state.channelID} callbackParent={this.onChildChanged}/>
+                                    <ChannelList ref="channelList" channelID={this.state.channelID} callbackParent={this.onChildChanged} isContainAll="true"/>
                                 </div>
                             </div>
                             <div className="col-xs-4">
@@ -114,7 +114,7 @@ var ContentManage = React.createClass({
                                     <label>内容类型</label>
                                 </div>
                                 <div className="col-xs-8">
-                                    <ContentTypeList contentType={this.state.contentType} callbackParent={this.onChildChanged}/>
+                                    <ContentTypeList contentType={this.state.contentType} callbackParent={this.onChildChanged} isContainAll="true"/>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +160,7 @@ var ContentManage = React.createClass({
                                 </div>
                                 <div className="col-xs-8">
                                     <ContentStatusList contentStatus={this.state.status}
-                                                       callbackParent={this.onChildChanged}/>
+                                                       callbackParent={this.onChildChanged} isContainAll="true"/>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@ var ContentManage = React.createClass({
                             查&nbsp;询
                         </button>
                         &nbsp;
-                        <button id="btnCreate" className="btn btn-success" type="button">发&nbsp;布</button>
+                        <a className="btn btn-success" href={clientURL + contentDetailPage + "?pageMode=1"} target="_blank">发&nbsp;布</a>
                     </div>
                 </div>
                 <div className="search-result-section">
@@ -192,7 +192,7 @@ var ContentManage = React.createClass({
                         </thead>
                         <tbody>
                         {this.state.contentList.map(function (item) {
-                            return <ContentList key={item.contentID} content={item}/>
+                            return <ContentSearchResult key={item.contentID} content={item}/>
                         })}
                         </tbody>
                     </table>
@@ -221,7 +221,12 @@ var ContentManage = React.createClass({
     }
 });
 
-var ContentList = React.createClass({
+var ContentSearchResult = React.createClass({
+    getInitialState: function () {
+        return {
+            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID
+        };
+    },
     render: function () {
         return (
             <tr>
@@ -235,7 +240,7 @@ var ContentList = React.createClass({
                 <td>{new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')}</td>
                 <td>{this.props.content.pageViewCount}</td>
                 <td>
-                    <a id='btnModify' href='#'>修改</a> |
+                    <a href={this.state.contentDetailURL} target="_blank">修改</a> |
                     <a id='btnDelete' href='#'>删除</a> |
                     <a id='btnSticky' href='#'>置顶</a>
                 </td>
@@ -245,8 +250,8 @@ var ContentList = React.createClass({
 });
 
 ReactDOM.render(
-    <ContentManage />,
-    document.getElementById('contentManage')
+    <ContentList />,
+    document.getElementById('contentList')
 );
 
 $(function () {

@@ -2,10 +2,10 @@
  * Created by Ethan on 16/5/18.
  */
 
-var ContentManageActions = Reflux.createActions(['search']);
+var ContentListActions = Reflux.createActions(['search']);
 
-var ContentManageStore = Reflux.createStore({
-    listenables: [ContentManageActions],
+var ContentListStore = Reflux.createStore({
+    listenables: [ContentListActions],
     onSearch: function (data) {
         var url = serverURL + searchContentListURL;
         data.appID = appID;
@@ -42,16 +42,16 @@ var ContentManageStore = Reflux.createStore({
     }
 });
 
-var ContentManage = React.createClass({displayName: "ContentManage",
-    mixins: [Reflux.connect(ContentManageStore, 'contentList')],
+var ContentList = React.createClass({displayName: "ContentList",
+    mixins: [Reflux.connect(ContentListStore, 'contentList')],
     getInitialState: function () {
         return {
             channelID: 0,
             contentTitle: "",
-            contentType: 0,
+            contentType: "0",
             startDate: "",
             endDate: "",
-            status: 0,
+            status: "",
             contentList: [],
             channelMap: {},
             contentTypeMap: {},
@@ -65,7 +65,7 @@ var ContentManage = React.createClass({displayName: "ContentManage",
         this.state.contentTitle = this.refs.inputContentTitle.value;
         this.state.startDate = this.refs.inputStartDate.value;
         this.state.endDate = this.refs.inputEndDate.value;
-        ContentManageActions.search(this.state);
+        ContentListActions.search(this.state);
     },
     onChildChanged: function (childState) {
         if (childState.channelID != null) {
@@ -98,7 +98,7 @@ var ContentManage = React.createClass({displayName: "ContentManage",
                                     React.createElement("label", {htmlFor: "channelList"}, "所属栏目")
                                 ), 
                                 React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ChannelList, {ref: "channelList", channelID: this.state.channelID, callbackParent: this.onChildChanged})
+                                    React.createElement(ChannelList, {ref: "channelList", channelID: this.state.channelID, callbackParent: this.onChildChanged, isContainAll: "true"})
                                 )
                             ), 
                             React.createElement("div", {className: "col-xs-4"}, 
@@ -114,7 +114,7 @@ var ContentManage = React.createClass({displayName: "ContentManage",
                                     React.createElement("label", null, "内容类型")
                                 ), 
                                 React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ContentTypeList, {contentType: this.state.contentType, callbackParent: this.onChildChanged})
+                                    React.createElement(ContentTypeList, {contentType: this.state.contentType, callbackParent: this.onChildChanged, isContainAll: "true"})
                                 )
                             )
                         )
@@ -160,7 +160,7 @@ var ContentManage = React.createClass({displayName: "ContentManage",
                                 ), 
                                 React.createElement("div", {className: "col-xs-8"}, 
                                     React.createElement(ContentStatusList, {contentStatus: this.state.status, 
-                                                       callbackParent: this.onChildChanged})
+                                                       callbackParent: this.onChildChanged, isContainAll: "true"})
                                 )
                             )
                         )
@@ -171,7 +171,7 @@ var ContentManage = React.createClass({displayName: "ContentManage",
                             "查 询"
                         ), 
                         " ", 
-                        React.createElement("button", {id: "btnCreate", className: "btn btn-success", type: "button"}, "发 布")
+                        React.createElement("a", {className: "btn btn-success", href: clientURL + contentDetailPage + "?pageMode=1", target: "_blank"}, "发 布")
                     )
                 ), 
                 React.createElement("div", {className: "search-result-section"}, 
@@ -192,7 +192,7 @@ var ContentManage = React.createClass({displayName: "ContentManage",
                         ), 
                         React.createElement("tbody", null, 
                         this.state.contentList.map(function (item) {
-                            return React.createElement(ContentList, {key: item.contentID, content: item})
+                            return React.createElement(ContentSearchResult, {key: item.contentID, content: item})
                         })
                         )
                     ), 
@@ -221,7 +221,12 @@ var ContentManage = React.createClass({displayName: "ContentManage",
     }
 });
 
-var ContentList = React.createClass({displayName: "ContentList",
+var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
+    getInitialState: function () {
+        return {
+            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID
+        };
+    },
     render: function () {
         return (
             React.createElement("tr", null, 
@@ -235,7 +240,7 @@ var ContentList = React.createClass({displayName: "ContentList",
                 React.createElement("td", null, new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')), 
                 React.createElement("td", null, this.props.content.pageViewCount), 
                 React.createElement("td", null, 
-                    React.createElement("a", {id: "btnModify", href: "#"}, "修改"), " |", 
+                    React.createElement("a", {href: this.state.contentDetailURL, target: "_blank"}, "修改"), " |", 
                     React.createElement("a", {id: "btnDelete", href: "#"}, "删除"), " |", 
                     React.createElement("a", {id: "btnSticky", href: "#"}, "置顶")
                 )
@@ -245,8 +250,8 @@ var ContentList = React.createClass({displayName: "ContentList",
 });
 
 ReactDOM.render(
-    React.createElement(ContentManage, null),
-    document.getElementById('contentManage')
+    React.createElement(ContentList, null),
+    document.getElementById('contentList')
 );
 
 $(function () {

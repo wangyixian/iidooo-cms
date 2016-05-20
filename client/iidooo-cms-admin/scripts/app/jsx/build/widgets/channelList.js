@@ -50,21 +50,33 @@ var ChannelList = React.createClass({displayName: "ChannelList",
             // 记录到channelMap
             this.state.channelMap[channel.channelID] = channel.channelName;
         }
+        this.state.channelID = this.refs.inputChannelID.value;
         this.props.callbackParent(this.state);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.refs.inputChannelID.value = nextProps.channelID;
     },
     handleChange: function () {
         this.state.channelID = this.refs.inputChannelID.value;
         // 这里要注意：setState 是一个异步方法，所以需要操作缓存的当前值
         this.props.callbackParent(this.state);
     },
+    checkIsContainAll: function(){
+        if(this.props.isContainAll == 'true') {
+            return (
+                React.createElement("option", {value: "0"}, "全部")
+            );
+        }
+    },
     render: function () {
         return (
-            React.createElement("select", {className: "form-control", ref: "inputChannelID", onChange: this.handleChange}, 
-                React.createElement("option", {value: "0"}, "全部"), 
-                this.state.channelList.map(function (item) {
-                    return React.createElement("option", {key: item.channelID, value: item.channelID}, item.channelName)
-                })
-            )
+                React.createElement("select", {className: "form-control", defaultValue: this.props.channelID, ref: "inputChannelID", onChange: this.handleChange}, 
+                    this.checkIsContainAll(), 
+                    this.state.channelList.map(function (item) {
+                        return React.createElement("option", {key: item.channelID, value: item.channelID}, item.channelName)
+                    })
+                )
+
         );
     }
 });

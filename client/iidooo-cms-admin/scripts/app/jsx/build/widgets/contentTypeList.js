@@ -51,17 +51,28 @@ var ContentTypeList = React.createClass({displayName: "ContentTypeList",
             var dictItem = this.state.contentTypeList[i];
             this.state.contentTypeMap[dictItem.dictItemCode] = dictItem.dictItemName;
         }
+        this.state.contentType = this.refs.inputContentType.value;
         this.props.callbackParent(this.state);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.refs.inputContentType.value = nextProps.contentType;
     },
     handleChange: function () {
         this.state.contentType = this.refs.inputContentType.value;
         // 这里要注意：setState 是一个异步方法，所以需要操作缓存的当前值
         this.props.callbackParent(this.state);
     },
+    checkIsContainAll: function(){
+        if(this.props.isContainAll == 'true') {
+            return (
+                React.createElement("option", {value: "0"}, "全部")
+            );
+        }
+    },
     render: function () {
         return (
             React.createElement("select", {className: "form-control", ref: "inputContentType", onChange: this.handleChange}, 
-                React.createElement("option", {value: "0"}, "全部"), 
+                this.checkIsContainAll(), 
                 this.state.contentTypeList.map(function (item) {
                     return React.createElement("option", {key: item.dictItemCode, value: item.dictItemCode}, item.dictItemName)
                 })

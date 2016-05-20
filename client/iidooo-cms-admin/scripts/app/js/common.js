@@ -26,7 +26,8 @@ var getContentURL = "/admin/getContent";
 var updateContentURL = "/admin/updateContent";
 
 var loginPage = "/pages/login.html";
-var contentManagePage = "/pages/contentManage.html";
+var contentListPage = "/pages/contentList.html";
+var contentDetailPage = "/pages/contentDetail.html";
 
 var CmsContent = {
     contentID: 0
@@ -67,6 +68,23 @@ Date.prototype.format = function (format) {
     return format;
 }
 
+// 得到地址栏中的路径指定参数值
+function getQueryStr(key) {
+    var url = window.document.location.href;
+    if (url.indexOf("?") != -1) {
+        var queryStr = url.substr(url.indexOf("?") + 1);
+        var params = queryStr.split("&");
+        for (var i = 0; i < params.length; i++) {
+            var param = params[i].split("=");
+            if(param != null && param.length == 2 && param[0] == key){
+                return param[1];
+            }
+        }
+    }
+    return "";
+}
+
+
 function ajaxPost(url, data, callback) {
     $.ajax({
         type: "POST",
@@ -86,4 +104,12 @@ function ajaxPost(url, data, callback) {
             //ajaxpost(url, data, callback);
         }
     });
+}
+
+// 提供showdown格式的预览
+function showdownPreview(content, containerID){
+    showdown.setOption('strikethrough', 'true');
+    var converter = new showdown.Converter();
+    var rawMarkup = converter.makeHtml(content);
+    $("#" + containerID).html(rawMarkup);
 }

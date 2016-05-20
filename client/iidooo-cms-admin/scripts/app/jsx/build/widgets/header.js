@@ -38,7 +38,7 @@ var HeaderStore = Reflux.createStore({
     }
 });
 
-var Header = React.createClass({
+var Header = React.createClass({displayName: "Header",
     mixins: [Reflux.connect(HeaderStore, 'user')],
     getInitialState: function () {
         return {user: {}};
@@ -51,72 +51,72 @@ var Header = React.createClass({
     },
     render: function () {
         return (
-            <header className="header">
-                <nav className="navbar navbar-inverse">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <LOGO/>
-                        </div>
-                        <div id="navbar" className="navbar-collapse collapse">
-                            <MainMenu/>
-                            <LoginInfo userName={this.state.user.userName}/>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+            React.createElement("header", {className: "header"}, 
+                React.createElement("nav", {className: "navbar navbar-inverse"}, 
+                    React.createElement("div", {className: "container-fluid"}, 
+                        React.createElement("div", {className: "navbar-header"}, 
+                            React.createElement(LOGO, null)
+                        ), 
+                        React.createElement("div", {id: "navbar", className: "navbar-collapse collapse"}, 
+                            React.createElement(MainMenu, null), 
+                            React.createElement(LoginInfo, {userName: this.state.user.userName})
+                        )
+                    )
+                )
+            )
         );
     }
 });
 
-var LOGO = React.createClass({
+var LOGO = React.createClass({displayName: "LOGO",
     getInitialState: function () {
         return {
-            indexURL: clientURL + contentManagePage
+            indexURL: clientURL + contentListPage
         };
     },
     render: function () {
         return (
-            <div>
-                <a className="navbar-brand" href={this.state.indexURL}>IDO CMS SYSTEM</a>
-            </div>
+            React.createElement("div", null, 
+                React.createElement("a", {className: "navbar-brand", href: this.state.indexURL}, "IDO CMS SYSTEM")
+            )
         );
     }
 });
 
-var MainMenu = React.createClass({
+var MainMenu = React.createClass({displayName: "MainMenu",
     getInitialState: function () {
         return {
-            contentManageURL: clientURL + contentManagePage
+            contentManageURL: clientURL + contentListPage
         };
     },
     render: function () {
         return (
-            <ul className="nav navbar-nav">
-                <li className="active">
-                    <a href={this.state.contentManageURL}>内容管理</a>
-                </li>
-            </ul>
+            React.createElement("ul", {className: "nav navbar-nav"}, 
+                React.createElement("li", {className: "active"}, 
+                    React.createElement("a", {href: this.state.contentManageURL}, "内容管理")
+                )
+            )
         );
     }
 });
 
-var LoginInfo = React.createClass({
+var LoginInfo = React.createClass({displayName: "LoginInfo",
     handleClick: function () {
         HeaderActions.logout();
     },
 
     render: function () {
         return (
-            <ul className="nav navbar-nav navbar-right">
-                <li><a href="#">您好，{this.props.userName}</a></li>
-                <li><a href="#" onClick={this.handleClick}>注销</a></li>
-            </ul>
+            React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
+                React.createElement("li", null, React.createElement("a", {href: "#"}, "您好，", this.props.userName)), 
+                React.createElement("li", null, React.createElement("a", {href: "#", onClick: this.handleClick}, "注销"))
+            )
         );
     }
 });
 
 
 ReactDOM.render(
-    <Header />,
+    React.createElement(Header, null),
     document.getElementById('header')
 );
