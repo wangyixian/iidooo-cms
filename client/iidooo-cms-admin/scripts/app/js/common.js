@@ -22,6 +22,7 @@ var getDictItemListURL = "/core/getDictItemList";
 var searchContentListURL = "/admin/searchContentList";
 var uploadFileURL = "/admin/uploadFile";
 var createContentURL = "/admin/createContent";
+var apiDeleteContent = "/admin/deleteContent";
 var getContentURL = "/admin/getContent";
 var updateContentURL = "/admin/updateContent";
 

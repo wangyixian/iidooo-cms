@@ -2,10 +2,11 @@
  * Created by Ethan on 16/5/18.
  */
 
-var ContentListActions = Reflux.createActions(['search']);
+var ContentListActions = Reflux.createActions(['search', 'delete']);
 
 var ContentListStore = Reflux.createStore({
     listenables: [ContentListActions],
+    contentList: [],
     onSearch: function (data) {
         var url = serverURL + searchContentListURL;
         data.appID = appID;
@@ -31,7 +32,40 @@ var ContentListStore = Reflux.createStore({
                     content.contentTypeName = contentTypeMap[content.contentType];
                     content.statusName = contentStatusMap[content.status];
                 }
-                self.trigger(result.data);
+                contentList = result.data;
+                //console.log(contentList);
+                self.trigger(contentList);
+            } else {
+                console.log(result);
+                alert("获取登陆用户信息失败！");
+            }
+        };
+
+        ajaxPost(url, data, callback);
+    },
+    onDelete: function (data) {
+        var url = serverURL + apiDeleteContent;
+        data.appID = appID;
+        data.secret = secret;
+        data.accessToken = $.cookie("ACCESS_TOKEN");
+        data.userID = $.cookie("USER_ID");
+        // 检查token是否过期
+        if (data.accessToken == null || data.accessToken == "" || data.userID == null || data.userID == "") {
+            alert("登陆过期，请重新登陆！");
+            location.href = clientURL + loginPage;
+            return false;
+        }
+
+        var self = this;
+        var callback = function (result) {
+            if (result.status == 200) {
+                $.each(contentList, function (index, object) {
+                    if (data.contentID == object.contentID) {
+                        contentList.splice(index, 1);//从下标为i的元素开始，连续删除1个元素
+                        return false;
+                    }
+                });
+                self.trigger(contentList);
             } else {
                 console.log(result);
                 alert("获取登陆用户信息失败！");
@@ -98,7 +132,8 @@ var ContentList = React.createClass({displayName: "ContentList",
                                     React.createElement("label", {htmlFor: "channelList"}, "所属栏目")
                                 ), 
                                 React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ChannelList, {ref: "channelList", channelID: this.state.channelID, callbackParent: this.onChildChanged, isContainAll: "true"})
+                                    React.createElement(ChannelList, {ref: "channelList", channelID: this.state.channelID, 
+                                                 callbackParent: this.onChildChanged, isContainAll: "true"})
                                 )
                             ), 
                             React.createElement("div", {className: "col-xs-4"}, 
@@ -114,7 +149,8 @@ var ContentList = React.createClass({displayName: "ContentList",
                                     React.createElement("label", null, "内容类型")
                                 ), 
                                 React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ContentTypeList, {contentType: this.state.contentType, callbackParent: this.onChildChanged, isContainAll: "true"})
+                                    React.createElement(ContentTypeList, {contentType: this.state.contentType, 
+                                                     callbackParent: this.onChildChanged, isContainAll: "true"})
                                 )
                             )
                         )
@@ -171,7 +207,8 @@ var ContentList = React.createClass({displayName: "ContentList",
                             "查 询"
                         ), 
                         " ", 
-                        React.createElement("a", {className: "btn btn-success", href: clientURL + contentDetailPage + "?pageMode=1", target: "_blank"}, "发 布")
+                        React.createElement("a", {className: "btn btn-success", href: clientURL + contentDetailPage + "?pageMode=1", 
+                           target: "_blank"}, "发 布")
                     )
                 ), 
                 React.createElement("div", {className: "search-result-section"}, 
@@ -224,8 +261,13 @@ var ContentList = React.createClass({displayName: "ContentList",
 var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
     getInitialState: function () {
         return {
-            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID
+            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID,
         };
+    },
+    handleDelete: function (content) {
+        if(window.confirm('确定要删除吗？')) {
+            ContentListActions.delete(content);
+        }
     },
     render: function () {
         return (
@@ -241,7 +283,7 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
                 React.createElement("td", null, this.props.content.pageViewCount), 
                 React.createElement("td", null, 
                     React.createElement("a", {href: this.state.contentDetailURL, target: "_blank"}, "修改"), " |", 
-                    React.createElement("a", {id: "btnDelete", href: "#"}, "删除"), " |", 
+                    React.createElement("a", {href: "javascript:void(0)", onClick: this.handleDelete.bind(null, this.props.content)}, "删除"), " |", 
                     React.createElement("a", {id: "btnSticky", href: "#"}, "置顶")
                 )
             )

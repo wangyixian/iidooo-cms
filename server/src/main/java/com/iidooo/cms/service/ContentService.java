@@ -65,4 +65,11 @@ public interface ContentService {
      * @param contentID 指定内容的ID
      */
     void updateCommentCount(Integer contentID);
+    
+    /**
+     * 删除指定内容
+     * @param content 该内容会被删除
+     * @return 删除成功还是失败
+     */
+    boolean deleteContent(CmsContent content);
 }

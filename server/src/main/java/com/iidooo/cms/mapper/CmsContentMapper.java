@@ -118,4 +118,10 @@ public interface CmsContentMapper {
      */
     int updateStarCount(@Param("contentID") Integer contentID, @Param("isPlus") boolean isPlus);
 
+    /**
+     * 删除指定内容
+     * @param content 该内容会被删除
+     * @return 所影响的行数
+     */
+    int deleteByContentID(CmsContent content);
 }

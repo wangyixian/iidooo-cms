@@ -2,10 +2,11 @@
  * Created by Ethan on 16/5/18.
  */
 
-var ContentListActions = Reflux.createActions(['search']);
+var ContentListActions = Reflux.createActions(['search', 'delete']);
 
 var ContentListStore = Reflux.createStore({
     listenables: [ContentListActions],
+    contentList: [],
     onSearch: function (data) {
         var url = serverURL + searchContentListURL;
         data.appID = appID;
@@ -31,7 +32,40 @@ var ContentListStore = Reflux.createStore({
                     content.contentTypeName = contentTypeMap[content.contentType];
                     content.statusName = contentStatusMap[content.status];
                 }
-                self.trigger(result.data);
+                contentList = result.data;
+                //console.log(contentList);
+                self.trigger(contentList);
+            } else {
+                console.log(result);
+                alert("获取登陆用户信息失败！");
+            }
+        };
+
+        ajaxPost(url, data, callback);
+    },
+    onDelete: function (data) {
+        var url = serverURL + apiDeleteContent;
+        data.appID = appID;
+        data.secret = secret;
+        data.accessToken = $.cookie("ACCESS_TOKEN");
+        data.userID = $.cookie("USER_ID");
+        // 检查token是否过期
+        if (data.accessToken == null || data.accessToken == "" || data.userID == null || data.userID == "") {
+            alert("登陆过期，请重新登陆！");
+            location.href = clientURL + loginPage;
+            return false;
+        }
+
+        var self = this;
+        var callback = function (result) {
+            if (result.status == 200) {
+                $.each(contentList, function (index, object) {
+                    if (data.contentID == object.contentID) {
+                        contentList.splice(index, 1);//从下标为i的元素开始，连续删除1个元素
+                        return false;
+                    }
+                });
+                self.trigger(contentList);
             } else {
                 console.log(result);
                 alert("获取登陆用户信息失败！");
@@ -98,7 +132,8 @@ var ContentList = React.createClass({
                                     <label htmlFor="channelList">所属栏目</label>
                                 </div>
                                 <div className="col-xs-8">
-                                    <ChannelList ref="channelList" channelID={this.state.channelID} callbackParent={this.onChildChanged} isContainAll="true"/>
+                                    <ChannelList ref="channelList" channelID={this.state.channelID}
+                                                 callbackParent={this.onChildChanged} isContainAll="true"/>
                                 </div>
                             </div>
                             <div className="col-xs-4">
@@ -114,7 +149,8 @@ var ContentList = React.createClass({
                                     <label>内容类型</label>
                                 </div>
                                 <div className="col-xs-8">
-                                    <ContentTypeList contentType={this.state.contentType} callbackParent={this.onChildChanged} isContainAll="true"/>
+                                    <ContentTypeList contentType={this.state.contentType}
+                                                     callbackParent={this.onChildChanged} isContainAll="true"/>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +207,8 @@ var ContentList = React.createClass({
                             查&nbsp;询
                         </button>
                         &nbsp;
-                        <a className="btn btn-success" href={clientURL + contentDetailPage + "?pageMode=1"} target="_blank">发&nbsp;布</a>
+                        <a className="btn btn-success" href={clientURL + contentDetailPage + "?pageMode=1"}
+                           target="_blank">发&nbsp;布</a>
                     </div>
                 </div>
                 <div className="search-result-section">
@@ -224,8 +261,13 @@ var ContentList = React.createClass({
 var ContentSearchResult = React.createClass({
     getInitialState: function () {
         return {
-            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID
+            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID,
         };
+    },
+    handleDelete: function (content) {
+        if(window.confirm('确定要删除吗？')) {
+            ContentListActions.delete(content);
+        }
     },
     render: function () {
         return (
@@ -241,7 +283,7 @@ var ContentSearchResult = React.createClass({
                 <td>{this.props.content.pageViewCount}</td>
                 <td>
                     <a href={this.state.contentDetailURL} target="_blank">修改</a> |
-                    <a id='btnDelete' href='#'>删除</a> |
+                    <a href="javascript:void(0)" onClick={this.handleDelete.bind(null, this.props.content)}>删除</a> |
                     <a id='btnSticky' href='#'>置顶</a>
                 </td>
             </tr>

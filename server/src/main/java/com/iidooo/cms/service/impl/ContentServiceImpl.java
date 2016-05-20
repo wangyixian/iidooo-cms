@@ -319,4 +319,17 @@ public class ContentServiceImpl implements ContentService {
         }
     }
 
+    @Override
+    public boolean deleteContent(CmsContent content) {
+        try {            
+            content.setUpdateTime(new Date());
+            cmsContentDao.deleteByContentID(content);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
 }

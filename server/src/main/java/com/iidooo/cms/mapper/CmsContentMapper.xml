@@ -433,6 +433,22 @@
 		</set>
 		where ContentID = #{contentID,jdbcType=INTEGER}
 	</update>
+	
+	<!-- 通过内容ID删除指定内容 -->
+	<update id="deleteByContentID" parameterType="com.iidooo.cms.model.po.CmsContent">
+		update CMS_CONTENT
+		<set>			
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserID != null">
+				UpdateUserID = #{updateUserID,jdbcType=INTEGER},
+			</if>
+			Version = Version + 1,
+			IsDelete = 1
+		</set>
+		where ContentID = #{contentID,jdbcType=INTEGER}
+	</update>
 
 	<update id="updateViewCount">
 		update CMS_CONTENT
@@ -565,4 +581,6 @@
 		order by C2.`CreateTime` desc limit ${page.start}, ${page.pageSize}) as C21)
 		limit ${page.start}, ${page.pageSize}
 	</select>
+	
+	
 </mapper>

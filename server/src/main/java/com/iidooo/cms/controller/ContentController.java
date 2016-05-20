@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,57 @@ public class ContentController {
             // 返回找到的内容对象
             result.setStatus(ResponseStatus.OK.getCode());
             result.setData(contentList);
+
+        } catch (Exception e) {
+            logger.fatal(e);
+            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
+            message.setDescription(e.toString());
+            result.getMessages().add(message);
+            result.setStatus(ResponseStatus.Failed.getCode());
+        }
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/deleteContent", method = RequestMethod.POST)
+    public ResponseResult deleteContent(HttpServletRequest request, HttpServletResponse response) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String contentIDStr = request.getParameter("contentID");
+            String userIDStr = request.getParameter("userID");
+
+            if (StringUtil.isBlank(contentIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(contentIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
+                result.getMessages().add(message);
+            }
+
+            if (StringUtil.isBlank(userIDStr)) {
+                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            } else if (!ValidateUtil.isNumber(userIDStr)) {
+                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
+                result.getMessages().add(message);
+            }
+
+            if (result.getMessages().size() > 0) {
+                // 验证失败，返回message
+                result.setStatus(ResponseStatus.Failed.getCode());
+                return result;
+            }
+
+            CmsContent content = new CmsContent();
+            content.setContentID(Integer.parseInt(contentIDStr));
+            content.setUpdateUserID(Integer.parseInt(userIDStr));
+            contentService.deleteContent(content);
+
+            // 返回找到的内容对象
+            result.setStatus(ResponseStatus.OK.getCode());
+            result.setData("success");
+            // 更新浏览记录
+            hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
         } catch (Exception e) {
             logger.fatal(e);
