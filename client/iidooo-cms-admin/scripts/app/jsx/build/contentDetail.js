@@ -9,9 +9,9 @@ var ContentStore = Reflux.createStore({
     onSave: function (data) {
         var url = "";
         if (data.pageMode == "1") {
-            url = serverURL + createContentURL;
+            url = serverURL + api.createContent;
         } else if (data.pageMode == "2") {
-            url = serverURL + updateContentURL;
+            url = serverURL + api.updateContent;
         } else {
             alert("请指定正确的pageMode参数！");
             return false;
@@ -53,7 +53,7 @@ var ContentStore = Reflux.createStore({
         ajaxPost(url, data, callback);
     },
     onGetContent: function (data) {
-        var url = serverURL + getContentURL;
+        var url = serverURL + api.getContent;
         data.appID = appID;
         data.secret = secret;
         data.accessToken = $.cookie("ACCESS_TOKEN");
@@ -78,7 +78,6 @@ var ContentStore = Reflux.createStore({
                 if (result.data.pictureList.length > 0) {
                     $("#divContentImageList").attr("class", "show");
                     $.each(result.data.pictureList, function (index, object) {
-                        console.log(object)
                         // 加入上传路径
                         var $divInputPic = $("#divInputContentPic");
                         var $pictureList = $("<input type='text' class='form-control'/>");
@@ -131,7 +130,7 @@ var Content = React.createClass({displayName: "Content",
                 contentBody: "",
                 stickyIndex: 0,
                 isSilent: 0,
-                status: "2",
+                status: "1",
                 contentType: "0",
                 startShowDate: "",
                 endShowDate: "",
@@ -149,6 +148,7 @@ var Content = React.createClass({displayName: "Content",
     },
     componentWillMount: function () {
         this.state.content.pageMode = getQueryStr("pageMode");
+
         if (this.state.content.pageMode == "2") {
             this.state.content.contentID = getQueryStr("contentID");
             ContentActions.getContent(this.state.content);
@@ -162,6 +162,11 @@ var Content = React.createClass({displayName: "Content",
 
         showdownPreview(this.state.content.contentSummary, "txtSummaryPreview");
         showdownPreview(this.state.content.contentBody, "txtContentBodyPreview");
+
+        if (this.state.content.pageMode == "2") {
+            dataPermission("readOnlyAlert", this.state.content);
+        }
+
     },
     onChildChanged: function (childState) {
         if (childState.channelID != null) {
@@ -191,9 +196,6 @@ var Content = React.createClass({displayName: "Content",
                 break;
             case "contentSubTitle":
                 this.state.content.contentSubTitle = event.target.value;
-                break;
-            case "contentImageTitle":
-                this.state.content.contentImageTitle = event.target.value;
                 break;
             case "contentSummary":
                 this.state.content.contentSummary = event.target.value;
@@ -233,15 +235,36 @@ var Content = React.createClass({displayName: "Content",
                 this.state.content.remarks = event.target.value;
                 break;
         }
+
+        this.state.content.contentImageTitle = this.refs.inputImageTitle.value;
+        this.state.content.contentBody = this.refs.inputContentBody.value;
         this.state.content.startShowDate = this.refs.inputStartShowDate.value;
         this.state.content.endShowDate = this.refs.inputEndShowDate.value;
         this.state.content.startShowTime = this.refs.inputStartShowTime.value;
         this.state.content.endShowTime = this.refs.inputEndShowTime.value;
 
-        console.log(this.state.content.endShowTime);
         this.setState(this.state.content);
     },
     handleSave: function () {
+
+
+        var url = api.createContent;
+        if (this.state.content.pageMode == "2") {
+            url = api.updateContent;
+        }
+
+        if ($.inArray(url, securityUser.resUrlList) < 0 || securityUser.roleCode == role.readonly) {
+            alert(message.NO_PERMISSION);
+            return false;
+        }
+
+        if (this.state.content.pageMode == "2") {
+            if (dataPermission("readOnlyAlert", this.state.content)) {
+                return false;
+            }
+        }
+
+        this.state.content.contentImageTitle = this.refs.inputImageTitle.value;
         this.state.content.contentBody = this.refs.inputContentBody.value;
         this.state.content.startShowDate = this.refs.inputStartShowDate.value;
         this.state.content.endShowDate = this.refs.inputEndShowDate.value;
@@ -252,6 +275,7 @@ var Content = React.createClass({displayName: "Content",
     render: function () {
         return (
             React.createElement("div", null, 
+                React.createElement("div", {id: "readOnlyAlert", className: "alert alert-warning text-center hidden", role: "alert"}), 
                 React.createElement(Breadcrumb, null), 
 
                 React.createElement("div", {className: "panel panel-primary"}, 
@@ -306,9 +330,8 @@ var Content = React.createClass({displayName: "Content",
                                     React.createElement("label", null, "标题图")
                                 ), 
                                 React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {id: "contentImageTitle", type: "text", className: "form-control", 
-                                           value: this.state.content.contentImageTitle, 
-                                           onChange: this.handleChange.bind(null, 'contentImageTitle')}), 
+                                    React.createElement("input", {ref: "inputImageTitle", id: "contentImageTitle", type: "text", 
+                                           className: "form-control"}), 
                                     React.createElement("img", {id: "imgImageTitle", src: ""})
                                 )
                             ), 
@@ -355,7 +378,8 @@ var Content = React.createClass({displayName: "Content",
                                         React.createElement("option", {value: "3"}, "详细大图(1000*1000)"), 
                                         React.createElement("option", {value: "4"}, "不压缩")
                                     ), 
-                                        React.createElement("textarea", {id: "contentBody", ref: "inputContentBody", cols: "100", rows: "30", className: "form-control", 
+                                        React.createElement("textarea", {id: "contentBody", ref: "inputContentBody", cols: "100", rows: "30", 
+                                                  className: "form-control", 
                                                   value: this.state.content.contentBody, 
                                                   onChange: this.handleChange.bind(null, 'contentBody')})
                                 )
@@ -453,7 +477,8 @@ var Content = React.createClass({displayName: "Content",
                                          "data-link-format": "yyyy-mm-dd"}, 
                                         React.createElement("input", {id: "startShowDate", className: "form-control", type: "text", 
                                                readonly: true, value: this.state.content.startShowDate, 
-                                               onChange: this.handleChange.bind(null, 'startShowDate'), ref: "inputStartShowDate"}), 
+                                               onChange: this.handleChange.bind(null, 'startShowDate'), 
+                                               ref: "inputStartShowDate"}), 
                                                     React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
                                                         className: "glyphicon glyphicon-remove"})), 
                                                 React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
@@ -638,7 +663,7 @@ $(function () {
 
 // 上传标题图
 $("#uploadImageTitle").fileupload({
-    url: serverURL + uploadFileURL,
+    url: serverURL + api.uploadFile,
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
@@ -675,7 +700,7 @@ $("#uploadImageTitle").fileupload({
 
 // 上传内容主体图
 $("#uploadContentBodyImage").fileupload({
-    url: serverURL + uploadFileURL,
+    url: serverURL + api.uploadFile,
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
@@ -724,7 +749,7 @@ $('#uploadContentBodyImage').bind('fileuploadsubmit', function (e, data) {
 
 // 上传内容图片列表
 $("#uploadContentImage").fileupload({
-    url: serverURL + uploadFileURL,
+    url: serverURL + api.uploadFile,
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,

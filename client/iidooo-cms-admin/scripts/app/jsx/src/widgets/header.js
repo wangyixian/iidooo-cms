@@ -7,7 +7,7 @@ var HeaderActions = Reflux.createActions(['getUserByToken', 'logout']);
 var HeaderStore = Reflux.createStore({
     listenables: [HeaderActions],
     onGetUserByToken: function (data) {
-        var url = serverURL + getUserByTokenURL;
+        var url = serverURL + api.getUserByToken;
         data.appID = appID;
         data.secret = secret;
         data.accessToken = $.cookie("ACCESS_TOKEN");
@@ -22,6 +22,12 @@ var HeaderStore = Reflux.createStore({
         var self = this;
         var callback = function (result) {
             if (result.status == 200) {
+                securityUser = result.data;
+                $.each(result.data.roleList, function (index, role) {
+                    result.data.roleName = role.roleName;
+                    result.data.roleCode = role.roleCode;
+                    return false;
+                });
                 self.trigger(result.data);
             } else {
                 console.log(result);
@@ -41,7 +47,9 @@ var HeaderStore = Reflux.createStore({
 var Header = React.createClass({
     mixins: [Reflux.connect(HeaderStore, 'user')],
     getInitialState: function () {
-        return {user: {}};
+        return {user: {
+            roleName: ""
+        }};
     },
     componentWillMount: function () {
         HeaderActions.getUserByToken(this.state);
@@ -59,7 +67,7 @@ var Header = React.createClass({
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <MainMenu/>
-                            <LoginInfo userName={this.state.user.userName}/>
+                            <LoginInfo roleName={this.state.user.roleName} userName={this.state.user.userName} />
                         </div>
                     </div>
                 </nav>
@@ -108,7 +116,7 @@ var LoginInfo = React.createClass({
     render: function () {
         return (
             <ul className="nav navbar-nav navbar-right">
-                <li><a href="#">您好，{this.props.userName}</a></li>
+                <li><a href="#">您好，{this.props.roleName} {this.props.userName}</a></li>
                 <li><a href="#" onClick={this.handleClick}>注销</a></li>
             </ul>
         );

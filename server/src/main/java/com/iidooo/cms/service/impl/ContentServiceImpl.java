@@ -162,7 +162,8 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public List<CmsContent> getContentList(CmsContent cmsContent, String startDate, String endDate, Page page) {
         try {
-            List<CmsContent> result = cmsContentDao.selectForSearch(cmsContent, startDate, endDate, page);
+            List<CmsContent> result  = cmsContentDao.selectForSearch(cmsContent, startDate, endDate, page);
+
             return result;
         } catch (Exception e) {
             logger.fatal(e);
@@ -205,7 +206,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     @Transactional
-    public boolean updateContent(CmsContent content) throws Exception {
+    public boolean updateContent(CmsContent content, boolean isPicutureListUpdate) throws Exception {
         try {
             if (cmsContentDao.updateByContentID(content) <= 0) {
                 throw new Exception();
@@ -213,21 +214,25 @@ public class ContentServiceImpl implements ContentService {
 
             if (content.getContentType().equals(ContentType.News.getCode())) {
                 CmsContentNews cmsContentNews = (CmsContentNews) content;
-                if (cmsContentNewsDao.updateByContentID(cmsContentNews) <= 0) {
-                    throw new Exception();
+                if (cmsContentNews.getSource() != null || cmsContentNews.getSourceURL() != null) {
+                    if (cmsContentNewsDao.updateByContentID(cmsContentNews) <= 0) {
+                        throw new Exception();
+                    }
                 }
             }
 
-            // 为了处理直观，先全部删除再新建
-            cmsPictureDao.deleteByContentID(content.getContentID());
-            for (CmsPicture picture : content.getPictureList()) {
-                picture.setCreateTime(new Date());
-                picture.setCreateUserID(content.getCreateUserID());
-                picture.setUpdateTime(new Date());
-                picture.setUpdateUserID(content.getCreateUserID());
-                picture.setContentID(content.getContentID());
-                if (cmsPictureDao.insert(picture) <= 0) {
-                    throw new Exception();
+            if (isPicutureListUpdate) {
+                // 为了处理直观，先全部删除再新建
+                cmsPictureDao.deleteByContentID(content.getContentID());
+                for (CmsPicture picture : content.getPictureList()) {
+                    picture.setCreateTime(new Date());
+                    picture.setCreateUserID(content.getCreateUserID());
+                    picture.setUpdateTime(new Date());
+                    picture.setUpdateUserID(content.getCreateUserID());
+                    picture.setContentID(content.getContentID());
+                    if (cmsPictureDao.insert(picture) <= 0) {
+                        throw new Exception();
+                    }
                 }
             }
             return true;
@@ -309,8 +314,8 @@ public class ContentServiceImpl implements ContentService {
             if (expireDay > 0) {
                 Date expireDate = DateUtil.getDate(createTime, expireDay);
                 result = DateUtil.subtract(expireDate, new Date());
-            }             
-            
+            }
+
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,7 +326,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public boolean deleteContent(CmsContent content) {
-        try {            
+        try {
             content.setUpdateTime(new Date());
             cmsContentDao.deleteByContentID(content);
             return true;

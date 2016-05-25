@@ -27,7 +27,6 @@ import com.iidooo.cms.model.po.CmsContent;
 import com.iidooo.cms.model.po.CmsContentNews;
 import com.iidooo.cms.model.po.CmsFavorite;
 import com.iidooo.cms.model.po.CmsPicture;
-import com.iidooo.cms.model.vo.CmsContentWrap;
 import com.iidooo.cms.service.ContentService;
 import com.iidooo.cms.service.FavoriteService;
 import com.iidooo.core.enums.MessageLevel;
@@ -42,6 +41,7 @@ import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.FileUtil;
+import com.iidooo.core.util.PageUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 import com.iidooo.weixin.entity.Signature;
@@ -90,13 +90,28 @@ public class ContentController {
             cmsContent.setContentTitle(contentTitle);
             cmsContent.setContentType(contentType);
             cmsContent.setStatus(status);
-            int count = contentService.getContentListCount(cmsContent, startDate, endDate);
+            int recordSum = contentService.getContentListCount(cmsContent, startDate, endDate);
 
-            List<CmsContent> contentList = contentService.getContentList(cmsContent, startDate, endDate, null);
+            String sortField = request.getParameter("sortField");
+            String sortType = request.getParameter("sortType");
+            Page page = new Page(sortField, sortType);
+            String pageSize = request.getParameter("pageSize");
+            if (StringUtil.isNotBlank(pageSize) && ValidateUtil.isNumber(pageSize)) {
+                page.setPageSize(Integer.parseInt(pageSize));
+            }
+            String currentPage = request.getParameter("currentPage");
+            if (StringUtil.isNotBlank(currentPage) && ValidateUtil.isNumber(currentPage) && Integer.parseInt(currentPage) > 0) {
+                page.setCurrentPage(Integer.parseInt(currentPage));
+            }
+            page = PageUtil.executePage(recordSum, page);
 
+            List<CmsContent> contentList = contentService.getContentList(cmsContent, startDate, endDate, page);
+            JSONObject data = new JSONObject();
+            data.put("page", page);
+            data.put("contentList", contentList);
             // 返回找到的内容对象
             result.setStatus(ResponseStatus.OK.getCode());
-            result.setData(contentList);
+            result.setData(data);
 
         } catch (Exception e) {
             logger.fatal(e);
@@ -658,6 +673,7 @@ public class ContentController {
             content.setUpdateTime(new Date());
             content.setUpdateUserID(userID);
 
+            boolean isPicutureListUpdate = false;
             if (StringUtil.isNotBlank(pictureListStr)) {
                 JSONArray jsonArray = JSONArray.fromObject(pictureListStr);
                 for (Object object : jsonArray) {
@@ -668,9 +684,10 @@ public class ContentController {
                     picture.setPictureURL(pictureURL);
                     content.getPictureList().add(picture);
                 }
+                isPicutureListUpdate = true;
             }
 
-            if (contentService.updateContent(content)) {
+            if (contentService.updateContent(content, isPicutureListUpdate)) {
                 content = contentService.getContent(content.getContentID());
             }
 

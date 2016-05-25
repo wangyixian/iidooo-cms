@@ -21,6 +21,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -33,11 +41,16 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+
 	<!-- 系统所需要的一些准备数据在此监听器中加载 -->
 	<listener>
 		<listener-class>com.iidooo.core.listener.PropertiesLoadListener</listener-class>
 	</listener>
 	
+	<listener>
+		<listener-class>com.iidooo.core.listener.RoleResourceInitListener</listener-class>
+	</listener>
+
 	<!-- 配置微信的监听器 -->
 	<listener>
 		<listener-class>com.iidooo.weixin.listener.WeiXinListener</listener-class>

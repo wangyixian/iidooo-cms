@@ -30,7 +30,7 @@ public interface ContentService {
     
     boolean createContent(CmsContent content) throws Exception;
     
-    boolean updateContent(CmsContent content) throws Exception;
+    boolean updateContent(CmsContent content, boolean isPicutureListUpdate) throws Exception;
         
     /**
      * 得到点赞数

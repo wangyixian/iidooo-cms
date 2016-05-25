@@ -8,7 +8,7 @@ var LoginStore = Reflux.createStore({
     listenables: [LoginActions],
 
     onLogin: function (data) {
-        var url = serverURL + getAccessTokenURL;
+        var url = serverURL + api.getAccessToken;
         data.appID = appID;
         data.secret = secret;
 

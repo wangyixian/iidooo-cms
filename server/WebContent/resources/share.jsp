@@ -6,17 +6,16 @@
 <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
 <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
 <title>毒电波</title>
-<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/img/favicon.ico" />
-<link rel="bookmark" href="<%=request.getContextPath()%>/resources/img/favicon.ico" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/api.css" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/libs/showdown/showdown.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/libs/jquery/jquery-2.1.4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/js/libs/bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/libs/bootstrap/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" href="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/favicon.ico" />
+<link rel="bookmark" href="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/css/api.css" />
+<script type="text/javascript" src="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/js/libs/showdown/showdown.min.js"></script>
+<script type="text/javascript" src="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/js/libs/jquery/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/js/libs/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/js/libs/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
 <style type="text/css">
-
 .content hr{
       border:0px;
       border-top:1px solid rgba(220, 220, 220, 1.0);
@@ -39,11 +38,11 @@
 		<div id="insert" class="content">${content.contentBody}</div>
 	</div>
 	<a id="download" class="area2" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.cookie.toxicwave"> <img id="logo"
-		src="<%=request.getContextPath()%>/resources/img/logo-small.png"> <span>点我下载毒电波APP-有毒的负能量平台</span>
+		src="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/logo-small.png"> <span>点我下载毒电波APP-有毒的负能量平台</span>
 	</a>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-body">
-			<img style='width: 70%; float: right;' src="<%=request.getContextPath()%>/resources/img/img_share.png">
+			<img style='width: 70%; float: right;' src="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/img_share.png">
 		</div>
 	</div>
 </body>
@@ -95,7 +94,7 @@
 			titleToTimeline = contentBody;
 		}
 
-		var imgUrl = 'http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/logo-small.png';
+		var imgUrl = 'http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/logo-small.png';
 		var imgTitle = $("#imageTitle").val();
 		if (imgTitle != "") {
 			imgUrl = imgTitle;

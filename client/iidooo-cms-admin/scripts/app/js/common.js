@@ -1,38 +1,67 @@
 /**
  * Created by Ethan on 16/4/6.
  */
- // 开发环境
-var clientURL = "http://localhost:63342/iidooo-cms-admin";
-var serverURL = "http://localhost:8080/iidooo-cms";
+// 开发环境
+//var clientURL = "http://localhost:63342/iidooo-cms-admin";
+// var serverURL = "http://localhost:8080/iidooo-cms";
 
 // 正式环境
-//var clientURL = "http://www.iidooo.com/iidooo-cms-admin";
+var clientURL = "http://www.iidooo.com/iidooo-cms-admin";
 //var serverURL = "http://toxic.iidooo.com/iidooo-cms";
+
+// 测死环境
+var serverURL = "http://www.iidooo.com/iidooo-cms";
 
 var appID = "CMSSystem";
 var secret = "e96b669ba65848bcb20f5de53dcc370e";
 
-// 页面操作的模式，0:无视 1:创建 2:修改
-var pageMode = 0;
+message = {
+    NO_PERMISSION: "你所在的用户组无权限执行该操作！",
+    NO_PERMISSION_BY_READONLY_USER: "只读角色用户，无法进行编辑操作！",
+    NO_PERMISSION_BY_CREATE_USER: "非此内容创建者，无法进行编辑操作！",
+    NO_PERMISSION_BY_CONTENT_STATUS: "审核权限不够，无法进行编辑操作！"
+};
 
-var getAccessTokenURL = "/admin/getAccessToken";
-var getUserByTokenURL = "/admin/getUserByToken";
-var getChannelListURL = "/admin/getChannelList";
-var getDictItemListURL = "/core/getDictItemList";
-var searchContentListURL = "/admin/searchContentList";
-var uploadFileURL = "/admin/uploadFile";
-var createContentURL = "/admin/createContent";
-var apiDeleteContent = "/admin/deleteContent";
-var getContentURL = "/admin/getContent";
-var updateContentURL = "/admin/updateContent";
+ContentStatus = {
+    PUBLISHED: "0",
+    APPROVED: "2",
+    REFUSE: "3"
+};
+
+ContentStatusMap = {
+    "0": "已发布",
+    "1": "未审核",
+    "2": "审核通过",
+    "3": "审核驳回",
+    "4": "审核驳回修正"
+};
+
+api = {
+    getAccessToken: "/admin/getAccessToken",
+    getUserByToken: "/admin/getUserByToken",
+    getChannelList: "/admin/getChannelList",
+    getDictItemList: "/core/getDictItemList",
+    searchContentList: "/admin/searchContentList",
+    uploadFile: "/admin/uploadFile",
+    createContent: "/admin/createContent",
+    deleteContent: "/admin/deleteContent",
+    getContent: "/admin/getContent",
+    updateContent: "/admin/updateContent"
+};
+
+role = {
+    admin: "admin",
+    editorship: "editorship",
+    editor: "editor",
+    readonly: "readonly"
+};
 
 var loginPage = "/pages/login.html";
 var contentListPage = "/pages/contentList.html";
 var contentDetailPage = "/pages/contentDetail.html";
 
-var CmsContent = {
-    contentID: 0
-};
+// 保存所获得的SecurityUser Model对象
+securityUser = {};
 
 var CmsPicture = {
     contentID: 0,
@@ -77,7 +106,7 @@ function getQueryStr(key) {
         var params = queryStr.split("&");
         for (var i = 0; i < params.length; i++) {
             var param = params[i].split("=");
-            if(param != null && param.length == 2 && param[0] == key){
+            if (param != null && param.length == 2 && param[0] == key) {
                 return param[1];
             }
         }
@@ -108,9 +137,40 @@ function ajaxPost(url, data, callback) {
 }
 
 // 提供showdown格式的预览
-function showdownPreview(content, containerID){
+function showdownPreview(content, containerID) {
     showdown.setOption('strikethrough', 'true');
     var converter = new showdown.Converter();
     var rawMarkup = converter.makeHtml(content);
     $("#" + containerID).html(rawMarkup);
+}
+
+function dataPermission(messageBoxID, content) {
+    var isRefuse = false;
+    var text = "";
+    // 权限控制
+    if (securityUser.roleCode == role.readonly) {
+        isRefuse = true;
+        text = message.NO_PERMISSION_BY_READONLY_USER;
+    } else if (securityUser.roleCode == role.editor) {
+        if (content.createUserID != securityUser.userID) {
+            isRefuse = true;
+            text = message.NO_PERMISSION_BY_CREATE_USER;
+        } else if (content.status == ContentStatus.PUBLISHED ||
+            content.status == ContentStatus.APPROVED) {
+            isRefuse = true;
+            text = message.NO_PERMISSION_BY_CONTENT_STATUS;
+        }
+    }
+
+    if (isRefuse && messageBoxID != null) {
+        var $messageBox = $("#" + messageBoxID);
+        $messageBox.text(text);
+        $messageBox.removeClass("hidden");
+        $messageBox.addClass("show");
+        $("input,select,textarea").attr('readonly', true);
+        $("input[type='checkbox']").attr('disabled', true);
+        $("input[type='file']").attr('disabled', true);
+    }
+
+    return isRefuse;
 }

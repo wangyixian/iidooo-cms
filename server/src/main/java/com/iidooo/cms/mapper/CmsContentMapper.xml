@@ -157,7 +157,8 @@
 	<!-- 检索内容一览信息 -->
 	<select id="selectForSearch" resultMap="BaseResultMap">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="Base_Column_List" />,
+		<include refid="Blob_Column_List" />
 		from CMS_CONTENT C
 		where C.IsDelete = 0
 		<if test="cmsContent.channelID != null and cmsContent.channelID != 0">

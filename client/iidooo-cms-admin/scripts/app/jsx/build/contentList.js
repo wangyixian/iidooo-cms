@@ -2,13 +2,17 @@
  * Created by Ethan on 16/5/18.
  */
 
-var ContentListActions = Reflux.createActions(['search', 'delete']);
+var ContentListActions = Reflux.createActions(['search', 'delete', 'updateContent']);
 
 var ContentListStore = Reflux.createStore({
     listenables: [ContentListActions],
-    contentList: [],
+    searchCondition: {},
+    contentListData: {
+        page: {},
+        contentList: []
+    },
     onSearch: function (data) {
-        var url = serverURL + searchContentListURL;
+        var url = serverURL + api.searchContentList;
         data.appID = appID;
         data.secret = secret;
         data.accessToken = $.cookie("ACCESS_TOKEN");
@@ -22,19 +26,22 @@ var ContentListStore = Reflux.createStore({
         var self = this;
         var channelMap = data.channelMap;
         var contentTypeMap = data.contentTypeMap;
-        var contentStatusMap = data.contentStatusMap;
+
+        // 保存查询条件
+        searchCondition = data;
+
         var callback = function (result) {
             if (result.status == 200) {
                 // 从后台取到的都是ID，此处设置一些显示值
-                for (var i = 0; i < result.data.length; i++) {
-                    var content = result.data[i];
+                for (var i = 0; i < result.data.contentList.length; i++) {
+                    var content = result.data.contentList[i];
                     content.channelName = channelMap[content.channelID];
                     content.contentTypeName = contentTypeMap[content.contentType];
-                    content.statusName = contentStatusMap[content.status];
                 }
-                contentList = result.data;
-                //console.log(contentList);
-                self.trigger(contentList);
+
+                // 保存起来做即时处理
+                contentListData = result.data;
+                self.trigger(result.data);
             } else {
                 console.log(result);
                 alert("获取登陆用户信息失败！");
@@ -44,7 +51,7 @@ var ContentListStore = Reflux.createStore({
         ajaxPost(url, data, callback);
     },
     onDelete: function (data) {
-        var url = serverURL + apiDeleteContent;
+        var url = serverURL + api.deleteContent;
         data.appID = appID;
         data.secret = secret;
         data.accessToken = $.cookie("ACCESS_TOKEN");
@@ -59,13 +66,14 @@ var ContentListStore = Reflux.createStore({
         var self = this;
         var callback = function (result) {
             if (result.status == 200) {
-                $.each(contentList, function (index, object) {
-                    if (data.contentID == object.contentID) {
-                        contentList.splice(index, 1);//从下标为i的元素开始，连续删除1个元素
-                        return false;
-                    }
-                });
-                self.trigger(contentList);
+                //$.each(contentList, function (index, object) {
+                //    if (data.contentID == object.contentID) {
+                //        contentList.splice(index, 1);//从下标为i的元素开始，连续删除1个元素
+                //        return false;
+                //    }
+                //});
+                //self.trigger(contentList);
+                ContentListActions.search(searchCondition);
             } else {
                 console.log(result);
                 alert("获取登陆用户信息失败！");
@@ -73,11 +81,43 @@ var ContentListStore = Reflux.createStore({
         };
 
         ajaxPost(url, data, callback);
-    }
+    },
+
+    onUpdateContent: function (data) {
+        var url = serverURL + api.updateContent;
+        data.appID = appID;
+        data.secret = secret;
+        data.accessToken = $.cookie("ACCESS_TOKEN");
+        data.userID = $.cookie("USER_ID");
+        // 检查token是否过期
+        if (data.accessToken == null || data.accessToken == "" || data.userID == null || data.userID == "") {
+            alert("登陆过期，请重新登陆！");
+            location.href = clientURL + loginPage;
+            return false;
+        }
+
+        var self = this;
+        var callback = function (result) {
+            if (result.status == 200) {
+                $.each(contentListData.contentList, function (index, object) {
+                    if (data.contentID == object.contentID) {
+                        object = result.data;
+                        return false;
+                    }
+                });
+                self.trigger(contentListData);
+            } else {
+                console.log(result);
+                alert("内容更新失败！");
+            }
+        };
+
+        ajaxPost(url, data, callback);
+    },
 });
 
 var ContentList = React.createClass({displayName: "ContentList",
-    mixins: [Reflux.connect(ContentListStore, 'contentList')],
+    mixins: [Reflux.connect(ContentListStore, 'contentListData')],
     getInitialState: function () {
         return {
             channelID: 0,
@@ -86,14 +126,13 @@ var ContentList = React.createClass({displayName: "ContentList",
             startDate: "",
             endDate: "",
             status: "",
-            contentList: [],
+            contentListData: {
+                page: {},
+                contentList: []
+            },
             channelMap: {},
-            contentTypeMap: {},
-            contentStatusMap: {}
+            contentTypeMap: {}
         };
-    },
-    onStatusChange: function (contentList) {
-        this.state.contentList = contentList;
     },
     handleSearch: function () {
         this.state.contentTitle = this.refs.inputContentTitle.value;
@@ -118,7 +157,11 @@ var ContentList = React.createClass({displayName: "ContentList",
             this.state.contentTypeMap = childState.contentTypeMap;
         }
         if (childState.contentStatusMap != null) {
-            this.state.contentStatusMap = childState.contentStatusMap;
+            ContentStatusMap = childState.contentStatusMap;
+        }
+        if(childState.currentPage != null){
+            searchCondition.currentPage = childState.currentPage;
+            ContentListActions.search(searchCondition);
         }
     },
     render: function () {
@@ -228,30 +271,15 @@ var ContentList = React.createClass({displayName: "ContentList",
                         )
                         ), 
                         React.createElement("tbody", null, 
-                        this.state.contentList.map(function (item) {
+                        this.state.contentListData.contentList.map(function (item) {
                             return React.createElement(ContentSearchResult, {key: item.contentID, content: item})
                         })
                         )
                     ), 
-                    React.createElement("nav", {className: "text-center"}, 
-                        React.createElement("ul", {className: "pagination"}, 
-                            React.createElement("li", null, 
-                                React.createElement("a", {href: "#", "aria-label": "Previous"}, 
-                                    React.createElement("span", {"aria-hidden": "true"}, "«")
-                                )
-                            ), 
-                            React.createElement("li", {className: "active"}, React.createElement("a", {href: "#"}, "1")), 
-                            React.createElement("li", null, React.createElement("a", {href: "#"}, "2")), 
-                            React.createElement("li", null, React.createElement("a", {href: "#"}, "3")), 
-                            React.createElement("li", null, React.createElement("a", {href: "#"}, "4")), 
-                            React.createElement("li", null, React.createElement("a", {href: "#"}, "5")), 
-                            React.createElement("li", null, 
-                                React.createElement("a", {href: "#", "aria-label": "Next"}, 
-                                    React.createElement("span", {"aria-hidden": "true"}, "»")
-                                )
-                            )
-                        )
-                    )
+                    React.createElement(Pager, {callbackParent: this.onChildChanged, 
+                           recordSum: this.state.contentListData.page.recordSum, 
+                           currentPage: this.state.contentListData.page.currentPage, 
+                           pageSum: this.state.contentListData.page.pageSum})
                 )
             )
         );
@@ -261,14 +289,40 @@ var ContentList = React.createClass({displayName: "ContentList",
 var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
     getInitialState: function () {
         return {
-            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID,
+            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID
         };
     },
+
     handleDelete: function (content) {
+        if($.inArray(api.deleteContent, securityUser.resUrlList) < 0 || dataPermission(null, content)){
+            alert(message.NO_PERMISSION);
+            return false;
+        }
         if(window.confirm('确定要删除吗？')) {
             ContentListActions.delete(content);
         }
     },
+
+    handleSticky: function (content) {
+        if($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
+            securityUser.roleCode == role.editor){
+            alert(message.NO_PERMISSION);
+            return false;
+        }
+        content.stickyIndex = content.stickyIndex + 1;
+        ContentListActions.updateContent(content);
+    },
+
+    handlePublish: function (content) {
+        if($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
+            securityUser.roleCode == role.editor){
+            alert(message.NO_PERMISSION);
+            return false;
+        }
+        content.status = 0;
+        ContentListActions.updateContent(content);
+    },
+
     render: function () {
         return (
             React.createElement("tr", null, 
@@ -277,14 +331,15 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
                 React.createElement("td", null, this.props.content.contentTitle), 
                 React.createElement("td", null, this.props.content.stickyIndex), 
                 React.createElement("td", null, this.props.content.contentTypeName), 
-                React.createElement("td", null, this.props.content.statusName), 
+                React.createElement("td", null, ContentStatusMap[this.props.content.status]), 
                 React.createElement("td", null, this.props.content.createUser.userName), 
-                React.createElement("td", null, new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')), 
+                React.createElement("td", null, new Date(this.props.content.createTime.time).format('yyyy-MM-dd hh:mm:ss')), 
                 React.createElement("td", null, this.props.content.pageViewCount), 
                 React.createElement("td", null, 
-                    React.createElement("a", {href: this.state.contentDetailURL, target: "_blank"}, "修改"), " |", 
+                    React.createElement("a", {href: this.state.contentDetailURL, target: "_blank"}, "详细"), " |", 
                     React.createElement("a", {href: "javascript:void(0)", onClick: this.handleDelete.bind(null, this.props.content)}, "删除"), " |", 
-                    React.createElement("a", {id: "btnSticky", href: "#"}, "置顶")
+                    React.createElement("a", {href: "javascript:void(0)", onClick: this.handleSticky.bind(null, this.props.content)}, "置顶"), " |", 
+                    React.createElement("a", {href: "javascript:void(0)", onClick: this.handlePublish.bind(null, this.props.content)}, "发布")
                 )
             )
         );

@@ -8,7 +8,7 @@ var ContentTypeListStore = Reflux.createStore({
     listenables: [ContentTypeListActions],
 
     onGetContentTypeList: function (data) {
-        var url = serverURL + getDictItemListURL;
+        var url = serverURL + api.getDictItemList;
         data.appID = appID;
         data.secret = secret;
         data.accessToken = $.cookie("ACCESS_TOKEN");

@@ -2,6 +2,7 @@ package com.iidooo.cms.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Timer;
@@ -22,6 +23,7 @@ import com.iidooo.cms.constant.CmsConstant;
 import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.vo.SecurityUserInfo;
 import com.iidooo.cms.service.ContentService;
+import com.iidooo.core.constant.ServletConstant;
 import com.iidooo.core.enums.MessageLevel;
 import com.iidooo.core.enums.MessageType;
 import com.iidooo.core.enums.ResponseStatus;
@@ -29,6 +31,8 @@ import com.iidooo.core.enums.UserType;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.model.po.SecurityAccessToken;
+import com.iidooo.core.model.po.SecurityResource;
+import com.iidooo.core.model.po.SecurityRole;
 import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.service.SecurityUserService;
@@ -132,6 +136,16 @@ public class SecurityUserController {
                 result.getMessages().add(message);
                 result.setStatus(ResponseStatus.Failed.getCode());
             } else {
+                ServletContext sc = request.getServletContext();
+                // 这个用户的可访问资源获取
+                @SuppressWarnings("unchecked")
+                Map<Integer, List<SecurityResource>> roleResourceMap = (Map<Integer, List<SecurityResource>>)sc.getAttribute(ServletConstant.ROLE_RESOURCE_MAP);
+                for (SecurityRole item : securityUser.getRoleList()) {
+                    List<SecurityResource> resourceList = roleResourceMap.get(item.getRoleID());
+                    for (SecurityResource securityResource : resourceList) {
+                        securityUser.getResUrlList().add(securityResource.getResURL());
+                    }
+                }
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(securityUser);
             }
@@ -226,10 +240,13 @@ public class SecurityUserController {
 
             SecurityUser securityUser = securityUserService.getSecurityUserByEmail(email);
             if (securityUser == null) {
-                String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
+
+                Properties aliyunProperties = (Properties) sc.getAttribute("aliyun.properties");
+                String photoBaseURL = aliyunProperties.getProperty("ALIYUN_OSS_DOMAIN");
                 String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
                 securityUser = securityUserService.createDefaultUser(photoBaseURL + photoPath, email, properties);
             }
+            
             if (securityUser == null) {
                 result.setStatus(ResponseStatus.InsertFailed.getCode());
             } else {
@@ -260,7 +277,8 @@ public class SecurityUserController {
             ServletContext sc = request.getServletContext();
             Properties properties = (Properties) sc.getAttribute("random_name.properties");
 
-            String photoBaseURL = StringUtil.getRequestBaseURL(request.getRequestURL().toString(), request.getServletPath());
+            Properties aliyunProperties = (Properties) sc.getAttribute("aliyun.properties");
+            String photoBaseURL = aliyunProperties.getProperty("ALIYUN_OSS_DOMAIN");
             String photoPath = StringUtil.replace(CmsConstant.DEFAULT_PHOTO_URL, StringUtil.getRandomNumber(1, 4));
             SecurityUser userInfo = this.securityUserService.createDefaultUser(photoBaseURL + photoPath, "", properties);
             if (userInfo == null) {
@@ -488,8 +506,8 @@ public class SecurityUserController {
                 result.setStatus(ResponseStatus.Failed.getCode());
             } else {
                 result.setStatus(ResponseStatus.OK.getCode());
+                verifyCodeTimeTask(email);
             }
-            verifyCodeTimeTask(email);
 
         } catch (Exception e) {
             logger.fatal(e);
