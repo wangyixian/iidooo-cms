@@ -34,7 +34,7 @@ var ContentStore = Reflux.createStore({
             pictureList[index] = object.value;
         });
         data.pictureList = JSON.stringify(pictureList);
-
+        console.log(data);
         var self = this;
         var callback = function (result) {
             if (result.status == 200) {
@@ -159,7 +159,7 @@ var Content = React.createClass({
         this.refs.inputEndShowDate.value = this.state.content.endShowDate;
         this.refs.inputStartShowTime.value = this.state.content.startShowTime;
         this.refs.inputEndShowTime.value = this.state.content.endShowTime;
-
+        this.refs.inputImageTitle.value = this.state.content.contentImageTitle;
         showdownPreview(this.state.content.contentSummary, "txtSummaryPreview");
         showdownPreview(this.state.content.contentBody, "txtContentBodyPreview");
 

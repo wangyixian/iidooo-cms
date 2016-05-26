@@ -21,6 +21,9 @@
       border-top:1px solid rgba(220, 220, 220, 1.0);
     }
 
+.content {
+	margin-bottom: 40px;
+}
 </style>
 </head>
 <body>

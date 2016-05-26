@@ -32,7 +32,7 @@
 		U.UserID, U.LoginID, '' as password, U.UserName, U.Mobile, U.Email, U.Sex, U.Birthday, U.WeixinID, U.PhotoURL, 
     	U.IsSilent, U.IsDisable, U.UserType, U.Level, U.Points, U.Experience, U.Remarks, U.UpdateTime, U.UpdateUserID, 
     	U.CreateTime, U.CreateUserID, U.IsDelete, U.Version
-		from SECURITY_USER U where UserID = #{createUserID,jdbcType=INTEGER}
+		from security_user U where UserID = #{createUserID,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectByCommentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">

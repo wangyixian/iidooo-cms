@@ -23,6 +23,8 @@ var ContentListStore = Reflux.createStore({
             return false;
         }
 
+        data.sortField = "CreateTime";
+
         var self = this;
         var channelMap = data.channelMap;
         var contentTypeMap = data.contentTypeMap;
@@ -159,7 +161,7 @@ var ContentList = React.createClass({displayName: "ContentList",
         if (childState.contentStatusMap != null) {
             ContentStatusMap = childState.contentStatusMap;
         }
-        if(childState.currentPage != null){
+        if (childState.currentPage != null) {
             searchCondition.currentPage = childState.currentPage;
             ContentListActions.search(searchCondition);
         }
@@ -246,7 +248,7 @@ var ContentList = React.createClass({displayName: "ContentList",
                     ), 
 
                     React.createElement("div", {className: "text-right"}, 
-                        React.createElement("button", {id: "btnSearch", className: "btn btn-primary", type: "button", onClick: this.handleSearch}, 
+                        React.createElement("a", {href: "javascript:void(0)", className: "btn btn-primary", onClick: this.handleSearch}, 
                             "查 询"
                         ), 
                         " ", 
@@ -294,18 +296,18 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
     },
 
     handleDelete: function (content) {
-        if($.inArray(api.deleteContent, securityUser.resUrlList) < 0 || dataPermission(null, content)){
+        if ($.inArray(api.deleteContent, securityUser.resUrlList) < 0 || dataPermission(null, content)) {
             alert(message.NO_PERMISSION);
             return false;
         }
-        if(window.confirm('确定要删除吗？')) {
+        if (window.confirm('确定要删除吗？')) {
             ContentListActions.delete(content);
         }
     },
 
     handleSticky: function (content) {
-        if($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
-            securityUser.roleCode == role.editor){
+        if ($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
+            securityUser.roleCode == role.editor) {
             alert(message.NO_PERMISSION);
             return false;
         }
@@ -314,8 +316,8 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
     },
 
     handlePublish: function (content) {
-        if($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
-            securityUser.roleCode == role.editor){
+        if ($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
+            securityUser.roleCode == role.editor) {
             alert(message.NO_PERMISSION);
             return false;
         }
@@ -324,6 +326,10 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
     },
 
     render: function () {
+        var userName = "";
+        if(this.props.content.createUser != null){
+            userName = this.props.content.createUser.userName;
+        }
         return (
             React.createElement("tr", null, 
                 React.createElement("td", null, this.props.content.contentID), 
@@ -332,8 +338,8 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
                 React.createElement("td", null, this.props.content.stickyIndex), 
                 React.createElement("td", null, this.props.content.contentTypeName), 
                 React.createElement("td", null, ContentStatusMap[this.props.content.status]), 
-                React.createElement("td", null, this.props.content.createUser.userName), 
-                React.createElement("td", null, new Date(this.props.content.createTime.time).format('yyyy-MM-dd hh:mm:ss')), 
+                React.createElement("td", null, userName), 
+                React.createElement("td", null, new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')), 
                 React.createElement("td", null, this.props.content.pageViewCount), 
                 React.createElement("td", null, 
                     React.createElement("a", {href: this.state.contentDetailURL, target: "_blank"}, "详细"), " |", 

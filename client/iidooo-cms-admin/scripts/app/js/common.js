@@ -2,11 +2,11 @@
  * Created by Ethan on 16/4/6.
  */
 // 开发环境
-//var clientURL = "http://localhost:63342/iidooo-cms-admin";
-// var serverURL = "http://localhost:8080/iidooo-cms";
+var clientURL = "http://localhost:63342/iidooo-cms-admin";
+//var serverURL = "http://localhost:8080/iidooo-cms";
 
 // 正式环境
-var clientURL = "http://www.iidooo.com/iidooo-cms-admin";
+//var clientURL = "http://www.iidooo.com/iidooo-cms-admin";
 //var serverURL = "http://toxic.iidooo.com/iidooo-cms";
 
 // 测死环境

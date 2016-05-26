@@ -105,8 +105,8 @@ public class ContentController {
             }
             page = PageUtil.executePage(recordSum, page);
 
+            Map<String, Object> data = new HashMap<String, Object>();
             List<CmsContent> contentList = contentService.getContentList(cmsContent, startDate, endDate, page);
-            JSONObject data = new JSONObject();
             data.put("page", page);
             data.put("contentList", contentList);
             // 返回找到的内容对象

@@ -23,6 +23,8 @@ var ContentListStore = Reflux.createStore({
             return false;
         }
 
+        data.sortField = "CreateTime";
+
         var self = this;
         var channelMap = data.channelMap;
         var contentTypeMap = data.contentTypeMap;
@@ -159,7 +161,7 @@ var ContentList = React.createClass({
         if (childState.contentStatusMap != null) {
             ContentStatusMap = childState.contentStatusMap;
         }
-        if(childState.currentPage != null){
+        if (childState.currentPage != null) {
             searchCondition.currentPage = childState.currentPage;
             ContentListActions.search(searchCondition);
         }
@@ -246,9 +248,9 @@ var ContentList = React.createClass({
                     </div>
 
                     <div className="text-right">
-                        <button id="btnSearch" className="btn btn-primary" type="button" onClick={this.handleSearch}>
+                        <a href="javascript:void(0)" className="btn btn-primary" onClick={this.handleSearch}>
                             查&nbsp;询
-                        </button>
+                        </a>
                         &nbsp;
                         <a className="btn btn-success" href={clientURL + contentDetailPage + "?pageMode=1"}
                            target="_blank">发&nbsp;布</a>
@@ -294,18 +296,18 @@ var ContentSearchResult = React.createClass({
     },
 
     handleDelete: function (content) {
-        if($.inArray(api.deleteContent, securityUser.resUrlList) < 0 || dataPermission(null, content)){
+        if ($.inArray(api.deleteContent, securityUser.resUrlList) < 0 || dataPermission(null, content)) {
             alert(message.NO_PERMISSION);
             return false;
         }
-        if(window.confirm('确定要删除吗？')) {
+        if (window.confirm('确定要删除吗？')) {
             ContentListActions.delete(content);
         }
     },
 
     handleSticky: function (content) {
-        if($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
-            securityUser.roleCode == role.editor){
+        if ($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
+            securityUser.roleCode == role.editor) {
             alert(message.NO_PERMISSION);
             return false;
         }
@@ -314,8 +316,8 @@ var ContentSearchResult = React.createClass({
     },
 
     handlePublish: function (content) {
-        if($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
-            securityUser.roleCode == role.editor){
+        if ($.inArray(api.updateContent, securityUser.resUrlList) < 0 ||
+            securityUser.roleCode == role.editor) {
             alert(message.NO_PERMISSION);
             return false;
         }
@@ -324,6 +326,10 @@ var ContentSearchResult = React.createClass({
     },
 
     render: function () {
+        var userName = "";
+        if(this.props.content.createUser != null){
+            userName = this.props.content.createUser.userName;
+        }
         return (
             <tr>
                 <td>{this.props.content.contentID}</td>
@@ -332,8 +338,8 @@ var ContentSearchResult = React.createClass({
                 <td>{this.props.content.stickyIndex}</td>
                 <td>{this.props.content.contentTypeName}</td>
                 <td>{ContentStatusMap[this.props.content.status]}</td>
-                <td>{this.props.content.createUser.userName}</td>
-                <td>{new Date(this.props.content.createTime.time).format('yyyy-MM-dd hh:mm:ss')}</td>
+                <td>{userName}</td>
+                <td>{new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')}</td>
                 <td>{this.props.content.pageViewCount}</td>
                 <td>
                     <a href={this.state.contentDetailURL} target="_blank">详细</a> |
