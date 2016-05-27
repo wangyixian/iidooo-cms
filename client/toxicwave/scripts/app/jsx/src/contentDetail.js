@@ -9,9 +9,9 @@ var ContentStore = Reflux.createStore({
     onSave: function (data) {
         var url = "";
         if (data.pageMode == "1") {
-            url = serverURL + API.createContent;
+            url = URL.server + API.createContent;
         } else if (data.pageMode == "2") {
-            url = serverURL + API.updateContent;
+            url = URL.server + API.updateContent;
         } else {
             alert("请指定正确的pageMode参数！");
             return false;
@@ -39,7 +39,7 @@ var ContentStore = Reflux.createStore({
             if (result.status == 200) {
                 if (data.pageMode == "1") {
                     alert("内容创建成功，进入修改模式！");
-                    location.href = clientURL + contentDetailPage + "?pageMode=2&contentID=" + result.data.contentID;
+                    location.href = Page.contentDetail + "?pageMode=2&contentID=" + result.data.contentID;
                 } else {
                     alert("更新成功!");
                 }
@@ -52,7 +52,7 @@ var ContentStore = Reflux.createStore({
         ajaxPost(url, data, callback);
     },
     onGetContent: function (data) {
-        var url = API.getContent;
+        var url = URL.server + API.getContent;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
@@ -246,11 +246,12 @@ var Content = React.createClass({
     handleSave: function () {
 
 
-        var url = api.createContent;
+        var url = API.createContent;
         if (this.state.content.pageMode == "2") {
-            url = api.updateContent;
+            url = API.updateContent;
         }
 
+        console.log(securityUser);
         if ($.inArray(url, securityUser.resUrlList) < 0 || securityUser.roleCode == role.readonly) {
             alert(Message.NO_PERMISSION);
             return false;
@@ -661,12 +662,12 @@ $(function () {
 
 // 上传标题图
 $("#uploadImageTitle").fileupload({
-    url: API.uploadFile,
+    url: URL.server + API.uploadFile,
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
     maxNumberOfFiles: 1,
-    formData: {'appID': SecurityClient.appID, 'secret': SecurityClient.secret, 'accessToken': $.cookie("ACCESS_TOKEN"), 'fileType': '1'},
+    formData: {'appID': SecurityClient.appID, 'secret': SecurityClient.secret, 'accessToken': sessionStorage.getItem(SessionKey.accessToken), 'fileType': '1'},
     maxFileSize: 10000000,
     done: function (e, result) {
         var data = result.result;
@@ -698,7 +699,7 @@ $("#uploadImageTitle").fileupload({
 
 // 上传内容主体图
 $("#uploadContentBodyImage").fileupload({
-    url: API.uploadFile,
+    url: URL.server + API.uploadFile,
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
@@ -739,7 +740,7 @@ $('#uploadContentBodyImage').bind('fileuploadsubmit', function (e, data) {
     data.formData = {
         'appID': SecurityClient.appID,
         'secret': SecurityClient.secret,
-        'accessToken': $.cookie("ACCESS_TOKEN"),
+        'accessToken': sessionStorage.getItem(SessionKey.accessToken),
         'fileType': $("#selContentBodyFileType").val()
     };  //如果需要额外添加参数可以在这里添加
 });
@@ -747,7 +748,7 @@ $('#uploadContentBodyImage').bind('fileuploadsubmit', function (e, data) {
 
 // 上传内容图片列表
 $("#uploadContentImage").fileupload({
-    url: API.uploadFile,
+    url: URL.server + API.uploadFile,
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
@@ -807,7 +808,7 @@ $('#uploadContentImage').bind('fileuploadsubmit', function (e, data) {
     data.formData = {
         'appID': SecurityClient.appID,
         'secret': SecurityClient.secret,
-        'accessToken': $.cookie("ACCESS_TOKEN"),
+        'accessToken': sessionStorage.getItem(SessionKey.accessToken),
         'fileType': $("#selFileType").val()
     };  //如果需要额外添加参数可以在这里添加
 });

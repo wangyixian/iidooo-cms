@@ -7,7 +7,7 @@ var HeaderActions = Reflux.createActions(['getUserByToken', 'logout']);
 var HeaderStore = Reflux.createStore({
     listenables: [HeaderActions],
     onGetUserByToken: function (data) {
-        var url = API.getUserByToken;
+        var url = URL.server + API.getUserByToken;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
@@ -30,7 +30,7 @@ var HeaderStore = Reflux.createStore({
                 self.trigger(result.data);
             } else {
                 console.log(result);
-                alert("获取登陆用户信息失败！");
+                location.href = Page.login;
             }
         };
 
@@ -38,7 +38,8 @@ var HeaderStore = Reflux.createStore({
     },
 
     onLogout: function (data) {
-        $.cookie("ACCESS_TOKEN", null);
+        sessionStorage.removeItem(SessionKey.accessToken);
+        sessionStorage.removeItem(SessionKey.userID);
         location.href = Page.login;
     }
 });

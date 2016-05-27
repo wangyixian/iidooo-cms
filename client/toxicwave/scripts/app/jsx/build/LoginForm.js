@@ -9,7 +9,7 @@ var Store = Reflux.createStore({
     listenables: [Actions],
 
     onSendVerifyCode: function (data) {
-        var url = API.sendVerifyCode;
+        var url = URL.server + API.sendVerifyCode;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
 
@@ -21,7 +21,7 @@ var Store = Reflux.createStore({
     },
 
     onLogin: function (data) {
-        var url = API.getAccessTokenByMail;
+        var url = URL.server + API.getAccessTokenByMail;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
 
@@ -31,7 +31,11 @@ var Store = Reflux.createStore({
                 sessionStorage.setItem(SessionKey.userID, result.data.userID);
                 location.href = Page.contentList;
             } else {
-                $("#messageBox").text(Message.LOGIN_FAILED);
+                var message = Message.LOGIN_FAILED;
+                if(result.status == 201){
+                    message = Message.LOGIN_FAILED_NO_USER
+                }
+                $("#messageBox").text(message);
                 console.log(result);
             }
         };

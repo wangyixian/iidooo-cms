@@ -8,16 +8,6 @@ URL = {
     // client: "http://www.iidooo.com/toxicwave";
     //server: "http://www.iidooo.com/iidooo-cms"
 };
-// 开发环境
-clientURL = "http://localhost:63342/iidooo-cms-admin";
-//var serverURL = "http://localhost:8080/iidooo-cms";
-
-// 正式环境
-//var clientURL = "http://www.iidooo.com/iidooo-cms-admin";
-//var serverURL = "http://toxic.iidooo.com/iidooo-cms";
-
-// 测死环境
-serverURL = "http://www.iidooo.com/iidooo-cms";
 
 SessionKey = {
     accessToken: "ACCESS_TOKEN",
@@ -33,6 +23,7 @@ Message = {
     EMAIL_REQUIRED: "请输入正确的Email地址!",
     VERIFY_CODE_REQUIRED: "请输入正确的验证码",
     LOGIN_FAILED: "身份验证失败！",
+    LOGIN_FAILED_NO_USER: "该邮件所绑定的用户不存在",
     NO_PERMISSION: "你所在的用户组无权限执行该操作！",
     NO_PERMISSION_BY_READONLY_USER: "只读角色用户，无法进行编辑操作！",
     NO_PERMISSION_BY_CREATE_USER: "非此内容创建者，无法进行编辑操作！",
@@ -54,17 +45,17 @@ ContentStatusMap = {
 };
 
 API = {
-    sendVerifyCode: URL.server + "/core/sendVerifyCode",
-    getAccessTokenByMail: URL.server + "/core/getAccessTokenByMail",
-    getUserByToken: URL.server + "/core/getUserByToken",
-    getChannelList: URL.server + "/admin/getChannelList",
-    getDictItemList: URL.server + "/core/getDictItemList",
-    searchContentList: URL.server + "/admin/searchContentList",
-    uploadFile: URL.server + "/admin/uploadFile",
-    createContent: URL.server + "/admin/createContent",
-    deleteContent: URL.server + "/admin/deleteContent",
-    getContent: URL.server + "/admin/getContent",
-    updateContent: URL.server + "/admin/updateContent"
+    sendVerifyCode: "/core/sendVerifyCode",
+    getAccessTokenByMail: "/core/getAccessTokenByMail",
+    getUserByToken: "/core/getUserByToken",
+    getChannelList: "/admin/getChannelList",
+    getDictItemList: "/core/getDictItemList",
+    searchContentList: "/admin/searchContentList",
+    uploadFile: "/admin/uploadFile",
+    createContent: "/admin/createContent",
+    deleteContent: "/admin/deleteContent",
+    getContent: "/admin/getContent",
+    updateContent: "/admin/updateContent"
 };
 
 role = {
@@ -76,10 +67,9 @@ role = {
 
 Page = {
     login: URL.client + "/pages/login.html",
-    contentList : URL.client +  "/pages/contentList.html"
+    contentList : URL.client +  "/pages/contentList.html",
+    contentDetail : URL.client +  "/pages/contentDetail.html"
 };
-
-var contentDetailPage = "/pages/contentDetail.html";
 
 // 保存所获得的SecurityUser Model对象
 securityUser = {};

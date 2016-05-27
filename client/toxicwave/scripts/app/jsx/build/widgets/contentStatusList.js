@@ -8,7 +8,7 @@ var ContentStatusListStore = Reflux.createStore({
     listenables: [ContentStatusListActions],
 
     onGetContentStatusList: function (data) {
-        var url = API.getDictItemList;
+        var url = URL.server + API.getDictItemList;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);

@@ -8,7 +8,7 @@ var ChannelListStore = Reflux.createStore({
     listenables: [ChannelListActions],
 
     onGetChannelList: function (data) {
-        var url = API.getChannelList;
+        var url = URL.server + API.getChannelList;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);

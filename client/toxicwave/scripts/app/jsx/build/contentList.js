@@ -12,7 +12,7 @@ var ContentListStore = Reflux.createStore({
         contentList: []
     },
     onSearch: function (data) {
-        var url = API.searchContentList;
+        var url = URL.server + API.searchContentList;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
@@ -52,7 +52,7 @@ var ContentListStore = Reflux.createStore({
         ajaxPost(url, data, callback);
     },
     onDelete: function (data) {
-        var url = API.deleteContent;
+        var url = URL.server + API.deleteContent;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
@@ -76,7 +76,7 @@ var ContentListStore = Reflux.createStore({
                 ContentListActions.search(searchCondition);
             } else {
                 console.log(result);
-                alert("获取登陆用户信息失败！");
+                location.href = Page.login;
             }
         };
 
@@ -84,7 +84,7 @@ var ContentListStore = Reflux.createStore({
     },
 
     onUpdateContent: function (data) {
-        var url = API.updateContent;
+        var url = URL.server + API.updateContent;
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
@@ -249,7 +249,7 @@ var ContentList = React.createClass({displayName: "ContentList",
                             "查 询"
                         ), 
                         " ", 
-                        React.createElement("a", {className: "btn btn-success", href: clientURL + contentDetailPage + "?pageMode=1", 
+                        React.createElement("a", {className: "btn btn-success", href: Page.contentDetail + "?pageMode=1", 
                            target: "_blank"}, "发 布")
                     )
                 ), 
@@ -288,7 +288,7 @@ var ContentList = React.createClass({displayName: "ContentList",
 var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
     getInitialState: function () {
         return {
-            contentDetailURL: clientURL + contentDetailPage + "?pageMode=2&contentID=" + this.props.content.contentID
+            contentDetailURL: Page.contentDetail + "?pageMode=2&contentID=" + this.props.content.contentID
         };
     },
 
