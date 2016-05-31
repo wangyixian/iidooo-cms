@@ -47,9 +47,11 @@ var HeaderStore = Reflux.createStore({
 var Header = React.createClass({
     mixins: [Reflux.connect(HeaderStore, 'user')],
     getInitialState: function () {
-        return {user: {
-            roleName: ""
-        }};
+        return {
+            user: {
+                roleName: ""
+            }
+        };
     },
     componentWillMount: function () {
         HeaderActions.getUserByToken(this.state);
@@ -66,8 +68,8 @@ var Header = React.createClass({
                             <LOGO/>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
-                            <MainMenu/>
-                            <LoginInfo roleName={this.state.user.roleName} userName={this.state.user.userName} />
+                            <MainMenu activeMenuID={this.props.activeMenuID}/>
+                            <LoginInfo roleName={this.state.user.roleName} userName={this.state.user.userName}/>
                         </div>
                     </div>
                 </nav>
@@ -77,33 +79,45 @@ var Header = React.createClass({
 });
 
 var LOGO = React.createClass({
-    getInitialState: function () {
-        return {
-            indexURL: Page.contentList
-        };
-    },
     render: function () {
         return (
             <div>
-                <a className="navbar-brand" href={this.state.indexURL}>IDO CMS SYSTEM</a>
+                <a className="navbar-brand" href={Page.myContentList}>TOXIC WAVE CMS SYSTEM</a>
             </div>
         );
     }
 });
 
 var MainMenu = React.createClass({
-    getInitialState: function () {
-        return {
-            contentManageURL: Page.contentList
-        };
+    componentDidUpdate: function () {
+        var activeMenuID = this.props.activeMenuID;
+        $("#" + activeMenuID).addClass("active");
     },
     render: function () {
+        var editorShipMenu;
+        if(securityUser.roleCode == role.admin || securityUser.roleCode == role.editorship){
+            editorShipMenu = <EditorShipMenu/>;
+        }
         return (
-            <ul className="nav navbar-nav">
-                <li className="active">
-                    <a href={this.state.contentManageURL}>内容管理</a>
+            <ul id="mainMenu" className="nav navbar-nav">
+                <li id="menuMyContentList">
+                    <a href={Page.myContentList}>我的毒电波</a>
                 </li>
+                <li id="menuCreateNews">
+                    <a href={Page.createNews}>发布毒电波</a>
+                </li>
+                {editorShipMenu}
             </ul>
+        );
+    }
+});
+
+var EditorShipMenu = React.createClass({
+    render: function () {
+        return (
+            <li id='menuContentManage'>
+                <a href={Page.contentList}>内容管理</a>
+            </li>
         );
     }
 });
@@ -122,9 +136,3 @@ var LoginInfo = React.createClass({
         );
     }
 });
-
-
-ReactDOM.render(
-    <Header />,
-    document.getElementById('header')
-);

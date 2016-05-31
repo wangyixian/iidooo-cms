@@ -2,11 +2,12 @@
  * Created by Ethan on 16/4/6.
  */
 URL = {
-    client: "http://localhost:63342/toxicwave",
-    server: "http://localhost:8080/iidooo-cms"
+    // client: "http://localhost:63342/toxicwave",
+    // server: "http://localhost:8080/iidooo-cms"
+
     // 正式环境
-    // client: "http://www.iidooo.com/toxicwave";
-    //server: "http://www.iidooo.com/iidooo-cms"
+    client: "http://www.iidooo.com/toxicwave",
+    server: "http://www.iidooo.com/iidooo-cms"
 };
 
 SessionKey = {
@@ -20,6 +21,7 @@ SecurityClient = {
 };
 
 Message = {
+    INPUT_REQUIRED: "红色区域为必填项！",
     EMAIL_REQUIRED: "请输入正确的Email地址!",
     VERIFY_CODE_REQUIRED: "请输入正确的验证码",
     LOGIN_FAILED: "身份验证失败！",
@@ -67,6 +69,8 @@ role = {
 
 Page = {
     login: URL.client + "/pages/login.html",
+    myContentList: URL.client + "/pages/myContentList.html",
+    createNews: URL.client + "/pages/createNews.html",
     contentList : URL.client +  "/pages/contentList.html",
     contentDetail : URL.client +  "/pages/contentDetail.html"
 };
@@ -145,6 +149,53 @@ function ajaxPost(url, data, callback) {
             //ajaxpost(url, data, callback);
         }
     });
+}
+
+function ajaxFileUpload(id, url, data, callback){
+    $("#" + id).fileupload({
+        url: url,
+        dataType: 'json',
+        autoUpload: true,
+        acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
+        maxNumberOfFiles: 1,
+        formData: data,
+        maxFileSize: 10000000,
+        done: function (e, result) {
+            console.log(result);
+            var data = result.result;
+            if (result && null != result.status && ((result.status + "").indexOf("20") == 0)) {
+                callback(result);
+            } else {
+                alert("服务器端处理失败，出现异常，详细请看控制台！错误编号：" + result.status);
+                console.log(data);
+            }
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10) + "%";
+
+            console.log(progress);
+        },
+        error: function (e, data) {
+
+            console.log('Error!');
+        },
+        fail: function (e, data) {
+
+            console.log('Fail!');
+        }
+    });
+}
+
+function openFileBrowse(fileID){
+    var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+    if(ie){
+        document.getElementById(fileID).click();
+        document.getElementById("filename").value=document.getElementById("file").value;
+    }else{
+        var a=document.createEvent("MouseEvents");//FF的处理
+        a.initEvent("click", true, true);
+        document.getElementById(fileID).dispatchEvent(a);
+    }
 }
 
 // 提供showdown格式的预览

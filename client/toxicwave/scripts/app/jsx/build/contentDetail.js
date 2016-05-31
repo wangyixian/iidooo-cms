@@ -274,356 +274,361 @@ var Content = React.createClass({displayName: "Content",
     render: function () {
         return (
             React.createElement("div", null, 
-                React.createElement("div", {id: "readOnlyAlert", className: "alert alert-warning text-center hidden", role: "alert"}), 
-                React.createElement(Breadcrumb, null), 
+                React.createElement(Header, {activeMenuID: "menuContentManage"}), 
 
-                React.createElement("div", {className: "panel panel-primary"}, 
-                    React.createElement("div", {className: "panel-heading"}, "内容发布"), 
-                    React.createElement("div", {className: "panel-body"}, 
-                        React.createElement("div", {className: "row form-horizontal form-group"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", {htmlFor: "channelID"}, "所属栏目")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ChannelList, {channelID: this.state.content.channelID, 
-                                                 callbackParent: this.onChildChanged})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容类型")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ContentTypeList, {contentType: this.state.content.contentType, 
+                React.createElement("div", {className: "container"}, 
+                    React.createElement("div", {id: "readOnlyAlert", className: "alert alert-warning text-center hidden", role: "alert"}), 
+                    React.createElement("div", {className: "panel panel-primary"}, 
+                        React.createElement("div", {className: "panel-heading"}, "内容发布"), 
+                        React.createElement("div", {className: "panel-body"}, 
+                            React.createElement("div", {className: "row form-horizontal form-group"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", {htmlFor: "channelID"}, "所属栏目")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement(ChannelList, {channelID: this.state.content.channelID, 
                                                      callbackParent: this.onChildChanged})
-                                )
-                            )
-                        ), 
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容标题")
+                                    )
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {type: "text", className: "form-control", 
-                                           value: this.state.content.contentTitle, 
-                                           onChange: this.handleChange.bind(null, 'contentTitle')})
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容类型")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement(ContentTypeList, {contentType: this.state.content.contentType, 
+                                                         callbackParent: this.onChildChanged})
+                                    )
                                 )
                             ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容副标题")
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容标题")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {type: "text", className: "form-control", 
+                                               value: this.state.content.contentTitle, 
+                                               onChange: this.handleChange.bind(null, 'contentTitle')})
+                                    )
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {type: "text", className: "form-control", 
-                                           value: this.state.content.contentSubTitle, 
-                                           onChange: this.handleChange.bind(null, 'contentSubTitle')})
-                                )
-                            )
-                        ), 
-
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "标题图")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {ref: "inputImageTitle", id: "contentImageTitle", type: "text", 
-                                           className: "form-control"}), 
-                                    React.createElement("img", {id: "imgImageTitle", src: ""})
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容副标题")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {type: "text", className: "form-control", 
+                                               value: this.state.content.contentSubTitle, 
+                                               onChange: this.handleChange.bind(null, 'contentSubTitle')})
+                                    )
                                 )
                             ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "标题图上传")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {id: "uploadImageTitle", type: "file", name: "file"})
-                                )
-                            )
-                        ), 
 
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容摘要")
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "标题图")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {ref: "inputImageTitle", id: "contentImageTitle", type: "text", 
+                                               className: "form-control"}), 
+                                        React.createElement("img", {id: "imgImageTitle", src: ""})
+                                    )
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "标题图上传")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {id: "uploadImageTitle", type: "file", name: "file"})
+                                    )
+                                )
+                            ), 
+
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容摘要")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
                                         React.createElement("textarea", {cols: "100", rows: "5", className: "form-control", 
                                                   value: this.state.content.contentSummary, 
                                                   onChange: this.handleChange.bind(null, 'contentSummary')})
+                                    )
+                                ), 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "预览")
+                                    ), 
+                                    React.createElement("div", {id: "txtSummaryPreview", className: "col-xs-8 markdownPreview"}
+                                    )
                                 )
                             ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "预览")
-                                ), 
-                                React.createElement("div", {id: "txtSummaryPreview", className: "col-xs-8 markdownPreview"}
-                                )
-                            )
-                        ), 
 
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容主体")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {id: "uploadContentBodyImage", type: "file", name: "file"}), 
-                                    React.createElement("select", {id: "selContentBodyFileType", className: "form-control", defaultValue: "3"}, 
-                                        React.createElement("option", {value: "1"}, "方形头像(200*200)"), 
-                                        React.createElement("option", {value: "2"}, "主页缩略图(500*500)"), 
-                                        React.createElement("option", {value: "3"}, "详细大图(1000*1000)"), 
-                                        React.createElement("option", {value: "4"}, "不压缩")
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容主体")
                                     ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {id: "uploadContentBodyImage", type: "file", name: "file"}), 
+                                        React.createElement("select", {id: "selContentBodyFileType", className: "form-control", defaultValue: "3"}, 
+                                            React.createElement("option", {value: "1"}, "方形头像(200*200)"), 
+                                            React.createElement("option", {value: "2"}, "主页缩略图(500*500)"), 
+                                            React.createElement("option", {value: "3"}, "详细大图(1000*1000)"), 
+                                            React.createElement("option", {value: "4"}, "不压缩")
+                                        ), 
                                         React.createElement("textarea", {id: "contentBody", ref: "inputContentBody", cols: "100", rows: "30", 
                                                   className: "form-control", 
                                                   value: this.state.content.contentBody, 
                                                   onChange: this.handleChange.bind(null, 'contentBody')})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    "预览"
-                                ), 
-                                React.createElement("div", {id: "txtContentBodyPreview", className: "col-xs-8 markdownPreview"}
-                                )
-                            )
-                        ), 
-
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容图上传")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {id: "uploadContentImage", type: "file", name: "file"})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "图片压缩类型")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("select", {id: "selFileType", className: "form-control", defaultValue: "2"}, 
-                                        React.createElement("option", {value: "1"}, "方形头像(200*200)"), 
-                                        React.createElement("option", {value: "2"}, "主页缩略图(500*500)"), 
-                                        React.createElement("option", {value: "3"}, "详细大图(1000*1000)"), 
-                                        React.createElement("option", {value: "4"}, "不压缩")
                                     )
-                                )
-                            )
-                        ), 
-
-                        React.createElement("div", {id: "divContentImageList", className: "hidden"}, 
-                            React.createElement("div", {className: "row form-group form-horizontal"}, 
-                                React.createElement("div", {className: "row"}, 
-                                    React.createElement("div", {className: "col-xs-6"}, 
-                                        React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                            React.createElement("label", null, "内容图列表")
-                                        ), 
-                                        React.createElement("div", {id: "divInputContentPic", className: "col-xs-8"}
-
-                                        )
-                                    ), 
-
-                                    React.createElement("div", {className: "col-xs-6"}, 
-                                        React.createElement("div", {id: "divContentPicDelete", className: "col-xs-2"}
-
-                                        )
-                                    )
-                                )
-                            )
-                        ), 
-
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "置顶索引")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {type: "number", className: "form-control", 
-                                           value: this.state.content.stickyIndex, 
-                                           onChange: this.handleChange.bind(null, 'stickyIndex')})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容状态")
                                 ), 
                                 React.createElement("div", {className: "col-xs-6"}, 
-                                    React.createElement(ContentStatusList, {contentStatus: this.state.content.status, 
-                                                       callbackParent: this.onChildChanged})
-                                ), 
-                                React.createElement("div", {className: "col-xs-2 checkbox"}, 
-                                    React.createElement("label", null, 
-                                        React.createElement("input", {type: "checkbox", checked: this.state.content.isSilent, 
-                                               onChange: this.handleChange.bind(null, 'isSilent')}), "禁言"
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        "预览"
+                                    ), 
+                                    React.createElement("div", {id: "txtContentBodyPreview", className: "col-xs-8 markdownPreview"}
                                     )
                                 )
-                            )
-                        ), 
+                            ), 
 
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "显示开始日期")
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容图上传")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {id: "uploadContentImage", type: "file", name: "file"})
+                                    )
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("div", {className: "input-group date form_date", "data-date": "", 
-                                         "data-date-format": "yyyy-mm-dd", "data-link-field": "startShowDate", 
-                                         "data-link-format": "yyyy-mm-dd"}, 
-                                        React.createElement("input", {id: "startShowDate", className: "form-control", type: "text", 
-                                               readonly: true, value: this.state.content.startShowDate, 
-                                               onChange: this.handleChange.bind(null, 'startShowDate'), 
-                                               ref: "inputStartShowDate"}), 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "图片压缩类型")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("select", {id: "selFileType", className: "form-control", defaultValue: "2"}, 
+                                            React.createElement("option", {value: "1"}, "方形头像(200*200)"), 
+                                            React.createElement("option", {value: "2"}, "主页缩略图(500*500)"), 
+                                            React.createElement("option", {value: "3"}, "详细大图(1000*1000)"), 
+                                            React.createElement("option", {value: "4"}, "不压缩")
+                                        )
+                                    )
+                                )
+                            ), 
+
+                            React.createElement("div", {id: "divContentImageList", className: "hidden"}, 
+                                React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                    React.createElement("div", {className: "row"}, 
+                                        React.createElement("div", {className: "col-xs-6"}, 
+                                            React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                                React.createElement("label", null, "内容图列表")
+                                            ), 
+                                            React.createElement("div", {id: "divInputContentPic", className: "col-xs-8"}
+
+                                            )
+                                        ), 
+
+                                        React.createElement("div", {className: "col-xs-6"}, 
+                                            React.createElement("div", {id: "divContentPicDelete", className: "col-xs-2"}
+
+                                            )
+                                        )
+                                    )
+                                )
+                            ), 
+
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "置顶索引")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {type: "number", className: "form-control", 
+                                               value: this.state.content.stickyIndex, 
+                                               onChange: this.handleChange.bind(null, 'stickyIndex')})
+                                    )
+                                ), 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容状态")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-6"}, 
+                                        React.createElement(ContentStatusList, {contentStatus: this.state.content.status, 
+                                                           callbackParent: this.onChildChanged})
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-2 checkbox"}, 
+                                        React.createElement("label", null, 
+                                            React.createElement("input", {type: "checkbox", checked: this.state.content.isSilent, 
+                                                   onChange: this.handleChange.bind(null, 'isSilent')}), "禁言"
+                                        )
+                                    )
+                                )
+                            ), 
+
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "显示开始日期")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("div", {className: "input-group date form_date", "data-date": "", 
+                                             "data-date-format": "yyyy-mm-dd", "data-link-field": "startShowDate", 
+                                             "data-link-format": "yyyy-mm-dd"}, 
+                                            React.createElement("input", {id: "startShowDate", className: "form-control", type: "text", 
+                                                   readonly: true, value: this.state.content.startShowDate, 
+                                                   onChange: this.handleChange.bind(null, 'startShowDate'), 
+                                                   ref: "inputStartShowDate"}), 
                                                     React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
                                                         className: "glyphicon glyphicon-remove"})), 
                                                 React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
                                                     className: "glyphicon glyphicon-calendar"}))
+                                        )
                                     )
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "显示结束日期")
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("div", {className: "input-group date form_date", "data-date": "", 
-                                         "data-date-format": "yyyy-mm-dd", "data-link-field": "endShowDate", 
-                                         "data-link-format": "yyyy-mm-dd"}, 
-                                        React.createElement("input", {id: "endShowDate", className: "form-control", type: "text", 
-                                               value: this.state.content.endShowDate, 
-                                               onChange: this.handleChange.bind(null, 'endShowDate'), 
-                                               readonly: true, ref: "inputEndShowDate"}), 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "显示结束日期")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("div", {className: "input-group date form_date", "data-date": "", 
+                                             "data-date-format": "yyyy-mm-dd", "data-link-field": "endShowDate", 
+                                             "data-link-format": "yyyy-mm-dd"}, 
+                                            React.createElement("input", {id: "endShowDate", className: "form-control", type: "text", 
+                                                   value: this.state.content.endShowDate, 
+                                                   onChange: this.handleChange.bind(null, 'endShowDate'), 
+                                                   readonly: true, ref: "inputEndShowDate"}), 
                                                     React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
                                                         className: "glyphicon glyphicon-remove"})), 
                                 React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
                                     className: "glyphicon glyphicon-calendar"}))
-                                    )
-                                )
-                            )
-                        ), 
-
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "显示开始时间")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("div", {className: "input-group date form_time", "data-date": "", 
-                                         "data-date-format": "hh:ii:ss", "data-link-field": "startShowTime", 
-                                         "data-link-format": "hh:ii:ss"}, 
-                                        React.createElement("input", {id: "startShowTime", className: "form-control", type: "text", 
-                                               readonly: true, value: this.state.content.startShowTime, 
-                                               onChange: this.handleChange.bind(null, 'startShowTime'), 
-                                               ref: "inputStartShowTime"}), 
-                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
-                                                        className: "glyphicon glyphicon-remove"})), 
-                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
-                                                        className: "glyphicon glyphicon-time"}))
+                                        )
                                     )
                                 )
                             ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "显示结束时间")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("div", {className: "input-group date form_time", "data-date": "", 
-                                         "data-date-format": "hh:ii:ss", "data-link-field": "endShowTime", 
-                                         "data-link-format": "hh:ii:ss"}, 
-                                        React.createElement("input", {id: "endShowTime", className: "form-control", type: "text", 
-                                               readonly: true, value: this.state.content.endShowTime, 
-                                               onChange: this.handleChange.bind(null, 'endShowTime'), 
-                                               ref: "inputEndShowTime"}), 
-                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
-                                                        className: "glyphicon glyphicon-remove"})), 
-                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
-                                                        className: "glyphicon glyphicon-time"}))
-                                    )
-                                )
-                            )
-                        ), 
 
-                        React.createElement("div", {id: "newsFields", className: this.state.content.newsDisplay}, 
                             React.createElement("div", {className: "row form-group form-horizontal"}, 
                                 React.createElement("div", {className: "col-xs-6"}, 
                                     React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                        React.createElement("label", null, "新闻来源")
+                                        React.createElement("label", null, "显示开始时间")
                                     ), 
                                     React.createElement("div", {className: "col-xs-8"}, 
-                                        React.createElement("input", {type: "text", className: "form-control", value: this.state.content.source, 
-                                               onChange: this.handleChange.bind(null, 'source')})
+                                        React.createElement("div", {className: "input-group date form_time", "data-date": "", 
+                                             "data-date-format": "hh:ii:ss", "data-link-field": "startShowTime", 
+                                             "data-link-format": "hh:ii:ss"}, 
+                                            React.createElement("input", {id: "startShowTime", className: "form-control", type: "text", 
+                                                   readonly: true, value: this.state.content.startShowTime, 
+                                                   onChange: this.handleChange.bind(null, 'startShowTime'), 
+                                                   ref: "inputStartShowTime"}), 
+                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
+                                                        className: "glyphicon glyphicon-remove"})), 
+                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
+                                                        className: "glyphicon glyphicon-time"}))
+                                        )
                                     )
                                 ), 
                                 React.createElement("div", {className: "col-xs-6"}, 
                                     React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                        React.createElement("label", null, "新闻来源URL")
+                                        React.createElement("label", null, "显示结束时间")
                                     ), 
                                     React.createElement("div", {className: "col-xs-8"}, 
-                                        React.createElement("input", {type: "text", className: "form-control", value: this.state.content.sourceURL, 
-                                               onChange: this.handleChange.bind(null, 'sourceURL')})
+                                        React.createElement("div", {className: "input-group date form_time", "data-date": "", 
+                                             "data-date-format": "hh:ii:ss", "data-link-field": "endShowTime", 
+                                             "data-link-format": "hh:ii:ss"}, 
+                                            React.createElement("input", {id: "endShowTime", className: "form-control", type: "text", 
+                                                   readonly: true, value: this.state.content.endShowTime, 
+                                                   onChange: this.handleChange.bind(null, 'endShowTime'), 
+                                                   ref: "inputEndShowTime"}), 
+                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
+                                                        className: "glyphicon glyphicon-remove"})), 
+                                                    React.createElement("span", {className: "input-group-addon"}, React.createElement("span", {
+                                                        className: "glyphicon glyphicon-time"}))
+                                        )
                                     )
                                 )
-                            )
-                        ), 
+                            ), 
 
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "备注")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
+                            React.createElement("div", {id: "newsFields", className: this.state.content.newsDisplay}, 
+                                React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                    React.createElement("div", {className: "col-xs-6"}, 
+                                        React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                            React.createElement("label", null, "新闻来源")
+                                        ), 
+                                        React.createElement("div", {className: "col-xs-8"}, 
+                                            React.createElement("input", {type: "text", className: "form-control", 
+                                                   value: this.state.content.source, 
+                                                   onChange: this.handleChange.bind(null, 'source')})
+                                        )
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-6"}, 
+                                        React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                            React.createElement("label", null, "新闻来源URL")
+                                        ), 
+                                        React.createElement("div", {className: "col-xs-8"}, 
+                                            React.createElement("input", {type: "text", className: "form-control", 
+                                                   value: this.state.content.sourceURL, 
+                                                   onChange: this.handleChange.bind(null, 'sourceURL')})
+                                        )
+                                    )
+                                )
+                            ), 
+
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "备注")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
                                         React.createElement("textarea", {cols: "20", rows: "5", className: "form-control", 
                                                   value: this.state.content.remarks, 
                                                   onChange: this.handleChange.bind(null, 'remarks')})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "MetaDescription")
+                                    )
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "MetaDescription")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
                                         React.createElement("textarea", {cols: "20", rows: "5", className: "form-control", 
                                                   value: this.state.content.metaDescription, 
                                                   onChange: this.handleChange.bind(null, 'metaDescription')})
-                                )
-                            )
-                        ), 
-
-                        React.createElement("div", {className: "row form-group form-horizontal"}, 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "MetaTitle")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {type: "text", className: "form-control", 
-                                           value: this.state.content.metaTitle, 
-                                           onChange: this.handleChange.bind(null, 'metaTitle')})
+                                    )
                                 )
                             ), 
-                            React.createElement("div", {className: "col-xs-6"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "MetaKeywords")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {type: "text", className: "form-control", 
-                                           value: this.state.content.metaKeywords, 
-                                           onChange: this.handleChange.bind(null, 'metaKeywords')})
-                                )
-                            )
-                        ), 
 
-                        React.createElement("div", {className: "text-center"}, 
-                            React.createElement("button", {className: "btn btn-primary", type: "button", onClick: this.handleSave}, "保 存"
+                            React.createElement("div", {className: "row form-group form-horizontal"}, 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "MetaTitle")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {type: "text", className: "form-control", 
+                                               value: this.state.content.metaTitle, 
+                                               onChange: this.handleChange.bind(null, 'metaTitle')})
+                                    )
+                                ), 
+                                React.createElement("div", {className: "col-xs-6"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "MetaKeywords")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {type: "text", className: "form-control", 
+                                               value: this.state.content.metaKeywords, 
+                                               onChange: this.handleChange.bind(null, 'metaKeywords')})
+                                    )
+                                )
                             ), 
-                            " ", 
-                            React.createElement("button", {className: "btn btn-danger", type: "button"}, "重 置")
+
+                            React.createElement("div", {className: "text-center"}, 
+                                React.createElement("button", {className: "btn btn-primary", type: "button", onClick: this.handleSave}, "保 存"
+                                ), 
+                                " ", 
+                                React.createElement("button", {className: "btn btn-danger", type: "button"}, "重 置")
+                            )
                         )
                     )
-                )
+                ), 
+                React.createElement(Footer, null)
             )
         );
     }
@@ -631,7 +636,7 @@ var Content = React.createClass({displayName: "Content",
 
 ReactDOM.render(
     React.createElement(Content, null),
-    document.getElementById('content')
+    document.getElementById('page')
 );
 
 $(function () {
@@ -667,7 +672,12 @@ $("#uploadImageTitle").fileupload({
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
     maxNumberOfFiles: 1,
-    formData: {'appID': SecurityClient.appID, 'secret': SecurityClient.secret, 'accessToken': sessionStorage.getItem(SessionKey.accessToken), 'fileType': '1'},
+    formData: {
+        'appID': SecurityClient.appID,
+        'secret': SecurityClient.secret,
+        'accessToken': sessionStorage.getItem(SessionKey.accessToken),
+        'fileType': '1'
+    },
     maxFileSize: 10000000,
     done: function (e, result) {
         var data = result.result;

@@ -29,7 +29,7 @@ var Store = Reflux.createStore({
             if (result.status == 200) {
                 sessionStorage.setItem(SessionKey.accessToken, result.data.token);
                 sessionStorage.setItem(SessionKey.userID, result.data.userID);
-                location.href = Page.contentList;
+                location.href = Page.myContentList;
             } else {
                 var message = Message.LOGIN_FAILED;
                 if(result.status == 201){
@@ -48,8 +48,7 @@ var LoginForm = React.createClass({displayName: "LoginForm",
     getInitialState: function () {
         return {
             email: "",
-            verifyCode: "",
-            sendButtonText: "发送验证码"
+            verifyCode: ""
         };
     },
 
@@ -76,19 +75,24 @@ var LoginForm = React.createClass({displayName: "LoginForm",
             return false;
         }
         Actions.sendVerifyCode(this.state);
-        $("#btnSendVerify").attr("disabled", true);
-        var minutes = 30;
+
+        var $btnSendVerify = $("#btnSendVerify");
+        $btnSendVerify.text("重新发送");
+        $btnSendVerify.attr("disabled", true);
+        var $labelSecond = $("<span id='labelSecond'>30s</span>");
+        $btnSendVerify.append($labelSecond);
+
+        var second = 30;
         this.timer = setInterval(function () {
-            if (minutes < 0) {
-                $("#btnSendVerify").attr("disabled", false);
-                this.state.sendButtonText = "重新发送";
-                this.setState(this.state);
+            if (second < 0) {
+                $labelSecond.text("");
+                $btnSendVerify.remove("#labelSecond");
+                $btnSendVerify.attr("disabled", false);
                 return false;
             } else {
-                this.state.sendButtonText = "重新发送" + minutes-- + "s";
-                this.setState(this.state);
+                $labelSecond.text((second--) + "s");
             }
-        }.bind(this), 1000);
+        }.bind(this),1000);
     },
 
     render: function () {
@@ -115,7 +119,7 @@ var LoginForm = React.createClass({displayName: "LoginForm",
                         React.createElement("input", {id: "inputVerify", ref: "inputVerify", type: "text", name: "form-verify", placeholder: "请输入验证码", 
                                className: "form-verify"}), 
                         React.createElement("button", {id: "btnSendVerify", type: "button", className: "btn btn-verify", 
-                                onClick: this.handleSendVerify}, this.state.sendButtonText)
+                                onClick: this.handleSendVerify}, "发送验证码")
                     ), 
                     React.createElement("button", {type: "button", className: "btn btn-block", onClick: this.handleLogin}, "登录")
                 )

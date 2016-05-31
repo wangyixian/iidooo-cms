@@ -52,7 +52,7 @@
 <script>
 	showdown.setOption('strikethrough', 'true');
 	var converter = new showdown.Converter();
-	var text = document.getElementById("insert").innerHTML.replace("&gt;", ">");
+	var text = document.getElementById("insert").innerHTML.replace(/&gt;/g, ">");
 	var html = converter.makeHtml(text);
 	document.getElementById("insert").innerHTML = html;
 

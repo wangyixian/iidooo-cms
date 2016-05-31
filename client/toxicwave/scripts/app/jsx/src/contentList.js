@@ -166,120 +166,126 @@ var ContentList = React.createClass({
     render: function () {
         return (
             <div>
-                <div className="search-condition-section">
-                    <div className="form-horizontal">
-                        <div className="row form-group">
-                            <div className="col-xs-4">
-                                <div className="col-xs-4 control-label">
-                                    <label htmlFor="channelList">所属栏目</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <ChannelList ref="channelList" channelID={this.state.channelID}
-                                                 callbackParent={this.onChildChanged} isContainAll="true"/>
-                                </div>
-                            </div>
-                            <div className="col-xs-4">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容标题</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input type="text" className="form-control" ref="inputContentTitle"/>
-                                </div>
-                            </div>
-                            <div className="col-xs-4">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容类型</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <ContentTypeList contentType={this.state.contentType}
+                <Header activeMenuID="menuContentManage"/>
+
+                <div className="container-fluid">
+                    <div className="search-condition-section">
+                        <div className="form-horizontal">
+                            <div className="row form-group">
+                                <div className="col-xs-4">
+                                    <div className="col-xs-4 control-label">
+                                        <label htmlFor="channelList">所属栏目</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <ChannelList ref="channelList" channelID={this.state.channelID}
                                                      callbackParent={this.onChildChanged} isContainAll="true"/>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-horizontal">
-                        <div className="row form-group">
-                            <div className="col-xs-4">
-                                <div className="col-xs-4 control-label">
-                                    <label>发布开始日</label>
+                                <div className="col-xs-4">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容标题</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input type="text" className="form-control" ref="inputContentTitle"/>
+                                    </div>
                                 </div>
-                                <div className="col-xs-8">
-                                    <div className="input-group date form_date" data-date=""
-                                         data-date-format="yyyy-mm-dd"
-                                         data-link-field="startDate" data-link-format="yyyy-mm-dd">
-                                        <input id="startDate" className="form-control" type="text" ref="inputStartDate"
-                                               readonly/>
-                                        <span className="input-group-addon">
-                                            <span className="glyphicon glyphicon-calendar"></span>
-                                        </span>
+                                <div className="col-xs-4">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容类型</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <ContentTypeList contentType={this.state.contentType}
+                                                         callbackParent={this.onChildChanged} isContainAll="true"/>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xs-4">
-                                <div className="col-xs-4 control-label">
-                                    <label>发布结束日</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <div className="input-group date form_date" data-date=""
-                                         data-date-format="yyyy-mm-dd"
-                                         data-link-field="endDate" data-link-format="yyyy-mm-dd">
-                                        <input id="endDate" className="form-control" type="text" ref="inputEndDate"
-                                               readonly/>
+                        </div>
+
+                        <div className="form-horizontal">
+                            <div className="row form-group">
+                                <div className="col-xs-4">
+                                    <div className="col-xs-4 control-label">
+                                        <label>发布开始日</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <div className="input-group date form_date" data-date=""
+                                             data-date-format="yyyy-mm-dd"
+                                             data-link-field="startDate" data-link-format="yyyy-mm-dd">
+                                            <input id="startDate" className="form-control" type="text"
+                                                   ref="inputStartDate"
+                                                   readonly/>
                                         <span className="input-group-addon">
                                             <span className="glyphicon glyphicon-calendar"></span>
                                         </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xs-4">
+                                    <div className="col-xs-4 control-label">
+                                        <label>发布结束日</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <div className="input-group date form_date" data-date=""
+                                             data-date-format="yyyy-mm-dd"
+                                             data-link-field="endDate" data-link-format="yyyy-mm-dd">
+                                            <input id="endDate" className="form-control" type="text" ref="inputEndDate"
+                                                   readonly/>
+                                        <span className="input-group-addon">
+                                            <span className="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xs-4">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容状态</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <ContentStatusList contentStatus={this.state.status}
+                                                           callbackParent={this.onChildChanged} isContainAll="true"/>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xs-4">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容状态</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <ContentStatusList contentStatus={this.state.status}
-                                                       callbackParent={this.onChildChanged} isContainAll="true"/>
-                                </div>
-                            </div>
+                        </div>
+
+                        <div className="text-right">
+                            <a href="javascript:void(0)" className="btn btn-primary" onClick={this.handleSearch}>
+                                查&nbsp;询
+                            </a>
+                            &nbsp;
+                            <a className="btn btn-success" href={Page.contentDetail + "?pageMode=1"}
+                               target="_blank">发&nbsp;布</a>
                         </div>
                     </div>
-
-                    <div className="text-right">
-                        <a href="javascript:void(0)" className="btn btn-primary" onClick={this.handleSearch}>
-                            查&nbsp;询
-                        </a>
-                        &nbsp;
-                        <a className="btn btn-success" href={Page.contentDetail + "?pageMode=1"}
-                           target="_blank">发&nbsp;布</a>
+                    <div className="search-result-section">
+                        <table className="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>栏目</th>
+                                <th>标题</th>
+                                <th>置顶级别</th>
+                                <th>类型</th>
+                                <th>状态</th>
+                                <th>发布者</th>
+                                <th>发布时间</th>
+                                <th>PV</th>
+                                <th>快捷操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.state.contentListData.contentList.map(function (item) {
+                                return <ContentSearchResult key={item.contentID} content={item}/>
+                            })}
+                            </tbody>
+                        </table>
+                        <Pager callbackParent={this.onChildChanged}
+                               recordSum={this.state.contentListData.page.recordSum}
+                               currentPage={this.state.contentListData.page.currentPage}
+                               pageSum={this.state.contentListData.page.pageSum}/>
                     </div>
                 </div>
-                <div className="search-result-section">
-                    <table className="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>栏目</th>
-                            <th>标题</th>
-                            <th>置顶级别</th>
-                            <th>类型</th>
-                            <th>状态</th>
-                            <th>发布者</th>
-                            <th>发布时间</th>
-                            <th>PV</th>
-                            <th>快捷操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.contentListData.contentList.map(function (item) {
-                            return <ContentSearchResult key={item.contentID} content={item}/>
-                        })}
-                        </tbody>
-                    </table>
-                    <Pager callbackParent={this.onChildChanged}
-                           recordSum={this.state.contentListData.page.recordSum}
-                           currentPage={this.state.contentListData.page.currentPage}
-                           pageSum={this.state.contentListData.page.pageSum}/>
-                </div>
+                <Footer/>
             </div>
         );
     }
@@ -324,7 +330,7 @@ var ContentSearchResult = React.createClass({
 
     render: function () {
         var userName = "";
-        if(this.props.content.createUser != null){
+        if (this.props.content.createUser != null) {
             userName = this.props.content.createUser.userName;
         }
         return (
@@ -351,7 +357,7 @@ var ContentSearchResult = React.createClass({
 
 ReactDOM.render(
     <ContentList />,
-    document.getElementById('contentList')
+    document.getElementById('page')
 );
 
 $(function () {

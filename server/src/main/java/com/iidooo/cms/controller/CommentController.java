@@ -1,7 +1,11 @@
 package com.iidooo.cms.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +34,7 @@ import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.service.SecurityUserService;
+import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -38,9 +43,29 @@ public class CommentController {
 
     private static final Logger logger = Logger.getLogger(CommentController.class);
 
+//
+//    // key: userID
+//       // value: url
+//       public Map<Integer, String> duplicatePostMap = new HashMap<>();
+//
+//       public void duplicatePostTimeTask(final Integer userID, String url) {
+//           duplicatePostMap.put(userID, url);
+//           new Thread() {
+//               public void run() {
+//                   TimerTask task = new TimerTask() {
+//                       public void run() {
+//                           duplicatePostMap.remove(userID);
+//                       }
+//                   };
+//                   Timer timer = new Timer(false);
+//                   timer.schedule(task, 3000);
+//               }
+//           }.start();
+//       }
+    
     @Autowired
     private CommentService commentService;
-    
+
     @Autowired
     private CmsCommentNoticeService cmsCommentNoticeService;
 
@@ -119,11 +144,9 @@ public class CommentController {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -181,11 +204,9 @@ public class CommentController {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -238,6 +259,12 @@ public class CommentController {
             int contentID = Integer.parseInt(contentIDStr);
             int parentID = Integer.parseInt(parentIDStr);
 
+            // 防止重复提交
+//            if (this.duplicatePostMap.containsKey(userID)) {
+//                result.setStatus(ResponseStatus.Failed.getCode());
+//                return result;
+//            }
+
             // 判断用户是否可以创建评论IsSlient＝1
             SecurityUser userInfo = sercurityUserService.getSecurityUserByID(userID);
             if (userInfo != null && userInfo.getIsSilent() != 0) {
@@ -273,19 +300,19 @@ public class CommentController {
                 cmsComment = commentService.getCommentByID(cmsComment.getCommentID());
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);
+                // 更新内容的评论数
+                contentService.updateCommentCount(contentID);
+                // 更新浏览记录
+                hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
+
+                // 防止重复提交
+                //this.duplicatePostTimeTask(userID, request.getServletPath());
             }
 
-            // 更新内容的评论数
-            contentService.updateCommentCount(contentID);
-
-            // 更新浏览记录
-            hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -311,7 +338,7 @@ public class CommentController {
                 Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "comment");
                 result.getMessages().add(message);
             }
-            
+
             if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
                 result.setStatus(ResponseStatus.Failed.getCode());
@@ -333,11 +360,9 @@ public class CommentController {
             hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }

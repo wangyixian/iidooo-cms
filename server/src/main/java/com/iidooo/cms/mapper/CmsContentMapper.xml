@@ -152,6 +152,9 @@
 		<if test="cmsContent.status != null and cmsContent.status != ''">
 			and C.Status = #{cmsContent.status,jdbcType=VARCHAR}
 		</if>
+		<if test="cmsContent.createUserID != null and cmsContent.createUserID != 0">
+			and C.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
+		</if>
 	</select>
 
 	<!-- 检索内容一览信息 -->
@@ -178,6 +181,9 @@
 		</if>
 		<if test="cmsContent.status != null and cmsContent.status != ''">
 			and C.Status = #{cmsContent.status,jdbcType=VARCHAR}
+		</if>
+		<if test="cmsContent.createUserID != null and cmsContent.createUserID != 0">
+			and C.CreateUserID = #{cmsContent.createUserID,jdbcType=INTEGER}
 		</if>
 		<if test="page != null">
 			order by ${page.sortField} ${page.sortType}

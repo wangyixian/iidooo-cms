@@ -146,10 +146,6 @@ img { max-width: 100%; }
     height: 100px;
 }
 
-.form-bottom .input-error {
-    border-color: #de615e;
-}
-
 .social-login {
     margin-top: 35px;
 }

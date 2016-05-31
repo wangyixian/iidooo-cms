@@ -47,9 +47,11 @@ var HeaderStore = Reflux.createStore({
 var Header = React.createClass({displayName: "Header",
     mixins: [Reflux.connect(HeaderStore, 'user')],
     getInitialState: function () {
-        return {user: {
-            roleName: ""
-        }};
+        return {
+            user: {
+                roleName: ""
+            }
+        };
     },
     componentWillMount: function () {
         HeaderActions.getUserByToken(this.state);
@@ -66,7 +68,7 @@ var Header = React.createClass({displayName: "Header",
                             React.createElement(LOGO, null)
                         ), 
                         React.createElement("div", {id: "navbar", className: "navbar-collapse collapse"}, 
-                            React.createElement(MainMenu, null), 
+                            React.createElement(MainMenu, {activeMenuID: this.props.activeMenuID}), 
                             React.createElement(LoginInfo, {roleName: this.state.user.roleName, userName: this.state.user.userName})
                         )
                     )
@@ -77,42 +79,44 @@ var Header = React.createClass({displayName: "Header",
 });
 
 var LOGO = React.createClass({displayName: "LOGO",
-    getInitialState: function () {
-        return {
-            indexURL: Page.contentList
-        };
-    },
     render: function () {
         return (
             React.createElement("div", null, 
-                React.createElement("a", {className: "navbar-brand", href: this.state.indexURL}, "IDO CMS SYSTEM")
+                React.createElement("a", {className: "navbar-brand", href: Page.myContentList}, "TOXIC WAVE CMS SYSTEM")
             )
         );
     }
 });
 
 var MainMenu = React.createClass({displayName: "MainMenu",
-    getInitialState: function () {
-        return {
-            contentManageURL: Page.contentList
-        };
-    },
     componentDidUpdate: function () {
         var activeMenuID = this.props.activeMenuID;
         $("#" + activeMenuID).addClass("active");
     },
     render: function () {
+        var editorShipMenu;
+        if(securityUser.roleCode == role.admin || securityUser.roleCode == role.editorship){
+            editorShipMenu = React.createElement(EditorShipMenu, null);
+        }
         return (
-            React.createElement("ul", {className: "nav navbar-nav"}, 
+            React.createElement("ul", {id: "mainMenu", className: "nav navbar-nav"}, 
                 React.createElement("li", {id: "menuMyContentList"}, 
                     React.createElement("a", {href: Page.myContentList}, "我的毒电波")
                 ), 
                 React.createElement("li", {id: "menuCreateNews"}, 
                     React.createElement("a", {href: Page.createNews}, "发布毒电波")
                 ), 
-                React.createElement("li", null, 
-                    React.createElement("a", {href: this.state.contentManageURL}, "内容管理")
-                )
+                editorShipMenu
+            )
+        );
+    }
+});
+
+var EditorShipMenu = React.createClass({displayName: "EditorShipMenu",
+    render: function () {
+        return (
+            React.createElement("li", {id: "menuContentManage"}, 
+                React.createElement("a", {href: Page.contentList}, "内容管理")
             )
         );
     }
@@ -132,9 +136,3 @@ var LoginInfo = React.createClass({displayName: "LoginInfo",
         );
     }
 });
-
-
-ReactDOM.render(
-    React.createElement(Header, null),
-    document.getElementById('header')
-);

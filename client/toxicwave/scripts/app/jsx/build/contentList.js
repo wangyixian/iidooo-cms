@@ -166,120 +166,126 @@ var ContentList = React.createClass({displayName: "ContentList",
     render: function () {
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "search-condition-section"}, 
-                    React.createElement("div", {className: "form-horizontal"}, 
-                        React.createElement("div", {className: "row form-group"}, 
-                            React.createElement("div", {className: "col-xs-4"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", {htmlFor: "channelList"}, "所属栏目")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ChannelList, {ref: "channelList", channelID: this.state.channelID, 
-                                                 callbackParent: this.onChildChanged, isContainAll: "true"})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-4"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容标题")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("input", {type: "text", className: "form-control", ref: "inputContentTitle"})
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-4"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容类型")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ContentTypeList, {contentType: this.state.contentType, 
+                React.createElement(Header, {activeMenuID: "menuContentManage"}), 
+
+                React.createElement("div", {className: "container-fluid"}, 
+                    React.createElement("div", {className: "search-condition-section"}, 
+                        React.createElement("div", {className: "form-horizontal"}, 
+                            React.createElement("div", {className: "row form-group"}, 
+                                React.createElement("div", {className: "col-xs-4"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", {htmlFor: "channelList"}, "所属栏目")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement(ChannelList, {ref: "channelList", channelID: this.state.channelID, 
                                                      callbackParent: this.onChildChanged, isContainAll: "true"})
-                                )
-                            )
-                        )
-                    ), 
-
-                    React.createElement("div", {className: "form-horizontal"}, 
-                        React.createElement("div", {className: "row form-group"}, 
-                            React.createElement("div", {className: "col-xs-4"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "发布开始日")
+                                    )
                                 ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("div", {className: "input-group date form_date", "data-date": "", 
-                                         "data-date-format": "yyyy-mm-dd", 
-                                         "data-link-field": "startDate", "data-link-format": "yyyy-mm-dd"}, 
-                                        React.createElement("input", {id: "startDate", className: "form-control", type: "text", ref: "inputStartDate", 
-                                               readonly: true}), 
-                                        React.createElement("span", {className: "input-group-addon"}, 
-                                            React.createElement("span", {className: "glyphicon glyphicon-calendar"})
-                                        )
+                                React.createElement("div", {className: "col-xs-4"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容标题")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("input", {type: "text", className: "form-control", ref: "inputContentTitle"})
+                                    )
+                                ), 
+                                React.createElement("div", {className: "col-xs-4"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容类型")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement(ContentTypeList, {contentType: this.state.contentType, 
+                                                         callbackParent: this.onChildChanged, isContainAll: "true"})
                                     )
                                 )
-                            ), 
-                            React.createElement("div", {className: "col-xs-4"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "发布结束日")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement("div", {className: "input-group date form_date", "data-date": "", 
-                                         "data-date-format": "yyyy-mm-dd", 
-                                         "data-link-field": "endDate", "data-link-format": "yyyy-mm-dd"}, 
-                                        React.createElement("input", {id: "endDate", className: "form-control", type: "text", ref: "inputEndDate", 
-                                               readonly: true}), 
-                                        React.createElement("span", {className: "input-group-addon"}, 
-                                            React.createElement("span", {className: "glyphicon glyphicon-calendar"})
-                                        )
-                                    )
-                                )
-                            ), 
-                            React.createElement("div", {className: "col-xs-4"}, 
-                                React.createElement("div", {className: "col-xs-4 control-label"}, 
-                                    React.createElement("label", null, "内容状态")
-                                ), 
-                                React.createElement("div", {className: "col-xs-8"}, 
-                                    React.createElement(ContentStatusList, {contentStatus: this.state.status, 
-                                                       callbackParent: this.onChildChanged, isContainAll: "true"})
-                                )
                             )
-                        )
-                    ), 
-
-                    React.createElement("div", {className: "text-right"}, 
-                        React.createElement("a", {href: "javascript:void(0)", className: "btn btn-primary", onClick: this.handleSearch}, 
-                            "查 询"
                         ), 
-                        " ", 
-                        React.createElement("a", {className: "btn btn-success", href: Page.contentDetail + "?pageMode=1", 
-                           target: "_blank"}, "发 布")
+
+                        React.createElement("div", {className: "form-horizontal"}, 
+                            React.createElement("div", {className: "row form-group"}, 
+                                React.createElement("div", {className: "col-xs-4"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "发布开始日")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("div", {className: "input-group date form_date", "data-date": "", 
+                                             "data-date-format": "yyyy-mm-dd", 
+                                             "data-link-field": "startDate", "data-link-format": "yyyy-mm-dd"}, 
+                                            React.createElement("input", {id: "startDate", className: "form-control", type: "text", 
+                                                   ref: "inputStartDate", 
+                                                   readonly: true}), 
+                                        React.createElement("span", {className: "input-group-addon"}, 
+                                            React.createElement("span", {className: "glyphicon glyphicon-calendar"})
+                                        )
+                                        )
+                                    )
+                                ), 
+                                React.createElement("div", {className: "col-xs-4"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "发布结束日")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement("div", {className: "input-group date form_date", "data-date": "", 
+                                             "data-date-format": "yyyy-mm-dd", 
+                                             "data-link-field": "endDate", "data-link-format": "yyyy-mm-dd"}, 
+                                            React.createElement("input", {id: "endDate", className: "form-control", type: "text", ref: "inputEndDate", 
+                                                   readonly: true}), 
+                                        React.createElement("span", {className: "input-group-addon"}, 
+                                            React.createElement("span", {className: "glyphicon glyphicon-calendar"})
+                                        )
+                                        )
+                                    )
+                                ), 
+                                React.createElement("div", {className: "col-xs-4"}, 
+                                    React.createElement("div", {className: "col-xs-4 control-label"}, 
+                                        React.createElement("label", null, "内容状态")
+                                    ), 
+                                    React.createElement("div", {className: "col-xs-8"}, 
+                                        React.createElement(ContentStatusList, {contentStatus: this.state.status, 
+                                                           callbackParent: this.onChildChanged, isContainAll: "true"})
+                                    )
+                                )
+                            )
+                        ), 
+
+                        React.createElement("div", {className: "text-right"}, 
+                            React.createElement("a", {href: "javascript:void(0)", className: "btn btn-primary", onClick: this.handleSearch}, 
+                                "查 询"
+                            ), 
+                            " ", 
+                            React.createElement("a", {className: "btn btn-success", href: Page.contentDetail + "?pageMode=1", 
+                               target: "_blank"}, "发 布")
+                        )
+                    ), 
+                    React.createElement("div", {className: "search-result-section"}, 
+                        React.createElement("table", {className: "table table-striped table-hover"}, 
+                            React.createElement("thead", null, 
+                            React.createElement("tr", null, 
+                                React.createElement("th", null, "ID"), 
+                                React.createElement("th", null, "栏目"), 
+                                React.createElement("th", null, "标题"), 
+                                React.createElement("th", null, "置顶级别"), 
+                                React.createElement("th", null, "类型"), 
+                                React.createElement("th", null, "状态"), 
+                                React.createElement("th", null, "发布者"), 
+                                React.createElement("th", null, "发布时间"), 
+                                React.createElement("th", null, "PV"), 
+                                React.createElement("th", null, "快捷操作")
+                            )
+                            ), 
+                            React.createElement("tbody", null, 
+                            this.state.contentListData.contentList.map(function (item) {
+                                return React.createElement(ContentSearchResult, {key: item.contentID, content: item})
+                            })
+                            )
+                        ), 
+                        React.createElement(Pager, {callbackParent: this.onChildChanged, 
+                               recordSum: this.state.contentListData.page.recordSum, 
+                               currentPage: this.state.contentListData.page.currentPage, 
+                               pageSum: this.state.contentListData.page.pageSum})
                     )
                 ), 
-                React.createElement("div", {className: "search-result-section"}, 
-                    React.createElement("table", {className: "table table-striped table-hover"}, 
-                        React.createElement("thead", null, 
-                        React.createElement("tr", null, 
-                            React.createElement("th", null, "ID"), 
-                            React.createElement("th", null, "栏目"), 
-                            React.createElement("th", null, "标题"), 
-                            React.createElement("th", null, "置顶级别"), 
-                            React.createElement("th", null, "类型"), 
-                            React.createElement("th", null, "状态"), 
-                            React.createElement("th", null, "发布者"), 
-                            React.createElement("th", null, "发布时间"), 
-                            React.createElement("th", null, "PV"), 
-                            React.createElement("th", null, "快捷操作")
-                        )
-                        ), 
-                        React.createElement("tbody", null, 
-                        this.state.contentListData.contentList.map(function (item) {
-                            return React.createElement(ContentSearchResult, {key: item.contentID, content: item})
-                        })
-                        )
-                    ), 
-                    React.createElement(Pager, {callbackParent: this.onChildChanged, 
-                           recordSum: this.state.contentListData.page.recordSum, 
-                           currentPage: this.state.contentListData.page.currentPage, 
-                           pageSum: this.state.contentListData.page.pageSum})
-                )
+                React.createElement(Footer, null)
             )
         );
     }
@@ -324,7 +330,7 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
 
     render: function () {
         var userName = "";
-        if(this.props.content.createUser != null){
+        if (this.props.content.createUser != null) {
             userName = this.props.content.createUser.userName;
         }
         return (
@@ -351,7 +357,7 @@ var ContentSearchResult = React.createClass({displayName: "ContentSearchResult",
 
 ReactDOM.render(
     React.createElement(ContentList, null),
-    document.getElementById('contentList')
+    document.getElementById('page')
 );
 
 $(function () {

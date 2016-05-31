@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +43,7 @@ import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.FileUtil;
+import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.PageUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
@@ -52,7 +55,26 @@ import com.iidooo.weixin.util.WeixinUtil;
 public class ContentController {
 
     private static final Logger logger = Logger.getLogger(ContentController.class);
-
+//
+// // key: userID
+//    // value: url
+//    public Map<Integer, String> duplicatePostMap = new HashMap<>();
+//
+//    public void duplicatePostTimeTask(final Integer userID, String url) {
+//        duplicatePostMap.put(userID, url);
+//        new Thread() {
+//            public void run() {
+//                TimerTask task = new TimerTask() {
+//                    public void run() {
+//                        duplicatePostMap.remove(userID);
+//                    }
+//                };
+//                Timer timer = new Timer(false);
+//                timer.schedule(task, 3000);
+//            }
+//        }.start();
+//    }
+    
     @Autowired
     private ContentService contentService;
 
@@ -76,6 +98,7 @@ public class ContentController {
             String startDate = request.getParameter("startDate");
             String endDate = request.getParameter("endDate");
             String status = request.getParameter("status");
+            String userID = request.getParameter("userID");
 
             if (StringUtil.isNotBlank(startDate)) {
                 startDate = startDate + " 00:00:00";
@@ -90,6 +113,9 @@ public class ContentController {
             cmsContent.setContentTitle(contentTitle);
             cmsContent.setContentType(contentType);
             cmsContent.setStatus(status);
+            if (StringUtil.isNotBlank(userID)) {
+                cmsContent.setCreateUserID(Integer.parseInt(userID));
+            }
             int recordSum = contentService.getContentListCount(cmsContent, startDate, endDate);
 
             String sortField = request.getParameter("sortField");
@@ -114,11 +140,9 @@ public class ContentController {
             result.setData(data);
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.toString());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -165,11 +189,9 @@ public class ContentController {
             hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.toString());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -268,11 +290,9 @@ public class ContentController {
             content.setUniqueVisitorCount(uvCount);
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -365,11 +385,9 @@ public class ContentController {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.getMessages().add(message);
-            result.setStatus(ResponseStatus.Failed.getCode());
+            result.checkException(e);
         }
         return result;
     }
@@ -415,8 +433,14 @@ public class ContentController {
             }
 
             int channelID = Integer.parseInt(channelIDStr);
-            int userID = Integer.parseInt(userIDStr);
+            Integer userID = Integer.parseInt(userIDStr);
 
+            // 防止重复提交
+//            if (this.duplicatePostMap.containsKey(userID)) {
+//                result.setStatus(ResponseStatus.Failed.getCode());
+//                return result;
+//            }
+            
             // 获取可选参数
             String contentTitle = request.getParameter("contentTitle");
             String contentSubTitle = request.getParameter("contentSubTitle");
@@ -525,14 +549,15 @@ public class ContentController {
                 result.setData(content);
                 // 更新浏览记录
                 hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+                
+                // 防止重复提交
+                //this.duplicatePostTimeTask(userID, request.getServletPath());
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.getMessage());
-            result.setStatus(ResponseStatus.Failed.getCode());
-            result.getMessages().add(message);
+            result.checkException(e);
         }
         return result;
     }
@@ -701,11 +726,9 @@ public class ContentController {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.fatal(e);
-            Message message = new Message(MessageType.Exception.getCode(), MessageLevel.FATAL);
-            message.setDescription(e.toString());
-            result.setStatus(ResponseStatus.Failed.getCode());
-            result.getMessages().add(message);
+            result.checkException(e);
         }
         return result;
     }

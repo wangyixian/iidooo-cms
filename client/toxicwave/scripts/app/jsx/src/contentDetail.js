@@ -274,356 +274,361 @@ var Content = React.createClass({
     render: function () {
         return (
             <div>
-                <div id="readOnlyAlert" className="alert alert-warning text-center hidden" role="alert"></div>
-                <Breadcrumb/>
+                <Header activeMenuID="menuContentManage"/>
 
-                <div className="panel panel-primary">
-                    <div className="panel-heading">内容发布</div>
-                    <div className="panel-body">
-                        <div className="row form-horizontal form-group">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label htmlFor="channelID">所属栏目</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <ChannelList channelID={this.state.content.channelID}
-                                                 callbackParent={this.onChildChanged}/>
-                                </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容类型</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <ContentTypeList contentType={this.state.content.contentType}
+                <div className="container">
+                    <div id="readOnlyAlert" className="alert alert-warning text-center hidden" role="alert"></div>
+                    <div className="panel panel-primary">
+                        <div className="panel-heading">内容发布</div>
+                        <div className="panel-body">
+                            <div className="row form-horizontal form-group">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label htmlFor="channelID">所属栏目</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <ChannelList channelID={this.state.content.channelID}
                                                      callbackParent={this.onChildChanged}/>
+                                    </div>
+                                </div>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容类型</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <ContentTypeList contentType={this.state.content.contentType}
+                                                         callbackParent={this.onChildChanged}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容标题</label>
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容标题</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input type="text" className="form-control"
+                                               value={this.state.content.contentTitle}
+                                               onChange={this.handleChange.bind(null, 'contentTitle')}/>
+                                    </div>
                                 </div>
-                                <div className="col-xs-8">
-                                    <input type="text" className="form-control"
-                                           value={this.state.content.contentTitle}
-                                           onChange={this.handleChange.bind(null, 'contentTitle')}/>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容副标题</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input type="text" className="form-control"
+                                               value={this.state.content.contentSubTitle}
+                                               onChange={this.handleChange.bind(null, 'contentSubTitle')}/>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容副标题</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input type="text" className="form-control"
-                                           value={this.state.content.contentSubTitle}
-                                           onChange={this.handleChange.bind(null, 'contentSubTitle')}/>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>标题图</label>
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>标题图</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input ref="inputImageTitle" id="contentImageTitle" type="text"
+                                               className="form-control"/>
+                                        <img id="imgImageTitle" src=""/>
+                                    </div>
                                 </div>
-                                <div className="col-xs-8">
-                                    <input ref="inputImageTitle" id="contentImageTitle" type="text"
-                                           className="form-control"/>
-                                    <img id="imgImageTitle" src=""/>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>标题图上传</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input id="uploadImageTitle" type="file" name="file"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>标题图上传</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input id="uploadImageTitle" type="file" name="file"/>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容摘要</label>
-                                </div>
-                                <div className="col-xs-8">
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容摘要</label>
+                                    </div>
+                                    <div className="col-xs-8">
                                         <textarea cols="100" rows="5" className="form-control"
                                                   value={this.state.content.contentSummary}
                                                   onChange={this.handleChange.bind(null, 'contentSummary')}></textarea>
+                                    </div>
+                                </div>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>预览</label>
+                                    </div>
+                                    <div id="txtSummaryPreview" className="col-xs-8 markdownPreview">
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>预览</label>
-                                </div>
-                                <div id="txtSummaryPreview" className="col-xs-8 markdownPreview">
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容主体</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input id="uploadContentBodyImage" type="file" name="file"/>
-                                    <select id="selContentBodyFileType" className="form-control" defaultValue="3">
-                                        <option value="1">方形头像(200*200)</option>
-                                        <option value="2">主页缩略图(500*500)</option>
-                                        <option value="3">详细大图(1000*1000)</option>
-                                        <option value="4">不压缩</option>
-                                    </select>
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容主体</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input id="uploadContentBodyImage" type="file" name="file"/>
+                                        <select id="selContentBodyFileType" className="form-control" defaultValue="3">
+                                            <option value="1">方形头像(200*200)</option>
+                                            <option value="2">主页缩略图(500*500)</option>
+                                            <option value="3">详细大图(1000*1000)</option>
+                                            <option value="4">不压缩</option>
+                                        </select>
                                         <textarea id="contentBody" ref="inputContentBody" cols="100" rows="30"
                                                   className="form-control"
                                                   value={this.state.content.contentBody}
                                                   onChange={this.handleChange.bind(null, 'contentBody')}></textarea>
-                                </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    预览
-                                </div>
-                                <div id="txtContentBodyPreview" className="col-xs-8 markdownPreview">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容图上传</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input id="uploadContentImage" type="file" name="file"/>
-                                </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>图片压缩类型</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <select id="selFileType" className="form-control" defaultValue="2">
-                                        <option value="1">方形头像(200*200)</option>
-                                        <option value="2">主页缩略图(500*500)</option>
-                                        <option value="3">详细大图(1000*1000)</option>
-                                        <option value="4">不压缩</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="divContentImageList" className="hidden">
-                            <div className="row form-group form-horizontal">
-                                <div className="row">
-                                    <div className="col-xs-6">
-                                        <div className="col-xs-4 control-label">
-                                            <label>内容图列表</label>
-                                        </div>
-                                        <div id="divInputContentPic" className="col-xs-8">
-
-                                        </div>
                                     </div>
-
-                                    <div className="col-xs-6">
-                                        <div id="divContentPicDelete" className="col-xs-2">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>置顶索引</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input type="number" className="form-control"
-                                           value={this.state.content.stickyIndex}
-                                           onChange={this.handleChange.bind(null, 'stickyIndex')}/>
-                                </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>内容状态</label>
                                 </div>
                                 <div className="col-xs-6">
-                                    <ContentStatusList contentStatus={this.state.content.status}
-                                                       callbackParent={this.onChildChanged}/>
-                                </div>
-                                <div className="col-xs-2 checkbox">
-                                    <label>
-                                        <input type="checkbox" checked={this.state.content.isSilent}
-                                               onChange={this.handleChange.bind(null, 'isSilent')}/>禁言
-                                    </label>
+                                    <div className="col-xs-4 control-label">
+                                        预览
+                                    </div>
+                                    <div id="txtContentBodyPreview" className="col-xs-8 markdownPreview">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>显示开始日期</label>
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容图上传</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input id="uploadContentImage" type="file" name="file"/>
+                                    </div>
                                 </div>
-                                <div className="col-xs-8">
-                                    <div className="input-group date form_date" data-date=""
-                                         data-date-format="yyyy-mm-dd" data-link-field="startShowDate"
-                                         data-link-format="yyyy-mm-dd">
-                                        <input id="startShowDate" className="form-control" type="text"
-                                               readonly value={this.state.content.startShowDate}
-                                               onChange={this.handleChange.bind(null, 'startShowDate')}
-                                               ref="inputStartShowDate"/>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>图片压缩类型</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <select id="selFileType" className="form-control" defaultValue="2">
+                                            <option value="1">方形头像(200*200)</option>
+                                            <option value="2">主页缩略图(500*500)</option>
+                                            <option value="3">详细大图(1000*1000)</option>
+                                            <option value="4">不压缩</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="divContentImageList" className="hidden">
+                                <div className="row form-group form-horizontal">
+                                    <div className="row">
+                                        <div className="col-xs-6">
+                                            <div className="col-xs-4 control-label">
+                                                <label>内容图列表</label>
+                                            </div>
+                                            <div id="divInputContentPic" className="col-xs-8">
+
+                                            </div>
+                                        </div>
+
+                                        <div className="col-xs-6">
+                                            <div id="divContentPicDelete" className="col-xs-2">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>置顶索引</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input type="number" className="form-control"
+                                               value={this.state.content.stickyIndex}
+                                               onChange={this.handleChange.bind(null, 'stickyIndex')}/>
+                                    </div>
+                                </div>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>内容状态</label>
+                                    </div>
+                                    <div className="col-xs-6">
+                                        <ContentStatusList contentStatus={this.state.content.status}
+                                                           callbackParent={this.onChildChanged}/>
+                                    </div>
+                                    <div className="col-xs-2 checkbox">
+                                        <label>
+                                            <input type="checkbox" checked={this.state.content.isSilent}
+                                                   onChange={this.handleChange.bind(null, 'isSilent')}/>禁言
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>显示开始日期</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <div className="input-group date form_date" data-date=""
+                                             data-date-format="yyyy-mm-dd" data-link-field="startShowDate"
+                                             data-link-format="yyyy-mm-dd">
+                                            <input id="startShowDate" className="form-control" type="text"
+                                                   readonly value={this.state.content.startShowDate}
+                                                   onChange={this.handleChange.bind(null, 'startShowDate')}
+                                                   ref="inputStartShowDate"/>
                                                     <span className="input-group-addon"><span
                                                         className="glyphicon glyphicon-remove"></span></span>
                                                 <span className="input-group-addon"><span
                                                     className="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>显示结束日期</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <div className="input-group date form_date" data-date=""
-                                         data-date-format="yyyy-mm-dd" data-link-field="endShowDate"
-                                         data-link-format="yyyy-mm-dd">
-                                        <input id="endShowDate" className="form-control" type="text"
-                                               value={this.state.content.endShowDate}
-                                               onChange={this.handleChange.bind(null, 'endShowDate')}
-                                               readonly ref="inputEndShowDate"/>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>显示结束日期</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <div className="input-group date form_date" data-date=""
+                                             data-date-format="yyyy-mm-dd" data-link-field="endShowDate"
+                                             data-link-format="yyyy-mm-dd">
+                                            <input id="endShowDate" className="form-control" type="text"
+                                                   value={this.state.content.endShowDate}
+                                                   onChange={this.handleChange.bind(null, 'endShowDate')}
+                                                   readonly ref="inputEndShowDate"/>
                                                     <span className="input-group-addon"><span
                                                         className="glyphicon glyphicon-remove"></span></span>
                                 <span className="input-group-addon"><span
                                     className="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>显示开始时间</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <div className="input-group date form_time" data-date=""
-                                         data-date-format="hh:ii:ss" data-link-field="startShowTime"
-                                         data-link-format="hh:ii:ss">
-                                        <input id="startShowTime" className="form-control" type="text"
-                                               readonly value={this.state.content.startShowTime}
-                                               onChange={this.handleChange.bind(null, 'startShowTime')}
-                                               ref="inputStartShowTime"/>
-                                                    <span className="input-group-addon"><span
-                                                        className="glyphicon glyphicon-remove"></span></span>
-                                                    <span className="input-group-addon"><span
-                                                        className="glyphicon glyphicon-time"></span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>显示结束时间</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <div className="input-group date form_time" data-date=""
-                                         data-date-format="hh:ii:ss" data-link-field="endShowTime"
-                                         data-link-format="hh:ii:ss">
-                                        <input id="endShowTime" className="form-control" type="text"
-                                               readonly value={this.state.content.endShowTime}
-                                               onChange={this.handleChange.bind(null, 'endShowTime')}
-                                               ref="inputEndShowTime"/>
-                                                    <span className="input-group-addon"><span
-                                                        className="glyphicon glyphicon-remove"></span></span>
-                                                    <span className="input-group-addon"><span
-                                                        className="glyphicon glyphicon-time"></span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="newsFields" className={this.state.content.newsDisplay}>
                             <div className="row form-group form-horizontal">
                                 <div className="col-xs-6">
                                     <div className="col-xs-4 control-label">
-                                        <label>新闻来源</label>
+                                        <label>显示开始时间</label>
                                     </div>
                                     <div className="col-xs-8">
-                                        <input type="text" className="form-control" value={this.state.content.source}
-                                               onChange={this.handleChange.bind(null, 'source')}/>
+                                        <div className="input-group date form_time" data-date=""
+                                             data-date-format="hh:ii:ss" data-link-field="startShowTime"
+                                             data-link-format="hh:ii:ss">
+                                            <input id="startShowTime" className="form-control" type="text"
+                                                   readonly value={this.state.content.startShowTime}
+                                                   onChange={this.handleChange.bind(null, 'startShowTime')}
+                                                   ref="inputStartShowTime"/>
+                                                    <span className="input-group-addon"><span
+                                                        className="glyphicon glyphicon-remove"></span></span>
+                                                    <span className="input-group-addon"><span
+                                                        className="glyphicon glyphicon-time"></span></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-xs-6">
                                     <div className="col-xs-4 control-label">
-                                        <label>新闻来源URL</label>
+                                        <label>显示结束时间</label>
                                     </div>
                                     <div className="col-xs-8">
-                                        <input type="text" className="form-control" value={this.state.content.sourceURL}
-                                               onChange={this.handleChange.bind(null, 'sourceURL')}/>
+                                        <div className="input-group date form_time" data-date=""
+                                             data-date-format="hh:ii:ss" data-link-field="endShowTime"
+                                             data-link-format="hh:ii:ss">
+                                            <input id="endShowTime" className="form-control" type="text"
+                                                   readonly value={this.state.content.endShowTime}
+                                                   onChange={this.handleChange.bind(null, 'endShowTime')}
+                                                   ref="inputEndShowTime"/>
+                                                    <span className="input-group-addon"><span
+                                                        className="glyphicon glyphicon-remove"></span></span>
+                                                    <span className="input-group-addon"><span
+                                                        className="glyphicon glyphicon-time"></span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>备注</label>
+                            <div id="newsFields" className={this.state.content.newsDisplay}>
+                                <div className="row form-group form-horizontal">
+                                    <div className="col-xs-6">
+                                        <div className="col-xs-4 control-label">
+                                            <label>新闻来源</label>
+                                        </div>
+                                        <div className="col-xs-8">
+                                            <input type="text" className="form-control"
+                                                   value={this.state.content.source}
+                                                   onChange={this.handleChange.bind(null, 'source')}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6">
+                                        <div className="col-xs-4 control-label">
+                                            <label>新闻来源URL</label>
+                                        </div>
+                                        <div className="col-xs-8">
+                                            <input type="text" className="form-control"
+                                                   value={this.state.content.sourceURL}
+                                                   onChange={this.handleChange.bind(null, 'sourceURL')}/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-xs-8">
+                            </div>
+
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>备注</label>
+                                    </div>
+                                    <div className="col-xs-8">
                                         <textarea cols="20" rows="5" className="form-control"
                                                   value={this.state.content.remarks}
                                                   onChange={this.handleChange.bind(null, 'remarks')}></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>MetaDescription</label>
-                                </div>
-                                <div className="col-xs-8">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>MetaDescription</label>
+                                    </div>
+                                    <div className="col-xs-8">
                                         <textarea cols="20" rows="5" className="form-control"
                                                   value={this.state.content.metaDescription}
                                                   onChange={this.handleChange.bind(null, 'metaDescription')}></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group form-horizontal">
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>MetaTitle</label>
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>MetaTitle</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input type="text" className="form-control"
+                                               value={this.state.content.metaTitle}
+                                               onChange={this.handleChange.bind(null, 'metaTitle')}/>
+                                    </div>
                                 </div>
-                                <div className="col-xs-8">
-                                    <input type="text" className="form-control"
-                                           value={this.state.content.metaTitle}
-                                           onChange={this.handleChange.bind(null, 'metaTitle')}/>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-4 control-label">
+                                        <label>MetaKeywords</label>
+                                    </div>
+                                    <div className="col-xs-8">
+                                        <input type="text" className="form-control"
+                                               value={this.state.content.metaKeywords}
+                                               onChange={this.handleChange.bind(null, 'metaKeywords')}/>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-xs-6">
-                                <div className="col-xs-4 control-label">
-                                    <label>MetaKeywords</label>
-                                </div>
-                                <div className="col-xs-8">
-                                    <input type="text" className="form-control"
-                                           value={this.state.content.metaKeywords}
-                                           onChange={this.handleChange.bind(null, 'metaKeywords')}/>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="text-center">
-                            <button className="btn btn-primary" type="button" onClick={this.handleSave}>保&nbsp;存
-                            </button>
-                            &nbsp;
-                            <button className="btn btn-danger" type="button">重&nbsp;置</button>
+                            <div className="text-center">
+                                <button className="btn btn-primary" type="button" onClick={this.handleSave}>保&nbsp;存
+                                </button>
+                                &nbsp;
+                                <button className="btn btn-danger" type="button">重&nbsp;置</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
         );
     }
@@ -631,7 +636,7 @@ var Content = React.createClass({
 
 ReactDOM.render(
     <Content />,
-    document.getElementById('content')
+    document.getElementById('page')
 );
 
 $(function () {
@@ -667,7 +672,12 @@ $("#uploadImageTitle").fileupload({
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(jpe?g|png|gif)$/i,
     maxNumberOfFiles: 1,
-    formData: {'appID': SecurityClient.appID, 'secret': SecurityClient.secret, 'accessToken': sessionStorage.getItem(SessionKey.accessToken), 'fileType': '1'},
+    formData: {
+        'appID': SecurityClient.appID,
+        'secret': SecurityClient.secret,
+        'accessToken': sessionStorage.getItem(SessionKey.accessToken),
+        'fileType': '1'
+    },
     maxFileSize: 10000000,
     done: function (e, result) {
         var data = result.result;

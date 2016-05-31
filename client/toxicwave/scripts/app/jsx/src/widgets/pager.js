@@ -21,6 +21,7 @@ var Pager = React.createClass({
         if(this.refs.inputToPage.value > 0 && this.refs.inputToPage.value <= this.props.pageSum){
             this.state.currentPage = this.refs.inputToPage.value;
             this.props.callbackParent(this.state);
+
         }
     },
 
