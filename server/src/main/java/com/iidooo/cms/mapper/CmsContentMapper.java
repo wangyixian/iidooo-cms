@@ -19,14 +19,24 @@ public interface CmsContentMapper {
      * @return 所获得的内容对象
      */
     CmsContent selectByContentID(Integer contentID);
+    
+    /**
+     * 为了防止前台的重复提交问题，增加了该方法，提交前确认一下是否有同样的数据存在
+     * @param createUserID 创建者ID
+     * @param contentType 内容类型
+     * @param contentBody 内容体
+     * @return 所获得内容对象
+     */
+    CmsContent selectByContentInfo(@Param("createUserID")Integer createUserID, @Param("contentType")String contentType, @Param("contentBody")String contentBody);
 
     /**
      * 获得指定用户的内容数
      * 
      * @param userID 指定用户的ID
+     * @param contentType 统计的内容类型
      * @return 返回的内容数
      */
-    int selectCountByUserID(Integer userID);
+    int selectCountByUserID(@Param("userID")Integer userID, @Param("contentType")String contentType);
 
     /**
      * 根据栏目路径查询获得内容一览

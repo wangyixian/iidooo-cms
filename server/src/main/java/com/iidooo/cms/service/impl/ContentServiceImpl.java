@@ -97,6 +97,18 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
+    public CmsContent getContentByInfo(Integer createUserID, String contentType, String contentBody) {
+        try {
+            CmsContent result = cmsContentDao.selectByContentInfo(createUserID, contentType, contentBody);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return null;
+        }
+    }
+
+    @Override
     public List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page) {
         try {
             List<CmsContent> result = new ArrayList<CmsContent>();
@@ -162,7 +174,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public List<CmsContent> getContentList(CmsContent cmsContent, String startDate, String endDate, Page page) {
         try {
-            List<CmsContent> result  = cmsContentDao.selectForSearch(cmsContent, startDate, endDate, page);
+            List<CmsContent> result = cmsContentDao.selectForSearch(cmsContent, startDate, endDate, page);
 
             return result;
         } catch (Exception e) {
@@ -175,6 +187,7 @@ public class ContentServiceImpl implements ContentService {
     @Transactional
     public boolean createContent(CmsContent content) throws Exception {
         try {
+
             if (cmsContentDao.insert(content) <= 0) {
                 throw new Exception();
             }
@@ -244,9 +257,9 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public int getUserContentCount(Integer userID) {
+    public int getUserContentCount(Integer userID, String contentType) {
         try {
-            int result = cmsContentDao.selectCountByUserID(userID);
+            int result = cmsContentDao.selectCountByUserID(userID, contentType);
             return result;
         } catch (Exception e) {
             logger.fatal(e);

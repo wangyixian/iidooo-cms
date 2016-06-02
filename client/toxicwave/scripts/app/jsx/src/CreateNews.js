@@ -19,10 +19,10 @@ var Store = Reflux.createStore({
         }
 
         // 内容图片列表解析成json
-        var $pictureList = $("input[id^=pictureList]");
+        var $pictureList = $("img[id^=contentPicture]");
         var pictureList = [];
         $.each($pictureList, function (index, object) {
-            pictureList[index] = object.value;
+            pictureList[index] = object.src;
         });
         data.pictureList = JSON.stringify(pictureList);
 
@@ -72,6 +72,7 @@ var CreateNewsForm = React.createClass({
         this.refs.inputContentTitle.value = this.state.contentTitle;
         this.refs.inputContentSubTitle.value = this.state.contentSubTitle;
         $("#imgImageTitle").attr("src", "../img/upload.png");
+        this.refs.inputImageTitle.value = this.state.contentImageTitle;
         this.refs.inputContentSummary.value = this.state.contentSummary;
         this.refs.inputContentBody.value = this.state.contentBody;
         this.refs.inputSource.value = this.state.source;
@@ -82,19 +83,16 @@ var CreateNewsForm = React.createClass({
     handleSave: function () {
         this.state.contentTitle = this.refs.inputContentTitle.value;
         this.state.contentSubTitle = this.refs.inputContentSubTitle.value;
-        this.state.contentImageTitle = this.refs.inputContentImageTitle.value;
-        console.log( this.state.contentImageTitle);
+        this.state.contentImageTitle = this.refs.inputImageTitle.value;
         this.state.contentSummary = this.refs.inputContentSummary.value;
         this.state.contentBody = this.refs.inputContentBody.value;
         this.state.source = this.refs.inputSource.value;
         this.state.sourceURL = this.refs.inputSourceURL.value;
 
-        if (this.state.contentTitle == "" || this.state.contentBody == "" ||
-            this.state.source == "" || this.state.sourceURL == "") {
+        if (this.state.contentTitle == "" || this.state.contentBody == "") {
             $("#inputContentTitle").addClass("input-error");
             $("#inputContentBody").addClass("input-error");
-            $("#inputSource").addClass("input-error");
-            $("#inputSourceURL").addClass("input-error");
+            $("#btnImageTitle").addClass("input-error");
             alert(Message.INPUT_REQUIRED);
             return false;
         }
@@ -134,7 +132,7 @@ var CreateNewsForm = React.createClass({
                             <div className="row form-group form-horizontal">
                                 <div className="col-xs-6">
                                     <div className="col-xs-3 control-label">
-                                        <label className="required">毒电波来源</label>
+                                        <label>毒电波来源</label>
                                     </div>
                                     <div className="col-xs-9">
                                         <input id="inputSource" ref="inputSource" type="text" className="form-control"/>
@@ -142,7 +140,7 @@ var CreateNewsForm = React.createClass({
                                 </div>
                                 <div className="col-xs-6">
                                     <div className="col-xs-3 control-label">
-                                        <label className="required">毒电波来源URL</label>
+                                        <label>毒电波来源URL</label>
                                     </div>
                                     <div className="col-xs-9">
                                         <input id="inputSourceURL" ref="inputSourceURL" type="text"
@@ -154,42 +152,29 @@ var CreateNewsForm = React.createClass({
                             <div className="row form-group form-horizontal">
                                 <div className="col-xs-6">
                                     <div className="col-xs-3 control-label">
-                                        <label>主页展示图上传</label>
+                                        <label>摘要</label>
                                     </div>
                                     <div className="col-xs-9">
-                                        <input id="uploadContentImage" type="file" name="file"/>
+                                        <textarea ref="inputContentSummary" cols="100" rows="6"
+                                                  className="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div className="col-xs-6">
                                     <div className="col-xs-3 control-label">
-                                        <label>图片压缩类型</label>
+                                        <label className="required">微信分享图</label>
                                     </div>
                                     <div className="col-xs-9">
-                                        <select id="selFileType" className="form-control" defaultValue="2">
-                                            <option value="1">方形头像(200*200)</option>
-                                            <option value="2">主页缩略图(500*500)</option>
-                                            <option value="3">详细大图(1000*1000)</option>
-                                            <option value="4">不压缩</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                                        <button id="btnImageTitle" type="button" className="btn btn-info btn-block"
+                                                onClick={this.handleUploadFile.bind(null, 'uploadImageTitle')}>
+                                            上传微信分享显示的图片
+                                        </button>
+                                        <input id="uploadImageTitle" type="file" name="file" className="hidden"/>
+                                        <input ref="inputImageTitle" id="contentImageTitle" type="text"
+                                               className="hidden"/>
 
-                            <div id="divContentImageList" className="hidden">
-                                <div className="row form-group form-horizontal">
-                                    <div className="row">
-                                        <div className="col-xs-6">
-                                            <div className="col-xs-3 control-label">
-                                                <label>主页展示图列表</label>
-                                            </div>
-                                            <div id="divInputContentPic" className="col-xs-9">
-
-                                            </div>
-                                        </div>
-
-                                        <div className="col-xs-6">
-                                            <div id="divContentPicDelete" className="col-xs-2">
-                                            </div>
+                                        <div>
+                                            <img id="imgImageTitle" src="../img/upload.png" className="img-square-100"
+                                                 alt="预览"/>
                                         </div>
                                     </div>
                                 </div>
@@ -198,27 +183,32 @@ var CreateNewsForm = React.createClass({
                             <div className="row form-group form-horizontal">
                                 <div className="col-xs-6">
                                     <div className="col-xs-3 control-label">
-                                        <label>微信分享图</label>
+                                        <label>主页展示图上传</label>
                                     </div>
                                     <div className="col-xs-9">
-                                        <button type="button" className="btn btn-info btn-block"
-                                                onClick={this.handleUploadFile.bind(null, 'uploadImageTitle')}>
-                                            上传微信分享显示的图片
-                                        </button>
-                                        <input id="uploadImageTitle" ref="inputContentImageTitle" type="file" name="file" className="hidden"/>
-                                        <input ref="inputImageTitle" id="contentImageTitle" type="text" className="hidden"/>
-                                        <div>
-                                            <img id="imgImageTitle" src="../img/upload.png" className="img-square-100" alt="预览"/>
+                                        <div className="form-inline">
+                                            <button type="button" className="btn btn-info"
+                                                    onClick={this.handleUploadFile.bind(null, 'uploadContentImage')}>
+                                                上传主页展示的图片
+                                            </button>
+                                            <input id="uploadContentImage" type="file" name="file" className="hidden"/>
+                                            &nbsp;
+                                            <select id="selFileType" className="form-control"
+                                                    defaultValue="2">
+                                                <option value="1">方形头像(200*200)</option>
+                                                <option value="2">主页缩略图(500*500)</option>
+                                                <option value="3">详细大图(1000*1000)</option>
+                                                <option value="4">不压缩</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="row form-group form-horizontal">
                                 <div className="col-xs-6">
-                                    <div className="col-xs-3 control-label">
-                                        <label>摘要</label>
+                                    <div className="col-xs-3">
                                     </div>
-                                    <div className="col-xs-9">
-                                        <textarea ref="inputContentSummary" cols="100" rows="6"
-                                                  className="form-control"></textarea>
+                                    <div id="divInputContentPic" className="col-xs-9">
                                     </div>
                                 </div>
                             </div>
@@ -245,20 +235,35 @@ var CreateNewsForm = React.createClass({
                                                 <option value="4">不压缩</option>
                                             </select>
                                         </div>
-                                        <br/>
-                                        <textarea id="inputContentBody" ref="inputContentBody" cols="100" rows="30"
+                                    </div>
+                                </div>
+                                <div className="col-xs-6">
+                                    <div className="col-xs-3 control-label">
+                                        <a href="http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/markdown-tips.jpg"
+                                           target="_blank">markdown tips</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row form-group form-horizontal">
+                                <div className="col-xs-6">
+                                    <div className="col-xs-3 control-label">
+
+                                    </div>
+                                    <div className="col-xs-9">
+                                        <textarea id="inputContentBody" ref="inputContentBody" cols="100" rows="25"
                                                   className="form-control"
                                                   onChange={this.handleChange.bind(null, 'contentBody')}></textarea>
                                     </div>
                                 </div>
                                 <div className="col-xs-6">
                                     <div className="col-xs-3 control-label">
-                                        预览
                                     </div>
                                     <div id="txtContentBodyPreview" className="col-xs-9 markdownPreview">
                                     </div>
                                 </div>
                             </div>
+
                             <div className="text-center">
                                 <button className="btn btn-primary" type="button" onClick={this.handleSave}>保&nbsp;存
                                 </button>
@@ -393,31 +398,32 @@ $("#uploadContentImage").fileupload({
     done: function (e, result) {
         var data = result.result;
         if (data.status == "200") {
-            $("#divContentImageList").attr("class", "show");
 
             // 加入上传路径
             var $divInputPic = $("#divInputContentPic");
-            var $pictureList = $("<input type='text' class='form-control'/>");
-            $pictureList.val(data.data.url);
-            var index = $("#divInputContentPic > input").length + 1;
-            $pictureList.attr("id", "pictureList" + index);
-            $divInputPic.append($pictureList);
+            var index = $("#divInputContentPic > div").length + 1;
 
+            var $div = $("<div class='float-left text-center content-picture'></div>");
+            $div.attr("id", "contentPictureWrap" + index);
+
+            var $divPicture = $("<div></div>");
+            var $picture = $("<img class='img-square-100'/>");
+            $picture.attr("src", data.data.url);
+            $picture.attr("id", "contentPicture" + index);
+            $divPicture.append($picture);
+            $div.append($divPicture);
+
+            var $divButton = $("<div></div>");
             // 删除按钮
-            var $divContentPicDelete = $("#divContentPicDelete");
-            var $deleteButton = $("<button type='button' class='btn btn-default' aria-label='Remove'>" +
-                "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
-                "</button>");
-            $divContentPicDelete.append($deleteButton);
-
+            var $deleteButton = $("<button type='button' class='btn btn-danger btn-block btn-xs'>删除</button>");
+            $divButton.append($deleteButton);
+            $div.append($divButton);
             $deleteButton.bind("click", function () {
-                $("#pictureList" + index).remove();
+                $("#contentPictureWrap" + index).remove();
                 $(this).remove();
-
-                if ($("#divInputContentPic > input").length <= 0) {
-                    $("#divContentImageList").attr("class", "hidden");
-                }
             });
+
+            $divInputPic.append($div);
         } else {
             alert("服务器端处理失败，出现异常，请联系管理员！");
             console.log(data);

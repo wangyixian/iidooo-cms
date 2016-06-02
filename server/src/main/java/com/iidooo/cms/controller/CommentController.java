@@ -1,11 +1,7 @@
 package com.iidooo.cms.controller;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +30,7 @@ import com.iidooo.core.model.ResponseResult;
 import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.service.SecurityUserService;
-import com.iidooo.core.util.HttpUtil;
+import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
 
@@ -42,26 +38,6 @@ import com.iidooo.core.util.ValidateUtil;
 public class CommentController {
 
     private static final Logger logger = Logger.getLogger(CommentController.class);
-
-//
-//    // key: userID
-//       // value: url
-//       public Map<Integer, String> duplicatePostMap = new HashMap<>();
-//
-//       public void duplicatePostTimeTask(final Integer userID, String url) {
-//           duplicatePostMap.put(userID, url);
-//           new Thread() {
-//               public void run() {
-//                   TimerTask task = new TimerTask() {
-//                       public void run() {
-//                           duplicatePostMap.remove(userID);
-//                       }
-//                   };
-//                   Timer timer = new Timer(false);
-//                   timer.schedule(task, 3000);
-//               }
-//           }.start();
-//       }
     
     @Autowired
     private CommentService commentService;
@@ -222,24 +198,11 @@ public class CommentController {
             String contentIDStr = request.getParameter("contentID");
             String comment = request.getParameter("comment");
 
-            if (StringUtil.isBlank(userIDStr)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
-                result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(userIDStr)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
-                result.getMessages().add(message);
-            }
-            if (StringUtil.isBlank(contentIDStr)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentID");
-                result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(contentIDStr)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentID");
-                result.getMessages().add(message);
-            }
-            if (StringUtil.isBlank(comment)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "comment");
-                result.getMessages().add(message);
-            }
+            result.checkFieldRequired("userID", userIDStr);
+            result.checkFieldInteger("userID", userIDStr);
+            result.checkFieldRequired("contentID", contentIDStr);
+            result.checkFieldInteger("contentID", contentIDStr);
+            result.checkFieldRequired("comment", comment);
 
             if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
@@ -251,19 +214,12 @@ public class CommentController {
             if (StringUtil.isBlank(parentIDStr)) {
                 parentIDStr = "0";
             } else if (!ValidateUtil.isNumber(parentIDStr)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "parentID");
-                result.getMessages().add(message);
+                result.checkFieldInteger("parentID", parentIDStr);
             }
 
             int userID = Integer.parseInt(userIDStr);
             int contentID = Integer.parseInt(contentIDStr);
             int parentID = Integer.parseInt(parentIDStr);
-
-            // 防止重复提交
-//            if (this.duplicatePostMap.containsKey(userID)) {
-//                result.setStatus(ResponseStatus.Failed.getCode());
-//                return result;
-//            }
 
             // 判断用户是否可以创建评论IsSlient＝1
             SecurityUser userInfo = sercurityUserService.getSecurityUserByID(userID);
@@ -294,20 +250,25 @@ public class CommentController {
             cmsComment.setUpdateUserID(cmsComment.getCreateUserID());
             cmsComment.setUpdateTime(new Date());
 
-            if (!this.commentService.createComment(cmsComment)) {
-                result.setStatus(ResponseStatus.InsertFailed.getCode());
-            } else {
-                cmsComment = commentService.getCommentByID(cmsComment.getCommentID());
+            CmsComment existComment = this.commentService.getCommentByInfo(userID, contentID, comment);
+            if (existComment != null && DateUtil.subtract(new Date(), existComment.getCreateTime()) <= 5) {
+                cmsComment = existComment;
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);
-                // 更新内容的评论数
-                contentService.updateCommentCount(contentID);
-                // 更新浏览记录
-                hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
-
-                // 防止重复提交
-                //this.duplicatePostTimeTask(userID, request.getServletPath());
             }
+            else {
+                if (!this.commentService.createComment(cmsComment)) {
+                    result.setStatus(ResponseStatus.InsertFailed.getCode());
+                } else {
+                    cmsComment = commentService.getCommentByID(cmsComment.getCommentID());
+                    result.setStatus(ResponseStatus.OK.getCode());
+                    result.setData(cmsComment);
+                    // 更新内容的评论数
+                    contentService.updateCommentCount(contentID);
+                    // 更新浏览记录
+                    hisOperatorService.createHisOperator(TableName.CMS_COMMENT.toString(), cmsComment.getCommentID(), request);
+                }
+            }          
 
         } catch (Exception e) {
             e.printStackTrace();

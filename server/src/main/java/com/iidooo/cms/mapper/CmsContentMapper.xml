@@ -113,11 +113,22 @@
 		where C.ContentID = #{contentID,jdbcType=INTEGER} and C.IsDelete = 0
 	</select>
 
+	<select id="selectByContentInfo" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from CMS_CONTENT C
+		where C.IsDelete = 0 and C.CreateUserID = #{createUserID,jdbcType=INTEGER} and 
+		C.ContentType = #{contentType,jdbcType=VARCHAR} and C.ContentBody = #{contentBody,jdbcType=LONGVARCHAR}
+		order by C.CreateTime desc limit 0,1
+	</select>
+	
 	<select id="selectCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(C.ContentID)
-		from CMS_CONTENT C where C.CreateUserID
-		= #{userID,jdbcType=INTEGER} and C.IsDelete = 0
-	</select>
+		from CMS_CONTENT C where 
+		C.CreateUserID = #{userID,jdbcType=INTEGER} and C.ContentType = #{contentType,jdbcType=VARCHAR} and C.IsDelete = 0
+	</select>	
 
 	<!-- 获得内容的点赞数 -->
 	<select id="selectStarCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">

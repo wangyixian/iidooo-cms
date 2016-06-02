@@ -74,6 +74,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public CmsComment getCommentByInfo(Integer createUserID, Integer contentID, String comment) {
+        try {
+            CmsComment result = cmsCommentMapper.selectByCommentInfo(createUserID, contentID, comment);
+            return result;
+        } catch (Exception e) {
+            logger.fatal(e);
+            throw e;
+        }
+    }
+
+    @Override
     @Transactional
     public boolean createComment(CmsComment cmsComment) throws Exception {
         try {

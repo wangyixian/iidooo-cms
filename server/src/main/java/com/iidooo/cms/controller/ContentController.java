@@ -5,14 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +40,6 @@ import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.FileUtil;
-import com.iidooo.core.util.HttpUtil;
 import com.iidooo.core.util.PageUtil;
 import com.iidooo.core.util.StringUtil;
 import com.iidooo.core.util.ValidateUtil;
@@ -55,26 +51,7 @@ import com.iidooo.weixin.util.WeixinUtil;
 public class ContentController {
 
     private static final Logger logger = Logger.getLogger(ContentController.class);
-//
-// // key: userID
-//    // value: url
-//    public Map<Integer, String> duplicatePostMap = new HashMap<>();
-//
-//    public void duplicatePostTimeTask(final Integer userID, String url) {
-//        duplicatePostMap.put(userID, url);
-//        new Thread() {
-//            public void run() {
-//                TimerTask task = new TimerTask() {
-//                    public void run() {
-//                        duplicatePostMap.remove(userID);
-//                    }
-//                };
-//                Timer timer = new Timer(false);
-//                timer.schedule(task, 3000);
-//            }
-//        }.start();
-//    }
-    
+
     @Autowired
     private ContentService contentService;
 
@@ -202,11 +179,11 @@ public class ContentController {
         try {
             // 查询获得内容对象
             CmsContent content = contentService.getContent(id);
-            if (content != null) {
-
+            if (content == null) {
+                result.setViewName("/resources/404.html");
+            } else {
                 // 更新浏览记录
                 hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
-
                 // 更新该内容的PV和UV
                 // UV 的统计需要两个接口的请求
                 List<String> optionList = new ArrayList<String>();
@@ -219,7 +196,16 @@ public class ContentController {
                 content.setUniqueVisitorCount(uvCount);
 
                 result.addObject("content", content);
-
+                String source = "";
+                String sourceURL = "";
+                if (content.getContentType().equals(ContentType.News.getCode())) {
+                    CmsContentNews contentNews = (CmsContentNews)content;
+                    source = contentNews.getSource();
+                    sourceURL = contentNews.getSourceURL();
+                }
+                result.addObject("source", source);
+                result.addObject("sourceURL", sourceURL);
+                
                 // 处理微信分享JS SDK的相关参数
                 String jsAPITicket = WeixinThread.getJsAPITicket().getTicket();
                 String url = request.getRequestURL().toString();
@@ -229,7 +215,6 @@ public class ContentController {
                 Signature signature = WeixinUtil.getSignature(jsAPITicket, url);
                 result.addObject("signature", signature);
                 result.addObject("appID", WeixinThread.getAppID());
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -402,29 +387,13 @@ public class ContentController {
             String channelIDStr = request.getParameter("channelID");
             String userIDStr = request.getParameter("userID");
             String contentType = request.getParameter("contentType");
-            if (StringUtil.isBlank(channelIDStr)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "channelID");
-                result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(channelIDStr)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "channelID");
-                result.getMessages().add(message);
-            }
 
-            if (StringUtil.isBlank(userIDStr)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "userID");
-                result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(userIDStr)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "userID");
-                result.getMessages().add(message);
-            }
-
-            if (StringUtil.isBlank(contentType)) {
-                Message message = new Message(MessageType.FieldRequired.getCode(), MessageLevel.WARN, "contentType");
-                result.getMessages().add(message);
-            } else if (!ValidateUtil.isNumber(contentType)) {
-                Message message = new Message(MessageType.FieldNumberRequired.getCode(), MessageLevel.WARN, "contentType");
-                result.getMessages().add(message);
-            }
+            result.checkFieldRequired("channelID", channelIDStr);
+            result.checkFieldInteger("channelID", channelIDStr);
+            result.checkFieldRequired("userID", userIDStr);
+            result.checkFieldInteger("userID", userIDStr);
+            result.checkFieldRequired("contentType", contentType);
+            result.checkFieldInteger("contentType", contentType);
 
             if (result.getMessages().size() > 0) {
                 // 验证失败，返回message
@@ -435,12 +404,6 @@ public class ContentController {
             int channelID = Integer.parseInt(channelIDStr);
             Integer userID = Integer.parseInt(userIDStr);
 
-            // 防止重复提交
-//            if (this.duplicatePostMap.containsKey(userID)) {
-//                result.setStatus(ResponseStatus.Failed.getCode());
-//                return result;
-//            }
-            
             // 获取可选参数
             String contentTitle = request.getParameter("contentTitle");
             String contentSubTitle = request.getParameter("contentSubTitle");
@@ -536,23 +499,25 @@ public class ContentController {
                     picture.setPictureURL(pictureURL);
                     content.getPictureList().add(picture);
                 }
-
             }
 
-            if (contentService.createContent(content)) {
-                content = contentService.getContent(content.getContentID());
-            }
-            if (content == null) {
-                result.setStatus(ResponseStatus.InsertFailed.getCode());
-            } else {
+            // 5秒内存在同样的数据，视为重复
+            CmsContent existContent = contentService.getContentByInfo(userID, contentType, contentBody);
+            if (existContent != null && DateUtil.subtract(new Date(), existContent.getCreateTime()) <= 5) {
+                content = existContent;
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(content);
-                // 更新浏览记录
-                hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
-                
-                // 防止重复提交
-                //this.duplicatePostTimeTask(userID, request.getServletPath());
-            }
+            } else {
+                if (contentService.createContent(content)) {
+                    content = contentService.getContent(content.getContentID());
+                    result.setStatus(ResponseStatus.OK.getCode());
+                    result.setData(content);
+                    // 更新浏览记录
+                    hisOperatorService.createHisOperator(TableName.CMS_CONTENT.toString(), content.getContentID(), request);
+                } else {
+                    result.setStatus(ResponseStatus.InsertFailed.getCode());
+                }
+            }          
 
         } catch (Exception e) {
             e.printStackTrace();

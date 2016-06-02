@@ -21,10 +21,19 @@
     height: 200px;
 }
 
+.img-rect-200x100{
+    width: 200px;
+    height: 100px;
+}
+
 .width-200{
     width: 200px;
 }
 
 .margin-right-10{
     margin-right: 10px;
+}
+
+.float-left{
+    float: left;
 }

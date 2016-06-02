@@ -2,8 +2,8 @@
  * Created by Ethan on 16/4/6.
  */
 URL = {
-    // client: "http://localhost:63342/toxicwave",
-    // server: "http://localhost:8080/iidooo-cms"
+    //client: "http://localhost:63342/toxicwave",
+    //server: "http://localhost:8080/iidooo-cms",
 
     // 正式环境
     client: "http://www.iidooo.com/toxicwave",

@@ -22,6 +22,15 @@ public interface ContentService {
      */    
     CmsContent getContent(Integer contentID, Integer userID);
     
+    /**
+     * 根据内容信息获得内容
+     * @param createUserID 内容创建者
+     * @param contentType 内容类型
+     * @param contentBody 内容体
+     * @return 所获得的内容对象
+     */
+    CmsContent getContentByInfo(Integer createUserID, String contentType, String contentBody);
+    
     List<CmsContent> getContentListByType(String channelPath, CmsContent cmsContent, Page page);
     
     int getContentListCount(CmsContent cmsContent, String startDate, String endDate);
@@ -42,9 +51,10 @@ public interface ContentService {
     /**
      * 得到指定用户的内容数
      * @param userID 该用户ID所创建的内容数
+     * @param contentType 统计的内容类型
      * @return 内容数量
      */
-    int getUserContentCount(Integer userID);
+    int getUserContentCount(Integer userID, String contentType);
     
     /**
      * 得到所有的PV数量

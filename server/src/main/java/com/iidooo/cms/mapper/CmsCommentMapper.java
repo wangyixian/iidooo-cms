@@ -20,9 +20,18 @@ public interface CmsCommentMapper {
     /**
      * 通过主键查询CmsComment数据
      * @param commentID 主键ID
-     * @return 查询活的的CmsComment对象
+     * @return 查询获得的CmsComment对象
      */
     CmsComment selectByCommentID(Integer commentID);
+    
+    /**
+     * 通过备注的信息查找
+     * @param createUserID 创建者的ID
+     * @param contentID 内容ID
+     * @param comment 备注信息
+     * @return 查询获得的CmsComment对象
+     */
+    CmsComment selectByCommentInfo(@Param("createUserID")Integer createUserID, @Param("contentID")Integer contentID, @Param("comment")String comment);
     
     /**
      * 得到内容的评论数

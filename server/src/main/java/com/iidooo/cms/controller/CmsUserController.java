@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iidooo.cms.constant.CmsConstant;
+import com.iidooo.cms.enums.ContentType;
 import com.iidooo.cms.enums.TableName;
 import com.iidooo.cms.model.vo.SecurityUserInfo;
 import com.iidooo.cms.service.ContentService;
@@ -86,7 +87,7 @@ public class CmsUserController {
             } else {
                 // 设置用户内容总数
                 SecurityUserInfo securityUserInfo = new SecurityUserInfo(securityUser);
-                int contentCount = contentService.getUserContentCount(securityUser.getUserID());
+                int contentCount = contentService.getUserContentCount(securityUser.getUserID(), ContentType.Default.getCode());
                 securityUserInfo.setContentCount(contentCount);
 
                 result.setStatus(ResponseStatus.OK.getCode());
@@ -152,7 +153,7 @@ public class CmsUserController {
             } else {
                 // 设置用户内容总数
                 SecurityUserInfo securityUserInfo = new SecurityUserInfo(securityUser);
-                int contentCount = contentService.getUserContentCount(securityUser.getUserID());
+                int contentCount = contentService.getUserContentCount(securityUser.getUserID(), ContentType.News.getCode());
                 securityUserInfo.setContentCount(contentCount);
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(securityUserInfo);

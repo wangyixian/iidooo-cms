@@ -43,6 +43,20 @@
 		from CMS_COMMENT C
 		where C.CommentID = #{commentID,jdbcType=INTEGER} and C.IsDelete = 0
 	</select>
+	
+	<!-- 通过备注的信息查找 -->
+	<select id="selectByCommentInfo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from CMS_COMMENT C
+		where C.IsDelete = 0 and 
+		C.CreateUserID = #{createUserID,jdbcType=INTEGER} and 
+		C.ContentID = #{contentID,jdbcType=INTEGER} and
+		C.Comment = #{comment,jdbcType=LONGVARCHAR}
+		order by C.CreateTime desc limit 0,1 
+	</select>
 
 	<select id="selectCommentCount" resultType="java.lang.Integer">
 		select

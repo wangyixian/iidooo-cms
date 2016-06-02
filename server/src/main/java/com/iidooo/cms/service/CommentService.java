@@ -18,6 +18,15 @@ public interface CommentService {
     CmsComment getCommentByID(Integer commentID);
     
     /**
+     * 根据Comment信息获取一条评论
+     * @param createUserID 创建者ID
+     * @param contentID 内容ID
+     * @param comment 评论内容
+     * @return 获取的评论对象
+     */
+    CmsComment getCommentByInfo(Integer createUserID, Integer contentID, String comment);
+    
+    /**
      * 创建一条评论
      * @param cmsComment 创建的评论对象
      * @return 创建成功或者失败

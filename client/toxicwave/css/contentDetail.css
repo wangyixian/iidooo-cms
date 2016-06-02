@@ -10,8 +10,12 @@
     height: 500px;
 }
 
+#inputContentBody{
+    height: 500px;
+}
+
 #txtContentBodyPreview{
-    height: 670px;
+    height: 500px;
 }
 
 .markdownPreview {
@@ -35,4 +39,9 @@
 
 .markdownPreview img{
     max-width: 100%;
+}
+
+.content-picture{
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
