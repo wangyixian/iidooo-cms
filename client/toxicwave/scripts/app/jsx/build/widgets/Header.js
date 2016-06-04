@@ -16,17 +16,26 @@ var HeaderStore = Reflux.createStore({
         if (data.accessToken == null || data.accessToken == "") {
             location.href = Page.login;
             return false;
+
         }
 
         var self = this;
         var callback = function (result) {
             if (result.status == 200) {
+                if(result.data.level != 0){
+                    result.data.level = - result.data.level;
+                }
+                // 用户信息用的地方比较多，以json格式存储进sessionStorage
+                sessionStorage.setItem(SessionKey.user, JSON.stringify(result.data));
+
+                // 临时代码，主编界面还没重构，会在后续删掉
                 securityUser = result.data;
                 $.each(result.data.roleList, function (index, role) {
                     result.data.roleName = role.roleName;
                     result.data.roleCode = role.roleCode;
                     return false;
                 });
+
                 self.trigger(result.data);
             } else {
                 console.log(result);
@@ -48,16 +57,11 @@ var Header = React.createClass({displayName: "Header",
     mixins: [Reflux.connect(HeaderStore, 'user')],
     getInitialState: function () {
         return {
-            user: {
-                roleName: ""
-            }
+            user: {}
         };
     },
     componentWillMount: function () {
         HeaderActions.getUserByToken(this.state);
-    },
-    onStatusChange: function (user) {
-        this.state.user = user;
     },
     render: function () {
         return (
@@ -95,7 +99,7 @@ var MainMenu = React.createClass({displayName: "MainMenu",
     },
     render: function () {
         var editorShipMenu;
-        if(securityUser.roleCode == role.admin || securityUser.roleCode == role.editorship){
+        if (securityUser.roleCode == role.admin || securityUser.roleCode == role.editorship) {
             editorShipMenu = React.createElement(EditorShipMenu, null);
         }
         return (
@@ -104,7 +108,7 @@ var MainMenu = React.createClass({displayName: "MainMenu",
                     React.createElement("a", {href: Page.myContentList}, "我的毒电波")
                 ), 
                 React.createElement("li", {id: "menuCreateNews"}, 
-                    React.createElement("a", {href: Page.createNews}, "发布毒电波")
+                    React.createElement("a", {href: Page.contentNews+"?pageMode=1"}, "发布毒电波")
                 ), 
                 editorShipMenu
             )

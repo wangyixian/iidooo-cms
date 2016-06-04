@@ -2,10 +2,10 @@
  * Created by Ethan on 16/5/31.
  */
 
-var Actions = Reflux.createActions(['search']);
+var MyContentListActions = Reflux.createActions(['search']);
 
-var Store = Reflux.createStore({
-    listenables: [Actions],
+var MyContentListStore = Reflux.createStore({
+    listenables: [MyContentListActions],
     onSearch: function (data) {
 
         var url = URL.server + API.searchContentList;
@@ -42,7 +42,7 @@ var Store = Reflux.createStore({
 var ContentList = React.createClass({displayName: "ContentList",
     render: function () {
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "contentList"}, 
                 React.createElement("div", {className: "list-group"}, 
                     this.props.contentListData.contentList.map(function (item) {
                         return React.createElement(ContentSummary, {key: item.contentID, content: item})
@@ -55,22 +55,59 @@ var ContentList = React.createClass({displayName: "ContentList",
 
 var ContentSummary = React.createClass({displayName: "ContentSummary",
     render: function () {
+        var editLink;
+        if (this.props.content.status != ContentStatus.APPROVED && this.props.content.status != ContentStatus.PUBLISHED) {
+            editLink = React.createElement(EditLink, {contentID: this.props.content.contentID});
+        } else {
+            editLink = React.createElement(ReadLink, {contentID: this.props.content.contentID});
+        }
+
+        // 显示副标题或者摘要
+        var subTitle = this.props.content.contentSubTitle;
+        if (subTitle == "") {
+            subTitle = this.props.content.contentSummary;
+        }
+
         return (
-            React.createElement("a", {href: "#", className: "list-group-item"}, 
+            React.createElement("div", {className: "list-group-item"}, 
                 React.createElement("h4", {className: "list-group-item-heading"}, this.props.content.contentTitle), 
-                React.createElement("p", {className: "list-group-item-text"}, this.props.content.contentSummary), 
+
+                React.createElement("div", {className: "list-group-item-text"}, subTitle), 
+
                 React.createElement("div", {className: "text-right"}, 
-                    React.createElement("span", {className: "margin-right-10"}, new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')), 
                     React.createElement("span", {className: "margin-right-10"}, "阅读(", this.props.content.pageViewCount, ")"), 
-                    React.createElement("span", {className: "margin-right-10"}, ContentStatusMap[this.props.content.status])
+                    React.createElement("span", {
+                        className: "margin-right-10"}, new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')), 
+                    React.createElement("span", {className: "margin-right-10"}, ContentStatusMap[this.props.content.status]), 
+                    editLink
                 )
             )
         );
     }
 });
 
-var MyContentListPage = React.createClass({displayName: "MyContentListPage",
-    mixins: [Reflux.connect(Store, 'contentListData')],
+var EditLink = React.createClass({displayName: "EditLink",
+    render: function () {
+        return (
+            React.createElement("a", {href: Page.contentNews+"?pageMode=2&contentID=" + this.props.contentID}, 
+            React.createElement("span", {className: "margin-right-10"}, "编辑"
+            ))
+        );
+    }
+});
+
+var ReadLink = React.createClass({displayName: "ReadLink",
+    render: function () {
+        return (
+            React.createElement("span", {className: "margin-right-10"}, 
+            React.createElement("a", {href: URL.server + API.content + "/"+this.props.contentID, target: "_blank"}, "预览")
+            )
+        );
+    }
+});
+
+var MyContentList = React.createClass({displayName: "MyContentList",
+    mixins: [Reflux.connect(MyContentListStore, 'contentListData')],
     getInitialState: function () {
         return {
             contentListData: {
@@ -80,24 +117,25 @@ var MyContentListPage = React.createClass({displayName: "MyContentListPage",
         };
     },
     componentWillMount: function () {
-        Actions.search(this.state);
+        MyContentListActions.search(this.state);
     },
     onChildChanged: function (childState) {
         if (childState.currentPage != null) {
             var data = {};
             data.currentPage = childState.currentPage;
-            Actions.search(data);
+            MyContentListActions.search(data);
         }
     },
     render: function () {
+        var user = JSON.parse(sessionStorage.getItem(SessionKey.user));
         return (
             React.createElement("div", null, 
                 React.createElement(Header, {activeMenuID: "menuMyContentList"}), 
 
                 React.createElement("div", {className: "container"}, 
                     React.createElement("div", {className: "row"}, 
-                        React.createElement("div", {className: "col-sm-3"}, 
-                            React.createElement(UserInfo, {user: securityUser})
+                        React.createElement("div", {className: "col-sm-3 user-info-wrap"}, 
+                            React.createElement(UserInfo, {user: user})
                         ), 
                         React.createElement("div", {className: "col-sm-9"}, 
                             React.createElement(ContentList, {contentListData: this.state.contentListData}), 
@@ -118,22 +156,18 @@ var MyContentListPage = React.createClass({displayName: "MyContentListPage",
 var UserInfo = React.createClass({displayName: "UserInfo",
     render: function () {
         return (
-            React.createElement("div", null, 
-                React.createElement("div", {className: "panel panel-default"}, 
-                    React.createElement("div", {className: "panel-heading"}, 
-                        React.createElement("h3", {className: "panel-title"}, "个人资料")
-                    ), 
-                    React.createElement("div", {className: "panel-body"}, 
-                        React.createElement("ul", {className: "list-group"}, 
-                            React.createElement("li", {className: "list-group-item"}, 
-                                React.createElement("img", {src: this.props.user.photoURL, className: "img-square-200"})
-                            ), 
-                            React.createElement("li", {className: "list-group-item"}, "姓名：", this.props.user.userName), 
-                            React.createElement("li", {className: "list-group-item"}, "邮箱：", this.props.user.email), 
-                            React.createElement("li", {className: "list-group-item"}, "经验：", this.props.user.experience), 
-                            React.createElement("li", {className: "list-group-item"}, "等级：", this.props.user.level), 
-                            React.createElement("li", {className: "list-group-item"}, "积分：", this.props.user.points)
-                        )
+            React.createElement("div", {className: "panel panel-default"}, 
+                React.createElement("div", {className: "panel-heading"}, 
+                    React.createElement("h3", {className: "panel-title"}, "个人资料")
+                ), 
+                React.createElement("div", {className: "panel-body"}, 
+                    React.createElement("ul", {className: "list-group"}, 
+                        React.createElement("li", {className: "list-group-item"}, 
+                            React.createElement("img", {src: this.props.user.photoURL, className: "img-square-200"})
+                        ), 
+                        React.createElement("li", {className: "list-group-item"}, React.createElement("span", {className: "inline-block"}, "昵称："), React.createElement("span", {className: "break-word"}, this.props.user.userName)), 
+                        React.createElement("li", {className: "list-group-item"}, React.createElement("span", {className: "inline-block"}, "邮箱："), React.createElement("span", {className: "break-word"}, this.props.user.email)), 
+                        React.createElement("li", {className: "list-group-item"}, React.createElement("span", {className: "inline-block"}, "等级："), React.createElement("span", {className: "break-word"}, this.props.user.level))
                     )
                 )
             )
@@ -142,6 +176,6 @@ var UserInfo = React.createClass({displayName: "UserInfo",
 });
 
 ReactDOM.render(
-    React.createElement(MyContentListPage, null),
+    React.createElement(MyContentList, null),
     document.getElementById('page')
 );

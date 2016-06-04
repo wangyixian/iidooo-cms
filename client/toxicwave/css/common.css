@@ -37,3 +37,13 @@
 .float-left{
     float: left;
 }
+
+/*超出宽度就换行*/
+.break-word{
+    word-wrap:break-word;
+}
+
+/*将对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行内*/
+.inline-block{
+    display: inline-block;
+}

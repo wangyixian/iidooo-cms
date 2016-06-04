@@ -2,10 +2,10 @@
  * Created by Ethan on 16/5/31.
  */
 
-var Actions = Reflux.createActions(['search']);
+var MyContentListActions = Reflux.createActions(['search']);
 
-var Store = Reflux.createStore({
-    listenables: [Actions],
+var MyContentListStore = Reflux.createStore({
+    listenables: [MyContentListActions],
     onSearch: function (data) {
 
         var url = URL.server + API.searchContentList;
@@ -42,7 +42,7 @@ var Store = Reflux.createStore({
 var ContentList = React.createClass({
     render: function () {
         return (
-            <div>
+            <div className="contentList">
                 <div className="list-group">
                     {this.props.contentListData.contentList.map(function (item) {
                         return <ContentSummary key={item.contentID} content={item}/>
@@ -55,22 +55,59 @@ var ContentList = React.createClass({
 
 var ContentSummary = React.createClass({
     render: function () {
+        var editLink;
+        if (this.props.content.status != ContentStatus.APPROVED && this.props.content.status != ContentStatus.PUBLISHED) {
+            editLink = <EditLink contentID={this.props.content.contentID}/>;
+        } else {
+            editLink = <ReadLink contentID={this.props.content.contentID}/>;
+        }
+
+        // 显示副标题或者摘要
+        var subTitle = this.props.content.contentSubTitle;
+        if (subTitle == "") {
+            subTitle = this.props.content.contentSummary;
+        }
+
         return (
-            <a href="#" className="list-group-item">
+            <div className="list-group-item">
                 <h4 className="list-group-item-heading">{this.props.content.contentTitle}</h4>
-                <p className="list-group-item-text">{this.props.content.contentSummary}</p>
+
+                <div className="list-group-item-text">{subTitle}</div>
+
                 <div className="text-right">
-                    <span className="margin-right-10">{new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')}</span>
                     <span className="margin-right-10">阅读({this.props.content.pageViewCount})</span>
+                    <span
+                        className="margin-right-10">{new Date(this.props.content.createTime).format('yyyy-MM-dd hh:mm:ss')}</span>
                     <span className="margin-right-10">{ContentStatusMap[this.props.content.status]}</span>
+                    {editLink}
                 </div>
-            </a>
+            </div>
         );
     }
 });
 
-var MyContentListPage = React.createClass({
-    mixins: [Reflux.connect(Store, 'contentListData')],
+var EditLink = React.createClass({
+    render: function () {
+        return (
+            <a href={Page.contentNews+"?pageMode=2&contentID=" + this.props.contentID}>
+            <span className="margin-right-10">编辑
+            </span></a>
+        );
+    }
+});
+
+var ReadLink = React.createClass({
+    render: function () {
+        return (
+            <span className="margin-right-10">
+            <a href={URL.server + API.content + "/"+this.props.contentID} target="_blank">预览</a>
+            </span>
+        );
+    }
+});
+
+var MyContentList = React.createClass({
+    mixins: [Reflux.connect(MyContentListStore, 'contentListData')],
     getInitialState: function () {
         return {
             contentListData: {
@@ -80,24 +117,25 @@ var MyContentListPage = React.createClass({
         };
     },
     componentWillMount: function () {
-        Actions.search(this.state);
+        MyContentListActions.search(this.state);
     },
     onChildChanged: function (childState) {
         if (childState.currentPage != null) {
             var data = {};
             data.currentPage = childState.currentPage;
-            Actions.search(data);
+            MyContentListActions.search(data);
         }
     },
     render: function () {
+        var user = JSON.parse(sessionStorage.getItem(SessionKey.user));
         return (
             <div>
                 <Header activeMenuID={"menuMyContentList"}/>
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-3">
-                            <UserInfo user={securityUser}/>
+                        <div className="col-sm-3 user-info-wrap">
+                            <UserInfo user={user}/>
                         </div>
                         <div className="col-sm-9">
                             <ContentList contentListData={this.state.contentListData}/>
@@ -118,23 +156,19 @@ var MyContentListPage = React.createClass({
 var UserInfo = React.createClass({
     render: function () {
         return (
-            <div>
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">个人资料</h3>
-                    </div>
-                    <div className="panel-body">
-                        <ul className="list-group">
-                            <li className="list-group-item">
-                                <img src={this.props.user.photoURL} className="img-square-200"/>
-                            </li>
-                            <li className="list-group-item">姓名：{this.props.user.userName}</li>
-                            <li className="list-group-item">邮箱：{this.props.user.email}</li>
-                            <li className="list-group-item">经验：{this.props.user.experience}</li>
-                            <li className="list-group-item">等级：{this.props.user.level}</li>
-                            <li className="list-group-item">积分：{this.props.user.points}</li>
-                        </ul>
-                    </div>
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h3 className="panel-title">个人资料</h3>
+                </div>
+                <div className="panel-body">
+                    <ul className="list-group">
+                        <li className="list-group-item">
+                            <img src={this.props.user.photoURL} className="img-square-200"/>
+                        </li>
+                        <li className="list-group-item"><span className="inline-block">昵称：</span><span className="break-word">{this.props.user.userName}</span></li>
+                        <li className="list-group-item"><span className="inline-block">邮箱：</span><span className="break-word">{this.props.user.email}</span></li>
+                        <li className="list-group-item"><span className="inline-block">等级：</span><span className="break-word">{this.props.user.level}</span></li>
+                    </ul>
                 </div>
             </div>
         );
@@ -142,6 +176,6 @@ var UserInfo = React.createClass({
 });
 
 ReactDOM.render(
-    <MyContentListPage />,
+    <MyContentList />,
     document.getElementById('page')
 );

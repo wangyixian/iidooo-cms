@@ -2,17 +2,18 @@
  * Created by Ethan on 16/4/6.
  */
 URL = {
-    //client: "http://localhost:63342/toxicwave",
-    //server: "http://localhost:8080/iidooo-cms",
+    client: "http://localhost:63342/toxicwave",
+    server: "http://localhost:8080/iidooo-cms",
 
     // 正式环境
-    client: "http://www.iidooo.com/toxicwave",
-    server: "http://www.iidooo.com/iidooo-cms"
+    //client: "http://www.iidooo.com/toxicwave",
+    //server: "http://www.iidooo.com/iidooo-cms"
 };
 
 SessionKey = {
     accessToken: "ACCESS_TOKEN",
-    userID: "USER_ID"
+    userID: "USER_ID",
+    user: "SECURITY_USER"
 };
 
 SecurityClient = {
@@ -57,7 +58,8 @@ API = {
     createContent: "/admin/createContent",
     deleteContent: "/admin/deleteContent",
     getContent: "/admin/getContent",
-    updateContent: "/admin/updateContent"
+    updateContent: "/admin/updateContent",
+    content: "/content"
 };
 
 role = {
@@ -70,7 +72,7 @@ role = {
 Page = {
     login: URL.client + "/pages/login.html",
     myContentList: URL.client + "/pages/myContentList.html",
-    createNews: URL.client + "/pages/createNews.html",
+    contentNews: URL.client + "/pages/createNews.html",
     contentList : URL.client +  "/pages/contentList.html",
     contentDetail : URL.client +  "/pages/contentDetail.html"
 };

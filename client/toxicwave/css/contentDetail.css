@@ -41,6 +41,10 @@
     max-width: 100%;
 }
 
+.markdownPreview p {
+    white-space: pre-line;
+}
+
 .content-picture{
     margin-right: 5px;
     margin-bottom: 5px;

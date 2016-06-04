@@ -2,12 +2,21 @@
  * Created by Ethan on 16/5/20.
  */
 
-var Actions = Reflux.createActions(['save']);
+var PageActions = Reflux.createActions(['save', 'getContent', 'delete']);
 
-var Store = Reflux.createStore({
-    listenables: [Actions],
+var PageStore = Reflux.createStore({
+    listenables: [PageActions],
     onSave: function (data) {
-        var url = URL.server + API.createContent;
+        var pageMode = getQueryStr("pageMode");
+        var url = "";
+        if (pageMode == "1") {
+            url = URL.server + API.createContent;
+        } else if (pageMode == "2") {
+            url = URL.server + API.updateContent;
+        } else {
+            alert("请指定正确的pageMode参数！");
+            return false;
+        }
         data.appID = SecurityClient.appID;
         data.secret = SecurityClient.secret;
         data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
@@ -33,7 +42,7 @@ var Store = Reflux.createStore({
         var self = this;
         var callback = function (result) {
             if (result.status == 200) {
-                alert("内容创建成功");
+                alert("内容保存成功，主编审核通过后会自动发布到毒电波APP！");
                 location.href = Page.myContentList;
             } else {
                 console.log(result);
@@ -42,21 +51,95 @@ var Store = Reflux.createStore({
         };
 
         ajaxPost(url, data, callback);
-    }
+    },
+    onGetContent: function (data) {
+        var url = URL.server + API.getContent;
+        data.appID = SecurityClient.appID;
+        data.secret = SecurityClient.secret;
+        data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
+        data.userID = sessionStorage.getItem(SessionKey.userID);
+        // 检查token是否过期
+        if (data.accessToken == null || data.accessToken == "" || data.userID == null || data.userID == "") {
+            location.href = Page.login;
+            return false;
+        }
+
+        var self = this;
+        var callback = function (result) {
+            if (result.status == 200) {
+                if (result.data.pictureList.length > 0) {
+                    $.each(result.data.pictureList, function (index, object) {
+                        createContentPicture(object.pictureURL);
+                    });
+                }
+                self.trigger(result.data);
+            } else {
+                console.log(result);
+            }
+        };
+
+        ajaxPost(url, data, callback);
+    },
+    onDelete: function (data) {
+        var url = URL.server + API.deleteContent;
+        data.appID = SecurityClient.appID;
+        data.secret = SecurityClient.secret;
+        data.accessToken = sessionStorage.getItem(SessionKey.accessToken);
+        data.userID = sessionStorage.getItem(SessionKey.userID);
+        // 检查token是否过期
+        if (data.accessToken == null || data.accessToken == "" || data.userID == null || data.userID == "") {
+            location.href = Page.login;
+            return false;
+        }
+
+        var self = this;
+        var callback = function (result) {
+            if (result.status == 200) {
+                location.href = Page.myContentList;
+            } else {
+                alert("删除出现异常，请联系管理员");
+                console.log(result);
+            }
+        };
+
+        ajaxPost(url, data, callback);
+    },
 });
 
 
-var CreateNewsForm = React.createClass({displayName: "CreateNewsForm",
+var ContentNewsForm = React.createClass({displayName: "ContentNewsForm",
+    mixins: [Reflux.connect(PageStore, 'content')],
     getInitialState: function () {
         return {
-            contentTitle: "",
-            contentSubTitle: "",
-            contentImageTitle: "",
-            contentSummary: "",
-            contentBody: "",
-            source: "",
-            sourceURL: ""
+            content: {
+                contentTitle: "",
+                contentSubTitle:"",
+                contentImageTitle: "",
+                contentSummary: "",
+                contentBody: "",
+                source: "",
+                sourceURL: ""
+            }
         };
+    },
+    componentWillMount: function () {
+        var pageMode = getQueryStr("pageMode");
+        if (pageMode == "2") {
+            this.state.content.contentID = getQueryStr("contentID");
+            PageActions.getContent(this.state.content);
+        }
+    },
+    componentDidUpdate: function () {
+        this.refs.inputContentTitle.value = this.state.content.contentTitle;
+        this.refs.inputContentSubTitle.value = this.state.content.contentSubTitle;
+        $("#imgImageTitle").attr("src", this.state.content.contentImageTitle);
+        this.refs.inputImageTitle.value = this.state.content.contentImageTitle;
+        this.refs.inputContentSummary.value = this.state.content.contentSummary;
+        this.refs.inputContentBody.value = this.state.content.contentBody;
+        this.refs.inputSource.value = this.state.content.source;
+        this.refs.inputSourceURL.value = this.state.content.sourceURL;
+        showdownPreview(this.refs.inputContentSummary.value, "txtSummaryPreview");
+        showdownPreview(this.refs.inputContentBody.value, "txtContentBodyPreview");
     },
     handleChange: function (key, event) {
         switch (key) {
@@ -69,27 +152,31 @@ var CreateNewsForm = React.createClass({displayName: "CreateNewsForm",
         }
     },
     handleReset: function () {
-        this.refs.inputContentTitle.value = this.state.contentTitle;
-        this.refs.inputContentSubTitle.value = this.state.contentSubTitle;
-        $("#imgImageTitle").attr("src", "../img/upload.png");
-        this.refs.inputImageTitle.value = this.state.contentImageTitle;
-        this.refs.inputContentSummary.value = this.state.contentSummary;
-        this.refs.inputContentBody.value = this.state.contentBody;
-        this.refs.inputSource.value = this.state.source;
-        this.refs.inputSourceURL.value = this.state.sourceURL;
+        this.refs.inputContentTitle.value = this.state.content.contentTitle;
+        this.refs.inputContentSubTitle.value = this.state.content.contentSubTitle;
+        if(this.state.content.contentImageTitle == "") {
+            $("#imgImageTitle").attr("src", "../img/upload.png");
+        } else{
+            $("#imgImageTitle").attr("src", this.state.content.contentImageTitle );
+        }
+        this.refs.inputImageTitle.value = this.state.content.contentImageTitle;
+        this.refs.inputContentSummary.value = this.state.content.contentSummary;
+        this.refs.inputContentBody.value = this.state.content.contentBody;
+        this.refs.inputSource.value = this.state.content.source;
+        this.refs.inputSourceURL.value = this.state.content.sourceURL;
         showdownPreview(this.refs.inputContentSummary.value, "txtSummaryPreview");
         showdownPreview(this.refs.inputContentBody.value, "txtContentBodyPreview");
     },
     handleSave: function () {
-        this.state.contentTitle = this.refs.inputContentTitle.value;
-        this.state.contentSubTitle = this.refs.inputContentSubTitle.value;
-        this.state.contentImageTitle = this.refs.inputImageTitle.value;
-        this.state.contentSummary = this.refs.inputContentSummary.value;
-        this.state.contentBody = this.refs.inputContentBody.value;
-        this.state.source = this.refs.inputSource.value;
-        this.state.sourceURL = this.refs.inputSourceURL.value;
+        this.state.content.contentTitle = this.refs.inputContentTitle.value;
+        this.state.content.contentSubTitle = this.refs.inputContentSubTitle.value;
+        this.state.content.contentImageTitle = this.refs.inputImageTitle.value;
+        this.state.content.contentSummary = this.refs.inputContentSummary.value;
+        this.state.content.contentBody = this.refs.inputContentBody.value;
+        this.state.content.source = this.refs.inputSource.value;
+        this.state.content.sourceURL = this.refs.inputSourceURL.value;
 
-        if (this.state.contentTitle == "" || this.state.contentBody == "") {
+        if (this.state.content.contentTitle == "" || this.state.content.contentBody == "") {
             $("#inputContentTitle").addClass("input-error");
             $("#inputContentBody").addClass("input-error");
             $("#btnImageTitle").addClass("input-error");
@@ -97,12 +184,16 @@ var CreateNewsForm = React.createClass({displayName: "CreateNewsForm",
             return false;
         }
 
-        Actions.save(this.state);
+        PageActions.save(this.state.content);
     },
     handleUploadFile: function (fileID) {
         openFileBrowse(fileID);
     },
     render: function () {
+        var deleteButton;
+        if (getQueryStr("pageMode") == "2") {
+            deleteButton = React.createElement(DeleteButton, {content: this.state.content})
+        }
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "container"}, 
@@ -240,7 +331,7 @@ var CreateNewsForm = React.createClass({displayName: "CreateNewsForm",
                                 React.createElement("div", {className: "col-xs-6"}, 
                                     React.createElement("div", {className: "col-xs-3 control-label"}, 
                                         React.createElement("a", {href: "http://iidooo-toxic-wave.oss-cn-shanghai.aliyuncs.com/resources/img/markdown-tips.jpg", 
-                                           target: "_blank"}, "markdown tips")
+                                           target: "_blank"}, "编辑样式说明")
                                     )
                                 )
                             ), 
@@ -268,8 +359,9 @@ var CreateNewsForm = React.createClass({displayName: "CreateNewsForm",
                                 React.createElement("button", {className: "btn btn-primary", type: "button", onClick: this.handleSave}, "保 存"
                                 ), 
                                 " ", 
-                                React.createElement("button", {className: "btn btn-danger", type: "button", onClick: this.handleReset}, "重 置"
-                                )
+                                React.createElement("button", {className: "btn btn-warning", type: "button", onClick: this.handleReset}, "重 置"
+                                ), 
+                                " ", deleteButton
                             )
                         )
                     )
@@ -279,12 +371,28 @@ var CreateNewsForm = React.createClass({displayName: "CreateNewsForm",
     }
 });
 
-var CreateNewsPage = React.createClass({displayName: "CreateNewsPage",
+var DeleteButton = React.createClass({displayName: "DeleteButton",
+    handleDelete: function () {
+        if (window.confirm('确定要删除吗？')) {
+            PageActions.delete(this.props.content);
+        }
+    },
+    render: function () {
+        return (
+            React.createElement("button", {className: "btn btn-danger", type: "button", onClick: this.handleDelete}, "删 除"
+            )
+        );
+    }
+});
+
+var ContentNewsPage = React.createClass({displayName: "ContentNewsPage",
+    onChildChanged: function (childState) {
+    },
     render: function () {
         return (
             React.createElement("div", null, 
                 React.createElement(Header, {activeMenuID: "menuCreateNews"}), 
-                React.createElement(CreateNewsForm, null), 
+                React.createElement(ContentNewsForm, null), 
                 React.createElement(Footer, null)
             )
         );
@@ -292,7 +400,7 @@ var CreateNewsPage = React.createClass({displayName: "CreateNewsPage",
 });
 
 ReactDOM.render(
-    React.createElement(CreateNewsPage, null),
+    React.createElement(ContentNewsPage, null),
     document.getElementById('page')
 );
 
@@ -399,31 +507,7 @@ $("#uploadContentImage").fileupload({
         var data = result.result;
         if (data.status == "200") {
 
-            // 加入上传路径
-            var $divInputPic = $("#divInputContentPic");
-            var index = $("#divInputContentPic > div").length + 1;
-
-            var $div = $("<div class='float-left text-center content-picture'></div>");
-            $div.attr("id", "contentPictureWrap" + index);
-
-            var $divPicture = $("<div></div>");
-            var $picture = $("<img class='img-square-100'/>");
-            $picture.attr("src", data.data.url);
-            $picture.attr("id", "contentPicture" + index);
-            $divPicture.append($picture);
-            $div.append($divPicture);
-
-            var $divButton = $("<div></div>");
-            // 删除按钮
-            var $deleteButton = $("<button type='button' class='btn btn-danger btn-block btn-xs'>删除</button>");
-            $divButton.append($deleteButton);
-            $div.append($divButton);
-            $deleteButton.bind("click", function () {
-                $("#contentPictureWrap" + index).remove();
-                $(this).remove();
-            });
-
-            $divInputPic.append($div);
+            createContentPicture(data.data.url);
         } else {
             alert("服务器端处理失败，出现异常，请联系管理员！");
             console.log(data);
@@ -453,3 +537,31 @@ $('#uploadContentImage').bind('fileuploadsubmit', function (e, data) {
         'fileType': $("#selFileType").val()
     };  //如果需要额外添加参数可以在这里添加
 });
+
+function createContentPicture(url){
+    // 加入上传路径
+    var $divInputPic = $("#divInputContentPic");
+    var index = $("#divInputContentPic > div").length + 1;
+
+    var $div = $("<div class='float-left text-center content-picture'></div>");
+    $div.attr("id", "contentPictureWrap" + index);
+
+    var $divPicture = $("<div></div>");
+    var $picture = $("<img class='img-square-100'/>");
+    $picture.attr("src", url);
+    $picture.attr("id", "contentPicture" + index);
+    $divPicture.append($picture);
+    $div.append($divPicture);
+
+    var $divButton = $("<div></div>");
+    // 删除按钮
+    var $deleteButton = $("<button type='button' class='btn btn-danger btn-block btn-xs'>删除</button>");
+    $divButton.append($deleteButton);
+    $div.append($divButton);
+    $deleteButton.bind("click", function () {
+        $("#contentPictureWrap" + index).remove();
+        $(this).remove();
+    });
+
+    $divInputPic.append($div);
+}
