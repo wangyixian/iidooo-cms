@@ -251,7 +251,7 @@ public class CommentController {
             cmsComment.setUpdateTime(new Date());
 
             CmsComment existComment = this.commentService.getCommentByInfo(userID, contentID, comment);
-            if (existComment != null && DateUtil.subtract(new Date(), existComment.getCreateTime()) <= 5) {
+            if (existComment != null && DateUtil.subtract(new Date(), existComment.getCreateTime()) <= 30) {
                 cmsComment = existComment;
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(cmsComment);

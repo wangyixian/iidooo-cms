@@ -503,7 +503,7 @@ public class ContentController {
 
             // 5秒内存在同样的数据，视为重复
             CmsContent existContent = contentService.getContentByInfo(userID, contentType, contentBody);
-            if (existContent != null && DateUtil.subtract(new Date(), existContent.getCreateTime()) <= 5) {
+            if (existContent != null && DateUtil.subtract(new Date(), existContent.getCreateTime()) <= 30) {
                 content = existContent;
                 result.setStatus(ResponseStatus.OK.getCode());
                 result.setData(content);
