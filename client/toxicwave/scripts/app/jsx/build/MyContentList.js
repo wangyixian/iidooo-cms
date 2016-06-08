@@ -2,10 +2,10 @@
  * Created by Ethan on 16/5/31.
  */
 
-var MyContentListActions = Reflux.createActions(['search']);
+var PageActions = Reflux.createActions(['search']);
 
-var MyContentListStore = Reflux.createStore({
-    listenables: [MyContentListActions],
+var PageStore = Reflux.createStore({
+    listenables: [PageActions],
     onSearch: function (data) {
 
         var url = URL.server + API.searchContentList;
@@ -87,9 +87,16 @@ var ContentSummary = React.createClass({displayName: "ContentSummary",
 });
 
 var EditLink = React.createClass({displayName: "EditLink",
+
+    handleClick: function () {
+        sessionStorage.setItem(SessionKey.pageMode, 2);
+        sessionStorage.setItem(SessionKey.contentID, this.props.contentID);
+        location.href = Page.contentNews;
+    },
+
     render: function () {
         return (
-            React.createElement("a", {href: Page.contentNews+"?pageMode=2&contentID=" + this.props.contentID}, 
+            React.createElement("a", {href: "javascript:void(0)", onClick: this.handleClick}, 
             React.createElement("span", {className: "margin-right-10"}, "编辑"
             ))
         );
@@ -107,7 +114,7 @@ var ReadLink = React.createClass({displayName: "ReadLink",
 });
 
 var MyContentList = React.createClass({displayName: "MyContentList",
-    mixins: [Reflux.connect(MyContentListStore, 'contentListData')],
+    mixins: [Reflux.connect(PageStore, 'contentListData')],
     getInitialState: function () {
         return {
             contentListData: {
@@ -117,13 +124,13 @@ var MyContentList = React.createClass({displayName: "MyContentList",
         };
     },
     componentWillMount: function () {
-        MyContentListActions.search(this.state);
+        PageActions.search(this.state);
     },
     onChildChanged: function (childState) {
         if (childState.currentPage != null) {
             var data = {};
             data.currentPage = childState.currentPage;
-            MyContentListActions.search(data);
+            PageActions.search(data);
         }
     },
     render: function () {

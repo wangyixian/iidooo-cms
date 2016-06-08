@@ -13,7 +13,9 @@ URL = {
 SessionKey = {
     accessToken: "ACCESS_TOKEN",
     userID: "USER_ID",
-    user: "SECURITY_USER"
+    user: "SECURITY_USER",
+    pageMode: "PAGE_MODE",
+    contentID: "CONTENT_ID"
 };
 
 SecurityClient = {

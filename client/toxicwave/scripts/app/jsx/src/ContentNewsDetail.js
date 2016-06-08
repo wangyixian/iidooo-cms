@@ -7,7 +7,7 @@ var PageActions = Reflux.createActions(['save', 'getContent', 'delete']);
 var PageStore = Reflux.createStore({
     listenables: [PageActions],
     onSave: function (data) {
-        var pageMode = getQueryStr("pageMode");
+        var pageMode = sessionStorage.getItem(SessionKey.pageMode);
         var url = "";
         if (pageMode == "1") {
             url = URL.server + API.createContent;
@@ -123,9 +123,9 @@ var ContentNewsForm = React.createClass({
         };
     },
     componentWillMount: function () {
-        var pageMode = getQueryStr("pageMode");
+        var pageMode = sessionStorage.getItem(SessionKey.pageMode);
         if (pageMode == "2") {
-            this.state.content.contentID = getQueryStr("contentID");
+            this.state.content.contentID = sessionStorage.getItem(SessionKey.contentID);
             PageActions.getContent(this.state.content);
         }
     },
@@ -191,7 +191,7 @@ var ContentNewsForm = React.createClass({
     },
     render: function () {
         var deleteButton;
-        if (getQueryStr("pageMode") == "2") {
+        if (sessionStorage.getItem(SessionKey.pageMode) == "2") {
             deleteButton = <DeleteButton content={this.state.content}/>
         }
         return (

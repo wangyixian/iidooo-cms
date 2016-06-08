@@ -2,10 +2,10 @@
  * Created by Ethan on 16/5/31.
  */
 
-var MyContentListActions = Reflux.createActions(['search']);
+var PageActions = Reflux.createActions(['search']);
 
-var MyContentListStore = Reflux.createStore({
-    listenables: [MyContentListActions],
+var PageStore = Reflux.createStore({
+    listenables: [PageActions],
     onSearch: function (data) {
 
         var url = URL.server + API.searchContentList;
@@ -87,9 +87,16 @@ var ContentSummary = React.createClass({
 });
 
 var EditLink = React.createClass({
+
+    handleClick: function () {
+        sessionStorage.setItem(SessionKey.pageMode, 2);
+        sessionStorage.setItem(SessionKey.contentID, this.props.contentID);
+        location.href = Page.contentNews;
+    },
+
     render: function () {
         return (
-            <a href={Page.contentNews+"?pageMode=2&contentID=" + this.props.contentID}>
+            <a href="javascript:void(0)" onClick={this.handleClick}>
             <span className="margin-right-10">编辑
             </span></a>
         );
@@ -107,7 +114,7 @@ var ReadLink = React.createClass({
 });
 
 var MyContentList = React.createClass({
-    mixins: [Reflux.connect(MyContentListStore, 'contentListData')],
+    mixins: [Reflux.connect(PageStore, 'contentListData')],
     getInitialState: function () {
         return {
             contentListData: {
@@ -117,13 +124,13 @@ var MyContentList = React.createClass({
         };
     },
     componentWillMount: function () {
-        MyContentListActions.search(this.state);
+        PageActions.search(this.state);
     },
     onChildChanged: function (childState) {
         if (childState.currentPage != null) {
             var data = {};
             data.currentPage = childState.currentPage;
-            MyContentListActions.search(data);
+            PageActions.search(data);
         }
     },
     render: function () {

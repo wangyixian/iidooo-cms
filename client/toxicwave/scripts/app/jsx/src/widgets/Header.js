@@ -97,6 +97,10 @@ var MainMenu = React.createClass({
         var activeMenuID = this.props.activeMenuID;
         $("#" + activeMenuID).addClass("active");
     },
+    handleClick: function () {
+        sessionStorage.setItem(SessionKey.pageMode, 1);
+        location.href = Page.contentNews;
+    },
     render: function () {
         var editorShipMenu;
         if (securityUser.roleCode == role.admin || securityUser.roleCode == role.editorship) {
@@ -108,7 +112,7 @@ var MainMenu = React.createClass({
                     <a href={Page.myContentList}>我的毒电波</a>
                 </li>
                 <li id="menuCreateNews">
-                    <a href={Page.contentNews+"?pageMode=1"}>发布毒电波</a>
+                    <a href="javascript:void(0)" onClick={this.handleClick}>发布毒电波</a>
                 </li>
                 {editorShipMenu}
             </ul>
