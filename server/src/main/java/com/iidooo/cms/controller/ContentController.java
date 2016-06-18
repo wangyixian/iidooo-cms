@@ -36,8 +36,10 @@ import com.iidooo.core.enums.SortType;
 import com.iidooo.core.model.Message;
 import com.iidooo.core.model.Page;
 import com.iidooo.core.model.ResponseResult;
+import com.iidooo.core.model.po.SecurityUser;
 import com.iidooo.core.service.DictItemService;
 import com.iidooo.core.service.HisOperatorService;
+import com.iidooo.core.service.SecurityUserService;
 import com.iidooo.core.util.DateUtil;
 import com.iidooo.core.util.FileUtil;
 import com.iidooo.core.util.PageUtil;
@@ -63,6 +65,10 @@ public class ContentController {
 
     @Autowired
     private FavoriteService favoriteService;
+    
+
+    @Autowired
+    private SecurityUserService sercurityUserService;
 
     @ResponseBody
     @RequestMapping(value = "/admin/searchContentList", method = RequestMethod.POST)
@@ -404,6 +410,16 @@ public class ContentController {
             int channelID = Integer.parseInt(channelIDStr);
             Integer userID = Integer.parseInt(userIDStr);
 
+         // 判断用户是否可以创建评论IsSlient＝1
+            SecurityUser userInfo = sercurityUserService.getSecurityUserByID(userID);
+            if (userInfo == null || userInfo.getIsSilent() != 0 || userInfo.getIsDisable() != 0) {
+                // 验证失败，返回message
+                result.setStatus(ResponseStatus.ConfinedFailed.getCode());
+                Message message = new Message(MessageType.IsSlient.getCode(), MessageLevel.WARN, "SecurityUserInfo.IsSlient");
+                result.getMessages().add(message);
+                return result;
+            }
+            
             // 获取可选参数
             String contentTitle = request.getParameter("contentTitle");
             String contentSubTitle = request.getParameter("contentSubTitle");
